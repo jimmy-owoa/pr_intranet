@@ -1,0 +1,3 @@
+class General::EconomicIndicator < ApplicationRecord
+  belongs_to :economic_indicator_type,  class_name: 'General::EconomicIndicatorType', optional: true
+end

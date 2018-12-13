@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col-md-6 position_input">
+    <%= form_for :term, url: frontend_search_path, method: :get do |form| %>
+      <%= text_field_tag :term, params[:term], class: 'form-control', placeholder: 'Buscar' %>
+      <i class="fas fa-search errspan"></i>
+    <% end %>
+  </div>
+</div>

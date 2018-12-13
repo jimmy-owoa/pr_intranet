@@ -1,0 +1,4 @@
+
+<%= simple_form_for @term_type, as: 'term_type', url: {action: :create}, :html => { :class => "form" } do |f| %>
+  <%= render :partial => 'form', locals: {f: f} %>
+<% end %>

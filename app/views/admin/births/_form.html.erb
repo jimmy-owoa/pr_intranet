@@ -1,0 +1,64 @@
+<%= f.error_notification %>
+<div class="form-row">
+  <div class="form-group card p-4 col-md-8">
+    <div class="row" >
+      <div class="col-md-6">
+        <%= f.input :child_name, required: true, autofocus: true  %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :child_lastname, required: true %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <%= f.input :full_name_father, required: true  %>
+      </div>
+      <div class="col-md-12">
+        <%= f.input :full_name_mother, required: true  %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-6"></br>
+        <div class="input-group date" id="birthday" data-target-input="nearest">
+          <% if @birth.try(:birthday).present? %>
+            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @birth.try(:birthday).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#birthday'%>
+          <% else %>
+            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', placeholder: "Día de nacimiento", label: false %>
+          <% end %>
+          <div class="input-group-append" data-target="#birthday" data-toggle="datetimepicker">
+            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3"></br>
+      <%= f.label gender_select(@birth.gender)  %>
+      <%= f.input_field :gender, label: :false, collection: [ [1, 'Masculino' ], [0, 'Femenino'] ], as: :radio_buttons, checked: @birth.gender, label_method: :last, value_method: :first, required: true%>
+      </div>      
+      <div class="col-md-3 col-sm-3"></br>
+        <%= f.input :approved, label: false, class: 'custom-control-input' %>
+      </div>        
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card p-2">
+      <div class="card border-secondary center mb-12" style="max-width: 18rem;">
+        <div class="card-body text-secondary border border-primary rounded">
+          <% if @birth.photo.attachment.present? %>
+          <%= image_tag(@birth.photo.attachment, class: 'center') %>
+          <% else %>
+          <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
+          <% end %>
+        </div>
+      </div>
+      <div class=" col-md-12">
+        <div class="col-md-12">
+          <%= f.input :photo, required: true, input_html: { accept:'image/*' } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= f.submit nil, :class => 'btn btn-primary' %>

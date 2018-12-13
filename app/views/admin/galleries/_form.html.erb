@@ -1,0 +1,28 @@
+<%= f.error_notification %>
+<%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+<div class="row justify-content-around">
+  <div class="card col-md-4">
+    <div class="col-md-12">
+      <%= f.input :name, required: true %>
+      <%= f.label :description %>
+      <%= f.text_area :description, :class => "tinymce", :rows => 4 %>
+      <%= tinymce %>
+    </div>
+  </div>
+
+  <div class="card col-md-7">
+    <div class="col-md-7">
+      <%= f.label "Imágenes" %>
+      <%= f.select :attachment_ids, options_for_select(map_attachments), {},{ class: 'image-picker show-labels show-html', multiple: true }%>
+
+      <%# <%= select_tag :attachments, options_for_select(map_attachments),
+       class: 'image-picker show-labels show-html', multiple: true%>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-actions">
+  <%= f.button :submit, class: 'btn btn-primary'%>
+</div>

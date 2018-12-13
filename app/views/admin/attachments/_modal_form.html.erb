@@ -1,0 +1,48 @@
+<div class="" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Imágenes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="tab-v2">
+          <ul class="nav nav-tabs" id="myTab">
+            <li class="nav-item pill-tabs"><a href="#upload" data-toggle="tab" id="img1">Subir imagen</a></li>
+            <li class="nav-item pill-tabs"><a href="#gallery" data-toggle="tab" id="gal1">Seleccionar desde Biblioteca</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div class="tab-pane fade in " id="upload">
+              <br>
+              <%= simple_form_for [@post, @attachment], as: 'attachment', url: {action: :create}, :html => { :class => "form" }, remote: true do |f| %>
+                <%= render :partial => 'form', locals: {f: f} %>
+              <% end %>
+            </div>
+
+            <div class="tab-pane fade in" id="gallery">
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <%= select_tag :attachment, options_for_select(General::Attachment.all.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}),class: 'image-picker show-html' %>
+                </div>
+              </div>
+              <button type="button" id="selection-image" class="btn btn-primary" style="float:right">Seleccionar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$('#attachment_attachment').change(
+    function(){
+        if ($(this).val()) {
+            $('input:submit').attr('disabled',false);
+        }
+    });
+</script>

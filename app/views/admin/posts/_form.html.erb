@@ -1,0 +1,99 @@
+<%= f.error_notification %>
+<div class="col-md-12 row pb-4">
+  <div class="wrapper col-md-9" align="">
+    <div class="form-group row">
+      <div class="col-md-4">
+        <%= f.input :title, required: true,autofocus: true  %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :slug %>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <%= f.input :post_class %>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 20px;">
+        <%= f.text_area :content, :class => "tinymce"%>
+        <%= tinymce :language => 'es',  :plugins => ["wordcount", "paste", "image","link","code","codesample","autoresize","imagetools","media","table","insertdatetime","charmap","print","preview","anchor","searchreplace","visualblocks","fullscreen"],
+            :toolbar => ["styleselect | bold italic | alignleft aligncenter alignright alignjustify", "bullist numlist outdent indent | link image | code | codesample"], :height => '5000'%>
+      </div>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <div class="col-md-4 hidden">
+        <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
+      </div>
+      <div class="col-md-4 hidden">
+        <%= f.association :galleries, collecion: @galleries %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card p-4 wrapper" align="">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
+        </div>
+        <div class="col-md-12">
+          <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
+        </div>
+        <div class="col-md-12 col-sm-12"></br>
+          <div class="input-group date" id="published_at" data-target-input="nearest">
+            <% if @post.try(:published_at).present? %>
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>
+            <% else %>
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>
+            <% end %>
+            <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <br>
+          <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
+        </div>
+      </div>
+    </div>
+    <div class="card p-4 wrapper" >
+      <div class="form-group">
+        <div class= 'scrollDivPost'>
+          <%= f.association :terms, collection: @categories, as: :check_boxes, class: 'custom-control-input', label: false %>
+        </div>
+      </div>
+    </div>
+    <div class="card p-4 wrapper" >
+      <div class="form-group row ">
+        <div class="col-md-12 col-sm-12">
+          <%= f.label :tags %>
+          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
+        </div>
+      </div>
+    </div>
+    <div class="card p-2" >
+      <div class="form-group">
+          <div class="col-md-12 col-sm-12">
+            <h4> Imagen principal </h4>
+            <br>
+            <% if @post.id.nil? %>
+              <%= link_to 'Establecer Imagen Principal', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %>
+            <% else %>
+              <%= link_to 'Imagen Principal', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+            <% end %>
+          </div>
+
+      </div>
+    </div>
+    <div class="card pt-2" >
+      <div class="form-group ">
+        <div class="col-md-12 col-sm-12">
+          <h4> Galería </h4>
+          <br>
+          <% if @post.id.nil? %>
+          <%= link_to 'Establecer Galería', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery1' %>
+          <% else %>
+          <%= link_to 'Establecer Galería', new_admin_post_gallery_path(@post), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery2' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,35 @@
+<%- model_class = Survey::Answer -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Encuestas respondidas" %></h1>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'Identificador' %></th>
+              <th><%= 'Nombre Encuesta' %></th>
+              <th><%= 'Veces respondidas' %></th>
+              <th><%= 'Fecha de la respuesta' %></th>
+              <th><%= 'Acciones' %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @answers.each do |answer| %>
+              <tr>
+                <td><%= link_to answer.id, admin_answer_path(answer) %></td>
+                <td><%= answer.user_id %></td>
+                <td><%= answer.user_id %></td>
+                <td><%= answer.created_at.strftime("%d %b, %Y")  %></td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.links.show")),
+                              admin_answer_path(answer), :class => 'btn btn-info btn-xs' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,5 @@
+<%- model_class = News::Comment -%>
+
+<%= simple_form_for @comment, as: 'comment', url: {action: :update}, :html => { :class => "form" } do |f| %>
+  <%= render :partial => 'form', locals: {f: f} %>
+<% end %>

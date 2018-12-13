@@ -1,0 +1,33 @@
+// Place all the styles related to the Admin::Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.pill-tabs {
+  padding: 0px 5px 0px 5px;
+}
+
+.clicked_img {
+  background: darkgrey;
+  border-radius: 20px;
+  padding: 0px 5px 0px 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.font_border {
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.owl-next {
+  float: right;
+  margin-right: 15px;
+  font-size: 30px !important;
+}
+
+.owl-prev {
+  margin-left: 15px;
+  font-size: 30px !important;
+}

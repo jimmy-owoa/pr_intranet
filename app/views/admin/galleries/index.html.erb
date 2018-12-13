@@ -1,0 +1,44 @@
+<%- model_class = General::Gallery -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Galerías" %></h1>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= "Identificador" %></th>
+              <th><%= "Nombre" %></th>
+              <th><%= "Cantidad de fotos" %></th>
+              <th><%= "Fecha Creación" %></th>
+              <th><%= "Acciones" %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @galleries.each do |gallery| %>
+              <tr>
+                <td><%= link_to gallery.id, admin_gallery_path(gallery) %></td>
+                <td><%= gallery.name %></td>
+                <td><%= gallery.attachments.count %></td>
+                <td><%= gallery.created_at.strftime("%d %b, %Y")  %></td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.links.show")),
+                              admin_gallery_path(gallery), :class => 'btn btn-default btn-xs' %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                              edit_admin_gallery_path(gallery), :class => 'btn btn-default btn-xs' %>
+                  <%= link_to 'Deshabilitar',
+                              admin_gallery_path(gallery),
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                              :class => 'btn btn-sm btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+          <%= will_paginate %>
+        </div>
+      </div>
+    <%= link_to "Nueva", new_admin_gallery_path, :class => 'btn btn-primary' %>
+    </div>
+  </section>

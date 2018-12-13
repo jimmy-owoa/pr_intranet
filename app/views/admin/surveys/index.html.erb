@@ -1,0 +1,41 @@
+<%- model_class = Survey::Survey -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Encuestas" %></h1>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'Identificador' %></th>
+              <th><%= 'Título' %></th>
+              <th><%= 'Fecha Creación' %></th>
+              <th><%= 'Acciones' %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @surveys.each do |survey| %>
+              <tr>
+                <td><%= link_to survey.id, admin_survey_path(survey) %></td>
+                <td><%= survey.name %></td>
+                <td><%= survey.created_at.strftime("%d %b, %Y")  %></td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.links.show")),
+                              admin_survey_path(survey), :class => 'btn btn-default btn-xs' %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                              edit_admin_survey_path(survey), :class => 'btn btn-default btn-xs' %>
+                  <%= link_to 'Deshabilitar',
+                              admin_survey_path(survey),
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                              :class => 'btn btn-sm btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+        </div>
+      </div>
+    <%= link_to "Nueva", new_admin_survey_path, :class => 'btn btn-primary' %>
+    </div>
+  </section>

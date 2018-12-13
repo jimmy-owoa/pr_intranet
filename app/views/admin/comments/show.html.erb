@@ -1,0 +1,13 @@
+
+<h1> Comentario id: <%= @comment.id %></h1>
+<%= @comment.content %> <br>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              admin_comments_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_admin_comment_path(@comment), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              admin_comment_path(@comment),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

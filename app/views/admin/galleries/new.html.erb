@@ -1,0 +1,8 @@
+<section class="section">
+  <h1 class="section-header">Crear Galería</h1>
+
+  <%= simple_form_for @gallery, as: 'gallery', url: {action: :create} do |f| %>
+    <%= render partial: 'form', locals: {f: f} %>
+  <% end %>
+
+</section>

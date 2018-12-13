@@ -1,0 +1,28 @@
+<div class="form-group row">
+  <div class="col-md-10 center card p-4">
+    <div class="col-md-10 center">  
+      <h4><%= @survey.name %></h4>
+      <% @survey.questions.each_with_index do |question, index| %>
+        <h5><b>Pregunta <%= index + 1 %>: <%= question.title %></b><br>
+        <%= question.description %>
+        <%= load_option(question) %>
+        <% if question.question_type == 'Múltiple' %>
+          <% question.options.each do |option| %>
+            <br>
+            <input type="checkbox" name="#{option.title}" value="#{option.id}" class=""><%= option.title %>
+          <% end %> 
+        <% end %>
+        <% if question.question_type == 'Simple' %>
+          <% question.options.each do |option| %>
+            <br>
+            <input type="radio" name="#{option.title}" value="#{option.id}" class=""><%= option.title %>
+          <% end %> 
+        <% end %>
+        <br><hr>
+      <% end %>
+    </div>
+      <%= link_to t('.back', :default => t("helpers.links.back")), admin_surveys_path, :class => 'btn btn-primary'  %>
+
+  </div>
+</div>
+

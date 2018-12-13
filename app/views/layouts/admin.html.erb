@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Intranet</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="modal" id="gallery_modal"></div>
+    <div class="modal" id="main_image_modal"></div>
+    <div id="app">
+      <div class="main-wrapper">
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar">
+          <form class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+              <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+              <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+            </ul>
+          </form>
+          <ul class="navbar-nav navbar-right">
+            <li class="dropdown dropdown-list-toggle">
+              <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="fas fa-bell"></i></a>
+              <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                <div class="dropdown-header">
+                  Notificaciones
+                  <div class="float-right"><a href="#">Ver todas</a></div>
+                </div>
+                <div class="dropdown-list-content">
+                  <a href="#" class="dropdown-item dropdown-item-unread">
+                    <div class="dropdown-item-desc">
+                      <b>Nicolás Duhart está de cumpleaños hoy</b>
+                      <div class="time">05-10-2018</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+                <i class="ion ion-android-person d-lg-none"></i>
+                <div class="d-sm-none d-lg-inline-block">Hola <%= current_user.email %></div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i> <%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
+                <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-times"></i><%= link_to 'Salir', destroy_user_session_path, method: :delete%></a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+        <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
+          <aside id="sidebar-wrapper">
+            <div class="sidebar-brand"><%= link_to 'Grupo Security', admin_posts_path %></div>
+            <div class="sidebar-user">
+              <div class="sidebar-user-details">
+                <div class="user-name"><%= current_user.email %></div>
+                <div class="user-role">Administrador</div>
+              </div>
+            </div>
+            <ul class="sidebar-menu">
+              <li class="menu-header">Módulos</li>
+              <li>
+                <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i><span>Noticias</span></a>
+                <ul class="menu-dropdown">
+                  <li><a href="<%= admin_posts_path %>"><i class="fas fa-list"></i> Listado</a></li>
+                  <li><a href="<%= new_admin_post_path %>"><i class="fas fa-plus-circle"></i> Crear nueva</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios</span></a>
+                <ul class="menu-dropdown">
+                  <!-- <li><a href="<%= admin_attachments_path %>"><i class="far fa-images"></i> Biblioteca</a></li> -->
+                  <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i> Galerías</a></li>
+                  <li><a href="<%= new_admin_attachment_path %>"><i class="fas fa-file-upload"></i> Añadir nueva imagen</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span>Encuestas</span></a>
+                <ul class="menu-dropdown">
+                  <li><a href="<%= admin_surveys_path %>"><i class="fas fa-poll-h"></i>Creadas</a></li>
+                  <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
+                </ul>
+              </li>
+              
+
+              <li class="menu-header">Marketplace</li>
+              <li><a href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i> Productos</a></li>
+              <li class="menu-header">Eventos</li>
+              <li><a href="<%= admin_births_path %>"><i class="fas fa-dove"></i> Nacimientos</a></li>
+              
+              <li><a href="<%= frontend_welcome_users_path %>"><i class="fas fa-handshake"></i> Bienvenidos</a></li>
+              <li class="menu-header">Configuración</li>
+              <li>
+                <a href="#" class="has-dropdown"><i class="fas fa-users"></i><span>Usuarios</span></a>
+                <ul class="menu-dropdown">
+                  <li><a href="<%= admin_users_path %>"><i class="fas fa-list"></i> Listado</a></li>
+                  <li><a href="<%= new_admin_user_path %>"><i class="fas fa-user-plus"></i> Añadir nuevo</a></li>
+                </ul>
+              </li>
+              <li><a href="<%= admin_analytics_path %>"><i class="fas fa-chart-pie"></i> Analítica</a></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+    <div class="main-content" data-behavior="vue">
+      <%= flash_messages %>
+
+      <%= render partial: 'layouts/partials/search' %>
+      <%= yield %>
+      <%= render_breadcrumbs %>
+
+    </div>
+    <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
+    <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"> </script>
+
+  </body>
+</html>

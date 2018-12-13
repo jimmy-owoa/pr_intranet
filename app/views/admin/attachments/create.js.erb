@@ -1,0 +1,7 @@
+$("#main_image_modal").modal('hide');
+$("#post_main_image_id").empty();
+<% @attachments_list.each do |i| %>
+  $("#post_main_image_id").append("<option value=" + '<%= i[0] %>'   + ">" + '<%= i[1] %>' + "</option>");
+<% end %>
+$("#post_main_image_id").val('<%= @attachments_list.last[0] %>');
+swal("Buen trabajo!", "La imagen ha sido subida correctamente", "success");

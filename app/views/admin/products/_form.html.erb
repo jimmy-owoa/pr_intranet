@@ -1,0 +1,59 @@
+<%= f.error_notification %>
+<div class="row form-group text-black">
+  <div class="form-group card p-4 col-md-12">
+    <div class="row" >
+      <div class="col-sm-4">
+        <%= f.input :name, required: true, autofocus: true  %>
+      </div>
+      <div class="col-sm-4">
+        <%= f.input :price %>
+      </div>
+      <div class=" col-sm-4">
+        <%= f.input :product_type, collection: Marketplace::Product::PRODUCT_TYPE %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :description, required: true, as: :text, :input_html => { 'rows' => 4, 'cols' => 10 } %>
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-12 col-sm-12">
+            <%= f.input :location, required: true  %>
+          </div>
+          <div class="w-100"></div>
+          <div class="col-12 col-sm-12">
+            <%= f.input :email, required: true  %>
+          </div>          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <%= f.input :phone %>
+      </div>
+      <div class="col-sm-3">
+        <%= f.input :expiration, input_html: { value: 30 }  %>
+      </div>
+      <div class="col-md-2">
+        <%= f.input :approved, label: false %>
+      </div>      
+      <div class="col-md-4">
+        <%= f.input :images, as: :file, input_html: { multiple: true, accept:'image/*' } %>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row text-center">
+        <% @product.images.each do |image|  %>
+          <div class="col-md-2">
+            <figure>
+              <%= image_tag image.variant(resize: '120x120>').processed %>
+              <figcaption><%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: 'Are you sure?' }%></figcaption>
+            </figure>
+          </div> 
+        <% end %>
+      </div>
+    </div></br>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+</div>

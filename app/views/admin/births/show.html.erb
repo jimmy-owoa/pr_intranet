@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row title_form">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header" align="center">
+          <% if @birth.photo.attachment.present?%>
+            <%= image_tag @birth.photo.attachment.variant(resize: '300x300>')%>
+          <% else %>
+            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
+          <% end %>
+        </div>
+        <div class="card-body">
+          <h4>Nombre del nacido:  <%= @birth.child_fullname %></h4>
+          <p><strong> Nombre de la madre: </strong> <%= @birth.full_name_mother %></p>
+          <p><strong> Nombre del padre: </strong> <%= @birth.full_name_father %></p>
+          <p><strong> Sexo: </strong> <%= @birth.get_gender %></p>
+          <p class="card-text">
+            <b>Creado:</b> <%= @birth.created_at.strftime("%d de %B de %Y %H:%M:%S %p") %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= link_to t('.back', :default => t("helpers.links.back")), admin_births_path, :class => 'btn btn-primary'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_birth_path(@birth), :class => 'btn btn-primary' %>
+  <%= link_to 'Deshabilitar', admin_birth_path(@birth),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger' %>
+</div>
