@@ -21,10 +21,6 @@ class Frontend::ApplicationController < ApplicationController
     end
   end
 
-  def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-  end
-
   def id_user
     data = []
     data << {

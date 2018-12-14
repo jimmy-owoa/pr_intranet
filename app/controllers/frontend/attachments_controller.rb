@@ -1,14 +1,12 @@
 module Frontend
   class AttachmentsController < ApplicationController
     after_action :set_tracking, only: [:index, :show]
-    respond_to :html, :json
 
     def index
       @attachments = General::Attachment.all
     end
 
     private
-
     def set_tracking
       ahoy.track "Attachment Model", params
     end

@@ -33,33 +33,16 @@ Rails.application.routes.draw do
     root to: 'application#index'
   end
   namespace :frontend do
-    get 'welcome', to: 'welcomes#index'
     get 'welcome/users', to: 'welcomes#users', :defaults => { :format => 'json'}
-    get 'modal_welcome', to: 'welcomes#modal'
-    get "search", to: "search#search"
     get "searchv", to: "search#search_vue", :defaults => { :format => 'json'}
     get 'indicators', to: 'application#indicators', :defaults => { :format => 'json'}
-    post 'uploader/image', to: 'application#image'
-    resources :users, only: [:update, :show], :defaults => { :format => 'json'} do
-      get :id_user, on: :collection
-    end
+    resources :users, only: [:update, :show], :defaults => { :format => 'json'}
     resources :surveys, defaults: {format: :json}
-    resources :answers
-    resources :birthdays, only: [:index], defaults: {format: :json} do
-      get :list, on: :collection
-      get :modal, on: :collection
-      get :calendar, on: :collection, defaults: {format: :json} 
-    end
+    resources :answers, defaults: {format: :json}
+    resources :birthdays, defaults: {format: :json} 
     resources :products, :defaults => { :format => 'json'}
     resources :posts, only: [:show, :index], :defaults => { :format => 'json'}
-    resources :attachments, only: [:show, :index]
-    resources :terms, only: [:show, :index]
-    resources :term_types, only: [:show, :index]
-    resources :term_relationships, only: [:show, :index]
-    resources :births, :defaults => { :format => 'json'} do
-      collection do
-        get :list
-      end
+    resources :births, :defaults => { :format => 'json'}
     end
     root to: 'application#index'
   end
