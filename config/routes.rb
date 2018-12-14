@@ -43,7 +43,6 @@ Rails.application.routes.draw do
     resources :products, :defaults => { :format => 'json'}
     resources :posts, only: [:show, :index], :defaults => { :format => 'json'}
     resources :births, :defaults => { :format => 'json'}
-    end
     root to: 'application#index'
   end
 end

@@ -28,15 +28,8 @@ class ApplicationController < ActionController::Base
   end
   
   private
- 
   def user_not_authorized
     flash[:alert] = "Tú no estás autorizado para realizar esta acción."
     redirect_to(request.referrer || admin_root_path)
   end
-
-  protected
-
-  # def track_action
-  #   ahoy.track "Ran action", request.path_parameters
-  # end
 end
