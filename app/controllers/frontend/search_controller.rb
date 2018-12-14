@@ -45,5 +45,21 @@ module Frontend
         format.js
       end      
     end
+
+    def search_menu
+      data = []
+      search = params[:term].present? ? params[:term] : nil
+      if search
+        result = Searchkick.search search, index_name: [General::Menu]
+        @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact
+        data << [@menus]
+      else
+        data << { message: 'Ingresar parametro de busqueda' }
+      end
+      respond_to do |format|
+        format.json { render json: data[0] }
+        format.js
+      end      
+    end    
   end
 end

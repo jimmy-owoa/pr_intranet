@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     get 'modal_welcome', to: 'welcomes#modal'
     get "search", to: "search#search"
     get "searchv", to: "search#search_vue", :defaults => { :format => 'json'}
+    get "searchm", to: "search#search_menu", :defaults => { :format => 'json'}
     get 'indicators', to: 'application#indicators', :defaults => { :format => 'json'}
     post 'uploader/image', to: 'application#image'
     resources :users, only: [:update, :show], :defaults => { :format => 'json'} do
