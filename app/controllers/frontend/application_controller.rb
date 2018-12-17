@@ -25,14 +25,4 @@ class Frontend::ApplicationController < ApplicationController
     headers['Access-Control-Allow-Origin'] = '*'
   end
 
-  def id_user
-    data = []
-    data << {
-      hola: 'Hola' 
-    }
-    respond_to do |format|
-      format.json { render json: data }
-      format.js
-    end
-  end
  end
