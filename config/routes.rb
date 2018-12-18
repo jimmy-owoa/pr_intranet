@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   namespace :frontend do
     get 'welcome/users', to: 'welcomes#users', :defaults => { :format => 'json'}
     get "searchv", to: "search#search_vue", :defaults => { :format => 'json'}
+    get "searchm", to: "search#search_menu", :defaults => { :format => 'json'}
     get 'indicators', to: 'application#indicators', :defaults => { :format => 'json'}
     resources :users, only: [:update, :show], :defaults => { :format => 'json'}
     resources :surveys, defaults: {format: :json}

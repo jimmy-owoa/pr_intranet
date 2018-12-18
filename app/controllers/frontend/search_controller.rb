@@ -3,9 +3,6 @@ module Frontend
 
     def search
       search = params[:term].present? ? params[:term] : nil
-      users = []
-      posts = []
-      users = []
       if search
         result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu]
         @users = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact
@@ -23,7 +20,7 @@ module Frontend
       users = []
       search = params[:term].present? ? params[:term] : nil
       if search
-        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu]
+        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], match: :text_middle
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.each do |user|
           users << {
             name: user.name,
@@ -45,5 +42,30 @@ module Frontend
         format.js
       end      
     end
+
+    def search_menu
+      items = []
+      data = {}
+      search = params[:term].present? ? params[:term] : nil
+
+      if search.present?
+        result = General::Menu.search search, fields: [:title, :link], match: :text_middle
+        result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact.each do |m|
+          items <<
+            {              
+              name: m.title,
+              link: m.link
+            }
+        end
+        data = items
+      else
+        data = { message: 'Ingresar parametro de busqueda' }
+      end
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end      
+    end
+
   end
 end
