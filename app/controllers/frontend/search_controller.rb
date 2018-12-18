@@ -20,7 +20,7 @@ module Frontend
       users = []
       search = params[:term].present? ? params[:term] : nil
       if search
-        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu]
+        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], match: :text_middle
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.each do |user|
           users << {
             name: user.name,
