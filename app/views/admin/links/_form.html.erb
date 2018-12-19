@@ -1,0 +1,13 @@
+<%= f.error_notification %>
+  <div class="form-group row">
+    <div class="col-6">
+      <%= f.input :title, required: true, autofocus: true %>
+    </div>
+    <div class="col-6">
+      <%= f.input :url %>
+    </div>
+    <div class="col-4 col-sm-6">
+      <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+    </div>
+  </div>
+<%= f.submit 'Crear Link', :class => 'btn btn-primary' %>
