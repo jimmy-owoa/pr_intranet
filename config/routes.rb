@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'analytics', to: 'analytics#index'
     resources :term_relationships
     resources :comments
+    resources :links
     resources :attachments
     resources :terms
     resources :galleries
