@@ -17,7 +17,6 @@
               <tr>
                 <td><%= link_to link.id, admin_link_path(link) %></td>
                 <td><%= link.title %></td>
-                <td><%= link.url %></td>
                 <td><%= link.created_at.strftime("%d %b, %Y")  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
