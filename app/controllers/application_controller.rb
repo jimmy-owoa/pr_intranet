@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   def set_ip
-    @ip = "http://192.168.0.51:3000" 
+    @ip = "http://192.168.1.56:3000" 
   end
 
   def after_sign_in_path_for(user)
@@ -28,15 +28,8 @@ class ApplicationController < ActionController::Base
   end
   
   private
- 
   def user_not_authorized
     flash[:alert] = "Tú no estás autorizado para realizar esta acción."
     redirect_to(request.referrer || admin_root_path)
   end
-
-  protected
-
-  # def track_action
-  #   ahoy.track "Ran action", request.path_parameters
-  # end
 end

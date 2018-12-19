@@ -25,7 +25,6 @@ module Frontend
   end
 
   def show
-    add_breadcrumb "Noticias", :frontend_posts_path
     respond_to do |format|
       format.html
       format.json { render json: @post }
