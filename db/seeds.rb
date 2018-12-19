@@ -13,8 +13,22 @@ General::Term.create(name: 'Inmobiliaria', term_type_id: 1)
 Role.create(name: 'user')
 Role.create(name: 'super_admin')
 #users
-General::User.create(name:'Nombre', last_name: 'Apellido', annexed: '1029', email: 'admin@security.cl', password: 'security', birthday: Date.today)
-General::User.create(name:'Nombre 2', last_name: 'Apellido 2', annexed: '1928', email: 'user@security.cl', password: 'security', birthday: Date.today-1)
+General::User.create(
+  name:'Nombre',
+  last_name: 'Apellido',
+  annexed: '1029',
+  email: 'admin@security.cl',
+  password: 'security',
+  birthday: Date.today
+)
+General::User.create(
+  name:'Nombre 2',
+  last_name: 'Apellido 2',
+  annexed: '1928',
+  email: 'user@security.cl',
+  password: 'security',
+  birthday: Date.today-1
+)
 #users / user_admin see admin screen and user see welcome screen
 user_admin = General::User.find_by_email('admin@security.cl')
 user = General::User.find_by_email('user@security.cl')
@@ -27,24 +41,110 @@ General::EconomicIndicatorType.create(name: 'euro', symbol: '€') #2
 General::EconomicIndicatorType.create(name: 'uf', symbol:'UF' ) #3
 General::EconomicIndicatorType.create(name: 'utm', symbol: 'UTM') #4
 General::EconomicIndicatorType.create(name: 'ipc', symbol: 'IPC') #5
-#post and image
-News::Post.create(title: 'Noticia', slug: 'Slug', content: 'Descripción Content Lorem Ipsum', main_image_id: 1, visibility: "Público", post_class: "tipo", user_id: 1)
-News::Post.first.main_image.attach(io: File.open("app/assets/images/post_news.png"), filename: "post_news.png", content_type: "image/png")
+#post
+News::Post.create(
+  title: '¡Gravísimo! Facebook traficó con tus mensajes privados de forma grotesca con otras compañías', 
+  slug: 'Slug', 
+  content: '¡Netflix, Spotify y varias firmas involucradas en serio caso! Facebook superándose a sí mismo, una vez más.', visibility: "Público", 
+  post_class: "tipo", 
+  user_id: 1
+)
+News::Post.create(
+  title: 'Observatorio de Rayos Gamma más potente del mundo se instalará en Chile', 
+  slug: 'Slug', 
+  content: 'En el proyecto participarán diversas instituciones nacionales e internacionales y permitirá la instalación de este potente observatorio de Rayos Gamma.', 
+  visibility: "Público", 
+  post_class: "tipo", 
+  user_id: 1
+)
+News::Post.create(
+  title: 'Elon Musk y The Boring Company muestran su sistema de túneles en acción', 
+  slug: 'Slug', 
+  content: 'The Boring Company abrió su primera línea de transporte para que los mortales conozcamos el futuro del desplazamiento.',visibility: "Público", 
+  post_class: "tipo", 
+  user_id: 1
+)
+#esto no funciona, manda error en el main_image_id( que no lo agregué en el create del post)
+# News::Post.first.main_image.attach(io: File.open("app/assets/images/post_news.png"), filename: "post_news.png", content_type: "image/png")
 #product and image
-Marketplace::Product.create(name: 'Auto', description: 'Auto amarillo', product_type: 'Autos', price: 5000000.0, email: "ventadeauto@gmail.com", phone: 12093848, location: "Santiago",expiration: 30, approved: true, user_id: 1)
+Marketplace::Product.create(
+  name: 'Auto',
+  description: 'Auto amarillo',
+  product_type: 'Autos',
+  price: 5000000.0,
+  email: "ventadeauto@gmail.com",
+  phone: 12093848,
+  location: "Santiago",
+  xpiration: 30,
+  approved: true,
+  user_id: 1
+)
 Marketplace::Product.last.images.attach(io: File.open("app/assets/images/auto1.png"), filename: "auto1.png", content_type: "image/png")
 #birth
-Employee:Birth.create(full_name_mother: "mamá nacido", full_name_father: "papá nacido", child_name: "nombre nacido", child_lastname: "apellido nacido", approved: true,gender: true, birthday: Date.today)
-Employee:Birth.last.photo.attach(io: File.open("app/assets/images/guagua.jpg"), filename: "auto1.jpg", content_type: "image/jpg")
+Employee::Birth.create(full_name_mother: "mamá nacido",
+  full_name_father: "papá nacido",
+  child_name: "nombre nacido",
+  child_lastname: "apellido nacido",
+  approved: true,
+  gender: true,
+  birthday: Date.today
+)
+Employee::Birth.last.photo.attach(io: File.open("app/assets/images/guagua.jpg"), filename: "auto1.jpg", content_type: "image/jpg")
 #Menus
-General::Menu.create( title: "Bienvenidos", description: "Listar los usuarios que llegaron a la empresa", css_class: "000000", code: 1223, link: "welcomes" priority: nil,
- parent_id: nil)
-General::Menu.create( title: "Nacimientos", description: "Listar los hij@s de los empleados de la empresa", css_class: "000001", code: 1224, link: "births", priority: nil,
- parent_id: nil)
-General::Menu.create( title: "Crear Nacimientos", description: "Crear nacimiento", css_class: "000002", code: 1225, link: "births/create", priority: nil, parent_id: nil)
-General::Menu.create( title: "Cumpleanos", description: "Listas cumpleaños de los empleados", css_class: "000003", code: 1226, link: "birthdays", priority: nil, parent_id: nil)
-General::Menu.create( title: "Productos", description: "Listas productos", css_class: "000004", code: 1227, link: "products", priority: nil, parent_id: nil)
-General::Menu.create( title: "Encuestas", description: "Listas encuestas", css_class: "000005", code: 1228, link: "surveys", priority: nil, parent_id: nil)
+General::Menu.create( 
+  title: "Bienvenidos",
+  description: "Listar los usuarios que llegaron a la empresa",
+  css_class: "000000",
+  code: 1223,
+  link: "welcomes",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create( 
+  title: "Nacimientos",
+  description: "Listar los hij@s de los empleados de la empresa",
+  css_class: "000001",
+  code: 1224,
+  link: "births",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create( 
+  title: "Crear Nacimientos",
+  description: "Crear nacimiento",
+  css_class: "000002",
+  code: 1225,
+  link: "births/create",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create( 
+  title: "Cumpleanos",
+  description: "Listas cumpleaños de los empleados",
+  css_class: "000003",
+  code: 1226,
+  link: "birthdays",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
+  title: "Productos",
+  description: "Listas productos",
+  css_class: "000004",
+  code: 1227,
+  link: "products",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
+  title: "Encuestas",
+  description: "Listas encuestas",
+  css_class: "000005",
+  code: 1228,
+  link: "surveys",
+  priority: nil,
+  parent_id: nil
+)
 #surveys
 Survey::Survey.create(name: 'Encuesta de las ciudades de Chile')
 Survey::Question.create( title: "¿Cual es la ciudad más linda de Chile?", description: "Encuesta para saber cual es la ciudad favorita de los usuarios.", question_type: "Simple", survey_id: 1)
