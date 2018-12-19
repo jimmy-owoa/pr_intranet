@@ -61,13 +61,13 @@ es:
     - nov
     - dic
     day_names:
-    - domingo
-    - lunes
-    - martes
-    - miércoles
-    - jueves
-    - viernes
-    - sábado
+    - Domingo
+    - Lunes
+    - Martes
+    - Miércoles
+    - Jueves
+    - Viernes
+    - Sábado
     formats:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"

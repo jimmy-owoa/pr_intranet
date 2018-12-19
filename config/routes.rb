@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     get "searchv", to: "search#search_vue", :defaults => { :format => 'json'}
     get "searchm", to: "search#search_menu", :defaults => { :format => 'json'}
     get 'indicators', to: 'application#indicators', :defaults => { :format => 'json'}
+    get 'weather', to: 'application#weather', :defaults => { :format => 'json'}
     resources :users, only: [:update, :show], :defaults => { :format => 'json'}
     resources :surveys, defaults: {format: :json}
     resources :answers, defaults: {format: :json}
