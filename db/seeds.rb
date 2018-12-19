@@ -75,7 +75,7 @@ Marketplace::Product.create(
   email: "ventadeauto@gmail.com",
   phone: 12093848,
   location: "Santiago",
-  xpiration: 30,
+  expiration: 30,
   approved: true,
   user_id: 1
 )
