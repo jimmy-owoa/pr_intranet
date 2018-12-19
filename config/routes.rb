@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'analytics', to: 'analytics#index'
     resources :term_relationships
     resources :comments
+    resources :links
     resources :attachments
     resources :terms
     resources :galleries
@@ -42,6 +43,7 @@ Rails.application.routes.draw do
     resources :users, only: [:update, :show], :defaults => { :format => 'json'}
     resources :surveys, defaults: {format: :json}
     resources :answers, defaults: {format: :json}
+    resources :links, defaults: {format: :json}
     resources :birthdays, defaults: {format: :json} 
     resources :products, :defaults => { :format => 'json'}
     resources :posts, only: [:show, :index], :defaults => { :format => 'json'}
