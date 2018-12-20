@@ -40,7 +40,9 @@ Rails.application.routes.draw do
     get "search", to: "search#search"
     get 'indicators', to: 'application#indicators', :defaults => { :format => 'json'}
     get 'weather', to: 'application#weather', :defaults => { :format => 'json'}
-    resources :users, only: [:update, :show], :defaults => { :format => 'json'}
+    resources :users, only: [:update, :show], :defaults => { :format => 'json'} do
+      get :id_user, on: :collection
+    end
     resources :surveys, defaults: {format: :json}
     resources :answers, defaults: {format: :json}
     resources :links, defaults: {format: :json}
