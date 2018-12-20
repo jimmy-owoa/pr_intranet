@@ -6,6 +6,7 @@ module Frontend
     posts = News::Post.includes(:main_image)
     data = []
     posts.each do |post|
+      @image = post.main_image.present? ? @ip + post.main_image.path : nil
       data << {
         id: post.id,
         title: post.title,
@@ -14,7 +15,7 @@ module Frontend
         created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
         content: post.content,
         indicators: IndicatorService.perform[:santoral]['hoy'],
-        main_image: @ip.to_s + post.main_image.path
+        main_image: @image
       }
     end
     respond_to do |format|
