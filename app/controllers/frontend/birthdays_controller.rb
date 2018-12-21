@@ -3,7 +3,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :list, :modal]
 
     def index
-      @users_calendar = General::User.show_birthday
+      # @users_calendar = General::User.show_birthday
       @months = I18n.t("date.month_names").drop(1).join(", ")
       users = General::User.with_attached_image.where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y"))
       data = []
@@ -51,11 +51,36 @@ module Frontend
       end      
     end
 
+    def users_birthday
+      @users_calendar = General::User.show_birthday
+      data = []
+      @users_calendar.each do |user|
+        @image = user.image.attachment.present? ? @ip + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : nil
+        data << {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          last_name: user.last_name,
+          full_name: user.name + ' ' + user.last_name,
+          active: user.active,
+          annexed: user.annexed,
+          birthday: user.birthday,
+          show_birthday: user.show_birthday,
+          image: @image,       
+        }
+      end
+      respond_to do |format|
+        format. html
+        format.json { render json: data }
+      end      
+    end
+
     private
 
     def set_tracking
       ahoy.track "Birthday Model", params
     end    
+
     
   end
 end

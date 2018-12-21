@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   end
   namespace :frontend do
     get 'welcome/users', to: 'welcomes#users', :defaults => { :format => 'json'}
+   get 'welcome/users_welcome', to: 'welcomes#users_welcome', :defaults => { :format => 'json'}
     get "searchv", to: "search#search_vue", :defaults => { :format => 'json'}
     get "searchm", to: "search#search_menu", :defaults => { :format => 'json'}
     get "search", to: "search#search"
@@ -46,7 +47,9 @@ Rails.application.routes.draw do
     resources :surveys, defaults: {format: :json}
     resources :answers, defaults: {format: :json}
     resources :links, defaults: {format: :json}
-    resources :birthdays, defaults: {format: :json} 
+    resources :birthdays, defaults: {format: :json} do
+      get :users_birthday, on: :collection, defaults: {format: :json}
+    end
     resources :products, :defaults => { :format => 'json'}
     resources :posts, only: [:show, :index], :defaults => { :format => 'json'}
     resources :births, :defaults => { :format => 'json'}
