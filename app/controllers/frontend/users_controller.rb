@@ -10,10 +10,7 @@ class Frontend::UsersController < ApplicationController
       name: @user.name,
       last_name: @user.last_name,
       email: @user.email,
-      image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(@user.image, only_path: true),
-      parent: @user.parent_id,
-      siblings: 
-      
+      image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(@user.image, only_path: true)
     }
     respond_to do |format|
       format.json { render json: data[0] }
