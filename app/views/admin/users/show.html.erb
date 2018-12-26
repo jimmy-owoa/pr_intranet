@@ -29,15 +29,50 @@
         </div>
       </div>
     </div>
-  <div class="col-md-8 offset-md-4">
-    <% unless @user.parent_id.nil? %>
-      <b>Jefe:</b> 
-      <%= [@user.parent.name, @user.parent.last_name].join(' ') %></br>
-    <% end %>
-    <b>Hermano(s):</b> <%= @user.siblings.map{|a|[a.name, a.last_name].join(" ") }.join(", ") %></br>
-    <b>Hijo(s):</b> <%= @user.children.map{|a|[a.name, a.last_name].join(" ") }.join(", ") %>
-  </div>
   <%= link_to t('.back', :default => t("helpers.links.back")), admin_root_path, :class => 'btn btn-primary'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_user_path(@user), :class => 'btn btn-primary' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")), admin_post_path(@user),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger' %>       
 </div>    
+
+<% unless @user.parent_id.nil? %>
+<hr class='hr_top'>
+  <div class="card" style="width: 10rem;">
+    <%= ornanigram_image(@user.parent_id)%>
+    <div class="card-body text-secondary">
+      <h5 class="card-title"><%= [@user.parent.name, @user.parent.last_name].join(' ') %></h5>
+      <p class="card-text"><%= @user.parent.email %></p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+<% end %>
+<hr class='hr_top'>
+<h5>Pares</h5>
+<div class="row pre-scrollable">
+  <% @user.siblings.each do |sb| %>
+      <div class="col-md-2">
+        <div class="card" style="width: 10rem;">
+          <%= ornanigram_image(sb.id)%>
+          <div class="card-body text-secondary">
+            <h5 class="card-title"><%= [sb.name, sb.last_name].join(' ') %></h5>
+            <p class="card-text"><%= sb.email %></p>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+<hr class='hr_top'>
+<h5>A cargo</h5>
+<div class="row pre-scrollable">
+  <% @user.children.each do |cd| %>
+      <div class="col-md-2">
+        <div class="card" style="width: 10rem;">
+          <%= ornanigram_image(cd.id)%>
+          <div class="card-body text-secondary">
+            <h5 class="card-title"><%= [cd.name, cd.last_name].join(' ') %></h5>
+            <p class="card-text"><%= cd.email %></p>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+<hr class='hr_top'>
