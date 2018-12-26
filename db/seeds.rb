@@ -19,7 +19,7 @@ General::User.create(
   annexed: '1029',
   email: 'admin@security.cl',
   password: 'security',
-  birthday: Date.today
+  birthday: Date.today,
 )
 General::User.create(
   name:'Nombre 2',
@@ -28,6 +28,22 @@ General::User.create(
   email: 'user@security.cl',
   password: 'security',
   birthday: Date.today-1
+)
+General::User.create(
+  name:'Persona 3',
+  last_name: 'a cargo de',
+  annexed: '11020',
+  email: 'a-cargo-de@security.cl',
+  password: 'security',
+  birthday: Date.today-2,
+)
+General::User.create(
+  name:'Persona 4',
+  last_name: 'rama',
+  annexed: '22212',
+  email: 'otro-a-cargode@security.cl',
+  password: 'security',
+  birthday: Date.today-2,
 )
 #users / user_admin see admin screen and user see welcome screen
 user_admin = General::User.find_by_email('admin@security.cl')
