@@ -36,7 +36,7 @@
 
 <% unless @user.parent_id.nil? %>
 <hr class='hr_top'>
-  <div class="card" style="width: 10rem;">
+  <div class="card" style="width: 11rem;">
     <%= ornanigram_image(@user.parent_id)%>
     <div class="card-body text-secondary">
       <h5 class="card-title"><%= [@user.parent.name, @user.parent.last_name].join(' ') %></h5>
@@ -50,7 +50,7 @@
 <div class="row pre-scrollable">
   <% @user.siblings.each do |sb| %>
       <div class="col-md-2">
-        <div class="card" style="width: 10rem;">
+        <div class="card" style="width: 11rem;">
           <%= ornanigram_image(sb.id)%>
           <div class="card-body text-secondary">
             <h5 class="card-title"><%= [sb.name, sb.last_name].join(' ') %></h5>
@@ -65,7 +65,7 @@
 <div class="row pre-scrollable">
   <% @user.children.each do |cd| %>
       <div class="col-md-2">
-        <div class="card" style="width: 10rem;">
+        <div class="card" style="width: 11rem;">
           <%= ornanigram_image(cd.id)%>
           <div class="card-body text-secondary">
             <h5 class="card-title"><%= [cd.name, cd.last_name].join(' ') %></h5>
