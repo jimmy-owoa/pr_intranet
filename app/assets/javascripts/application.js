@@ -30,5 +30,8 @@
 //= require admin/users
 //= require admin/gallery
 //= require admin/products
+//= require admin/menus
 //= require_self
 //= require owl.carousel
+//= require jquery.minicolors
+//= require jquery.minicolors.simple_form

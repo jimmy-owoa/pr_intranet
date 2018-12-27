@@ -84,8 +84,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # gem 'mini_magick', '~> 4.8'
 #test carousel
 gem 'owlcarousel-rails'
-
-
+#code css
+gem 'jquery-minicolors-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

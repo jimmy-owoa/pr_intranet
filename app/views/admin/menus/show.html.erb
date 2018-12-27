@@ -1,0 +1,33 @@
+<div class="container">
+  <section class="section">
+    <h1 class="section-header">Menú <%= @menu.title %></h1>
+  </div>
+  <div class="row title_form">
+    <div class="col-10 col-sm-6">
+      <div class="card" style="width: 40rem;">
+        <div class="card-body">
+          <h5 class="card-title">Menú <%= @menu.title %></h5>
+          <div class="row">
+            <div class="col-4 col-sm-6">
+              <ul>
+                <li>Clase CSS: <%= @menu.css_class %></li>
+                <li>Código: <%= @menu.code %></li>
+                <li>Prioridad: <%= @menu.priority %></li>
+                <li>Padre:<%= @menu.parent_id %></li>
+                <li>Link: <%= @menu.link %></li>
+              </ul>          
+            </div>
+            <div class="col-4 col-sm-6">
+              <p>Descripción:</p>
+              <p><%= @menu.description %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= link_to t('.back', :default => t("helpers.links.back")), admin_root_path, :class => 'btn btn-primary'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_menu_path(@menu), :class => 'btn btn-primary' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")), admin_post_path(@menu),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger' %>       
+</div>    
+<hr class='hr_top'>

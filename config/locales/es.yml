@@ -1,6 +1,11 @@
 es:
   activerecord:
     attributes:
+      general/menu:
+        priority: Prioridad
+        code: Código
+        css_class: Clase CSS
+        link: Enlace
       survey/question:
         question_type: Tipo de pregunta
       general/user:

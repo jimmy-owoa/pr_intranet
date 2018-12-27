@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :births
     resources :surveys
     resources :answers
+    resources :menus
     resources :products do
       member do
         delete :delete_image
@@ -33,26 +34,27 @@ Rails.application.routes.draw do
     resources :users
     root to: 'application#index'
   end
-  namespace :frontend do
-    get 'welcome/users', to: 'welcomes#users', :defaults => { :format => 'json'}
-   get 'welcome/users_welcome', to: 'welcomes#users_welcome', :defaults => { :format => 'json'}
-    get "searchv", to: "search#search_vue", :defaults => { :format => 'json'}
-    get "searchm", to: "search#search_menu", :defaults => { :format => 'json'}
+  namespace :frontend, :defaults => { :format => 'json'} do
+    get 'menus/index'
+    get 'welcome/users', to: 'welcomes#users'
+   get 'welcome/users_welcome', to: 'welcomes#users_welcome'
+    get "searchv", to: "search#search_vue"
+    get "searchm", to: "search#search_menu"
     get "search", to: "search#search"
-    get 'indicators', to: 'application#indicators', :defaults => { :format => 'json'}
-    get 'weather', to: 'application#weather', :defaults => { :format => 'json'}
-    resources :users, only: [:update, :show], :defaults => { :format => 'json'} do
+    get 'indicators', to: 'application#indicators'
+    get 'weather', to: 'application#weather'
+    resources :users, only: [:update, :show] do
       get :id_user, on: :collection
     end
-    resources :surveys, defaults: {format: :json}
-    resources :answers, defaults: {format: :json}
-    resources :links, defaults: {format: :json}
-    resources :birthdays, defaults: {format: :json} do
-      get :users_birthday, on: :collection, defaults: {format: :json}
+    resources :surveys
+    resources :answers
+    resources :links
+    resources :birthdays do
+      get :users_birthday, on: :collection
     end
-    resources :products, :defaults => { :format => 'json'}
-    resources :posts, only: [:show, :index], :defaults => { :format => 'json'}
-    resources :births, :defaults => { :format => 'json'}
+    resources :products
+    resources :posts, only: [:show, :index]
+    resources :births
     root to: 'application#index'
   end
 end
