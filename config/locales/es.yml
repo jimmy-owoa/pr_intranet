@@ -195,6 +195,15 @@ es:
       unlock: Desbloquear
       show: Ver
       confirm: Confirmar
+    menus:
+      cancel: Cancelar
+      edit: Editar
+      destroy: Eliminar
+      back: Volver
+      block: Bloquear
+      unlock: Desbloquear
+      show: Ver
+      confirm: Confirmar      
   number:
     currency:
       format:
