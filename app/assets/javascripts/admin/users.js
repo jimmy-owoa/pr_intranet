@@ -16,4 +16,14 @@ $(document).ready(function () {
     theme: "bootstrap",
     width: '100%'
   });
+  $(".card").hover(
+    function () {
+      $(this).addClass('shadow-lg').css('cursor', 'pointer');
+    },
+    function () {
+      $(this).removeClass('shadow-lg');
+    }
+  );
+
+
 });
