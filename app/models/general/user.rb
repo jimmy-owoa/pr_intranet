@@ -1,7 +1,7 @@
 class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
-  searchkick text_middle: [:name, :last_name, :email]
+  searchkick text_middle: [:name, :last_name, :email, :annexed]
   has_one_attached :image
   
   
