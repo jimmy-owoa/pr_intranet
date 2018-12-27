@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     get 'indicators', to: 'application#indicators'
     get 'weather', to: 'application#weather'
     resources :users, only: [:update, :show] do
-      get :id_user, on: :collection
+      get :user, on: :collection
     end
     resources :surveys
     resources :answers
