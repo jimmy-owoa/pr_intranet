@@ -112,7 +112,7 @@ Employee::Birth.last.photo.attach(io: File.open("app/assets/images/guagua.jpg"),
 General::Menu.create( 
   title: "Bienvenidos",
   description: "Listar los usuarios que llegaron a la empresa",
-  css_class: "000000",
+  css_class: "#545454",
   code: 1223,
   link: "welcomes",
   priority: nil,
@@ -130,7 +130,7 @@ General::Menu.create(
 General::Menu.create( 
   title: "Crear Nacimientos",
   description: "Crear nacimiento",
-  css_class: "000002",
+  css_class: "#ff00d5",
   code: 1225,
   link: "births/create",
   priority: nil,
@@ -139,7 +139,7 @@ General::Menu.create(
 General::Menu.create( 
   title: "Cumpleanos",
   description: "Listas cumpleaños de los empleados",
-  css_class: "000003",
+  css_class: "#00ffbb",
   code: 1226,
   link: "birthdays",
   priority: nil,
@@ -148,7 +148,7 @@ General::Menu.create(
 General::Menu.create(
   title: "Productos",
   description: "Listas productos",
-  css_class: "000004",
+  css_class: "#000000",
   code: 1227,
   link: "products",
   priority: nil,
@@ -157,7 +157,7 @@ General::Menu.create(
 General::Menu.create(
   title: "Encuestas",
   description: "Listas encuestas",
-  css_class: "000005",
+  css_class: "#e3e3e3",
   code: 1228,
   link: "surveys",
   priority: nil,

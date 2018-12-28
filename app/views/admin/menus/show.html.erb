@@ -15,6 +15,7 @@
                 <li>Prioridad: <%= @menu.priority %></li>
                 <li>Padre:<%= @menu.parent_id %></li>
                 <li>Link: <%= @menu.link %></li>
+                <li>Categorías: <%= @menu.terms.present? ? @menu.terms.map(&:name).join(',') : 'No tiene' %></li>
               </ul>          
             </div>
             <div class="col-4 col-sm-6">

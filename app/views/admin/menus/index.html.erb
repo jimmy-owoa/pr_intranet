@@ -13,6 +13,7 @@
             <th>Prioridad</th>
             <th>Padre</th>
             <th>Link</th>
+            <th>Categorías</th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -21,12 +22,13 @@
             <tr>
               <td><%=  %></td>
               <td><%= menu.title %></td>
-              <td><%= menu.description %></td>
-              <td><%= menu.css_class %></td>
+              <td><%= menu.description.truncate(28) %></td>
+              <td><%= menu.css_class %><div style="width:60px;height:5px;background:<%= menu.css_class %>"></div></td>
               <td><%= menu.code %></td>
               <td><%= menu.priority %></td>
               <td><%= menu.parent_id %></td>
               <td><%= menu.link %></td>
+              <td><%= menu.terms.present? ? menu.terms.map(&:name).join(',').truncate(10) : 'No tiene' %></td>
               <td> 
                 <%= link_to t('.show', :default => t("helpers.menus.show")), admin_menu_path(menu) %>
                 <% if current_user.has_role? :super_admin %>
