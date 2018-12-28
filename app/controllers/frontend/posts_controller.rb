@@ -14,7 +14,7 @@ module Frontend
         user_id: General::User.find(post.user_id).name,
         created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
         content: post.content,
-        indicators: IndicatorService.perform[:santoral]['hoy'],
+        tags: post.terms.tags,
         main_image: @image
       }
     end
