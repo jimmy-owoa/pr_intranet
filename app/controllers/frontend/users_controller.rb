@@ -46,7 +46,8 @@ class Frontend::UsersController < ApplicationController
       last_name: @user.last_name,
       email: @user.email,
       annexed: @user.annexed,
-      image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(@user.image, only_path: true),
+      image: @ip.to_s + ( @user.image.attached? ? 
+      Rails.application.routes.url_helpers.rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
       childrens: data_childrens,
       siblings: data_siblings,
       father: data_father

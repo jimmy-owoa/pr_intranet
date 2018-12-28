@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   $('.for_select').select2({
     tags: true,
     tokenSeparators: [',', ' '],
@@ -24,6 +24,5 @@ $(document).ready(function () {
       $(this).removeClass('shadow-lg');
     }
   );
-
 
 });
