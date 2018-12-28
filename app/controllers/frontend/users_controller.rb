@@ -1,9 +1,9 @@
 class Frontend::UsersController < ApplicationController
   before_action :set_user, only: [:update]
-
   def user
+    id = params[:id].present? ? params[:id] : nil
     # datos hardcodeados hasta tener data de users
-    @user = General::User.second
+    @user = General::User.find(id)
     data_user = []
     data_childrens = []
     data_siblings = []
@@ -39,6 +39,7 @@ class Frontend::UsersController < ApplicationController
       name: @user.name,
       last_name: @user.last_name,
       email: @user.email,
+      annexed: @user.annexed,
       image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(@user.image, only_path: true),
       childrens: data_childrens,
       siblings: data_siblings,
