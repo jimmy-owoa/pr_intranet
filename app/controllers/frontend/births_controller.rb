@@ -1,5 +1,6 @@
 class Frontend::BirthsController < ApplicationController
   #callbacks
+  layout 'admin'
   before_action :set_birth, only: [:show, :destroy]
   after_action :set_tracking, only: [:index, :show, :new, :list]
   after_action :set_tracking_action, only: [:create]  
