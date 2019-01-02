@@ -29,7 +29,7 @@ class Frontend::BirthsController < ApplicationController
 
     def get_home_births
       data = []
-      births = Employee::Birth.last(4)
+      births = Employee::Birth.show_birth.last(4)
       births.each do |birth|
         data << {
           id: birth.id,

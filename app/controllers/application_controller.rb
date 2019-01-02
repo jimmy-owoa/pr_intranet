@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   def set_ip
-    @ip = "http://192.168.1.56:3000" 
+    @ip = "http://192.168.0.17:3000" 
   end
 
   def after_sign_in_path_for(user)
