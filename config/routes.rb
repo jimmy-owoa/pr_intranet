@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   namespace :frontend, :defaults => { :format => 'json'} do
     get 'menus/index'
     get 'welcome/users', to: 'welcomes#users'
-   get 'welcome/users_welcome', to: 'welcomes#users_welcome'
+    get 'welcome/users_welcome', to: 'welcomes#users_welcome'
+    get 'welcome/get_home_welcome', to: 'welcomes#get_home_welcome'
     get "searchv", to: "search#search_vue"
     get "searchm", to: "search#search_menu"
     get "search", to: "search#search"
@@ -51,10 +52,13 @@ Rails.application.routes.draw do
     resources :links
     resources :birthdays do
       get :users_birthday, on: :collection
+      get :get_home_birthdays, on: :collection
     end
     resources :products
     resources :posts, only: [:show, :index]
-    resources :births
+    resources :births do 
+      get :get_home_births, on: :collection
+    end
     root to: 'application#index'
   end
 end
