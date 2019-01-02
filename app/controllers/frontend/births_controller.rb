@@ -1,5 +1,6 @@
 class Frontend::BirthsController < ApplicationController
   #callbacks
+  layout 'admin'
   before_action :set_birth, only: [:show, :destroy]
   after_action :set_tracking, only: [:index, :show, :new, :list]
   after_action :set_tracking_action, only: [:create]  
@@ -29,7 +30,7 @@ class Frontend::BirthsController < ApplicationController
 
     def get_home_births
       data = []
-      births = Employee::Birth.last(4)
+      births = Employee::Birth.show_birth.last(4)
       births.each do |birth|
         data << {
           id: birth.id,
