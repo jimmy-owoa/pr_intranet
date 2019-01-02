@@ -27,9 +27,35 @@ class Frontend::BirthsController < ApplicationController
       end
     end
 
+    def get_home_births
+      data = []
+      births = Employee::Birth.last(4)
+      births.each do |birth|
+        data << {
+          id: birth.id,
+          child_full_name: birth.child_name + ' ' + birth.child_lastname,
+          photo: @ip.to_s + rails_representation_url(birth.photo.variant(resize: '600x600'), only_path: true),
+          gender: birth.gender ? 'Masculino' : 'Femenino',
+          birthday: birth.birthday,
+          father: birth.full_name_father,
+          mother: birth.full_name_mother
+        }
+      end
+
+      respond_to do |format|
+        format.html
+        format.json { render json: data }
+        format.js
+      end
+    end
+
     def new
       add_breadcrumb "Nacimientos", :frontend_births_path
       @birth = Employee::Birth.new
+    end
+
+    def show 
+
     end
 
     def create
