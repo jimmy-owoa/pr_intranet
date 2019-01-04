@@ -5,7 +5,7 @@ module Admin
 
     def index
       add_breadcrumb "Marketplace", :admin_products_path
-      @products = Marketplace::Product.all
+      @products = Marketplace::Product.paginate(:page => params[:page], :per_page => 10)
     end
 
     def show
