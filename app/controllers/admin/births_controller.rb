@@ -4,7 +4,7 @@ module Admin
 
     def index
       add_breadcrumb "Nacimientos", :admin_births_path
-      @births = Employee::Birth.all
+      @births = Employee::Birth.paginate(:page => params[:page], :per_page => 10)
     end
 
     def show
