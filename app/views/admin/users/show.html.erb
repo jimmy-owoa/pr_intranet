@@ -20,7 +20,7 @@
               <b>Fecha de nacimiento:</b> <%= @user.birthday.present? ? custom_date_no_hour(@user.try(:birthday) ) : "" %></br>
               <b>Anexo:</b> <%= @user.try(:annexed) %></br>
               <b>Tags:</b> <%= @user.terms.tags.map(&:name).reject(&:blank?).join(", ") %></br>
-              <b>Categorías:</b> <%= @user.terms.where(term_type_id: 2).map(&:name).reject(&:blank?).join(", ") %></br>
+              <b>Categorías:</b> <%= @user.terms.where(term_type_id: 1).map(&:name).reject(&:blank?).join(", ") %></br>
               <b>Creado el:</b> <%= custom_date(@user.created_at) %></br>
               <b>Última actualización:</b> <%= custom_date(@user.updated_at) %></br>
               <b>Estado:</b> <%= @user.active? ? 'Si' : 'No'  %></br>

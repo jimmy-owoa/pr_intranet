@@ -41,7 +41,6 @@
       <div class="row">
         <div class="col-8 col-sm-10">
           <%= f.label :tags %>
-
           <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
 
           <%#= f.association :terms, collection: General::Term.tags, class: 'form-control string optional', label: false, multiple: true %>

@@ -42,9 +42,9 @@ module Admin
         params[:user].delete(:password_confirmation)
       end   
       respond_to do |format|
-        set_tags
-          # user_params[:term_ids].map{ |e| e.gsub!(/[^0-9]/, '') }.reject(&:blank?)
+        # user_params[:term_ids].map{ |e| e.gsub!(/[^0-9]/, '') }.reject(&:blank?)
         if @user.update(user_params)
+          set_tags
           format.html { redirect_to admin_user_path(@user), notice: 'user was successfully updated.'}
           format.json { render :show, status: :ok, location: @user }
         else
@@ -73,12 +73,14 @@ module Admin
     end
 
     def set_tags
-      tags = params[:user][:term_ids].reject(&:blank?)
-      if tags.present?
-        tags.uniq.each do |tag|
-          @user.terms.find_or_create_by(name: tag, term_type: General::TermType.tag)
+      term_names = params[:term_names]
+      terms = []
+      if term_names.present?
+        term_names.uniq.each do |tag|
+          terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
         end
-      end
+        @user.terms << terms
+      end   
     end
 
     def set_user
