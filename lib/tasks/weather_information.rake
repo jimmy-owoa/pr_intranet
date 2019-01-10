@@ -1,5 +1,5 @@
 namespace :weather do
-  desc 'economic indicators'
+  desc 'weather information'
   task weather_information: :environment do
     WeatherInformationJob.perform_now({})
   end
