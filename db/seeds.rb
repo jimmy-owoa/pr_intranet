@@ -171,5 +171,15 @@ Survey::Option.create(title: "Calama", default: false, placeholder: "", question
 Survey::Option.create(title: "Coquimbo", default: false, placeholder: "", question_id: 1)
 Survey::Option.create(title: "Puerto Montt", default: false, placeholder: "", question_id: 1)
 Survey::Option.create(title: "Punta Arenas", default: false, placeholder: "", question_id: 1)
-
-
+#cities
+10.times do |city|
+  General::WeatherInformation.create(
+    location: 'Location', 
+    date: Date.today,
+    current_temp: "current_temp",
+    condition: "condition",
+    icon: "icon",
+    max_temp: "max_temp",
+    min_temp: "min_temp",
+  )
+end
