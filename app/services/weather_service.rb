@@ -1,11 +1,18 @@
 class WeatherService
   def initialize
+<<<<<<< HEAD
     @api = "http://api.apixu.com/v1/forecast.json?key=19e45f0a4bdd4d929df131644191001&q="
+=======
+    santiago = URI.parse("http://api.apixu.com/v1/forecast.json?key=19e45f0a4bdd4d929df131644191001&q=Santiago&days=1") 
+    response = Net::HTTP.get_response santiago 
+    @santiago = JSON.parse(response.body) 
+>>>>>>> 018f7ecf8b744fb28919b9cadd1c0b298cd750b1
   end
 
   def perform
     cities
     {
+<<<<<<< HEAD
       antofagasta: @json_parse[0],
       santiago: @json_parse[1],
       copiapo: @json_parse[2],
@@ -16,6 +23,18 @@ class WeatherService
       concepcion: @json_parse[7],
       temuco: @json_parse[8],
       puerto_montt: @json_parse[9],
+=======
+      # antofagasta: @santiago,
+      santiago: @santiago,
+      # copiapo: @santiago,
+      # la_serena: @santiago,
+      # vina_del_mar: @santiago,
+      # rancagua: @santiago,
+      # talca: @santiago,
+      # concepcion: @santiago,
+      # temuco: @santiago,
+      # puerto_montt: @santiago
+>>>>>>> 018f7ecf8b744fb28919b9cadd1c0b298cd750b1
     }
   end
 
