@@ -20,27 +20,43 @@ class Frontend::ApplicationController < ApplicationController
       format.js
     end
   end
+872.000
 
   def weather
     data = []
     data << {
       HOY: l(Date.today, format: '%A %d %B %Y'),
-      ANTOFAGASTA: WeatherService.perform[:antofagasta]['main'],
-      SANTIAGO: WeatherService.perform[:santiago]['main'],
-      CONCEPCION: WeatherService.perform[:concepcion]['main'],
-      PUERTO_MONTT: WeatherService.perform[:puerto_montt]['main'],
-      LA_SERENA: WeatherService.perform[:la_serena]['main'],
-      VINA_DEL_MAR: WeatherService.perform[:vina_del_mar]['main'],
-      TALCA: WeatherService.perform[:talca]['main'],
-      COPIAPO: WeatherService.perform[:copiapo]['main'],
-      TEMUCO: WeatherService.perform[:temuco]['main'],
+      # ANTOFAGASTA: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+      SANTIAGO: { 
+        forecast: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+        current: WeatherService.perform[:santiago]['current']
+      },
+      # CONCEPCION: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+      # PUERTO_MONTT: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+      # LA_SERENA: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+      # VINA_DEL_MAR: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+      # TALCA: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+      # COPIAPO: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
+      # TEMUCO: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
 
     }
     respond_to do |format|
-      format.json { render json: data }
+      format.json { render json: data[0] }
       format.js
     end
   end
+
+  # def faq
+  #   data = []
+  #   data << {
+  #     question: 'Hola mundo',
+  #     answer: 'Chao mundo'
+  #   }
+  #   respond_to do |format|
+  #     format.json { render json: data }
+  #     format.js
+  #   end
+  # end
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
