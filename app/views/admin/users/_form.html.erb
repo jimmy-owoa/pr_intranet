@@ -10,12 +10,18 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-8 col-sm-10">
+        <div class="col-6 col-sm-7">
           <%= f.input :email,required: true,autofocus: true ,input_html: { autocomplete: "email" }%>
         </div>
-        <div class="col-4 col-sm-2">
+        <div class="col-3 col-sm-2">
           <%= f.label :active %>
           <%= f.input :active, as: :boolean, label: false %>
+        </div>
+        <div class="col-3 col-sm-3">
+          <% if current_user.has_role? :super_admin %>            
+            <%= f.label :show_birthday %>
+            <%= f.input :show_birthday, as: :boolean, label: false %>
+          <% end %>        
         </div>
       </div>
       <%= f.input :password,required: true,
@@ -39,29 +45,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-8 col-sm-10">
-          <%= f.label :tags %>
-
-          <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
-
-          <%#= f.association :terms, collection: General::Term.tags, class: 'form-control string optional', label: false, multiple: true %>
-
-        </div>
-        <div class="col-8 col-sm-2">
-          <% if current_user.has_role? :super_admin %>            
-            <%= f.label :show_birthday %>
-            <%= f.input :show_birthday, as: :boolean, label: false %>
-          <% end %>
-        </div>
-      </div></br>
-      <div class="row">
-        <div class="col-8 col-sm-10">
+        <div class="col-6 col-sm-12">
           <%= f.label :parent_id %>
           <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
         </div>
-      </div>
-    </div>
-    <div class="col-6">
+        <div class="col-6 col-sm-12"></br>
+          <%= f.label :tags %></br>
+          <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
+        </div>
+      </div>      
+    </div> 
+    <div class="col-6" >
       <div class="card border-secondary mb-3" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
         <% if @user.image.attachment.present? %>
@@ -82,7 +76,8 @@
           <% end %>
         </div>
       </div>
-    </div>
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    </div>    
+    <%= f.submit nil, class: 'btn btn-primary' %>
   </div>
+
 

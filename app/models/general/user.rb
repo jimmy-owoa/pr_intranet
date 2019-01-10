@@ -6,9 +6,9 @@ class General::User < ApplicationRecord
   
   
   #relationships
-  has_many :visits, class_name: "Ahoy::Visit"
   has_many :user_term_relationships, -> {where(object_type: 'General::User')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :user
   has_many :terms, through: :user_term_relationships
+  has_many :visits, class_name: "Ahoy::Visit"
   has_many :posts, class_name: 'News::Post', foreign_key: :user_id
   has_many :products, class_name: 'Marketplace::Product', foreign_key: :user_id
   has_many :answers, class_name: 'Survey::Answer', foreign_key: :user_id
