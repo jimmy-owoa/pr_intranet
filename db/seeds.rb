@@ -46,9 +46,9 @@ General::User.create(
   birthday: Date.today-2,
 )
 #users / user_admin see admin screen and user see welcome screen
-user_admin = General::User.find_by_email('admin@security.cl')
+user_admin = General::User.find(1)
 user_admin.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
-user = General::User.find_by_email('user@security.cl')
+user = General::User.find(2)
 user.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
 #add roles to user - 
 user_admin.add_role :super_admin
