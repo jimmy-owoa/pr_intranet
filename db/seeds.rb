@@ -46,9 +46,9 @@ General::User.create(
   birthday: Date.today-2,
 )
 #users / user_admin see admin screen and user see welcome screen
-user_admin = General::User.find_by_email('admin@security.cl')
+user_admin = General::User.find(1)
 user_admin.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
-user = General::User.find_by_email('user@security.cl')
+user = General::User.find(2)
 user.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
 #add roles to user - 
 user_admin.add_role :super_admin
@@ -174,12 +174,12 @@ Survey::Option.create(title: "Punta Arenas", default: false, placeholder: "", qu
 #cities
 10.times do |city|
   General::WeatherInformation.create(
-    location: 'Location', 
+    location: 'Copiapo', 
     date: Date.today,
-    current_temp: "current_temp",
-    condition: "condition",
-    icon: "icon",
-    max_temp: "max_temp",
-    min_temp: "min_temp",
+    current_temp: "21",
+    condition: "Partly cloudy",
+    icon: "//cdn.apixu.com/weather/64x64/day/116.png",
+    max_temp: "27.4",
+    min_temp: "12.8",
   )
 end
