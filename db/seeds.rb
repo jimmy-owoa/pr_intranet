@@ -114,7 +114,7 @@ General::Menu.create(
   description: "Listar los usuarios que llegaron a la empresa",
   css_class: "#545454",
   code: 1223,
-  link: "welcomes",
+  link: "bienvenidos",
   priority: nil,
   parent_id: nil
 )
@@ -123,7 +123,7 @@ General::Menu.create(
   description: "Listar los hij@s de los empleados de la empresa",
   css_class: "000001",
   code: 1224,
-  link: "births",
+  link: "nacimientos",
   priority: nil,
   parent_id: nil
 )
@@ -132,7 +132,7 @@ General::Menu.create(
   description: "Crear nacimiento",
   css_class: "#ff00d5",
   code: 1225,
-  link: "births/create",
+  link: "nacimientos/create",
   priority: nil,
   parent_id: nil
 )
@@ -141,7 +141,7 @@ General::Menu.create(
   description: "Listas cumpleaños de los empleados",
   css_class: "#00ffbb",
   code: 1226,
-  link: "birthdays",
+  link: "cumpleaños",
   priority: nil,
   parent_id: nil
 )
@@ -150,7 +150,7 @@ General::Menu.create(
   description: "Listas productos",
   css_class: "#000000",
   code: 1227,
-  link: "products",
+  link: "avisos",
   priority: nil,
   parent_id: nil
 )
@@ -159,7 +159,16 @@ General::Menu.create(
   description: "Listas encuestas",
   css_class: "#e3e3e3",
   code: 1228,
-  link: "surveys",
+  link: "encuestas",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
+  title: "Noticias",
+  description: "Listas de posts / noticias",
+  css_class: "#744db8",
+  code: 1229,
+  link: "noticias",
   priority: nil,
   parent_id: nil
 )
