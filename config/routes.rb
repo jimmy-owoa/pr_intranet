@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     get "searchm", to: "search#search_menu"
     get "search", to: "search#search"
     get 'indicators', to: 'application#indicators'
+    get 'faq', to: 'application#faq'
     get 'weather', to: 'application#weather'
     get 'weather_info', to: 'weather_information#weather'
     resources :users, only: [:update, :show] do
