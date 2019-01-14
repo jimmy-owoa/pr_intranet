@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location: MyString
+  date: 2019-01-10
+  max_temp: MyString
+  min_temp: MyString
+  condition: MyString
+  icon: MyString
+
+two:
+  location: MyString
+  date: 2019-01-10
+  max_temp: MyString
+  min_temp: MyString
+  condition: MyString
+  icon: MyString

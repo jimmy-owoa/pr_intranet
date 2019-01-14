@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_19_181243) do
+ActiveRecord::Schema.define(version: 2019_01_10_175611) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -230,6 +230,18 @@ ActiveRecord::Schema.define(version: 2018_12_19_181243) do
     t.index ["role_id"], name: "index_general_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_general_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_general_users_roles_on_user_id"
+  end
+
+  create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "location"
+    t.date "date"
+    t.string "max_temp"
+    t.string "min_temp"
+    t.string "current_temp"
+    t.string "condition"
+    t.string "icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
