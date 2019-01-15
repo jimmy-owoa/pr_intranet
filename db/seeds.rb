@@ -155,6 +155,15 @@ General::Menu.create(
   parent_id: nil
 )
 General::Menu.create(
+  title: "Crear avisos",
+  description: "Crear Avisos",
+  css_class: "#1e5755",
+  code: 1231,
+  link: "avisos/create",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
   title: "Encuestas",
   description: "Listas encuestas",
   css_class: "#e3e3e3",
@@ -169,6 +178,24 @@ General::Menu.create(
   css_class: "#744db8",
   code: 1229,
   link: "noticias",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
+  title: "Faq",
+  description: "preguntas y respuestas",
+  css_class: "#db9377",
+  code: 1230,
+  link: "preguntas-frecuentes",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
+  title: "Faq",
+  description: "preguntas y respuestas",
+  css_class: "#db9377",
+  code: 1230,
+  link: "preguntas-frecuentes",
   priority: nil,
   parent_id: nil
 )
