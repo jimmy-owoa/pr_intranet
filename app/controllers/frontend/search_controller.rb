@@ -18,6 +18,7 @@ module Frontend
     def search_vue
       data = []
       users = []
+      posts = []
       search = params[:term].present? ? params[:term] : nil
       if search
         result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], match: :text_middle
@@ -31,9 +32,25 @@ module Frontend
             image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(user.image, only_path: true)
           }
         end
-        @posts = result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact
+        result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|
+          @image = post.main_image.present? ? @ip + post.main_image.path : nil
+          posts << {
+            status: post.status,
+            title: post.title,
+            slug: post.slug,
+            content: post.content,
+            published_at: post.published_at,
+            terms: post.term_id,
+            parent: post.post_parent_id,
+            visibility: post.visibility,
+            post_class: post.post_class,
+            post_order: post.post_order,
+            user: post.user_id,
+            main_image: @image
+          }
+        end
         @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact
-        data << [users, @posts, @menus]
+        data << [users, posts, @menus]
       else
         data << { message: 'Ingresar parametro de busqueda' }
       end
