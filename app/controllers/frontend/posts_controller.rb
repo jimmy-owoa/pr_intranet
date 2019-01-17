@@ -24,6 +24,27 @@ module Frontend
     end
   end
 
+  def post
+    data = []
+    id = params[:id].present? ? params[:id] : nil
+    @post = News::Post.find(id)
+    @image = @post.main_image.present? ? @ip + @post.main_image.path : nil
+    data << {
+      id: @post.id,
+      title: @post.title,
+      main_image: @post.main_image,
+      user_id: General::User.find(@post.user_id).name,
+      created_at: @post.created_at.strftime("%d/%m/%Y %H:%M"),
+      content: @post.content,
+      tags: @post.terms.tags,
+      main_image: @image
+    }
+    respond_to do |format|
+      format.json { render json: data[0] }
+      format.js
+    end    
+  end
+
   def show
     respond_to do |format|
       format.html

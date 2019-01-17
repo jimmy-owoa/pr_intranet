@@ -59,7 +59,9 @@ Rails.application.routes.draw do
       get :get_home_birthdays, on: :collection
     end
     resources :products
-    resources :posts, only: [:show, :index]
+    resources :posts, only: [:show, :index] do
+      get :post, on: :collection
+    end
     resources :births do 
       get :get_home_births, on: :collection
     end
