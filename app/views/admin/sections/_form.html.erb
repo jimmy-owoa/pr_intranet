@@ -12,13 +12,19 @@
     <div class="col-6">
       <%= f.input :url %>
     </div>
-    <div class="card-body text-secondary">
-      <% if @section.image.attachment.present? %>
-        <%= image_tag(@section.image.variant(resize: '500x500>'), class: 'center') %>
-      <% else %>  
-        <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" />
-      <% end %>
-        <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+    <div class="col-6" >
+      <div class="card border-secondary mb-3">
+        <div class="card-body text-secondary border border-primary rounded">
+          <% if @section.image.attachment.present? %>
+                <%= image_tag(@section.image.variant(resize: '500x500>'), class: 'center') %>
+          <% else %>  
+            <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
+          <% end %>
+          <div class="center">
+            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 <%= f.submit 'Crear Link', :class => 'btn btn-primary' %>
