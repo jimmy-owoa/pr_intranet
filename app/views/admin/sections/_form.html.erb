@@ -10,7 +10,9 @@
       <%= f.input :position, required: true, autofocus: true %>
     </div>
     <div class="col-6">
-      <%= f.input :url %>
+      <%= f.label 'Url Interna' %></br>
+      <%= f.select :url, News::Post.all.map{|p| ["#{p.id} - #{p.title}".truncate(60), p.id] } %>
+
     </div>
     <div class="col-6" >
       <div class="card border-secondary mb-3">
