@@ -1,0 +1,19 @@
+<section class="section">
+  <h1 class="section-header">section: <%= @section.id %></h1>
+  <div class="card">
+    <h4>URL: <a href='<%= @section.url %>'><%= @section.url %></a></h4>
+    <div style='width: 400px; height: 400px;'>
+      <%=image_tag @section.image.variant(resize: "360x300>")%>
+    </div>
+  </div>
+  <br><br>
+  <%= link_to t('.back', :default => t("helpers.sections.back")),
+                admin_sections_path, :class => 'btn btn-default'  %>
+  <%= link_to t('.edit', :default => t("helpers.sections.edit")),
+                edit_admin_section_path(@section), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.sections.destroy")),
+                admin_section_path(@section),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.sections.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+</section>

@@ -6,21 +6,22 @@ Rails.application.routes.draw do
   controllers: {
     sessions: "users/sessions",
     registrations: "admin/users"
-  }, class_name: "General::User"
-  namespace :admin do
-    put 'upload/put', to: 'attachments#upload' 
-    get 'analytics', to: 'analytics#index'
-    resources :term_relationships
-    resources :comments
-    resources :links
-    resources :attachments
-    resources :terms
-    resources :galleries
-    resources :births
-    resources :surveys
-    resources :answers
-    resources :menus
-    resources :products do
+    }, class_name: "General::User"
+    namespace :admin do
+      put 'upload/put', to: 'attachments#upload' 
+      get 'analytics', to: 'analytics#index'
+      resources :term_relationships
+      resources :comments
+      resources :links
+      resources :attachments
+      resources :terms
+      resources :galleries
+      resources :births
+      resources :surveys
+      resources :answers
+      resources :menus
+      resources :sections, only: [:update, :show, :index, :edit]
+      resources :products do
       member do
         delete :delete_image
       end      
@@ -52,6 +53,7 @@ Rails.application.routes.draw do
     resources :surveys
     resources :answers
     resources :links
+    resources :sections
     resources :birthdays do
       get :users_birthday, on: :collection
       get :get_home_birthdays, on: :collection
