@@ -8,6 +8,7 @@
             <th><%= "Imagen" %></th>
             <th><%= "Nombre producto" %></th>
             <th><%= "Precio" %></th>
+            <th><%= "Aprobado" %></th>
             <th><%= "Acciones" %></th>
           </tr>
         </thead>
@@ -17,6 +18,7 @@
               <td><%= image_tag product.thumb(product.images.first) unless product.images.first.nil?%></td>
               <td><%= product.name %></td>
               <td><%= product.price %></td>
+              <td><%= is_approved(product) %></td>
               <td>
                 <%= link_to t('.show', :default => t("helpers.links.show")), admin_product_path(product), :class => 'btn btn-default btn-xs' %>  
                 <% if policy(product).edit?  %>

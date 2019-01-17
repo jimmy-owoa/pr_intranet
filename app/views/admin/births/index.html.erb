@@ -23,7 +23,7 @@
                 <td><%= birth.full_name_father %></td>
                 <td><%= birth.full_name_mother %></td>
                 <td><%= custom_date_no_hour(birth.birthday) %></td>
-                <td><%= get_birth_approved(birth) %></td>
+                <td><%= is_approved(birth) %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-default btn-xs' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_birth_path(birth), :class => 'btn btn-default btn-xs' %>

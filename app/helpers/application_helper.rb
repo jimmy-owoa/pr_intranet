@@ -41,7 +41,7 @@ module ApplicationHelper
     end
   end
 
-  def get_birth_approved(birth)
+  def is_approved(birth)
     case birth.approved
     when true
       '<i class="fas fa-check"></i>'.html_safe
