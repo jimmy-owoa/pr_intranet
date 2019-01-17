@@ -6,6 +6,7 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
+              <th><%= 'Imagen' %></th>
               <th><%= 'Título Sección' %></th>
               <th><%= 'Fecha Creación' %></th>
               <th><%= 'Acciones' %></th>
@@ -14,18 +15,14 @@
           <tbody>
             <% @sections.each do |section| %>
               <tr>
+                <td><%= image_tag(section.image.variant(resize: '80x80>'))%></td>
                 <td><%= section.title %></td>
                 <td><%= section.created_at.strftime("%d %b, %Y")  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
-                              admin_section_path(section), :class => 'btn btn-default btn-xs' %>
+                              admin_section_path(section), :class => 'btn btn-success btn-xs' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                              edit_admin_section_path(section), :class => 'btn btn-default btn-xs' %>
-                  <%= link_to 'Deshabilitar',
-                              admin_section_path(section),
-                              :method => :delete,
-                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                              :class => 'btn btn-sm btn-danger' %>
+                              edit_admin_section_path(section), :class => 'btn btn-primary btn-xs' %>
                 </td>
               </tr>
             <% end %>

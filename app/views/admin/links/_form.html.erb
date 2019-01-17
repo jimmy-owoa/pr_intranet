@@ -6,8 +6,19 @@
     <div class="col-6">
       <%= f.input :url %>
     </div>
-    <div class="col-4 col-sm-6">
-      <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+    <div class="col-4" >
+      <div class="card border-secondary mb-2">
+        <div class="card-body text-secondary border border-primary rounded">
+          <% if @link.image.attachment.present? %>
+                <%= image_tag(@link.image.variant(resize: '300x300>'), class: 'center') %>
+          <% else %>  
+            <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
+          <% end %>
+          <div class="center">
+            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-<%= f.submit 'Crear Link', :class => 'btn btn-primary' %>
+<%= f.submit nil, :class => 'btn btn-primary btn-block' %>
