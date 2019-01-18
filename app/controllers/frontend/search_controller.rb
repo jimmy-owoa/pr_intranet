@@ -24,6 +24,7 @@ module Frontend
         result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], match: :text_middle
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.each do |user|
           users << {
+            id: user.id,
             name: user.name,
             last_name: user.last_name,
             email: user.email,
