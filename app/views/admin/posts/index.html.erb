@@ -18,8 +18,8 @@
               <tr>
                 <td><%= link_to post.id, admin_post_path(post) %></td>
                 <td><%= post.title.truncate(40) %></td>
-                <td><%= post.published_at %></td>
-                <td><%= post.created_at.strftime("%d %b, %Y")  %></td>
+                <td><%= custom_date_no_hour(post.published_at) %></td>
+                <td><%= custom_date_no_hour(post.created_at)  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_post_path(post), :class => 'btn btn-default btn-xs' %>

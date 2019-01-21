@@ -17,7 +17,7 @@
               <tr>
                 <td><%= link_to link.id, admin_link_path(link) %></td>
                 <td><%= link.title %></td>
-                <td><%= link.created_at.strftime("%d %b, %Y")  %></td>
+                <td><%= custom_date_no_hour(link.created_at) %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_link_path(link), :class => 'btn btn-default btn-xs' %>

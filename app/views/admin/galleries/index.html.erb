@@ -19,7 +19,7 @@
                 <td><%= link_to gallery.id, admin_gallery_path(gallery) %></td>
                 <td><%= gallery.name %></td>
                 <td><%= gallery.attachments.count %></td>
-                <td><%= gallery.created_at.strftime("%d %b, %Y")  %></td>
+                <td><%= custom_date_no_hour(gallery.created_at) %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_gallery_path(gallery), :class => 'btn btn-default btn-xs' %>

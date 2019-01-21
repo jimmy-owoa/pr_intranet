@@ -14,8 +14,8 @@
           <tbody>
             <% @sections.each do |section| %>
               <tr>
-                <td><%= section.title %></td>
-                <td><%= section.created_at.strftime("%d %b, %Y")  %></td>
+                <td><%= section.title.truncate(70) %></td>
+                <td><%= custom_date_no_hour(section.created_at)  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_section_path(section), :class => 'btn btn-default btn-xs' %>

@@ -17,7 +17,7 @@
               <tr>
                 <td><%= link_to survey.id, admin_survey_path(survey) %></td>
                 <td><%= survey.name %></td>
-                <td><%= survey.created_at.strftime("%d %b, %Y")  %></td>
+                <td><%= custom_date_no_hour(survey.created_at)  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_survey_path(survey), :class => 'btn btn-default btn-xs' %>
