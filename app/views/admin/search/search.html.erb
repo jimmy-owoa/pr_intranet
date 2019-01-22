@@ -3,7 +3,8 @@
     <%= render partial: '/layouts/partials/users', locals: { user: @users } if @users.present? %>
     <%= render partial: '/layouts/partials/posts', locals: { post: @posts } if @posts.present? %>
     <%= render partial: '/layouts/partials/menus', locals: { menu: @menus } if @menus.present? %>
-    <% if ( @users.blank? && @posts.blank? && @menu.blank? ) %>
+    <% if ( @users.blank? && @posts.blank? && @menus.blank? ) %>
+    <%= binding.pry %>
       <div class="alert alert-danger" role="alert">
         <strong>Estimad@,</strong> no se han encontrado resultados en su busqueda.
       </div>      

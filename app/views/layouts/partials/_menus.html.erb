@@ -15,11 +15,10 @@
       </thead>
       <tbody>
         <% @menus.each do |menu| %>
-        <%= binding.pry %>
           <tr>
             <td><%= menu.title %></td>
             <td><%= menu.description %></td>
-            <td><%= menu.css_class %></td>
+            <td><%= menu.css_class %><div style="width:60px;height:5px;background:<%= menu.css_class %>"></div></td>
             <td><%= menu.priority%></td>
             <td><%= menu.parent_id %></td>
             <td><%= menu.link %></td>

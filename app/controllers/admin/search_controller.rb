@@ -1,4 +1,5 @@
 class Admin::SearchController < ApplicationController
+    layout 'admin'
     def search
       search = params[:term].present? ? params[:term] : nil
       if search
