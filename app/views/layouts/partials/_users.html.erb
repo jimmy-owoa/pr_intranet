@@ -28,7 +28,7 @@
             <td><%= user.birthday.present? ? custom_date_no_hour(user.birthday) : '' %></td>
             <td><%= user.annexed %></td>
             <td><%= user.active? ? 'Si' : 'No' %></td>
-            <td></td>
+            <td><%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user) %></td>
           </tr>
         <% end %>
       </tbody>
