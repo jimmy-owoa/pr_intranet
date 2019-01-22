@@ -1,6 +1,8 @@
 module Frontend
   class SearchController < ApplicationController
 
+    include Rails.application.routes.url_helpers
+
     def search_vue
       data = []
       users = []
@@ -16,7 +18,7 @@ module Frontend
             email: user.email,
             annexed: user.annexed,
             birthday: user.birthday,
-            image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(user.image, only_path: true)
+            image: @ip.to_s + rails_blob_path(user.image, only_path: true)
           }
         end
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|
