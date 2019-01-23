@@ -14,9 +14,9 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # Linux
-  # username: redvel
-  # password: 'Admin123.'
-  # socket: /var/run/mysqld/mysqld.sock
+  username: root
+  password: 'mysql'
+  socket: /tmp/mysql.sock
   # Mac
   username: root
   password: ""
@@ -24,7 +24,7 @@ default: &default
 
 development:
   <<: *default
-  database: intranet_dev
+  database: intranet_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

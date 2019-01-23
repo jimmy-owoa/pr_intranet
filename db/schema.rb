@@ -257,7 +257,7 @@ ActiveRecord::Schema.define(version: 2019_01_16_194114) do
     t.string "name"
     t.text "description"
     t.string "product_type"
-    t.decimal "price", precision: 15, scale: 2
+    t.decimal "price", precision: 10
     t.string "email"
     t.integer "phone"
     t.string "location"
