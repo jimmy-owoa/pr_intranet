@@ -15,7 +15,7 @@
           <p><strong> Nombre del padre: </strong> <%= @birth.full_name_father %></p>
           <p><strong> Sexo: </strong> <%= @birth.get_gender %></p>
           <p class="card-text">
-            <b>Creado:</b> <%= @birth.created_at.strftime("%d de %B de %Y %H:%M:%S %p") %>
+            <b>Creado:</b> <%= custom_date(@birth.created_at)%>
           </p>
         </div>
       </div>

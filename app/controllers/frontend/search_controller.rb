@@ -1,19 +1,7 @@
 module Frontend
   class SearchController < ApplicationController
 
-    def search
-      search = params[:term].present? ? params[:term] : nil
-      if search
-        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu]
-        @users = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact
-        @posts = result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact
-        @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact
-      else
-        @users = General::User.all
-        @posts = News::Post.all
-        @menus = General::Menu.all
-      end
-    end
+    include Rails.application.routes.url_helpers
 
     def search_vue
       data = []
@@ -21,15 +9,16 @@ module Frontend
       posts = []
       search = params[:term].present? ? params[:term] : nil
       if search
-        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], match: :text_middle
+        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], match: :word
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.each do |user|
           users << {
+            id: user.id,
             name: user.name,
             last_name: user.last_name,
             email: user.email,
             annexed: user.annexed,
             birthday: user.birthday,
-            image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(user.image, only_path: true)
+            image: @ip.to_s + rails_blob_path(user.image, only_path: true)
           }
         end
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|

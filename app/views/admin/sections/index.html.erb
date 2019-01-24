@@ -1,13 +1,12 @@
 <%- model_class = General::Link -%>
   <section class="section">
-    <h1 class="section-header"><%= "Sections" %></h1>
+    <h1 class="section-header"><%= "Secciones" %></h1>
     <div class="card">
       <div class="table-responsive-md">
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th><%= 'Imagen' %></th>
-              <th><%= 'Título Sección' %></th>
+              <th><%= 'Título' %></th>
               <th><%= 'Fecha Creación' %></th>
               <th><%= 'Acciones' %></th>
             </tr>
@@ -15,9 +14,8 @@
           <tbody>
             <% @sections.each do |section| %>
               <tr>
-                <td><%= image_tag(section.image.variant(resize: '80x80>'))%></td>
-                <td><%= section.title %></td>
-                <td><%= section.created_at.strftime("%d %b, %Y")  %></td>
+                <td><%= section.title.truncate(70) %></td>
+                <td><%= custom_date_no_hour(section.created_at)  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_section_path(section), :class => 'btn btn-success btn-xs' %>

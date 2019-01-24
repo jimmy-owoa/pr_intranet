@@ -30,6 +30,7 @@ es:
       post: Publicación
       user: Usuario
       general/user: Usuario
+      general/section: Sección
       general/term: Taxonomía
       general/term_type: Tipo de Taxonomía
       general/gallery: Galería

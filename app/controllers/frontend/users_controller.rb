@@ -1,4 +1,6 @@
 class Frontend::UsersController < ApplicationController
+  include Rails.application.routes.url_helpers
+
   before_action :set_user, only: [:update]
   def user
     id = params[:id].present? ? params[:id] : nil
@@ -47,7 +49,7 @@ class Frontend::UsersController < ApplicationController
       email: @user.email,
       annexed: @user.annexed,
       image: @ip.to_s + ( @user.image.attached? ? 
-      Rails.application.routes.url_helpers.rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
+      rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
       childrens: data_childrens,
       siblings: data_siblings,
       father: data_father
