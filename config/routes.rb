@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     resources :users, only: [:update, :show] do
       get :user, on: :collection
     end
+    post 'users/upload', to: 'users#upload'
     resources :surveys
     resources :answers
     resources :links
