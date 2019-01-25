@@ -73,6 +73,12 @@ class Frontend::UsersController < ApplicationController
       end
     end    
   end
+  
+  def upload
+    user = General::User.find(2)
+    user.image.attach(params[:file])
+  end
+
 
   private
 
@@ -81,6 +87,6 @@ class Frontend::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :name, image: [])
+    params.require(:user).permit(:id, :name, image: [], file:[])
   end
 end
