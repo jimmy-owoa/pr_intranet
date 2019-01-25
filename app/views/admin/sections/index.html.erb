@@ -1,0 +1,38 @@
+<%- model_class = General::Link -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Secciones" %></h1>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'Título' %></th>
+              <th><%= 'Fecha Creación' %></th>
+              <th><%= 'Acciones' %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @sections.each do |section| %>
+              <tr>
+                <td><%= section.title.truncate(70) %></td>
+                <td><%= custom_date_no_hour(section.created_at)  %></td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.links.show")),
+                              admin_section_path(section), :class => 'btn btn-default btn-xs' %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                              edit_admin_section_path(section), :class => 'btn btn-default btn-xs' %>
+                  <%= link_to 'Deshabilitar',
+                              admin_section_path(section),
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                              :class => 'btn btn-sm btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,6 @@
+<section class="section">
+  <h1 class="section-header">Crear Link</h1>
+  <%= simple_form_for @section, as: 'section', url: {action: :create}, :html => { :class => "form" } do |f| %>
+      <%= render :partial => 'form', locals: {f: f} %>
+  <% end %>
+</section>

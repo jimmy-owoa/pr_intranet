@@ -19,7 +19,7 @@
                 <td><%= link_to answer.id, admin_answer_path(answer) %></td>
                 <td><%= answer.user_id %></td>
                 <td><%= answer.user_id %></td>
-                <td><%= answer.created_at.strftime("%d %b, %Y")  %></td>
+                <td><%= custom_date_no_hour(answer.created_at)  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_answer_path(answer), :class => 'btn btn-info btn-xs' %>

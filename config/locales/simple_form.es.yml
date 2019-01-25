@@ -138,7 +138,7 @@ es:
         full_name_father: Nombre completo del Padre
         price: Precio
         product_type: Tipo de producto
-        location: Oficina/Ciudad
+        location: Locación
         phone: Teléfono de contacto
         expiration: Caducidad de la publicación
         images: Imágenes

@@ -1,6 +1,11 @@
 es:
   activerecord:
     attributes:
+      general/menu:
+        priority: Prioridad
+        code: Código
+        css_class: Clase CSS
+        link: Enlace
       survey/question:
         question_type: Tipo de pregunta
       general/user:
@@ -25,6 +30,7 @@ es:
       post: Publicación
       user: Usuario
       general/user: Usuario
+      general/section: Sección
       general/term: Taxonomía
       general/term_type: Tipo de Taxonomía
       general/gallery: Galería
@@ -61,13 +67,13 @@ es:
     - nov
     - dic
     day_names:
-    - domingo
-    - lunes
-    - martes
-    - miércoles
-    - jueves
-    - viernes
-    - sábado
+    - Domingo
+    - Lunes
+    - Martes
+    - Miércoles
+    - Jueves
+    - Viernes
+    - Sábado
     formats:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
@@ -190,6 +196,15 @@ es:
       unlock: Desbloquear
       show: Ver
       confirm: Confirmar
+    menus:
+      cancel: Cancelar
+      edit: Editar
+      destroy: Eliminar
+      back: Volver
+      block: Bloquear
+      unlock: Desbloquear
+      show: Ver
+      confirm: Confirmar      
   number:
     currency:
       format:

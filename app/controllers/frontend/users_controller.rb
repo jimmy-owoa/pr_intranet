@@ -1,19 +1,61 @@
 class Frontend::UsersController < ApplicationController
-  before_action :set_user, only: [:update]
+  include Rails.application.routes.url_helpers
 
-  def id_user
+  before_action :set_user, only: [:update]
+  def user
+    id = params[:id].present? ? params[:id] : nil
     # datos hardcodeados hasta tener data de users
-    @user = General::User.second
-    data = []
-    data << {
+    @user = General::User.find(id)
+    data_user = []
+    data_childrens = []
+    data_siblings = []
+    data_father = []
+    if @user.children.first.present?
+      @user.children.each do |children|
+        data_childrens << {
+          id: children.id,
+          name: children.name,
+          last_name: children.last_name, 
+          image: @ip.to_s + ( children.image.attached? ? 
+          rails_representation_url(children.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
+        }
+      end
+    end
+    if @user.siblings.first.present?
+      @user.siblings.each do |sibling|
+        data_siblings << {
+          id: sibling.id,
+          name: sibling.name,
+          last_name: sibling.last_name,
+          image: @ip.to_s + ( sibling.image.attached? ? 
+          rails_representation_url(sibling.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
+        }
+      end
+    end
+    if @user.parent.present?
+      data_father << {
+        id: @user.parent.id,
+        name: @user.parent.name,
+        last_name: @user.parent.last_name,
+        image: @ip.to_s + ( @user.parent.image.attached? ? 
+        rails_representation_url(@user.parent.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
+
+      }
+    end
+    data_user << {
       id: @user.id,
       name: @user.name,
       last_name: @user.last_name,
       email: @user.email,
-      image: @ip.to_s + Rails.application.routes.url_helpers.rails_blob_path(@user.image, only_path: true)
+      annexed: @user.annexed,
+      image: @ip.to_s + ( @user.image.attached? ? 
+      rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
+      childrens: data_childrens,
+      siblings: data_siblings,
+      father: data_father
     }
     respond_to do |format|
-      format.json { render json: data[0] }
+      format.json { render json: data_user }
       format.js
     end
   end

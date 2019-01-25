@@ -11,8 +11,9 @@
  * It is generally better to create a new file per style scope.
  *= require select2-bootstrap
  *= require simple_calendar
- *=require owl.carousel 
- *=require owl.theme
+ *= require owl.carousel 
+ *= require owl.theme
+ *= require jquery.minicolors
 
  */
 @import 'bootstrap';
@@ -25,6 +26,9 @@
 @import 'admin/users';
 @import 'admin/posts';
 @import 'admin/galleries';
+@import 'admin/search.scss';
+@import 'admin/birthdays.scss';
+@import 'admin/menus';
 
 .content_security {
   max-width: 770px;

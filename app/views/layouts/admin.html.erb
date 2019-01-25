@@ -84,14 +84,17 @@
                   <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
                 </ul>
               </li>
-              
-
+              <li>
+                <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i><span>Edición Home</span></a>
+                <ul class="menu-dropdown">
+                  <li><a href="<%= admin_links_path %>"><i class="fas fa-list"></i>Links</a></li>
+                  <li><a href="<%= admin_sections_path %>"><i class="fas fa-plus-circle"></i>Secciones</a></li>
+                </ul>
+              </li>
               <li class="menu-header">Marketplace</li>
               <li><a href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i> Productos</a></li>
               <li class="menu-header">Eventos</li>
               <li><a href="<%= admin_births_path %>"><i class="fas fa-dove"></i> Nacimientos</a></li>
-              
-              <li><a href="<%= frontend_welcome_users_path %>"><i class="fas fa-handshake"></i> Bienvenidos</a></li>
               <li class="menu-header">Configuración</li>
               <li>
                 <a href="#" class="has-dropdown"><i class="fas fa-users"></i><span>Usuarios</span></a>
@@ -101,12 +104,19 @@
                 </ul>
               </li>
               <li><a href="<%= admin_analytics_path %>"><i class="fas fa-chart-pie"></i> Analítica</a></li>
+              <li>
+                <a href="#" class="has-dropdown"><i class="fas fa-users"></i><span>Menu</span></a>
+                <ul class="menu-dropdown">
+                  <li><a href="<%= admin_menus_path %>"><i class="fas fa-list"></i> Listado</a></li>
+                  <li><a href="<%= new_admin_menu_path %>"><i class="fas fa-plus-square"></i> Añadir nuevo</a></li>
+                </ul>
+              </li>
             </ul>
           </aside>
         </div>
       </div>
     </div>
-    <div class="main-content" data-behavior="vue">
+    <div class="main-content">
       <%= flash_messages %>
 
       <%= render partial: 'layouts/partials/search' %>

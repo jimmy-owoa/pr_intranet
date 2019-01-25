@@ -6,19 +6,23 @@ Rails.application.routes.draw do
   controllers: {
     sessions: "users/sessions",
     registrations: "admin/users"
-  }, class_name: "General::User"
-  namespace :admin do
-    put 'upload/put', to: 'attachments#upload' 
-    get 'analytics', to: 'analytics#index'
-    resources :term_relationships
-    resources :comments
-    resources :attachments
-    resources :terms
-    resources :galleries
-    resources :births
-    resources :surveys
-    resources :answers
-    resources :products do
+    }, class_name: "General::User"
+    namespace :admin do
+      put 'upload/put', to: 'attachments#upload' 
+      get 'analytics', to: 'analytics#index'
+      get "search", to: "search#search"
+      resources :term_relationships
+      resources :comments
+      resources :links
+      resources :attachments
+      resources :terms
+      resources :galleries
+      resources :births
+      resources :surveys
+      resources :answers
+      resources :menus
+      resources :sections, only: [:update, :show, :index, :edit]
+      resources :products do
       member do
         delete :delete_image
       end      
@@ -32,34 +36,34 @@ Rails.application.routes.draw do
     resources :users
     root to: 'application#index'
   end
-  namespace :frontend do
-    get 'welcome', to: 'welcomes#index'
-    get 'welcome/users', to: 'welcomes#users', :defaults => { :format => 'json'}
-    get 'modal_welcome', to: 'welcomes#modal'
-    get "search", to: "search#search"
-    get "searchv", to: "search#search_vue", :defaults => { :format => 'json'}
-    get 'indicators', to: 'application#indicators', :defaults => { :format => 'json'}
-    post 'uploader/image', to: 'application#image'
-    resources :users, only: [:update, :show], :defaults => { :format => 'json'} do
-      get :id_user, on: :collection
+  namespace :frontend, :defaults => { :format => 'json'} do
+    get 'menus/index'
+    get 'welcome/users', to: 'welcomes#users'
+    get 'welcome/users_welcome', to: 'welcomes#users_welcome'
+    get 'welcome/get_home_welcome', to: 'welcomes#get_home_welcome'
+    get "searchv", to: "search#search_vue"
+    get "searchm", to: "search#search_menu"
+    get 'indicators', to: 'application#indicators'
+    get 'faq', to: 'application#faq'
+    get 'weather', to: 'application#weather'
+    get 'weather_info', to: 'weather_information#weather'
+    resources :users, only: [:update, :show] do
+      get :user, on: :collection
     end
-    resources :surveys, defaults: {format: :json}
+    resources :surveys
     resources :answers
-    resources :birthdays, only: [:index], defaults: {format: :json} do
-      get :list, on: :collection
-      get :modal, on: :collection
-      get :calendar, on: :collection, defaults: {format: :json} 
+    resources :links
+    resources :sections
+    resources :birthdays do
+      get :users_birthday, on: :collection
+      get :get_home_birthdays, on: :collection
     end
-    resources :products, :defaults => { :format => 'json'}
-    resources :posts, only: [:show, :index], :defaults => { :format => 'json'}
-    resources :attachments, only: [:show, :index]
-    resources :terms, only: [:show, :index]
-    resources :term_types, only: [:show, :index]
-    resources :term_relationships, only: [:show, :index]
-    resources :births, :defaults => { :format => 'json'} do
-      collection do
-        get :list
-      end
+    resources :products
+    resources :posts, only: [:show, :index] do
+      get :post, on: :collection
+    end
+    resources :births do 
+      get :get_home_births, on: :collection
     end
     root to: 'application#index'
   end

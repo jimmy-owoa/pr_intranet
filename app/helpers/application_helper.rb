@@ -92,6 +92,15 @@ module ApplicationHelper
     end
   end
 
+    def ornanigram_image(user_id)
+    user = General::User.find(user_id)
+    if user.image.attachment.present?
+      image_tag(user.image.attachment.variant(resize: '186x120!').processed, style:'padding: 20px;')
+    else
+      image_tag("default_avatar.png", style: 'width:120;height:186px;padding: 20px;')
+    end
+  end
+
   def supported_img file
     jpeg = 'image/jpeg'
     jpg = 'image/jpg'

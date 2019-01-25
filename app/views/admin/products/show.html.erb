@@ -7,7 +7,7 @@
           <p><strong> Precio: </strong> <%= @product.price %></p>
           <p><strong> Dirección/Oficina: </strong> <%= @product.location %></p>
           <p class="card-text">
-            <b>Creado:</b> <%= @product.created_at.strftime("%d de %B de %Y %H:%M:%S %p") %>
+            <b>Creado:</b> <%= custom_date(@product.created_at)%>
           </p>
           <% @product.images.each do |image| %>
             <%= image_tag image.variant(resize: '200x200') %>

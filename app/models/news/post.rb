@@ -1,6 +1,6 @@
 class News::Post < ApplicationRecord
   acts_as_paranoid
-  searchkick word_middle: [:title, :slug, :content]
+  searchkick match: :word, searchable: [:title, :slug, :content]
 
   has_many :comments, class_name: 'News::Comment'
   has_many :post_term_relationships, -> {where(object_type: 'News::Post')},

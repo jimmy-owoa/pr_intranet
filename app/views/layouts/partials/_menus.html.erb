@@ -14,14 +14,14 @@
       </tr>
       </thead>
       <tbody>
-        <% @menus.each do |user| %>
+        <% @menus.each do |menu| %>
           <tr>
-            <td><%= user.title %></td>
-            <td><%= user.description %></td>
-            <td><%= user.css_class %></td>
-            <td><%= user.priority%></td>
-            <td><%= user.parent_id %></td>
-            <td><%= link_to "Link", eval("#{user.link}") %></td>
+            <td><%= menu.title %></td>
+            <td><%= menu.description %></td>
+            <td><%= menu.css_class %><div style="width:60px;height:5px;background:<%= menu.css_class %>"></div></td>
+            <td><%= menu.priority%></td>
+            <td><%= menu.parent_id %></td>
+            <td><%= menu.link %></td>
             <td></td>
           </tr>
         <% end %>

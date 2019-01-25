@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   $('.for_select').select2({
     tags: true,
     tokenSeparators: [',', ' '],
@@ -16,4 +16,13 @@ $(document).ready(function () {
     theme: "bootstrap",
     width: '100%'
   });
+  $(".card").hover(
+    function () {
+      $(this).addClass('shadow-lg').css('cursor', 'pointer');
+    },
+    function () {
+      $(this).removeClass('shadow-lg');
+    }
+  );
+
 });
