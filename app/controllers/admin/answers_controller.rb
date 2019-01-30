@@ -10,10 +10,10 @@ class Admin::AnswersController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
   def set_survey
     @answer = Survey::Answer.find(params[:id])
-    @question = Survey::Question.find(@answer.question_id)
+    @option = Survey::Option.find(@answer.option_id)
+    @question = @option.question
     @survey = Survey::Survey.find(@question.survey_id)
   end
 end
