@@ -52,6 +52,6 @@ class Frontend::AnswersController < ApplicationController
     end
   
     def answer_params
-      params.require(:answer).permit(:user_id, :question_id, :option_id)
+      params.require(:answer).permit(:user_id, :question_id, :option_id,:answer_variable)
     end
 end
