@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_131046) do
+ActiveRecord::Schema.define(version: 2019_01_31_194233) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -229,6 +229,8 @@ ActiveRecord::Schema.define(version: 2019_01_30_131046) do
     t.integer "rgt"
     t.integer "depth"
     t.integer "children_count"
+    t.string "company"
+    t.string "position"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
   end
