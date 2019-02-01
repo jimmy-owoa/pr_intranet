@@ -8,12 +8,18 @@ class Frontend::ApplicationController < ApplicationController
     data = []
     data << {
       HOY: l(Date.today, format: '%A %d %B %Y'),
-      SANTORAL: IndicatorService.perform[:santoral]['hoy'],
-      DOLAR:  IndicatorService.perform[:money]['dolar'],
-      EURO: IndicatorService.perform[:money]['euro'],
-      UF: IndicatorService.perform[:indicator]['uf'],
-      UTM: IndicatorService.perform[:indicator]['utm'],
-      IPC: IndicatorService.perform[:indicator]['ipc']
+      # SANTORAL: IndicatorService.perform[:santoral]['hoy'],
+      # DOLAR:  IndicatorService.perform[:money]['dolar'],
+      # EURO: IndicatorService.perform[:money]['euro'],
+      # UF: IndicatorService.perform[:indicator]['uf'],
+      # UTM: IndicatorService.perform[:indicator]['utm'],
+      # IPC: IndicatorService.perform[:indicator]['ipc']
+      SANTORAL: IndicatorService.perform[:santoral],
+       DOLAR:  IndicatorService.perform[:dolar],
+       EURO: IndicatorService.perform[:euro],
+       UF: IndicatorService.perform[:uf],
+       UTM: IndicatorService.perform[:utm],
+       IPC: IndicatorService.perform[:ipc]
     }
     respond_to do |format|
       format.json { render json: data }
