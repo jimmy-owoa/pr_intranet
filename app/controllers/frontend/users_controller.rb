@@ -16,6 +16,8 @@ class Frontend::UsersController < ApplicationController
           id: children.id,
           name: children.name,
           last_name: children.last_name, 
+          position: children.position,
+          company: children.company,          
           image: @ip.to_s + ( children.image.attached? ? 
           rails_representation_url(children.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
         }
@@ -27,6 +29,8 @@ class Frontend::UsersController < ApplicationController
           id: sibling.id,
           name: sibling.name,
           last_name: sibling.last_name,
+          position: sibling.position,
+          company: sibling.company,          
           image: @ip.to_s + ( sibling.image.attached? ? 
           rails_representation_url(sibling.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
         }
@@ -37,6 +41,8 @@ class Frontend::UsersController < ApplicationController
         id: @user.parent.id,
         name: @user.parent.name,
         last_name: @user.parent.last_name,
+        position: @user.parent.position,
+        company: @user.parent.company,        
         image: @ip.to_s + ( @user.parent.image.attached? ? 
         rails_representation_url(@user.parent.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
 
@@ -48,6 +54,8 @@ class Frontend::UsersController < ApplicationController
       last_name: @user.last_name,
       email: @user.email,
       annexed: @user.annexed,
+      position: @user.position,
+      company: @user.company,
       image: @ip.to_s + ( @user.image.attached? ? 
       rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
       childrens: data_childrens,
@@ -73,6 +81,12 @@ class Frontend::UsersController < ApplicationController
       end
     end    
   end
+  
+  def upload
+    user = General::User.find(2)
+    user.image.attach(params[:file])
+  end
+
 
   private
 
@@ -81,6 +95,6 @@ class Frontend::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :name, image: [])
+    params.require(:user).permit(:id, :name, :company, :position, image: [], file:[])
   end
 end

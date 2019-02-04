@@ -9,7 +9,8 @@ module Frontend
           description: section.description,
           position: section.position,
           image: @ip.to_s + rails_representation_url(section.image.variant(resize: '800x800>'), only_path: true),
-          url: section.url
+          url: section.url,
+          created: section.created_at
         }
       end
       respond_to do |format|

@@ -16,15 +16,15 @@
       <h2><%= link_to_remove_association '<i class="far fa-trash-alt"></i>'.html_safe, f %></h2>
     </div>
   </div>
-    <div class="text-right">
-      <%= link_to_add_association 'Agregar opción', f, :options, class: 'btn btn-success' %>
-    </div>    
   <div class="">
     <div class="col-md-12">
       <%= f.simple_fields_for :options do |option_form|%>
         <%= render 'option_fields', f: option_form %>
       <% end %>
     </div>
-  </div>  
+  </div>
+  <div class="text-right"></br>
+    <%= link_to_add_association 'Agregar opción', f, :options, class: 'btn btn-success' %>
+  </div>    
 </div>
 
