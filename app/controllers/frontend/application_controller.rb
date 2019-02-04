@@ -8,19 +8,24 @@ class Frontend::ApplicationController < ApplicationController
     data = []
     data << {
       HOY: l(Date.today, format: '%A %d %B %Y'),
-      SANTORAL: IndicatorService.perform[:santoral]['hoy'],
-      DOLAR:  IndicatorService.perform[:money]['dolar'],
-      EURO: IndicatorService.perform[:money]['euro'],
-      UF: IndicatorService.perform[:indicator]['uf'],
-      UTM: IndicatorService.perform[:indicator]['utm'],
-      IPC: IndicatorService.perform[:indicator]['ipc']
+      # SANTORAL: IndicatorService.perform[:santoral]['hoy'],
+      # DOLAR:  IndicatorService.perform[:money]['dolar'],
+      # EURO: IndicatorService.perform[:money]['euro'],
+      # UF: IndicatorService.perform[:indicator]['uf'],
+      # UTM: IndicatorService.perform[:indicator]['utm'],
+      # IPC: IndicatorService.perform[:indicator]['ipc']
+      SANTORAL: IndicatorService.perform[:santoral],
+       DOLAR:  IndicatorService.perform[:dolar],
+       EURO: IndicatorService.perform[:euro],
+       UF: IndicatorService.perform[:uf],
+       UTM: IndicatorService.perform[:utm],
+       IPC: IndicatorService.perform[:ipc]
     }
     respond_to do |format|
       format.json { render json: data }
       format.js
     end
   end
-872.000
 
   def weather
     data = []
@@ -28,17 +33,11 @@ class Frontend::ApplicationController < ApplicationController
       HOY: l(Date.today, format: '%A %d %B %Y'),
       # ANTOFAGASTA: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
       SANTIAGO: { 
-        forecast: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-        current: WeatherService.perform[:santiago]['current']
-      },
-      # CONCEPCION: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-      # PUERTO_MONTT: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-      # LA_SERENA: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-      # VINA_DEL_MAR: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-      # TALCA: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-      # COPIAPO: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-      # TEMUCO: WeatherService.perform[:santiago]['forecast']['forecastday'][0],
-
+        icon: WeatherService.perform[:santiago]['hourly']['icon'],
+        current: WeatherService.perform[:santiago]['currently']['temperature'],
+        hourly_data: WeatherService.perform[:santiago]['hourly']['data'],
+        day: WeatherService.perform[:santiago]['daily']['data'][0]
+      }
     }
     respond_to do |format|
       format.json { render json: data[0] }
