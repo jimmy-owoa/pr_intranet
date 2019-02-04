@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_16_194114) do
+ActiveRecord::Schema.define(version: 2019_01_31_194233) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -229,6 +229,8 @@ ActiveRecord::Schema.define(version: 2019_01_16_194114) do
     t.integer "rgt"
     t.integer "depth"
     t.integer "children_count"
+    t.string "company"
+    t.string "position"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
   end
@@ -257,7 +259,7 @@ ActiveRecord::Schema.define(version: 2019_01_16_194114) do
     t.string "name"
     t.text "description"
     t.string "product_type"
-    t.decimal "price", precision: 15, scale: 2
+    t.decimal "price", precision: 10
     t.string "email"
     t.integer "phone"
     t.string "location"
@@ -326,6 +328,7 @@ ActiveRecord::Schema.define(version: 2019_01_16_194114) do
     t.bigint "option_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "answer_variable"
     t.index ["option_id"], name: "index_survey_answers_on_option_id"
     t.index ["question_id"], name: "index_survey_answers_on_question_id"
     t.index ["user_id"], name: "index_survey_answers_on_user_id"
