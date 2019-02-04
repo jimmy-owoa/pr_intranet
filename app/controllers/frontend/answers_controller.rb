@@ -13,8 +13,7 @@ class Frontend::AnswersController < ApplicationController
       @answer = Survey::Answer.new(answer_params)
       respond_to do |format|
         if @answer.save
-          format.html { redirect_to admin_survey_path(@answer), notice: 'Answer was successfully created.'}
-          format.json { render :show, status: :created, location: @answer}
+          format.json
         else
           format.html {render :new}
           format.json {render json: @answer.errors, status: :unprocessable_entity}
@@ -53,6 +52,6 @@ class Frontend::AnswersController < ApplicationController
     end
   
     def answer_params
-      params.require(:answer).permit(:user_id, :question_id, :option_id)
+      params.require(:answer).permit(:user_id, :question_id, :option_id,:answer_variable)
     end
 end

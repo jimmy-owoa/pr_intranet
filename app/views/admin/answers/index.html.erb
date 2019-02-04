@@ -8,21 +8,20 @@
             <tr>
               <th><%= 'Identificador' %></th>
               <th><%= 'Nombre Encuesta' %></th>
-              <th><%= 'Veces respondidas' %></th>
-              <th><%= 'Fecha de la respuesta' %></th>
+              <th><%= 'Fecha de creación' %></th>
               <th><%= 'Acciones' %></th>
             </tr>
           </thead>
           <tbody>
-            <% @answers.each do |answer| %>
+            <% @surveys.each do |survey| %>
               <tr>
-                <td><%= link_to answer.id, admin_answer_path(answer) %></td>
-                <td><%= answer.user_id %></td>
-                <td><%= answer.user_id %></td>
-                <td><%= custom_date_no_hour(answer.created_at)  %></td>
+                <td><%= survey.id %></td>
+                <td><%= survey.name %></td>
+                <td><%= custom_date_no_hour(survey.created_at)  %></td>
                 <td>
-                  <%= link_to t('.show', :default => t("helpers.links.show")),
-                              admin_answer_path(answer), :class => 'btn btn-info btn-xs' %>
+                  <% if survey.questions.first.present? && survey.questions.first.answers.present? %>
+                    <%= link_to t('.show', :default => t("helpers.links.show")), admin_answer_path(survey.questions.first.answers.first.id), :class => 'btn btn-info btn-xs' %>
+                  <% end %>
                 </td>
               </tr>
             <% end %>
