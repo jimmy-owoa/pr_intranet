@@ -75,7 +75,7 @@ module Frontend
         end
       end
     end
-
+    
     def update
       respond_to do |format|
         if @product.update(product_params)
