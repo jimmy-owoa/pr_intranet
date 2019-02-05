@@ -1,5 +1,5 @@
 <section class="section">
-  <h1 class="section-header">Galería <%= @gallery.name %></h1>
+  <h1 class="section-header"><%= @gallery.name %></h1>
   <div class="card">
     <div class="card-body">
       <p id="notice"><%= notice %></p>
@@ -10,7 +10,7 @@
       <div class="col-12" style="padding-top: 30px;">
         <b><p>Fotos</p></b>
         <% @gallery.attachments.each do |gal|  %>
-          <%= image_tag(gal.attachment.variant(resize: '235x255!').processed, class:"rounded border border-primary")  %>
+          <%= image_tag(gal.attachment.variant(resize: '400x400>').processed, class:"rounded border border-primary")  %>
         <% end %>
       </div></br>
       <%= link_to 'Editar', edit_admin_gallery_path(@gallery) %>

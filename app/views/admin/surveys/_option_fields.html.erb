@@ -1,15 +1,14 @@
-<hr style='margin-top: 40px;'>
 <div class="nested-fields row">
   <div class="col-md-4">
     <%= f.input :title%>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3 default_place">
     <%= f.input :default%>
   </div>
   <div class="col-md-3">
     <%= f.input :placeholder%>
   </div>
-  <div class="col-md-3">
-      <h2><%= link_to_remove_association '<i class="far fa-trash-alt"></i>'.html_safe, f %></h2>
+  <div class="col-md-2">
+      <h2><%= link_to_remove_association '<i class="far fa-trash-alt trash_place"></i>'.html_safe, f %></h2>
   </div>
 </div>

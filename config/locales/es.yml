@@ -38,7 +38,8 @@ es:
       general/term_type: Tipo de Taxonomía
       general/gallery: Galería
       general/attachment: Archivo
-      news/post: Noticia
+      news/post: 
+      general/section: Sección
       employee/birth: Nacimiento
     errors:
       messages:
