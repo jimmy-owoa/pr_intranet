@@ -342,7 +342,7 @@ es:
       created_at: "Fecha/Hora"
       item: "Elemento"
       message: "Mensaje"
-      title: "Titulo"
+      title: "Título"
     actions:
       dashboard:
         title: "Administración del sitio"
