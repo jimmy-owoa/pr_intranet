@@ -22,7 +22,6 @@ class Frontend::AnswersController < ApplicationController
     end
 
     def answers_save_from_vue
-      binding.pry
       answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
       answer.answer_variable = params[:answer_variable]
       respond_to do |format|
