@@ -3,7 +3,7 @@
     question_id: i.id, 
     question_type: i.question_type,
     question_name: i.title, 
-    total_count: (i.question_type = 'Simple' ? 1 : i.answers.count),
+    total_count: (if i.question_type == 'Múltiple' then 1 else i.answers.count end),
     option: i.options.map{
       |option| {option_name: option.title, count: option.answers.count}
     }
