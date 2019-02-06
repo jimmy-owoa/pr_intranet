@@ -56,6 +56,7 @@ class Frontend::UsersController < ApplicationController
       annexed: @user.annexed,
       position: @user.position,
       company: @user.company,
+      address: @user.address,
       image: @ip.to_s + ( @user.image.attached? ? 
       rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
       childrens: data_childrens,
@@ -95,6 +96,6 @@ class Frontend::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :name, :company, :position, image: [], file:[])
+    params.require(:user).permit(:id, :name, :company, :position, :address, image: [], file:[])
   end
 end

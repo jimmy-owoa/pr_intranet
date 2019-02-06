@@ -1,14 +1,11 @@
 <div class="nested-fields row">
-  <div class="col-md-4">
+  <div class="col-md-5">
     <%= f.input :title%>
   </div>
-  <div class="col-md-3 default_place">
-    <%= f.input :default%>
-  </div>
-  <div class="col-md-3">
+  <div class="col-md-5">
     <%= f.input :placeholder%>
   </div>
-  <div class="col-md-2">
-      <h2><%= link_to_remove_association '<i class="far fa-trash-alt trash_place"></i>'.html_safe, f %></h2>
+  <div class="col-md-2 text-center">
+    <span class=""><%= link_to_remove_association '<i class="fas fa-times text-center" style="font-size: 25px; margin-top: 20px;"></i>'.html_safe, f %></span>
   </div>
 </div>
