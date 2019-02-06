@@ -165,6 +165,16 @@ ActiveRecord::Schema.define(version: 2019_02_05_191442) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "general_offices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "address_street"
+    t.string "address_municipality"
+    t.string "address_region"
+    t.string "address_country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_sections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
