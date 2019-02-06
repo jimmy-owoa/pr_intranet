@@ -11,7 +11,6 @@ class Frontend::AnswersController < ApplicationController
   
     def create
       @answer = Survey::Answer.new(answer_params)
-      binding.pry
       respond_to do |format|
         if @answer.save
           format.json
