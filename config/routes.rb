@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   end
   namespace :frontend, :defaults => { :format => 'json'} do
     post 'answers_save_from_vue', to: 'answers#answers_save_from_vue'
+    post 'answers_options_save_from_vue', to: 'answers#answers_options_save_from_vue'
     get 'menus/index'
     get 'welcome/users', to: 'welcomes#users'
     get 'welcome/users_welcome', to: 'welcomes#users_welcome'
