@@ -13,17 +13,19 @@ module Admin
     def new
       @survey = Survey::Survey.new
       @survey.questions.build
+      @survey_types = Survey::Survey::SURVEY_TYPES
     end
   
     def edit
       @survey.questions.build
+      @survey_types = Survey::Survey::SURVEY_TYPES
     end
   
     def create
       @survey = Survey::Survey.new(survey_params)
       respond_to do |format|
         if @survey.save
-          format.html { redirect_to admin_survey_path(@survey), notice: 'Birth was successfully created.'}
+          format.html { redirect_to admin_surveys_path, notice: 'Encuesta creada exitosamente.'}
           format.json { render :show, status: :created, location: @survey}
         else
           format.html {render :new}
@@ -35,7 +37,7 @@ module Admin
     def update
       respond_to do |format|
         if @survey.update(survey_params)
-          format.html { redirect_to admin_survey_path(@survey), notice: 'Birth was successfully updated.'}
+          format.html { redirect_to admin_surveys_path, notice: 'Encuesta editada exitosamente.'}
           format.json { render :show, status: :ok, location: @survey }
         else
           format.html { render :edit}
@@ -47,7 +49,7 @@ module Admin
     def destroy
       @survey.destroy
       respond_to do |format|
-        format.html { redirect_to admin_surveys_path, notice: 'Birth was successfully destroyed.'}
+        format.html { redirect_to admin_surveys_path, notice: 'Encuesta eliminada exitosamente.'}
         format.json { head :no_content }
       end
     end
@@ -59,7 +61,7 @@ module Admin
     end
   
     def survey_params
-      params.require(:survey).permit(:name, questions_attributes: [:id, :title, :description, :question_type, :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
+      params.require(:survey).permit(:name, :slug, :survey_type, questions_attributes: [:id, :title, :description, :question_type, :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
     end
   end
 end

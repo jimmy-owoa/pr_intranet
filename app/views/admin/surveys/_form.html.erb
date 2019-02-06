@@ -1,18 +1,27 @@
 <%= f.error_notification %>
-<div class=" nested-fields form-group row">
+<div class="form-group row">
   <div class="col-md-6">
     <%= f.input :name, required: true, autofocus: true %>
   </div>
+  <div class="col-md-3">
+    <%= f.input :slug %>
+  </div>
+  <div class="col-md-3">
+    <%= f.input :survey_type, collection: @survey_types, selected: @survey.survey_type %>
+  </div>
 </div>
-<div id="questions" class="row">
-  <div class="col-md-12">
+<div class="col-md-6" style="margin-bottom: 30px;">
+  <h2>Preguntas</h2>
+</div>
+<div class="row">
+  <div class="col-md-12" id="questions">
     <%= f.simple_fields_for :questions do |question_form|%>
       <%= render 'question_fields', f: question_form %>
     <% end %>
   </div>
 </div>
-<div>
+<div class="survey-form-actions">
   <%= link_to_add_association 'Agregar pregunta', f, :questions, style: 'float: left;', class: 'btn btn-success', data: { 
   association_insertion_node: '#questions', association_insertion_method: :append } %>
-  <%= f.submit action_name == 'edit' ? 'Editar encuesta' : 'Crear encuesta', class: 'btn btn-primary', style: 'float: right;' %>
+  <%= f.submit action_name == 'edit' ? 'Guardar encuesta' : 'Crear encuesta', class: 'btn btn-primary', style: 'float: right;' %>
 </div>
