@@ -166,4 +166,8 @@ module ApplicationHelper
     end
   end
 
+  def percentage_survey(total_count, total)
+    (total_count*100)/total
+  end
+
 end
