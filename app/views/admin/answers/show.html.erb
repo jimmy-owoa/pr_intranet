@@ -1,6 +1,7 @@
 <% survey_data = @survey.questions.includes(:options, :answers).map{
   |i| {
     question_id: i.id, 
+    question_type: i.question_type,
     question_name: i.title, 
     total_count: i.answers.count,
     option: i.options.map{
@@ -32,8 +33,10 @@
                 <tbody>       
                   <% survey_data.each do |survey| %>       
                     <tr>
-                      <td><%= survey[:question_name] %></td>
-                      <td><%= survey[:total_count] %></td>
+                      <td><%= survey[:question_name] %><%=  %></td>
+                      <td>
+                        <%= survey[:question_type] = 'Simple' ? '1' : survey[:total_count] %>
+                      </td>
                       <td><%= survey[:option].map{|option| [option[:option_name], option[:count] ].join(': ')}.join(' , ') %></td>
                       </td>
                     </tr>
