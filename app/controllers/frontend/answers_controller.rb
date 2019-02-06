@@ -15,7 +15,6 @@ class Frontend::AnswersController < ApplicationController
       if find_answer.present?
         find_answer.destroy
       else
-        @answer = Survey::Answer.new(answer_params)
         respond_to do |format|
           if @answer.save
             format.json
