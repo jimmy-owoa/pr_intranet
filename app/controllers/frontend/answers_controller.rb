@@ -11,13 +11,19 @@ class Frontend::AnswersController < ApplicationController
   
     def create
       @answer = Survey::Answer.new(answer_params)
-      respond_to do |format|
-        if @answer.save
-          format.json
-        else
-          format.html {render :new}
-          format.json {render json: @answer.errors, status: :unprocessable_entity}
-        end
+      find_answer = Survey::Answer.where(question_id: params[:question_id], user_id: params[:user_id], option_id: params[:option_id]).try(:first)
+      if find_answer.present?
+        find_answer.destroy
+      else
+        @answer = Survey::Answer.new(answer_params)
+        respond_to do |format|
+          if @answer.save
+            format.json
+          else
+            format.html {render :new}
+            format.json {render json: @answer.errors, status: :unprocessable_entity}
+          end
+        end      
       end
     end
 
