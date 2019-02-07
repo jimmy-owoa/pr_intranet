@@ -1,9 +1,10 @@
 $(document).on('turbolinks:load', function () {
   $('.for_select').select2({
-    tags: true,
-    tokenSeparators: [',', ' '],
-    placeholder: "Crear Tags"
+    tags: false,
+    tokenSeparators: [],
+    placeholder: "Seleccionar Tags"
   });
+  // ver user_term_ids para agregar tags
   $('#birthday').datetimepicker({
     format: 'DD-MM-YYYY'
   });
