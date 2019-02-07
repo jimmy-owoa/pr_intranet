@@ -37,7 +37,6 @@ module Admin
     end
 
     def create
-      binding.pry
       params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       @post = News::Post.new(post_params)
       respond_to do |format|
@@ -99,18 +98,19 @@ module Admin
 
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
-      :main_image_id, :terms, :post_parent_id, :visibility, :post_class, :post_order, :published_at, :user_id, :post_type, :permission, :important, gallery_ids: [], term_ids: [])
+      :main_image_id, :terms, :post_parent_id, :visibility, :post_class, :post_order, :published_at, :user_id, :post_type, :permission, :important, gallery_ids: [], term_ids: [], terms_names: [])
     end
 
     def set_tags
       # Getting terms_names from the form (tags)
-      tags = params[:terms_names]
-      # If in the form the user doesnt add tags, this will do nothing
-      if tags.present?
-        tags.uniq.each do |tag|
-          @post.terms.find_or_create_by(name: tag, term_type: General::TermType.tag,)
+      term_names = params[:terms_names]
+      terms = []
+      if term_names.present?
+        term_names.uniq.each do |tag|
+          terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
         end
-      end
+        @post.terms << terms
+      end   
     end
   end
 end
