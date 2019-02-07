@@ -33,6 +33,10 @@
           <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
         </div>
         <div class="col-md-12">
+            <%= f.label "Destacada" %>
+            <%= f.check_box :important, class: 'post_type' %>
+        </div>        
+        <div class="col-md-12">
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
         </div>
         <div class="col-md-12 col-sm-12"></br>
