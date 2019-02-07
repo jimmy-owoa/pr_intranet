@@ -12,7 +12,7 @@ $(document).on('turbolinks:load', function () {
     tokenSeparators: [',', ' '],
     placeholder: "Crear Tags"
   });
-  $("#user_parent_id").select2({
+  $(".user_parent_id").select2({
     theme: "bootstrap",
     width: '100%'
   });
