@@ -3,7 +3,9 @@ $(document).on('turbolinks:load', function () {
     tags: true,
     tokenSeparators: [',', ' ']
   });
-  $('#published_at').datetimepicker({});
+  $('#published_at').datetimepicker({
+    format: 'DD/MM/YYYY HH:mm',
+  });
   $(".owl-carousel").owlCarousel({
     items: 2,
     nav: true,
@@ -28,6 +30,9 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Elegir estado",
     width: '100%'
   });
-
-  v
+  $('#tag_post').select2({
+    tags: false,
+    tokenSeparators: [],
+    placeholder: "Seleccionar Tags"
+  });
 });

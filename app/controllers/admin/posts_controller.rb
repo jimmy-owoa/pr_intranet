@@ -37,6 +37,7 @@ module Admin
     end
 
     def create
+      binding.pry
       params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       @post = News::Post.new(post_params)
       respond_to do |format|

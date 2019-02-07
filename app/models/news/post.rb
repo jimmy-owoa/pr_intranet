@@ -23,8 +23,8 @@ class News::Post < ApplicationRecord
     'Campaña'
   ]
   PERMISSION = [
-    'Noticia',
-    'Campaña'
+    'incluyente',
+    'Excluyente'
   ]  
 
   def set_status

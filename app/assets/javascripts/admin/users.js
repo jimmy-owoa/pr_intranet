@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function () {
   $('.for_select').select2({
-    tags: false,
-    tokenSeparators: [],
+    tags: true,
+    tokenSeparators: [',', ' '],
     placeholder: "Seleccionar Tags"
   });
   // ver user_term_ids para agregar tags
@@ -25,5 +25,4 @@ $(document).on('turbolinks:load', function () {
       $(this).removeClass('shadow-lg');
     }
   );
-
 });
