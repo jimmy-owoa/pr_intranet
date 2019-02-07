@@ -12,7 +12,7 @@ $(document).on('turbolinks:load', function () {
     nav: true,
     navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
   });
-  $(".post_type").select2({
+  $("#post_post_type").select2({
     theme: "bootstrap",
     width: '100%'
   });
