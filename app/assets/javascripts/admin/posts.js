@@ -3,10 +3,7 @@ $(document).on('turbolinks:load', function () {
     tags: true,
     tokenSeparators: [',', ' ']
   });
-  $('#published_at').datetimepicker({
-    todayHighlight: true,
-    format: 'DD-MM-YYYY HH:MM'
-  });
+  $('#published_at').datetimepicker({});
   $(".owl-carousel").owlCarousel({
     items: 2,
     nav: true,
