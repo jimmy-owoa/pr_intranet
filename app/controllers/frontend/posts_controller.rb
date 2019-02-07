@@ -15,7 +15,8 @@ module Frontend
         created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
         content: post.content,
         tags: post.terms.tags,
-        main_image: @image
+        main_image: @image,
+        format: post.format
       }
     end
     respond_to do |format|

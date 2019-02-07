@@ -18,6 +18,7 @@ class News::Post < ApplicationRecord
 
   STATUS = ['Publicado','Borrador', 'Programado']
   VISIBILITY = ['Público', 'Privada']
+  FORMAT = {0 => 'Estilo 1', 1 => 'Estilo 2', 2 => 'Estilo 3'}
 
   def set_status
     self.status ||= 'Publicado'

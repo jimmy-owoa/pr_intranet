@@ -71,6 +71,7 @@
       <div class="form-group">
           <div class="col-md-12 col-sm-12">
             <h4> Imagen principal </h4>
+              <%# <img id="image" src="#" alt="your image" /> %>
             <br>
             <% if @post.id.nil? %>
               <%= link_to 'Establecer Imagen Principal', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %>
@@ -94,6 +95,35 @@
         </div>
       </div>
     </div>
+
+    <div class="card pt-2" >
+      <div class="form-group ">
+        <div class="col-md-12 col-sm-12">
+          <h4> Orden </h4>
+        </div>
+         <div class="col-md-12">
+          <%= f.input :format, collection: News::Post::FORMAT.map{|j,k| [k,j] }, prompt: :translate %>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
+
+
+
+
+
+<%# <script>
+  document.getElementById("files").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("image").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+  };
+</script> %>
