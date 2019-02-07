@@ -13,4 +13,21 @@ $(document).on('turbolinks:load', function () {
     theme: "bootstrap",
     width: '100%'
   });
+  $("#post_visibility").select2({
+    theme: "bootstrap",
+    placeholder: "Elegir  visibilidad",
+    width: '100%'
+  });
+  $("#post_permission").select2({
+    theme: "bootstrap",
+    placeholder: "Elegir permiso",
+    width: '100%'
+  });
+  $("#post_status").select2({
+    theme: "bootstrap",
+    placeholder: "Elegir estado",
+    width: '100%'
+  });
+
+  v
 });

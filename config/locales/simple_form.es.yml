@@ -113,6 +113,7 @@ es:
         term_id: Id Clasificacion
         term_type: Tipo de publicación
         visibility: Visibilidad
+        permission: Permiso
         post_type: Tipo de Noticia
         post_class: Tipo de publicación
         post_order: Orden de publicación

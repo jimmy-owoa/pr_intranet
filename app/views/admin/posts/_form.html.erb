@@ -39,24 +39,18 @@
         <div class="col-md-12">
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
         </div>
+        <div class="col-md-12">
+          <%= f.input :permission, collection: News::Post::PERMISSION, prompt: :translate %>
+        </div>        
         <div class="col-md-12 col-sm-12"></br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
-          
             <% if @post.try(:published_at).present? %>
-            
-              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>1
-
-
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>
             <% else %>
-
-
-              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>2
-
-
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>
             <% end %>
             <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-              <%# esto siempre se muestra %>
             </div>
           </div>
         </div>

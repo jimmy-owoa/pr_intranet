@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_152817) do
+ActiveRecord::Schema.define(version: 2019_02_07_191037) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -308,6 +308,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_152817) do
     t.integer "user_id"
     t.string "post_type"
     t.boolean "important", default: false
+    t.string "permission"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"
     t.index ["main_image_id"], name: "index_news_posts_on_main_image_id"
     t.index ["post_parent_id"], name: "index_news_posts_on_post_parent_id"
