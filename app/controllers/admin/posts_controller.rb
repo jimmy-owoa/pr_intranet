@@ -98,7 +98,7 @@ module Admin
 
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
-      :main_image_id, :terms, :post_parent_id, :visibility, :post_class, :post_order, :published_at, :gallery_ids, :user_id, :format)
+      :main_image_id, :terms, :post_parent_id, :visibility, :post_class, :post_order, :published_at, :user_id, :post_type, :format, :important, gallery_ids: [], term_ids: [])
     end
 
     def set_tags
@@ -107,7 +107,7 @@ module Admin
       # If in the form the user doesnt add tags, this will do nothing
       if tags.present?
         tags.uniq.each do |tag|
-          @post.terms.find_or_create_by(name: tag, term_type: General::TermType.tag)
+          @post.terms.find_or_create_by(name: tag, term_type: General::TermType.tag,)
         end
       end
     end
