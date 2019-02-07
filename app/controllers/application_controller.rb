@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   def set_ip
-    @ip = Rails.application.credentials.develop # Develop ip
+    @ip = Rails.application.credentials.develop_md # Develop ip
     # @ip = Rails.application.credentials.production # Production ip
   end
 
