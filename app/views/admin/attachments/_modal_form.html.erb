@@ -39,10 +39,22 @@
 
 
 <script>
-$('#attachment_attachment').change(
+$(document).ready(function(){ 
+  $('#attachment_attachment').change(
     function(){
-        if ($(this).val()) {
-            $('input:submit').attr('disabled',false);
-        }
-    });
+      if ($(this).val()) {
+          $('input:submit').attr('disabled',false);
+      }
+    }
+  );
+
+  $("select").imagepicker({
+    hide_select:  true,
+    clicked:function(){
+      console.log(
+        $(this).find("option[value='" + $(this).val() + "']").data('img-src')
+      );
+    }
+  });
+});        
 </script>
