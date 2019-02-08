@@ -47,9 +47,9 @@ General::User.create(
 )
 #users / user_admin see admin screen and user see welcome screen
 user_admin = General::User.find(1)
-user_admin.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
+# user_admin.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
 user = General::User.find(2)
-user.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
+# user.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
 #add roles to user - 
 user_admin.add_role :super_admin
 user.add_role :user
@@ -97,7 +97,7 @@ Marketplace::Product.create(
   approved: true,
   user_id: 1
 )
-Marketplace::Product.last.images.attach(io: File.open("app/assets/images/auto1.png"), filename: "auto1.png", content_type: "image/png")
+# Marketplace::Product.last.images.attach(io: File.open("app/assets/images/auto1.png"), filename: "auto1.png", content_type: "image/png")
 #birth
 Employee::Birth.create(full_name_mother: "mamá nacido",
   full_name_father: "papá nacido",
@@ -107,7 +107,26 @@ Employee::Birth.create(full_name_mother: "mamá nacido",
   gender: true,
   birthday: Date.today
 )
-Employee::Birth.last.photo.attach(io: File.open("app/assets/images/guagua.jpg"), filename: "auto1.jpg", content_type: "image/jpg")
+# Employee::Birth.last.photo.attach(io: File.open("app/assets/images/guagua.jpg"), filename: "auto1.jpg", content_type: "image/jpg")
+#surveys
+Survey::Survey.create(name: 'Encuesta de las ciudades de Chile')
+Survey::Question.create( title: "¿Cual es la ciudad más linda de Chile?", description: "Encuesta para saber cual es la ciudad favorita de los usuarios.", question_type: "Simple", survey_id: 1)
+Survey::Option.create(title: "Arica", default: true, placeholder: "", question_id: 1)
+Survey::Option.create(title: "Calama", default: false, placeholder: "", question_id: 1)
+Survey::Option.create(title: "Coquimbo", default: false, placeholder: "", question_id: 1)
+Survey::Option.create(title: "Puerto Montt", default: false, placeholder: "", question_id: 1)
+Survey::Option.create(title: "Punta Arenas", default: false, placeholder: "", question_id: 1)
+#cities
+10.times do |city|
+  General::WeatherInformation.create(
+    location: 'Copiapo', 
+    date: Date.today,
+    current_temp: "21",
+    condition: "Partly cloudy",
+    icon: "//cdn.apixu.com/weather/64x64/day/116.png",
+    max_temp: "27.4",
+    min_temp: "12.8",
+  )
 #Menus
 General::Menu.create( 
   title: "Bienvenidos",
@@ -190,32 +209,134 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
+#menú nuevo
+#->Vacaciones
 General::Menu.create(
-  title: "Faq",
-  description: "preguntas y respuestas",
-  css_class: "#db9377",
-  code: 1230,
-  link: "preguntas-frecuentes",
+  title: "Vacaciones",
+  description: "Vacaciones Security",
+  css_class: "#000000",
+  code: 1231,
+  link: "vacaciones",
   priority: nil,
   parent_id: nil
 )
-#surveys
-Survey::Survey.create(name: 'Encuesta de las ciudades de Chile')
-Survey::Question.create( title: "¿Cual es la ciudad más linda de Chile?", description: "Encuesta para saber cual es la ciudad favorita de los usuarios.", question_type: "Simple", survey_id: 1)
-Survey::Option.create(title: "Arica", default: true, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Calama", default: false, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Coquimbo", default: false, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Puerto Montt", default: false, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Punta Arenas", default: false, placeholder: "", question_id: 1)
-#cities
-10.times do |city|
-  General::WeatherInformation.create(
-    location: 'Copiapo', 
-    date: Date.today,
-    current_temp: "21",
-    condition: "Partly cloudy",
-    icon: "//cdn.apixu.com/weather/64x64/day/116.png",
-    max_temp: "27.4",
-    min_temp: "12.8",
-  )
+General::Menu.create(
+  title: "Solicitudes",
+  description: "Solicitudes",
+  css_class: "#db9398",
+  code: 1232,
+  link: "solicitudes",
+  priority: nil,
+  parent_id: 10
+)
+General::Menu.create(
+  title: "Aprobación",
+  description: "Aprobación",
+  css_class: "#db9398",
+  code: 1233,
+  link: "aprobacion",
+  priority: nil,
+  parent_id: 10
+)
+General::Menu.create(
+  title: "Vacaciones progresivas",
+  description: "Vacaciones progresivas",
+  css_class: "#db3562",
+  code: 1234,
+  link: "vacaciones-progresivas",
+  priority: nil,
+  parent_id: 10
+)
+#->Noticias
+General::Menu.create(
+  title: "Noticias",
+  description: "Noticias",
+  css_class: "#b13362",
+  code: 1235,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
+  title: "Corporativas",
+  description: "corporativas",
+  css_class: "#b13362",
+  code: 1236,
+  link: "corporativas",
+  priority: nil,
+  parent_id: 14
+)
+General::Menu.create(
+  title: "Miscelanias",
+  description: "Miscelanias",
+  css_class: "#b10312",
+  code: 1237,
+  link: "miscelanias",
+  priority: nil,
+  parent_id: 14
+)
+General::Menu.create(
+  title: "Conociéndonos",
+  description: "Conociéndonos",
+  css_class: "#a15293",
+  code: 1238,
+  link: "conociendonos",
+  priority: nil,
+  parent_id: 14
+)
+#->Mis beneficios(Conocer)
+General::Menu.create(
+  title: "Bono Auxiliar de Párvulo Materno",
+  description: "Bono Auxiliar de Párvulo Materno",
+  css_class: "#y32571",
+  code: 1239,
+  link: "bono-auxiliar-parvulo-materno",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.create(
+  title: "Bono Auxiliar de Párvulo Paterno",
+  description: "Bono Auxiliar de Párvulo Paterno",
+  css_class: "#366s12",
+  code: 1240,
+  link: "bono-auxiliar-parvulo-paterno",
+  priority: nil,
+  parent_id: 18
+)
+General::Menu.create(
+  title: "Bono de Fallecimiento",
+  description: "Bono de Fallecimiento",
+  css_class: "#109220",
+  code: 1241,
+  link: "bono-fallecimiento",
+  priority: nil,
+  parent_id: 18
+)
+General::Menu.create(
+  title: "Bono de Matrimonio",
+  description: "Bono de Matrimonio",
+  css_class: "#b2310o",
+  code: 1242,
+  link: "bono-de-matrimonio",
+  priority: nil,
+  parent_id: 18
+)
+General::Menu.create(
+  title: "Bono de Navidad",
+  description: "Bono de Navidad",
+  css_class: "#a81000",
+  code: 1243,
+  link: "bono-navidad",
+  priority: nil,
+  parent_id: 18
+)
+General::Menu.create(
+  title: "Aguinaldo Fiestas Patrias",
+  description: "Aguinaldo Fiestas Patrias",
+  css_class: "#a12203",
+  code: 1244,
+  link: "aguinaldo-fiestas-patrias",
+  priority: nil,
+  parent_id: 18
+)
 end
