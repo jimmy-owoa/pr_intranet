@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_05_191442) do
+ActiveRecord::Schema.define(version: 2019_02_07_191037) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -165,16 +165,6 @@ ActiveRecord::Schema.define(version: 2019_02_05_191442) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "general_offices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "address_street"
-    t.string "address_municipality"
-    t.string "address_region"
-    t.string "address_country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "general_sections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -316,6 +306,9 @@ ActiveRecord::Schema.define(version: 2019_02_05_191442) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "user_id"
+    t.string "post_type"
+    t.boolean "important", default: false
+    t.string "permission"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"
     t.index ["main_image_id"], name: "index_news_posts_on_main_image_id"
     t.index ["post_parent_id"], name: "index_news_posts_on_post_parent_id"

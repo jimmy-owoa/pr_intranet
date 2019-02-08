@@ -14,6 +14,8 @@ module Frontend
         user_id: General::User.find(post.user_id).name,
         created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
         content: post.content,
+        post_type: post.post_type,
+        important: post.important,
         tags: post.terms.tags,
         main_image: @image,
         format: post.format
@@ -37,6 +39,8 @@ module Frontend
       user_id: General::User.find(@post.user_id).name,
       created_at: @post.created_at.strftime("%d/%m/%Y %H:%M"),
       content: @post.content,
+      post_type: @post.post_type,
+      important: @post.important,      
       tags: @post.terms.tags,
       main_image: @image
     }

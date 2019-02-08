@@ -9,7 +9,8 @@
         <%= f.input :slug %>
       </div>
       <div class="col-md-4 col-sm-4">
-        <%= f.input :post_class %>
+        <%= f.label :post_type %></br>
+        <%= f.select :post_type, News::Post::TYPE.map { |m| m }, include_blank: true, class:'post_type form-control string optional', id:'post_type' %>
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.text_area :content, :class => "tinymce"%>
@@ -32,8 +33,15 @@
           <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
         </div>
         <div class="col-md-12">
+            <%= f.label "Destacada" %>
+            <%= f.check_box :important, class: 'post_type' %>
+        </div>        
+        <div class="col-md-12">
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
         </div>
+        <div class="col-md-12">
+          <%= f.input :permission, collection: News::Post::PERMISSION, prompt: :translate %>
+        </div>        
         <div class="col-md-12 col-sm-12"></br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
             <% if @post.try(:published_at).present? %>
@@ -63,10 +71,10 @@
       <div class="form-group row ">
         <div class="col-md-12 col-sm-12">
           <%= f.label :tags %>
-          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
+          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'tag_post' %>
         </div>
       </div>
-    </div>
+    </div>    
     <div class="card p-2" >
       <div class="form-group">
           <div class="col-md-12 col-sm-12">
@@ -79,7 +87,6 @@
               <%= link_to 'Imagen Principal', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
             <% end %>
           </div>
-
       </div>
     </div>
     <div class="card pt-2" >
@@ -107,23 +114,4 @@
       </div>
     </div>
   </div>
-
 </div>
-
-
-
-
-
-<%# <script>
-  document.getElementById("files").onchange = function () {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-        // get loaded data and render thumbnail.
-        document.getElementById("image").src = e.target.result;
-    };
-
-    // read the image file as a data URL.
-    reader.readAsDataURL(this.files[0]);
-  };
-</script> %>
