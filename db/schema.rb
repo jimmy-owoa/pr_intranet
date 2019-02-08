@@ -309,6 +309,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_191037) do
     t.string "post_type"
     t.boolean "important", default: false
     t.string "permission"
+    t.integer "format"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"
     t.index ["main_image_id"], name: "index_news_posts_on_main_image_id"
     t.index ["post_parent_id"], name: "index_news_posts_on_post_parent_id"

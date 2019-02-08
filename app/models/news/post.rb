@@ -24,7 +24,7 @@ class News::Post < ApplicationRecord
     'Campaña'
   ]
   PERMISSION = [
-    'incluyente',
+    'Incluyente',
     'Excluyente'
   ]  
 
