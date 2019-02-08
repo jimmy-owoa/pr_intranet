@@ -7,7 +7,7 @@
       <%= f.input :content %>
     </div>
     <div class="col-6">
-      <%= f.input :type, collection: General::Message::TYPE.map{|j,k| [k,j] }, prompt: :translate %>
+      <%= f.input :message_type, collection: @message_types, selected: @message.message_type%>
     </div>
     <div class="col-4" >
       <div class="card border-secondary mb-2">

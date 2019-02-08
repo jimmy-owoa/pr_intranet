@@ -56,6 +56,10 @@ es:
           terms: Categoría
         user:
           roles: Roles
+      message:
+        new:
+          type: Tipo
+          image: Imagen
       account:
         fields:
           name: Etiqueta

@@ -1,6 +1,6 @@
 <%- model_class = General::Message -%>
   <section class="section">
-    <h1 class="section-header"><%= "Messages" %></h1>
+    <h1 class="section-header"><%= "Mensajes" %></h1>
     <div class="card">
       <div class="table-responsive-md">
         <table class="table table-hover">
@@ -8,7 +8,7 @@
             <tr>
               <th><%= 'Identificador' %></th>
               <th><%= 'Título' %></th>
-              <th><%= 'Fecha Creación' %></th>
+              <th><%= 'Tipo' %></th>
               <th><%= 'Acciones' %></th>
             </tr>
           </thead>
@@ -17,7 +17,7 @@
               <tr>
                 <td><%= link_to message.id, admin_message_path(message) %></td>
                 <td><%= message.title %></td>
-                <td><%= custom_date_no_hour(message.created_at) %></td>
+                <td><%= message.get_name_message_types %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.messages.show")),
                               admin_message_path(message), :class => 'btn btn-success btn-xs' %>

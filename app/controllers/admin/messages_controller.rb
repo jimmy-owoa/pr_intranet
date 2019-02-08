@@ -14,6 +14,7 @@ module Admin
     def new
       add_breadcrumb "Messages", :admin_messages_path
       @message = General::Message.new
+      @message_types = General::Message::MESSAGE_TYPES
     end
 
     def edit
@@ -62,7 +63,7 @@ module Admin
     end
 
     def message_params
-      params.require(:message).permit(:title, :content, :type, :is_const, :image)
+      params.require(:message).permit(:title, :content, :message_type, :is_const, :image)
     end
   end
 end

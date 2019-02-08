@@ -10,7 +10,7 @@ module Frontend
           title: message.title,
           content: message.content,
           is_const: message.is_const,
-          type: message.type,
+          kind: message.kind,
           created_at: l(message.created_at, format: '%A %d %B %Y'),
           image: @image
         }

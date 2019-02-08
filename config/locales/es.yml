@@ -38,6 +38,7 @@ es:
       general/term_type: Tipo de Taxonomía
       general/gallery: Galería
       general/attachment: Archivo
+      general/message: Mensaje
       news/post: 
       general/section: Sección
       employee/birth: Nacimiento
@@ -192,6 +193,15 @@ es:
       submit: Guardar %{model}
       update: Actualizar %{model}
     links:
+      cancel: Cancelar
+      edit: Editar
+      destroy: Eliminar
+      back: Volver
+      block: Bloquear
+      unlock: Desbloquear
+      show: Ver
+      confirm: Confirmar
+    messages:
       cancel: Cancelar
       edit: Editar
       destroy: Eliminar
