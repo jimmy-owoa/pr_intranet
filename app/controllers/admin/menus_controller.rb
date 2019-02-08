@@ -4,7 +4,7 @@ module Admin
     layout 'admin'
 
     def index
-      @menus = General::Menu.all
+      @menus = General::Menu.paginate(:page => params[:page], :per_page => 10)
     end
 
     def new
