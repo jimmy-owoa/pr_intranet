@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     end
     resources :term_types
     resources :users
-    root to: 'application#index'
+    root to: 'posts#index'
   end
   namespace :frontend, :defaults => { :format => 'json'} do
     post 'answers_save_from_vue', to: 'answers#answers_save_from_vue'
