@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_191037) do
+ActiveRecord::Schema.define(version: 2019_02_08_191534) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -146,6 +146,17 @@ ActiveRecord::Schema.define(version: 2019_02_07_191037) do
     t.index ["gallery_id", "attachment_id"], name: "index_general_gallery_relations_on_gallery_id_and_attachment_id"
   end
 
+  create_table "general_indicators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "dollar"
+    t.string "ipc"
+    t.string "euro"
+    t.string "uf"
+    t.string "utm"
+    t.string "ipsa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "url"
@@ -161,6 +172,21 @@ ActiveRecord::Schema.define(version: 2019_02_07_191037) do
     t.integer "priority"
     t.integer "parent_id"
     t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "general_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.integer "type"
+    t.boolean "is_const"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "general_santorals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "names", default: "--- []\n"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -306,6 +332,7 @@ ActiveRecord::Schema.define(version: 2019_02_07_191037) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "user_id"
+    t.integer "format"
     t.string "post_type"
     t.boolean "important", default: false
     t.string "permission"

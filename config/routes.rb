@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :surveys
       resources :answers
       resources :menus
+      resources :messages
       resources :sections, only: [:update, :show, :index, :edit]
       resources :products do
       member do
@@ -55,6 +56,7 @@ Rails.application.routes.draw do
     post 'users/upload', to: 'users#upload'
     resources :surveys
     resources :answers
+    resources :messages
     resources :links
     resources :sections
     resources :birthdays do
