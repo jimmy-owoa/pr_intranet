@@ -39,6 +39,9 @@
         <div class="col-md-12">
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
         </div>
+        <div class="col-md-12">
+          <%= f.input :permission, collection: News::Post::PERMISSION, prompt: :translate %>
+        </div>        
         <div class="col-md-12 col-sm-12"></br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
             <% if @post.try(:published_at).present? %>
@@ -68,7 +71,7 @@
       <div class="form-group row ">
         <div class="col-md-12 col-sm-12">
           <%= f.label :tags %>
-          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
+          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'tag_post' %>
         </div>
       </div>
     </div>    

@@ -23,6 +23,11 @@ class News::Post < ApplicationRecord
     'Noticia',
     'Campaña'
   ]
+  PERMISSION = [
+    'incluyente',
+    'Excluyente'
+  ]  
+
   def set_status
     self.status ||= 'Publicado'
   end
