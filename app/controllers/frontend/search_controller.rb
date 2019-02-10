@@ -18,7 +18,7 @@ module Frontend
             email: user.email,
             annexed: user.annexed,
             birthday: user.birthday,
-            image: root_url.to_s + rails_blob_path(user.image, only_path: true)
+            image: root_url + rails_blob_path(user.image, only_path: true)
           }
         end
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|

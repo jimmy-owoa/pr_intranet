@@ -18,7 +18,7 @@ module Frontend
           annexed: user.annexed,
           birthday: user.birthday.strftime("%d/%m/%Y"),
           show_birthday: user.show_birthday,
-          image: root_url.to_s + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true),
+          image: root_url + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true),
         }
       end
       respond_to do |format|
@@ -41,7 +41,7 @@ module Frontend
           annexed: user.annexed,
           birthday: user.birthday.strftime("%d/%m/%Y"),
           show_birthday: user.show_birthday,
-          image: root_url.to_s + (user.image.attached? ? rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : '/assets/default_avatar.png')
+          image: root_url + (user.image.attached? ? rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : '/assets/default_avatar.png')
         }
       end
 
