@@ -18,7 +18,7 @@ class Frontend::UsersController < ApplicationController
           last_name: children.last_name, 
           position: children.position,
           company: children.company,          
-          image: @ip.to_s + ( children.image.attached? ? 
+          image: root_url.to_s + ( children.image.attached? ? 
           rails_representation_url(children.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
         }
       end
@@ -31,7 +31,7 @@ class Frontend::UsersController < ApplicationController
           last_name: sibling.last_name,
           position: sibling.position,
           company: sibling.company,          
-          image: @ip.to_s + ( sibling.image.attached? ? 
+          image: root_url.to_s + ( sibling.image.attached? ? 
           rails_representation_url(sibling.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
         }
       end
@@ -43,7 +43,7 @@ class Frontend::UsersController < ApplicationController
         last_name: @user.parent.last_name,
         position: @user.parent.position,
         company: @user.parent.company,        
-        image: @ip.to_s + ( @user.parent.image.attached? ? 
+        image: root_url.to_s + ( @user.parent.image.attached? ? 
         rails_representation_url(@user.parent.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
 
       }
@@ -57,7 +57,7 @@ class Frontend::UsersController < ApplicationController
       position: @user.position,
       company: @user.company,
       address: @user.address,
-      image: @ip.to_s + ( @user.image.attached? ? 
+      image: root_url.to_s + ( @user.image.attached? ? 
       rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
       childrens: data_childrens,
       siblings: data_siblings,

@@ -8,7 +8,7 @@ module Frontend
           id: link.id,
           title: link.title,
           created_at: l(link.created_at, format: '%A %d %B %Y'),
-          image: @ip.to_s + rails_representation_url(link.image.variant(resize: '200x200>'), only_path: true),
+          image: root_url.to_s + rails_representation_url(link.image.variant(resize: '200x200>'), only_path: true),
           url: link.url
         }
       end

@@ -6,7 +6,7 @@ module Frontend
     posts = News::Post.includes(:main_image)
     data = []
     posts.each do |post|
-      @image = post.main_image.present? ? @ip + post.main_image.path : nil
+      @image = post.main_image.present? ? root_url + post.main_image.path : nil
       data << {
         id: post.id,
         title: post.title,
@@ -31,7 +31,7 @@ module Frontend
     data = []
     id = params[:id].present? ? params[:id] : nil
     @post = News::Post.find(id)
-    @image = @post.main_image.present? ? @ip + @post.main_image.path : nil
+    @image = @post.main_image.present? ? root_url + @post.main_image.path : nil
     data << {
       id: @post.id,
       title: @post.title,

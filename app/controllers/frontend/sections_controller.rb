@@ -8,7 +8,7 @@ module Frontend
           title: section.title,
           description: section.description,
           position: section.position,
-          image: @ip.to_s + rails_representation_url(section.image.variant(resize: '800x800>'), only_path: true),
+          image: root_url.to_s + rails_representation_url(section.image.variant(resize: '800x800>'), only_path: true),
           url: section.url,
           created: section.created_at
         }

@@ -15,7 +15,7 @@ class Frontend::WelcomesController < ApplicationController
         annexed: user.annexed,
         birthday: user.birthday.strftime("%d/%m/%Y"),
         show_birthday: user.show_birthday,
-        image: @ip.to_s + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true)
+        image: root_url.to_s + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true)
       }
     end
     respond_to do |format|
@@ -38,7 +38,7 @@ class Frontend::WelcomesController < ApplicationController
         annexed: user.annexed,
         birthday: user.birthday.strftime("%d/%m/%Y"),
         show_birthday: user.show_birthday,
-        image: @ip.to_s + (user.image.attached? ? rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : '/assets/default_avatar.png')
+        image: root_url.to_s + (user.image.attached? ? rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : '/assets/default_avatar.png')
       }
     end
     respond_to do |format|
@@ -51,7 +51,7 @@ class Frontend::WelcomesController < ApplicationController
     @new_users = General::User.all
     data= []
     @new_users.each do |user|
-      @image = user.image.attachment.present? ? @ip + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : nil
+      @image = user.image.attachment.present? ? root_url + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : nil
       data << {
         id: user.id,
         email: user.email,
