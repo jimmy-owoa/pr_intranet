@@ -16,15 +16,15 @@ module Frontend
       product.images.each do |image|
         thumb_sizes << {
           id: image.id,
-          url: @ip.to_s + rails_representation_url(image.variant(resize: '100x100'), only_path: true)
+          url: root_url.to_s + rails_representation_url(image.variant(resize: '100x100'), only_path: true)
         }
         normal_sizes << {
           id: image.id,
-          url: @ip.to_s + rails_representation_url(image.variant(resize: '480x300'), only_path: true)
+          url: root_url.to_s + rails_representation_url(image.variant(resize: '480x300'), only_path: true)
         }
         large_sizes << {
           id: image.id,
-          url: @ip.to_s + rails_blob_url(image, only_path: true)
+          url: root_url.to_s + rails_blob_url(image, only_path: true)
         }
       end
       data << {
@@ -38,12 +38,12 @@ module Frontend
         email: product.email,
         phone: product.phone,
         description: product.description,
-        main_image: @ip.to_s + (  product.images.first.present? ? rails_representation_url(product.images.first.variant(resize: '320x320'), only_path: true) : '/assets/noimage.jpg'),
+        main_image: root_url.to_s + (  product.images.first.present? ? rails_representation_url(product.images.first.variant(resize: '320x320'), only_path: true) : '/assets/noimage.jpg'),
         images: product.images.present? ? {
           thumbs: thumb_sizes,
           normal_size: normal_sizes,
           large_size: large_sizes
-        } : @ip.to_s + '/assets/noimage.jpg'
+        } : root_url.to_s + '/assets/noimage.jpg'
       }
       thumb_sizes = []
       normal_sizes = []

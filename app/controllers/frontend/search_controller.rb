@@ -18,11 +18,11 @@ module Frontend
             email: user.email,
             annexed: user.annexed,
             birthday: user.birthday,
-            image: @ip.to_s + rails_blob_path(user.image, only_path: true)
+            image: root_url.to_s + rails_blob_path(user.image, only_path: true)
           }
         end
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|
-          @image = post.main_image.present? ? @ip + post.main_image.path : nil
+          @image = post.main_image.present? ? root_url + post.main_image.path : nil
           posts << {
             status: post.status,
             title: post.title,
