@@ -6,6 +6,10 @@ class Survey::Survey < ApplicationRecord
   before_save :unique_slug, :set_survey_type
 
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
+  
+  def get_name_survey_type
+    SURVEY_TYPES.find { |st| st[1] == self.survey_type }[0]
+  end
 
   private
   def set_survey_type
