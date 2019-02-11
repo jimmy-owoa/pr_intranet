@@ -26,7 +26,8 @@ class Frontend::SurveysController < ApplicationController
         id: survey.id,
         name: survey.name,
         created_at: survey.created_at.strftime('%d-%m-%Y'),
-        questions: data_questions
+        questions: data_questions,
+        survey_type: survey.survey_type
       }
     end
 
