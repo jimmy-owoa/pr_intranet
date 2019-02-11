@@ -258,6 +258,8 @@ ActiveRecord::Schema.define(version: 2019_02_08_191534) do
     t.string "company"
     t.string "position"
     t.string "address"
+    t.string "legal_number"
+    t.string "legal_number_verification"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
   end
@@ -332,8 +334,8 @@ ActiveRecord::Schema.define(version: 2019_02_08_191534) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "user_id"
-    t.integer "format"
     t.string "post_type"
+    t.integer "format"
     t.boolean "important", default: false
     t.string "permission"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"
