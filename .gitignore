@@ -31,3 +31,6 @@
 /config/master.key
 /config/credentials.yml.enc
 /config/environments/development.rb
+# Ignore database.yml
+/config/database.yml
+

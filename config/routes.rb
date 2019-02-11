@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     post 'answers_save_from_vue', to: 'answers#answers_save_from_vue'
     post 'answers_options_save_from_vue', to: 'answers#answers_options_save_from_vue'
     get 'menus/index'
+    get 'menus/menus'
     get 'welcome/users', to: 'welcomes#users'
     get 'welcome/users_welcome', to: 'welcomes#users_welcome'
     get 'welcome/get_home_welcome', to: 'welcomes#get_home_welcome'

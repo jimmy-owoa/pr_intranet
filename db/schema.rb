@@ -334,6 +334,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_191534) do
     t.integer "user_id"
     t.integer "format"
     t.string "post_type"
+    t.integer "format"
     t.boolean "important", default: false
     t.string "permission"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"

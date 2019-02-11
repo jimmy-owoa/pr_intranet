@@ -1,11 +1,11 @@
-$(document).on('turbolinks:load',function() {
+$(document).on('turbolinks:load', function () {
   $('.image-picker').imagepicker();
 
   $('#attachment_attachment').change(
-    function(){
+    function () {
       if ($(this).val()) {
-          $('input:submit').attr('disabled',false);
+        $('input:submit').attr('disabled', false);
       }
-  });
+    });
 
 });
