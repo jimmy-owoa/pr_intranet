@@ -46,15 +46,5 @@ $(document).ready(function(){
           $('input:submit').attr('disabled',false);
       }
     }
-  );
-
-  $("select").imagepicker({
-    hide_select:  true,
-    clicked:function(){
-      console.log(
-        $(this).find("option[value='" + $(this).val() + "']").data('img-src')
-      );
-    }
-  });
-});        
+  );    
 </script>
