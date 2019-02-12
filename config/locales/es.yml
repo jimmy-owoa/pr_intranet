@@ -3,6 +3,8 @@ es:
     attributes:
       general/menu:
         priority: Prioridad
+        tags: Etiquetas
+        categories: Categorías
         code: Código
         css_class: Clase CSS
         link: Enlace

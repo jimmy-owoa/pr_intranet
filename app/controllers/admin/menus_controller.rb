@@ -61,7 +61,7 @@ module Admin
     end
 
     def menu_params
-      params.require(:menu).permit(:title, :description, :css_class, :code, :priority, :parent_id, :link)
+      params.require(:menu).permit(:title, :description, :css_class, :code, :priority, :parent_id, :link, term_ids: [])
     end
 
     def set_categories

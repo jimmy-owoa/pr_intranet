@@ -7,4 +7,8 @@ $(document).ready(function () {
     tags: true,
     tokenSeparators: [',', ' ']
   });
+  $('#tag_menu').select2({
+    tags: false,
+    tokenSeparators: []
+  });
 });
