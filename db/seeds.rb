@@ -11,6 +11,7 @@ General::Term.create(name: 'Travel', term_type_id: 1)
 General::Term.create(name: 'Inmobiliaria', term_type_id: 1)
 #roles
 Role.create(name: 'user')
+Role.create(name: 'post_admin')
 Role.create(name: 'super_admin')
 #users
 General::User.create(

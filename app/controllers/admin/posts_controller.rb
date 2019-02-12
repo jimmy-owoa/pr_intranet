@@ -86,7 +86,13 @@ module Admin
     end
 
     def set_categories
-      @categories = General::Term.categories
+      @full_categories = General::Term.categories
+      @user_categories = current_user.terms.categories
+      if current_user.has_role? :super_admin
+        @categories = @full_categories
+      else
+        @categories = @user_categories & @full_categories
+      end
     end
 
     def set_galleries

@@ -146,17 +146,6 @@ ActiveRecord::Schema.define(version: 2019_02_08_191534) do
     t.index ["gallery_id", "attachment_id"], name: "index_general_gallery_relations_on_gallery_id_and_attachment_id"
   end
 
-  create_table "general_indicators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "dollar"
-    t.string "ipc"
-    t.string "euro"
-    t.string "uf"
-    t.string "utm"
-    t.string "ipsa"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "general_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "url"
@@ -181,12 +170,6 @@ ActiveRecord::Schema.define(version: 2019_02_08_191534) do
     t.text "content"
     t.string "message_type"
     t.boolean "is_const"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "general_santorals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "names", default: "--- []\n"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

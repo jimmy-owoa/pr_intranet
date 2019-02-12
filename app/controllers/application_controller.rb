@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if current_user.has_role? :super_admin
+    if current_user.has_role? :super_admin or current_user.has_role? :post_admin
       admin_root_path
-    else
-      frontend_welcome_path
+    # else
+    #   frontend_welcome_path
     end
   end  
 
