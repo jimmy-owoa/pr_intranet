@@ -16,7 +16,6 @@
 //= require select2
 //= require nicescroll
 //= require turbolinks
-//= require tinymce-jquery
 //= require popper
 //= require bootstrap-sprockets
 //= require toastr
@@ -24,7 +23,7 @@
 //= require tempusdominus-bootstrap-4.js
 //= require cocoon
 //= require vendors
-//= require admin/tinymce
+//= require tinymce
 //= require admin/posts
 //= require admin/attachments
 //= require admin/users

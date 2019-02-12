@@ -1,0 +1,23 @@
+toolbar:
+  - styleselect | bold italic | undo redo
+  - image | link | media | imagetools | emoticons | paste | print |
+plugins:
+  - image
+  - link
+  - wordcount
+  - paste
+  - image
+  - media
+  - code
+  - codesample
+  - autoresize
+  - imagetools
+  - table
+  - insertdatetime
+  - charmap
+  - print
+  - preview
+  - anchor
+  - searchreplace
+  - fullscreen
+  - emoticons
