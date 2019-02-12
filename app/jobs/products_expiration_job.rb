@@ -7,6 +7,9 @@ class ProductsExpirationJob < ApplicationJob
        if x.created_at < x.expiration.days.ago 
          x.is_expired = true 
          x.save
+       else
+        x.is_expired = false
+        x.save
        end
     end
   end
