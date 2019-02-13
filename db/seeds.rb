@@ -1,3 +1,4 @@
+require 'csv'
 #term type
 General::TermType.create(name: 'category')
 General::TermType.create(name: 'tag')
@@ -340,4 +341,10 @@ General::Menu.create(
   priority: nil,
   parent_id: 18
 )
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'real_estate_transactions.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  s = General::Santoral.new
+end
 end
