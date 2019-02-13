@@ -3,5 +3,9 @@ class Frontend::SantoralsController < ApplicationController
 
   def santorals    
     @santorals = General::Santoral.date_santoral
+    respond_to do |format|
+      format.json { render json: @santorals }
+      format.js
+    end    
   end
 end
