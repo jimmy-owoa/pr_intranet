@@ -7,5 +7,5 @@ end
 # names = []
 # csv = CSV.parse(csv_text)
 # csv.each do |row|
-#     names << row
+#     General::Santoral.first.names << row
 # end
