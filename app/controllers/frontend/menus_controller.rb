@@ -15,8 +15,8 @@ class Frontend::MenusController < ApplicationController
         priority: menu.priority,
         parent_id: menu.parent_id,
         link: menu.link,
-        tags: menu.terms.tags,
-        categories: menu.terms.categories,
+        tags: menu.terms.tags.map(&:name),
+        categories: menu.terms.categories.map(&:name),
       }
     end
     respond_to do |format|

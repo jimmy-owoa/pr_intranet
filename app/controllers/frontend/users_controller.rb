@@ -59,6 +59,8 @@ class Frontend::UsersController < ApplicationController
       address: @user.address,
       image: root_url + ( @user.image.attached? ? 
       rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
+      tags: @user.terms.tags.map(&:name),
+      categories: @user.terms.categories.map(&:name),
       childrens: data_childrens,
       siblings: data_siblings,
       father: data_father
