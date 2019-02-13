@@ -146,17 +146,6 @@ ActiveRecord::Schema.define(version: 2019_02_12_151219) do
     t.index ["gallery_id", "attachment_id"], name: "index_general_gallery_relations_on_gallery_id_and_attachment_id"
   end
 
-  create_table "general_indicators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "dollar"
-    t.string "ipc"
-    t.string "euro"
-    t.string "uf"
-    t.string "utm"
-    t.string "ipsa"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "general_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "url"
@@ -186,7 +175,8 @@ ActiveRecord::Schema.define(version: 2019_02_12_151219) do
   end
 
   create_table "general_santorals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "names", default: "--- []\n"
+    t.string "name"
+    t.string "santoral_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -336,8 +326,8 @@ ActiveRecord::Schema.define(version: 2019_02_12_151219) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "user_id"
-    t.integer "format"
     t.string "post_type"
+    t.integer "format"
     t.boolean "important", default: false
     t.string "permission"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"
