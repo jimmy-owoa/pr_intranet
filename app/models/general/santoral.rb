@@ -1,11 +1,3 @@
-class General::Santoral < ApplicationRecord
-    serialize :names, Array
+class General::Santoral < ApplicationRecord\
+    scope :santoral_day, -> {where(santoral_day: Date.today.strftime('%m-%d'))}
 end
-
-# require 'csv'
-# csv_text = File.read('santorales2019.csv')
-# names = []
-# csv = CSV.parse(csv_text)
-# csv.each do |row|
-#     General::Santoral.first.names << row
-# end
