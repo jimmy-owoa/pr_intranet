@@ -38,6 +38,7 @@ module Frontend
         email: product.email,
         phone: product.phone,
         is_expired: product.is_expired,
+        expiration: product.expiration,
         description: product.description,
         main_image: root_url + (  product.images.first.present? ? rails_representation_url(product.images.first.variant(resize: '320x320'), only_path: true) : '/assets/noimage.jpg'),
         images: product.images.present? ? {
@@ -77,6 +78,11 @@ module Frontend
       end
     end
     
+    def update_expiration
+      product = Marketplace::Product.find(params[:id])
+      product.update(published_date: Date.today, is_expired: false)
+    end
+
     def update
       respond_to do |format|
         if @product.update(product_params)
@@ -108,7 +114,7 @@ module Frontend
     end
 
     def product_params
-      params.require(:product).permit(:name, :description, :product_type, :price, :email, :user_id, :phone, :location, :expiration, :approved, images: [])
+      params.require(:product).permit(:name, :description, :product_type, :price, :email, :user_id, :phone, :location, :expiration, :approved, :published_date, images: [])
     end
   end
 end

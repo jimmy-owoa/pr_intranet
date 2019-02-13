@@ -298,6 +298,7 @@ ActiveRecord::Schema.define(version: 2019_02_12_151219) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.boolean "is_expired", default: false
+    t.date "published_date"
   end
 
   create_table "news_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

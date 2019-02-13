@@ -4,7 +4,7 @@ class ProductsExpirationJob < ApplicationJob
   def perform(*args)
     # Do something later
     Marketplace::Product.all.each do |x|
-       if x.created_at < x.expiration.days.ago 
+       if x.published_date == nil || x.published_date < x.expiration.days.ago 
          x.is_expired = true 
          x.save
        else

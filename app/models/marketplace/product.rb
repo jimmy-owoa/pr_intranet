@@ -1,4 +1,5 @@
 class Marketplace::Product < ApplicationRecord
+  include ActiveModel::Dirty
   has_many_attached :images
   has_many :product_term_relationships, -> {where(object_type: 'Marketplace::Product')},
   class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :product
@@ -6,6 +7,8 @@ class Marketplace::Product < ApplicationRecord
   belongs_to :user, class_name: 'General::User', optional: true
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  before_save :update_published_date
 
   scope :show_product , -> {where( approved: true)}
 
@@ -15,11 +18,10 @@ class Marketplace::Product < ApplicationRecord
     img.variant(resize: '120x120>').processed
   end
 
-  # def medium(image)
-  #   return image.variant(resize: '300x300>').processed
-  # end
-
-  # def large(image)
-  #   return image.variant(resize: '1000x400>').processed
-  # end
+  def update_published_date
+    if self.approved_changed?
+      self.published_date = self.approved ? Date.today : nil   
+    end
+  end
+  
 end
