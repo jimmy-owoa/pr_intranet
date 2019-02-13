@@ -29,8 +29,9 @@ module Frontend
 
     def get_home_birthdays
       data = []
-      birthdays = (General::User.all.sort_by &:birthday).last(4)
-      birthdays.each do |user|
+      birthdays = General::User.all.where.not(birthday: nil)
+      birthdays_filtered = (birthdays.sort_by &:birthday).last(4)
+      birthdays_filtered.each do |user|
         data << {
           id: user.id,
           email: user.email,
@@ -39,7 +40,7 @@ module Frontend
           last_name: user.last_name,
           active: user.active,
           annexed: user.annexed,
-          birthday: user.birthday.strftime("%d/%m/%Y"),
+          birthday: user.birthday,
           show_birthday: user.show_birthday,
           image: root_url + (user.image.attached? ? rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : '/assets/default_avatar.png')
         }

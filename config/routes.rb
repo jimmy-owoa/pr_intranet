@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       get :user, on: :collection
     end
     post 'users/upload', to: 'users#upload'
+    put 'products/update_expiration', to: 'products#update_expiration'
     resources :surveys
     resources :answers
     resources :messages
