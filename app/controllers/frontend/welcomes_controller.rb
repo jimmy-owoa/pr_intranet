@@ -36,7 +36,7 @@ class Frontend::WelcomesController < ApplicationController
         last_name: user.last_name,
         active: user.active,
         annexed: user.annexed,
-        birthday: user.birthday.strftime("%d/%m/%Y"),
+        birthday: user.birthday,
         show_birthday: user.show_birthday,
         image: root_url + (user.image.attached? ? rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : '/assets/default_avatar.png')
       }
