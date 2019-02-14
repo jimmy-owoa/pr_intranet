@@ -15,11 +15,11 @@ class Frontend::ApplicationController < ApplicationController
       UF: indicators[2].value,
       UTM: indicators[3].value,
       IPC: indicators[4].value,
-      LATEST_DOLAR: General::EconomicIndicator.where(economic_indicator_type_id: 1).map(&:value).last(5),
-      LATEST_EURO: General::EconomicIndicator.where(economic_indicator_type_id: 2).map(&:value).last(5),
-      LATEST_UF: General::EconomicIndicator.where(economic_indicator_type_id: 3).map(&:value).last(5),
-      LATEST_IPC: General::EconomicIndicator.where(economic_indicator_type_id: 5).map(&:value).last(5),
-      LATEST_UTM: General::EconomicIndicator.where(economic_indicator_type_id: 4).map(&:value).last(5)
+      LATEST_DOLAR: General::EconomicIndicator.indicator_type(1),
+      LATEST_EURO: General::EconomicIndicator.indicator_type(2),
+      LATEST_UF: General::EconomicIndicator.indicator_type(3),
+      LATEST_IPC: General::EconomicIndicator.indicator_type(5),
+      LATEST_UTM: General::EconomicIndicator.indicator_type(4)
     }
     respond_to do |format|
       format.json { render json: data }
