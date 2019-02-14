@@ -42,7 +42,9 @@ module Frontend
       post_type: @post.post_type,
       important: @post.important,      
       tags: @post.terms.tags,
-      main_image: @image
+      main_image: @image,
+      format: @post.format
+
     }
     respond_to do |format|
       format.json { render json: data[0] }
