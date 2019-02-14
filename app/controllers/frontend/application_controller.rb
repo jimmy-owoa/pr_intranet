@@ -14,7 +14,12 @@ class Frontend::ApplicationController < ApplicationController
       EURO: indicators[1].value,
       UF: indicators[2].value,
       UTM: indicators[3].value,
-      IPC: indicators[4].value
+      IPC: indicators[4].value,
+      LATEST_DOLAR: General::EconomicIndicator.indicator_type(1),
+      LATEST_EURO: General::EconomicIndicator.indicator_type(2),
+      LATEST_UF: General::EconomicIndicator.indicator_type(3),
+      LATEST_IPC: General::EconomicIndicator.indicator_type(5),
+      LATEST_UTM: General::EconomicIndicator.indicator_type(4)
     }
     respond_to do |format|
       format.json { render json: data }
@@ -39,18 +44,6 @@ class Frontend::ApplicationController < ApplicationController
       format.js
     end
   end
-
-  # def faq
-  #   data = []
-  #   data << {
-  #     question: 'Hola mundo',
-  #     answer: 'Chao mundo'
-  #   }
-  #   respond_to do |format|
-  #     format.json { render json: data }
-  #     format.js
-  #   end
-  # end
 
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'
