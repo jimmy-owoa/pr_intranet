@@ -60,6 +60,9 @@ es:
         new:
           type: Tipo
           image: Imagen
+      benefit:
+        new:
+          image: Imagen
       account:
         fields:
           name: Etiqueta

@@ -1,0 +1,22 @@
+<section class="section">
+  <h1 class="section-header">Link: <%= @benefit.id %></h1>
+  <div class="container card">
+    <div class="col-md-12" align="center">
+      <h4>Título: <a href='<%= @benefit.title %>'><%= @benefit.title %></a></h4>
+      <div style='max-width: 400px; max-height: 400px;'>
+        <% if @benefit.image.attached? %>
+          <%=image_tag @benefit.image.variant(resize: "360x300>")%>
+        <% else %>
+          <%= 'No hay imagen cargada'%>
+        <% end %>
+      </div>
+      <h5><%= @benefit.content %> </h5>
+    </div>
+  </div>
+  <br><br>
+</section>
+
+    <div align="center">
+      <%= link_to t('.back', :default => t("helpers.message.back")), admin_benefits_path, :class => 'btn btn-primary'  %>
+      <%= link_to t('.edit', :default => t("helpers.message.edit")), edit_admin_benefit_path(@benefit), :class => 'btn btn-primary' %>
+    </div>
