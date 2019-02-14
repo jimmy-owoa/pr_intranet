@@ -107,7 +107,7 @@
           <h4> Orden </h4>
         </div>
          <div class="col-md-12">
-          <%= f.input :format, collection: News::Post::FORMAT.map{|j,k| [k,j] }, prompt: :translate %>
+          <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
         </div>
       </div>
     </div>
