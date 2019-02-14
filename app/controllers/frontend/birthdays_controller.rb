@@ -78,7 +78,7 @@ module Frontend
     end
 
     def users_birthday
-      @users_calendar = General::User.show_birthday
+      @users_calendar = General::User.date_birth.show_birthday
       data = []
       @users_calendar.each do |user|
         @image = user.image.attachment.present? ? root_url + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : nil
