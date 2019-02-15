@@ -132,88 +132,7 @@ Survey::Option.find_or_create_by(title: "Punta Arenas", default: false, placehol
     min_temp: "12.8",
   )
 end
-#Menus
-General::Menu.find_or_create_by( 
-  title: "Bienvenidos",
-  description: "Listar los usuarios que llegaron a la empresa",
-  css_class: "#545454",
-  code: 1223,
-  link: "bienvenidos",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by( 
-  title: "Nacimientos",
-  description: "Listar los hij@s de los empleados de la empresa",
-  css_class: "000001",
-  code: 1224,
-  link: "nacimientos",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by( 
-  title: "Crear Nacimientos",
-  description: "Crear nacimiento",
-  css_class: "#ff00d5",
-  code: 1225,
-  link: "nacimientos/find_or_create_by",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by( 
-  title: "Cumpleanos",
-  description: "Listas cumpleaños de los empleados",
-  css_class: "#00ffbb",
-  code: 1226,
-  link: "cumpleaños",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Productos",
-  description: "Listas productos",
-  css_class: "#000000",
-  code: 1227,
-  link: "avisos",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Crear avisos",
-  description: "Crear Avisos",
-  css_class: "#1e5755",
-  code: 1231,
-  link: "avisos/find_or_create_by",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Encuestas",
-  description: "Listas encuestas",
-  css_class: "#e3e3e3",
-  code: 1228,
-  link: "encuestas",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Noticias",
-  description: "Listas de posts / noticias",
-  css_class: "#744db8",
-  code: 1229,
-  link: "noticias",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Faq",
-  description: "preguntas y respuestas",
-  css_class: "#db9377",
-  code: 1230,
-  link: "preguntas-frecuentes",
-  priority: nil,
-  parent_id: nil
-)
+
 #############menú nuevo#############
 #->Vacaciones
 General::Menu.find_or_create_by(
@@ -623,13 +542,13 @@ General::Menu.find_or_create_by(
   priority: nil,
   parent_id: post.id
 )
-#Miscelanias
+#Miscelaneos
 General::Menu.find_or_create_by(
-  title: "Miscelanias",
-  description: "Miscelanias",
+  title: "Miscelaneos",
+  description: "Miscelaneos",
   css_class: "#b10312",
   code: 1237,
-  link: "miscelanias",
+  link: "miscelaneos",
   priority: nil,
   parent_id: post.id
 )
@@ -949,14 +868,205 @@ General::Menu.find_or_create_by(
   priority: nil,
   parent_id: nil
 )
-program = General::Menu.find_by_title('Programa Previsional')
+celebrate = General::Menu.find_by_title('Celebremos')
 #Nacimientos
+General::Menu.find_or_create_by(
+  title: "Nacimientos",
+  description: "Nacimientos",
+  css_class: "#67778",
+  code: 63520,
+  link: "nacimientos",
+  priority: nil,
+  parent_id: celebrate.id
+)
 #Cumpleaños
+General::Menu.find_or_create_by(
+  title: "Cumpleaños",
+  description: "Cumpleaños",
+  css_class: "#67338",
+  code: 63424,
+  link: "cumpleaños",
+  priority: nil,
+  parent_id: celebrate.id
+)
 #Bienvenidos
+General::Menu.find_or_create_by(
+  title: "Bienvenidos",
+  description: "Bienvenidos",
+  css_class: "#62278",
+  code: 63903,
+  link: "cumpleaños",
+  priority: nil,
+  parent_id: celebrate.id
+)
+#->Ayuda a la comunidad
+General::Menu.find_or_create_by(
+  title: "Ayuda a la comunidad",
+  description: "Ayuda a la comunidad",
+  css_class: "#54550",
+  code: 55002,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+community = General::Menu.find_by_title('Ayuda a la comunidad')
+#Fundación Las Rosas
+General::Menu.find_or_create_by(
+  title: "Fundación Las Rosas",
+  description: "Fundación Las Rosas",
+  css_class: "#55258",
+  code: 55999,
+  link: "fundacion-las-rosas",
+  priority: nil,
+  parent_id: community.id
+)
+#Fundación Mi Parque
+General::Menu.find_or_create_by(
+  title: "Fundación Mi Parque",
+  description: "Fundación Mi Parque",
+  css_class: "#55599",
+  code: 55876,
+  link: "fundacion-mi-parque",
+  priority: nil,
+  parent_id: community.id
+)
+#->Puertas abiertas
+General::Menu.find_or_create_by(
+  title: "Puertas abiertas",
+  description: "Puertas abiertas",
+  css_class: "#89999",
+  code: 87764,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+door_open = General::Menu.find_by_title('Puertas abiertas')
+#Solicitar Puertas Abiertas
+General::Menu.find_or_create_by(
+  title: "Solicitar Puertas Abiertas",
+  description: "Solicitar Puertas Abiertas",
+  css_class: "#80003",
+  code: 82330,
+  link: "solicitar-puertas-abiertas",
+  priority: nil,
+  parent_id: door_open.id
+)
+#Descripción
+General::Menu.find_or_create_by(
+  title: "Descripción",
+  description: "Descripción",
+  css_class: "#82939",
+  code: 83648,
+  link: "descripcion",
+  priority: nil,
+  parent_id: door_open.id
+)
+#->Cultura Corporativa
+General::Menu.find_or_create_by(
+  title: "Cultura Corporativa",
+  description: "Cultura Corporativa",
+  css_class: "#65677",
+  code: 63200,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+sporty = General::Menu.find_by_title('Cultura Corporativa')
 
+#Tiempo libre	
+General::Menu.find_or_create_by(
+  title: "Tiempo libre",
+  description: "Tiempo libre",
+  css_class: "#11110",
+  code: 11145,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+free_time = General::Menu.find_by_title('Tiempo libre')
+#Avisos clasificados
+General::Menu.find_or_create_by(
+  title: "Avisos clasificados",
+  description: "Avisos clasificados",
+  css_class: "#11100",
+  code: 11399,
+  link: "avisos-clasificados",
+  priority: nil,
+  parent_id: free_time.id
+)
+#Biblioteca y ludoteca
+General::Menu.find_or_create_by(
+  title: "Biblioteca y ludoteca",
+  description: "Biblioteca y ludoteca",
+  css_class: "#12000",
+  code: 14957,
+  link: "biblioteca-ludoteca",
+  priority: nil,
+  parent_id: free_time.id
+)
+#Jugar y aprender
+General::Menu.find_or_create_by(
+  title: "Jugar y aprender",
+  description: "Jugar y aprender",
+  css_class: "#19300",
+  code: 18355,
+  link: "jugar-y-aprender",
+  priority: nil,
+  parent_id: free_time.id
+)
+#Ser +
+General::Menu.find_or_create_by(
+  title: "Ser +",
+  description: "Ser +",
+  css_class: "#12333",
+  code: 13678,
+  link: "ser-mas",
+  priority: nil,
+  parent_id: free_time.id
+)
+#Concursos de cuentos
+General::Menu.find_or_create_by(
+  title: "Concursos de cuentos",
+  description: "Concursos de cuentos",
+  css_class: "#14559",
+  code: 13659,
+  link: "concurso-cuentos",
+  priority: nil,
+  parent_id: free_time.id
+)
+#Concursos de fotografía
+General::Menu.find_or_create_by(
+  title: "Concursos de fotografía",
+  description: "Concursos de fotografía",
+  css_class: "#15277",
+  code: 15289,
+  link: "concurso-fotografia",
+  priority: nil,
+  parent_id: free_time.id
+)
+#Concurso de pintura
+General::Menu.find_or_create_by(
+  title: "Concurso de pintura",
+  description: "Concurso de pintura",
+  css_class: "#13447",
+  code: 13553,
+  link: "concurso-pintura",
+  priority: nil,
+  parent_id: free_time.id
+)
+#Concuros Papá Espíritu Security
+General::Menu.find_or_create_by(
+  title: "Concuros Papá Espíritu Security",
+  description: "Concuros Papá Espíritu Security",
+  css_class: "#12222",
+  code: 19920,
+  link: "concurso-papa-espiritu-security",
+  priority: nil,
+  parent_id: free_time.id
+)
 ################################################ TÉRMINO INFORMADOS
 
-#->Mis beneficios(Conocer)
+#->Mis beneficios
 General::Menu.find_or_create_by(
   title: "Bonos",
   description: "Bonos",
@@ -1084,7 +1194,693 @@ General::Menu.find_or_create_by(
   priority: nil,
   parent_id: bonus.id
 )
+#->Créditos y Subsidios	
+General::Menu.find_or_create_by(
+  title: "Créditos y Subsidios",
+  description: "Créditos y Subsidios",
+  css_class: "#u88899",
+  code: 49900,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+credit = General::Menu.find_by_title('Créditos y Subsidios')
+#Créditos Banca Empleados
+General::Menu.find_or_create_by(
+  title: "Créditos Banca Empleados",
+  description: "Créditos Banca Empleados",
+  css_class: "#r8899",
+  code: 66679,
+  link: "creditos-banca-empleados",
+  priority: nil,
+  parent_id: credit.id
+)
+#Subsidio Habitacional
+General::Menu.find_or_create_by(
+  title: "Subsidio Habitacional",
+  description: "Subsidio Habitacional",
+  css_class: "#w2222",
+  code: 99920,
+  link: "subsidio-habitacional",
+  priority: nil,
+  parent_id: credit.id
+)
+#Seguros
+General::Menu.find_or_create_by(
+  title: "Seguros",
+  description: "Seguros",
+  css_class: "#o0293",
+  code: 24849,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+secure = General::Menu.find_by_title('Seguros')
+#Seguro de Salud y Catastrófico
+General::Menu.find_or_create_by(
+  title: "Seguro de Salud y Catastrófico",
+  description: "Seguro de Salud y Catastrófico",
+  css_class: "#53444",
+  code: 48489,
+  link: "seguro-salud-catastrofico",
+  priority: nil,
+  parent_id: secure.id
+)
+#Seguro de vida 
+General::Menu.find_or_create_by(
+  title: "Seguro de vida",
+  description: "Seguro de vida",
+  css_class: "#59990",
+  code: 45323,
+  link: "seguro-de-vida",
+  priority: nil,
+  parent_id: secure.id
+)
+#Seguro Dental
+General::Menu.find_or_create_by(
+  title: "Seguro Dental",
+  description: "Seguro Dental",
+  css_class: "#40110",
+  code: 41300,
+  link: "seguro-dental",
+  priority: nil,
+  parent_id: secure.id
+)
+#Seguro Vida 24 Rentas
+General::Menu.find_or_create_by(
+  title: "Seguro Vida 24 Rentas",
+  description: "Seguro Vida 24 Rentas",
+  css_class: "#42199",
+  code: 42390,
+  link: "seguro-vida-24-rentas",
+  priority: nil,
+  parent_id: secure.id
+)
+#->Becas
+General::Menu.find_or_create_by(
+  title: "Becas",
+  description: "Becas",
+  css_class: "#33330",
+  code: 39490,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+scholarship = General::Menu.find_by_title('Becas')
+#Becas de estudio hijos
+General::Menu.find_or_create_by(
+  title: "Becas de estudio hijos",
+  description: "Becas de estudio hijos",
+  css_class: "#55543",
+  code: 55322,
+  link: "becas-estudio-hijos",
+  priority: nil,
+  parent_id: scholarship.id
+)
+#Becas de estudio para empleados
+General::Menu.find_or_create_by(
+  title: "Becas de estudio para empleados",
+  description: "Becas de estudio para empleados",
+  css_class: "#53321",
+  code: 55322,
+  link: "becas-estudio-empleados",
+  priority: nil,
+  parent_id: scholarship.id
+)
+#->Tiempo Libre	
+General::Menu.find_or_create_by(
+  title: "Tiempo Libre",
+  description: "Beneficios Tiempo Libre",
+  css_class: "#o0293",
+  code: 24849,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+b_free_time = General::Menu.find_by_description('Beneficios Tiempo Libre')
+#Jornada reducida (viernes)
+General::Menu.find_or_create_by(
+  title: "Jornada reducida (viernes)",
+  description: "Jornada reducida (viernes)",
+  css_class: "#19384",
+  code: 12900,
+  link: "jornada-reducida",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#24 hrs para algo importante
+General::Menu.find_or_create_by(
+  title: "24 hrs para algo importante",
+  description: "24 hrs para algo importante",
+  css_class: "#18299",
+  code: 17268,
+  link: "24-horas-algo-importante",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#Vacaciones temporada baja
+General::Menu.find_or_create_by(
+  title: "Vacaciones temporada baja",
+  description: "Vacaciones temporada baja",
+  css_class: "#17283",
+  code: 17253,
+  link: "vacaciones-temporada-baja",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#Día Libre para cambio de casa 
+General::Menu.find_or_create_by(
+  title: "Día Libre para cambio de casa",
+  description: "Día Libre para cambio de casa",
+  css_class: "#12900",
+  code: 12939,
+  link: "dia-libre-cambio-casa",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#Días adicionales de vacaciones
+General::Menu.find_or_create_by(
+  title: "Días adicionales de vacaciones",
+  description: "Días adicionales de vacaciones",
+  css_class: "#14899",
+  code: 14889,
+  link: "dia-adicionales-vacaciones",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#Horarios de salida en días especiales 
+General::Menu.find_or_create_by(
+  title: "Horarios de salida en días especiales",
+  description: "Horarios de salida en días especiales",
+  css_class: "#12936",
+  code: 12366,
+  link: "horario-salida-dias-especiales",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#Examen de Grado 
+General::Menu.find_or_create_by(
+  title: "Examen de Grado",
+  description: "Examen de Grado",
+  css_class: "#11190",
+  code: 12993,
+  link: "examen-de-grado",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#Exámenes Preventivos
+General::Menu.find_or_create_by(
+  title: "Exámenes Preventivos",
+  description: "Exámenes Preventivos",
+  css_class: "#13403",
+  code: 13849,
+  link: "examenes-preventivos",
+  priority: nil,
+  parent_id: b_free_time.id
+)
+#->Familia
+General::Menu.find_or_create_by(
+  title: "Familia",
+  description: "Familia",
+  css_class: "#400jk3",
+  code: 54888,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+family = General::Menu.find_by_title('Familia')
+#Post Natal Paterno
+General::Menu.find_or_create_by(
+  title: "Post Natal Paterno",
+  description: "Post Natal Paterno",
+  css_class: "#400339",
+  code: 43330,
+  link: "familia-post-natal-paterno",
+  priority: nil,
+  parent_id: family.id
+)
+#Regreso Paulatino Materno
+General::Menu.find_or_create_by(
+  title: "Regreso Paulatino Materno",
+  description: "Regreso Paulatino Materno",
+  css_class: "#49000",
+  code: 47888,
+  link: "regreso-paulatino-materno",
+  priority: nil,
+  parent_id: family.id
+)
+#Securitylandia Verano - Invierno
+General::Menu.find_or_create_by(
+  title: "Securitylandia Verano - Invierno",
+  description: "Securitylandia Verano - Invierno",
+  css_class: "#444555",
+  code: 41122,
+  link: "securitylandia-verano-invierno",
+  priority: nil,
+  parent_id: family.id
+)
+#Tardes de Invierno
+General::Menu.find_or_create_by(
+  title: "Tardes de Invierno",
+  description: "Tardes de Invierno",
+  css_class: "#446788",
+  code: 45678,
+  link: "tardes-de-invierno",
+  priority: nil,
+  parent_id: family.id
+)
+#Premio Excelencia Académica
+General::Menu.find_or_create_by(
+  title: "Premio Excelencia Académica",
+  description: "Premio Excelencia Académica",
+  css_class: "#46777",
+  code: 42200,
+  link: "premio-excelencia-academica",
+  priority: nil,
+  parent_id: family.id
+)
+#Premio PSU
+General::Menu.find_or_create_by(
+  title: "Premio PSU",
+  description: "Premio PSU",
+  css_class: "#43989",
+  code: 49002,
+  link: "premio-psu",
+  priority: nil,
+  parent_id: family.id
+)
+#->Celebrando
+General::Menu.find_or_create_by(
+  title: "Celebrando",
+  description: "Celebrando",
+  css_class: "#o0293",
+  code: 24849,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+celebrating = General::Menu.find_by_title('Celebrando')
+#Cumpleaños
+General::Menu.find_or_create_by(
+  title: "Cumpleaños",
+  description: "Cumpleaños",
+  css_class: "#54321",
+  code: 54564,
+  link: "celebrando-cumpleanos",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Fiesta Fin de Año
+General::Menu.find_or_create_by(
+  title: "Fiesta Fin de Año",
+  description: "Fiesta Fin de Año",
+  css_class: "#54666",
+  code: 55561,
+  link: "celebrando-fiesta-fin-de-ano",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Paseo Grupo Security
+General::Menu.find_or_create_by(
+  title: "Paseo Grupo Security",
+  description: "Paseo Grupo Security",
+  css_class: "#57888",
+  code: 50399,
+  link: "celebrando-paseo-grupo-security",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Fiestas Patrias
+General::Menu.find_or_create_by(
+  title: "Fiestas Patrias",
+  description: "Fiestas Patrias",
+  css_class: "#54321",
+  code: 54333,
+  link: "celebrando-fiestas-patrias",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Nacimientos mini Security
+General::Menu.find_or_create_by(
+  title: "Nacimientos mini Security",
+  description: "Nacimientos mini Security",
+  css_class: "#51113",
+  code: 51394,
+  link: "celebrando-nacimiento-mini-security",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Inicio año escolar
+General::Menu.find_or_create_by(
+  title: "Regalo Inicio año escolar",
+  description: "Regalo Inicio año escolar",
+  css_class: "#50099",
+  code: 56660,
+  link: "celebrando-inicio-ano-escolar",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Pascua de Resurrección
+General::Menu.find_or_create_by(
+  title: "Pascua de Resurrección",
+  description: "Pascua de Resurrección",
+  css_class: "#56697",
+  code: 51239,
+  link: "celebrando-pascua-resurreccion",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo de Navidad para hijos
+General::Menu.find_or_create_by(
+  title: "Regalo de Navidad para hijos",
+  description: "Regalo de Navidad para hijos",
+  css_class: "#56666",
+  code: 57778,
+  link: "celebrando-regalo-navidad-hijos",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Navidad con sentido
+General::Menu.find_or_create_by(
+  title: "Regalo Navidad con sentido",
+  description: "Regalo Navidad con sentido",
+  css_class: "#54111",
+  code: 59992,
+  link: "celebrando-regalo-navidad-con-sentido",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Día de la madre
+General::Menu.find_or_create_by(
+  title: "Regalo Día de la madre",
+  description: "Regalo Día de la madre",
+  css_class: "#55446",
+  code: 55666,
+  link: "celebrando-regalo-dia-madre",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Día de padre
+General::Menu.find_or_create_by(
+  title: "Regalo Día de padre",
+  description: "Regalo Día de padre",
+  css_class: "#51116",
+  code: 51512,
+  link: "celebrando-regalo-dia-padre",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Día del abuelo
+General::Menu.find_or_create_by(
+  title: "Regalo Día del abuelo",
+  description: "Regalo Día del abuelo",
+  css_class: "#59998",
+  code: 51428,
+  link: "celebrando-dia-abuelo",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Día de la mujer
+General::Menu.find_or_create_by(
+  title: "Regalo Día de la mujer",
+  description: "Regalo Día de la mujer",
+  css_class: "#58889",
+  code: 52839,
+  link: "celebrando-dia-mujer",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Día del abuelo
+General::Menu.find_or_create_by(
+  title: "Regalo Día del abuelo",
+  description: "Regalo Día del abuelo",
+  css_class: "#53428",
+  code: 52937,
+  link: "celebrando-dia-abuelo",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Regalo Pasamos Agosto 
+General::Menu.find_or_create_by(
+  title: "Regalo Pasamos Agosto",
+  description: "Regalo Pasamos Agosto",
+  css_class: "#51222",
+  code: 52930,
+  link: "celebrando-regalo-pasamos-agosto",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#Día de la Secretaria
+General::Menu.find_or_create_by(
+  title: "Día de la Secretaria",
+  description: "Día de la Secretaria",
+  css_class: "#53339",
+  code: 53390,
+  link: "celebrando-dia-secretaria",
+  priority: nil,
+  parent_id: celebrating.id
+)
+#->Programa Yo Elijo Salud y Sustentabilidad
+General::Menu.find_or_create_by(
+  title: "Programa Yo Elijo Salud y Sustentabilidad",
+  description: "Programa Yo Elijo Salud y Sustentabilidad",
+  css_class: "#88863",
+  code: 82536,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+healthy = General::Menu.find_by_title('Programa Yo Elijo Salud y Sustentabilidad')
+#Fun Friday´s
+General::Menu.find_or_create_by(
+  title: "Fun Fridays",
+  description: "Fun Fridays",
+  css_class: "#53339",
+  code: 53390,
+  link: "celebrando-fun-fridays",
+  priority: nil,
+  parent_id: healthy.id
+)
+#Cuida tu Salud - Exámenes preventivos
+General::Menu.find_or_create_by(
+  title: "Cuida tu Salud - Exámenes preventivos",
+  description: "Cuida tu Salud - Exámenes preventivos",
+  css_class: "#59579",
+  code: 53390,
+  link: "celebrando-fun-fridays",
+  priority: nil,
+  parent_id: healthy.id
+)
+#Construcción de la Plaza
+General::Menu.find_or_create_by(
+  title: "Construcción de la Plaza",
+  description: "Construcción de la Plaza",
+  css_class: "#55677",
+  code: 53388,
+  link: "celebrando-construccion-plaza",
+  priority: nil,
+  parent_id: healthy.id
+)
+#Clases de cueca
+General::Menu.find_or_create_by(
+  title: "Clases de cueca",
+  description: "Clases de cueca",
+  css_class: "#53444",
+  code: 56880,
+  link: "celebrando-clases-cueca",
+  priority: nil,
+  parent_id: healthy.id
+)
+#Colación de Embarazadas
+General::Menu.find_or_create_by(
+  title: "Colación de Embarazadas",
+  description: "Colación de Embarazadas",
+  css_class: "#51110",
+  code: 58880,
+  link: "celebrando-colacion-embarazadas",
+  priority: nil,
+  parent_id: healthy.id
+)
+#Actividades deportivas
+General::Menu.find_or_create_by(
+  title: "Actividades deportivas",
+  description: "Actividades deportivas",
+  css_class: "#52020",
+  code: 59000,
+  link: "celebrando-actividades-deportivas",
+  priority: nil,
+  parent_id: healthy.id
+)
+#Charlas
+General::Menu.find_or_create_by(
+  title: "Charlas",
+  description: "Charlas",
+  css_class: "#56667",
+  code: 59988,
+  link: "celebrando-charlas",
+  priority: nil,
+  parent_id: healthy.id
+)
+#-> Convenios generales
+General::Menu.find_or_create_by(
+  title: "Convenios generales",
+  description: "Convenios generales",
+  css_class: "#32099",
+  code: 10399,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+general = General::Menu.find_by_title('Convenios generales')
+#Convenio Movistar
+General::Menu.find_or_create_by(
+  title: "Convenio Movistar",
+  description: "Convenio Movistar",
+  css_class: "#77889",
+  code: 72377,
+  link: "convenio-movistar",
+  priority: nil,
+  parent_id: general.id
+)
+#Convenios Restaurantes
+General::Menu.find_or_create_by(
+  title: "Convenios Restaurantes",
+  description: "Convenios Restaurantes",
+  css_class: "#76555",
+  code: 72444,
+  link: "convenio-movistar",
+  priority: nil,
+  parent_id: general.id
+)
+#Convenios Hoteles
+General::Menu.find_or_create_by(
+  title: "Convenios Hoteles",
+  description: "Convenios Hoteles",
+  css_class: "#71120",
+  code: 78899,
+  link: "convenio-hoteles",
+  priority: nil,
+  parent_id: general.id
+)
+#Convenios de Salud
+General::Menu.find_or_create_by(
+  title: "Convenios de Salud",
+  description: "Convenios de Salud",
+  css_class: "#77767",
+  code: 72769,
+  link: "convenio-salud",
+  priority: nil,
+  parent_id: general.id
+)
+#Convenios Dentales
+General::Menu.find_or_create_by(
+  title: "Convenios Dentales",
+  description: "Convenios Dentales",
+  css_class: "#788000",
+  code: 774747,
+  link: "convenios-dentales",
+  priority: nil,
+  parent_id: general.id
+)
+#Convenios Gimnasio
+General::Menu.find_or_create_by(
+  title: "Convenios Gimnasio",
+  description: "Convenios Gimnasio",
+  css_class: "#788993",
+  code: 780300,
+  link: "convenios-gimnasio",
+  priority: nil,
+  parent_id: general.id
+)
+###########################################TERMINO MENÚ MIS BENEFICIOS 
+####### FIN MENÚ NUEVO #######
 
+###### 
+
+# Menus Viejo
+General::Menu.find_or_create_by( 
+  title: "Bienvenidos",
+  description: "Listar los usuarios que llegaron a la empresa",
+  css_class: "#545454",
+  code: 1223,
+  link: "bienvenidos",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by( 
+  title: "Nacimientos",
+  description: "Listar los hij@s de los empleados de la empresa",
+  css_class: "000001",
+  code: 1224,
+  link: "nacimientos",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by( 
+  title: "Crear Nacimientos",
+  description: "Crear nacimiento",
+  css_class: "#ff00d5",
+  code: 1225,
+  link: "nacimientos/find_or_create_by",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by( 
+  title: "Cumpleanos",
+  description: "Listas cumpleaños de los empleados",
+  css_class: "#00ffbb",
+  code: 1226,
+  link: "cumpleaños",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by(
+  title: "Productos",
+  description: "Listas productos",
+  css_class: "#000000",
+  code: 1227,
+  link: "avisos",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by(
+  title: "Crear avisos",
+  description: "Crear Avisos",
+  css_class: "#1e5755",
+  code: 1231,
+  link: "avisos/find_or_create_by",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by(
+  title: "Encuestas",
+  description: "Listas encuestas",
+  css_class: "#e3e3e3",
+  code: 1228,
+  link: "encuestas",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by(
+  title: "Noticias",
+  description: "Listas de posts / noticias",
+  css_class: "#744db8",
+  code: 1229,
+  link: "noticias",
+  priority: nil,
+  parent_id: nil
+)
+General::Menu.find_or_create_by(
+  title: "Faq",
+  description: "preguntas y respuestas",
+  css_class: "#db9377",
+  code: 1230,
+  link: "preguntas-frecuentes",
+  priority: nil,
+  parent_id: nil
+)
+
+############## SANTORAL ################
 General::Santoral.find_or_create_by(name: "María, Madre de Dios", santoral_day: '01-01')
 General::Santoral.find_or_create_by(name: "Basilio, Gregorio", santoral_day: '01-02')
 General::Santoral.find_or_create_by(name: "Genoveva", santoral_day: '01-03')
