@@ -45,11 +45,17 @@ module Frontend
           thumbs: thumb_sizes,
           normal_size: normal_sizes,
           large_size: large_sizes
-        } : root_url + '/assets/noimage.jpg'
+        } : root_url + '/assets/noimage.jpg',
+        breadcrumbs: [
+          {link: '/', name: 'Inicio' },
+          {link: '/avisos', name: 'Avisos'},
+          {link: '#', name: product.name.truncate(30)}
+        ]
       }
       thumb_sizes = []
       normal_sizes = []
       large_sizes = []
+       
     end
     respond_to do |format|
       format.html

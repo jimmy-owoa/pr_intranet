@@ -63,7 +63,11 @@ class Frontend::UsersController < ApplicationController
       categories: @user.terms.categories.map(&:name),
       childrens: data_childrens,
       siblings: data_siblings,
-      father: data_father
+      father: data_father,
+      breadcrumbs: [
+          {link: '/', name: 'Inicio' },
+          {link: '#', name: (@user.name + ' ' + @user.last_name).truncate(30)}
+        ]
     }
     respond_to do |format|
       format.json { render json: data_user }

@@ -18,7 +18,12 @@ class Frontend::BirthsController < ApplicationController
           created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           birthday: birth.birthday,
           father: birth.full_name_father,
-          mother: birth.full_name_mother
+          mother: birth.full_name_mother,
+          breadcrumbs: [
+              {link: '/', name: 'Inicio' },
+              {link: '/nacimientos', name: 'Nacimientos' },
+              {link: '#', name: birth.child_fullname.truncate(30)}
+            ]
         }
       end
       respond_to do |format|
