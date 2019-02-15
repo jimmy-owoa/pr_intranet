@@ -6,7 +6,7 @@ class Frontend::ApplicationController < ApplicationController
 
   def indicators
     data = []
-    today = Date.today.strftime("%d/%m/%Y")
+    today = Date.today
     indicators = General::EconomicIndicator.where(date: today)
     data << {
       HOY: l(Date.today, format: '%A %d %B %Y'),
@@ -15,11 +15,13 @@ class Frontend::ApplicationController < ApplicationController
       UF: indicators[2].value,
       UTM: indicators[3].value,
       IPC: indicators[4].value,
+      IPSA: indicators[5].value,
       LATEST_DOLAR: General::EconomicIndicator.indicator_type(1),
       LATEST_EURO: General::EconomicIndicator.indicator_type(2),
       LATEST_UF: General::EconomicIndicator.indicator_type(3),
       LATEST_IPC: General::EconomicIndicator.indicator_type(5),
-      LATEST_UTM: General::EconomicIndicator.indicator_type(4)
+      LATEST_UTM: General::EconomicIndicator.indicator_type(4),
+      LATEST_IPSA: General::EconomicIndicator.indicator_type(6)
     }
     respond_to do |format|
       format.json { render json: data }
