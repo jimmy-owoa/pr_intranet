@@ -2,22 +2,22 @@ def es_bisiesto?(year)
   year % 4 == 0 && year % 100 != 0 || year % 400 == 0
 end
 #term type
-General::TermType.create(name: 'category')
-General::TermType.create(name: 'tag')
+General::TermType.find_or_create_by(name: 'category')
+General::TermType.find_or_create_by(name: 'tag')
 #terms
-General::Term.create(name: 'Banco', term_type_id: 1)
-General::Term.create(name: 'Factoring', term_type_id: 1)
-General::Term.create(name: 'Inversiones', term_type_id: 1)
-General::Term.create(name: 'Vida', term_type_id: 1)
-General::Term.create(name: 'Corredora de Seguros', term_type_id: 1)
-General::Term.create(name: 'Travel', term_type_id: 1)
-General::Term.create(name: 'Inmobiliaria', term_type_id: 1)
+General::Term.find_or_create_by(name: 'Banco', term_type_id: 1)
+General::Term.find_or_create_by(name: 'Factoring', term_type_id: 1)
+General::Term.find_or_create_by(name: 'Inversiones', term_type_id: 1)
+General::Term.find_or_create_by(name: 'Vida', term_type_id: 1)
+General::Term.find_or_create_by(name: 'Corredora de Seguros', term_type_id: 1)
+General::Term.find_or_create_by(name: 'Travel', term_type_id: 1)
+General::Term.find_or_create_by(name: 'Inmobiliaria', term_type_id: 1)
 #roles
-Role.create(name: 'user')
-Role.create(name: 'post_admin')
-Role.create(name: 'super_admin')
+Role.find_or_create_by(name: 'user')
+Role.find_or_create_by(name: 'post_admin')
+Role.find_or_create_by(name: 'super_admin')
 #users
-General::User.create(
+General::User.find_or_create_by(
   name:'Nombre',
   last_name: 'Apellido',
   annexed: '1029',
@@ -25,7 +25,7 @@ General::User.create(
   password: 'security',
   birthday: Date.today,
 )
-General::User.create(
+General::User.find_or_create_by(
   name:'Nombre 2',
   last_name: 'Apellido 2',
   annexed: '1928',
@@ -33,7 +33,7 @@ General::User.create(
   password: 'security',
   birthday: Date.today-1
 )
-General::User.create(
+General::User.find_or_create_by(
   name:'Persona 3',
   last_name: 'a cargo de',
   annexed: '11020',
@@ -41,7 +41,7 @@ General::User.create(
   password: 'security',
   birthday: Date.today-2,
 )
-General::User.create(
+General::User.find_or_create_by(
   name:'Persona 4',
   last_name: 'rama',
   annexed: '22212',
@@ -58,20 +58,20 @@ user = General::User.find(2)
 user_admin.add_role :super_admin
 user.add_role :user
 #economic indicators
-General::EconomicIndicatorType.create(name: 'dolar', symbol: 'US$') #1
-General::EconomicIndicatorType.create(name: 'euro', symbol: '€') #2
-General::EconomicIndicatorType.create(name: 'uf', symbol:'UF' ) #3
-General::EconomicIndicatorType.create(name: 'utm', symbol: 'UTM') #4
-General::EconomicIndicatorType.create(name: 'ipc', symbol: 'IPC') #5
+General::EconomicIndicatorType.find_or_create_by(name: 'dolar', symbol: 'US$') #1
+General::EconomicIndicatorType.find_or_create_by(name: 'euro', symbol: '€') #2
+General::EconomicIndicatorType.find_or_create_by(name: 'uf', symbol:'UF' ) #3
+General::EconomicIndicatorType.find_or_create_by(name: 'utm', symbol: 'UTM') #4
+General::EconomicIndicatorType.find_or_create_by(name: 'ipc', symbol: 'IPC') #5
 #post
-News::Post.create(
+News::Post.find_or_create_by(
   title: '¡Gravísimo! Facebook traficó con tus mensajes privados de forma grotesca con otras compañías', 
   slug: 'Slug', 
   content: '¡Netflix, Spotify y varias firmas involucradas en serio caso! Facebook superándose a sí mismo, una vez más.', visibility: "Público", 
   post_class: "tipo", 
   user_id: 1
 )
-News::Post.create(
+News::Post.find_or_create_by(
   title: 'Observatorio de Rayos Gamma más potente del mundo se instalará en Chile', 
   slug: 'Slug', 
   content: 'En el proyecto participarán diversas instituciones nacionales e internacionales y permitirá la instalación de este potente observatorio de Rayos Gamma.', 
@@ -79,17 +79,17 @@ News::Post.create(
   post_class: "tipo", 
   user_id: 1
 )
-News::Post.create(
+News::Post.find_or_create_by(
   title: 'Elon Musk y The Boring Company muestran su sistema de túneles en acción', 
   slug: 'Slug', 
   content: 'The Boring Company abrió su primera línea de transporte para que los mortales conozcamos el futuro del desplazamiento.',visibility: "Público", 
   post_class: "tipo", 
   user_id: 1
 )
-#esto no funciona, manda error en el main_image_id( que no lo agregué en el create del post)
+#esto no funciona, manda error en el main_image_id( que no lo agregué en el find_or_create_by del post)
 # News::Post.first.main_image.attach(io: File.open("app/assets/images/post_news.png"), filename: "post_news.png", content_type: "image/png")
 #product and image
-Marketplace::Product.create(
+Marketplace::Product.find_or_create_by(
   name: 'Auto',
   description: 'Auto amarillo',
   product_type: 'Autos',
@@ -103,7 +103,7 @@ Marketplace::Product.create(
 )
 # Marketplace::Product.last.images.attach(io: File.open("app/assets/images/auto1.png"), filename: "auto1.png", content_type: "image/png")
 #birth
-Employee::Birth.create(full_name_mother: "mamá nacido",
+Employee::Birth.find_or_create_by(full_name_mother: "mamá nacido",
   full_name_father: "papá nacido",
   child_name: "nombre nacido",
   child_lastname: "apellido nacido",
@@ -113,16 +113,16 @@ Employee::Birth.create(full_name_mother: "mamá nacido",
 )
 # Employee::Birth.last.photo.attach(io: File.open("app/assets/images/guagua.jpg"), filename: "auto1.jpg", content_type: "image/jpg")
 #surveys
-Survey::Survey.create(name: 'Encuesta de las ciudades de Chile')
-Survey::Question.create( title: "¿Cual es la ciudad más linda de Chile?", description: "Encuesta para saber cual es la ciudad favorita de los usuarios.", question_type: "Simple", survey_id: 1)
-Survey::Option.create(title: "Arica", default: true, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Calama", default: false, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Coquimbo", default: false, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Puerto Montt", default: false, placeholder: "", question_id: 1)
-Survey::Option.create(title: "Punta Arenas", default: false, placeholder: "", question_id: 1)
+Survey::Survey.find_or_create_by(name: 'Encuesta de las ciudades de Chile')
+Survey::Question.find_or_create_by( title: "¿Cual es la ciudad más linda de Chile?", description: "Encuesta para saber cual es la ciudad favorita de los usuarios.", question_type: "Simple", survey_id: 1)
+Survey::Option.find_or_create_by(title: "Arica", default: true, placeholder: "", question_id: 1)
+Survey::Option.find_or_create_by(title: "Calama", default: false, placeholder: "", question_id: 1)
+Survey::Option.find_or_create_by(title: "Coquimbo", default: false, placeholder: "", question_id: 1)
+Survey::Option.find_or_create_by(title: "Puerto Montt", default: false, placeholder: "", question_id: 1)
+Survey::Option.find_or_create_by(title: "Punta Arenas", default: false, placeholder: "", question_id: 1)
 #cities
 10.times do |city|
-  General::WeatherInformation.create(
+  General::WeatherInformation.find_or_create_by(
     location: 'Copiapo', 
     date: Date.today,
     current_temp: "21",
@@ -133,7 +133,7 @@ Survey::Option.create(title: "Punta Arenas", default: false, placeholder: "", qu
   )
 end
 #Menus
-General::Menu.create( 
+General::Menu.find_or_create_by( 
   title: "Bienvenidos",
   description: "Listar los usuarios que llegaron a la empresa",
   css_class: "#545454",
@@ -142,7 +142,7 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create( 
+General::Menu.find_or_create_by( 
   title: "Nacimientos",
   description: "Listar los hij@s de los empleados de la empresa",
   css_class: "000001",
@@ -151,16 +151,16 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create( 
+General::Menu.find_or_create_by( 
   title: "Crear Nacimientos",
   description: "Crear nacimiento",
   css_class: "#ff00d5",
   code: 1225,
-  link: "nacimientos/create",
+  link: "nacimientos/find_or_create_by",
   priority: nil,
   parent_id: nil
 )
-General::Menu.create( 
+General::Menu.find_or_create_by( 
   title: "Cumpleanos",
   description: "Listas cumpleaños de los empleados",
   css_class: "#00ffbb",
@@ -169,7 +169,7 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Productos",
   description: "Listas productos",
   css_class: "#000000",
@@ -178,16 +178,16 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Crear avisos",
   description: "Crear Avisos",
   css_class: "#1e5755",
   code: 1231,
-  link: "avisos/create",
+  link: "avisos/find_or_create_by",
   priority: nil,
   parent_id: nil
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Encuestas",
   description: "Listas encuestas",
   css_class: "#e3e3e3",
@@ -196,7 +196,7 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Noticias",
   description: "Listas de posts / noticias",
   css_class: "#744db8",
@@ -205,7 +205,7 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Faq",
   description: "preguntas y respuestas",
   css_class: "#db9377",
@@ -214,9 +214,9 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-#menú nuevo
+#############menú nuevo#############
 #->Vacaciones
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Vacaciones",
   description: "Vacaciones Security",
   css_class: "#000000",
@@ -225,35 +225,385 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create(
+vacation = General::Menu.find_by_title('Vacaciones')
+General::Menu.find_or_create_by(
   title: "Solicitudes",
   description: "Solicitudes",
   css_class: "#db9398",
   code: 1232,
   link: "solicitudes",
   priority: nil,
-  parent_id: 10
+  parent_id: vacation.id
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Aprobación",
   description: "Aprobación",
   css_class: "#db9398",
   code: 1233,
   link: "aprobacion",
   priority: nil,
-  parent_id: 10
+  parent_id: vacation.id
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Vacaciones progresivas",
   description: "Vacaciones progresivas",
   css_class: "#db3562",
   code: 1234,
   link: "vacaciones-progresivas",
   priority: nil,
-  parent_id: 10
+  parent_id: vacation.id
 )
+#->Permisos
+General::Menu.find_or_create_by(
+  title: "Permisos",
+  description: "Permisos",
+  css_class: "#243in0",
+  code: 121352,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+permission = General::Menu.find_by_title('Permisos')
+# 24 Horas para algo importante
+General::Menu.find_or_create_by(
+  title: "24 Horas para algo importante",
+  description: "24 Horas para algo importante",
+  css_class: "#3nnd99",
+  code: 11236,
+  link: "algo-importante",
+  priority: nil,
+  parent_id: permission.id
+)
+# Post Natal Paterno
+General::Menu.find_or_create_by(
+  title: "Post Natal Paterno",
+  description: "Post Natal Paterno",
+  css_class: "#346kg9",
+  code: 91233,
+  link: "post-natal-paterno",
+  priority: nil,
+  parent_id: permission.id
+)
+# Matrimonio
+General::Menu.find_or_create_by(
+  title: "Matrimonio",
+  description: "Matrimonio",
+  css_class: "#93899h",
+  code: 71232,
+  link: "matrimonio",
+  priority: nil,
+  parent_id: permission.id
+)
+# Unión Civil
+General::Menu.find_or_create_by(
+  title: "Unión Civil",
+  description: "Unión Civil",
+  css_class: "#64334f",
+  code: 41231,
+  link: "union-civil",
+  priority: nil,
+  parent_id: permission.id
+)
+# Fallecimiento 
+General::Menu.find_or_create_by(
+  title: "Fallecimiento",
+  description: "Fallecimiento",
+  css_class: "#04jdj9",
+  code: 41231,
+  link: "fallecimiento",
+  priority: nil,
+  parent_id: permission.id
+)
+# Examen de Grado
+General::Menu.find_or_create_by(
+  title: "Examen de Grado",
+  description: "Examen de Grado",
+  css_class: "#04jdj9",
+  code: 43990,
+  link: "examen-de-grado",
+  priority: nil,
+  parent_id: permission.id
+)
+# Exámenes Preventivos 
+General::Menu.find_or_create_by(
+  title: "Exámenes Preventivos",
+  description: "Exámenes Preventivos",
+  css_class: "#983839",
+  code: 43982,
+  link: "examenes-preventivos",
+  priority: nil,
+  parent_id: permission.id
+)
+# Día Libre para cambio de casa 
+General::Menu.find_or_create_by(
+  title: "Día Libre para cambio de casa",
+  description: "Día Libre para cambio de casa",
+  css_class: "#7889s0",
+  code: 41932,
+  link: "dia-libre-cambio-casa",
+  priority: nil,
+  parent_id: permission.id
+)
+#->Tarjeta de trabajo bien hecho
+General::Menu.find_or_create_by(
+  title: "Tarjeta de trabajo bien hecho",
+  description: "Tarjeta de trabajo bien hecho",
+  css_class: "#c5590k",
+  code: 45235,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+work_card = General::Menu.find_by_title('Tarjeta de trabajo bien hecho')
+#Ingresar tarjeta
+General::Menu.find_or_create_by(
+  title: "Ingresar tarjeta",
+  description: "Ingresar tarjeta",
+  css_class: "#9883hb",
+  code: 12336,
+  link: "ingreso-tarjeta",
+  priority: nil,
+  parent_id: work_card.id
+)
+#Mis tarjetas
+General::Menu.find_or_create_by(
+  title: "Mis tarjetas",
+  description: "Mis tarjetas",
+  css_class: "#989390",
+  code: 48336,
+  link: "mis-tarjetas",
+  priority: nil,
+  parent_id: work_card.id
+)
+#->Selección	
+General::Menu.find_or_create_by(
+  title: "Selección",
+  description: "Selección",
+  css_class: "#m28390",
+  code: 35239,
+  link: "",
+  priority: nil,
+  parent_id: nil
+  )
+selection = General::Menu.find_by_title('Selección')
+#Ingreso solicitudes
+General::Menu.find_or_create_by(
+  title: "Ingreso solicitudes",
+  description: "Ingreso solicitudes",
+  css_class: "#n89279",
+  code: 91232,
+  link: "ingreso-solicitudes",
+  priority: nil,
+  parent_id: selection.id
+)
+#Seguimiento
+General::Menu.find_or_create_by(
+  title: "Seguimiento",
+  description: "Seguimiento",
+  css_class: "#g77900",
+  code: 91232,
+  link: "seguimiento",
+  priority: nil,
+  parent_id: selection.id
+)
+#Mis solicitudes
+General::Menu.find_or_create_by(
+  title: "Mis solicitudes",
+  description: "Mis solicitudes",
+  css_class: "#yu8999",
+  code: 98282,
+  link: "mis-solicitudes",
+  priority: nil,
+  parent_id: selection.id
+)
+#Evaluación de solicitudes
+General::Menu.find_or_create_by(
+  title: "Evaluación de solicitudes",
+  description: "Evaluación de solicitudes",
+  css_class: "#b77890",
+  code: 92242,
+  link: "evaluacion-solicitudes",
+  priority: nil,
+  parent_id: selection.id
+)
+#->Desempeño y Desarrollo	
+General::Menu.find_or_create_by(
+  title: "Desempeño y Desarrollo",
+  description: "Desempeño y Desarrollo",
+  css_class: "#968390",
+  code: 75232,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+development = General::Menu.find_by_title('Desempeño y Desarrollo')
+#Plan de desarrollo profesional
+General::Menu.find_or_create_by(
+  title: "Plan de desarrollo profesional",
+  description: "Plan de desarrollo profesional",
+  css_class: "#v77890",
+  code: 87736,
+  link: "plan-desarrollo-profesional",
+  priority: nil,
+  parent_id: development.id
+)
+#Talento
+General::Menu.find_or_create_by(
+  title: "Talento",
+  description: "Talento",
+  css_class: "#d77780",
+  code: 82799,
+  link: "talento",
+  priority: nil,
+  parent_id: development.id
+)
+#(Tal cual está ahora en exa)
+# General::Menu.find_or_create_by(
+#   title: "Talento",
+#   description: "Talento",
+#   css_class: "#d77780",
+#   code: 82799,
+#   link: "talento",
+#   priority: nil,
+#   parent_id: development.id
+# )
+	
+#Capacitemonos	
+General::Menu.find_or_create_by(
+  title: "Capacitemonos",
+  description: "Capacitemonos",
+  css_class: "#768393",
+  code: 55235,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+capacitation = General::Menu.find_by_title('Capacitemonos')
+#Capacitación Corporativa
+General::Menu.find_or_create_by(
+  title: "Capacitación Corporativa",
+  description: "Capacitación Corporativa",
+  css_class: "#647720",
+  code: 52599,
+  link: "capacitacion-corporativa",
+  priority: nil,
+  parent_id: capacitation.id
+)
+#Capacitación Funcional
+General::Menu.find_or_create_by(
+  title: "Capacitación Funcional",
+  description: "Capacitación Funcional",
+  css_class: "#641160",
+  code: 52592,
+  link: "capacitacion-funcional",
+  priority: nil,
+  parent_id: capacitation.id
+)
+#Programa excelencia
+General::Menu.find_or_create_by(
+  title: "Programa excelencia",
+  description: "Programa excelencia",
+  css_class: "#649370",
+  code: 52340,
+  link: "programa-excelencia",
+  priority: nil,
+  parent_id: capacitation.id
+)
+#Material de Capacitación
+General::Menu.find_or_create_by(
+  title: "Material de Capacitación",
+  description: "Material de Capacitación",
+  css_class: "#379908",
+  code: 52239,
+  link: "material-capacitacion",
+  priority: nil,
+  parent_id: capacitation.id
+)
+#Historial de Capacitación
+General::Menu.find_or_create_by(
+  title: "Historial de Capacitación",
+  description: "Historial de Capacitación",
+  css_class: "#379100",
+  code: 52189,
+  link: "historial-capacitacion",
+  priority: nil,
+  parent_id: capacitation.id
+)
+#->Remuneraciones	
+General::Menu.find_or_create_by(
+  title: "Remuneraciones",
+  description: "Remuneraciones",
+  css_class: "#366678",
+  code: 65235,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+remuneration = General::Menu.find_by_title('Remuneraciones')
+#Liquidaciones
+General::Menu.find_or_create_by(
+  title: "Liquidaciones",
+  description: "Liquidaciones",
+  css_class: "#299900",
+  code: 67789,
+  link: "liquidaciones",
+  priority: nil,
+  parent_id: remuneration.id
+)
+#Anticipos
+General::Menu.find_or_create_by(
+  title: "Anticipos",
+  description: "Anticipos",
+  css_class: "#23929",
+  code: 67199,
+  link: "anticipos",
+  priority: nil,
+  parent_id: remuneration.id
+)
+#APV
+General::Menu.find_or_create_by(
+  title: "APV",
+  description: "APV",
+  css_class: "#23121",
+  code: 61149,
+  link: "apv",
+  priority: nil,
+  parent_id: remuneration.id
+)
+#Certificados	
+General::Menu.find_or_create_by(
+  title: "Certificados",
+  description: "Certificados",
+  css_class: "#88999",
+  code: 78829,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+certification = General::Menu.find_by_title('Certificados')
+#Antigüedad
+General::Menu.find_or_create_by(
+  title: "Antigüedad",
+  description: "Antigüedad",
+  css_class: "#29929",
+  code: 78829,
+  link: "antiguedad",
+  priority: nil,
+  parent_id: certification.id
+)
+#Renta
+General::Menu.find_or_create_by(
+  title: "Renta",
+  description: "Renta",
+  css_class: "#22929",
+  code: 78195,
+  link: "renta",
+  priority: nil,
+  parent_id: certification.id
+)
+################################################ TERMINO EN LINEA ################################################
 #->Noticias
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Noticias",
   description: "Noticias",
   css_class: "#b13362",
@@ -262,87 +612,477 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
-General::Menu.create(
+post = General::Menu.find_by_title('Noticias')
+#Corporativas
+General::Menu.find_or_create_by(
   title: "Corporativas",
   description: "corporativas",
   css_class: "#b13362",
   code: 1236,
   link: "corporativas",
   priority: nil,
-  parent_id: 14
+  parent_id: post.id
 )
-General::Menu.create(
+#Miscelanias
+General::Menu.find_or_create_by(
   title: "Miscelanias",
   description: "Miscelanias",
   css_class: "#b10312",
   code: 1237,
   link: "miscelanias",
   priority: nil,
-  parent_id: 14
+  parent_id: post.id
 )
-General::Menu.create(
+#Conociéndonos
+General::Menu.find_or_create_by(
   title: "Conociéndonos",
   description: "Conociéndonos",
   css_class: "#a15293",
   code: 1238,
   link: "conociendonos",
   priority: nil,
-  parent_id: 14
+  parent_id: post.id
 )
+#->Políticas	
+General::Menu.find_or_create_by(
+  title: "Políticas",
+  description: "Políticas",
+  css_class: "#bp1332",
+  code: 17235,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+politic = General::Menu.find_by_title('Políticas')
+#Corporativas
+General::Menu.find_or_create_by(
+  title: "Corporativas",
+  description: "Corporativas",
+  css_class: "#65293",
+  code: 44238,
+  link: "corporativas",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Factoring Security
+General::Menu.find_or_create_by(
+  title: "Políticas Factoring Security",
+  description: "Políticas Factoring Security",
+  css_class: "#93293",
+  code: 41258,
+  link: "politicas-factoring-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Inversiones Security
+General::Menu.find_or_create_by(
+  title: "Políticas Inversiones Security",
+  description: "Políticas Inversiones Security",
+  css_class: "#92213",
+  code: 11358,
+  link: "politicas-inversiones-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Corredora Security
+General::Menu.find_or_create_by(
+  title: "Políticas Corredora Security",
+  description: "Políticas Corredora Security",
+  css_class: "#52413",
+  code: 71552,
+  link: "politicas-corredora-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Travel Security
+General::Menu.find_or_create_by(
+  title: "Políticas Travel Security",
+  description: "Políticas Travel Security",
+  css_class: "#59213",
+  code: 79551,
+  link: "politicas-travel-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Banco Security
+General::Menu.find_or_create_by(
+  title: "Políticas Banco Security",
+  description: "Políticas Banco Security",
+  css_class: "#52233",
+  code: 71541,
+  link: "politicas-banco-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Vida Security
+General::Menu.find_or_create_by(
+  title: "Políticas Vida Security",
+  description: "Políticas Vida Security",
+  css_class: "#58211",
+  code: 72549,
+  link: "politicas-vida-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Mandatos Security
+General::Menu.find_or_create_by(
+  title: "Políticas Mandatos Security",
+  description: "Políticas Mandatos Security",
+  css_class: "#58019",
+  code: 74540,
+  link: "politicas-mandatos-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Grupo Security
+General::Menu.find_or_create_by(
+  title: "Políticas Grupo Security",
+  description: "Políticas Grupo Security",
+  css_class: "#52419",
+  code: 71500,
+  link: "politicas-grupo-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#Políticas Hipotecaria 
+General::Menu.find_or_create_by(
+  title: "Políticas Hipotecaria",
+  description: "Políticas Hipotecaria",
+  css_class: "#56411",
+  code: 74501,
+  link: "politicas-hipotecarias-security",
+  priority: nil,
+  parent_id: politic.id
+)
+#->Guardianes del Security
+General::Menu.find_or_create_by(
+  title: "Guardianes del Security",
+  description: "Guardianes del Security",
+  css_class: "#p19362",
+  code: 91225,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+guardian = General::Menu.find_by_title('Guardianes del Security')
+#Información importante 
+General::Menu.find_or_create_by(
+  title: "Información importante",
+  description: "Información importante",
+  css_class: "#96312",
+  code: 96101,
+  link: "informacion-importante",
+  priority: nil,
+  parent_id: guardian.id
+)
+#Tutoriales 
+General::Menu.find_or_create_by(
+  title: "Tutoriales",
+  description: "Tutoriales",
+  css_class: "#93382",
+  code: 98801,
+  link: "tutoriales",
+  priority: nil,
+  parent_id: guardian.id
+)
+#Cliente Integral
+General::Menu.find_or_create_by(
+  title: "Cliente Integral",
+  description: "Cliente Integral",
+  css_class: "#139362",
+  code: 99923,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+integral = General::Menu.find_by_title('Cliente Integral')
+#Refiere aquí
+General::Menu.find_or_create_by(
+  title: "Refiere aquí",
+  description: "Refiere aquí",
+  css_class: "#92352",
+  code: 98304,
+  link: "refiere-aqui",
+  priority: nil,
+  parent_id: integral.id
+)
+#Acceso al sitio 
+General::Menu.find_or_create_by(
+  title: "Acceso al sitio ",
+  description: "Acceso al sitio ",
+  css_class: "#92654",
+  code: 93303,
+  link: "acceso-sitio",
+  priority: nil,
+  parent_id: integral.id
+)
+#->Reconociendo	
+General::Menu.find_or_create_by(
+  title: "Reconociendo",
+  description: "Reconociendo",
+  css_class: "#00034",
+  code: 78888,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+recognize = General::Menu.find_by_title('Reconociendo')
+#Tarjeta de trabajo bien hecho
+General::Menu.find_or_create_by(
+  title: "Tarjeta de trabajo bien hecho ",
+  description: "Tarjeta de trabajo bien hecho ",
+  css_class: "#002838",
+  code: 763403,
+  link: "tarjeta-trabajo-bien-hecho",
+  priority: nil,
+  parent_id: recognize.id
+)
+#Premio Espíritu
+General::Menu.find_or_create_by(
+  title: "Premio Espíritu",
+  description: "Premio Espíritu",
+  css_class: "#006868",
+  code: 764404,
+  link: "premio-espiritu",
+  priority: nil,
+  parent_id: recognize.id
+)
+#Premio Integración
+General::Menu.find_or_create_by(
+  title: "Premio Integración",
+  description: "Premio Integración",
+  css_class: "#001811",
+  code: 764111,
+  link: "premio-integracion",
+  priority: nil,
+  parent_id: recognize.id
+)
+#Premio Calidad de servicio
+General::Menu.find_or_create_by(
+  title: "Premio Calidad de servicio",
+  description: "Premio Calidad de servicio",
+  css_class: "#002289",
+  code: 764998,
+  link: "premio-calidad-servicio",
+  priority: nil,
+  parent_id: recognize.id
+)
+#Grupo Best
+General::Menu.find_or_create_by(
+  title: "Grupo Best",
+  description: "Grupo Best",
+  css_class: "#007778",
+  code: 79003,
+  link: "grupo-best",
+  priority: nil,
+  parent_id: recognize.id
+)
+#->Oportunidades Security	
+General::Menu.find_or_create_by(
+  title: "Oportunidades Security",
+  description: "Oportunidades Security",
+  css_class: "#34444",
+  code: 38443,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+opportunity = General::Menu.find_by_title('Oportunidades Security')
+#Cargos disponibles
+General::Menu.find_or_create_by(
+  title: "Cargos disponibles",
+  description: "Cargos disponibles",
+  css_class: "#38899",
+  code: 39999,
+  link: "cargo-disponible",
+  priority: nil,
+  parent_id: opportunity.id
+)
+#Referidos
+General::Menu.find_or_create_by(
+  title: "Referidos",
+  description: "Referidos",
+  css_class: "#311222",
+  code: 32990,
+  link: "referidos",
+  priority: nil,
+  parent_id: opportunity.id
+)
+#->Programa Previsional	
+General::Menu.find_or_create_by(
+  title: "Programa Previsional",
+  description: "Programa Previsional",
+  css_class: "#24224",
+  code: 28223,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+program = General::Menu.find_by_title('Programa Previsional')
+#Solicita tu asesoría
+General::Menu.find_or_create_by(
+  title: "Solicita tu asesoría",
+  description: "Solicita tu asesoría",
+  css_class: "#21998",
+  code: 22765,
+  link: "solicita-asesoria",
+  priority: nil,
+  parent_id: program.id
+)
+#Información
+General::Menu.find_or_create_by(
+  title: "Información",
+  description: "Información",
+  css_class: "#29938",
+  code: 29769,
+  link: "informacion",
+  priority: nil,
+  parent_id: program.id
+)
+#->Celebremos	
+General::Menu.find_or_create_by(
+  title: "Celebremos",
+  description: "Celebremos",
+  css_class: "#64220",
+  code: 68002,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+program = General::Menu.find_by_title('Programa Previsional')
+#Nacimientos
+#Cumpleaños
+#Bienvenidos
+
+################################################ TÉRMINO INFORMADOS
+
 #->Mis beneficios(Conocer)
-General::Menu.create(
+General::Menu.find_or_create_by(
+  title: "Bonos",
+  description: "Bonos",
+  css_class: "#y32233",
+  code: 12399,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+bonus = General::Menu.find_by_title('Bonos')
+General::Menu.find_or_create_by(
+  title: "Vacaciones",
+  description: "Vacaciones",
+  css_class: "#y32571",
+  code: 12498,
+  link: "bono-vacaciones",
+  priority: nil,
+  parent_id: bonus.id
+)
+General::Menu.find_or_create_by(
   title: "Bono Auxiliar de Párvulo Materno",
   description: "Bono Auxiliar de Párvulo Materno",
   css_class: "#y32571",
   code: 1239,
   link: "bono-auxiliar-parvulo-materno",
   priority: nil,
-  parent_id: nil
+  parent_id: bonus.id
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Bono Auxiliar de Párvulo Paterno",
   description: "Bono Auxiliar de Párvulo Paterno",
   css_class: "#366s12",
   code: 1240,
   link: "bono-auxiliar-parvulo-paterno",
   priority: nil,
-  parent_id: 18
+  parent_id: bonus.id
 )
-General::Menu.create(
-  title: "Bono de Fallecimiento",
-  description: "Bono de Fallecimiento",
-  css_class: "#109220",
-  code: 1241,
-  link: "bono-fallecimiento",
+General::Menu.find_or_create_by(
+  title: "Sala Cuna",
+  description: "Sala Cuna",
+  css_class: "#334d12",
+  code: 12400,
+  link: "bono-sala-cuna",
   priority: nil,
-  parent_id: 18
+  parent_id: bonus.id
 )
-General::Menu.create(
-  title: "Bono de Matrimonio",
-  description: "Bono de Matrimonio",
+General::Menu.find_or_create_by(
+  title: "Jardín Infantil",
+  description: "Jardín Infantil",
+  css_class: "#124dd2",
+  code: 12403,
+  link: "bono-jardin-infantil",
+  priority: nil,
+  parent_id: bonus.id
+)
+General::Menu.find_or_create_by(
+  title: "Nacimiento",
+  description: "Nacimiento",
+  css_class: "#2930dj",
+  code: 12407,
+  link: "bono-nacimiento",
+  priority: nil,
+  parent_id: bonus.id
+)
+General::Menu.find_or_create_by(
+  title: "Matrimonio",
+  description: "Matrimonio",
   css_class: "#b2310o",
   code: 1242,
   link: "bono-de-matrimonio",
   priority: nil,
-  parent_id: 18
+  parent_id: bonus.id
 )
-General::Menu.create(
-  title: "Bono de Navidad",
-  description: "Bono de Navidad",
-  css_class: "#a81000",
-  code: 1243,
-  link: "bono-navidad",
+General::Menu.find_or_create_by(
+  title: "Unión Civil",
+  description: "Unión Civil",
+  css_class: "#34949j",
+  code: 12422,
+  link: "bono-union-civil",
   priority: nil,
-  parent_id: 18
+  parent_id: bonus.id
 )
-General::Menu.create(
+General::Menu.find_or_create_by(
+  title: "Fallecimiento",
+  description: "Fallecimiento",
+  css_class: "#109220",
+  code: 1241,
+  link: "bono-fallecimiento",
+  priority: nil,
+  parent_id: bonus.id
+)
+General::Menu.find_or_create_by(
+  title: "Escolaridad",
+  description: "Escolaridad",
+  css_class: "#a81123",
+  code: 12423,
+  link: "bono-escolaridad",
+  priority: nil,
+  parent_id: bonus.id
+)
+General::Menu.find_or_create_by(
+  title: "Gestión Empresa",
+  description: "Gestión Empresa",
+  css_class: "#a81234",
+  code: 12483,
+  link: "bono-gestion-empresa",
+  priority: nil,
+  parent_id: bonus.id
+)
+General::Menu.find_or_create_by(
+  title: "Ahorro Jubilación 1+1",
+  description: "Ahorro Jubilación 1+1",
+  css_class: "#a89i89",
+  code: 12463,
+  link: "bono-ahorro-jubilacion",
+  priority: nil,
+  parent_id: bonus.id
+)
+General::Menu.find_or_create_by(
   title: "Aguinaldo Fiestas Patrias",
   description: "Aguinaldo Fiestas Patrias",
   css_class: "#a12203",
   code: 1244,
   link: "aguinaldo-fiestas-patrias",
   priority: nil,
-  parent_id: 18
+  parent_id: bonus.id
 )
 
 General::Santoral.find_or_create_by(name: "María, Madre de Dios", santoral_day: '01-01')
