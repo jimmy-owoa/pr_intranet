@@ -17,7 +17,7 @@ Role.find_or_create_by(name: 'user')
 Role.find_or_create_by(name: 'post_admin')
 Role.find_or_create_by(name: 'super_admin')
 #users
-General::User.find_or_create_by(
+General::User.create(
   name:'Nombre',
   last_name: 'Apellido',
   annexed: '1029',
@@ -25,7 +25,7 @@ General::User.find_or_create_by(
   password: 'security',
   birthday: Date.today,
 )
-General::User.find_or_create_by(
+General::User.create(
   name:'Nombre 2',
   last_name: 'Apellido 2',
   annexed: '1928',
@@ -33,7 +33,7 @@ General::User.find_or_create_by(
   password: 'security',
   birthday: Date.today-1
 )
-General::User.find_or_create_by(
+General::User.create(
   name:'Persona 3',
   last_name: 'a cargo de',
   annexed: '11020',
@@ -41,7 +41,7 @@ General::User.find_or_create_by(
   password: 'security',
   birthday: Date.today-2,
 )
-General::User.find_or_create_by(
+General::User.create(
   name:'Persona 4',
   last_name: 'rama',
   annexed: '22212',
@@ -69,7 +69,9 @@ News::Post.find_or_create_by(
   slug: 'Slug', 
   content: '¡Netflix, Spotify y varias firmas involucradas en serio caso! Facebook superándose a sí mismo, una vez más.', visibility: "Público", 
   post_class: "tipo", 
-  user_id: 1
+  user_id: 1,
+  important: true
+
 )
 News::Post.find_or_create_by(
   title: 'Observatorio de Rayos Gamma más potente del mundo se instalará en Chile', 
@@ -77,7 +79,8 @@ News::Post.find_or_create_by(
   content: 'En el proyecto participarán diversas instituciones nacionales e internacionales y permitirá la instalación de este potente observatorio de Rayos Gamma.', 
   visibility: "Público", 
   post_class: "tipo", 
-  user_id: 1
+  user_id: 1,
+  important: true
 )
 News::Post.find_or_create_by(
   title: 'Elon Musk y The Boring Company muestran su sistema de túneles en acción', 
