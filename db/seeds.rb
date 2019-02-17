@@ -525,16 +525,25 @@ General::Menu.find_or_create_by(
 )
 ################################################ TERMINO EN LINEA ################################################
 #->Noticias
-General::Menu.find_or_create_by(
+# General::Menu.find_or_create_by(
+#   title: "Noticias",
+#   description: "Noticias",
+#   css_class: "#b13362",
+#   code: 1235,
+#   link: "",
+#   priority: nil,
+#   parent_id: nil
+# )
+General::Menu.create(
   title: "Noticias",
-  description: "Noticias",
+  description: "Noticias new menu",
   css_class: "#b13362",
   code: 1235,
   link: "",
   priority: nil,
   parent_id: nil
 )
-post = General::Menu.find_by_title('Noticias')
+post = General::Menu.find_by_description('Noticias new menu')
 #Corporativas
 General::Menu.find_or_create_by(
   title: "Corporativas",
@@ -977,7 +986,7 @@ General::Menu.find_or_create_by(
 sporty = General::Menu.find_by_title('Cultura Corporativa')
 
 #Tiempo libre	
-General::Menu.find_or_create_by(
+General::Menu.create(
   title: "Tiempo libre",
   description: "Tiempo libre",
   css_class: "#11110",
@@ -1311,7 +1320,7 @@ General::Menu.find_or_create_by(
   parent_id: scholarship.id
 )
 #->Tiempo Libre	
-General::Menu.find_or_create_by(
+General::Menu.create(
   title: "Tiempo Libre",
   description: "Beneficios Tiempo Libre",
   css_class: "#o0293",
@@ -1795,6 +1804,17 @@ General::Menu.find_or_create_by(
   priority: nil,
   parent_id: general.id
 )
+#-> Convenios colectivos
+General::Menu.find_or_create_by(
+  title: "Convenios colectivos",
+  description: "Convenios colectivos",
+  css_class: "#32032",
+  code: 10319,
+  link: "",
+  priority: nil,
+  parent_id: nil
+)
+generalc = General::Menu.find_by_title('Convenios colectivos')
 ###########################################TERMINO MENÚ MIS BENEFICIOS 
 ####### FIN MENÚ NUEVO #######
 
@@ -1864,15 +1884,15 @@ General::Menu.find_or_create_by(
   priority: nil,
   parent_id: nil
 )
-General::Menu.find_or_create_by(
-  title: "Noticias",
-  description: "Listas de posts / noticias",
-  css_class: "#744db8",
-  code: 1229,
-  link: "noticias",
-  priority: nil,
-  parent_id: nil
-)
+# General::Menu.find_or_create_by(
+#   title: "Noticias",
+#   description: "Listas de posts / noticias",
+#   css_class: "#744db8",
+#   code: 1229,
+#   link: "noticias",
+#   priority: nil,
+#   parent_id: nil
+# )
 General::Menu.find_or_create_by(
   title: "Faq",
   description: "preguntas y respuestas",

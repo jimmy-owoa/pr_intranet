@@ -9,14 +9,14 @@ class Frontend::ApplicationController < ApplicationController
     today = Date.today.strftime("%d/%m/%Y")
     indicator = General::EconomicIndicator
     indicators = indicator.where(date: today)
-    if indicator.where(date: today).present?      
+    if indicator.where(date: today).present?    
       data << {
         HOY: l(Date.today, format: '%A %d %B %Y'),
-        DOLAR: indicators[0].value,
-        EURO: indicators[1].value,
-        UF: indicators[2].value,
-        UTM: indicators[3].value,
-        IPC: indicators[4].value,
+        DOLAR: indicator.indicator_type(1).last,
+        EURO: indicator.indicator_type(2).last,
+        UF: indicator.indicator_type(3).last,
+        UTM: indicator.indicator_type(4).last,
+        IPC: indicator.indicator_type(5).last,
         LATEST_DOLAR: indicator.indicator_type(1),
         LATEST_EURO: indicator.indicator_type(2),
         LATEST_UF: indicator.indicator_type(3),
