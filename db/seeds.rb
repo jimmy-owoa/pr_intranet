@@ -58,15 +58,6 @@ user = General::User.find(2)
 user_admin.add_role :super_admin
 user.add_role :user
 #economic indicators
-<<<<<<< HEAD
-General::EconomicIndicatorType.find_or_create_by(name: 'dolar', symbol: 'US$') #1
-General::EconomicIndicatorType.find_or_create_by(name: 'euro', symbol: '€') #2
-General::EconomicIndicatorType.find_or_create_by(name: 'uf', symbol:'UF' ) #3
-General::EconomicIndicatorType.find_or_create_by(name: 'utm', symbol: 'UTM') #4
-General::EconomicIndicatorType.find_or_create_by(name: 'ipc', symbol: 'IPC') #5
-#post
-News::Post.find_or_create_by(
-=======
 General::EconomicIndicatorType.where(name: 'dolar', symbol: 'US$').first_or_create #1
 General::EconomicIndicatorType.where(name: 'euro', symbol: '€').first_or_create #2
 General::EconomicIndicatorType.where(name: 'uf', symbol:'UF' ).first_or_create #3
@@ -75,55 +66,31 @@ General::EconomicIndicatorType.where(name: 'ipc', symbol: 'IPC').first_or_create
 General::EconomicIndicatorType.where(name: 'ipsa', symbol: 'SPCLXIPSA').first_or_create #6
 #post
 News::Post.where(
->>>>>>> 56c46c56d3fcd422e82d515b2b9762bee0677393
   title: '¡Gravísimo! Facebook traficó con tus mensajes privados de forma grotesca con otras compañías', 
   slug: 'Slug', 
   content: '¡Netflix, Spotify y varias firmas involucradas en serio caso! Facebook superándose a sí mismo, una vez más.', visibility: "Público", 
   post_class: "tipo", 
-<<<<<<< HEAD
-  user_id: 1,
-  important: true
-
-)
-News::Post.find_or_create_by(
-=======
   user_id: 1
 ).first_or_create
 News::Post.where(
->>>>>>> 56c46c56d3fcd422e82d515b2b9762bee0677393
   title: 'Observatorio de Rayos Gamma más potente del mundo se instalará en Chile', 
   slug: 'Slug', 
   content: 'En el proyecto participarán diversas instituciones nacionales e internacionales y permitirá la instalación de este potente observatorio de Rayos Gamma.', 
   visibility: "Público", 
   post_class: "tipo", 
-<<<<<<< HEAD
-  user_id: 1,
-  important: true
-)
-News::Post.find_or_create_by(
-=======
   user_id: 1
 ).first_or_create
 News::Post.where(
->>>>>>> 56c46c56d3fcd422e82d515b2b9762bee0677393
   title: 'Elon Musk y The Boring Company muestran su sistema de túneles en acción', 
   slug: 'Slug', 
   content: 'The Boring Company abrió su primera línea de transporte para que los mortales conozcamos el futuro del desplazamiento.',visibility: "Público", 
   post_class: "tipo", 
   user_id: 1
-<<<<<<< HEAD
-)
-#esto no funciona, manda error en el main_image_id( que no lo agregué en el find_or_create_by del post)
-# News::Post.first.main_image.attach(io: File.open("app/assets/images/post_news.png"), filename: "post_news.png", content_type: "image/png")
-#product and image
-Marketplace::Product.find_or_create_by(
-=======
 ).first_or_create
 #esto no funciona, manda error en el main_image_id( que no lo agregué en el create del post)
 # News::Post.first.main_image.attach(io: File.open("app/assets/images/post_news.png"), filename: "post_news.png", content_type: "image/png")
 #product and image
 Marketplace::Product.where(
->>>>>>> 56c46c56d3fcd422e82d515b2b9762bee0677393
   name: 'Auto',
   description: 'Auto amarillo',
   product_type: 'Autos',
