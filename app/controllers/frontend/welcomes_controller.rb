@@ -38,7 +38,7 @@ class Frontend::WelcomesController < ApplicationController
         annexed: user.annexed,
         birthday: user.birthday,
         show_birthday: user.show_birthday,
-        image: root_url + (user.image.attached? ? rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : '/assets/default_avatar.png')
+        image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
       }
     end
     respond_to do |format|
@@ -48,10 +48,10 @@ class Frontend::WelcomesController < ApplicationController
   end
 
   def users_welcome
-    @new_users = General::User.all
+    @new_users = General::User.last(20)
     data= []
     @new_users.each do |user|
-      @image = user.image.attachment.present? ? root_url + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true) : nil
+      @image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
       data << {
         id: user.id,
         email: user.email,
@@ -60,7 +60,7 @@ class Frontend::WelcomesController < ApplicationController
         last_name: user.last_name,
         active: user.active,
         annexed: user.annexed,
-        birthday: user.birthday.strftime("%d/%m/%Y"),
+        birthday: user.birthday,
         show_birthday: user.show_birthday,
         image: @image
       }

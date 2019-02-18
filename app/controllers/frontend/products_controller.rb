@@ -16,15 +16,15 @@ module Frontend
       product.images.each do |image|
         thumb_sizes << {
           id: image.id,
-          url: root_url + rails_representation_url(image.variant(resize: '100x100'), only_path: true)
+          url: url_for(image.variant(resize: "100x100"))
         }
         normal_sizes << {
           id: image.id,
-          url: root_url + rails_representation_url(image.variant(resize: '480x300'), only_path: true)
+          url: url_for(image.variant(resize: "500x500>"))
         }
         large_sizes << {
           id: image.id,
-          url: root_url + rails_blob_url(image, only_path: true)
+          url: url_for(image)
         }
       end
       data << {
@@ -40,7 +40,7 @@ module Frontend
         is_expired: product.is_expired,
         expiration: product.expiration,
         description: product.description,
-        main_image: root_url + (  product.images.first.present? ? rails_representation_url(product.images.first.variant(resize: '320x320'), only_path: true) : '/assets/noimage.jpg'),
+        main_image: product.images.first.present? ? url_for(product.images.first) : nil,
         images: product.images.present? ? {
           thumbs: thumb_sizes,
           normal_size: normal_sizes,
