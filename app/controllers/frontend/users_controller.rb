@@ -24,7 +24,7 @@ class Frontend::UsersController < ApplicationController
       end
     end
     if @user.siblings.first.present?
-      @user.siblings.each do |sibling|
+      @user.siblings.where.not(parent_id: nil).each do |sibling|
         data_siblings << {
           id: sibling.id,
           name: sibling.name,

@@ -49,7 +49,7 @@
 <hr class='hr_top'>
 <h5>Pares</h5>
 <div class="row pre-scrollable">
-  <% @user.siblings.each do |sb| %>
+  <% @user.siblings.where.not(parent_id: nil).each do |sb| %>
       <div class="col-md-2">
         <div class="card" style="width: 11rem;">
           <%= ornanigram_image(sb.id)%>
