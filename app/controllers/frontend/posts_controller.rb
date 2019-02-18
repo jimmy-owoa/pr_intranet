@@ -6,7 +6,7 @@ module Frontend
     posts = News::Post.includes(:main_image)
     data = []
     posts.each do |post|
-      @image = post.main_image.present? ? root_url + post.main_image.path : nil
+      @image = post.main_image.present? ? url_for(post.main_image.attachment) : nil
       data << {
         id: post.id,
         title: post.title,
@@ -35,24 +35,24 @@ module Frontend
   def post
     data = []
     id = params[:id].present? ? params[:id] : nil
-    @post = News::Post.find(id)
-    @image = @post.main_image.present? ? root_url + @post.main_image.path : nil
+    post = News::Post.find(id)
+    image = post.main_image.present? ? url_for(post.main_image.attachment) : nil
     data << {
-      id: @post.id,
-      title: @post.title,
-      main_image: @post.main_image,
-      user_id: General::User.find(@post.user_id).name,
-      created_at: @post.created_at.strftime("%d/%m/%Y %H:%M"),
-      content: @post.content,
-      post_type: @post.post_type,
-      important: @post.important,      
-      tags: @post.terms.tags,
-      main_image: @image,
-      format: @post.format,
+      id: post.id,
+      title: post.title,
+      main_image: post.main_image,
+      user_id: General::User.find(post.user_id).name,
+      created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
+      content: post.content,
+      post_type: post.post_type,
+      important: post.important,      
+      tags: post.terms.tags,
+      main_image: image,
+      format: post.format,
       breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
-          {link: '#', name: @post.title.truncate(30)}
+          {link: '#', name: post.title.truncate(30)}
         ]
 
     }
