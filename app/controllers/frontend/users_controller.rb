@@ -56,7 +56,7 @@ class Frontend::UsersController < ApplicationController
       annexed: @user.annexed,
       position: @user.position,
       company: @user.company,
-      address: @user.address,z
+      address: @user.address,
       image: root_url + ( @user.image.attached? ? 
       rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
       tags: @user.terms.tags.map(&:name),

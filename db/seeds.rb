@@ -526,16 +526,7 @@ General::Menu.find_or_create_by(
 )
 ################################################ TERMINO EN LINEA ################################################
 #->Noticias
-# General::Menu.find_or_create_by(
-#   title: "Noticias",
-#   description: "Noticias",
-#   css_class: "#b13362",
-#   code: 1235,
-#   link: "",
-#   priority: nil,
-#   parent_id: nil
-# )
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Noticias",
   description: "Noticias new menu",
   css_class: "#b13362",
@@ -544,6 +535,15 @@ General::Menu.create(
   priority: nil,
   parent_id: nil
 )
+# General::Menu.create(
+#   title: "Noticias",
+#   description: "Noticias new menu",
+#   css_class: "#b13362",
+#   code: 1235,
+#   link: "",
+#   priority: nil,
+#   parent_id: nil
+# )
 post = General::Menu.find_by_description('Noticias new menu')
 #Corporativas
 General::Menu.find_or_create_by(
@@ -883,7 +883,7 @@ General::Menu.find_or_create_by(
 )
 celebrate = General::Menu.find_by_title('Celebremos')
 #Nacimientos
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Nacimientos",
   description: "Nacimientos",
   css_class: "#67778",
@@ -893,7 +893,7 @@ General::Menu.create(
   parent_id: celebrate.id
 )
 #Cumpleaños
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Cumpleaños",
   description: "Cumpleaños",
   css_class: "#67338",
@@ -903,7 +903,7 @@ General::Menu.create(
   parent_id: celebrate.id
 )
 #Bienvenidos
-General::Menu.create(
+General::Menu.find_or_create_by(
   title: "Bienvenidos",
   description: "Bienvenidos",
   css_class: "#62278",
@@ -1821,69 +1821,69 @@ generalc = General::Menu.find_by_title('Convenios colectivos')
 ####### FIN MENÚ NUEVO #######
 
 # Menus Viejo
-General::Menu.find_or_create_by( 
-  title: "Bienvenidos",
-  description: "Listar los usuarios que llegaron a la empresa",
-  css_class: "#545454",
-  code: 1223,
-  link: "bienvenidos",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by( 
-  title: "Nacimientos",
-  description: "Listar los hij@s de los empleados de la empresa",
-  css_class: "000001",
-  code: 1224,
-  link: "nacimientos",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by( 
-  title: "Crear Nacimientos",
-  description: "Crear nacimiento",
-  css_class: "#ff00d5",
-  code: 1225,
-  link: "nacimientos/find_or_create_by",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by( 
-  title: "Cumpleanos",
-  description: "Listas cumpleaños de los empleados",
-  css_class: "#00ffbb",
-  code: 1226,
-  link: "cumpleaños",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Productos",
-  description: "Listas productos",
-  css_class: "#000000",
-  code: 1227,
-  link: "avisos",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Crear avisos",
-  description: "Crear Avisos",
-  css_class: "#1e5755",
-  code: 1231,
-  link: "avisos/find_or_create_by",
-  priority: nil,
-  parent_id: nil
-)
-General::Menu.find_or_create_by(
-  title: "Encuestas",
-  description: "Listas encuestas",
-  css_class: "#e3e3e3",
-  code: 1228,
-  link: "encuestas",
-  priority: nil,
-  parent_id: nil
-)
+# General::Menu.find_or_create_by( 
+#   title: "Bienvenidos",
+#   description: "Listar los usuarios que llegaron a la empresa",
+#   css_class: "#545454",
+#   code: 1223,
+#   link: "bienvenidos",
+#   priority: nil,
+#   parent_id: nil
+# )
+# General::Menu.find_or_create_by( 
+#   title: "Nacimientos",
+#   description: "Listar los hij@s de los empleados de la empresa",
+#   css_class: "000001",
+#   code: 1224,
+#   link: "nacimientos",
+#   priority: nil,
+#   parent_id: nil
+# )
+# General::Menu.find_or_create_by( 
+#   title: "Crear Nacimientos",
+#   description: "Crear nacimiento",
+#   css_class: "#ff00d5",
+#   code: 1225,
+#   link: "nacimientos/find_or_create_by",
+#   priority: nil,
+#   parent_id: nil
+# )
+# General::Menu.find_or_create_by( 
+#   title: "Cumpleanos",
+#   description: "Listas cumpleaños de los empleados",
+#   css_class: "#00ffbb",
+#   code: 1226,
+#   link: "cumpleaños",
+#   priority: nil,
+#   parent_id: nil
+# )
+# General::Menu.find_or_create_by(
+#   title: "Productos",
+#   description: "Listas productos",
+#   css_class: "#000000",
+#   code: 1227,
+#   link: "avisos",
+#   priority: nil,
+#   parent_id: nil
+# )
+# General::Menu.find_or_create_by(
+#   title: "Crear avisos",
+#   description: "Crear Avisos",
+#   css_class: "#1e5755",
+#   code: 1231,
+#   link: "avisos/find_or_create_by",
+#   priority: nil,
+#   parent_id: nil
+# )
+# General::Menu.find_or_create_by(
+#   title: "Encuestas",
+#   description: "Listas encuestas",
+#   css_class: "#e3e3e3",
+#   code: 1228,
+#   link: "encuestas",
+#   priority: nil,
+#   parent_id: nil
+# )
 # General::Menu.find_or_create_by(
 #   title: "Noticias",
 #   description: "Listas de posts / noticias",
@@ -1893,15 +1893,15 @@ General::Menu.find_or_create_by(
 #   priority: nil,
 #   parent_id: nil
 # )
-General::Menu.find_or_create_by(
-  title: "Faq",
-  description: "preguntas y respuestas",
-  css_class: "#db9377",
-  code: 1230,
-  link: "preguntas-frecuentes",
-  priority: nil,
-  parent_id: nil
-)
+# General::Menu.find_or_create_by(
+#   title: "Faq",
+#   description: "preguntas y respuestas",
+#   css_class: "#db9377",
+#   code: 1230,
+#   link: "preguntas-frecuentes",
+#   priority: nil,
+#   parent_id: nil
+# )
 
 ############## SANTORAL ################
 General::Santoral.find_or_create_by(name: "María, Madre de Dios", santoral_day: '01-01')
