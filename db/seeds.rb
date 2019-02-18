@@ -880,32 +880,32 @@ General::Menu.find_or_create_by(
 )
 celebrate = General::Menu.find_by_title('Celebremos')
 #Nacimientos
-General::Menu.find_or_create_by(
+General::Menu.create(
   title: "Nacimientos",
   description: "Nacimientos",
   css_class: "#67778",
   code: 63520,
-  link: "nacimientos",
+  link: "celebremos-nacimientos",
   priority: nil,
   parent_id: celebrate.id
 )
 #Cumpleaños
-General::Menu.find_or_create_by(
+General::Menu.create(
   title: "Cumpleaños",
   description: "Cumpleaños",
   css_class: "#67338",
   code: 63424,
-  link: "cumpleaños",
+  link: "celebremos-cumpleaños",
   priority: nil,
   parent_id: celebrate.id
 )
 #Bienvenidos
-General::Menu.find_or_create_by(
+General::Menu.create(
   title: "Bienvenidos",
   description: "Bienvenidos",
   css_class: "#62278",
   code: 63903,
-  link: "cumpleaños",
+  link: "celebremos-bienvenidos",
   priority: nil,
   parent_id: celebrate.id
 )
@@ -1814,9 +1814,8 @@ General::Menu.find_or_create_by(
 )
 generalc = General::Menu.find_by_title('Convenios colectivos')
 ###########################################TERMINO MENÚ MIS BENEFICIOS 
-####### FIN MENÚ NUEVO #######
 
-###### 
+####### FIN MENÚ NUEVO #######
 
 # Menus Viejo
 General::Menu.find_or_create_by( 
