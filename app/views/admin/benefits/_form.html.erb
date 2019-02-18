@@ -1,0 +1,24 @@
+<%= f.error_notification %>
+  <div class="form-group row">
+    <div class="col-12">
+      <%= f.input :title, required: true, autofocus: true %>
+    </div>
+    <div class="col-12">
+      <%= f.input :content %>
+    </div>
+    <div class="col-4" >
+      <div class="card border-secondary mb-2">
+        <div class="card-body text-secondary border border-primary rounded">
+          <% if @benefit.image.attachment.present? %>
+                <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'center') %>
+          <% else %>  
+            <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
+          <% end %>
+          <div class="center">
+            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%= f.submit nil, :class => 'btn btn-primary btn-block' %>

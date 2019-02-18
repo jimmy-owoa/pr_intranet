@@ -35,4 +35,9 @@ $(document).on('turbolinks:load', function () {
     tokenSeparators: [],
     placeholder: "Seleccionar Tags"
   });
+  $('#post_format').select2({
+    theme: "bootstrap",
+    placeholder: "Elegir formato",
+    width: '100%'
+  });
 });

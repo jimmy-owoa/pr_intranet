@@ -17,6 +17,11 @@ module Frontend
         post_type: post.post_type,
         important: post.important,
         tags: post.terms.tags,
+        breadcrumbs: [
+          {link: '/', name: 'Inicio' },
+          {link: '/noticias', name: 'Noticias'},
+          {link: nil, name: post.title.truncate(30)}
+        ],
         main_image: @image,
         format: post.format
       }
@@ -43,7 +48,12 @@ module Frontend
       important: @post.important,      
       tags: @post.terms.tags,
       main_image: @image,
-      format: @post.format
+      format: @post.format,
+      breadcrumbs: [
+          {link: '/', name: 'Inicio' },
+          {link: '/noticias', name: 'Noticias'},
+          {link: '#', name: @post.title.truncate(30)}
+        ]
 
     }
     respond_to do |format|
