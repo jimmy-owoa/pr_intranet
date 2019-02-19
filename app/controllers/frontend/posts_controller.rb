@@ -32,6 +32,35 @@ module Frontend
     end
   end
 
+  def important_posts
+    posts = News::Post.includes(:main_image).important
+    data = []
+    posts.each do |post|
+      @image = post.main_image.present? ? url_for(post.main_image.attachment) : nil
+      data << {
+        id: post.id,
+        title: post.title,
+        main_image: post.main_image,
+        user_id: General::User.find(post.user_id).name,
+        created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
+        content: post.content,
+        post_type: post.post_type,
+        important: post.important,
+        breadcrumbs: [
+          {link: '/', name: 'Inicio' },
+          {link: '/noticias', name: 'Noticias'},
+          {link: nil, name: post.title.truncate(30)}
+        ],
+        main_image: @image,
+        format: post.format
+      }
+    end
+    respond_to do |format|
+      format.json { render json: data }
+      format.js
+    end
+  end  
+
   def post
     data = []
     id = params[:id].present? ? params[:id] : nil

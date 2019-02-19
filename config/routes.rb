@@ -70,6 +70,7 @@ Rails.application.routes.draw do
     resources :products
     resources :posts, only: [:show, :index] do
       get :post, on: :collection
+      get :important_posts, on: :collection
     end
     resources :births do 
       get :get_home_births, on: :collection

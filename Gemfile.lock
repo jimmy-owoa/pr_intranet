@@ -120,6 +120,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.4)
     crass (1.0.4)
+    dalli (2.7.9)
     device_detector (1.0.1)
     devise (4.6.0)
       bcrypt (~> 3.0)
@@ -271,6 +272,7 @@ GEM
     sassc (2.0.0)
       ffi (~> 1.9.6)
       rake
+    scout_apm (2.4.21)
     searchkick (3.1.2)
       activemodel (>= 4.2)
       elasticsearch (>= 5)
@@ -355,6 +357,7 @@ DEPENDENCIES
   chromedriver-helper
   cocoon
   coffee-rails (~> 4.2)
+  dalli
   devise
   font-awesome-sass (~> 5.3.1)
   i18n-debug
@@ -376,6 +379,7 @@ DEPENDENCIES
   rails (~> 5.2.1)
   rolify
   sass-rails (~> 5.0)
+  scout_apm
   searchkick
   select2-rails
   selenium-webdriver
@@ -397,4 +401,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.2
+   1.17.1
