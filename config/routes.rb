@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     get 'faq', to: 'application#faq'
     get 'weather', to: 'application#weather'
     get 'weather_info', to: 'weather_information#weather'
+    get 'births/calendar_births', to: 'births#calendar_births'
     resources :users, only: [:update, :show] do
       get :user, on: :collection
     end
@@ -66,6 +67,7 @@ Rails.application.routes.draw do
     resources :birthdays do
       get :users_birthday, on: :collection
       get :get_home_birthdays, on: :collection
+      get :calendar, on: :collection
     end
     resources :products
     resources :posts, only: [:show, :index] do
