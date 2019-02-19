@@ -25,7 +25,7 @@ class Frontend::WelcomesController < ApplicationController
   end
 
   def get_home_welcome
-    new_users = General::User.last(4)
+    new_users = General::User.users_welcome
     data = []
     new_users.each do |user|
       data << {
@@ -37,6 +37,7 @@ class Frontend::WelcomesController < ApplicationController
         active: user.active,
         annexed: user.annexed,
         birthday: user.birthday,
+        company: user.company,
         show_birthday: user.show_birthday,
         image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
       }

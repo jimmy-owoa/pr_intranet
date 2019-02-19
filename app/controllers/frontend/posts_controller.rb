@@ -3,7 +3,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]  
 
   def index
-    posts = News::Post.includes(:main_image)
+    posts = News::Post.posts_cached
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : nil
@@ -11,12 +11,12 @@ module Frontend
         id: post.id,
         title: post.title,
         main_image: post.main_image,
-        user_id: General::User.find(post.user_id).name,
+        user_name: post.cached_users_names,
         created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
         content: post.content,
         post_type: post.post_type,
         important: post.important,
-        tags: post.terms.tags,
+        tags: post.cached_tags,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
