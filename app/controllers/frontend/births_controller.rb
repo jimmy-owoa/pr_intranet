@@ -6,7 +6,7 @@ class Frontend::BirthsController < ApplicationController
   after_action :set_tracking_action, only: [:create]  
 
     def index
-      births = Employee::Birth.show_birth.birthday_between(1.year.ago, Time.now)
+      births = Employee::Birth.show_birth.birthday_between(1.month.ago, Time.now) #se cambio de un año a un mes
       births_calendar = Employee::Birth.show_birth
       data = []
       births.each do |birth|
@@ -47,7 +47,6 @@ class Frontend::BirthsController < ApplicationController
           mother: birth.full_name_mother
         }
       end
-
       respond_to do |format|
         format.html
         format.json { render json: data }
@@ -55,13 +54,33 @@ class Frontend::BirthsController < ApplicationController
       end
     end
 
+    def calendar_births
+      data = []
+      births = Employee::Birth.show_birth.birthday_between(1.month.ago, Time.now)
+      births.each do |birth|
+        data << {
+          id: birth.id,
+          child_full_name: birth.child_name + ' ' + birth.child_lastname,
+          photo: root_url + rails_representation_url(birth.photo.variant(resize: '600x600'), only_path: true),
+          gender: birth.gender ? 'Masculino' : 'Femenino',
+          date: birth.birthday,
+          father: birth.full_name_father,
+          mother: birth.full_name_mother
+        }
+      end
+      respond_to do |format|
+        format.html
+        format.json { render json: data[0] }
+        format.js
+      end
+    end    
+
     def new
       add_breadcrumb "Nacimientos", :frontend_births_path
       @birth = Employee::Birth.new
     end
 
-    def show 
-
+    def show
     end
 
     def create
