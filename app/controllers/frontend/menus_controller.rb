@@ -4,7 +4,7 @@ class Frontend::MenusController < ApplicationController
 
   def menus
     data = []
-    menus = General::Menu.all
+    menus = General::Menu.menu_cached
     menus.each do |menu|
       data << {
         id: menu.id,
@@ -15,8 +15,8 @@ class Frontend::MenusController < ApplicationController
         priority: menu.priority,
         parent_id: menu.parent_id,
         link: menu.link,
-        tags: menu.terms.tags.map(&:name),
-        categories: menu.terms.categories.map(&:name),
+        tags: menu.cached_tags,
+        categories: menu.cached_categories,
       }
     end
     respond_to do |format|

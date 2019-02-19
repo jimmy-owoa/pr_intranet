@@ -16,6 +16,8 @@ class News::Post < ApplicationRecord
 
   after_initialize :set_status
 
+  scope :important, -> { where(:important => true)}
+
   STATUS = ['Publicado','Borrador', 'Programado']
   VISIBILITY = ['Público', 'Privada']
   FORMAT = {0 => 'Estilo 1', 1 => 'Estilo 2', 2 => 'Estilo 3'}

@@ -1,6 +1,6 @@
 class Frontend::WeatherInformationController < ApplicationController
   def weather
-    @weather = General::WeatherInformation.all
+    @weather = General::WeatherInformation.weather_cached
     respond_to do |format|
       format.json { render json: @weather }
       format.js
