@@ -67,6 +67,7 @@ Rails.application.routes.draw do
     resources :birthdays do
       get :users_birthday, on: :collection
       get :get_home_birthdays, on: :collection
+      get :calendar, on: :collection
     end
     resources :products
     resources :posts, only: [:show, :index] do
