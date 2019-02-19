@@ -6,8 +6,6 @@ module Admin
     before_action :set_categories, only: [:edit, :new]
     before_action :set_attachments, only: [:edit, :new]
 
-    layout 'admin'
-
     def index
       add_breadcrumb "Noticias", :admin_posts_path
       @posts = News::Post.paginate(:page => params[:page], :per_page => 10)
@@ -19,6 +17,7 @@ module Admin
     end
 
     def show
+      fresh_when last_modified: @post.updated_at
       add_breadcrumb "Noticias", :admin_posts_path
     end
 

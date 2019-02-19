@@ -35,5 +35,9 @@ class General::User < ApplicationRecord
   def only_admin?
     true if roles.map{|q| q.name }.any? "super_admin"
     false
-  end    
+  end   
+  
+  def self.users_welcome
+    Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
+  end
 end
