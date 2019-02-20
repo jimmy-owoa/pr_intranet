@@ -19,7 +19,7 @@ module Frontend
             annexed: user.annexed,
             birthday: user.birthday,
             image: root_url + ( user.image.attached? ? 
-      rails_blob_path(user.image, only_path: true) : '/assets/default_avatar.png')
+      rails_blob_path(user.image, only_path: true) : root_url + '/assets/default_avatar.png')
           }
         end
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|

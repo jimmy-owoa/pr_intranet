@@ -45,7 +45,7 @@ module Frontend
           annexed: user.annexed,
           birthday: user.birthday,
           show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : '/assets/default_avatar.png'
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png'
         }
       end
 
