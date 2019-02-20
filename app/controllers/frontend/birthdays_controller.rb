@@ -5,7 +5,7 @@ module Frontend
     def index
       # @users_calendar = General::User.show_birthday
       @months = I18n.t("date.month_names").drop(1).join(", ")
-      users = General::User.with_attached_image.where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y"))
+      users =  General::User.where('extract(month from birthday) = ?', Date.today.month)
       data = []
       users.each do |user|
         data << {
@@ -18,7 +18,7 @@ module Frontend
           annexed: user.annexed,
           birthday: user.birthday.strftime("%d/%m/%Y"),
           show_birthday: user.show_birthday,
-          image: user.image.variant(resize: '300x300>'),
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : nil,
         }
       end
       respond_to do |format|
