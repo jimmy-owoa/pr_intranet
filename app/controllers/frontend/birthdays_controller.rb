@@ -17,8 +17,10 @@ module Frontend
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday.strftime("%d/%m/%Y"),
+          date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : nil,
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png',
+          open: false,
         }
       end
       respond_to do |format|
