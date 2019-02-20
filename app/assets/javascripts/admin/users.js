@@ -6,7 +6,8 @@ $(document).on('turbolinks:load', function () {
   });
   // ver user_term_ids para agregar tags
   $('#birthday').datetimepicker({
-    format: 'DD-MM-YYYY'
+    format: 'DD-MM-YYYY',
+    maxDate: new Date()
   });
   $('#user_term_ids').select2({
     tags: true,
