@@ -59,9 +59,11 @@ class Frontend::WelcomesController < ApplicationController
         created_at: user.created_at,
         name: user.name,
         last_name: user.last_name,
+        full_name: user.name + ' ' + user.last_name,
         active: user.active,
         annexed: user.annexed,
         birthday: user.birthday,
+        date: user.created_at.strftime("%Y-%m-%d"),
         show_birthday: user.show_birthday,
         image: @image
       }
