@@ -29,7 +29,7 @@ module Frontend
 
     def get_home_birthdays
       data = []
-      birthdays = General::User.all.where.not(birthday: nil)
+      birthdays = General::User.where('extract(month from birthday) = ?', Date.today.month)
       birthdays_filtered = (birthdays.sort_by &:birthday).last(4)
       birthdays_filtered.each do |user|
         data << {
