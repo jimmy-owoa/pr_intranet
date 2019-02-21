@@ -9,14 +9,13 @@ class IndicatorService
     http = Net::HTTP.new(indexes_url.host, indexes_url.port)
     indexes_request = Net::HTTP::Post.new(indexes_url)
     indexes_response = http.request(indexes_request)
-
     @currencies = JSON.parse(currencies_response.body)
     puts @currencies
-    @indexes = indexes_response.read_body
+    @indexes = JSON.parse(indexes_response.read_body)
     # JSON.parse(@indexes)['listaResult'][1]['Valor'] // creo que hay que parsearlo a json
     puts @indexes
   end
-
+  
   def perform
     {
       dolar: @currencies['dolar']['valor'],
