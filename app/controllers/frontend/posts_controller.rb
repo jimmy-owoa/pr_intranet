@@ -20,7 +20,7 @@ module Frontend
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
-          {link: nil, name: post.title.truncate(30)}
+          {link: '#', name: post.title.truncate(30)}
         ],
         main_image: @image,
         format: post.format
@@ -49,7 +49,7 @@ module Frontend
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
-          {link: nil, name: post.title.truncate(30)}
+          {link: '#', name: post.title.truncate(30)}
         ],
         main_image: @image,
         format: post.format
