@@ -65,7 +65,7 @@ module Frontend
     data = []
     id = params[:id].present? ? params[:id] : nil
     post = News::Post.find(id)
-    image = post.main_image.present? ? url_for(post.main_image.attachment) : nil
+    image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
     data << {
       id: post.id,
       title: post.title,
