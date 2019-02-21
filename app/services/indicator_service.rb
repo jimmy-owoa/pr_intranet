@@ -12,7 +12,6 @@ class IndicatorService
     @currencies = JSON.parse(currencies_response.body)
     puts @currencies
     @indexes = JSON.parse(indexes_response.read_body)
-    # JSON.parse(@indexes)['listaResult'][1]['Valor'] // creo que hay que parsearlo a json
     puts @indexes
   end
   
