@@ -6,7 +6,7 @@ module Frontend
     posts = News::Post.posts_cached
     data = []
     posts.each do |post|
-      @image = post.main_image.present? ? url_for(post.main_image.attachment) : nil
+      @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
         title: post.title,
@@ -36,7 +36,7 @@ module Frontend
     posts = News::Post.includes(:main_image).important
     data = []
     posts.each do |post|
-      @image = post.main_image.present? ? url_for(post.main_image.attachment) : nil
+      @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
         title: post.title,
