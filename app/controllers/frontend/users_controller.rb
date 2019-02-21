@@ -19,7 +19,7 @@ class Frontend::UsersController < ApplicationController
           position: children.position,
           company: children.company,          
           image: root_url + ( children.image.attached? ? 
-          rails_representation_url(children.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
+          rails_representation_url(children.image.variant(resize: '150x150'), only_path: true) : root_url + '/assets/default_avatar.png')
         }
       end
     end
@@ -32,7 +32,7 @@ class Frontend::UsersController < ApplicationController
           position: sibling.position,
           company: sibling.company,          
           image: root_url + ( sibling.image.attached? ? 
-          rails_representation_url(sibling.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
+          rails_representation_url(sibling.image.variant(resize: '150x150'), only_path: true) : root_url + '/assets/default_avatar.png')
         }
       end
     end
@@ -44,7 +44,7 @@ class Frontend::UsersController < ApplicationController
         position: @user.parent.position,
         company: @user.parent.company,        
         image: root_url + ( @user.parent.image.attached? ? 
-        rails_representation_url(@user.parent.image.variant(resize: '150x150'), only_path: true) : '/assets/default_avatar.png')
+        rails_representation_url(@user.parent.image.variant(resize: '150x150'), only_path: true) : root_url + '/assets/default_avatar.png')
 
       }
     end
