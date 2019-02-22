@@ -61,7 +61,7 @@ class Frontend::BirthsController < ApplicationController
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: root_url + rails_representation_url(birth.photo.variant(resize: '600x600'), only_path: true),
+          photo: url_for(birth.photo.variant(resize: '600x600')),
           gender: birth.gender ? 'Masculino' : 'Femenino',
           date: birth.birthday,
           father: birth.full_name_father,

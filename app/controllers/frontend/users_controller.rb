@@ -18,8 +18,8 @@ class Frontend::UsersController < ApplicationController
           last_name: children.last_name, 
           position: children.position,
           company: children.company,          
-          image: root_url + ( children.image.attached? ? 
-          rails_representation_url(children.image.variant(resize: '150x150'), only_path: true) : root_url + '/assets/default_avatar.png')
+          image: children.image.attached? ?
+          url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
         }
       end
     end
@@ -31,8 +31,8 @@ class Frontend::UsersController < ApplicationController
           last_name: sibling.last_name,
           position: sibling.position,
           company: sibling.company,          
-          image: root_url + ( sibling.image.attached? ? 
-          rails_representation_url(sibling.image.variant(resize: '150x150'), only_path: true) : root_url + '/assets/default_avatar.png')
+          image: sibling.image.attached? ? 
+          url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
         }
       end
     end
@@ -43,9 +43,8 @@ class Frontend::UsersController < ApplicationController
         last_name: @user.parent.last_name,
         position: @user.parent.position,
         company: @user.parent.company,        
-        image: root_url + ( @user.parent.image.attached? ? 
-        rails_representation_url(@user.parent.image.variant(resize: '150x150'), only_path: true) : root_url + '/assets/default_avatar.png')
-
+        image: @user.parent.image.attached? ? 
+        url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
       }
     end
     data_user << {
@@ -57,8 +56,8 @@ class Frontend::UsersController < ApplicationController
       position: @user.position,
       company: @user.company,
       address: @user.address,
-      image: root_url + ( @user.image.attached? ? 
-      rails_blob_path(@user.image, only_path: true) : '/assets/default_avatar.png'),
+      image: @user.image.attached? ? 
+      url_for(@user.image) : root_url + '/assets/default_avatar.png',
       tags: @user.terms.tags.map(&:name),
       categories: @user.terms.categories.map(&:name),
       childrens: data_childrens,
