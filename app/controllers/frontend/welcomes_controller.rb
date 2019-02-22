@@ -15,7 +15,7 @@ class Frontend::WelcomesController < ApplicationController
         annexed: user.annexed,
         birthday: user.birthday.strftime("%d/%m/%Y"),
         show_birthday: user.show_birthday,
-        image: root_url + rails_representation_url(user.image.variant(resize: '300x300'), only_path: true)
+        image: url_for(user.image.variant(resize: '300x300'))
       }
     end
     respond_to do |format|
