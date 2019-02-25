@@ -31,9 +31,9 @@
         <div class="col-8 col-sm-6">
           <div class="input-group date" id="birthday" data-target-input="nearest">
             <% if @user.try(:birthday).present? %>
-              <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @user.try(:birthday), 'data-target' => '#birthday', id: 'birthday' %>
+              <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', value: custom_date_no_hour(@user.birthday), id: 'birthday' %>
             <% else %>
-              <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', value: @user.try(:birthday), id: 'birthday' %>
+              <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @user.try(:birthday), 'data-target' => '#birthday', id: 'birthday' %>
             <% end %>
             <div class="input-group-append" data-target="#birthday" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fas fa-birthday-cake"></i></div>
