@@ -70,7 +70,8 @@ News::Post.where(
   slug: 'Slug', 
   content: '¡Netflix, Spotify y varias firmas involucradas en serio caso! Facebook superándose a sí mismo, una vez más.', visibility: "Público", 
   post_class: "tipo", 
-  user_id: 1
+  user_id: 1,
+  format: 0
 ).first_or_create
 News::Post.where(
   title: 'Observatorio de Rayos Gamma más potente del mundo se instalará en Chile', 
@@ -78,14 +79,16 @@ News::Post.where(
   content: 'En el proyecto participarán diversas instituciones nacionales e internacionales y permitirá la instalación de este potente observatorio de Rayos Gamma.', 
   visibility: "Público", 
   post_class: "tipo", 
-  user_id: 1
+  user_id: 1,
+  format: 0
 ).first_or_create
 News::Post.where(
   title: 'Elon Musk y The Boring Company muestran su sistema de túneles en acción', 
   slug: 'Slug', 
   content: 'The Boring Company abrió su primera línea de transporte para que los mortales conozcamos el futuro del desplazamiento.',visibility: "Público", 
   post_class: "tipo", 
-  user_id: 1
+  user_id: 1,
+  format: 0
 ).first_or_create
 #esto no funciona, manda error en el main_image_id( que no lo agregué en el create del post)
 # News::Post.first.main_image.attach(io: File.open("app/assets/images/post_news.png"), filename: "post_news.png", content_type: "image/png")
