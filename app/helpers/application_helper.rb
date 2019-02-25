@@ -170,4 +170,9 @@ module ApplicationHelper
     (total_count*100)/total
   end
 
+  def set_title_menu(parent_id)
+    General::Menu.find(parent_id).title if parent_id.present?
+  end
+
+
 end

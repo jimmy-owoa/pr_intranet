@@ -9,7 +9,6 @@
             <th>Nombre(s)</th>
             <th>Apellido(s)</th>
             <th>Email</th>
-            <th>Fecha de nacimiento</th>
             <th>Anexo</th>
             <th>Activo</th>
             <th colspan="3"></th>
@@ -26,13 +25,12 @@
               <td><%= user.name %></td>
               <td><%= user.last_name %></td>
               <td><%= user.email %></td>
-              <td><%= user.birthday.present? ? custom_date_no_hour(user.birthday) : '' %></td>
               <td><%= user.annexed %></td>
               <td><%= user.active? ? 'Si' : 'No' %></td>
               <td> 
-                <%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user) %>
+                <%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user), :class => 'btn btn-success btn-sm'  %>
                 <% if current_user.has_role? :super_admin %>
-                  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_user_path(user) %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_user_path(user), :class => 'btn btn-primary btn-sm' %>
                   <%= link_to t('.destroy', :default => t("helpers.links.destroy")), admin_post_path(user),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-sm btn-danger' %>
                 <% end %>
               </td>

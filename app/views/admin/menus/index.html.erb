@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-12">
     <section class="section">
-      <h1 class="section-header">Menus</h1>
+      <h1 class="section-header">Menús</h1>
       <table class='table table-hover'>
         <thead>
           <tr>
@@ -21,12 +21,12 @@
           <% @menus.each do |menu| %>
             <tr>
               <td><%=  %></td>
-              <td><%= menu.title %></td>
+              <td><%= menu.id %></td>
               <td><%= menu.description.truncate(28) %></td>
               <td><%= menu.css_class %><div style="width:60px;height:5px;background:<%= menu.css_class %>"></div></td>
               <td><%= menu.code %></td>
               <td><%= menu.priority %></td>
-              <td><%= menu.parent_id %></td>
+              <td><%= set_title_menu(menu.parent_id) %></td>
               <td><%= menu.link %></td>
               <td><%= menu.terms.present? ? menu.terms.map(&:name).join(',').truncate(10) : 'No tiene' %></td>
               <td> 

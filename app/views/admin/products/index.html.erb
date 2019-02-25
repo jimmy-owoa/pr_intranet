@@ -5,8 +5,8 @@
       <table class="table table-hover">
         <thead class="thead">
           <tr>
-            <th><%= "Imagen" %></th>
-            <th><%= "Nombre producto" %></th>
+            <th></th>
+            <th><%= "Nombre" %></th>
             <th><%= "Precio" %></th>
             <th><%= "Aprobado" %></th>
             <th><%= "Acciones" %></th>
@@ -20,9 +20,9 @@
               <td><%= product.price %></td>
               <td><%= is_approved(product) %></td>
               <td>
-                <%= link_to t('.show', :default => t("helpers.links.show")), admin_product_path(product), :class => 'btn btn-default btn-xs' %>  
+                <%= link_to t('.show', :default => t("helpers.links.show")), admin_product_path(product), :class => 'btn btn-success btn-sm' %>  
                 <% if policy(product).edit?  %>
-                  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(product), :class => 'btn btn-default btn-xs' %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(product), :class => 'btn btn-primary btn-sm' %>
                   <%= link_to 'Deshabilitar', admin_product_path(product), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },:class => 'btn btn-sm btn-danger' %>
                 <% end %>
               </td>

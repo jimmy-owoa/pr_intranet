@@ -6,7 +6,7 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th><%= 'Identificador' %></th>
+              <th><%= 'ID' %></th>
               <th><%= 'Título' %></th>
               <th><%= 'Fecha Creación' %></th>
               <th><%= 'Acciones' %></th>
@@ -20,9 +20,9 @@
                 <td><%= custom_date_no_hour(survey.created_at)  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
-                              admin_survey_path(survey), :class => 'btn btn-default btn-xs' %>
+                              admin_survey_path(survey), :class => 'btn btn-success btn-sm' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                              edit_admin_survey_path(survey), :class => 'btn btn-default btn-xs' %>
+                              edit_admin_survey_path(survey), :class => 'btn btn-primary btn-sm' %>
                   <%= link_to 'Deshabilitar',
                               admin_survey_path(survey),
                               :method => :delete,

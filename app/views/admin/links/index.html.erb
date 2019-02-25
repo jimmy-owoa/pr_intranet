@@ -6,7 +6,7 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th><%= 'Identificador' %></th>
+              <th><%= 'ID' %></th>
               <th><%= 'Título' %></th>
               <th><%= 'Fecha Creación' %></th>
               <th><%= 'Acciones' %></th>
@@ -20,14 +20,14 @@
                 <td><%= custom_date_no_hour(link.created_at) %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
-                              admin_link_path(link), :class => 'btn btn-success btn-xs' %>
+                              admin_link_path(link), :class => 'btn btn-success btn-sm' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                              edit_admin_link_path(link), :class => 'btn btn-primary btn-xs' %>
+                              edit_admin_link_path(link), :class => 'btn btn-primary btn-sm' %>
                   <%= link_to 'Deshabilitar',
                               admin_link_path(link),
                               :method => :delete,
                               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                              :class => 'btn btn-danger' %>
+                              :class => 'btn btn-sm btn-danger' %>
                 </td>
               </tr>
             <% end %>

@@ -23,5 +23,6 @@ class General::Menu < ApplicationRecord
       terms.tags.map(&:name)
     end  
   end
+  
 
 end
