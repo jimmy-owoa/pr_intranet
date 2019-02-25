@@ -16,7 +16,7 @@ class News::Post < ApplicationRecord
 
   after_initialize :set_status
 
-  scope :important, -> { where(:important => true)}
+  scope :important, -> { where(:important => true).last(5)}
 
   STATUS = ['Publicado','Borrador', 'Programado']
   VISIBILITY = ['Público', 'Privada']

@@ -1,6 +1,8 @@
 es:
   activerecord:
     attributes:
+      general/message:
+        message_type: Tipo de Mensaje
       general/menu:
         priority: Prioridad
         tags: Etiquetas
