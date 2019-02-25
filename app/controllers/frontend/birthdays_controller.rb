@@ -49,7 +49,6 @@ module Frontend
           image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png'
         }
       end
-
       respond_to do |format|
         format.html
         format.json { render json: data }

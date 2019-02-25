@@ -1,11 +1,12 @@
 <div class="container">
+<section class="section">
+  <h1 class="section-header"><%= @post.title %></h1>
+</section>
+
   <div class="row title_form">
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header" align="center">
-          <div>
-            <h2> <strong> <%= @post.title %> </strong> </h2>
-          </div>
           <div class="col-md-12">
             <% unless @post.main_image == nil %>
               <%= image_tag @post.main_image.large, class:'img-fluid'%>
