@@ -23,8 +23,9 @@ module Frontend
           }
         end
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|
-          @image = post.main_image.present? ? url_for(post.main_image) : nil
+          @image = post.main_image.present? ? url_for(post.main_image.path) : nil
           posts << {
+            id: post.id,
             status: post.status,
             title: post.title,
             slug: post.slug,
