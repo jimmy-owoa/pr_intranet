@@ -64,7 +64,9 @@ Rails.application.routes.draw do
     resources :messages
     resources :links
     resources :sections
-    resources :benefits
+    resources :benefits do
+      get :benefit, on: :collection
+    end
     resources :birthdays do
       get :users_birthday, on: :collection
       get :get_home_birthdays, on: :collection

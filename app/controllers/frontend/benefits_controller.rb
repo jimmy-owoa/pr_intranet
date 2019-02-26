@@ -21,6 +21,23 @@ module Frontend
       end      
     end
 
+  def benefit
+    data = []
+    id = params[:id].present? ? params[:id] : nil
+    benefit = General::Benefit.find(id)
+    @image = @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + '/assets/news.jpg'
+    data << {
+      id: benefit.id,
+      title: benefit.title,
+      content: benefit.content,
+      image: @image
+    }
+    respond_to do |format|
+      format.json { render json: data[0] }
+      format.js
+    end    
+  end    
+
     def show
       respond_to do |format|
         format.html
