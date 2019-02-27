@@ -3,7 +3,8 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]  
 
   def index
-    posts = News::Post.posts_cached
+    posts = News::Post.all
+    # posts = News::Post.posts_cached
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
