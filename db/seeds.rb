@@ -1847,7 +1847,7 @@ generalc = General::Menu.find_by_title('Convenios colectivos')
 #   description: "Crear nacimiento",
 #   css_class: "#ff00d5",
 #   code: 1225,
-#   link: "nacimientos/find_or_create_by",
+#   link: "nacimientos3",
 #   priority: nil,
 #   parent_id: nil
 # )
