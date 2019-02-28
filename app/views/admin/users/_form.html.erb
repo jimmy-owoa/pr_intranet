@@ -48,16 +48,19 @@
         </div>
         <div class="col-4 col-sm-6">
           <%= f.input :company %> 
-        </div>  
-        <div class="col-4 col-sm-6">
-          <%= f.input :address %> 
-        </div>               
+        </div>
       </div>
       <div class="row">
-        <div class="col-6 col-sm-12">
-          <%= f.label :parent_id %>
-          <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
+        <div class="col-4 col-sm-6">
+          <%= f.label :address %></br>
+          <%= f.select :address, General::User::CITIES.map { |m| m }, include_blank: true, class:'form-control string optional', id:'user_address' %>
         </div>
+        <div class="col-6 col-sm-6">
+          <%= f.label :parent_id %></br>
+          <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
+        </div>        
+      </div>
+      <div class="row">
         <div class="col-6 col-sm-12"></br>
           <%= f.label :tags %></br>
           <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
