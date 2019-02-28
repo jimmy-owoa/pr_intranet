@@ -27,6 +27,19 @@ class General::User < ApplicationRecord
   scope :birthdays, -> { where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :first_welcome, -> { joins(:image_attachment).where("DATE_FORMAT(general_users.created_at, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
 
+  CITIES = [
+    'Antofagasta', 
+    'Santiago', 
+    'Copiapó', 
+    'La Serena', 
+    'Viña del Mar', 
+    'Rancagua',
+    'Talca', 
+    'Concepción', 
+    'Temuco', 
+    'Puerto Montt'    
+  ]
+
   def assign_default_role
     add_role(:user) if roles.blank?
   end

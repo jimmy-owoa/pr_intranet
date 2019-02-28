@@ -9,14 +9,14 @@ class WeatherService
     {
       antofagasta: @json_parse[0],
       santiago: @json_parse[1],
-      # copiapo: @json_parse[2],
-      # la_serena: @json_parse[3],
-      # vina_del_mar: @json_parse[4],
-      # rancagua: @json_parse[5],
-      # talca: @json_parse[6],
-      # concepcion: @json_parse[7],
-      # temuco: @json_parse[8],
-      # puerto_montt: @json_parse[9],
+      copiapo: @json_parse[2],
+      la_serena: @json_parse[3],
+      vina_del_mar: @json_parse[4],
+      rancagua: @json_parse[5],
+      talca: @json_parse[6],
+      concepcion: @json_parse[7],
+      temuco: @json_parse[8],
+      puerto_montt: @json_parse[9],
     }
   end
 
@@ -30,14 +30,14 @@ class WeatherService
     @json_parse = []
     @cities << URI.parse(@api+"-23.6464,-70.398"+"?units=si")
     @cities << URI.parse(@api+"-33.4378,-70.6504"+"?units=si")
-    # @cities << URI.parse(@api+"Copiapo&days=1") 
-    # @cities << URI.parse(@api+"La_Serena&days=1")
-    # @cities << URI.parse(@api+"Vina_del_Mar&days=1")
-    # @cities << URI.parse(@api+"Rancagua&days=1")
-    # @cities << URI.parse(@api+"Talca&days=1")
-    # @cities << URI.parse(@api+"Concepcion&days=1")
-    # @cities << URI.parse(@api+"Temuco&days=1")
-    # @cities << URI.parse(@api+"Puerto_Montt&days=1")
+    @cities << URI.parse(@api+"-27.3665,-70.3323"+"?units=si") 
+    @cities << URI.parse(@api+"-29.9027,-71.252"+"?units=si")
+    @cities << URI.parse(@api+"-33.0245,-71.5518"+"?units=si")
+    @cities << URI.parse(@api+"-34.1702,-70.7407"+"?units=si")
+    @cities << URI.parse(@api+"-35.4266,-71.6661"+"?units=si")
+    @cities << URI.parse(@api+"-36.827,-73.0503"+"?units=si")
+    @cities << URI.parse(@api+"-38.7362,-72.5906"+"?units=si")
+    @cities << URI.parse(@api+"-41.4718,-72.9396"+"?units=si")
     
     @cities.each_with_index do |city, index|
       @response << Net::HTTP.get_response(city)
