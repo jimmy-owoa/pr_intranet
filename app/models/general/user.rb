@@ -18,7 +18,8 @@ class General::User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   # callbacks
-  after_create :assign_default_role
+  after_create :assign_default_role, :image_resize
+  before_update :image_resize
   before_create :only_admin?
 
   #scopes
@@ -39,6 +40,22 @@ class General::User < ApplicationRecord
     'Temuco', 
     'Puerto Montt'    
   ]
+
+  def image_resize
+    avatar = self.image
+    filename = avatar.filename.to_s
+      attachment_path = "#{Dir.tmpdir}/#{avatar.filename}"
+      File.open(attachment_path, 'wb') do |file|
+        file.write(avatar.download)
+        file.close
+      end
+      image = MiniMagick::Image.open(attachment_path)
+      # if image.width ...
+      image.resize "250x200"
+      image.write attachment_path
+      avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg") 
+  end
+  
 
   def assign_default_role
     add_role(:user) if roles.blank?
