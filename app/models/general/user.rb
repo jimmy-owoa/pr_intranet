@@ -51,7 +51,7 @@ class General::User < ApplicationRecord
       end
       image = MiniMagick::Image.open(attachment_path)
       # if image.width ...
-      image.resize "250x200"
+      image.resize "250x200>"
       image.write attachment_path
       avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg") 
   end
