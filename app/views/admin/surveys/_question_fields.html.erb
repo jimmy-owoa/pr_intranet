@@ -8,11 +8,13 @@
         <div class="col-md-1" style="font-size: 25px;"><%= link_to_remove_association '<i class="fas fa-times float-right"></i>'.html_safe, f %></div>
       </div>
     </div>
-    
     <div class="col-md-11">
       <%= f.input :description, input_html: { class: "col-md-7" } %>
     </div>
     <div class="col-md-11">
+      <%= f.input :optional, as: :boolean, boolean_style: :inline, input_html: { class: "col-md-7", include_hidden: false } %>
+    </div>
+    <div class="col-md-11"></br>
       <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, input_html: { class: "col-md-7" } %>
     </div>
   </div>
