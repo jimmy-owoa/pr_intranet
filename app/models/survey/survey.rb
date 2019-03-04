@@ -1,5 +1,6 @@
 class Survey::Survey < ApplicationRecord
   has_many :questions, dependent: :destroy
+  has_one_attached :image
 
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: proc { |att| att['title'].blank? }
 
