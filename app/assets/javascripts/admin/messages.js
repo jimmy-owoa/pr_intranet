@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function () {
-  $('#exclusive_tag').select2({
+  $('#excluding_tag').select2({
     tags: false,
     tokenSeparators: [],
     placeholder: "Seleccionar Tags"

@@ -12,8 +12,10 @@ class General::Term < ApplicationRecord
 
   belongs_to :term_type, class_name: 'General::TermType', optional: true
 
+  PERMISSION = {'excluding' => 'Excluyente', 'including' => 'Incluyente'}
+
   scope :tags, -> { where(term_type: General::TermType.tag) }
   scope :categories, -> { where(term_type: General::TermType.category) }
   scope :inclusive_tags, -> { where(term_type: General::TermType.tag, permission: 'inclusive') }
-  scope :exclusive_tags, -> { where(term_type: General::TermType.tag, permission: 'excluding') }
+  scope :excluding_tags, -> { where(term_type: General::TermType.tag, permission: 'excluding') }
 end

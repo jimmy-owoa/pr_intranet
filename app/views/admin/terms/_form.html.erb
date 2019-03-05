@@ -4,7 +4,7 @@
       <%= f.input :name, required: true, autofocus: true %>
     </div>
     <div class="col-6">
-      <%= f.association :term_type%>
+      <%= f.association :term_type, collection: General::TermType.first(2) %>     
     </div>
     <div class="col-6">
       <%= f.input :slug %>
@@ -15,8 +15,12 @@
     <div class="col-2">
       <%= f.input :status %>
     </div>
-    <div class="col-12">
+    <div class="col-8">
       <%= f.input :description %>
     </div>
+    <div class="col-4">
+      <%= f.label :permission %></br>
+      <%= f.select :permission, General::Term::PERMISSION.map{|j,k| [k,j] }, include_blank: true, class:'form-control string optional', id: 'term_permission'%>
+    </div>    
   </div>
 <%= f.submit 'Crear Taxonomía', :class => 'btn btn-primary' %>
