@@ -19,8 +19,8 @@
           </div>
         </div>
         <div class="card-body">
-            <% @total = survey_data.map{|a| a[:total_count]}.inject(:+) %>
-            <h4>Total de respuestas: <%= @total %> </h4>
+          <% @total = survey_data.map{|a| a[:total_count]}.inject(:+) %>
+          <h4>Total de respuestas: <%= @total %> </h4>
           <p class="card-text">
             <div class="table-responsive">
               <table class="table">
