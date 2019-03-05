@@ -12,6 +12,9 @@ class Survey::Survey < ApplicationRecord
     SURVEY_TYPES.find { |st| st[1] == self.survey_type }[0]
   end
 
+  def get_answer_count 
+    Survey::Answer.joins(:question).where(survey_questions: { survey_id: id }).count
+  end
   private
   def set_survey_type
     self.survey_type = self.survey_type ||= 'survey'
