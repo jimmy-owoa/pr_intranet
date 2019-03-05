@@ -19,12 +19,15 @@ class Frontend::SurveysController < ApplicationController
           id: question.id,
           title: question.title,
           question_type: question.question_type,
+          optional: question.optional,
           options: data_options 
         }
       end
       data_surveys << {
         id: survey.id,
         name: survey.name,
+        image: survey.image.attached? ? 
+        url_for(survey.image) : root_url + '/assets/survey.png',
         created_at: survey.created_at.strftime('%d-%m-%Y'),
         questions: data_questions,
         survey_type: survey.survey_type

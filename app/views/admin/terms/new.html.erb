@@ -1,5 +1,6 @@
-<div class="¡col-8">
+<section class="section">
+  <h1 class="section-header">Nuevo Tag</h1>
   <%= simple_form_for @term, as: 'term', url: {action: :create}, :html => { :class => "form" } do |f| %>
     <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
-</div>
+</section>

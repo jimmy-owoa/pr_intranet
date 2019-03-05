@@ -25,6 +25,7 @@ module Admin
       @message = General::Message.new(message_params)
       respond_to do |format|
         if @message.save
+          set_tags
           format.html { redirect_to admin_message_path(@message), notice: 'Message was successfully created.'}
           format.json { render :show, status: :created, location: @message}
           format.js
@@ -39,6 +40,7 @@ module Admin
     def update
       respond_to do |format|
         if @message.update(message_params)
+          set_tags
           format.html { redirect_to admin_message_path(@message), notice: 'Message was successfully updated.'}
           format.json { render :show, status: :ok, location: @message }
         else
@@ -62,8 +64,20 @@ module Admin
       @message = General::Message.find(params[:id])
     end
 
+    def set_tags
+      # Getting terms_names from the form (tags)
+      term_names = params[:terms_names]
+      terms = []
+      if term_names.present?
+        term_names.uniq.each do |tag|
+          terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
+        end
+        @message.terms << terms
+      end   
+    end    
+
     def message_params
-      params.require(:message).permit(:title, :content, :message_type, :is_const, :image)
+      params.require(:message).permit(:title, :content, :message_type, :is_const, :image, terms_names: [])
     end
   end
 end

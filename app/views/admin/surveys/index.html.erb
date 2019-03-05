@@ -7,7 +7,9 @@
           <thead class="thead">
             <tr>
               <th><%= 'ID' %></th>
+              <th><%= 'Tipo'%></th>
               <th><%= 'Título' %></th>
+              <th><%= 'Respuestas' %></th>
               <th><%= 'Fecha Creación' %></th>
               <th><%= 'Acciones' %></th>
             </tr>
@@ -16,7 +18,9 @@
             <% @surveys.each do |survey| %>
               <tr>
                 <td><%= link_to survey.id, admin_survey_path(survey) %></td>
+                <td><%= survey.get_name_survey_type %></td>
                 <td><%= survey.name %></td>
+                <td><%= survey.get_answer_count %></td>
                 <td><%= custom_date_no_hour(survey.created_at)  %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),

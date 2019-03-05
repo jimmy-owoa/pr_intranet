@@ -54,7 +54,23 @@ class Frontend::AnswersController < ApplicationController
         end
 
       end
-    end 
+    end
+
+    def check_data
+      @survey = Survey::Survey.includes(questions: :answers).where(id: params[:survey_id]).where("survey_answers.user_id" => params[:user_id], "survey_questions.optional" => true)
+      # @survey = Survey::Answer.includes(question: :survey).where(user_id:  2, "survey_questions.optional" => true, "survey_surveys.id" => params['survey_id'])
+      if @survey.blank? #si está en blanco, puede pasar
+        respond_to do |format|
+          format.json { render json: 'ok' }
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.json { render json: @survey[0]}
+          format.js
+        end
+      end
+    end
   
     def update
       respond_to do |format|
