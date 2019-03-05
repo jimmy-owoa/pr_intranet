@@ -174,5 +174,4 @@ module ApplicationHelper
     General::Menu.find(parent_id).title if parent_id.present?
   end
 
-
 end
