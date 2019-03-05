@@ -15,7 +15,10 @@
       <%= f.input :optional, as: :boolean, boolean_style: :inline, input_html: { class: "col-md-7", include_hidden: false } %>
     </div>
     <div class="col-md-11"></br>
-      <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, input_html: { class: "col-md-7" } %>
+      <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, input_html: { class: "col-md-7 select-question-type" } %>
+      <div class="feedback" style="font-size: 12px; font-weight: 500; color: #868e96; font-style: italic;" id="lineal_message">
+        <%= "Escala lineal es considerada desde 0 a 10" %>
+      </div>
     </div>
   </div>
   <div class="">
@@ -30,3 +33,17 @@
   </div>    
 </div>
 
+<script>
+ $(document).ready(function () {
+  $('.select-question-type').on('change', function () {
+    var selectedVal = $(this).val();
+    if(selectedVal == "Escala lineal")
+    {
+      $("#lineal_message").show();
+    }else
+    {
+      $("#lineal_message").hide();
+    }
+  });
+});
+</script>
