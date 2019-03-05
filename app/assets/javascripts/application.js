@@ -31,6 +31,7 @@
 //= require admin/products
 //= require admin/menus
 //= require admin/sections
+//= require admin/messages
 //= require_self
 //= require owl.carousel
 //= require jquery.minicolors

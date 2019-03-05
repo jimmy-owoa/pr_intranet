@@ -16,6 +16,7 @@ General::Term.find_or_create_by(name: 'Inmobiliaria', term_type_id: 1)
 Role.find_or_create_by(name: 'user')
 Role.find_or_create_by(name: 'post_admin')
 Role.find_or_create_by(name: 'super_admin')
+Role.find_or_create_by(name: 'message_admin')
 #users
 General::User.create(
   name:'Nombre',

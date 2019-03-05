@@ -57,7 +57,7 @@ module Admin
 
     def term_params
       params.require(:term).permit(:term_type_id, :description, :parent_id, :name,
-         :slug, :term_order, :status)
+         :slug, :term_order, :status, :permission)
     end
   end
 end

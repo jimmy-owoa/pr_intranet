@@ -14,4 +14,6 @@ class General::Term < ApplicationRecord
 
   scope :tags, -> { where(term_type: General::TermType.tag) }
   scope :categories, -> { where(term_type: General::TermType.category) }
+  scope :inclusive_tags, -> { where(term_type: General::TermType.tag, permission: 'inclusive') }
+  scope :exclusive_tags, -> { where(term_type: General::TermType.tag, permission: 'excluding') }
 end
