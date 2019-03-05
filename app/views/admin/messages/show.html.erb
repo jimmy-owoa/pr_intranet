@@ -4,7 +4,7 @@
     <div class="col-md-12" align="center">
       <h4>Título: <a href='<%= @message.title %>'><%= @message.title %></a></h4>
       <div style='width: 400px; height: 400px;'>
-        <%=image_tag @message.image.variant(resize: "360x300>")%>
+        <%=image_tag @message.image.variant(resize: "360x300>") if @message.image.attached?%>
       </div>
     </div>
   </div>
