@@ -12,7 +12,7 @@ es:
         link: Enlace
       survey/question:
         question_type: Tipo de pregunta
-        optional: Opcional
+        optional: Obligatorio
       general/user:
         roles: Roles
         last_name: Apellidos
