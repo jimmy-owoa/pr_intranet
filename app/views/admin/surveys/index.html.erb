@@ -18,7 +18,7 @@
             <% @surveys.each do |survey| %>
               <tr>
                 <td><%= link_to survey.id, admin_survey_path(survey) %></td>
-                <td><%= survey.get_name_survey_type %></td>
+                <td><%= survey.get_name_survey_type unless survey.survey_type.nil?  %></td>
                 <td><%= survey.name %></td>
                 <td><%= survey.get_answer_count %></td>
                 <td><%= custom_date_no_hour(survey.created_at)  %></td>
