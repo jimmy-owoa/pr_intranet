@@ -1,9 +1,10 @@
 module Admin
   class TermsController < ApplicationController
+    layout 'admin'
     before_action :set_term, only: [:show, :edit, :update, :destroy]
 
     def index
-      @terms = General::Term.all
+      @terms = General::Term.paginate(:page => params[:page], :per_page => 10)
     end
 
     def show
@@ -57,7 +58,7 @@ module Admin
 
     def term_params
       params.require(:term).permit(:term_type_id, :description, :parent_id, :name,
-         :slug, :term_order, :status)
+         :slug, :term_order, :status, :permission)
     end
   end
 end
