@@ -15,12 +15,12 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # Mac
   username: root
-  password: "myql"
+  password: "mysql"
   socket: /tmp/mysql.sock
 
 development:
   <<: *default
-  database: intranet_dev
+  database: intranet_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
