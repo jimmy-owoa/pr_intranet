@@ -1,0 +1,50 @@
+<%- model_class = News::Post -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Terms" %></h1>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'Id' %></th>
+              <th><%= 'Nombre' %></th>
+              <th><%= 'Descripción' %></th>
+              <th><%= 'Slug' %></th>
+              <th><%= 'Orden' %></th>
+              <th><%= 'Estado' %></th>
+              <th><%= 'Count' %></th> 
+              <th><%= 'Acciones' %></th>              
+            </tr>
+          </thead>
+          <tbody>
+            <% @terms.each do |term| %>
+              <tr>
+                <td><%= link_to term.id, admin_term_path(term) %></td>
+                <td><%= term.name %></td>
+                <td><%= term.description.truncate(20) if term.description.present?  %></td>
+                <td><%= term.slug  %></td>
+                <td><%= term.term_order %></td>
+                <td><%= term.status %></td>
+                <td><%= term.count%></td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.links.show")),
+                              admin_term_path(term), :class => 'btn btn-success btn-sm' %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                              edit_admin_term_path(term), :class => 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Eliminar',
+                              admin_post_path(term),
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
+                              :class => 'btn btn-sm btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+          <%= will_paginate %>
+        </div>
+      </div>
+    <%= link_to "Nueva", new_admin_term_path, :class => 'btn btn-primary' %>
+    </div>
+  </section>
