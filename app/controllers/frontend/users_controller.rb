@@ -47,9 +47,15 @@ class Frontend::UsersController < ApplicationController
         url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
       }
     end
+    nickname = if @user.name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present?
+      @user.name
+    else
+      @user.name.split.first
+    end
     data_user << {
       id: @user.id,
       name: @user.name,
+      nickname: nickname,
       last_name: @user.last_name,
       email: @user.email,
       annexed: @user.annexed,
@@ -89,7 +95,7 @@ class Frontend::UsersController < ApplicationController
   end
   
   def upload
-    user = General::User.find(2)
+    user = General::User.find(params[:user_id])
     user.image.attach(params[:file])
   end
 
