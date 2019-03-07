@@ -18,6 +18,7 @@ module Frontend
         post_type: post.post_type,
         important: post.important,
         tags: post.cached_tags,
+        slug: post.slug,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
@@ -47,6 +48,7 @@ module Frontend
         content: post.content,
         post_type: post.post_type,
         important: post.important,
+        slug: post.slug,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},

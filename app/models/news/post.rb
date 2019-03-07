@@ -16,6 +16,8 @@ class News::Post < ApplicationRecord
 
   after_initialize :set_status
 
+  before_save :unique_slug
+
   scope :important, -> { where(:important => true).last(5)}
 
   STATUS = ['Publicado','Borrador', 'Programado']
@@ -45,5 +47,35 @@ class News::Post < ApplicationRecord
     Rails.cache.fetch :tags, :expires_in => 1.days do
       self.terms.tags
     end 
+  end
+
+  private
+
+  def unique_slug
+    self.slug = if self.slug.blank?
+        set_slug(self.title.parameterize)
+      else
+        set_slug(self.slug.parameterize)
+      end
+  end
+
+  def set_slug(val)
+    post_by_slug = News::Post.find_by(slug: val)
+    if post_by_slug.present? && post_by_slug != self
+      random_number = rand(1000..9999)
+      slug_split = val.split('-')
+      if slug_split[-1].match? /^[0-9]+$/
+        if slug_split.count > 1
+          temp = slug_split[0..-2].join('-')
+        else
+          temp = slug_split[0]
+        end
+        set_slug(temp + '-' + random_number.to_s)
+      else
+        set_slug(val + '-' + random_number.to_s)
+      end
+    else
+      val
+    end
   end
 end
