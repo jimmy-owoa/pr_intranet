@@ -21,10 +21,10 @@ class Survey::Survey < ApplicationRecord
   end
 
   def unique_slug
-    self.slug = if self.slug.nil?
+    self.slug = if self.slug.blank?
         set_slug(self.name.parameterize)
       else
-        set_slug(self.slug)
+        set_slug(self.slug.parameterize)
       end
   end
 
