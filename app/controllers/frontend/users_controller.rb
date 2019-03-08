@@ -2,6 +2,11 @@ class Frontend::UsersController < ApplicationController
   include Rails.application.routes.url_helpers
 
   before_action :set_user, only: [:update]
+
+  def nickname(name)
+    name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present?  ? name : name.split.first
+  end
+
   def user
     id = params[:id].present? ? params[:id] : nil
     # datos hardcodeados hasta tener data de users
@@ -47,15 +52,10 @@ class Frontend::UsersController < ApplicationController
         url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
       }
     end
-    nickname = if @user.name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present?
-      @user.name
-    else
-      @user.name.split.first
-    end
     data_user << {
       id: @user.id,
       name: @user.name,
-      nickname: nickname,
+      nickname: nickname(@user.name),
       last_name: @user.last_name,
       email: @user.email,
       annexed: @user.annexed,
@@ -90,21 +90,16 @@ class Frontend::UsersController < ApplicationController
     @tomorrow_2 = (Date.today + 3.days).strftime("%A")
     @tomorrow_3 = (Date.today + 4.days).strftime("%A")    
     @weather = General::WeatherInformation.where(location: @user.address)
-    @nickname = if @user.name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present?
-      @user.name
-    else
-      @user.name.split.first
-    end
     data_user << {
       id: @user.id,
-      nickname: @nickname,
+      nickname: nickname(@user.name),
       image: @user.image.attached? ?
       url_for(@user.image) : root_url + '/assets/default_avatar.png',
       breadcrumbs: [
         {link: '/', name: 'Inicio' },
         {link: '#', name: @nickname}
       ],
-      weather: @weather,
+      weather: @weather[0],
       today:  Date.today.strftime("%d/%m/%Y"),
       tomorrow: l(Date.today + 1, format: '%A'),
       tomorrow_1: l(Date.today + 2, format: '%A'),
@@ -112,11 +107,10 @@ class Frontend::UsersController < ApplicationController
       tomorrow_3: l(Date.today + 4, format: '%A')
     }
     respond_to do |format|
-      format.json { render json: data_user }
+      format.json { render json: data_user[0] }
       format.js
     end    
   end
-  
 
   def update
     if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
