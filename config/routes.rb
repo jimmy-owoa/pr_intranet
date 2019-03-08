@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     get 'births/calendar_births', to: 'births#calendar_births'
     resources :users, only: [:update, :show] do
       get :user, on: :collection
+      get :current_user_vue, on: :collection
     end
     post 'users/upload', to: 'users#upload'
     put 'products/update_expiration', to: 'products#update_expiration'

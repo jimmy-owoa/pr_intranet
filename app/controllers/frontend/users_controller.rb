@@ -80,6 +80,34 @@ class Frontend::UsersController < ApplicationController
     end
   end
 
+  def current_user_vue
+    id = params[:id].present? ? params[:id] : nil
+    @user = General::User.find(id)    
+    data_user = []
+    @weather = General::WeatherInformation.where(location: @user.address)
+    @nickname = if @user.name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present?
+      @user.name
+    else
+      @user.name.split.first
+    end
+    data_user << {
+      id: @user.id,
+      nickname: @nickname,
+      image: @user.image.attached? ?
+      url_for(@user.image) : root_url + '/assets/default_avatar.png',
+      breadcrumbs: [
+        {link: '/', name: 'Inicio' },
+        {link: '#', name: @nickname}
+      ],
+      weather: @weather
+    }
+    respond_to do |format|
+      format.json { render json: data_user }
+      format.js
+    end    
+  end
+  
+
   def update
     if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
       params[:user].delete(:password)
