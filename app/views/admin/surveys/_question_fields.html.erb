@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-11"></br>
       <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, input_html: { class: "col-md-7 select-question-type" } %>
-      <div class="feedback" style="font-size: 12px; font-weight: 500; color: #868e96; font-style: italic;" id="lineal_message">
+      <div class="feedback hidden" style="font-size: 12px; font-weight: 500; color: #868e96; font-style: italic;" id="lineal_message">
         <%= "Escala lineal es considerada desde 0 a 10" %>
       </div>
     </div>
