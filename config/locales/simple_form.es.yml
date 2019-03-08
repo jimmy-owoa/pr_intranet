@@ -39,6 +39,9 @@ es:
       user:
         chosen_languages: Cuando se marca, solo se mostrarán los toots en los idiomas seleccionados en los timelines públicos
     labels:
+      survey: 
+        survey_type: Tipo de encuesta
+        image: Imagen
       birth:
         birthday: Día de nacimiento
         photo: Fotografía
