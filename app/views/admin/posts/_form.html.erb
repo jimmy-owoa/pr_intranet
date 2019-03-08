@@ -39,8 +39,8 @@
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
         </div>
         <div class="col-md-12">
-          <%= f.input :permission, collection: News::Post::PERMISSION, prompt: :translate %>
-        </div>        
+          <%# <%= f.input :permission, collection: News::Post::PERMISSION, prompt: :translate %>
+        </div>
         <div class="col-md-12 col-sm-12"></br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
             <% if @post.try(:published_at).present? %>
@@ -68,10 +68,18 @@
     </div>
     <div class="card p-4 wrapper" >
       <div class="form-group row ">
-        <div class="col-md-12 col-sm-12">
+        <%# <div class="col-md-12 col-sm-12">
           <%= f.label :tags %>
-          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'tag_post' %>
-        </div>
+          <%#= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'tag_post' %>
+        <%# </div> %>
+        <div class="col-12 col-sm-12">
+          <%= f.label 'Tags inclusivos' %>
+          <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
+        </div>  
+        <div class="col-12 col-sm-12">
+          <%= f.label 'Tags excluyentes' %>
+          <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
+        </div>          
       </div>
     </div>    
     <div class="card p-2" >
