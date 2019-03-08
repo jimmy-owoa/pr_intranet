@@ -12,6 +12,7 @@ module Admin
   
     def new
       @survey = Survey::Survey.new
+      @survey.terms.build
       @survey.questions.build
       @survey_types = Survey::Survey::SURVEY_TYPES
     end
@@ -25,6 +26,7 @@ module Admin
       @survey = Survey::Survey.new(survey_params)
       respond_to do |format|
         if @survey.save
+          set_tags
           format.html { redirect_to admin_surveys_path, notice: 'Encuesta creada exitosamente.'}
           format.json { render :show, status: :created, location: @survey}
         else
@@ -37,6 +39,7 @@ module Admin
     def update
       respond_to do |format|
         if @survey.update(survey_params)
+          set_tags
           format.html { redirect_to admin_surveys_path, notice: 'Encuesta editada exitosamente.'}
           format.json { render :show, status: :ok, location: @survey }
         else
@@ -55,13 +58,25 @@ module Admin
     end
   
     private
+
+    def set_tags
+      # Getting terms_names from the form (tags)
+      term_names = params[:terms_names]
+      terms = []
+      if term_names.present?
+        term_names.uniq.each do |tag|
+          terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
+        end
+        @survey.terms << terms
+      end   
+    end    
     # Use callbacks to share common setup or constraints between actions.
     def set_survey
       @survey = Survey::Survey.find(params[:id])
     end
   
     def survey_params
-      params.require(:survey).permit(:name, :slug, :survey_type, :image, questions_attributes: [:id, :title, :description, :question_type, :optional,  :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
+      params.require(:survey).permit(:name, :slug, :survey_type, :image, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional,  :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
     end
   end
 end
