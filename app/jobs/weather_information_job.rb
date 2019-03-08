@@ -3,10 +3,7 @@ class WeatherInformationJob < ApplicationJob
 
   def perform(*args)
     @today =  Date.today.strftime("%d/%m/%Y")
-    @tomorrow = (Date.today + 1.days).strftime("%d/%m/%Y")
-    @tomorrow_1 = (Date.today + 2.days).strftime("%d/%m/%Y")
-    @tomorrow_2 = (Date.today + 3.days).strftime("%d/%m/%Y")
-    @tomorrow_3 = (Date.today + 4.days).strftime("%d/%m/%Y")
+    @tomorrow = (Date.today + 1.days).strftime("%A")
     @antofagasta = WeatherService.perform[:antofagasta]
     @santiago = WeatherService.perform[:santiago]
     @copiapo = WeatherService.perform[:copiapo]
