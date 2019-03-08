@@ -11,6 +11,7 @@ class Frontend::UsersController < ApplicationController
     id = params[:id].present? ? params[:id] : nil
     # datos hardcodeados hasta tener data de users
     @user = General::User.find(id)
+    @nickname = nickname(@user.name)
     data_user = []
     data_childrens = []
     data_siblings = []
@@ -55,7 +56,7 @@ class Frontend::UsersController < ApplicationController
     data_user << {
       id: @user.id,
       name: @user.name,
-      nickname: nickname(@user.name),
+      nickname: @nickname,
       last_name: @user.last_name,
       email: @user.email,
       annexed: @user.annexed,
@@ -90,9 +91,10 @@ class Frontend::UsersController < ApplicationController
     @tomorrow_2 = (Date.today + 3.days).strftime("%A")
     @tomorrow_3 = (Date.today + 4.days).strftime("%A")    
     @weather = General::WeatherInformation.where(location: @user.address)
+    @nickname = nickname(@user.name)
     data_user << {
       id: @user.id,
-      nickname: nickname(@user.name),
+      nickname: @nickname,
       image: @user.image.attached? ?
       url_for(@user.image) : root_url + '/assets/default_avatar.png',
       breadcrumbs: [
