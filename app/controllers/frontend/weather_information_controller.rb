@@ -6,7 +6,7 @@ class Frontend::WeatherInformationController < ApplicationController
     @tomorrow = (Date.today + 1.days).strftime("%A")
     @tomorrow_1 = (Date.today + 2.days).strftime("%A")
     @tomorrow_2 = (Date.today + 3.days).strftime("%A")
-    @tomorrow_3 = (Date.today + 4.days).strftime("%A")    
+    @tomorrow_3 = (Date.today + 4.days).strftime("%A")
     data = []
     @weather.each do |w|
       data << {
@@ -36,7 +36,7 @@ class Frontend::WeatherInformationController < ApplicationController
         tomorrow: l(Date.today + 1, format: '%A'),
         tomorrow_1: l(Date.today + 2, format: '%A'),
         tomorrow_2: l(Date.today + 3, format: '%A'),
-        tomorrow_3: l(Date.today + 4, format: '%A')       
+        tomorrow_3: l(Date.today + 4, format: '%A')  
       }
     end
     

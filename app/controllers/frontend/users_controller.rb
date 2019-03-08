@@ -80,6 +80,44 @@ class Frontend::UsersController < ApplicationController
     end
   end
 
+  def current_user_vue
+    id = params[:id].present? ? params[:id] : nil
+    @user = General::User.find(id)    
+    data_user = []
+    @today =  Date.today.strftime("%d/%m/%Y")
+    @tomorrow = (Date.today + 1.days).strftime("%A")
+    @tomorrow_1 = (Date.today + 2.days).strftime("%A")
+    @tomorrow_2 = (Date.today + 3.days).strftime("%A")
+    @tomorrow_3 = (Date.today + 4.days).strftime("%A")    
+    @weather = General::WeatherInformation.where(location: @user.address)
+    @nickname = if @user.name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present?
+      @user.name
+    else
+      @user.name.split.first
+    end
+    data_user << {
+      id: @user.id,
+      nickname: @nickname,
+      image: @user.image.attached? ?
+      url_for(@user.image) : root_url + '/assets/default_avatar.png',
+      breadcrumbs: [
+        {link: '/', name: 'Inicio' },
+        {link: '#', name: @nickname}
+      ],
+      weather: @weather,
+      today:  Date.today.strftime("%d/%m/%Y"),
+      tomorrow: l(Date.today + 1, format: '%A'),
+      tomorrow_1: l(Date.today + 2, format: '%A'),
+      tomorrow_2: l(Date.today + 3, format: '%A'),
+      tomorrow_3: l(Date.today + 4, format: '%A')
+    }
+    respond_to do |format|
+      format.json { render json: data_user }
+      format.js
+    end    
+  end
+  
+
   def update
     if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
       params[:user].delete(:password)
