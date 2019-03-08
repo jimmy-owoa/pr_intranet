@@ -3,6 +3,10 @@ class WeatherInformationJob < ApplicationJob
 
   def perform(*args)
     @today =  Date.today.strftime("%d/%m/%Y")
+    @tomorrow = (Date.today + 1.days).strftime("%d/%m/%Y")
+    @tomorrow_1 = (Date.today + 2.days).strftime("%d/%m/%Y")
+    @tomorrow_2 = (Date.today + 3.days).strftime("%d/%m/%Y")
+    @tomorrow_3 = (Date.today + 4.days).strftime("%d/%m/%Y")
     @antofagasta = WeatherService.perform[:antofagasta]
     @santiago = WeatherService.perform[:santiago]
     @copiapo = WeatherService.perform[:copiapo]
@@ -34,7 +38,20 @@ class WeatherInformationJob < ApplicationJob
       condition: @santiago['currently']['summary'],
       icon: @santiago['currently']['icon'],
       max_temp: @santiago['daily']['data'][0]['temperatureMax'],
-      min_temp: @santiago['daily']['data'][0]['temperatureMin']
+      min_temp: @santiago['daily']['data'][0]['temperatureMin'],
+      #######################
+      tomorrow_max: @santiago['daily']['data'][1]['temperatureMax'],
+      tomorrow_min: @santiago['daily']['data'][1]['temperatureMin'],
+      tomorrow_icon: @santiago['daily']['data'][1]['icon'],
+      after_tomorrow_max: @santiago['daily']['data'][2]['temperatureMax'],
+      after_tomorrow_min: @santiago['daily']['data'][2]['temperatureMin'],
+      after_tomorrow_icon: @santiago['daily']['data'][2]['icon'],
+      aa_tomorrow_max: @santiago['daily']['data'][3]['temperatureMax'],
+      aa_tomorrow_min: @santiago['daily']['data'][3]['temperatureMin'],
+      aa_tomorrow_icon: @santiago['daily']['data'][3]['icon'],
+      aaa_tomorrow_max: @santiago['daily']['data'][4]['temperatureMax'],
+      aaa_tomorrow_min: @santiago['daily']['data'][4]['temperatureMin'],
+      aaa_tomorrow_icon: @santiago['daily']['data'][4]['icon'],
     )
     General::WeatherInformation.where(id: 3).update_all(
       location: 'Copiapo', 
