@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_05_184640) do
+ActiveRecord::Schema.define(version: 2019_03_08_142405) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -280,6 +280,18 @@ ActiveRecord::Schema.define(version: 2019_03_05_184640) do
     t.string "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tomorrow_icon"
+    t.string "tomorrow_max"
+    t.string "tomorrow_min"
+    t.string "after_tomorrow_icon"
+    t.string "after_tomorrow_max"
+    t.string "after_tomorrow_min"
+    t.string "aa_tomorrow_icon"
+    t.string "aa_tomorrow_max"
+    t.string "aa_tomorrow_min"
+    t.string "aaa_tomorrow_icon"
+    t.string "aaa_tomorrow_max"
+    t.string "aaa_tomorrow_min"
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
