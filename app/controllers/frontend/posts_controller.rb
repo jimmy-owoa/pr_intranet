@@ -19,6 +19,7 @@ module Frontend
         important: post.important,
         tags: post.cached_tags,
         slug: post.slug,
+        extract: post.extract,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
@@ -81,6 +82,7 @@ module Frontend
       tags: post.terms.tags,
       main_image: image,
       format: post.format,
+      extract: post.extract,
       breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
