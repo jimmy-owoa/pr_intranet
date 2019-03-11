@@ -22,10 +22,10 @@
             </br>
           </p>
           <p class="card-text">
-            <p><strong> Tags: </strong></p>
-            <% @post.terms.tags.each do |tag| %>
-              <%= '- ' + tag.name %></br>
-            <% end %>
+            <p><strong> Tags incluyentes: </strong></p>
+            <%= @post.terms.inclusive_tags.map(&:name).join(', ') %>
+            <p><strong> Tags excluyentes: </strong></p>
+            <%= @post.terms.excluding_tags.map(&:name).join(', ') %>
           </p>
           <div align="center">
             <% if @post.galleries.present? %>

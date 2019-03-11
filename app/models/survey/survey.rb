@@ -1,8 +1,11 @@
 class Survey::Survey < ApplicationRecord
   has_many :questions, dependent: :destroy
+  has_many :survey_term_relationships, -> {where(object_type: 'Survey::Survey')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :survey
+  has_many :terms, through: :survey_term_relationships
   has_one_attached :image
 
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: proc { |att| att['title'].blank? }
+  accepts_nested_attributes_for :terms
 
   before_save :unique_slug, :set_survey_type
 
