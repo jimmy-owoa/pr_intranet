@@ -12,6 +12,9 @@
         <%= f.label :post_type %></br>
         <%= f.select :post_type, News::Post::TYPE.map { |m| m }, include_blank: true, class:'post_type form-control string optional', id:'post_type' %>
       </div>
+      <%# <div class="col-md-12" style="margin-bottom: 20px;"> %>
+        <%# <%= f.text_area :extract, :class => "tinymce" %> 
+      <%# </div> %>
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.text_area :content, :class => "tinymce" %>
         <%= tinymce %>
