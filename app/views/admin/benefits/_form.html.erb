@@ -17,14 +17,15 @@
       </div>
     </div>
     <div class="col-5" >
-      <div class="card border-secondary mb-2">
-        <div class="card-body text-secondary border border-primary rounded">
+      <div class="card border-secondary border border-primary rounded">
+        <div class="card-body text-secondary">
           <% if @benefit.image.attachment.present? %>
               <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
           <% else %>  
             <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
           <% end %>
           <div class="left">
+            <i class="fas fa-exclamation-circle" rel="tooltip" title="Formatos para la imagen ideales: 245x245" id="ben_img"></i>
             <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
           </div>
         </div>
@@ -32,3 +33,9 @@
     </div>
   </div>
 <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
+
+<script>
+$(document).ready(function(){
+    $("[rel=tooltip]").tooltip({ placement: 'right'});
+});
+</script>
