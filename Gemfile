@@ -73,6 +73,8 @@ gem 'whenever', require: false
 gem 'ahoy_matey'
 #geocoding need for ahoy
 gem 'maxminddb'
+# paginate for API
+gem 'kaminari'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 # Use Redis adapter to run Action Cable in production
