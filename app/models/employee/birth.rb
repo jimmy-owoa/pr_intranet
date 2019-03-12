@@ -3,7 +3,7 @@ class Employee::Birth < ApplicationRecord
   has_one_attached :photo
 
   scope :show_birth , -> {where( approved: true)}
-  scope :birthday_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
+  scope :birt_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
 
 
   def child_fullname

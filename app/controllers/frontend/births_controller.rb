@@ -6,7 +6,7 @@ class Frontend::BirthsController < ApplicationController
   after_action :set_tracking_action, only: [:create]  
 
     def index
-      births = Employee::Birth.show_birth.birthday_between(1.month.ago, Time.now) #se cambio de un año a un mes
+      births = Employee::Birth.show_birth.birt_between(1.month.ago, Time.now) #se cambio de un año a un mes
       births_calendar = Employee::Birth.show_birth
       data = []
       births.each do |birth|
@@ -55,8 +55,8 @@ class Frontend::BirthsController < ApplicationController
     end
 
     def calendar_births
+      births = Employee::Birth.show_birth.birt_between(3.month.ago, -3.month.ago)
       data = []
-      births = Employee::Birth.show_birth.birthday_between(1.month.ago, Time.now)
       births.each do |birth|
         data << {
           id: birth.id,
@@ -70,7 +70,7 @@ class Frontend::BirthsController < ApplicationController
       end
       respond_to do |format|
         format.html
-        format.json { render json: data[0] }
+        format.json { render json: data.flatten }
         format.js
       end
     end    
