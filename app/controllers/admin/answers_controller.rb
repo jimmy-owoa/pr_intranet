@@ -10,6 +10,15 @@ class Admin::AnswersController < ApplicationController
   def show
   end
 
+  def report
+    @survey = Survey::Survey.find(params[:id])
+    render xlsx: 'report.xlsx.axlsx'
+  end
+
+  def caca
+
+  end
+
   private
   def set_survey
     @answer = Survey::Answer.find(params[:id])
