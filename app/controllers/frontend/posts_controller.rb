@@ -1,9 +1,11 @@
 module Frontend
   class PostsController < ApplicationController
     after_action :set_tracking, only: [:index, :show, :new]  
-
+    
   def index
-    posts = News::Post.all
+    page = params[:page]
+    params[:category].present? ? posts = News::Post.where(post_type: params[:category]).page(page).per(10) : posts = News::Post.page(page).per(10)
+
     # posts = News::Post.posts_cached
     data = []
     posts.each do |post|
@@ -19,6 +21,7 @@ module Frontend
         important: post.important,
         tags: post.cached_tags,
         slug: post.slug,
+        extract: post.extract,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
@@ -29,7 +32,7 @@ module Frontend
       }
     end
     respond_to do |format|
-      format.json { render json: data }
+      format.json { render json: {hits: data} }
       format.js
     end
   end
@@ -81,6 +84,7 @@ module Frontend
       tags: post.terms.tags,
       main_image: image,
       format: post.format,
+      extract: post.extract,
       breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
