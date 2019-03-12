@@ -1,28 +1,31 @@
 <%= f.error_notification %>
   <div class="form-group row">
-    <div class="col-4">
-      <%= f.input :title, required: true, autofocus: true %>
+    <div class="col-7">
+      <div class="col-md-12">
+        <%= f.input :title, required: true, autofocus: true %>
+      </div>
+      <div class="col-md-12">
+        <%= f.label 'Tags inclusivos' %>
+        <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
+      </div>
+      <div class="col-md-12">
+        <%= f.label 'Tags excluyentes' %>
+        <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
+      </div>      
+      <div class="col-md-12">
+        <%= f.input :content %>
+      </div>
     </div>
-    <div class="col-md-4">
-      <%= f.label 'Tags inclusivos' %>
-      <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
-    </div>
-    <div class="col-md-4">
-      <%= f.label 'Tags excluyentes' %>
-      <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
-    </div>      
-    <div class="col-12">
-      <%= f.input :content %>
-    </div>
-    <div class="col-4" >
-      <div class="card border-secondary mb-2">
-        <div class="card-body text-secondary border border-primary rounded">
+    <div class="col-5" >
+      <div class="card border-secondary border border-primary rounded">
+        <div class="card-body text-secondary">
           <% if @benefit.image.attachment.present? %>
-                <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'center') %>
+              <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
           <% else %>  
             <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
           <% end %>
-          <div class="center">
+          <div class="left">
+            <i class="fas fa-exclamation-circle" rel="tooltip" title="Formatos para la imagen ideales: 245x245" id="ben_img"></i>
             <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
           </div>
         </div>
@@ -30,3 +33,9 @@
     </div>
   </div>
 <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
+
+<script>
+$(document).ready(function(){
+    $("[rel=tooltip]").tooltip({ placement: 'right'});
+});
+</script>
