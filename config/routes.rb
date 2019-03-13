@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     end
     resources :birthdays do
       get :users_birthday, on: :collection
+      get :birthday_month, on: :collection
       get :get_home_birthdays, on: :collection
       get :calendar, on: :collection
     end

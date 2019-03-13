@@ -49,22 +49,18 @@ class Frontend::WelcomesController < ApplicationController
   end
 
   def users_welcome
-    @new_users = General::User.last(20)
+    @new_users = General::User.where('created_at > ? and created_at < ?', 3.months.ago, -3.months.ago)
     data= []
     @new_users.each do |user|
       @image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
       data << {
         id: user.id,
         email: user.email,
-        created_at: user.created_at,
-        name: user.name,
-        last_name: user.last_name,
         full_name: user.name + ' ' + user.last_name,
         active: user.active,
         annexed: user.annexed,
         birthday: user.birthday,
         date: user.created_at.strftime("%Y-%m-%d"),
-        show_birthday: user.show_birthday,
         image: @image
       }
     end
