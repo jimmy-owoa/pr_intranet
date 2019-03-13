@@ -25,7 +25,7 @@ class Survey::Survey < ApplicationRecord
 
   def unique_slug
     self.slug = if self.slug.blank?
-        set_slug(self.name.parameterize)
+      self.name.blank? ? set_slug(self.get_name_survey_type) : set_slug(self.name.parameterize)   
       else
         set_slug(self.slug.parameterize)
       end
