@@ -1,0 +1,14 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Reporte encuesta") do |sheet|
+  sheet.add_row ['id Pregunta', 'Pregunta', 'Tipo de pregunta', 'Respuesta', 'id Usuario', 'Usuario']
+  @survey.questions.each do |question|
+    question.answers.each do |answer|
+      sheet.add_row [question.id, question.title, question.question_type, 
+      if answer.option.nil?  
+        answer.answer_variable
+      else
+        answer.option.title
+      end, answer.user_id, General::User.find(answer.user_id).full_name]
+    end
+  end
+end

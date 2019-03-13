@@ -56,7 +56,9 @@ class General::User < ApplicationRecord
       avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg") 
   end
   
-
+  def full_name
+    self.name + ' ' + self.last_name
+  end
   def assign_default_role
     add_role(:user) if roles.blank?
   end

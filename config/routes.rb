@@ -20,7 +20,9 @@ Rails.application.routes.draw do
       resources :births
       resources :surveys
       resources :benefits
-      resources :answers
+      resources :answers do 
+        get :report, on: :member
+      end
       resources :menus
       resources :messages
       resources :sections, only: [:update, :show, :index, :edit]
