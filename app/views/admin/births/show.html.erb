@@ -3,8 +3,10 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header" align="center">
-          <% if @birth.photo.attachment.present?%>
-            <%= image_tag @birth.photo.attachment.variant(resize: '300x300>')%>
+          <% if @birth.images.attachments.present?%>
+            <% @birth.images.each do |image| %>
+              <%= image_tag image.variant(resize: '300x300>')%>
+              <% end %>
           <% else %>
             <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
           <% end %>
