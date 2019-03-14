@@ -1,9 +1,10 @@
+require 'base64'
+require 'stringio'
 class Frontend::BirthsController < ApplicationController
   #callbacks
   layout 'admin'
   before_action :set_birth, only: [:show, :destroy]
   after_action :set_tracking, only: [:index, :show, :new, :list]
-  after_action :set_tracking_action, only: [:create]  
 
     def index
       births = Employee::Birth.show_birth.birt_between(1.month.ago, Time.now) #se cambio de un año a un mes
@@ -92,18 +93,20 @@ class Frontend::BirthsController < ApplicationController
       gender = params[:gender]
       birthday = params[:birthday]
       images = params[:images]
-
       @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, 
         full_name_father: full_name_father, full_name_mother: full_name_mother, approved: approved,
         gender: gender, birthday: birthday)
         images.each do |image|
-          @birth.images.attach(io: File.open(image[1].tempfile), filename: image[1].original_filename, content_type: image[1].content_type)
+          base64_image = image[1].sub(/^data:.*,/, '')
+          decoded_image = Base64.decode64(base64_image)
+          image_io = StringIO.new(decoded_image)
+          @birth_image = { io: image_io, filename: child_name }  
+          @birth.images.attach(@birth_image)
         end
       respond_to do |format|
         if @birth.save
-          # @birth.images.attach(params[:images])
           format.html { redirect_to frontend_birth_path(@birth), notice: 'Birth was successfully created.'}
-          format.json { render :show, status: :created, location: @birth}
+          format.json { render json: @birth, status: 200}
         else
           format.html {render :new}
           format.json {render json: @birth.errors, status: :unprocessable_entity}
