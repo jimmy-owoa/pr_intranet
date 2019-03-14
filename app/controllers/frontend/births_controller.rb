@@ -96,12 +96,14 @@ class Frontend::BirthsController < ApplicationController
       @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, 
         full_name_father: full_name_father, full_name_mother: full_name_mother, approved: approved,
         gender: gender, birthday: birthday)
-        images.each do |image|
-          base64_image = image[1].sub(/^data:.*,/, '')
-          decoded_image = Base64.decode64(base64_image)
-          image_io = StringIO.new(decoded_image)
-          @birth_image = { io: image_io, filename: child_name }  
-          @birth.images.attach(@birth_image)
+        if images.present? 
+          images.each do |image|
+            base64_image = image[1].sub(/^data:.*,/, '')
+            decoded_image = Base64.decode64(base64_image)
+            image_io = StringIO.new(decoded_image)
+            @birth_image = { io: image_io, filename: child_name }  
+            @birth.images.attach(@birth_image)
+          end
         end
       respond_to do |format|
         if @birth.save
