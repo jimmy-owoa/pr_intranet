@@ -63,8 +63,15 @@ module Admin
     end
 
     def birth_params
-      params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :child_lastname,
-      :birthday, :photo, :approved, :gender)
+      params.require(:birth).permit(:full_name_mother, 
+        :full_name_father, 
+        :child_name, 
+        :child_lastname,
+        :birthday, 
+        :approved, 
+        :gender,
+        :photo
+      )
     end
 
   end

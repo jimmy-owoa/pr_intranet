@@ -45,9 +45,11 @@
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
           <% if @birth.photo.attachment.present? %>
-          <%= image_tag(@birth.photo.attachment, class: 'center') %>
+            <%= image_tag(@birth.photo.attachment, class: 'center') %>
+              <%# <%= @birth.photo.attachment.permission %>
+              <%# <%= f.input :permission, as: :radio_buttons %>
           <% else %>
-          <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
+            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
           <% end %>
         </div>
       </div>
