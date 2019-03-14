@@ -84,9 +84,24 @@ class Frontend::BirthsController < ApplicationController
     end
 
     def create
-      @birth = Employee::Birth.new(birth_params)
+      child_name = params[:child_name]
+      child_lastname = params[:child_lastname]
+      full_name_father = params[:full_name_father]
+      full_name_mother = params[:full_name_mother]
+      approved = params[:approved]
+      gender = params[:gender]
+      birthday = params[:birthday]
+      images = params[:images]
+
+      @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, 
+        full_name_father: full_name_father, full_name_mother: full_name_mother, approved: approved,
+        gender: gender, birthday: birthday)
+        images.each do |image|
+          @birth.images.attach(io: File.open(image[1].tempfile), filename: image[1].original_filename, content_type: image[1].content_type)
+        end
       respond_to do |format|
         if @birth.save
+          # @birth.images.attach(params[:images])
           format.html { redirect_to frontend_birth_path(@birth), notice: 'Birth was successfully created.'}
           format.json { render :show, status: :created, location: @birth}
         else
