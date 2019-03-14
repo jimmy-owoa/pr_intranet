@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_11_132857) do
+ActiveRecord::Schema.define(version: 2019_03_14_164444) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_132857) do
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
+    t.integer "permission", default: 0
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -177,13 +178,6 @@ ActiveRecord::Schema.define(version: 2019_03_11_132857) do
     t.text "content"
     t.string "message_type"
     t.boolean "is_const"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "general_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "content"
-    t.integer "menu_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

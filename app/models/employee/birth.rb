@@ -1,5 +1,7 @@
 class Employee::Birth < ApplicationRecord
   after_create :default_image
+  has_one_attached :photo
+  enum permission: %i[No Si]
   has_many_attached :images
 
   scope :show_birth , -> {where( approved: true)}
