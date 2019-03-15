@@ -15,7 +15,7 @@ class Marketplace::Product < ApplicationRecord
   PRODUCT_TYPE = ['Autos','Propiedades', 'Servicios', 'Varios']
 
   def thumb img
-    img.variant(resize: '120x120>').processed
+    img.variant(resize: '60x60>').processed
   end
 
   def update_published_date
