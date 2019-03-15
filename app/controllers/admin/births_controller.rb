@@ -24,6 +24,8 @@ module Admin
     def create
       params[:birth][:gender] = params[:birth][:gender].to_i
       @birth = Employee::Birth.new(birth_params)
+      
+      
       respond_to do |format|
         if @birth.save
           format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully created.'}
@@ -39,11 +41,20 @@ module Admin
       params[:birth][:gender] = params[:birth][:gender].to_i
       respond_to do |format|
         if @birth.update(birth_params)
+          catch_image(params[:permissions])
           format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully updated.'}
           format.json { render :show, status: :ok, location: @birth }
         else
           format.html { render :edit}
           format.json { render json: @birth.errors, status: :unprocessable_entity}
+        end
+      end
+    end
+
+    def catch_image(image)
+      if image.present?
+        image.each do |id|
+          ActiveStorage::Attachment.find(id).update_attributes(permission: 1)
         end
       end
     end

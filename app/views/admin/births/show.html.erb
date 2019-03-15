@@ -5,7 +5,7 @@
         <div class="card-header" align="center">
           <% if @birth.images.attachments.present?%>
             <% @birth.images.each do |image| %>
-              <%= image_tag image.variant(resize: '300x300>')%>
+              <%= image_tag image.variant(resize: '250x200>'), class: 'image_birth'%>
               <% end %>
           <% else %>
             <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
