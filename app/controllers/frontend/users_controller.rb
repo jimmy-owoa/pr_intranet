@@ -97,6 +97,8 @@ class Frontend::UsersController < ApplicationController
       nickname: @nickname,
       image: @user.image.attached? ?
       url_for(@user.image) : root_url + '/assets/default_avatar.png',
+      email: @user.email,
+      annexed: @user.annexed,
       breadcrumbs: [
         {link: '/', name: 'Inicio' },
         {link: '#', name: @nickname}

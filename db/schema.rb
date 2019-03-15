@@ -182,6 +182,13 @@ ActiveRecord::Schema.define(version: 2019_03_14_164444) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "general_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "content"
+    t.integer "menu_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_santorals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "santoral_day"

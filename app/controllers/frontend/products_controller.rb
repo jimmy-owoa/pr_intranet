@@ -4,7 +4,6 @@ module Frontend
 
   #callbacks
   after_action :set_tracking, only: [:index, :show, :new]
-  after_action :set_tracking_action, only: [:create, :update]
 
   def index
     products = Marketplace::Product.show_product
@@ -72,10 +71,30 @@ module Frontend
     end
 
     def create
-      @product = Marketplace::Product.new(product_params)
+      name = params[:name]
+      email = params[:email]
+      price = params[:price]
+      phone = params[:phone]
+      description = params[:description]
+      location = params[:location]
+      user_id = params[:user_id]
+      images = params[:images]
+      product_type = params[:product_type]
+
+      @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone, 
+        description: description, location: location, user_id: user_id, approved: false, expiration: 30)
+      if images.present? 
+        images.each do |image|
+          base64_image = image[1].sub(/^data:.*,/, '')
+          decoded_image = Base64.decode64(base64_image)
+          image_io = StringIO.new(decoded_image)
+          @product_image = { io: image_io, filename: name }  
+          @product.images.attach(@product_image)
+        end
+      end
       respond_to do |format|
         if @product.save
-          format.html { redirect_to frontend_product_path(@product), notice: 'Birth was successfully created.'}
+          format.html { redirect_to frontend_product_path(@product), notice: 'Product was successfully created.'}
           format.json { render :show, status: :created, location: @product}
         else
           format.html {render :new}
