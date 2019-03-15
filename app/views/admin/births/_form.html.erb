@@ -44,21 +44,22 @@
     <div class="card p-2">
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
-          <% if @birth.photo.attachment.present? %>
-          <%= image_tag(@birth.photo.attachment, class: 'center') %>
-          <% else %>
-          <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
+          <% if @birth.images.attachments.nil? %>
+          <%#= 'image_tag(@birth.photo.attachment, class: center)' %>
+            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
           <% end %>
         </div>
       </div>
       <div class=" col-md-12">
         <div class="col-md-12">
-          <%= f.input :photo, required: true, input_html: { accept:'image/*' } %>
+          <%= f.file_field :images, required: true, multiple: true, input_html: { accept:'image/*' } %>
         </div>
       </div>
     </div>
   </div>
-
+  <% @birth.images.each do |image| %>
+    <%= image_tag image.variant(resize: '100x80>'), style: 'border: 1px solid blue; margin: 0px 10px 10px 0px;'%>
+  <% end %>  
 </div>
 
 <%= f.submit nil, :class => 'btn btn-primary' %>
