@@ -21,3 +21,5 @@ plugins:
   - searchreplace
   - fullscreen
   - emoticons
+language:
+  - es

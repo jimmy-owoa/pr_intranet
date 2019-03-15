@@ -89,6 +89,7 @@ es:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
+      long2: "%d de %B de %Y %H:%M:%S %p"
     month_names:
     -
     - Enero
@@ -287,6 +288,7 @@ es:
     formats:
       default: "%A, %d de %B de %Y %H:%M:%S %z"
       long: "%d de %B de %Y %H:%M"
+      long2: "%d de %B de %Y %H:%M:%S %p"
       short: "%d de %b %H:%M"
     pm: pm
   admin:

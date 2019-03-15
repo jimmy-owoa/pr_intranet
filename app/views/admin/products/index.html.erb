@@ -15,7 +15,7 @@
         <tbody>
           <% @products.each do |product| %>
             <tr>
-              <td><%= image_tag product.thumb(product.images.first) unless product.images.first.nil?%></td>
+              <td><%= image_tag product.thumb(product.images.first), :class=> 'img-thumbnail' unless product.images.first.nil? %></td>
               <td><%= product.name %></td>
               <td><%= product.price %></td>
               <td><%= is_approved(product) %></td>

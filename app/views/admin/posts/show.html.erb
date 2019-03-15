@@ -50,7 +50,7 @@
           </div>
           <br>
           <p class="card-text">
-            <b>Última actualización:</b> <%= @post.updated_at.strftime("%d de %B de %Y %H:%M:%S %p") %>
+            <b>Última actualización:</b> <%= l(@post.updated_at, format: :long2) %>
           </p>
         </div>
       </div>
