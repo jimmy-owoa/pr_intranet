@@ -12,7 +12,7 @@ class Admin::AnswersController < ApplicationController
 
   def report
     @survey = Survey::Survey.find(params[:id])
-    render xlsx: 'report.xlsx.axlsx'
+    render xlsx: 'report.xlsx.axlsx', filename: "reporte #{@survey.name + ' ' + l(Date.today, format: '%A %d %B %Y') }.xlsx"
   end
 
   def caca
