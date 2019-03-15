@@ -14,7 +14,7 @@ class Frontend::BirthsController < ApplicationController
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.photo.variant(resize: '500x500>')),
+          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>'))  ,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           birthday: birth.birthday,
@@ -41,7 +41,7 @@ class Frontend::BirthsController < ApplicationController
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.photo.variant(resize: '500x500>')),
+          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
           gender: birth.gender ? 'Masculino' : 'Femenino',
           birthday: birth.birthday,
           father: birth.full_name_father,
