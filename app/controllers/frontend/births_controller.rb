@@ -9,12 +9,15 @@ class Frontend::BirthsController < ApplicationController
     def index
       births = Employee::Birth.show_birth.birt_between(1.month.ago, Time.now) #se cambio de un año a un mes
       births_calendar = Employee::Birth.show_birth
+      images = []
       data = []
-      births.each do |birth|
+      births.each do |birth|   
+        birth.images.attachments.map{|image| images << url_for(image.variant(resize: '500x500>'))}
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>'))  ,
+          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
+          images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           birthday: birth.birthday,
@@ -35,13 +38,16 @@ class Frontend::BirthsController < ApplicationController
     end
 
     def get_home_births
+      images = []
       data = []
       births = Employee::Birth.show_birth.last(4)
       births.each do |birth|
+        birth.images.attachments.map{|image| images << url_for(image.variant(resize: '500x500>'))}
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
           photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
+          images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           birthday: birth.birthday,
           father: birth.full_name_father,
@@ -62,7 +68,7 @@ class Frontend::BirthsController < ApplicationController
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.photo.variant(resize: '600x600')),
+          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
           gender: birth.gender ? 'Masculino' : 'Femenino',
           date: birth.birthday,
           father: birth.full_name_father,
