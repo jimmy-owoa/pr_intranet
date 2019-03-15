@@ -71,15 +71,17 @@
       </div>
     </div>
   <% end %>
-  <div class="card col-md-12 p-4">
-    <div class="row" >
-      <div class="col-md-12">
-        <p>Imágenes Aprobadas</p>
-        <% @birth.images.where(permission: 1).each do |image| %>
-          <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
-        <% end %>  
+  <% if @birth.images.where(permission: 1).present? %>
+    <div class="card col-md-12 p-4">
+      <div class="row" >
+        <div class="col-md-12">
+          <p>Imágenes Aprobadas</p>
+          <% @birth.images.where(permission: 1).each do |image| %>
+            <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
+          <% end %>  
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div><br>
 <%= f.submit nil, :class => 'btn btn-primary' %>

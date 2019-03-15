@@ -1,9 +1,10 @@
+require 'base64'
+require 'stringio'
 class Frontend::BirthsController < ApplicationController
   #callbacks
   layout 'admin'
   before_action :set_birth, only: [:show, :destroy]
   after_action :set_tracking, only: [:index, :show, :new, :list]
-  after_action :set_tracking_action, only: [:create]  
 
     def index
       births = Employee::Birth.show_birth.birt_between(1.month.ago, Time.now) #se cambio de un año a un mes
@@ -13,7 +14,7 @@ class Frontend::BirthsController < ApplicationController
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.photo.variant(resize: '500x500>')),
+          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>'))  ,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           birthday: birth.birthday,
@@ -40,7 +41,7 @@ class Frontend::BirthsController < ApplicationController
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.photo.variant(resize: '500x500>')),
+          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
           gender: birth.gender ? 'Masculino' : 'Femenino',
           birthday: birth.birthday,
           father: birth.full_name_father,
@@ -92,18 +93,22 @@ class Frontend::BirthsController < ApplicationController
       gender = params[:gender]
       birthday = params[:birthday]
       images = params[:images]
-
       @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, 
         full_name_father: full_name_father, full_name_mother: full_name_mother, approved: approved,
         gender: gender, birthday: birthday)
-        images.each do |image|
-          @birth.images.attach(io: File.open(image[1].tempfile), filename: image[1].original_filename, content_type: image[1].content_type)
+        if images.present? 
+          images.each do |image|
+            base64_image = image[1].sub(/^data:.*,/, '')
+            decoded_image = Base64.decode64(base64_image)
+            image_io = StringIO.new(decoded_image)
+            @birth_image = { io: image_io, filename: child_name }  
+            @birth.images.attach(@birth_image)
+          end
         end
       respond_to do |format|
         if @birth.save
-          # @birth.images.attach(params[:images])
           format.html { redirect_to frontend_birth_path(@birth), notice: 'Birth was successfully created.'}
-          format.json { render :show, status: :created, location: @birth}
+          format.json { render json: @birth, status: 200}
         else
           format.html {render :new}
           format.json {render json: @birth.errors, status: :unprocessable_entity}
