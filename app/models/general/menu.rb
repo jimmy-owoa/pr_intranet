@@ -1,5 +1,5 @@
 class General::Menu < ApplicationRecord
-  searchkick word_middle: [:title, :link]
+  searchkick text_middle: [:title, :link]
 
   has_many :menu_term_relationships, -> {where(object_type: 'General::Menu')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :menu
 
