@@ -8,7 +8,7 @@
         <%= f.input :position, required: true, autofocus: true %>
       </div>
       <div class="col-12">
-        <%= f.label 'Url Interna' %></br>
+        <%= f.label 'Dirección URL Interna' %></br>
         <%= f.select :url, News::Post.all.map{|p| ["#{p.id} - #{p.title}".truncate(60), p.id] }, include_blank: true %>
       </div>
       <div class="col-12">

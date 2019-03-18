@@ -1,6 +1,14 @@
 es:
   activerecord:
     attributes:
+      general/section:
+        position: Posición
+      general/link:
+        url: Dirección URL
+      survey/option:
+        placeholder: Sugerencia
+      news/post:
+        format: Formato
       general/message:
         message_type: Tipo de Mensaje
       general/menu:
@@ -14,6 +22,7 @@ es:
         question_type: Tipo de pregunta
         optional: Obligatorio
       general/user:
+        address: Dirección/Ciudad
         roles: Roles
         last_name: Apellidos
         active: Activo
