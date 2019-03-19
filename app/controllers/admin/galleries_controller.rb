@@ -38,7 +38,7 @@ module Admin
     respond_to do |format|
       if @gallery.save
         @galleries_list = General::Gallery.all.map{|a| [a.id, a.name]}
-        format.html { redirect_to admin_gallery_path(@gallery), notice: 'Gallery was successfully created.' }
+        format.html { redirect_to edit_admin_gallery_path(@gallery), notice: 'Gallery was successfully created.' }
         format.json { render :show, status: :created, location: @gallery }
         format.js
       else
