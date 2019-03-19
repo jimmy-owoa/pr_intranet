@@ -56,7 +56,7 @@
           <%= f.select :address, General::User::CITIES.map { |m| m }, include_blank: true, class:'form-control string optional', id:'user_address' %>
         </div>
         <div class="col-6 col-sm-6">
-          <%= f.label :parent_id %></br>
+          <%= f.label 'Jerarquía' %></br>
           <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
         </div>        
       </div>
