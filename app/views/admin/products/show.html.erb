@@ -1,4 +1,7 @@
 <div class="container">
+  <section class="section">
+    <h2 class="section-header"><%= @product.name %></h2>
+  </section>
   <div class="row title_form">
     <div class="col-sm-12">
       <div class="card">
@@ -9,12 +12,18 @@
           <p class="card-text">
             <b>Creado:</b> <%= custom_date(@product.created_at)%>
           </p>
-          <% @product.images.each do |image| %>
-            <%= image_tag image.variant(resize: '200x200') %>
-          <% end %>
         </div>
       </div>
     </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">   
+          <% @product.images.each do |image| %>
+            <%= image_tag image.variant(resize: '200x200'),class: 'image_attach' %>
+          <% end %> 
+        </div>
+      </div>
+    </div>        
   </div>
   <%= link_to t('.back', :default => t("helpers.links.back")), admin_products_path, :class => 'btn btn-primary'  %>
 </div>

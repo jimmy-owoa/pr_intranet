@@ -59,6 +59,12 @@ module Admin
       end
     end
 
+   def delete_image
+      @image = ActiveStorage::Attachment.find(params[:id])
+      @image.purge
+      redirect_back(fallback_location: root_path)
+    end    
+
     def destroy
       @birth.destroy
       respond_to do |format|

@@ -28,7 +28,6 @@ module Admin
       redirect_back(fallback_location: root_path)
     end    
 
-
     def create
       @product = Marketplace::Product.new(product_params)
       respond_to do |format|
@@ -46,6 +45,7 @@ module Admin
       authorize @product
       respond_to do |format|
         if @product.update(product_params)
+          catch_image(params[:permissions])
           format.html { redirect_to admin_product_path(@product), notice: 'Birth was successfully updated.'}
           format.json { render :show, status: :ok, location: @product }
         else
@@ -62,6 +62,15 @@ module Admin
         format.json { head :no_content }
       end
     end
+
+    def catch_image(image)
+      if image.present?
+        image.each do |id|
+          ActiveStorage::Attachment.find(id).update_attributes(permission: 1)
+        end
+      end
+    end
+
 
     private
     # Use callbacks to share common setup or constraints between actions.
