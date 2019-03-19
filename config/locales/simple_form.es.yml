@@ -146,7 +146,7 @@ es:
         user_ip: Ip del usuario
         approved: Aprobado
         object_type: Tipo de objeto
-        terms: Categorías
+        terms: Empresas
         gender: Sexo
         child_name: Nombre del nacido
         child_lastname: Apellido del nacido
