@@ -5,10 +5,17 @@ module Frontend
   def index
     page = params[:page]
     params[:category].present? ? posts = News::Post.where(post_type: params[:category]).page(page).per(10) : posts = News::Post.page(page).per(10)
-
-    # posts = News::Post.posts_cached
     data = []
+    gallery = []
     posts.each do |post|
+      if post.galleries.present?
+        post.galleries.first.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
+          gallery << {
+            id: image.id,
+            url: root_url + image.path
+          }
+        end
+      end
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
@@ -28,7 +35,8 @@ module Frontend
           {link: '#', name: post.title.truncate(30)}
         ],
         main_image: @image,
-        format: post.format
+        format: post.format,
+        gallery: gallery
       }
     end
     respond_to do |format|
@@ -72,6 +80,15 @@ module Frontend
     slug = params[:slug].present? ? params[:slug] : nil
     post = News::Post.find_by_slug(slug)
     image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
+    gallery = []
+      if post.galleries.present?
+        post.galleries.first.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
+          gallery << {
+            id: image.id,
+            url: root_url + image.path
+          }
+        end
+      end
     data << {
       id: post.id,
       title: post.title,
@@ -89,7 +106,8 @@ module Frontend
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
           {link: '#', name: post.title.truncate(30)}
-        ]
+        ],
+      gallery: gallery
 
     }
     respond_to do |format|

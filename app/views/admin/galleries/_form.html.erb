@@ -2,7 +2,7 @@
 <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
 <div class="row justify-content-around">
-  <div class="card col-md-12">
+  <div class="card col-md-4">
     <div class="col-md-12">
       <%= f.input :name, required: true %>
       <%= f.label :description %>
@@ -11,8 +11,8 @@
     </div>
   </div>
 
-  <div class="card col-md-12">
-    <div class="col-md-12">
+  <div class="card col-md-7">
+    <div class="col-md-7">
       <%= f.label "Imágenes" %>
       <%= f.select :attachment_ids, options_for_select(map_attachments), {},{ class: 'image-picker show-labels show-html', multiple: true }%>
 
@@ -23,15 +23,17 @@
 </div>
 
   <div class="col-md-12" >
-    <% if @gallery.id != nil %>
-      <div class="card">
-        <h1 align="center">Imágenes de <%= @gallery.name %> </h1>
-        <div class="row">
-          <% @gallery.attachments.each do |image|%>
-            <div class="col-md-3">
-                <%= image_tag(image.attachment.variant(resize: '300x300>')) %>
-            </div>
-          <% end %>
+    <% unless @gallery.id.nil? %>
+      <% if @gallery.attachments.present? %>
+        <div class="card">
+          <h1 align="center">Imágenes de <%= @gallery.name %> </h1>
+          <div class="row">
+            <% @gallery.attachments.each do |image|%>
+              <div class="col-md-3">
+                  <%= image_tag(image.attachment.variant(resize: '300x300>')) %>
+              </div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     <% end %>

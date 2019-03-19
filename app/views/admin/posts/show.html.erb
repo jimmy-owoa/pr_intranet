@@ -39,8 +39,10 @@
                   <div class="owl-carousel">
                     <% @post.galleries.each do |gal| %>
                       <figure>
-                        <%= image_tag(gal.attachments.first.attachment, style: 'padding: 12px;') %>
-                        <figcaption class='text-center'><%= gal.name%></figcaption>
+                        <% gal.attachments.each do |image| %>
+                          <%= image_tag(image.attachment.attachment.variant(resize: '1000x400>'), style: 'padding: 12px;') %>
+                          <figcaption class='text-center'><%= gal.name%></figcaption>
+                        <% end %>
                       </figure>
                     <% end %>
                   </div>
