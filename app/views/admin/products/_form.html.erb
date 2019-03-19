@@ -42,18 +42,42 @@
         <%= f.input :images, as: :file, input_html: { multiple: true, accept:'image/*' } %>
       </div>
     </div>
-    <div class="container">
-      <div class="row text-center">
-        <% @product.images.each do |image|  %>
-          <div class="col-md-2">
-            <figure>
-              <%= image_tag image.variant(resize: '120x120>').processed %>
-              <figcaption><%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: 'Are you sure?' }%></figcaption>
-            </figure>
-          </div> 
-        <% end %>
-      </div>
-    </div></br>
+</div>
+
+    <div class="container card">
+      <% if @product.unpermitted_images.present? %>    
+            <p>imágenes por aprobar</p>
+        <div class="row text-center" >
+            <% @product.unpermitted_images.each do |image| %>
+              <div class="col-md-2">
+                <figure>          
+                  <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
+                  <figcaption>
+                    <%= check_box_tag "permissions[]", image.id -%>
+                  </figcaption>
+                </figure>
+              </div>               
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+    <div class="container card">
+      <% if @product.permitted_images.present? %>
+        <p>Imágenes Aprobadas</p>
+        <div class="row text-center" >
+          <% @product.permitted_images.each do |image| %>
+            <div class="col-md-2">
+              <figure>                    
+                <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
+                <figcaption>
+                  <%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: '¿Estás seguro??' }, :class => 'btn btn-sm btn-danger'%>
+                </figcaption>
+              </figure>
+            </div>
+          <% end %>  
+        </div>
+      <% end %>
+    </div><br>
+
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.submit nil, class: 'btn btn-primary' %>
-</div>

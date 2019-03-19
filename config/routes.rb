@@ -17,7 +17,11 @@ Rails.application.routes.draw do
       resources :attachments
       resources :terms
       resources :galleries
-      resources :births
+      resources :births do
+        member do
+          delete :delete_image
+        end
+      end
       resources :surveys
       resources :benefits
       resources :answers do 
@@ -29,7 +33,7 @@ Rails.application.routes.draw do
       resources :products do
       member do
         delete :delete_image
-      end      
+      end
     end
     resources :posts do
       resources :attachments, only: [:create, :new]

@@ -23,5 +23,13 @@ class Marketplace::Product < ApplicationRecord
       self.published_date = self.approved ? Date.today : nil   
     end
   end
+
+  def permitted_images
+    images.attachments.where(permission: 1)
+  end
+
+  def unpermitted_images
+    images.attachments.where(permission: 0)
+  end  
   
 end
