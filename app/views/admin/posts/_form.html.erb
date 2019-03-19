@@ -36,7 +36,11 @@
         </div>
         <div class="col-md-12">
             <%= f.label "Destacada" %>
-            <%= f.check_box :important, class: 'post_type', checked: true %>
+            <% if f.object.new_record? %>
+              <%= f.check_box :important, class: 'post_type', checked: true %>
+            <% else %>
+              <%= f.check_box :important, class: 'post_type'%>
+            <% end %>
         </div>        
         <div class="col-md-12">
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
