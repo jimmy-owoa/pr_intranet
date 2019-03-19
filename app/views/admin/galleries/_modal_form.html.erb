@@ -10,18 +10,8 @@
       <div class="modal-body">
         <div class="tab-v2">
           <ul class="nav nav-tabs" id="tabGalleries">
-            <li class="nav-item pill-tabs"><a href="#create_gallery" data-toggle="tab" id="crear_galeria">Crear Galería</a></li>
             <li class="nav-item pill-tabs"><a href="#select_galleries" data-toggle="tab" id="seleccionar_galeria">Seleccionar Galería</a></li>
           </ul>
-
-          <div class="tab-content">
-            <div class="tab-pane fade in " id="create_gallery">
-              <br>
-              <%= simple_form_for [@post, @gallery], as: 'gallery', url: {action: :create}, :html => { :class => "form" }, remote: true do |f| %>
-                <%= render :partial => 'form_modal', locals: {f: f} %>
-              <% end %>
-            </div>
-
             <div class="tab-pane fade in" id="select_galleries">
               <div class="row justify-content-center">
                 <div class="col-12">

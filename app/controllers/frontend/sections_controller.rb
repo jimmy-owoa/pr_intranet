@@ -10,7 +10,7 @@ module Frontend
           position: section.position,
           image: url_for(section.image.variant(resize: '800x800>')),
           url: section.url,
-          created: section.created_at
+          created: section.created_at,
         }
       end
       respond_to do |format|

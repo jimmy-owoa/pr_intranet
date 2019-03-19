@@ -40,9 +40,9 @@ module Admin
       @post = News::Post.new(post_params)
       respond_to do |format|
         if @post.save
-          params[:post][:gallery_ids].reject(&:blank?).each do |gallery_id|
-            @post.galleries << General::Gallery.find(gallery_id)
-          end
+          # params[:post][:gallery_ids].reject(&:blank?).each do |gallery_id|
+          #   @post.galleries << General::Gallery.find(gallery_id)
+          # end
           set_tags
           format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully created.'}
           format.json { render :show, status: :created, location: @post}

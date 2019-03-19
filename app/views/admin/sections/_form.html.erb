@@ -1,19 +1,18 @@
 <%= f.error_notification %>
   <div class="form-group row">
-    <div class="col-7">
-      <div class="col-12">
-        <%= f.input :title, required: true, autofocus: true %>
-      </div>
-      <div class="col-12">
-        <%= f.input :position, required: true, autofocus: true %>
-      </div>
-      <div class="col-12">
-        <%= f.label 'Dirección URL Interna' %></br>
-        <%= f.select :url, News::Post.all.map{|p| ["#{p.id} - #{p.title}".truncate(60), p.id] }, include_blank: true %>
-      </div>
-      <div class="col-12">
-        <%= f.input :description, required: true, autofocus: true %>
-      </div>
+    <div class="col-6">
+      <%= f.input :title, required: true, autofocus: true %>
+    </div>
+     <div class="col-6">
+      <%= f.input :description, required: true, autofocus: true %>
+    </div>
+     <div class="col-6">
+      <%= f.input :position, required: true, autofocus: true %>
+    </div>
+    <div class="col-6">
+      <%= f.label 'Url Interna' %></br>
+      <%= f.select :url, News::Post.all.map{|p| ["#{p.id} - #{p.title}".truncate(60), p.slug] }, include_blank: true %>
+
     </div>
     <div class="col-5">
       <div class="card border-secondary mb-3">
