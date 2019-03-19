@@ -61,7 +61,6 @@ module Admin
     end
   end
 
-
   def destroy
     @gallery.destroy
     respond_to do |format|
