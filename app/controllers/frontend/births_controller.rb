@@ -10,11 +10,14 @@ class Frontend::BirthsController < ApplicationController
       births = Employee::Birth.show_birth.birt_between(1.month.ago, Time.now) #se cambio de un año a un mes
       births_calendar = Employee::Birth.show_birth
       data = []
-      births.each do |birth|
+      births.each do |birth|   
+        images = []
+        birth.permitted_images.map{|image| images << url_for(image.variant(resize: '500x500>'))}
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>'))  ,
+          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
+          images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           birthday: birth.birthday,
@@ -38,10 +41,13 @@ class Frontend::BirthsController < ApplicationController
       data = []
       births = Employee::Birth.show_birth.last(4)
       births.each do |birth|
+        images = []
+        birth.permitted_images.map{|image| images << url_for(image.variant(resize: '500x500>'))}
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
+          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
+          images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           birthday: birth.birthday,
           father: birth.full_name_father,
@@ -62,7 +68,7 @@ class Frontend::BirthsController < ApplicationController
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname,
-          photo: url_for(birth.photo.variant(resize: '600x600')),
+          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
           gender: birth.gender ? 'Masculino' : 'Femenino',
           date: birth.birthday,
           father: birth.full_name_father,

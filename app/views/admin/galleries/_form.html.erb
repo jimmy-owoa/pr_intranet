@@ -23,17 +23,15 @@
 </div>
 
   <div class="col-md-12" >
-    <% unless @gallery.id.nil? %>
-      <% if @gallery.attachments.present? %>
-        <div class="card">
-          <h1 align="center">Imágenes de <%= @gallery.name %> </h1>
-          <div class="row">
-            <% @gallery.attachments.each do |image|%>
-              <div class="col-md-3">
-                  <%= image_tag(image.attachment.variant(resize: '300x300>')) %>
-              </div>
-            <% end %>
-          </div>
+    <% if @gallery.id != nil %>
+      <div class="card">
+        <h1 align="center">Imágenes de <%= @gallery.name %> </h1>
+        <div class="row">
+          <% @gallery.attachments.each do |image|%>
+            <div class="col-md-3">
+                <%= image_tag(image.attachment.variant(resize: '300x300>')) %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     <% end %>

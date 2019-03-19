@@ -1,6 +1,14 @@
 es:
   activerecord:
     attributes:
+      general/section:
+        position: Posición
+      general/link:
+        url: Dirección URL
+      survey/option:
+        placeholder: Sugerencia
+      news/post:
+        format: Formato
       general/message:
         message_type: Tipo de Mensaje
       general/menu:
@@ -14,6 +22,7 @@ es:
         question_type: Tipo de pregunta
         optional: Obligatorio
       general/user:
+        address: Dirección/Ciudad
         roles: Roles
         last_name: Apellidos
         active: Activo
@@ -89,6 +98,7 @@ es:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
+      long2: "%d de %B de %Y %H:%M:%S %p"
     month_names:
     -
     - Enero
@@ -287,6 +297,7 @@ es:
     formats:
       default: "%A, %d de %B de %Y %H:%M:%S %z"
       long: "%d de %B de %Y %H:%M"
+      long2: "%d de %B de %Y %H:%M:%S %p"
       short: "%d de %b %H:%M"
     pm: pm
   admin:

@@ -57,9 +57,31 @@
       </div>
     </div>
   </div>
-  <% @birth.images.each do |image| %>
-    <%= image_tag image.variant(resize: '100x80>'), style: 'border: 1px solid blue; margin: 0px 10px 10px 0px;'%>
-  <% end %>  
-</div>
-
+  
+  <% if @birth.unpermitted_images.present? %>    
+    <div class="card col-md-12 p-4">
+      <div class="row" >
+        <div class="col-md-12">
+          <p>imágenes por aprobar</p>
+          <% @birth.unpermitted_images.each do |image| %>
+            <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
+            <%= check_box_tag "permissions[]", image.id -%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if @birth.permitted_images.present? %>
+    <div class="card col-md-12 p-4">
+      <div class="row" >
+        <div class="col-md-12">
+          <p>Imágenes Aprobadas</p>
+          <% @birth.permitted_images.each do |image| %>
+            <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
+          <% end %>  
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div><br>
 <%= f.submit nil, :class => 'btn btn-primary' %>
