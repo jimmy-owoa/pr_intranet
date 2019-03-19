@@ -51,7 +51,7 @@
             <% @product.unpermitted_images.each do |image| %>
               <div class="col-md-2">
                 <figure>          
-                  <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
+                  <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                   <figcaption>
                     <%= check_box_tag "permissions[]", image.id -%>
                   </figcaption>
@@ -68,7 +68,7 @@
           <% @product.permitted_images.each do |image| %>
             <div class="col-md-2">
               <figure>                    
-                <%= image_tag image.variant(resize: '150x100>'), class: 'image_birth' %>
+                <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                 <figcaption>
                   <%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: '¿Estás seguro??' }, :class => 'btn btn-sm btn-danger'%>
                 </figcaption>
