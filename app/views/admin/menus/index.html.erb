@@ -7,10 +7,6 @@
           <tr>
             <th></th>
             <th>Título</th>
-            <th>Descripción</th>
-            <th>Clase CSS</th>
-            <th>Código</th>
-            <th>Prioridad</th>
             <th>Padre</th>
             <th>Link</th>
             <th>Categorías</th>
@@ -22,10 +18,6 @@
             <tr>
               <td><%=  %></td>
               <td><%= menu.id %></td>
-              <td><%= menu.description.truncate(28) %></td>
-              <td><%= menu.css_class %><div style="width:60px;height:5px;background:<%= menu.css_class %>"></div></td>
-              <td><%= menu.code %></td>
-              <td><%= menu.priority %></td>
               <td><%= set_title_menu(menu.parent_id) %></td>
               <td><%= menu.link %></td>
               <td><%= menu.terms.present? ? menu.terms.map(&:name).join(',').truncate(10) : 'No tiene' %></td>

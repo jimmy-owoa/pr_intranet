@@ -33,8 +33,8 @@
 //= require admin/sections
 //= require admin/messages
 //= require admin/terms
-//= require_self
 //= require owl.carousel
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require ahoy
+//= require_self

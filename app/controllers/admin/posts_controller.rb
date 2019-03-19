@@ -40,9 +40,6 @@ module Admin
       @post = News::Post.new(post_params)
       respond_to do |format|
         if @post.save
-          # params[:post][:gallery_ids].reject(&:blank?).each do |gallery_id|
-          #   @post.galleries << General::Gallery.find(gallery_id)
-          # end
           set_tags
           format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully created.'}
           format.json { render :show, status: :created, location: @post}
@@ -57,9 +54,6 @@ module Admin
       params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       respond_to do |format|
         if @post.update(post_params)
-          params[:post][:gallery_ids].reject(&:blank?).each do |gallery_id|
-            @post.galleries << General::Gallery.find(gallery_id)
-          end
           set_tags
           format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully updated.'}
           format.json { render :show, status: :ok, location: @post }

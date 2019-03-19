@@ -36,19 +36,16 @@ module Admin
     end
 
     def create
-      @attachment = General::Attachment.new(attachment_params)
-      respond_to do |format|
-        @attachment.path = rails_blob_url(@attachment.attachment, only_path: true)
-        if @attachment.save
-          @attachments_list = General::Attachment.all.map{|a| [a.id,a.name]}
-          format.html { redirect_to edit_admin_attachment_path(@attachment), notice: 'Attachment was successfully created.'}
-          format.json { render :show, status: :created, location: @attachment}
-          format.js
-        else
-          format.html {render :new}
-          format.json {render json: @attachment.errors, status: :unprocessable_entity}
-          format.js
-        end
+      @attachment = General::Attachment.create(attachment_params)
+      respond_to do |f|
+        f.json {
+          render json: {
+            attachment_id: @attachment.id
+          }
+        }
+        f.html {
+          redirect_to :back
+        }
       end
     end
 
@@ -85,6 +82,11 @@ module Admin
     end
 
     def attachment_params
+      if params["attachment"]["attachment"].kind_of?(Array)
+        params["attachment"]["attachment"] = params["attachment"]["attachment"].first
+      else
+        params["attachment"]["attachment"] = params["attachment"]["attachment"]
+      end
       params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment)
     end
 

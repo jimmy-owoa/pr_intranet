@@ -7,3 +7,8 @@
 //= require stisla/sa-functions
 //= require stisla/scripts
 //= require image-picker
+//= require plugins/piexif.min
+//= require plugins/purify.min
+//= require plugins/sortable.min
+//= require fileinput.min
+//= require locales/es.js
