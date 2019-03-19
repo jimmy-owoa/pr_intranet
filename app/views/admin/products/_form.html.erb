@@ -45,11 +45,18 @@
 </div>
 
     <div class="container card">
-      <% if @product.unpermitted_images.present? %>    
-            <p>imágenes por aprobar</p>
+      <% if @product.unpermitted_images.present? %>
+          <div class="row">
+            <div class="col-sm-10 pull-left">
+              imágenes por aprobar
+            </div>
+            <div class="col-sm-2 pull-right">  
+              <button type="button" class="btn btn-primary btn-sm" id='check_all'>Selecciona todo</button>
+            </div>
+          </div></br>
         <div class="row text-center" >
             <% @product.unpermitted_images.each do |image| %>
-              <div class="col-md-2">
+              <div class="col-md-2 approved">
                 <figure>          
                   <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                   <figcaption>
