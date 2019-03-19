@@ -55,17 +55,17 @@
             </div>
           </div></br>
         <div class="row text-center" >
-            <% @product.unpermitted_images.each do |image| %>
-              <div class="col-md-2 approved">
-                <figure>          
-                  <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                  <figcaption>
-                    <%= check_box_tag "permissions[]", image.id -%>
-                  </figcaption>
-                </figure>
-              </div>               
-            <% end %>
-          </div>
+          <% @product.unpermitted_images.each do |image| %>
+            <div class="col-md-2 approved">
+              <figure>          
+                <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                <figcaption>
+                  <%= check_box_tag "permissions[]", image.id -%>
+                </figcaption>
+              </figure>
+            </div>               
+          <% end %>
+        </div>
       <% end %>
     </div>
     <div class="container card">

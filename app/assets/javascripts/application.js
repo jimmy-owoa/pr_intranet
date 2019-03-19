@@ -27,6 +27,7 @@
 //= require admin/posts
 //= require admin/attachments
 //= require admin/users
+//= require admin/births
 //= require admin/gallery
 //= require admin/products
 //= require admin/menus
