@@ -1,5 +1,6 @@
 module Admin
   class AttachmentsController < ApplicationController
+    skip_before_action :authenticate_user!, :only => :create
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
     layout 'admin'
