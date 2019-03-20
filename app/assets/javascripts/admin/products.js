@@ -15,4 +15,10 @@ $(document).on('turbolinks:load', function () {
   //   }
   //   return $(this).val(num);
   // });
+
+  $('#check_all').on("click", function () {
+    var cbxs = $('.approved input[type="checkbox"]');
+    cbxs.prop("checked", !cbxs.prop("checked"));
+  });
+
 });
