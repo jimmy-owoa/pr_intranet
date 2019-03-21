@@ -90,7 +90,7 @@ class Frontend::UsersController < ApplicationController
     @tomorrow_1 = (Date.today + 2.days).strftime("%A")
     @tomorrow_2 = (Date.today + 3.days).strftime("%A")
     @tomorrow_3 = (Date.today + 4.days).strftime("%A")    
-    @weather = General::WeatherInformation.where(location: @user.address)
+    @weather = General::WeatherInformation.where(location: @user.address).last
     @nickname = nickname(@user.name)
     data_user << {
       id: @user.id,
@@ -103,7 +103,7 @@ class Frontend::UsersController < ApplicationController
         {link: '/', name: 'Inicio' },
         {link: '#', name: @nickname}
       ],
-      weather: @weather[0],
+      weather: @weather,
       today:  Date.today.strftime("%d/%m/%Y"),
       tomorrow: l(Date.today + 1, format: '%A'),
       tomorrow_1: l(Date.today + 2, format: '%A'),

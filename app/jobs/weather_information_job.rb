@@ -19,7 +19,7 @@ class WeatherInformationJob < ApplicationJob
 
   def set_weather
     #save data
-    General::WeatherInformation.where(id: 1).update_all(
+    General::WeatherInformation.create(
       location: 'Antofagasta', 
       date: @today,
       current_temp: @antofagasta['currently']['temperature'],
@@ -28,7 +28,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @antofagasta['daily']['data'][0]['temperatureMax'],
       min_temp: @antofagasta['daily']['data'][0]['temperatureMin']
     )
-    General::WeatherInformation.where(id: 2).update_all(
+    General::WeatherInformation.create(
       location: 'Santiago', 
       date: @today,
       current_temp: @santiago['currently']['temperature'].to_i,
@@ -50,7 +50,7 @@ class WeatherInformationJob < ApplicationJob
       aaa_tomorrow_min: @santiago['daily']['data'][4]['temperatureMin'].to_i,
       aaa_tomorrow_icon: @santiago['daily']['data'][4]['icon'],
     )
-    General::WeatherInformation.where(id: 3).update_all(
+    General::WeatherInformation.create(
       location: 'Copiapo', 
       date: @today,
       current_temp: @copiapo['currently']['temperature'],
@@ -59,7 +59,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @copiapo['daily']['data'][0]['temperatureMax'],
       min_temp: @copiapo['daily']['data'][0]['temperatureMin'],
     )
-    General::WeatherInformation.where(id: 4).update_all(
+    General::WeatherInformation.create(
       location: 'La Serena', 
       date: @today,
       current_temp: @la_serena['currently']['temperature'],
@@ -68,7 +68,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @la_serena['daily']['data'][0]['temperatureMax'],
       min_temp: @la_serena['daily']['data'][0]['temperatureMin'],
     )
-    General::WeatherInformation.where(id: 5).update_all(
+    General::WeatherInformation.create(
       location: 'Viña del Mar', 
       date: @today,
       current_temp: @vina_del_mar['currently']['temperature'],
@@ -77,7 +77,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @vina_del_mar['daily']['data'][0]['temperatureMax'],
       min_temp: @vina_del_mar['daily']['data'][0]['temperatureMin'],
     )
-    General::WeatherInformation.where(id: 6).update_all(
+    General::WeatherInformation.create(
       location: 'Rancagua', 
       date: @today,
       current_temp: @rancagua['currently']['temperature'],
@@ -86,7 +86,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @rancagua['daily']['data'][0]['temperatureMax'],
       min_temp: @rancagua['daily']['data'][0]['temperatureMin'],
     )
-    General::WeatherInformation.where(id: 7).update_all(
+    General::WeatherInformation.create(
       location: 'Talca', 
       date: @today,
       current_temp: @talca['currently']['temperature'],
@@ -95,7 +95,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @talca['daily']['data'][0]['temperatureMax'],
       min_temp: @talca['daily']['data'][0]['temperatureMin'],
     )
-    General::WeatherInformation.where(id: 8).update_all(
+    General::WeatherInformation.create(
       location: 'Concepción', 
       date: @today,
       current_temp: @concepcion['currently']['temperature'],
@@ -104,7 +104,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @concepcion['daily']['data'][0]['temperatureMax'],
       min_temp: @concepcion['daily']['data'][0]['temperatureMin'],
     )
-    General::WeatherInformation.where(id: 9).update_all(
+    General::WeatherInformation.create(
       location: 'Temuco', 
       date: @today,
       current_temp: @temuco['currently']['temperature'],
@@ -113,7 +113,7 @@ class WeatherInformationJob < ApplicationJob
       max_temp: @temuco['daily']['data'][0]['temperatureMax'],
       min_temp: @temuco['daily']['data'][0]['temperatureMin'],
     )
-    General::WeatherInformation.where(id: 10).update_all(
+    General::WeatherInformation.create(
       location: 'Puerto Montt', 
       date: @today,
       current_temp: @puerto_montt['currently']['temperature'],

@@ -1,7 +1,7 @@
 class Frontend::WeatherInformationController < ApplicationController
   def weather
     # @weather = General::WeatherInformation.weather_cached
-    @weather = General::WeatherInformation.all
+    @weather = General::WeatherInformation.last(10)
     @today =  Date.today.strftime("%d/%m/%Y")
     @tomorrow = (Date.today + 1.days).strftime("%A")
     @tomorrow_1 = (Date.today + 2.days).strftime("%A")
