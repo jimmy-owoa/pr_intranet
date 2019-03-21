@@ -2,19 +2,21 @@
 <div class="card">
   <div class="card-body">
     <div class="form-inputs">
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="row">
-            <div class="col-8 col-sm-6">
-              <%= f.input :name %>
-            </div>
-            <div class="col-4 col-sm-6">
-              <%= f.input :attachment, required: true, input_html: { accept:'image/*' } %>
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-8 col-sm-6">
+            <div class="row">
+              <div class="col-12 col-sm-12">
+                <%= f.input :name %>
+              </div>
+              <div class="col-12 col-sm-12">
+                <%= f.input :attachment, required: true, input_html: { accept:'image/*' } %>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <%= show_media @attachment if params['action'] == 'edit' %>
+          <div class="col-4 col-sm-6">
+            <%= show_media @attachment if params['action'] == 'edit' %>
+          </div>            
         </div>
       </div>
     </div></br>
