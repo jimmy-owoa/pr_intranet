@@ -1,16 +1,20 @@
 <section class="section">
-  <h1 class="section-header">Archivo: <%= @attachment.id %></h1>
-  <div style='width: 400px; height: 400px;'>
-    <%= show_media @attachment %>
+  <h1 class="section-header">Foto: <%= @attachment.name? ? @attachment.name : @attachment.id %></h1>
+</section>
+  <div class="row">
+    <div class="container card">
+      <div class="col-md-12" align="center">
+        <div class='att_preview'>
+          <%= show_media @attachment %>
+          <h4><%= @attachment.name? ? @attachment.name : @attachment.id %></a></h4>
+        </div>
+        <div align="center">
+          <%= link_to t('.back', :default => t("helpers.links.back")),admin_attachments_path, :class => 'btn btn-primary'  %>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_attachment_path(@attachment), :class => 'btn btn-primary' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),admin_attachment_path(@attachment),:method => 'delete',
+            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro??')) }, :class => 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>
   </div>
   <br><br>
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-                admin_attachments_path, :class => 'btn btn-default'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_admin_attachment_path(@attachment), :class => 'btn btn-default' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                admin_attachment_path(@attachment),
-                :method => 'delete',
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro??')) },
-                :class => 'btn btn-danger' %>
-</section>

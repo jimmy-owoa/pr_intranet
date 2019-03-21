@@ -1,0 +1,25 @@
+<section class="section">
+  <h1 class="section-header"><%= "Fotos" %></h1>
+  </section>
+  <div class='row'>
+    <% @attachments.each do |at| %>
+      <div class="col-md-3">
+        <div class="card" style="width: 14rem;">
+          <%= image_tag at.path, class: "card-img-top" %>
+          <div class="card-body">
+            <h5 class="card-title"><%= at.name %></h5>
+          </div>
+          <div class="card-body">
+            <%= link_to t('.show', :default => t("helpers.links.show")),
+                admin_attachment_path(at), :class => 'btn btn-success btn-sm' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                admin_attachment_path(at),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro??')) },
+                :class => 'btn btn-danger btn-sm' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<%= will_paginate @attachments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
