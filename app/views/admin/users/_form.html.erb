@@ -53,7 +53,11 @@
       <div class="row">
         <div class="col-4 col-sm-6">
           <%= f.label :location_id %></br>
-          <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }, f.object.location.id), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
+          <% if f.object.location.present? %>
+            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }, f.object.location.id), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
+          <% else %>
+            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>          
+          <% end %>
         </div>
         <div class="col-6 col-sm-6">
           <%= f.label 'Jerarquía' %></br>
