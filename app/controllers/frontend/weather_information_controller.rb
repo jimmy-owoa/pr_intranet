@@ -1,17 +1,18 @@
 class Frontend::WeatherInformationController < ApplicationController
   def weather
     # @weather = General::WeatherInformation.weather_cached
-    @weather = General::WeatherInformation.all
+    @weather = General::WeatherInformation.last(10)
     @today =  Date.today.strftime("%d/%m/%Y")
     @tomorrow = (Date.today + 1.days).strftime("%A")
     @tomorrow_1 = (Date.today + 2.days).strftime("%A")
     @tomorrow_2 = (Date.today + 3.days).strftime("%A")
     @tomorrow_3 = (Date.today + 4.days).strftime("%A")
+    city = 
     data = []
     @weather.each do |w|
       data << {
         id: w.id,
-        location: w.location,
+        location_id: w.location_id,
         date: w.date,
         max_temp: w.max_temp,
         min_temp: w.min_temp,

@@ -82,15 +82,16 @@ class Frontend::UsersController < ApplicationController
   end
 
   def current_user_vue
+    data_user = []
     id = params[:id].present? ? params[:id] : nil
     @user = General::User.find(id)    
-    data_user = []
+    @location = General::Location.where(name: @user.address).last
     @today =  Date.today.strftime("%d/%m/%Y")
-    @tomorrow = (Date.today + 1.days).strftime("%A")
-    @tomorrow_1 = (Date.today + 2.days).strftime("%A")
-    @tomorrow_2 = (Date.today + 3.days).strftime("%A")
-    @tomorrow_3 = (Date.today + 4.days).strftime("%A")    
-    @weather = General::WeatherInformation.where(location: @user.address)
+    @tomorrow = l(Date.today + 1, format: '%A')
+    @tomorrow_1 = l(Date.today + 2, format: '%A')
+    @tomorrow_2 = l(Date.today + 3, format: '%A')
+    @tomorrow_3 = l(Date.today + 4, format: '%A')
+    @weather = General::WeatherInformation.where(location_id: @location).last
     @nickname = nickname(@user.name)
     data_user << {
       id: @user.id,
@@ -103,12 +104,13 @@ class Frontend::UsersController < ApplicationController
         {link: '/', name: 'Inicio' },
         {link: '#', name: @nickname}
       ],
-      weather: @weather[0],
-      today:  Date.today.strftime("%d/%m/%Y"),
-      tomorrow: l(Date.today + 1, format: '%A'),
-      tomorrow_1: l(Date.today + 2, format: '%A'),
-      tomorrow_2: l(Date.today + 3, format: '%A'),
-      tomorrow_3: l(Date.today + 4, format: '%A')
+      location: @location.name,
+      weather: @weather,
+      today:  @today,
+      tomorrow: @tomorrow,
+      tomorrow_1: @tomorrow_1,
+      tomorrow_2: @tomorrow_2,
+      tomorrow_3: @tomorrow_3
     }
     respond_to do |format|
       format.json { render json: data_user[0] }

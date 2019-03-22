@@ -125,10 +125,21 @@ Survey::Option.find_or_create_by(title: "Calama", default: false, placeholder: "
 Survey::Option.find_or_create_by(title: "Coquimbo", default: false, placeholder: "", question_id: 1)
 Survey::Option.find_or_create_by(title: "Puerto Montt", default: false, placeholder: "", question_id: 1)
 Survey::Option.find_or_create_by(title: "Punta Arenas", default: false, placeholder: "", question_id: 1)
+#location
+General::Location.find_or_create_by(name: 'Antofagasta')
+General::Location.find_or_create_by(name: 'Santiago')
+General::Location.find_or_create_by(name: 'Copiapo')
+General::Location.find_or_create_by(name: 'La Serena')
+General::Location.find_or_create_by(name: 'Vina del Mar')
+General::Location.find_or_create_by(name: 'Rancagua')
+General::Location.find_or_create_by(name: 'Talca')
+General::Location.find_or_create_by(name: 'Concepcion')
+General::Location.find_or_create_by(name: 'Temuco')
+General::Location.find_or_create_by(name: 'Puerto Montt')
 #cities
-10.times do |city|
+ (1..10).each do |city|
   General::WeatherInformation.find_or_create_by(
-    location: 'Copiapo', 
+    location_id: city, 
     date: Date.today,
     current_temp: "21",
     condition: "Partly cloudy",
