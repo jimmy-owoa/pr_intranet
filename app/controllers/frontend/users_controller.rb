@@ -82,15 +82,16 @@ class Frontend::UsersController < ApplicationController
   end
 
   def current_user_vue
+    data_user = []
     id = params[:id].present? ? params[:id] : nil
     @user = General::User.find(id)    
-    data_user = []
+    @location = General::Location.where(name: @user.address).last
     @today =  Date.today.strftime("%d/%m/%Y")
     @tomorrow = (Date.today + 1.days).strftime("%A")
     @tomorrow_1 = (Date.today + 2.days).strftime("%A")
     @tomorrow_2 = (Date.today + 3.days).strftime("%A")
-    @tomorrow_3 = (Date.today + 4.days).strftime("%A")    
-    @weather = General::WeatherInformation.where(location: @user.address).last
+    @tomorrow_3 = (Date.today + 4.days).strftime("%A")
+    @weather = General::WeatherInformation.where(location_id: @location).last
     @nickname = nickname(@user.name)
     data_user << {
       id: @user.id,
@@ -103,6 +104,7 @@ class Frontend::UsersController < ApplicationController
         {link: '/', name: 'Inicio' },
         {link: '#', name: @nickname}
       ],
+      location: @location.name,
       weather: @weather,
       today:  Date.today.strftime("%d/%m/%Y"),
       tomorrow: l(Date.today + 1, format: '%A'),

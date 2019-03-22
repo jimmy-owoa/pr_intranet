@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_14_164444) do
+ActiveRecord::Schema.define(version: 2019_03_21_204850) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -161,6 +161,12 @@ ActiveRecord::Schema.define(version: 2019_03_14_164444) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "general_locations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_menus", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -178,13 +184,6 @@ ActiveRecord::Schema.define(version: 2019_03_14_164444) do
     t.text "content"
     t.string "message_type"
     t.boolean "is_const"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "general_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "content"
-    t.integer "menu_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -279,7 +278,7 @@ ActiveRecord::Schema.define(version: 2019_03_14_164444) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "location"
+    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
