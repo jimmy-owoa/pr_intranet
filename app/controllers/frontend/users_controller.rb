@@ -87,10 +87,10 @@ class Frontend::UsersController < ApplicationController
     @user = General::User.find(id)    
     @location = General::Location.where(name: @user.address).last
     @today =  Date.today.strftime("%d/%m/%Y")
-    @tomorrow = (Date.today + 1.days).strftime("%A")
-    @tomorrow_1 = (Date.today + 2.days).strftime("%A")
-    @tomorrow_2 = (Date.today + 3.days).strftime("%A")
-    @tomorrow_3 = (Date.today + 4.days).strftime("%A")
+    @tomorrow = l(Date.today + 1, format: '%A')
+    @tomorrow_1 = l(Date.today + 2, format: '%A')
+    @tomorrow_2 = l(Date.today + 3, format: '%A')
+    @tomorrow_3 = l(Date.today + 4, format: '%A')
     @weather = General::WeatherInformation.where(location_id: @location).last
     @nickname = nickname(@user.name)
     data_user << {
@@ -106,11 +106,11 @@ class Frontend::UsersController < ApplicationController
       ],
       location: @location.name,
       weather: @weather,
-      today:  Date.today.strftime("%d/%m/%Y"),
-      tomorrow: l(Date.today + 1, format: '%A'),
-      tomorrow_1: l(Date.today + 2, format: '%A'),
-      tomorrow_2: l(Date.today + 3, format: '%A'),
-      tomorrow_3: l(Date.today + 4, format: '%A')
+      today:  @today,
+      tomorrow: @tomorrow,
+      tomorrow_1: @tomorrow_1,
+      tomorrow_2: @tomorrow_2,
+      tomorrow_3: @tomorrow_3
     }
     respond_to do |format|
       format.json { render json: data_user[0] }
