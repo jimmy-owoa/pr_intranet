@@ -11,6 +11,7 @@ class General::User < ApplicationRecord
   has_many :posts, class_name: 'News::Post', foreign_key: :user_id
   has_many :products, class_name: 'Marketplace::Product', foreign_key: :user_id
   has_many :answers, class_name: 'Survey::Answer', foreign_key: :user_id
+  belongs_to :location, class_name: 'General::Location'
 
   accepts_nested_attributes_for :terms
 
