@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     get 'weather', to: 'application#weather'
     get 'weather_info', to: 'weather_information#weather'
     get 'births/calendar_births', to: 'births#calendar_births'
+    get 'menus/api_menu', to: 'menus#api_menu'
     resources :users, only: [:update, :show] do
       get :user, on: :collection
       get :current_user_vue, on: :collection

@@ -5,7 +5,7 @@ class General::User < ApplicationRecord
   
   #relationships
   has_one_attached :image
-  has_many :user_term_relationships, -> {where(object_type: 'General::User')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :user
+  has_many :user_term_relationships, -> { where(object_type: 'General::User') }, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :user
   has_many :terms, through: :user_term_relationships
   has_many :visits, class_name: "Ahoy::Visit"
   has_many :posts, class_name: 'News::Post', foreign_key: :user_id
@@ -25,7 +25,7 @@ class General::User < ApplicationRecord
 
   #scopes
   scope :show_birthday, -> { where( show_birthday: true) }
-  scope :date_birth , -> {where("MONTH(birthday) = ?", Date.today.month )}
+  scope :date_birth , -> { where("MONTH(birthday) = ?", Date.today.month ) }
   scope :birthdays, -> { where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :first_welcome, -> { joins(:image_attachment).where("DATE_FORMAT(general_users.created_at, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
 
@@ -72,4 +72,5 @@ class General::User < ApplicationRecord
   def self.users_welcome
     Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
   end
+
 end
