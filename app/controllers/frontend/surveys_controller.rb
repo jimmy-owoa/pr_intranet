@@ -26,6 +26,7 @@ class Frontend::SurveysController < ApplicationController
       data_surveys << {
         id: survey.id,
         name: survey.name,
+        show_name: survey.show_name,
         image: survey.image.attached? ? 
         url_for(survey.image) : root_url + '/assets/survey.png',
         created_at: survey.created_at.strftime('%d-%m-%Y'),
