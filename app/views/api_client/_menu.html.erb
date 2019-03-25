@@ -1,5 +1,68 @@
 <style type="text/css" media="screen">
-  #back_menu {
+.hidden-sm-and-down{
+  display: none;
+}
+ .application--wrap {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100%;
+    position: relative;
+}
+.pt-2 {
+    padding-top: 8px !important;
+}
+.v-avatar, .v-avatar .v-icon, .v-avatar .v-image, .v-avatar img {
+    border-radius: 50%;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+.v-avatar {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+}
+.v-avatar .v-icon, .v-avatar .v-image, .v-avatar img {
+    height: inherit;
+    width: inherit;
+}
+.v-avatar, .v-avatar .v-icon, .v-avatar .v-image, .v-avatar img {
+    border-radius: 50%;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+}
+.v-responsive {
+    position: relative;
+    overflow: hidden;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.v-image {
+    z-index: 0;
+}
+#back_menu {
   height: 100vh;
   width: 100vw;
   position: "relative";
@@ -21,18 +84,19 @@
   height: 30px;
 }
 .container {
-  position: relative;
-  max-width: 1140px;
+ -webkit-box-flex: 1;
+  flex: 1 1 100%;
+  margin: auto;
+  padding: 24px;
+  padding-top: 24px;
+  width: 100%;
 }
+
 nav {
   position: inherit;
   width: 100%;
   background: #fafafa;
-  font-size: 16px;
-  /* overflow: hidden;
-  position: fixed; 
-  top: 0; 
-  width: 100%; */
+  font-size: 14px;
 }
 
 /* first stage */
@@ -184,15 +248,204 @@ nav ul.megamenu ul li a:hover {
   font-family: Lato, sans-serif;
   font-weight: 700;
   font-size: 12px;
-  line-height: 24px;
+  line-height: 18px;
   color: #333333;
 }
+.align-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.pl-1 {
+    padding-left: 4px !important;
+}
+
+
+.text-md-right {
+    text-align: right !important;
+}
+
+.subheading {
+    font-size: 16px !important;
+    font-weight: 400;
+}
+.flex {
+  -webkit-box-flex: 1;
+  flex: 1 1 auto;
+  flex-grow: 1;
+  flex-basis: auto;
+  max-width: 100%;
+}
+.flex.sm4 {
+  flex-basis: 33.33333333333333%;
+  -webkit-box-flex: 0;
+  flex-grow: 0;
+  max-width: 33.33333333333333%;
+}
+.flex.sm3 {
+    flex-basis: 25%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 25%;
+}
+.layout {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+.layout.wrap {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.layout.row {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+.font-weight-regular {
+  font-weight: 400 !important;
+}
+.text-md-right {
+  text-align: right !important;
+}
+/* ################################################################## */
+@media (min-width: 600px){
+  nav {
+    font-size: 16px;
+  }
+  .head_menu {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .hidden-sm-and-down{
+    display: block;
+  }
+}
+
+@media (min-width: 960px){
+  .search_position {
+    left: 885px;
+  }
+  .container {
+    max-width: 1140px;
+  }
+  nav {
+    font-size: 18px;
+    display: block;
+  }
+
+  /* first stage */
+
+  nav > ul {
+    height: 50px;
+    margin-bottom: 5px;
+  }
+
+  nav > ul > li > a {
+    padding: 15px 25px;
+  }
+
+  nav ul > li.submenu:hover > a:after {
+    margin-top: 2px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid green;
+  }
+
+  nav > ul > li:hover {
+    border-bottom: 5px solid green;
+  }
+
+  /* second stage (the mega-menu) */
+
+  nav ul.megamenu {
+    width: 1092px;
+    top: -9999px;
+    left: 0;
+    padding: 20px 10px 0 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  nav ul li:hover ul.megamenu {
+    top: 100%;
+  }
+
+  /* third stage (child-menus in the mega-menu) */
+
+  nav ul.megamenu ul {
+    width: 20%;
+    margin-bottom: 10px;
+  }
+
+  nav ul.megamenu h4 {
+    margin-bottom: 5px;
+  }
+
+  nav ul.megamenu ul li a {
+    margin-top: 10px;
+  }
+
+  .menu_for_xl {
+    min-height: 32%;
+    max-width: 1092px;
+    top: 138px !important;
+    min-width: 1085px !important;
+    left: 412px !important;
+  }
+  .menu_for_lg {
+    min-height: 32%;
+    max-width: 1092px;
+    top: 138px !important;
+    min-width: 1085px !important;
+    left: 7.5% !important;
+  }
+  .menu_for_md {
+    min-height: 32%;
+    max-width: 1092px;
+    top: 138px !important;
+    min-width: 1085px !important;
+    left: 30px !important;
+  }
+  .main-menu {
+    margin-bottom: 6px;
+    height: 70px;
+    margin-top: -10px;
+  }
+  .v-list__tile {
+    margin-top: 18px;
+  }
+
+  .head_section {
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0.05em;
+  }
+  .link-format {
+    font-size: 14px;
+  }
+  .head_menu {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
 </style>
 
 
 <div class="container">
-<div class="layout align-center"
-         <a href="/">
+<div class="hidden-sm-and-down">
+<div class="layout align-center">
+         <a href="#/" >
     <img src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/header.41ac21fa.png" style="height: 2rem; cursor: pointer;">
     </a>
   <div class="flex pl-1">
@@ -221,7 +474,7 @@ nav ul.megamenu ul li a:hover {
     ¡Hola <%= user.name %>!
     <div class="v-avatar" style="height: 30px; width: 30px;">
       <div role="img" aria-label="Avatar" class="v-responsive v-image" style="cursor: pointer;">
-        <img src="http://18.224.219.66/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaTRCIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--994298a59cb9143268acf8beb02c595ab2215492/1532523008-102686779momo.jpg">
+        <%= image_tag(user.image) %>
       </div>
     </div>
   </div>
@@ -229,6 +482,7 @@ nav ul.megamenu ul li a:hover {
 <div class="layout">
   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAAGCAIAAABilV9xAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUYzOTAyN0I3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUYzOTAyN0M3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5RjM5MDI3OTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5RjM5MDI3QTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PonKw5gAAABVSURBVHja7NTBDUBQFADBRw8qEEWox0F+GSISzahADz9ulKMJFy8zHexlm9iu+L/1eBJUzHVJUNGVO0HFNIwJKs69j1zaADAsAMMCDAvAsAA+8QowAJynCJumWcovAAAAAElFTkSuQmCC" class="hidden-sm-and-down" style="height: 0.5rem; width: 50%;">
   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAAGCAIAAABilV9xAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUYzOTAyN0I3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUYzOTAyN0M3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5RjM5MDI3OTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5RjM5MDI3QTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PonKw5gAAABVSURBVHja7NTBDUBQFADBRw8qEEWox0F+GSISzahADz9ulKMJFy8zHexlm9iu+L/1eBJUzHVJUNGVO0HFNIwJKs69j1zaADAsAMMCDAvAsAA+8QowAJynCJumWcovAAAAAElFTkSuQmCC" class="hidden-sm-and-down" style="height: 0.5rem; width: 50%;">
+</div>
 </div>
  <nav fixed>
       <ul id="ul_menu">
