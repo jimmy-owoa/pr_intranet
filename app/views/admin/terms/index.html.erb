@@ -8,11 +8,9 @@
             <tr>
               <th><%= 'Id' %></th>
               <th><%= 'Nombre' %></th>
-              <th><%= 'Descripción' %></th>
               <th><%= 'Slug' %></th>
               <th><%= 'Orden' %></th>
               <th><%= 'Estado' %></th>
-              <th><%= 'Count' %></th> 
               <th><%= 'Acciones' %></th>              
             </tr>
           </thead>
@@ -21,11 +19,9 @@
               <tr>
                 <td><%= link_to term.id, admin_term_path(term) %></td>
                 <td><%= term.name %></td>
-                <td><%= term.description.truncate(20) if term.description.present?  %></td>
                 <td><%= term.slug  %></td>
                 <td><%= term.term_order %></td>
                 <td><%= term.status %></td>
-                <td><%= term.count%></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_term_path(term), :class => 'btn btn-success btn-sm' %>

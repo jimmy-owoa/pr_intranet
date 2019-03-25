@@ -4,7 +4,7 @@ module Admin
     before_action :set_term, only: [:show, :edit, :update, :destroy]
 
     def index
-      @terms = General::Term.paginate(:page => params[:page], :per_page => 10)
+      @terms = General::Term.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
     end
 
     def show

@@ -6,7 +6,7 @@ module Admin
   
   def index
     add_breadcrumb "Galerías", :admin_galleries_path
-    @galleries = General::Gallery.paginate(:page => params[:page], :per_page => 10)
+    @galleries = General::Gallery.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.html
       format.json { render json: @galleries }
