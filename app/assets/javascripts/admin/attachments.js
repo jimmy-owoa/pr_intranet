@@ -14,6 +14,7 @@ $(document).on("turbolinks:load", function() {
       msgInvalidFileExtension: "El archivo debe ser una imagen.",
       removeFromPreviewOnError: true,
       language: "es",
+      ajaxSettings: { method: "POST" },
       browseLabel: "Buscar archivos",
       dropZoneTitle: "Arrastrar y Soltar archivos aquí",
       removeLabel: "Eliminar archivos",
