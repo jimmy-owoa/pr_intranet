@@ -16,7 +16,9 @@
       <%= f.input :optional, as: :boolean, boolean_style: :inline, input_html: { class: "col-md-7", include_hidden: false } %>
     </div>
     <div class="col-md-11"></br>
-      <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, input_html: { class: "col-md-7 select-question-type" } %>
+  
+      <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, input_html: { class: "col-md-7 select-question-type", :onchange => "readURL(this)"}  %>
+
       <div class="feedback hidden" style="font-size: 12px; font-weight: 500; color: #868e96; font-style: italic;" id="lineal_message">
         <%= "Escala lineal es considerada desde 0 a 10" %>
       </div>
@@ -29,22 +31,12 @@
       <% end %>
     </div>
   </div>
-  <div class="text-right"><br />
+  <div class="text-right add_option"><br />
     <%= link_to_add_association 'Agregar opción', f, :options, class: 'btn btn-success' %>
   </div>    
 </div>
-
 <script>
- $(document).ready(function () {
-  $('.select-question-type').on('change', function () {
-    var selectedVal = $(this).val();
-    if(selectedVal == "Escala lineal")
-    {
-      $("#lineal_message").show();
-    }else
-    {
-      $("#lineal_message").hide();
-    }
-  });
-});
+  function readURL(asunto) {
+    alert(asunto);
+  }
 </script>
