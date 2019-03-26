@@ -67,7 +67,9 @@ Rails.application.routes.draw do
     end
     post 'users/upload', to: 'users#upload'
     put 'products/update_expiration', to: 'products#update_expiration'
-    resources :surveys
+    resources :surveys do
+      get :survey_count, on: :collection
+    end
     resources :answers
     resources :messages
     resources :links

@@ -56,6 +56,24 @@ class Frontend::SurveysController < ApplicationController
     end
   end
 
+  def survey_count
+    data_user = []
+    id = params[:id].present? ? params[:id] : nil
+    @user = General::User.find(id)
+    if Survey::Question.where(optional: true).map{|a| a.answers.blank?}.include?(false) == true
+      data_user << {alert: 1}
+    elsif Survey::Question.all.map{|a| a.answers.where(user_id: @user.id)}.flatten.count != 0
+      data_user << {alert: 1}
+    else
+      data_user << {alert: 0}
+    end
+    respond_to do |format|
+      format.json { render json: data_user[0] }
+      format.js
+    end 
+  end
+  
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_survey
