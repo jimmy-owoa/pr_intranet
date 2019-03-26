@@ -4,7 +4,11 @@ module Admin
     before_action :set_term, only: [:show, :edit, :update, :destroy]
 
     def index
-      @terms = General::Term.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
+      if params[:type].present?
+        @terms = General::Term.order(id: :desc).where(["permission LIKE ?", "%#{params[:type]}%"]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @terms = General::Term.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
+      end          
     end
 
     def show
