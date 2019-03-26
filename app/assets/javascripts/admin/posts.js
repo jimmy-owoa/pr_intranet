@@ -4,8 +4,17 @@ $(document).on('turbolinks:load', function () {
     tokenSeparators: [',', ' ']
   });
   $('#published_at').datetimepicker({
+    sideBySide: true,
+    icons: {
+      up: "fa fa-chevron-circle-up",
+      down: "fa fa-chevron-circle-down",
+      next: 'fa fa-chevron-circle-right',
+      previous: 'fa fa-chevron-circle-left'
+    },
     format: 'DD/MM/YYYY HH:mm',
-  });
+    autoclose: true
+  })
+
   $(".owl-carousel").owlCarousel({
     items: 2,
     nav: true,
