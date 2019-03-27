@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       put 'upload/put', to: 'attachments#upload' 
       get 'analytics', to: 'analytics#index'
       get "search", to: "search#search"
+      get "searchatt", to: "attachments#search_att"
       resources :term_relationships
       resources :comments
       resources :links

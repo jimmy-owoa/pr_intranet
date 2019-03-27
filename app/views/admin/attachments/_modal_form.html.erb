@@ -21,12 +21,12 @@
                 <%= render :partial => 'form', locals: {f: f} %>
               <% end %>
             </div>
-
             <div class="tab-pane fade in" id="gallery">
               <div class="row justify-content-center">
                 <div class="col-12">
-                  <input class="form-control form-control-sm" type="text" placeholder=".Buscar" id='search_att'><br />
-                  <%= select_tag :attachment, options_for_select(General::Attachment.all.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}),class: 'image-picker show-html' %>
+                  <%= text_field_tag :search, params[:search], id: 'search_att', placeholder: 'Buscar imagen' %>
+                  <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
+                  <%= select_tag :attachment, options_for_select(General::Attachment.all.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}),class: ' show-html', id: 'image-picker_att' %>
                 </div>
               </div>
               <button type="button" id="selection-image" class="btn btn-primary" style="float:right">Seleccionar</button>
@@ -38,15 +38,37 @@
   </div>
 </div>
 
-
 <script>
-$(document).ready(function(){ 
-  $('#attachment_attachment').change(
-    function(){
-      if ($(this).val()) {
-          $('input:submit').attr('disabled',false);
+  $(document).ready(function(){
+    $('#image-picker_att').imagepicker();
+
+    $('#attachment_attachment').change(
+      function () {
+        if ($(this).val()) {
+          $('input:submit').attr('disabled', false);
+        }
       }
-    }
-  )
-});    
+    )    
+    // $('#search_att').on("blur", function () {
+    $( "#btn_search" ).click(function() {
+      var query = $('#search_att').val();
+      $.ajax({
+        type: "GET",
+        url: "/admin/searchatt",
+        data: {
+          search: query
+        },
+        success: function (result) {
+          console.log(result);
+          var imgpicker = $("#image-picker_att");
+          imgpicker.html('');
+          $(result['data']).each(function() {
+            imgpicker.append($("<option>").attr('value',this.val).text(this.name).attr('data-img-src',this['data-img-src']));
+          })
+          imgpicker.data('picker').destroy();
+          imgpicker.imagepicker();
+        }
+      })
+    })
+  }); 
 </script>
