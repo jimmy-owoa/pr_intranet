@@ -70,8 +70,9 @@
       </div>
     </div>
     <div class="card p-4 wrapper" >
+      <input type="checkbox" id="select_all" class="form-check-input"/> <strong>Seleccionar todas</strong>
       <div class="form-group">
-        <div class= 'scrollDivPost'>
+        <div class= 'scrollDivPost categories'>
           <%= f.association :terms, collection: @categories, as: :check_boxes, class: 'custom-control-input', label: false %>
         </div>
       </div>
@@ -99,6 +100,8 @@
               <%# <img id="image" src="#" alt="your image" /> %>
             <br>
             <% if @post.id.nil? %>
+              <%= image_tag General::Attachment.find(4).attachment.variant(resize: '250x250>'), id:'image_preview'%>
+              <br />
               <%= link_to 'Establecer Imagen Principal', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %>
             <% else %>
               <%= link_to 'Imagen Principal', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
@@ -138,4 +141,5 @@
 $(document).ready(function(){
     $("[rel=tooltip]").tooltip({ placement: 'right'});
 });
+
 </script>
