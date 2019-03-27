@@ -73,7 +73,12 @@ module Admin
       end
     end
 
-    private
+    def search_att
+      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map{|i| {name: i.name, val: i.id, 'data-img-src': url_for(i.thumb)}}
+      render json: {data: @search}
+    end
+
+  private
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
       @attachment = General::Attachment.find(params[:id])

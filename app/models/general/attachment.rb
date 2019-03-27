@@ -1,14 +1,20 @@
 class General::Attachment < ApplicationRecord
-  after_create :path
-  has_one_attached :attachment
-
   has_many :posts_main_image, class_name: 'News::Post', foreign_key: :main_image_id
   has_many :attachment_term_relationships, -> {where(object_type: 'General::Attachment')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :attachment
   has_many :terms, through: :attachment_term_relationships
   has_many :gallery_relations, class_name: 'General::GalleryRelation'
   has_many :galleries, through: :gallery_relations
-
   belongs_to :attachable, polymorphic: true, optional: true
+
+  has_one_attached :attachment
+
+  after_create :path
+  before_save :default_name
+
+  def default_name
+    self.name = self.name || self.attachment.filename.to_s
+  end
+  
 
   def thumb
     begin 
@@ -36,10 +42,3 @@ class General::Attachment < ApplicationRecord
     end
   end
 end
-
-
-
-
-
-# Upload an image by rails console
-# News::Attachment.first.main_image.attach(io: File.open("app/assets/images/libro.jpg"), filename: "libro.jpg", content_type: "image/jpg")
