@@ -49,4 +49,9 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Elegir formato",
     width: '100%'
   });
+  $('#select_all').change(function() {
+    var checkboxes = $('.categories input[type="checkbox"]');
+    checkboxes.prop('checked', $(this).is(':checked'));
+  });
+
 });
