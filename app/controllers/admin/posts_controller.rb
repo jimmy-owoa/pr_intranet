@@ -1,6 +1,6 @@
 module Admin
-  class PostsController < ApplicationController
-    layout 'admin'
+  class PostsController < AdminController
+    
     before_action :set_post, only: [:show, :edit, :update, :destroy]
     respond_to :html, :json
     before_action :set_categories, only: [:edit, :new]

@@ -1,6 +1,17 @@
 $(document).on("turbolinks:load", function() {
   $(".image-picker").imagepicker();
-
+  $('#excluding_tags').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
+  $('#inclusive_tags').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
+  $('#categories').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
   var uploader = $("#fileinputuploader");
 
   uploader
@@ -14,7 +25,9 @@ $(document).on("turbolinks:load", function() {
       msgInvalidFileExtension: "El archivo debe ser una imagen.",
       removeFromPreviewOnError: true,
       language: "es",
-      ajaxSettings: { method: "POST" },
+      ajaxSettings: {
+        method: "POST"
+      },
       browseLabel: "Buscar archivos",
       dropZoneTitle: "Arrastrar y Soltar archivos aquí",
       removeLabel: "Eliminar archivos",
@@ -23,15 +36,15 @@ $(document).on("turbolinks:load", function() {
         actions: ""
       }
     })
-    .on("filebatchselected", function(event, files) {
+    .on("filebatchselected", function (event, files) {
       uploader.fileinput("upload");
     });
 
-  uploader.on("fileerror", function(event, data, msg) {
+  uploader.on("fileerror", function (event, data, msg) {
     console.log(msg);
   });
 
-  uploader.on("fileuploaded", function(event, data, previewId, index) {
+  uploader.on("fileuploaded", function (event, data, previewId, index) {
     console.log(data.response);
     $("<input>")
       .attr({

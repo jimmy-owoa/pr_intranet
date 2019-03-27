@@ -1,6 +1,6 @@
 module Admin
-  class TermsController < ApplicationController
-    layout 'admin'
+  class TermsController < AdminController
+    
     before_action :set_term, only: [:show, :edit, :update, :destroy]
 
     def index

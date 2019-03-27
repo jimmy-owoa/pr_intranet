@@ -1,5 +1,4 @@
-class Admin::AnalyticsController < ApplicationController
-  layout 'admin'
+class Admin::AnalyticsController < AdminController
   def index
     @events = Ahoy::Event.all
     @posts = []
