@@ -3,7 +3,8 @@ class General::Attachment < ApplicationRecord
   has_one_attached :attachment
 
   has_many :posts_main_image, class_name: 'News::Post', foreign_key: :main_image_id
-  has_many :attachment_term_relationships, -> {where(object_type: 'General::Attachment')}, foreign_key: :object_id, inverse_of: :attachment
+  
+  has_many :attachment_term_relationships, -> {where(object_type: 'General::Attachment')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :attachment
   has_many :terms, through: :attachment_term_relationships
 
   has_many :gallery_relations, class_name: 'General::GalleryRelation'
