@@ -59,7 +59,6 @@
           search: query
         },
         success: function (result) {
-          console.log(result);
           var imgpicker = $("#image-picker_att");
           imgpicker.html('');
           $(result['data']).each(function() {
