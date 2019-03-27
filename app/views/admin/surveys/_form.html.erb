@@ -1,8 +1,16 @@
 <%= f.error_notification %>
 <div class="form-group row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <%= f.input :name, autofocus: true %>
   </div>
+  <div class="col-md-2">
+    <%= f.label "mostrar Nombre" %><br />
+    <% if f.object.new_record? %>
+      <%= f.check_box :show_name, checked: true %>
+    <% else %>
+      <%= f.check_box :show_name%>
+    <% end %>
+  </div>          
   <div class="col-md-6">
     <%= f.input :slug %>
   </div>

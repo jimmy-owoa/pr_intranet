@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_21_204850) do
+ActiveRecord::Schema.define(version: 2019_03_25_183218) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -278,7 +278,6 @@ ActiveRecord::Schema.define(version: 2019_03_21_204850) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
@@ -299,6 +298,7 @@ ActiveRecord::Schema.define(version: 2019_03_21_204850) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
+    t.integer "location_id"
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -415,6 +415,7 @@ ActiveRecord::Schema.define(version: 2019_03_21_204850) do
     t.datetime "updated_at", null: false
     t.string "survey_type"
     t.string "slug"
+    t.boolean "show_name", default: true
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
   end
 

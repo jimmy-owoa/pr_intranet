@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   before_action :set_ip
   protect_from_forgery
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_locale
   # after_action :track_action
 
@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if current_user.has_role? :super_admin or current_user.has_role? :post_admin
-      admin_root_path
-    # else
-    #   frontend_welcome_path
+    if user.has_role? :super_admin or user.has_role? :post_admin
+      return admin_root_path
+    else
+      return frontend_welcome_path
     end
   end  
 

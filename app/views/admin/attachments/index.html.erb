@@ -5,7 +5,7 @@
     <% @attachments.each do |at| %>
       <div class="col-md-3">
         <div class="card" style="width: 14rem;">
-          <%= image_tag at.path, class: "card-img-top" %>
+          <%= image_tag url_for(at.attachment), class: "card-img-top" %>
           <div class="card-body">
             <h5 class="card-title"><%= at.name %></h5>
           </div>

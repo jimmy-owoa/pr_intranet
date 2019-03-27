@@ -51,8 +51,11 @@
         <div class="col-md-12 col-sm-12"></br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
             <% if @post.try(:published_at).present? %>
+
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>
+
             <% else %>
+            
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>
             <% end %>
             <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
@@ -67,8 +70,9 @@
       </div>
     </div>
     <div class="card p-4 wrapper" >
+      <input type="checkbox" id="select_all" class="form-check-input"/> <strong>Seleccionar todas</strong>
       <div class="form-group">
-        <div class= 'scrollDivPost'>
+        <div class= 'scrollDivPost categories'>
           <%= f.association :terms, collection: @categories, as: :check_boxes, class: 'custom-control-input', label: false %>
         </div>
       </div>
@@ -96,6 +100,8 @@
               <%# <img id="image" src="#" alt="your image" /> %>
             <br>
             <% if @post.id.nil? %>
+              <%= image_tag General::Attachment.find(4).attachment.variant(resize: '250x250>'), id:'image_preview'%>
+              <br />
               <%= link_to 'Establecer Imagen Principal', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %>
             <% else %>
               <%= link_to 'Imagen Principal', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
@@ -119,12 +125,21 @@
     <div class="card pt-2" >
       <div class="form-group ">
         <div class="col-md-12 col-sm-12">
-          <h4> Orden </h4>
+          <h4> Formato </h4>
         </div>
          <div class="col-md-12">
           <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
+          <div>
+            <i class="fas fa-exclamation-circle" rel="tooltip" title="Estilo 1: Rosado - Estilo 2: Verde - Estilo 3: Amarillo" id="ben_img"></i>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function(){
+    $("[rel=tooltip]").tooltip({ placement: 'right'});
+});
+
+</script>

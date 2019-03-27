@@ -7,7 +7,7 @@
         <div class='att_preview'>
           <%= show_media @attachment %>
           <h4><%= @attachment.name? ? @attachment.name : @attachment.id %></a></h4>
-        </div>
+        </div><br />
         <div align="center">
           <%= link_to t('.back', :default => t("helpers.links.back")),admin_attachments_path, :class => 'btn btn-primary'  %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_attachment_path(@attachment), :class => 'btn btn-primary' %>

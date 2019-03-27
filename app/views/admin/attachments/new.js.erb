@@ -1,36 +1,37 @@
 $("#main_image_modal").html("<%= j render(partial: 'modal_form') %>");
-$('.image-picker').imagepicker();
-$('#main_image_modal').modal('show');
+$(".image-picker").imagepicker();
+$("#main_image_modal").modal("show");
 
-$('#img1, #gal1').click(function () {
-  if (this.id == 'img1') {
-    $('#img1').toggleClass('clicked_img');
-    $('#gal1').removeClass('clicked_img');
-  } else if (this.id == 'gal1') {
-    $('#gal1').toggleClass('clicked_img');
-    $('#img1').removeClass('clicked_img');
+$("#img1, #gal1").click(function() {
+  if (this.id == "img1") {
+    $("#img1").toggleClass("clicked_img");
+    $("#gal1").removeClass("clicked_img");
+  } else if (this.id == "gal1") {
+    $("#gal1").toggleClass("clicked_img");
+    $("#img1").removeClass("clicked_img");
   }
 });
 
 $("select.image-picker").imagepicker({
   hide_select: true,
-  selected: function (option) {
+  selected: function(option) {
     var value = this.val();
-    $('#selection-image').click(function () {
-      if (this.id == 'selection-image') {
+    $("#selection-image").click(function() {
+      if (this.id == "selection-image") {
         if (value >= 1) {
-         $('#main_image, #main_image_nil').text('Imagen seleccionada')
+          $("#main_image, #main_image_nil").text("Imagen seleccionada");
+          var image_src = $('select option[value="'+ value + '"]')[0].dataset.imgSrc;
+          $("#image_preview").attr("src", image_src);
         }
-        $('#main_image_modal').modal('toggle');
-        $('#post_main_image_id').val(value);
+        $("#main_image_modal").modal("toggle");
+        $("#post_main_image_id").val(value);
       }
     });
   }
 });
 
-$('#attachment_attachment').change(
-  function(){
-    if ($(this).val()) {
-        $('input:submit').attr('disabled',false);
-    }
+$("#attachment_attachment").change(function() {
+  if ($(this).val()) {
+    $("input:submit").attr("disabled", false);
+  }
 });

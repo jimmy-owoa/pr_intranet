@@ -51,10 +51,8 @@ General::User.create(
   birthday: Date.today-2,
 )
 #users / user_admin see admin screen and user see welcome screen
-user_admin = General::User.find(1)
-# user_admin.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
-user = General::User.find(2)
-# user.image.attach(io: File.open("app/assets/images/user1.png"), filename: "user1.png", content_type: "image/png")
+user_admin = General::User.first
+user = General::User.second
 #add roles to user - 
 user_admin.add_role :super_admin
 user.add_role :user
@@ -92,7 +90,7 @@ News::Post.where(
   format: 0
 ).first_or_create
 #esto no funciona, manda error en el main_image_id( que no lo agregué en el create del post)
-# News::Post.first.main_image.attach(io: File.open("app/assets/images/post_news.png"), filename: "post_news.png", content_type: "image/png")
+
 #product and image
 Marketplace::Product.where(
   name: 'Auto',
@@ -106,7 +104,7 @@ Marketplace::Product.where(
   approved: true,
   user_id: 1
 ).first_or_create
-# Marketplace::Product.last.images.attach(io: File.open("app/assets/images/auto1.png"), filename: "auto1.png", content_type: "image/png")
+
 #birth
 Employee::Birth.find_or_create_by(full_name_mother: "mamá nacido",
   full_name_father: "papá nacido",
@@ -116,7 +114,7 @@ Employee::Birth.find_or_create_by(full_name_mother: "mamá nacido",
   gender: true,
   birthday: Date.today
 )
-# Employee::Birth.last.photo.attach(io: File.open("app/assets/images/guagua.jpg"), filename: "auto1.jpg", content_type: "image/jpg")
+
 #surveys
 Survey::Survey.find_or_create_by(name: 'Encuesta de las ciudades de Chile')
 Survey::Question.find_or_create_by( title: "¿Cual es la ciudad más linda de Chile?", description: "Encuesta para saber cual es la ciudad favorita de los usuarios.", question_type: "Simple", survey_id: 1)

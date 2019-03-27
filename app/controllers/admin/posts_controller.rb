@@ -8,7 +8,7 @@ module Admin
 
     def index
       add_breadcrumb "Noticias", :admin_posts_path
-      @posts = News::Post.paginate(:page => params[:page], :per_page => 10)
+      @posts = News::Post.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
       respond_to do |format|
         format.html
         format.json { render json: @posts }
