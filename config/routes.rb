@@ -57,9 +57,8 @@ Rails.application.routes.draw do
     get 'welcome/get_home_welcome', to: 'welcomes#get_home_welcome'
     get "searchv", to: "search#search_vue"
     get "searchm", to: "search#search_menu"
-    get 'indicators', to: 'application#indicators'
-    get 'faq', to: 'application#faq'
-    get 'weather', to: 'application#weather'
+    get 'indicators', to: 'frontend#indicators'
+    get 'weather', to: 'frontend#weather'
     get 'weather_info', to: 'weather_information#weather'
     get 'births/calendar_births', to: 'births#calendar_births'
     resources :users, only: [:update, :show] do

@@ -1,5 +1,5 @@
 module Admin
-  class TermTypesController < ApplicationController
+  class TermTypesController < AdminController
     before_action :set_term_type, only: [:show, :edit, :update, :destroy]
 
     def index

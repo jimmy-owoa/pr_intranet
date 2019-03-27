@@ -1,5 +1,5 @@
 module Frontend
-  class BenefitsController < ApplicationController
+  class BenefitsController < FrontendController
     after_action :set_tracking, only: [:index, :show]
 
     def index

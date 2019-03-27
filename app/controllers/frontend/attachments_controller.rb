@@ -1,5 +1,5 @@
 module Frontend
-  class AttachmentsController < ApplicationController
+  class AttachmentsController < FrontendController
     after_action :set_tracking, only: [:index, :show]
 
     def index

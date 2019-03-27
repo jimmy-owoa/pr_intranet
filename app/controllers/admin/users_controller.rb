@@ -1,6 +1,6 @@
 module Admin
-  class UsersController < ApplicationController
-    layout 'admin'
+  class UsersController < AdminController
+    
     include Devise::Controllers::Helpers
     #user logged can create users
     prepend_before_action  :require_no_authentication, only: [:cancel ]

@@ -1,6 +1,6 @@
 module Admin
-  class MessagesController < ApplicationController
-    layout 'admin'
+  class MessagesController < AdminController
+    
     before_action :set_message, only: [:show, :edit, :update, :destroy]
 
     def index

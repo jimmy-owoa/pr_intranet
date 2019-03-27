@@ -1,7 +1,7 @@
 module Admin 
-  class SectionsController < ApplicationController
+  class SectionsController < AdminController
     before_action :set_section, only: [:show, :edit, :update, :destroy]
-    layout 'admin'
+    
     # GET /admin/sections
     # GET /admin/sections.json
     def index

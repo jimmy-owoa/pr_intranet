@@ -1,5 +1,5 @@
 module Admin
-  class TermRelationshipsController < ApplicationController
+  class TermRelationshipsController < AdminController
     before_action :set_term_relationship, only: [:show, :edit, :update, :destroy]
 
     def index

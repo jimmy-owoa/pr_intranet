@@ -1,29 +1,17 @@
-$(document).on("turbolinks:load", function () {
-  // $(".image-picker").imagepicker();
-
-  // $('#attachment_attachment').change(
-  //   function () {
-  //     if ($(this).val()) {
-  //       $('input:submit').attr('disabled', false);
-  //     }
-  //   }
-  // )
-
-  // $('#search_att').on("blur", function () {
-  //   $.ajax({
-  //     type: "GET",
-  //     url: "/admin/searchatt",
-  //     data: {
-  //       search: $(this).val()
-  //     },
-  //     success: function (result) {
-  //       image_selector.html('');
-  //       image_selector.data('picker').sync_picker_with_select();
-  //       console.log(result);
-  //     }
-  //   })
-  // })
-
+$(document).on("turbolinks:load", function() {
+  $(".image-picker").imagepicker();
+  $('#excluding_tags').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
+  $('#inclusive_tags').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
+  $('#categories').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
   var uploader = $("#fileinputuploader");
 
   uploader
