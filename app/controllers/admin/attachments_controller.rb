@@ -37,7 +37,6 @@ module Admin
     end
 
     def create
-      binding.pry
       @attachment = General::Attachment.create(attachment_params)
       set_tags
       respond_to do |f|
