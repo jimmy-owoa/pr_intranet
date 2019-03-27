@@ -1,6 +1,17 @@
 $(document).on("turbolinks:load", function() {
   $(".image-picker").imagepicker();
-
+  $('#excluding_tags').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
+  $('#inclusive_tags').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
+  $('#categories').select2({
+    tags: false,
+    tokenSeparators: [',', ' ']
+  });
   var uploader = $("#fileinputuploader");
 
   uploader

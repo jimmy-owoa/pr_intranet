@@ -1,6 +1,6 @@
 module Admin 
-  class SurveysController < ApplicationController
-    layout 'admin'
+  class SurveysController < AdminController
+    
     before_action :set_survey, only: [:show, :destroy, :edit, :update]
   
     def index

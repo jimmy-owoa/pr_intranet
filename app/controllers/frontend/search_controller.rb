@@ -1,6 +1,5 @@
 module Frontend
-  class SearchController < ApplicationController
-
+  class SearchController < FrontendController
     include Rails.application.routes.url_helpers
 
     def search_vue

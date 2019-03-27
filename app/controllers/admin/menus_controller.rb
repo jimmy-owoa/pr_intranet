@@ -1,7 +1,7 @@
 module Admin 
-  class MenusController < ApplicationController
+  class MenusController < AdminController
     before_action :set_menu, only:[:show, :edit, :update, :destroy]
-    layout 'admin'
+    
 
     def index
       @menus = General::Menu.paginate(:page => params[:page], :per_page => 10)

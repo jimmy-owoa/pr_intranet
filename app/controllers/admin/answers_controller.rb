@@ -1,5 +1,5 @@
-class Admin::AnswersController < ApplicationController
-  layout 'admin'
+class Admin::AnswersController < AdminController
+  
   before_action :set_survey, only: [:show]
 
   def index

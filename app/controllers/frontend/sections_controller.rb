@@ -1,5 +1,5 @@
 module Frontend
-  class SectionsController < ApplicationController
+  class SectionsController < FrontendController
     def index
       sections = General::Section.all
       data = []
