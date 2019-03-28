@@ -1,6 +1,5 @@
 module Admin
   class BenefitsController < AdminController
-    
     before_action :set_benefit, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -53,7 +52,7 @@ module Admin
       end
     end
 
-  private
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_benefit
       @benefit = General::Benefit.find(params[:id])

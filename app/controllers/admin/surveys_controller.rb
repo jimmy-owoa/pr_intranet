@@ -1,6 +1,5 @@
 module Admin 
   class SurveysController < AdminController
-    
     before_action :set_survey, only: [:show, :destroy, :edit, :update]
   
     def index
@@ -58,7 +57,7 @@ module Admin
     end
   
     private
-
+    
     def set_tags
       # Getting terms_names from the form (tags)
       term_names = params[:terms_names]

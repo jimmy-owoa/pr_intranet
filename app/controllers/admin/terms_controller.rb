@@ -1,6 +1,5 @@
 module Admin
   class TermsController < AdminController
-    
     before_action :set_term, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -54,7 +53,7 @@ module Admin
       end
     end
 
-  private
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_term
       @term = General::Term.find(params[:id])
