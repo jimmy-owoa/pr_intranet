@@ -1,7 +1,7 @@
 $(document).ready(function(){
   $("#main_image_modal").html("<%= j render(partial: 'modal_form') %>");
-  $(".image-picker").imagepicker();
   $("#main_image_modal").modal("show");
+  $('#image-picker_att').imagepicker();
 
   $("#img1, #gal1").click(function() {
     if (this.id == "img1") {
@@ -12,7 +12,6 @@ $(document).ready(function(){
       $("#img1").removeClass("clicked_img");
     }
   }); 
-  $('#image-picker_att').imagepicker();
 
   $('#attachment_attachment').change(
     function () {
@@ -77,4 +76,4 @@ $(document).ready(function(){
       }
     })
   })  
-}); 
+});
