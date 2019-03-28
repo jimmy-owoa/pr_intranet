@@ -1,6 +1,6 @@
 module Admin
-  class BenefitsController < ApplicationController
-    layout 'admin'
+  class BenefitsController < AdminController
+    
     before_action :set_benefit, only: [:show, :edit, :update, :destroy]
 
     def index

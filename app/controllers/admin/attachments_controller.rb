@@ -1,9 +1,9 @@
 module Admin
-  class AttachmentsController < ApplicationController
+  class AttachmentsController < AdminController
     skip_before_action :authenticate_user!, :only => :create
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
-    layout 'admin'
+    before_action :set_terms, only: [:edit, :new]
 
     def index
       add_breadcrumb "Medios", :admin_attachments_path
@@ -38,6 +38,7 @@ module Admin
 
     def create
       @attachment = General::Attachment.create(attachment_params)
+      set_tags
       respond_to do |f|
         f.json {
           render json: {
@@ -53,7 +54,8 @@ module Admin
     def update
       respond_to do |format|
         if @attachment.update(attachment_params)
-          format.html { redirect_to admin_attachment_path(@attachment), notice: 'Attachment was successfully updated.'}
+          set_tags
+          format.html { redirect_to admin_attachment_path(@attachment), notice: 'Archivo fué correctamente actualizado.'}
           format.json { render :show, status: :ok, location: @attachment }
         else
           format.html { render :edit}
@@ -65,15 +67,34 @@ module Admin
     def destroy
       @attachment.destroy
       respond_to do |format|
-        format.html { redirect_to admin_attachments_path, notice: 'Attachment was successfully destroyed.'}
+        format.html { redirect_to admin_attachments_path, notice: 'Archivo fué correctamente eliminado.'}
         format.json { head :no_content }
       end
+    end
+
+    def search_att
+      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map{|i| {name: i.name, val: i.id, 'data-img-src': url_for(i.thumb)}}
+      render json: {data: @search}
     end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
       @attachment = General::Attachment.find(params[:id])
+    end
+
+    def set_terms
+      full_categories = General::Term.categories
+      inclusive_tags = General::Term.tags.inclusive_tags
+      excluding_tags = General::Term.tags.excluding_tags
+      user_categories = current_user.terms.categories
+      if current_user.has_role? :super_admin
+        @categories = full_categories
+        @inclusive_tags = inclusive_tags
+        @excluding_tags = excluding_tags 
+      else
+        @categories = @user_categories & @full_categories
+      end
     end
 
     def set_post
@@ -88,8 +109,19 @@ module Admin
       else
         params["attachment"]["attachment"] = params["attachment"]["attachment"]
       end
-      params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment)
+      params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment, term_ids: [] )
     end
 
+    def set_tags
+      # Getting terms_names from the form (tags)
+      term_names = params[:terms_names]
+      terms = []
+      if term_names.present?
+        term_names.uniq.each do |tag|
+          terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
+        end
+        @post.terms << terms
+      end   
+    end
   end
 end

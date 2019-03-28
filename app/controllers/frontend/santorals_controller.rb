@@ -1,4 +1,5 @@
-class Frontend::SantoralsController < ApplicationController
+module Frontend
+  class SantoralsController < FrontendController
   include Rails.application.routes.url_helpers
 
   def santorals    
@@ -8,4 +9,5 @@ class Frontend::SantoralsController < ApplicationController
       format.js
     end    
   end
+end
 end

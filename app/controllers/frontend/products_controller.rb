@@ -1,5 +1,5 @@
 module Frontend
-  class ProductsController < ApplicationController
+  class ProductsController < FrontendController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
 
   #callbacks
@@ -80,9 +80,9 @@ module Frontend
       user_id = params[:user_id]
       images = params[:images]
       product_type = params[:product_type]
-
       @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone, 
         description: description, location: location, user_id: user_id, approved: false, expiration: 30)
+
       if images.present? 
         images.each do |image|
           base64_image = image[1].sub(/^data:.*,/, '')

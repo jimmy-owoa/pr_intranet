@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pundit
   before_action :set_ip
   protect_from_forgery
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_locale
   # after_action :track_action
 
