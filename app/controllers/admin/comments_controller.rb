@@ -1,5 +1,5 @@
 module Admin
-  class CommentsController < ApplicationController
+  class CommentsController < AdminController
     before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
     def index

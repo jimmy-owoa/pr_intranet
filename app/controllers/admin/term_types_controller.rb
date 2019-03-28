@@ -1,5 +1,5 @@
 module Admin
-  class TermTypesController < ApplicationController
+  class TermTypesController < AdminController
     before_action :set_term_type, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -49,7 +49,7 @@ module Admin
       end
     end
 
-  private
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_term_type
       @term_type = General::TermType.find(params[:id])

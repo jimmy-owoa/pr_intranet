@@ -1,5 +1,4 @@
-class Frontend::ApplicationController < ApplicationController
-  after_action :set_access_control_headers
+class Frontend::FrontendController < ApplicationController
 
   def index
   end
@@ -48,8 +47,6 @@ class Frontend::ApplicationController < ApplicationController
     end
   end
 
-  def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-  end
+
 
  end

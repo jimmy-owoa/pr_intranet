@@ -1,4 +1,5 @@
-class Frontend::WelcomesController < ApplicationController
+module Frontend
+  class WelcomesController < FrontendController
   before_action :authenticate_user!, only: [:index]
 
   def users
@@ -69,5 +70,5 @@ class Frontend::WelcomesController < ApplicationController
       format.js
     end    
   end
-
-end
+end 
+end 

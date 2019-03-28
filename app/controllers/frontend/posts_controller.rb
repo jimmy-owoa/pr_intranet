@@ -1,5 +1,5 @@
 module Frontend
-  class PostsController < ApplicationController
+  class PostsController < FrontendController
     after_action :set_tracking, only: [:index, :show, :new]  
     
   def index
@@ -114,14 +114,6 @@ module Frontend
       format.json { render json: data[0] }
       format.js
     end    
-  end
-
-  def show
-    respond_to do |format|
-      format.html
-      format.json { render json: @post }
-      format.js
-    end
   end
 
   private

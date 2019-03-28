@@ -1,6 +1,6 @@
 module Admin
-  class LinksController < ApplicationController
-    layout 'admin'
+  class LinksController < AdminController
+    
     before_action :set_link, only: [:show, :edit, :update, :destroy]
 
     def index

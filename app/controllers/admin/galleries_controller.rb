@@ -1,6 +1,6 @@
 module Admin
-  class GalleriesController < ApplicationController
-  layout 'admin'
+  class GalleriesController < AdminController
+  
   before_action :set_gallery, only: [:show, :edit, :update, :destroy]
   before_action :set_post, only: [:create, :new]
   

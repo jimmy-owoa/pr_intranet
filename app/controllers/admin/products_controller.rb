@@ -1,7 +1,7 @@
 module Admin 
-  class ProductsController < ApplicationController
+  class ProductsController < AdminController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
-    layout 'admin'
+    
 
     def index
       add_breadcrumb "Marketplace", :admin_products_path
@@ -70,7 +70,6 @@ module Admin
         end
       end
     end
-
 
     private
     # Use callbacks to share common setup or constraints between actions.
