@@ -24,7 +24,7 @@
             <td><%= post.status %></td>
             <td><%= post.published_at.present? ? custom_date(post.published_at) : '' %></td>
             <td><%= post.term_id %></td>
-            <%# <td><%= post.visibility %></td> %>
+            <%# <td><%= post.visibility %></td>
             <td><%= custom_date(post.created_at) %></td>  
             <td><%= link_to t('.show', :default => t("helpers.links.show")),
             admin_post_path(post), :class => 'btn btn-default btn-xs' %></td>       

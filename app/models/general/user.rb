@@ -71,6 +71,7 @@ class General::User < ApplicationRecord
   end   
   
   def self.users_welcome
-    Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
+    # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
+    General::User.last(4)
   end
 end
