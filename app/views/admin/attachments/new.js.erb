@@ -1,16 +1,17 @@
-$("#main_image_modal").html("<%= j render(partial: 'modal_form') %>");
-$(".image-picker").imagepicker();
-$("#main_image_modal").modal("show");
+$(document).ready(function(){
+  $("#main_image_modal").html("<%= j render(partial: 'modal_form') %>");
+  $("#image-picker_att").imagepicker();
+  $("#main_image_modal").modal("show");
 
-$("#img1, #gal1").click(function() {
-  if (this.id == "img1") {
-    $("#img1").toggleClass("clicked_img");
-    $("#gal1").removeClass("clicked_img");
-  } else if (this.id == "gal1") {
-    $("#gal1").toggleClass("clicked_img");
-    $("#img1").removeClass("clicked_img");
-  }
-});
+  $("#img1, #gal1").click(function() {
+    if (this.id == "img1") {
+      $("#img1").toggleClass("clicked_img");
+      $("#gal1").removeClass("clicked_img");
+    } else if (this.id == "gal1") {
+      $("#gal1").toggleClass("clicked_img");
+      $("#img1").removeClass("clicked_img");
+    }
+  });
 
   $('#attachment_attachment').change(
     function () {
@@ -75,4 +76,4 @@ $("#img1, #gal1").click(function() {
       }
     })
   })  
-
+}); 
