@@ -1,7 +1,7 @@
 $(document).ready(function(){
   $("#main_image_modal").html("<%= j render(partial: 'modal_form') %>");
+  $("#image-picker_att").imagepicker();
   $("#main_image_modal").modal("show");
-  $('#image-picker_att').imagepicker();
 
   $("#img1, #gal1").click(function() {
     if (this.id == "img1") {
@@ -11,8 +11,8 @@ $(document).ready(function(){
       $("#gal1").toggleClass("clicked_img");
       $("#img1").removeClass("clicked_img");
     }
-  }); 
-
+  });
+  
   $('#attachment_attachment').change(
     function () {
       if ($(this).val()) {
@@ -75,5 +75,5 @@ $(document).ready(function(){
         });
       }
     })
-  })  
+  })
 });
