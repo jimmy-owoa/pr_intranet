@@ -61,6 +61,7 @@ module Frontend
         active: user.active,
         annexed: user.annexed,
         birthday: user.birthday,
+        company: user.company,
         date: user.created_at.strftime("%Y-%m-%d"),
         image: @image
       }
