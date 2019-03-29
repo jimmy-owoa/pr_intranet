@@ -93,7 +93,7 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(:id, :email, :name, :last_name, :company, :address, :position, :active, :annexed, :birthday, :password, :password_confirmation, :image, :show_birthday, :parent_id, :lft, :rgt, :depth, :children_count,role_ids: [], term_ids: [])
+      params.require(:user).permit(:id, :email, :name, :last_name, :company, :address, :position, :active, :annexed, :birthday, :date_entry, :password, :password_confirmation, :image, :show_birthday, :parent_id, :lft, :rgt, :depth, :children_count,role_ids: [], term_ids: [])
     end
   end
 end

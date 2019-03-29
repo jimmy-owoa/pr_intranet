@@ -9,6 +9,10 @@ $(document).on('turbolinks:load', function () {
     format: 'DD-MM-YYYY',
     maxDateNow: true
   });
+  $('#date_entry').datetimepicker({
+    format: 'DD-MM-YYYY',
+    maxDateNow: true
+  });
   $('#user_term_ids').select2({
     tags: true,
     tokenSeparators: [',', ' '],

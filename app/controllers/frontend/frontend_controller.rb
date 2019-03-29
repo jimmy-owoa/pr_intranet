@@ -47,6 +47,4 @@ class Frontend::FrontendController < ApplicationController
     end
   end
 
-
-
  end

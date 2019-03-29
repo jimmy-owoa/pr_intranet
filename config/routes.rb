@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       end
       resources :menus
       resources :messages
-      resources :sections, only: [:update, :show, :index, :edit]
+      resources :sections
       resources :products do
       member do
         delete :delete_image
