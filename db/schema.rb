@@ -265,6 +265,7 @@ ActiveRecord::Schema.define(version: 2019_03_29_141621) do
     t.string "address"
     t.string "legal_number"
     t.string "legal_number_verification"
+    t.integer "location_id"
     t.date "date_entry"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
@@ -279,6 +280,7 @@ ActiveRecord::Schema.define(version: 2019_03_29_141621) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
@@ -299,7 +301,6 @@ ActiveRecord::Schema.define(version: 2019_03_29_141621) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
-    t.integer "location_id"
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
