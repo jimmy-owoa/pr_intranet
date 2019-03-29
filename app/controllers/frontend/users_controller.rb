@@ -62,6 +62,7 @@ module Frontend
         position: @user.position,
         company: @user.company,
         address: @user.address,
+        date_entry: @user.date_entry,
         image: @user.image.attached? ? 
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
         tags: @user.terms.tags.map(&:name),
@@ -95,6 +96,7 @@ module Frontend
       data_user << {
         id: @user.id,
         nickname: @nickname,
+        date_entry: @user.date_entry,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
         email: @user.email,

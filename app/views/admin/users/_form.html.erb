@@ -61,10 +61,22 @@
         </div>        
       </div>
       <div class="row">
-        <div class="col-6 col-sm-12"></br>
+        <div class="col-6 col-sm-7"></br>
           <%= f.label :tags %></br>
           <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
         </div>
+        <div class="col-6 col-sm-5"></br>
+          <div class="input-group date" id="date_entry" data-target-input="nearest">
+            <% if @user.try(:date_entry).present? %>
+              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', 'data-target' => '#date_entry', value: custom_date_no_hour(@user.date_entry), id: 'date_entry' %>
+            <% else %>
+              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', value: @user.try(:date_entry), 'data-target' => '#date_entry', id: 'date_entry' %>
+            <% end %>
+            <div class="input-group-append" data-target="#date_entry" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="far fa-handshake"></i></div>
+            </div>
+          </div>     
+        </div>        
       </div>      
     </div> 
     <div class="col-6" >

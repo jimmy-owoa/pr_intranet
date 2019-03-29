@@ -1,0 +1,5 @@
+class AddDateEntryToUsers < ActiveRecord::Migration[5.2]
+  def change
+    add_column :general_users, :date_entry, :date
+  end
+end
