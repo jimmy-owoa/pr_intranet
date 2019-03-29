@@ -10,7 +10,7 @@ class Marketplace::Product < ApplicationRecord
 
   before_save :update_published_date
 
-  scope :show_product , -> {where( approved: true)}
+  scope :show_product , -> {where(approved: true)}
 
   PRODUCT_TYPE = ['Autos','Propiedades', 'Servicios', 'Varios']
 
@@ -20,7 +20,7 @@ class Marketplace::Product < ApplicationRecord
 
   def update_published_date
     if self.approved_changed?
-      self.published_date = self.approved ? Date.today : nil   
+      self.published_date = self.approved ? Date.today : nil
     end
   end
 
@@ -30,6 +30,6 @@ class Marketplace::Product < ApplicationRecord
 
   def unpermitted_images
     images.attachments.where(permission: 0)
-  end  
+  end
   
 end
