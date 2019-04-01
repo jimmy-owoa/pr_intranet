@@ -24,3 +24,5 @@ plugins:
   - textcolor
 language:
   - es
+browser_spellcheck:
+  - true
