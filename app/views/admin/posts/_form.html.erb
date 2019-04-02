@@ -42,17 +42,19 @@
               <%= f.check_box :important, class: 'post_type'%>
             <% end %>
         </div>        
-        <div class="col-md-12">
+        <%# <div class="col-md-12">
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
-        </div>
+        <%# </div> %>
         <div class="col-md-12">
-          <%# <%= f.input :permission, collection: News::Post::PERMISSION, prompt: :translate %>
         </div>
         <div class="col-md-12 col-sm-12"></br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
             <% if @post.try(:published_at).present? %>
+
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>
+
             <% else %>
+            
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>
             <% end %>
             <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
@@ -67,18 +69,15 @@
       </div>
     </div>
     <div class="card p-4 wrapper" >
+      <input type="checkbox" id="select_all" class="form-check-input"/> <strong>Seleccionar todas</strong>
       <div class="form-group">
-        <div class= 'scrollDivPost'>
+        <div class= 'scrollDivPost categories'>
           <%= f.association :terms, collection: @categories, as: :check_boxes, class: 'custom-control-input', label: false %>
         </div>
       </div>
     </div>
     <div class="card p-4 wrapper" >
       <div class="form-group row ">
-        <%# <div class="col-md-12 col-sm-12">
-          <%= f.label :tags %>
-          <%#= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]}, @post.terms.tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'tag_post' %>
-        <%# </div> %>
         <div class="col-12 col-sm-12">
           <%= f.label 'Tags inclusivos' %>
           <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
@@ -96,7 +95,9 @@
               <%# <img id="image" src="#" alt="your image" /> %>
             <br>
             <% if @post.id.nil? %>
-              <%= link_to 'Establecer Imagen Principal', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %>
+              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) %>
+              <br />
+              <%= link_to 'Imagen Principal', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %>
             <% else %>
               <%= link_to 'Imagen Principal', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
             <% end %>
@@ -119,12 +120,20 @@
     <div class="card pt-2" >
       <div class="form-group ">
         <div class="col-md-12 col-sm-12">
-          <h4> Orden </h4>
+          <h4> Formato </h4>
         </div>
          <div class="col-md-12">
           <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
+          <div>
+            <i class="fas fa-exclamation-circle" rel="tooltip" title="Estilo 1: Normal - Estilo 2: Rosado - Estilo 3: Naranja" id="ben_img"></i>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function(){
+    $("[rel=tooltip]").tooltip({ placement: 'right'});
+});
+</script>

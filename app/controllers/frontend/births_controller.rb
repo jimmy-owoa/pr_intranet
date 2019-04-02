@@ -1,6 +1,7 @@
 require 'base64'
 require 'stringio'
-class Frontend::BirthsController < ApplicationController
+module Frontend
+  class BirthsController < FrontendController
   #callbacks
   layout 'admin'
   before_action :set_birth, only: [:show, :destroy]
@@ -149,4 +150,6 @@ class Frontend::BirthsController < ApplicationController
       params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :child_lastname,
       :birthday, :photo, :approved, :gender)
     end
+    
   end
+end

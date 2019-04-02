@@ -1,4 +1,5 @@
-class Frontend::AnswersController < ApplicationController
+module Frontend
+  class AnswersController < FrontendController
   before_action :set_answer, only: [:show, :destroy, :edit, :update]
   
     def index
@@ -84,14 +85,6 @@ class Frontend::AnswersController < ApplicationController
       end
     end
   
-    def destroy
-      @answer.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_surveys_path, notice: 'Answer was successfully destroyed.'}
-        format.json { head :no_content }
-      end
-    end
-  
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_answer
@@ -105,4 +98,5 @@ class Frontend::AnswersController < ApplicationController
     def answer_params
       params.require(:answer).permit(:user_id, :question_id, :option_id,:answer_variable)
     end
+  end
 end

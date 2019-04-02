@@ -8,6 +8,7 @@
             <tr>
               <th><%= 'Id' %></th>
               <th><%= 'Título' %></th>
+              <th><%= 'Estado' %></th>
               <th><%= 'Fecha Publicación' %></th>
               <th><%= 'Fecha Creación' %></th>
               <th><%= 'Acciones' %></th>
@@ -17,7 +18,8 @@
             <% @posts.each do |post| %>
               <tr>
                 <td><%= link_to post.id, admin_post_path(post) %></td>
-                <td><%= post.title.truncate(40) %></td>
+                <td><%= post.title.truncate(35) %></td>
+                <td><%= post.status%></td>
                 <td><%= custom_date_no_hour(post.published_at) %></td>
                 <td><%= custom_date_no_hour(post.created_at)  %></td>
                 <td>

@@ -1,10 +1,9 @@
 module Admin 
-  class SurveysController < ApplicationController
-    layout 'admin'
+  class SurveysController < AdminController
     before_action :set_survey, only: [:show, :destroy, :edit, :update]
   
     def index
-      @surveys = Survey::Survey.all
+      @surveys = Survey::Survey.order(id: :desc).all
     end
   
     def show
@@ -58,7 +57,7 @@ module Admin
     end
   
     private
-
+    
     def set_tags
       # Getting terms_names from the form (tags)
       term_names = params[:terms_names]
@@ -76,7 +75,7 @@ module Admin
     end
   
     def survey_params
-      params.require(:survey).permit(:name, :slug, :survey_type, :image, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional,  :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
+      params.require(:survey).permit(:name, :slug, :show_name, :survey_type, :image, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional,  :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
     end
   end
 end

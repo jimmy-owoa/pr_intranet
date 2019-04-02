@@ -1,6 +1,6 @@
 module Admin
-  class PostsController < ApplicationController
-    layout 'admin'
+  class PostsController < AdminController
+    
     before_action :set_post, only: [:show, :edit, :update, :destroy]
     respond_to :html, :json
     before_action :set_categories, only: [:edit, :new]
@@ -8,7 +8,7 @@ module Admin
 
     def index
       add_breadcrumb "Noticias", :admin_posts_path
-      @posts = News::Post.paginate(:page => params[:page], :per_page => 10)
+      @posts = News::Post.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
       respond_to do |format|
         format.html
         format.json { render json: @posts }

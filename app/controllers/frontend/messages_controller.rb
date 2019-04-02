@@ -1,5 +1,5 @@
 module Frontend
-  class MessagesController < ApplicationController
+  class MessagesController < FrontendController
     def index
       messages = General::Message.last(6)
       data = []

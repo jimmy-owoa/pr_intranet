@@ -1,42 +1,42 @@
 module Frontend
-  class BenefitsController < ApplicationController
+  class BenefitsController < FrontendController
     after_action :set_tracking, only: [:index, :show]
 
     def index
       benefits = General::Benefit.all
       data = []
       benefits.each do |benefit|
-      @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + '/assets/
-      news.jpg'
+        @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + '/assets/
+        news.jpg'
+        data << {
+          id: benefit.id,
+          title: benefit.title,
+          content: benefit.content,
+          image: @image
+        }
+      end
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
+    def benefit
+      data = []
+      id = params[:id].present? ? params[:id] : nil
+      benefit = General::Benefit.find(id)
+      @image = @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: benefit.id,
         title: benefit.title,
         content: benefit.content,
         image: @image
       }
-    end
       respond_to do |format|
-        format.json { render json: data }
+        format.json { render json: data[0] }
         format.js
-      end      
-    end
-
-  def benefit
-    data = []
-    id = params[:id].present? ? params[:id] : nil
-    benefit = General::Benefit.find(id)
-    @image = @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + '/assets/news.jpg'
-    data << {
-      id: benefit.id,
-      title: benefit.title,
-      content: benefit.content,
-      image: @image
-    }
-    respond_to do |format|
-      format.json { render json: data[0] }
-      format.js
+      end    
     end    
-  end    
 
     def show
       respond_to do |format|

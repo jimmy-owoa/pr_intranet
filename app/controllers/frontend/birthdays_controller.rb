@@ -1,5 +1,5 @@
 module Frontend
-  class BirthdaysController < ApplicationController
+  class BirthdaysController < FrontendController
     after_action :set_tracking, only: [:index, :list, :modal]
 
     def index
@@ -114,8 +114,6 @@ module Frontend
 
     def set_tracking
       ahoy.track "Birthday Model", params
-    end    
-
-    
+    end
   end
 end

@@ -7,6 +7,8 @@ class Survey::Survey < ApplicationRecord
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: proc { |att| att['title'].blank? }
   accepts_nested_attributes_for :terms
 
+  validates :name, presence: :true
+
   before_save :unique_slug, :set_survey_type
 
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
@@ -50,4 +52,5 @@ class Survey::Survey < ApplicationRecord
       val
     end
   end
+  
 end

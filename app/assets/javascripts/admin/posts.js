@@ -4,8 +4,17 @@ $(document).on('turbolinks:load', function () {
     tokenSeparators: [',', ' ']
   });
   $('#published_at').datetimepicker({
+    sideBySide: true,
+    icons: {
+      up: "fa fa-chevron-circle-up",
+      down: "fa fa-chevron-circle-down",
+      next: 'fa fa-chevron-circle-right',
+      previous: 'fa fa-chevron-circle-left'
+    },
     format: 'DD/MM/YYYY HH:mm',
-  });
+    autoclose: true
+  })
+
   $(".owl-carousel").owlCarousel({
     items: 2,
     nav: true,
@@ -40,4 +49,9 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Elegir formato",
     width: '100%'
   });
+  $('#select_all').change(function() {
+    var checkboxes = $('.categories input[type="checkbox"]');
+    checkboxes.prop('checked', $(this).is(':checked'));
+  });
+
 });

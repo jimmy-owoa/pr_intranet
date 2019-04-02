@@ -1,4 +1,5 @@
-class Frontend::WelcomesController < ApplicationController
+module Frontend
+  class WelcomesController < FrontendController
   before_action :authenticate_user!, only: [:index]
 
   def users
@@ -38,6 +39,7 @@ class Frontend::WelcomesController < ApplicationController
         annexed: user.annexed,
         birthday: user.birthday,
         company: user.company,
+        date: user.date_entry.present? ? user.date_entry.strftime("%Y-%m-%d") : user.date_entry,
         show_birthday: user.show_birthday,
         image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
       }
@@ -49,7 +51,7 @@ class Frontend::WelcomesController < ApplicationController
   end
 
   def users_welcome
-    @new_users = General::User.where('created_at > ? and created_at < ?', 3.months.ago, -3.months.ago)
+    @new_users = General::User.where('date_entry > ? and date_entry < ?', 3.months.ago, -3.months.ago)
     data= []
     @new_users.each do |user|
       @image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
@@ -60,7 +62,8 @@ class Frontend::WelcomesController < ApplicationController
         active: user.active,
         annexed: user.annexed,
         birthday: user.birthday,
-        date: user.created_at.strftime("%Y-%m-%d"),
+        company: user.company,
+        date: user.date_entry.strftime("%Y-%m-%d"),
         image: @image
       }
     end
@@ -69,5 +72,5 @@ class Frontend::WelcomesController < ApplicationController
       format.js
     end    
   end
-
-end
+end 
+end 

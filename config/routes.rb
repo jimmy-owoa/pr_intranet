@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       put 'upload/put', to: 'attachments#upload' 
       get 'analytics', to: 'analytics#index'
       get "search", to: "search#search"
+      get "searchatt", to: "attachments#search_att"
       resources :term_relationships
       resources :comments
       resources :links
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
       end
       resources :menus
       resources :messages
-      resources :sections, only: [:update, :show, :index, :edit]
+      resources :sections
       resources :products do
       member do
         delete :delete_image
@@ -56,9 +57,8 @@ Rails.application.routes.draw do
     get 'welcome/get_home_welcome', to: 'welcomes#get_home_welcome'
     get "searchv", to: "search#search_vue"
     get "searchm", to: "search#search_menu"
-    get 'indicators', to: 'application#indicators'
-    get 'faq', to: 'application#faq'
-    get 'weather', to: 'application#weather'
+    get 'indicators', to: 'frontend#indicators'
+    get 'weather', to: 'frontend#weather'
     get 'weather_info', to: 'weather_information#weather'
     get 'births/calendar_births', to: 'births#calendar_births'
     get 'menus/api_menu', to: 'menus#api_menu'
@@ -68,7 +68,9 @@ Rails.application.routes.draw do
     end
     post 'users/upload', to: 'users#upload'
     put 'products/update_expiration', to: 'products#update_expiration'
-    resources :surveys
+    resources :surveys do
+      get :survey_count, on: :collection
+    end
     resources :answers
     resources :messages
     resources :links

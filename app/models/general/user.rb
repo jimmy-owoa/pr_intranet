@@ -43,18 +43,20 @@ class General::User < ApplicationRecord
   ]
 
   def image_resize
-    avatar = self.image
-    filename = avatar.filename.to_s
-      attachment_path = "#{Dir.tmpdir}/#{avatar.filename}"
-      File.open(attachment_path, 'wb') do |file|
-        file.write(avatar.download)
-        file.close
-      end
-      image = MiniMagick::Image.open(attachment_path)
-      # if image.width ...
-      image.resize "250x200>"
-      image.write attachment_path
-      avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg") 
+    if self.image.attachment.present?
+      avatar = self.image
+      filename = avatar.filename.to_s
+        attachment_path = "#{Dir.tmpdir}/#{avatar.filename}"
+        File.open(attachment_path, 'wb') do |file|
+          file.write(avatar.download)
+          file.close
+        end
+        image = MiniMagick::Image.open(attachment_path)
+        # if image.width ...
+        image.resize "250x200>"
+        image.write attachment_path
+        avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg")
+    end
   end
   
   def full_name
@@ -70,7 +72,8 @@ class General::User < ApplicationRecord
   end   
   
   def self.users_welcome
-    Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
+    # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
+    General::User.last(4)
   end
 
 end

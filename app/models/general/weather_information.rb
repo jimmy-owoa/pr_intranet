@@ -1,5 +1,5 @@
 class General::WeatherInformation < ApplicationRecord
-  belongs_to :location, class_name: 'General::Location'
+  belongs_to :location, class_name: 'General::Location', foreign_key: :location_id
   scope :current, -> (location_id) { where(date: Date.today, location_id: location_id) }
   
   def self.weather_cached

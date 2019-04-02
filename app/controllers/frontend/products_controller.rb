@@ -1,12 +1,12 @@
 module Frontend
-  class ProductsController < ApplicationController
+  class ProductsController < FrontendController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
 
   #callbacks
   after_action :set_tracking, only: [:index, :show, :new]
 
   def index
-    products = Marketplace::Product.show_product
+    products = Marketplace::Product.all
     data = []
     normal_sizes = []
     large_sizes = []
@@ -29,6 +29,7 @@ module Frontend
       data << {
         id: product.id,
         name: product.name,
+        approved: product.approved,
         product_type: product.product_type,
         user_id: General::User.find(product.user_id).id,
         created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
@@ -80,9 +81,9 @@ module Frontend
       user_id = params[:user_id]
       images = params[:images]
       product_type = params[:product_type]
-
       @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone, 
         description: description, location: location, user_id: user_id, approved: false, expiration: 30)
+
       if images.present? 
         images.each do |image|
           base64_image = image[1].sub(/^data:.*,/, '')

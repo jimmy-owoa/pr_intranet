@@ -1,5 +1,5 @@
 module Frontend
-  class LinksController < ApplicationController
+  class LinksController < FrontendController
     def index
       links = General::Link.last(6)
       data = []

@@ -1,10 +1,10 @@
 module Admin
-  class MessagesController < ApplicationController
-    layout 'admin'
+  class MessagesController < AdminController
+    
     before_action :set_message, only: [:show, :edit, :update, :destroy]
 
     def index
-      @messages = General::Message.all
+      @messages = General::Message.order(id: :desc).all
     end
 
     def show

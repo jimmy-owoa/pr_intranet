@@ -1,4 +1,5 @@
-class Frontend::WeatherInformationController < ApplicationController
+module Frontend
+  class WeatherInformationController < FrontendController
   def weather
     # @weather = General::WeatherInformation.weather_cached
     @weather = General::WeatherInformation.last(10)
@@ -44,6 +45,7 @@ class Frontend::WeatherInformationController < ApplicationController
     respond_to do |format|
       format.json { render json: data }
       format.js
+    end
     end
   end
 end

@@ -1,7 +1,7 @@
 module Admin 
-  class BirthsController < ApplicationController
+  class BirthsController < AdminController
     before_action :set_birth, only: [:show, :destroy, :edit, :update]
-    layout 'admin'
+    
     def index
       add_breadcrumb "Nacimientos", :admin_births_path
       @births = Employee::Birth.paginate(:page => params[:page], :per_page => 10)

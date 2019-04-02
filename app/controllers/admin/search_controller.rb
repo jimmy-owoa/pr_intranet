@@ -1,5 +1,5 @@
-class Admin::SearchController < ApplicationController
-    layout 'admin'
+module Admin
+  class SearchController < AdminController  
     def search
       search = params[:term].present? ? params[:term] : nil
       if search
@@ -13,4 +13,5 @@ class Admin::SearchController < ApplicationController
         @menus = General::Menu.all
       end
     end
+  end
 end
