@@ -1,6 +1,5 @@
 toolbar:
-  - styleselect | bold italic | undo redo
-  - image | link | media | imagetools | emoticons | paste | print | forecolor backcolor
+  - styleselect | bold italic | undo redo | image | link | media | imagetools | emoticons | paste | print | forecolor backcolor
 plugins:
   - image
   - link
