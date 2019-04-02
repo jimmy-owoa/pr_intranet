@@ -85,7 +85,7 @@ module Frontend
         post.galleries.first.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
           gallery << {
             id: image.id,
-            url: root_url + image.path
+            url: url_for(image.attachment)
           }
         end
       end
