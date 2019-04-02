@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :menus
       resources :messages
       resources :sections
+      put 'products/update_expiration', to: 'products#update_expiration'
       resources :products do
       member do
         delete :delete_image
@@ -66,7 +67,7 @@ Rails.application.routes.draw do
       get :current_user_vue, on: :collection
     end
     post 'users/upload', to: 'users#upload'
-    put 'products/update_expiration', to: 'products#update_expiration'
+    post 'products/update_expiration', to: 'products#update_expiration'
     resources :surveys do
       get :survey_count, on: :collection
     end
