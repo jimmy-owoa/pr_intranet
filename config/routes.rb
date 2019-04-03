@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :benefit_groups
+  end
   devise_scope :user do
     root to: "devise/sessions#new"
   end
