@@ -3,7 +3,7 @@ module Admin
     before_action :set_benefit_group, only: [:show, :edit, :update, :destroy]
 
     def index
-      @benefit_groups = General::BenefitGroup.order(id: :desc).all
+      @benefit_groups = General::BenefitGroup.paginate(:page => params[:page], :per_page => 10)
     end
 
     def show
