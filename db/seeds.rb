@@ -17,38 +17,57 @@ Role.find_or_create_by(name: 'user')
 Role.find_or_create_by(name: 'post_admin')
 Role.find_or_create_by(name: 'super_admin')
 Role.find_or_create_by(name: 'message_admin')
+#location
+General::Location.find_or_create_by(name: 'Antofagasta')
+General::Location.find_or_create_by(name: 'Santiago')
+General::Location.find_or_create_by(name: 'Copiapo')
+General::Location.find_or_create_by(name: 'La Serena')
+General::Location.find_or_create_by(name: 'Vina del Mar')
+General::Location.find_or_create_by(name: 'Rancagua')
+General::Location.find_or_create_by(name: 'Talca')
+General::Location.find_or_create_by(name: 'Concepcion')
+General::Location.find_or_create_by(name: 'Temuco')
+General::Location.find_or_create_by(name: 'Puerto Montt')
 #users
-General::User.create(
+General::User.create!(
   name:'Nombre',
   last_name: 'Apellido',
   annexed: '1029',
-  email: 'admin@security.cl',
   password: 'security',
+  password_confirmation: 'security',
+  email: 'admin@security.cl',
   birthday: Date.today,
+  location_id: 2
 )
-General::User.create(
+General::User.create!(
   name:'Nombre 2',
   last_name: 'Apellido 2',
   annexed: '1928',
-  email: 'user@security.cl',
   password: 'security',
-  birthday: Date.today-1
+  password_confirmation: 'security',
+  email: 'user@security.cl',
+  birthday: Date.today-1,
+  location_id: 2
 )
-General::User.create(
+General::User.create!(
   name:'Persona 3',
   last_name: 'a cargo de',
   annexed: '11020',
+  password: 'security',  
+  password_confirmation: 'security',
   email: 'a-cargo-de@security.cl',
-  password: 'security',
   birthday: Date.today-2,
+  location_id: 2
 )
-General::User.create(
+General::User.create!(
   name:'Persona 4',
   last_name: 'rama',
   annexed: '22212',
-  email: 'otro-a-cargode@security.cl',
   password: 'security',
+  password_confirmation: 'security',
+  email: 'otro-a-cargode@security.cl',
   birthday: Date.today-2,
+  location_id: 2
 )
 #users / user_admin see admin screen and user see welcome screen
 user_admin = General::User.first
@@ -123,17 +142,6 @@ Survey::Option.find_or_create_by(title: "Calama", default: false, placeholder: "
 Survey::Option.find_or_create_by(title: "Coquimbo", default: false, placeholder: "", question_id: 1)
 Survey::Option.find_or_create_by(title: "Puerto Montt", default: false, placeholder: "", question_id: 1)
 Survey::Option.find_or_create_by(title: "Punta Arenas", default: false, placeholder: "", question_id: 1)
-#location
-General::Location.find_or_create_by(name: 'Antofagasta')
-General::Location.find_or_create_by(name: 'Santiago')
-General::Location.find_or_create_by(name: 'Copiapo')
-General::Location.find_or_create_by(name: 'La Serena')
-General::Location.find_or_create_by(name: 'Vina del Mar')
-General::Location.find_or_create_by(name: 'Rancagua')
-General::Location.find_or_create_by(name: 'Talca')
-General::Location.find_or_create_by(name: 'Concepcion')
-General::Location.find_or_create_by(name: 'Temuco')
-General::Location.find_or_create_by(name: 'Puerto Montt')
 #cities
  (1..10).each do |city|
   General::WeatherInformation.find_or_create_by(
@@ -2283,3 +2291,59 @@ General::Santoral.find_or_create_by(name: "Stos. Inocentes", santoral_day: '12-2
 General::Santoral.find_or_create_by(name: "Tomás Becket, David", santoral_day: '12-29')
 General::Santoral.find_or_create_by(name: "Rogelio", santoral_day: '12-30')
 General::Santoral.find_or_create_by(name: "Silvestre", santoral_day: '12-31')
+# benefit group
+General::BenefitGroup.find_or_create_by(code:"ASCTY-0",name: "ASESORIAS SECURITY - SIN SINDICATO", description: "ASESORIAS SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"ASCTY-1",name: "ASESORIAS SECURITY - EXTENSIÓN BENEF INVERSIONES", description: "ASESORIAS SECURITY - EXTENSIÓN BENEF INVERSIONES")
+General::BenefitGroup.find_or_create_by(code:"ASCTY-2",name: "ASESORIAS SECURITY - EXTEN DE BENEF INVERSIONES FFVV", description: "ASESORIAS SECURITY - EXTEN DE BENEF INVERSIONES FFVV")
+General::BenefitGroup.find_or_create_by(code:"BSCTY-0",name: "BANCO SECURITY - SIN SINDICATO", description: "BANCO SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"BSCTY-1",name: "BANCO SECURITY - S. TRABAJADORES BANCO", description: "BANCO SECURITY - S. TRABAJADORES BANCO")
+General::BenefitGroup.find_or_create_by(code:"BSCTY-2",name: "BANCO SECURITY - S. NACIONAL BANCO", description: "BANCO SECURITY - S. NACIONAL BANCO")
+General::BenefitGroup.find_or_create_by(code:"CSCTY-0",name: "CORREDORA DE SEGUROS SECURITY - SIN SINDICATO", description: "CORREDORA DE SEGUROS SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"FMCTY-0",name: "ADM GRAL DE FONDOS SECURITY - SIN SINDICATO", description: "ADM GRAL DE FONDOS SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"FMCTY-1",name: "ADM GRAL DE FONDOS SECURITY - EXTENSIÓN BENEF INVERSIONES", description: "ADM GRAL DE FONDOS SECURITY - EXTENSIÓN BENEF INVERSIONES")
+General::BenefitGroup.find_or_create_by(code:"FMCTY-2",name: "ADM GRAL DE FONDOS SECURITY - EXTEN DE BENEF INVERSIONES FFVV", description: "ADM GRAL DE FONDOS SECURITY - EXTEN DE BENEF INVERSIONES FFVV")
+General::BenefitGroup.find_or_create_by(code:"FSCTY-0",name: "FACTORING SECURITY - SIN SINDICATO", description: "FACTORING SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"FSCTY-1",name: "FACTORING SECURITY - SINDICATO NACIONAL FACTORING", description: "FACTORING SECURITY - SINDICATO NACIONAL FACTORING")
+General::BenefitGroup.find_or_create_by(code:"GRCTY-0",name: "GRUPO SECURITY - SIN SINDICATO", description: "GRUPO SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"GRCTY-1",name: "GRUPO SECURITY - EXTENSIÓN DE BENEFICIOS", description: "GRUPO SECURITY - EXTENSIÓN DE BENEFICIOS")
+General::BenefitGroup.find_or_create_by(code:"GSCTY-0",name: "GLOBAL SECURITY - SIN SINDICATO", description: "GLOBAL SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"GSCTY-1",name: "GLOBAL SECURITY - EXTENSIÓN BENEF INVERSIONES", description: "GLOBAL SECURITY - EXTENSIÓN BENEF INVERSIONES")
+General::BenefitGroup.find_or_create_by(code:"GSCTY-2",name: "GLOBAL SECURITY - EXTEN DE BENEF INVERSIONES FFVV", description: "GLOBAL SECURITY - EXTEN DE BENEF INVERSIONES FFVV")
+General::BenefitGroup.find_or_create_by(code:"HICDS-0",name: "HIPOTECARIA SECURITY PRINCIPAL S.A - GERENTES Y SUBGTES", description: "HIPOTECARIA SECURITY PRINCIPAL S.A - GERENTES Y SUBGTES")
+General::BenefitGroup.find_or_create_by(code:"HICDS-1",name: "HIPOTECARIA SECURITY PRINCIPAL S.A - TRABAJADORES", description: "HIPOTECARIA SECURITY PRINCIPAL S.A - TRABAJADORES")
+General::BenefitGroup.find_or_create_by(code:"INVST-0",name: "CAPITAL - SIN SINDICATO", description: "CAPITAL - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"INVST-1",name: "CAPITAL - EXTENSIÓN BENEF INVERSIONES", description: "CAPITAL - EXTENSIÓN BENEF INVERSIONES")
+General::BenefitGroup.find_or_create_by(code:"INVST-2",name: "CAPITAL - EXTENSIÓN DE BENEFICIOS", description: "CAPITAL - EXTENSIÓN DE BENEFICIOS")
+General::BenefitGroup.find_or_create_by(code:"ISC07-0",name: "INMOBILIARIA SECURITY SIETE - SIN SINDICATO", description: "INMOBILIARIA SECURITY SIETE - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"ISC07-1",name: "INMOBILIARIA SECURITY SIETE - EXTENSIÓN BENEF INMOBILIARIA 7", description: "INMOBILIARIA SECURITY SIETE - EXTENSIÓN BENEF INMOBILIARIA 7")
+General::BenefitGroup.find_or_create_by(code:"ISCTY-0",name: "INMOBILIARIA SECURITY S.A. - SIN SINDICATO", description: "INMOBILIARIA SECURITY S.A. - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"ISCTY-1",name: "INMOBILIARIA SECURITY S.A. - EXTENSIÓN BENEF. INMOBILIARIA", description: "INMOBILIARIA SECURITY S.A. - EXTENSIÓN BENEF. INMOBILIARIA")
+General::BenefitGroup.find_or_create_by(code:"MSCTY-0",name: "MANDATOS SECURITY - SIN SINDICATO", description: "MANDATOS SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"MSCTY-1",name: "MANDATOS SECURITY - SINDICATO MANDATOS", description: "MANDATOS SECURITY - SINDICATO MANDATOS")
+General::BenefitGroup.find_or_create_by(code:"RSCTY-0",name: "REPRESENTACIONES SECURITY - SIN SINDICATO", description: "REPRESENTACIONES SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"RSCTY-1",name: "REPRESENTACIONES SECURITY - CONVENIO TRAVEL", description: "REPRESENTACIONES SECURITY - CONVENIO TRAVEL")
+General::BenefitGroup.find_or_create_by(code:"SACTY-0",name: "ADM. SERVICIOS BENEFICIOS LTDA - Trabajadores", description: "ADM. SERVICIOS BENEFICIOS LTDA - Trabajadores")
+General::BenefitGroup.find_or_create_by(code:"SSC01-0",name: "INMOBILIARIA CASANUESTRA - SIN SINDICATO", description: "INMOBILIARIA CASANUESTRA - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"SSC01-1",name: "INMOBILIARIA CASANUESTRA - EXTENSIÓN BENEF INVERSIONES", description: "INMOBILIARIA CASANUESTRA - EXTENSIÓN BENEF INVERSIONES")
+General::BenefitGroup.find_or_create_by(code:"SSC01-2",name: "INMOBILIARIA CASANUESTRA - EXTEN DE BENEF INVERSIONES FFVV", description: "INMOBILIARIA CASANUESTRA - EXTEN DE BENEF INVERSIONES FFVV")
+General::BenefitGroup.find_or_create_by(code:"SSCTY-0",name: "SECURITIZADORA SECURITY - SIN SINDICATO", description: "SECURITIZADORA SECURITY - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"SSCTY-1",name: "SECURITIZADORA SECURITY - EXTENSIÓN BENEF INVERSIONES", description: "SECURITIZADORA SECURITY - EXTENSIÓN BENEF INVERSIONES")
+General::BenefitGroup.find_or_create_by(code:"SSCTY-2",name: "SECURITIZADORA SECURITY - EXTEN DE BENEF INVERSIONES FFVV", description: "SECURITIZADORA SECURITY - EXTEN DE BENEF INVERSIONES FFVV")
+General::BenefitGroup.find_or_create_by(code:"TSCTY-0",name: "TRAVEL SECURITY S.A. - SIN SINDICATO", description: "TRAVEL SECURITY S.A. - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"TSCTY-1",name: "TRAVEL SECURITY S.A. - CONVENIO TRAVEL", description: "TRAVEL SECURITY S.A. - CONVENIO TRAVEL")
+General::BenefitGroup.find_or_create_by(code:"TXCTY-0",name: "TRAVEX - SIN SINDICATO", description: "TRAVEX - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-3",name: "VIDA - AGENTE DE VENTAS INDIVIDUAL", description: "VIDA - AGENTE DE VENTAS INDIVIDUAL")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-4",name: "VIDA - AGENTE CONSULTOR INDIVIDUAL", description: "VIDA - AGENTE CONSULTOR INDIVIDUAL")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-5",name: "VIDA - AGENTE CONSULTOR FINANCIERO", description: "VIDA - AGENTE CONSULTOR FINANCIERO")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-6",name: "VIDA - JEFES Y PROFESIONALES", description: "VIDA - JEFES Y PROFESIONALES")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-7",name: "VIDA - JEFE COMERCIAL INDIVIDUAL", description: "VIDA - JEFE COMERCIAL INDIVIDUAL")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-0",name: "VIDA - GERENTES / SUBGERENTES / COMERCIAL NO VENTAS / JEFE COMERCIAL PF", description: "VIDA - GERENTES / SUBGERENTES / COMERCIAL NO VENTAS / JEFE COMERCIAL PF")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-1",name: "VIDA - AGENTE DE VENTAS Y MANTENCIÓN CON BIENESTAR", description: "VIDA - AGENTE DE VENTAS Y MANTENCIÓN CON BIENESTAR")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-8",name: "VIDA - TELEVENTAS", description: "VIDA - TELEVENTAS")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-2",name: "VIDA - AGENTE DE VENTAS Y MANTENCIÓN SIN BIENESTAR", description: "VIDA - AGENTE DE VENTAS Y MANTENCIÓN SIN BIENESTAR")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-9",name: "VIDA - SINDICALIZADOS", description: "VIDA - SINDICALIZADOS")
+General::BenefitGroup.find_or_create_by(code:"VDCTY-10",name: "VIDA - SUPERVISOR TELEVENTAS", description: "VIDA - SUPERVISOR TELEVENTAS")
+General::BenefitGroup.find_or_create_by(code:"VDPRO-0",name: "PROTECTA - SIN SINDICATO", description: "PROTECTA - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"VSCTY-0",name: "VALORES SECURITY S.A.COR.BOLSA - SIN SINDICATO", description: "VALORES SECURITY S.A.COR.BOLSA - SIN SINDICATO")
+General::BenefitGroup.find_or_create_by(code:"VSCTY-1",name: "VALORES SECURITY S.A.COR.BOLSA - EXTENSIÓN BENEF INVERSIONES", description: "VALORES SECURITY S.A.COR.BOLSA - EXTENSIÓN BENEF INVERSIONES")
+General::BenefitGroup.find_or_create_by(code:"VSCTY-2",name: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV", description: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV")
