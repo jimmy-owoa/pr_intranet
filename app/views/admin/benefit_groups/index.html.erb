@@ -8,8 +8,7 @@
             <tr>
               <th><%= 'ID' %></th>
               <th><%= 'Código' %></th>
-              <th><%= 'Nombre' %></th>
-              <th><%= 'Descripción' %></th>      
+              <th><%= 'Nombre' %></th>     
               <th><%= 'Acciones' %></th>    
               <th colspan="3"></th>
             </tr>
@@ -20,7 +19,6 @@
                 <td><%= link_to benefit_group.id, admin_benefit_group_path(benefit_group) %></td>
                 <td><%= benefit_group.code %></td>
                 <td><%= benefit_group.name %></td>
-                <td><%= benefit_group.description %></td>
                 <td><%= link_to t('.show', :default => t("helpers.benefits.show")),
                       admin_benefit_group_path(benefit_group), :class => 'btn btn-success btn-sm' %>
                 </td>
