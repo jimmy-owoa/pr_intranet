@@ -23,5 +23,8 @@
         <% end %>
       </tbody>
     </table>
+    <div class="col-md-12 center">
+      <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>    
   </div>
 </section>
