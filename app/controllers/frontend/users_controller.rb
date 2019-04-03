@@ -93,8 +93,50 @@ module Frontend
       @tomorrow_3 = l(Date.today + 4, format: '%A')
       @weather = General::WeatherInformation.where(location_id: @location).last
       @nickname = nickname(@user.name)
+      data_childrens = []
+      data_siblings = []
+      data_father = []
+      if @user.children.first.present?
+        @user.children.where.not(parent_id: nil).each do |children|
+          data_childrens << {
+            id: children.id,
+            name: children.name,
+            last_name: children.last_name, 
+            position: children.position,
+            company: children.company,          
+            image: children.image.attached? ?
+            url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+          }
+        end
+      end
+      if @user.siblings.first.present?
+        @user.siblings.where.not(parent_id: nil).each do |sibling|
+          data_siblings << {
+            id: sibling.id,
+            name: sibling.name,
+            last_name: sibling.last_name,
+            position: sibling.position,
+            company: sibling.company,          
+            image: sibling.image.attached? ? 
+            url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+          }
+        end
+      end
+      if @user.parent.present?
+        data_father << {
+          id: @user.parent.id,
+          name: @user.parent.name,
+          last_name: @user.parent.last_name,
+          position: @user.parent.position,
+          company: @user.parent.company,        
+          image: @user.parent.image.attached? ? 
+          url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+        }
+      end
       data_user << {
         id: @user.id,
+        name: @user.name,
+        last_name: @user.last_name,
         nickname: @nickname,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
@@ -111,7 +153,10 @@ module Frontend
         tomorrow: @tomorrow,
         tomorrow_1: @tomorrow_1,
         tomorrow_2: @tomorrow_2,
-        tomorrow_3: @tomorrow_3
+        tomorrow_3: @tomorrow_3,
+        childrens: data_childrens,
+        siblings: data_siblings,
+        father: data_father
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
