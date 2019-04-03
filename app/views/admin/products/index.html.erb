@@ -44,22 +44,3 @@
   </div>
 </section>
 <%= will_paginate @products, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-
-
-<script>
-$(".approved").on("change", function(e) {
-  var id;
-  id = $(this).data("id");
-  console.log(id);
-  return $.ajax({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    },    
-    url :  "/admin/products/"+id+".json",
-    type: 'PUT',
-    data: {
-      approved: $(this).is(":checked")
-    }
-  }).done(function(e) {});
-});
-</script>
