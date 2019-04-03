@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', function () {
     theme: "bootstrap",
     width: '100%'
   });
-  $("#user_address").select2({
+  $("#user_location_id").select2({
     theme: "bootstrap",
     width: '100%',
     placeholder: 'Elegir Ciudad'

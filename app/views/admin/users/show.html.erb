@@ -17,7 +17,7 @@
               <b>Nombre(s):</b> <%= @user.try(:name) %></br>
               <b>Apellido(s):</b> <%= @user.try(:last_name) %></br>
               <b>Correo:</b> <%= @user.email %></br>
-              <b>Ciudad:</b> <%= @user.address %></br>
+              <b>Ciudad:</b> <%= @user.location_id? ? @user.location.name : 'No definida' %></br>
               <b>Fecha de nacimiento:</b> <%= @user.birthday.present? ? custom_date_no_hour(@user.try(:birthday) ) : "" %></br>
               <b>Fecha de ingreso:</b> <%= @user.date_entry.present? ? custom_date_no_hour(@user.try(:date_entry) ) : "" %></br>
               <b>Anexo:</b> <%= @user.try(:annexed) %></br>

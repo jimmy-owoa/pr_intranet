@@ -1,6 +1,6 @@
 <%= f.error_notification %>
   <div class="row form-group">
-    <div class="col-6">
+    <div class="col-8">
       <div class="row">
         <div class="col-8 col-sm-6">
           <%= f.input :name %>
@@ -10,25 +10,21 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6 col-sm-7">
+        <div class="col-4 col-sm-3">
+          <%= f.input :rut %> 
+        </div>
+        <div class="col-4 col-sm-3">
           <%= f.input :email,required: true,autofocus: true ,input_html: { autocomplete: "email" }%>
         </div>
-        <div class="col-3 col-sm-2">
-          <%= f.label :active %>
-          <%= f.input :active, as: :boolean, label: false %>
+        <div class="col-6 col-sm-3">
+          <%= f.input :password,required: true,
+            hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" } %>
         </div>
-        <div class="col-3 col-sm-3">
-          <% if current_user.has_role? :super_admin %>            
-            <%= f.label :show_birthday %>
-            <%= f.input :show_birthday, as: :boolean, label: false %>
-          <% end %>        
+        <div class="col-6 col-sm-3">
+          <%= f.input :password_confirmation,required: true,input_html: { autocomplete: "new-password" } %>
         </div>
-      </div>
-      <%= f.input :password,required: true,
-        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,required: true,input_html: { autocomplete: "new-password" } %>
-      <div class="row">
-        <div class="col-8 col-sm-6">
+        
+        <div class="col-8 col-sm-3">
           <div class="input-group date" id="birthday" data-target-input="nearest">
             <% if @user.try(:birthday).present? %>
               <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', value: custom_date_no_hour(@user.birthday), id: 'birthday' %>
@@ -40,32 +36,16 @@
             </div>
           </div>
         </div>
-        <div class="col-4 col-sm-6">
+        <div class="col-4 col-sm-3">
           <%= f.input :annexed %> 
         </div>
-        <div class="col-4 col-sm-6">
+        <div class="col-4 col-sm-3">
           <%= f.input :position %> 
         </div>
-        <div class="col-4 col-sm-6">
+        <div class="col-4 col-sm-3">
           <%= f.input :company %> 
         </div>
-      </div>
-      <div class="row">
-        <div class="col-4 col-sm-6">
-          <%= f.label :address %></br>
-          <%= f.select :address, General::User::CITIES.map { |m| m }, include_blank: true, class:'form-control string optional', id:'user_address' %>
-        </div>
         <div class="col-6 col-sm-6">
-          <%= f.label 'Jerarquía' %></br>
-          <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
-        </div>        
-      </div>
-      <div class="row">
-        <div class="col-6 col-sm-7"></br>
-          <%= f.label :tags %></br>
-          <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
-        </div>
-        <div class="col-6 col-sm-5"></br>
           <div class="input-group date" id="date_entry" data-target-input="nearest">
             <% if @user.try(:date_entry).present? %>
               <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', 'data-target' => '#date_entry', value: custom_date_no_hour(@user.date_entry), id: 'date_entry' %>
@@ -76,10 +56,36 @@
               <div class="input-group-text"><i class="far fa-handshake"></i></div>
             </div>
           </div>     
+        </div> 
+        <div class="col-6 col-sm-6">
+          <%= f.label :tags %>
+          <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
+        </div>
+        <div class="col-4 col-sm-3">
+          <%= f.label :location_id %>
+          <% if f.object.location.present? %>
+            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }, f.object.location.id), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
+          <% else %>
+            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>          
+          <% end %>
+        </div>
+        <div class="col-6 col-sm-3">
+          <%= f.label 'Jerarquía' %>
+          <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
+        </div>       
+        <div class="col-2 col-sm-3">
+          <%= f.label :active %>
+          <%= f.input :active, as: :boolean, label: false %>
+        </div>
+        <div class="col-3 col-sm-3">
+          <% if current_user.has_role? :super_admin %>            
+            <%= f.label :show_birthday %>
+            <%= f.input :show_birthday, as: :boolean, label: false %>
+          <% end %>        
         </div>        
       </div>      
     </div> 
-    <div class="col-6" >
+    <div class="col-4" >
       <div class="card border-secondary mb-3" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
         <% if @user.image.attachment.present? %>
@@ -91,16 +97,16 @@
       </div>      
       <%= f.file_field :image, accept:'image/*' %>
       <div class="row">
-        <div class="col-8 col-sm-6 scrollDiv"></br>
+        <div class="col-8 col-sm-6 scrollDiv">
           <%= f.association :terms, collection: General::Term.categories, as: :check_boxes %>
         </div>
-        <div class="col-4 col-sm-6 scrollDiv"></br>
+        <div class="col-4 col-sm-6 scrollDiv">
           <% if current_user.has_role? :super_admin and params["action"] != 'new'%>
             <%= f.association :roles, as: :check_boxes %>
           <% end %>
         </div>
       </div>
-    </div></br>
+    </div>
   </div>
     <%= f.submit nil, class: 'btn btn-primary' %>
 
