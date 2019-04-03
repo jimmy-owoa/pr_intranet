@@ -266,6 +266,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_145309) do
     t.string "legal_number"
     t.string "legal_number_verification"
     t.date "date_entry"
+    t.integer "location_id"
     t.string "rut"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
