@@ -45,9 +45,10 @@ class General::User < ApplicationRecord
   ]
 
   def base_64_exa(file)
-    uri = URI("https://misecurity-qa.exa.cl/json_reports/encrypt/show/")
+    uri = URI("https://misecurity-qa.exa.cl/user_sync_photo/update_photo")
     base64 = Base64.strict_encode64(open(file).to_a.join)
-    # puts Net::HTTP.new("https://misecurity-qa.exa.cl/json_reports/encrypt/show/").post(base64).body
+    http = Net::HTTP.new(uri.host, uri.port)
+    # http.post(uri, base64)
   end
 
   def image_resize

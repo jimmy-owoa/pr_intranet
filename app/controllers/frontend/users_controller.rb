@@ -170,6 +170,6 @@ module Frontend
       user.image.attach(image)
       user.base_64_exa(image)
     end
-    
+
   end
 end
