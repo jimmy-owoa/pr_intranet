@@ -1,3 +1,5 @@
+require "uri"
+require "net/http"
 class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
@@ -41,6 +43,12 @@ class General::User < ApplicationRecord
     'Temuco', 
     'Puerto Montt'    
   ]
+
+  def base_64_exa(file)
+    uri = URI("https://misecurity-qa.exa.cl/json_reports/encrypt/show/")
+    base64 = Base64.strict_encode64(open(file).to_a.join)
+    # puts Net::HTTP.new("https://misecurity-qa.exa.cl/json_reports/encrypt/show/").post(base64).body
+  end
 
   def image_resize
     if self.image.attachment.present?

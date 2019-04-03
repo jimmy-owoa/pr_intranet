@@ -166,7 +166,10 @@ module Frontend
     
     def upload
       user = General::User.find(params[:user_id])
-      user.image.attach(params[:file])
+      image = params[:file]
+      user.image.attach(image)
+      user.base_64_exa(image)
     end
+    
   end
 end
