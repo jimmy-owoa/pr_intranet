@@ -2349,64 +2349,77 @@ General::BenefitGroup.find_or_create_by(code:"VSCTY-1",name: "VALORES SECURITY S
 General::BenefitGroup.find_or_create_by(code:"VSCTY-2",name: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV", description: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV")
 #LINK
 General::Link.find_or_create_by(
+  id: 1,
   title: 'Link 1',
   url: 'http://www.google.cl'
 )
 General::Link.find_or_create_by(
+  id: 2,
   title: 'Link 2',
   url: 'http://www.fayerwayer.cl'
 )
 General::Link.find_or_create_by(
+  id: 3,
   title: 'Link 3',
   url: 'https://www.bancosecurity.cl/'
 )
 General::Link.find_or_create_by(
+  id: 4,
   title: 'Link 4',
   url: 'https://personas.bancosecurity.cl/'
 )
 General::Link.find_or_create_by(
+  id: 5,
   title: 'Link 5',
   url: 'http://www.security.cl'
 )
 General::Link.find_or_create_by(
+  id: 6,
   title: 'Link 6',
   url: 'http://www.gmail.com'
 )
 #SECTION
 General::Section.find_or_create_by(
+  id: 1,
   title: 'Section 1',
   description: 'Descripción',
   position: 1,
   url: 'url-blablabla-1'
 )
 General::Section.find_or_create_by(
+  id: 2,
   title: 'Section 2',
   description: 'Descripción',
   position: 2,
   url: 'url-blablabla-2')
 General::Section.find_or_create_by(
+  id: 3,
   title: 'Section 3',
   description: 'Descripción/',
   position: 3,
   url: 'url-blablabla-3'
 )
 General::Section.find_or_create_by(
+  id: 4,
   title: 'Section 4',
   description: 'Descripción/',
   position: 4,
   url: 'url-blablabla-4')
 General::Section.find_or_create_by(
+  id: 5,
   title: 'Section 5',
   description: 'Descripción',
   position: 5,
   url: 'url-blablabla-5'
 )
 General::Section.find_or_create_by(
+  id: 6,
   title: 'Section 6',
   description: 'Descripción',
   position: 6,
   url: 'url-blablabla-6')
 General::Section.find_or_create_by(
+  id:71,
   title: 'Section 7',
   description: 'Descripción',
   position: 7,
