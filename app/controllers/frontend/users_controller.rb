@@ -7,14 +7,14 @@ module Frontend
     end
 
     def user
-      id = params[:id].present? ? params[:id] : nil
-      # datos hardcodeados hasta tener data de users
-      @user = General::User.find(id)
-      @nickname = nickname(@user.name)
       data_user = []
       data_childrens = []
       data_siblings = []
       data_father = []
+      id = params[:id].present? ? params[:id] : nil
+      @user = General::User.find(id)
+      @nickname = nickname(@user.name)
+      @location = @user.address.present? ? @user.address : General::Location.find(@user.location_id).name
       if @user.children.first.present?
         @user.children.where.not(parent_id: nil).each do |children|
           data_childrens << {
@@ -61,7 +61,7 @@ module Frontend
         annexed: @user.annexed,
         position: @user.position,
         company: @user.company,
-        address: @user.address,
+        address: @location,
         date_entry: @user.date_entry,
         image: @user.image.attached? ? 
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
@@ -85,13 +85,13 @@ module Frontend
       data_user = []
       id = params[:id].present? ? params[:id] : nil
       @user = General::User.find(id)    
-      @location = General::Location.where(name: @user.address).last
+      @location = General::Location.find(@user.location_id).name
       @today =  Date.today.strftime("%d/%m/%Y")
       @tomorrow = l(Date.today + 1, format: '%A')
       @tomorrow_1 = l(Date.today + 2, format: '%A')
       @tomorrow_2 = l(Date.today + 3, format: '%A')
       @tomorrow_3 = l(Date.today + 4, format: '%A')
-      @weather = General::WeatherInformation.where(location_id: @location).last
+      @weather = @user.address.present? ? General::WeatherInformation.where(name: @user.address).last : General::WeatherInformation.where(location_id: @user.location_id).last
       @nickname = nickname(@user.name)
       data_childrens = []
       data_siblings = []
@@ -147,7 +147,7 @@ module Frontend
           {link: '/', name: 'Inicio' },
           {link: '#', name: @nickname}
         ],
-        location: @location.name,
+        location: @location,
         weather: @weather,
         today:  @today,
         tomorrow: @tomorrow,
@@ -166,7 +166,10 @@ module Frontend
     
     def upload
       user = General::User.find(params[:user_id])
-      user.image.attach(params[:file])
+      image = params[:file]
+      user.image.attach(image)
+      user.base_64_exa(image)
     end
+
   end
 end

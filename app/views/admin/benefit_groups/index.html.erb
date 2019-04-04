@@ -1,0 +1,43 @@
+<%- model_class = General::BenefitGroup -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Beneficios de Grupo" %></h1>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'ID' %></th>
+              <th><%= 'Código' %></th>
+              <th><%= 'Nombre' %></th>     
+              <th><%= 'Acciones' %></th>    
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%@benefit_groups.each do |benefit_group| %>
+              <tr>
+                <td><%= link_to benefit_group.id, admin_benefit_group_path(benefit_group) %></td>
+                <td><%= benefit_group.code %></td>
+                <td><%= benefit_group.name %></td>
+                <td><%= link_to t('.show', :default => t("helpers.links.show")),
+                      admin_benefit_group_path(benefit_group), :class => 'btn btn-success btn-sm' %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_admin_benefit_group_path(benefit_group), :class => 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Deshabilitar',
+                    admin_benefit_group_path(benefit_group),
+                    :method => :delete,
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro??')) },
+                    :class => 'btn btn-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+        </div>
+      </div>
+    <%= link_to 'Nueva', new_admin_benefit_group_path, :class => 'btn btn-primary' %>
+    </div>
+  </section>
+
+<%= will_paginate @benefit_groups, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
