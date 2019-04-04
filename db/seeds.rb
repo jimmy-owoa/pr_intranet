@@ -2347,3 +2347,68 @@ General::BenefitGroup.find_or_create_by(code:"VDPRO-0",name: "PROTECTA - SIN SIN
 General::BenefitGroup.find_or_create_by(code:"VSCTY-0",name: "VALORES SECURITY S.A.COR.BOLSA - SIN SINDICATO", description: "VALORES SECURITY S.A.COR.BOLSA - SIN SINDICATO")
 General::BenefitGroup.find_or_create_by(code:"VSCTY-1",name: "VALORES SECURITY S.A.COR.BOLSA - EXTENSIÓN BENEF INVERSIONES", description: "VALORES SECURITY S.A.COR.BOLSA - EXTENSIÓN BENEF INVERSIONES")
 General::BenefitGroup.find_or_create_by(code:"VSCTY-2",name: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV", description: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV")
+#LINK
+General::Link.find_or_create_by(
+  title: 'Link 1',
+  url: 'http://www.google.cl'
+)
+General::Link.find_or_create_by(
+  title: 'Link 2',
+  url: 'http://www.fayerwayer.cl'
+)
+General::Link.find_or_create_by(
+  title: 'Link 3',
+  url: 'https://www.bancosecurity.cl/'
+)
+General::Link.find_or_create_by(
+  title: 'Link 4',
+  url: 'https://personas.bancosecurity.cl/'
+)
+General::Link.find_or_create_by(
+  title: 'Link 5',
+  url: 'http://www.security.cl'
+)
+General::Link.find_or_create_by(
+  title: 'Link 6',
+  url: 'http://www.gmail.com'
+)
+#SECTION
+General::Section.find_or_create_by(
+  title: 'Section 1',
+  description: 'Descripción',
+  position: 1,
+  url: 'url-blablabla-1'
+)
+General::Section.find_or_create_by(
+  title: 'Section 2',
+  description: 'Descripción',
+  position: 2,
+  url: 'url-blablabla-2')
+General::Section.find_or_create_by(
+  title: 'Section 3',
+  description: 'Descripción/',
+  position: 3,
+  url: 'url-blablabla-3'
+)
+General::Section.find_or_create_by(
+  title: 'Section 4',
+  description: 'Descripción/',
+  position: 4,
+  url: 'url-blablabla-4')
+General::Section.find_or_create_by(
+  title: 'Section 5',
+  description: 'Descripción',
+  position: 5,
+  url: 'url-blablabla-5'
+)
+General::Section.find_or_create_by(
+  title: 'Section 6',
+  description: 'Descripción',
+  position: 6,
+  url: 'url-blablabla-6')
+General::Section.find_or_create_by(
+  title: 'Section 7',
+  description: 'Descripción',
+  position: 7,
+  url: 'url-blablabla-7'
+)
