@@ -1,3 +1,5 @@
+require "uri"
+require "net/http"
 class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
@@ -12,6 +14,7 @@ class General::User < ApplicationRecord
   has_many :products, class_name: 'Marketplace::Product', foreign_key: :user_id
   has_many :answers, class_name: 'Survey::Answer', foreign_key: :user_id
   belongs_to :location, class_name: 'General::Location'
+  # belongs_to :general_group_benefit, optional: true, class_name: 'General::BenefitGroup'
 
   accepts_nested_attributes_for :terms
 
@@ -41,6 +44,13 @@ class General::User < ApplicationRecord
     'Temuco', 
     'Puerto Montt'    
   ]
+
+  def base_64_exa(file)
+    uri = URI("https://misecurity-qa.exa.cl/user_sync_photo/update_photo")
+    base64 = Base64.strict_encode64(open(file).to_a.join)
+    http = Net::HTTP.new(uri.host, uri.port)
+    # http.post(uri, base64)
+  end
 
   def image_resize
     if self.image.attachment.present?
