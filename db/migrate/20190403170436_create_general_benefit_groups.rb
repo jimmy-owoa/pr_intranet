@@ -10,14 +10,5 @@ class CreateGeneralBenefitGroups < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-
-    create_table :general_benefit_group_relationships do |t|
-      t.string :content
-      t.integer :benefit_id
-      t.integer :benefit_group_id
-
-      t.timestamps
-    end
-
   end
 end

@@ -99,6 +99,17 @@ module Frontend
       data_childrens = []
       data_siblings = []
       data_father = []
+      data_benefits = []
+      if @user.benefit_group.present?
+        @user.benefit_group.benefits.each do |benefit|
+          data_benefits << {
+            id: benefit.id,
+            name: benefit.title,
+            content: benefit.content,
+            image: url_for(benefit.image)
+        }
+        end
+      end
       if @user.children.first.present?
         @user.children.where.not(parent_id: nil).each do |children|
           data_childrens << {
@@ -161,7 +172,10 @@ module Frontend
         childrens: data_childrens,
         siblings: data_siblings,
         father: data_father,
-        benefits: @user.benefits_group
+        benefit_group: {
+          name: @user.benefit_group.name,
+          benefits: data_benefits
+        }
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
