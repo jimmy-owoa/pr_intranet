@@ -487,7 +487,7 @@
   <div class="hidden-sm-and-down">
     <div class="layout">
       <div class="flex sm2">
-        <a href="#/" >
+        <a href="/" >
           <img src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/header.41ac21fa.png" style="height: 2rem; cursor: pointer;">
         </a>
       </div>
@@ -504,7 +504,7 @@
             <% if weather[0].present? %> 
               <%= weather[0].current_temp %>°
             <% else %>
-              <%= General::User.find(3).location.weathers.where(date: Date.yesterday).first.tomorrow_max %>°
+              <%= 'Clima no disponible' %>
             <% end %>
           </div>
         </div>
@@ -518,7 +518,7 @@
       </div>
 
       <div class="flex text-md-right text-capitalize title font-weight-regular sm3">
-        <a href="#/perfil" style="text-decoration: none; color: black;">
+        <a href="/perfil" style="text-decoration: none; color: black;">
           ¡Hola <%= user.name %>!
           <div class="v-avatar" style="height: 30px; width: 30px;">
             <div aria-label="Avatar" class="v-responsive v-image">
@@ -547,7 +547,7 @@
                  <% if link.link.downcase[0..3] == 'http'%>
                   <%= link_to link.title, link.link %>
                 <% else %>
-                  <%= link_to link.title, '#/' + link.link %>
+                  <%= link_to link.title, '/' + link.link %>
                 <% end %>
               <% end %>
             </ul>
@@ -566,7 +566,7 @@
                  <% if link.link.downcase[0..3] == 'http'%>
                   <%= link_to link.title, link.link %>
                 <% else %>
-                  <%= link_to link.title, '#/' + link.link %>
+                  <%= link_to link.title, '/' + link.link %>
                 <% end %>
               <% end %>
             </ul>
@@ -585,7 +585,7 @@
                 <% if link.link.downcase[0..3] == 'http'%>
                   <%= link_to link.title, link.link %>
                 <% else %>
-                  <%= link_to link.title, '#/' + link.link %>
+                  <%= link_to link.title, '/' + link.link %>
                 <% end %>
               <% end %>
             </ul>
