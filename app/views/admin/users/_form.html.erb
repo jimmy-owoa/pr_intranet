@@ -59,7 +59,7 @@
           <%= f.label :tags %>
           <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.label :location_id %>
           <% if f.object.location.present? %>
             <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }, f.object.location.id), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
@@ -67,20 +67,23 @@
             <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>          
           <% end %>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-6 col-sm-6">
+          <%= f.input :address %> 
+        </div>     
+        <div class="col-4 col-sm-6">
           <%= f.label 'Jerarquía' %>
           <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
-        </div>       
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        </div>
+        <div class="col-4 col-sm-3">
           <%= f.label :active %>
           <%= f.input :active, as: :boolean, label: false %>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="col-4 col-sm-3">
           <% if current_user.has_role? :super_admin %>            
             <%= f.label :show_birthday %>
             <%= f.input :show_birthday, as: :boolean, label: false %>
           <% end %>        
-        </div>        
+        </div>                 
       </div>      
     </div> 
     <div class="col-4" >
