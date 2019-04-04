@@ -522,7 +522,9 @@
           ¡Hola <%= user.name %>!
           <div class="v-avatar" style="height: 30px; width: 30px;">
             <div aria-label="Avatar" class="v-responsive v-image">
+              <% if user.image.present? %>
                 <%= image_tag(user.image) %>
+              <% end %>
             </div>
           </div>
         </a>
