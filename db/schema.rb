@@ -99,6 +99,14 @@ ActiveRecord::Schema.define(version: 2019_04_03_170436) do
     t.index ["attachable_type", "attachable_id"], name: "index_general_attachments_on_attachable_type_and_attachable_id"
   end
 
+  create_table "general_benefit_group_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "content"
+    t.integer "benefit_id"
+    t.integer "benefit_group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_benefit_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "code"
     t.string "name"
@@ -112,7 +120,6 @@ ActiveRecord::Schema.define(version: 2019_04_03_170436) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "benefit_group_id"
   end
 
   create_table "general_daily_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
