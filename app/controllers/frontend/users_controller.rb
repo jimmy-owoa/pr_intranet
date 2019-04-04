@@ -14,7 +14,8 @@ module Frontend
       id = params[:id].present? ? params[:id] : nil
       @user = General::User.find(id)
       @nickname = nickname(@user.name)
-      @location = @user.address.present? ? @user.address : General::Location.find(@user.location_id).name
+      # @location = @user.address.present? ? @user.address : General::Location.find(@user.location_id).name
+      @location = General::Location.find(@user.location_id).name
       if @user.children.first.present?
         @user.children.where.not(parent_id: nil).each do |children|
           data_childrens << {
@@ -61,7 +62,8 @@ module Frontend
         annexed: @user.annexed,
         position: @user.position,
         company: @user.company,
-        address: @location,
+        address: @user.address,
+        location: @location,
         date_entry: @user.date_entry,
         image: @user.image.attached? ? 
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
@@ -91,7 +93,8 @@ module Frontend
       @tomorrow_1 = l(Date.today + 2, format: '%A')
       @tomorrow_2 = l(Date.today + 3, format: '%A')
       @tomorrow_3 = l(Date.today + 4, format: '%A')
-      @weather = @user.address.present? ? General::WeatherInformation.where(name: @user.address).last : General::WeatherInformation.where(location_id: @user.location_id).last
+      # @weather = @user.address.present? ? General::WeatherInformation.where(name: @user.address).last : General::WeatherInformation.where(location_id: @user.location_id).last
+      @weather = General::WeatherInformation.where(location_id: @user.location_id).last
       @nickname = nickname(@user.name)
       data_childrens = []
       data_siblings = []
@@ -147,6 +150,7 @@ module Frontend
           {link: '/', name: 'Inicio' },
           {link: '#', name: @nickname}
         ],
+        address: @user.address,
         location: @location,
         weather: @weather,
         today:  @today,
