@@ -2419,7 +2419,7 @@ General::Section.find_or_create_by(
   position: 6,
   url: 'url-blablabla-6')
 General::Section.find_or_create_by(
-  id: 7,
+  id:7,
   title: 'Section 7',
   description: 'Descripción',
   position: 7,

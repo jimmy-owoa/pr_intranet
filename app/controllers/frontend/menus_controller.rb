@@ -4,7 +4,7 @@ module Frontend
   class MenusController < FrontendController
     def menus
       data = []
-      menus = General::Menu.menu_cached
+      menus = General::Menu.all
       menus.each do |menu|
         data << {
           id: menu.id,

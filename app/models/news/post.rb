@@ -18,7 +18,7 @@ class News::Post < ApplicationRecord
 
   before_save :unique_slug
 
-  scope :important, -> { where(:important => true).last(5)}
+  scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5)}
 
   STATUS = ['Publicado','Borrador', 'Programado']
   VISIBILITY = ['Público', 'Privada']
