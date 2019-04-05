@@ -1,5 +1,5 @@
 <section class="section">
-  <h1 class="section-header">Link: <%= @benefit.id %></h1>
+  <h1 class="section-header"><%= @benefit.title %></h1>
   <div class="container card">
     <div class="col-md-12" align="center">
       <h4>Título: <a href='<%= @benefit.title %>'><%= @benefit.title %></a></h4>
@@ -10,7 +10,7 @@
           <%= 'No hay imagen cargada'%>
         <% end %>
       </div>
-      <h5><%= @benefit.content %> </h5>
+      <h5><%= raw @benefit.content %> </h5>
       <h5>Pertenece a los siguientes grupos beneficiarios: </h5>
       <% @benefit.benefit_groups.each do |bg| %> 
         <p>- <%= bg.name %></p>

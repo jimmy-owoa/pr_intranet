@@ -10,7 +10,8 @@
         multiple: true, class:' form-control string optional', id: 'benefit_groups' %>
       </div> 
       <div class="col-md-12">
-        <%= f.input :content %>
+        <%= f.text_area :content, :class => "tinymce" %>
+        <%= tinymce %>
       </div>
     </div>
     <div class="col-5" >
