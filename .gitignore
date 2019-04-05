@@ -34,3 +34,4 @@
 # Ignore database.yml
 /config/database.yml
 
+.DS_Store
