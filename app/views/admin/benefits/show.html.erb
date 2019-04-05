@@ -11,8 +11,10 @@
         <% end %>
       </div>
       <h5><%= raw @benefit.content %> </h5>
-      <h5>Tags incluyentes: <%= @benefit.terms.inclusive_tags.map(&:name).join(', ') %> </h5>
-      <h5>Tags excluyentes: <%= @benefit.terms.excluding_tags.map(&:name).join(', ') %> </h5>
+      <h5>Pertenece a los siguientes grupos beneficiarios: </h5>
+      <% @benefit.benefit_groups.each do |bg| %> 
+        <p>- <%= bg.name %></p>
+      <% end %>
     </div>
   </div>
   <br><br>

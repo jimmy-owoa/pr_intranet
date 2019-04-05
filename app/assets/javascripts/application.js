@@ -35,6 +35,7 @@
 //= require admin/messages
 //= require admin/terms
 //= require admin/surveys
+//= require admin/benefit_groups
 //= require owl.carousel
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form

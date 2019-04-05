@@ -5,13 +5,10 @@
         <%= f.input :title, required: true, autofocus: true %>
       </div>
       <div class="col-md-12">
-        <%= f.label 'Tags inclusivos' %>
-        <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
-      </div>
-      <div class="col-md-12">
-        <%= f.label 'Tags excluyentes' %>
-        <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
-      </div>      
+        <%= f.label 'Grupo beneficiario' %>
+        <%= select_tag :benefit_groups, options_for_select(General::BenefitGroup.all.map{|i| [i.name]}, f.object.terms.map(&:name)), 
+        multiple: true, class:' form-control string optional', id: 'benefit_groups' %>
+      </div><br />
       <div class="col-md-12">
         <%= f.text_area :content, :class => "tinymce" %>
         <%= tinymce %>
