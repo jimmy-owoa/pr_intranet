@@ -52,6 +52,7 @@ module Frontend
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
+        published_at: post.published_at,
         title: post.title,
         main_image: post.main_image,
         user_id: General::User.find(post.user_id).name,
