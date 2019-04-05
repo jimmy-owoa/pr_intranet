@@ -105,7 +105,7 @@ module Frontend
             id: benefit.id,
             name: benefit.title,
             content: benefit.content,
-            image: url_for(benefit.image)
+            image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png'
         }
         end
       end
