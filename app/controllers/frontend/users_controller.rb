@@ -173,7 +173,7 @@ module Frontend
         siblings: data_siblings,
         father: data_father,
         benefit_group: {
-          name: @user.benefit_group.name,
+          name: @user.benefit_group.present? ? @user.benefit_group.name : 'Sin grupo beneficiario',
           benefits: data_benefits
         }
       }
