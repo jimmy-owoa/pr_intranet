@@ -150,5 +150,6 @@ module Frontend
       params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :child_lastname,
       :birthday, :photo, :approved, :gender)
     end
+    
   end
 end

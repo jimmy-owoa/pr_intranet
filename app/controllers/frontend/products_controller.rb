@@ -6,7 +6,7 @@ module Frontend
   after_action :set_tracking, only: [:index, :show, :new]
 
   def index
-    products = Marketplace::Product.show_product
+    products = Marketplace::Product.all
     data = []
     normal_sizes = []
     large_sizes = []
@@ -29,6 +29,7 @@ module Frontend
       data << {
         id: product.id,
         name: product.name,
+        approved: product.approved,
         product_type: product.product_type,
         user_id: General::User.find(product.user_id).id,
         created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :benefit_groups
+  end
   devise_scope :user do
     root to: "devise/sessions#new"
   end
@@ -25,12 +28,14 @@ Rails.application.routes.draw do
       end
       resources :surveys
       resources :benefits
+      resources :benefit_groups
       resources :answers do 
         get :report, on: :member
       end
       resources :menus
       resources :messages
-      resources :sections, only: [:update, :show, :index, :edit]
+      resources :sections
+      put 'products/update_expiration', to: 'products#update_expiration'
       resources :products do
       member do
         delete :delete_image
@@ -61,12 +66,14 @@ Rails.application.routes.draw do
     get 'weather', to: 'frontend#weather'
     get 'weather_info', to: 'weather_information#weather'
     get 'births/calendar_births', to: 'births#calendar_births'
+    get 'menus/api_menu', to: 'menus#api_menu'
     resources :users, only: [:update, :show] do
       get :user, on: :collection
       get :current_user_vue, on: :collection
+      get :parents_data, on: :collection
     end
     post 'users/upload', to: 'users#upload'
-    put 'products/update_expiration', to: 'products#update_expiration'
+    post 'products/update_expiration', to: 'products#update_expiration'
     resources :surveys do
       get :survey_count, on: :collection
     end

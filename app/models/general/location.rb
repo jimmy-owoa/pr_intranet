@@ -1,5 +1,5 @@
 class General::Location < ApplicationRecord
-  has_many :users, class_name: 'General::User'
+  has_many :users, class_name: 'General::User', foreign_key: :location_id
   has_many :weathers, class_name: 'General::WeatherInformation', foreign_key: :location_id
 
   #scope

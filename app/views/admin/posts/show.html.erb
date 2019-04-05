@@ -32,18 +32,17 @@
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".gallery-modal-lg" id='show_gallery'>Ver Galería</button>
             <% end %>
           </div>
-          <div class="col-md-12" style="padding-top: 30px;">
+          <div class="col-md-12">
             <div class="modal fade gallery-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
-                  <div class="owl-carousel">
+                  <div class="row text-center" >
                     <% @post.galleries.each do |gal| %>
                       <figure>
                         <figcaption class='text-center'><%= gal.name%></figcaption>
                         <% gal.attachments.each do |image| %>
-                          <%= image_tag(image.attachment.attachment.variant(resize: '1000x400>'), style: 'padding: 12px;') %>
+                          <%= image_tag(image.attachment.attachment.variant(resize: '400x300>'), style: 'padding: 6px;') %>
                         <% end %>
-                      </figure>
                     <% end %>
                   </div>
                 </div>

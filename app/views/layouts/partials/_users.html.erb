@@ -28,11 +28,14 @@
             <td><%= user.birthday.present? ? custom_date_no_hour(user.birthday) : '' %></td>
             <td><%= user.annexed %></td>
             <td><%= user.active? ? 'Si' : 'No' %></td>
-            <td><%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user) %></td>
+            <td><%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user), class:'btn btn-primary btn-sm' %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <div class="col-md-12 center">
+      <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>
   </div>
 </section>
 

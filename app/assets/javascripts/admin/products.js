@@ -21,4 +21,19 @@ $(document).on('turbolinks:load', function () {
     cbxs.prop("checked", !cbxs.prop("checked"));
   });
 
+  $(".approved").on("change", function (e) {
+    var id;
+    id = $(this).data("id");
+    return $.ajax({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/admin/products/" + id + ".json",
+      type: 'PUT',
+      data: {
+        approved: $(this).is(":checked")
+      }
+    }).done(function (e) {});
+  });
+
 });

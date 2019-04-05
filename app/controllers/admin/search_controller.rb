@@ -4,11 +4,11 @@ module Admin
       search = params[:term].present? ? params[:term] : nil
       if search
         result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], match: :word
-        @users = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact
-        @posts = result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact
-        @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact
+        @users = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.paginate(:page => params[:page], :per_page => 18)
+        @posts = result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.paginate(:page => params[:page], :per_page => 18)
+        @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact.paginate(:page => params[:page], :per_page => 18)
       else
-        @users = General::User.all
+        @users = General::User.paginate(:page => params[:page], :per_page => 10)
         @posts = News::Post.all
         @menus = General::Menu.all
       end

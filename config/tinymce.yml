@@ -1,6 +1,5 @@
 toolbar:
-  - styleselect | bold italic | undo redo
-  - image | link | media | imagetools | emoticons | paste | print |
+  - styleselect | bold italic | undo redo | image | link | media | imagetools | emoticons | paste | print | forecolor backcolor
 plugins:
   - image
   - link
@@ -21,5 +20,8 @@ plugins:
   - searchreplace
   - fullscreen
   - emoticons
+  - textcolor
 language:
   - es
+browser_spellcheck:
+  - true

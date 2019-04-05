@@ -114,8 +114,6 @@ module Frontend
 
     def set_tracking
       ahoy.track "Birthday Model", params
-    end    
-
-    
+    end
   end
 end

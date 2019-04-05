@@ -10,6 +10,7 @@
         <th>Prioridad</th>
         <th>Padre</th>
         <th>Link - URL</th>
+        <th>Acciones</th>
         <th colspan="3"></th>
       </tr>
       </thead>
@@ -20,12 +21,16 @@
             <td><%= menu.description %></td>
             <td><%= menu.css_class %><div style="width:60px;height:5px;background:<%= menu.css_class %>"></div></td>
             <td><%= menu.priority%></td>
-            <td><%= menu.parent_id %></td>
+            <td><%= menu.parent_id ? General::Menu.parent_name_menu(menu.parent_id) : 'Sin padre'  %></td>
             <td><%= menu.link %></td>
-            <td></td>
+            <td><%= link_to t('.show', :default => t("helpers.links.show")),
+            admin_menu_path(menu), :class => 'btn btn-primary btn-sm' %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <div class="col-md-12 center">
+      <%= will_paginate @menus, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>    
   </div>
 </section>

@@ -1,0 +1,679 @@
+<style type="text/css" media="screen">
+  /* MOBILE CSS */
+  .hidden-mobile{
+    display: block;
+  }
+  /* END MOBILE CSS */
+  .hidden-sm-and-down{
+    display: none;
+  }
+  /* SEARCH */
+  #more_results {
+  cursor: pointer;
+}
+  .results_ul {
+    background-color: white;
+    border: thin solid blue;
+    border-radius: 8px;
+    font: inherit;
+    line-height: 1.5em;
+    padding: 1em 2.5em 1em 1em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: none;
+    z-index: 100000 !important;
+    margin-top: 25%;
+    position: absolute;
+  }
+  .results_ul a {
+    font-family: Lato, sans-serif;
+    font-size: 14px;
+    line-height: 25px;
+  }
+  .v-content__wrap {
+    position: unset !important;
+  }
+  #search_desktop .v-input {
+    height: 0px !important;
+  }
+  /* END SEARCH */
+  .application--wrap {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      min-height: 100vh;
+      max-width: 100%;
+      position: relative;
+  }
+  .pt-2 {
+      padding-top: 8px !important;
+  }
+  .v-avatar, .v-avatar .v-icon, .v-avatar .v-image, .v-avatar img {
+      border-radius: 50%;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+  }
+  .v-avatar {
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+      vertical-align: middle;
+  }
+  .v-avatar .v-icon, .v-avatar .v-image, .v-avatar img {
+      height: inherit;
+      width: inherit;
+  }
+  .v-avatar, .v-avatar .v-icon, .v-avatar .v-image, .v-avatar img {
+      border-radius: 50%;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+  }
+  .v-responsive {
+      position: relative;
+      overflow: hidden;
+      -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+      flex: 1 0 auto;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+  }
+  .v-image {
+      z-index: 0;
+  }
+  #back_menu {
+    height: 100vh;
+    width: 100vw;
+    position: "relative";
+    background-color: #000;
+    opacity: 0.5;
+    z-index: 1;
+    display: none;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .search_position {
+    position: absolute;
+    left: 885px;
+    padding-right: 0px;
+    height: 30px;
+  }
+  .container {
+  -webkit-box-flex: 1;
+    flex: 1 1 100%;
+    margin: auto;
+    padding: 24px;
+    padding-top: 24px;
+    width: 100%;
+  }
+  nav {
+    position: inherit;
+    width: 100%;
+    background: #fafafa;
+    font-size: 14px;
+  }
+  /* first stage */
+  nav > ul {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    height: 50px;
+    border-bottom: 1px solid#ddd;
+    margin-bottom: 5px;
+    z-index: 9;
+  }
+  nav a {
+    display: block;
+    color: black;
+    text-decoration: none;
+  }
+  nav ul li {
+    color: #fff;
+    list-style: none;
+    transition: 0.15s;
+  }
+  nav > ul > li > a {
+    padding: 15px 25px;
+  }
+  nav ul > li.submenu:hover > a:after {
+    margin-top: 2px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid green;
+  }
+  nav > ul > li:hover {
+    /* background: red; */
+    border-bottom: 5px solid green;
+  }
+  /* second stage (the mega-menu) */
+  nav ul.megamenu {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: 1092px;
+    top: -9999px;
+    left: 0;
+    padding: 20px 10px 0 10px;
+    background: #fff;
+    text-align: left;
+    /* border-top: 5px solid green; */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    transition-delay: 0.15s;
+  }
+  nav ul li:hover ul.megamenu {
+    top: 100%;
+  }
+  /* third stage (child-menus in the mega-menu) */
+  nav ul.megamenu ul {
+    width: 20%;
+    margin-bottom: 10px;
+    color: #000;
+    box-shadow: none;
+  }
+  nav ul.megamenu h4 {
+    margin-bottom: 5px;
+    text-transform: uppercase;
+  }
+  nav ul.megamenu ul li {
+    display: block;
+  }
+  nav ul.megamenu ul li a {
+    margin-top: 10px;
+    transition: 0.2s;
+    color: #000;
+  }
+  nav ul.megamenu ul li a:hover {
+    color: #4096ee;
+  }
+  .menu_for_xl {
+    min-height: 32%;
+    max-width: 1092px;
+    background-color: white;
+    top: 138px !important;
+    min-width: 1085px !important;
+    left: 412px !important;
+  }
+  .menu_for_lg {
+    min-height: 32%;
+    max-width: 1092px;
+    background-color: white;
+    top: 138px !important;
+    min-width: 1085px !important;
+    left: 7.5% !important;
+  }
+  .menu_for_md {
+    min-height: 32%;
+    max-width: 1092px;
+    background-color: white;
+    top: 138px !important;
+    min-width: 1085px !important;
+    left: 30px !important;
+  }
+  .main-menu {
+    /* border-top: 1px solid #ddd; */
+    border-bottom: 1px solid #ddd;
+    z-index: 1;
+    margin-bottom: 6px;
+    height: 70px;
+    margin-top: -10px;
+  }
+  .v-list__tile {
+    margin-top: 18px;
+  }
+  .head_section {
+    font-family: Lato, sans-serif;
+    font-size: 12px;
+    color: #8fca00;
+    line-height: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .link-format {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+    font-family: Lato, sans-serif;
+  }
+  .link-format:hover {
+    text-decoration: underline;
+  }
+  .head_menu {
+    font-family: Lato, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333333;
+  }
+  .align-center {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  .pl-1 {
+      padding-left: 4px !important;
+  }
+  .text-md-right {
+      text-align: right !important;
+  }
+  .subheading {
+      font-size: 16px !important;
+      font-weight: 400;
+  }
+  .flex {
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    flex-grow: 1;
+    flex-basis: auto;
+    max-width: 100%;
+  }
+  .flex.sm2 {
+    -ms-flex-preferred-size: 16.666666666666664%;
+    flex-basis: 16.666666666666664%;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 16.666666666666664%;
+    }
+  .flex.sm3 {
+      flex-basis: 25%;
+      -webkit-box-flex: 0;
+      flex-grow: 0;
+      max-width: 25%;
+  }
+  .flex.sm4 {
+    flex-basis: 33.33333333333333%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 33.33333333333333%;
+  }
+  .flex.sm5 {
+    -ms-flex-preferred-size: 41.66666666666667%;
+    flex-basis: 41.66666666666667%;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 41.66666666666667%;
+  }
+  .flex.sm7 {
+    -ms-flex-preferred-size: 58.333333333333336%;
+    flex-basis: 58.333333333333336%;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 58.333333333333336%;
+  }
+  .flex.sm8 {
+    -ms-flex-preferred-size: 66.66666666666666%;
+    flex-basis: 66.66666666666666%;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 66.66666666666666%;
+  }
+  .layout {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      min-width: 0;
+  }
+  .layout.wrap {
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  }
+  .layout.row {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+  }
+  .text-capitalize {
+    text-transform: capitalize !important;
+  }
+  .font-weight-regular {
+    font-weight: 400 !important;
+  }
+  .text-md-right {
+    text-align: right !important;
+  }
+  /* ################################################################## */
+  @media (min-width: 600px){
+    nav {
+      font-size: 16px;
+    }
+    .head_menu {
+      font-size: 12px;
+      line-height: 24px;
+    }
+    .hidden-sm-and-down{
+      display: block;
+    }
+    .hidden-mobile{
+    display: none;
+  }
+  }
+
+  @media (min-width: 960px){
+    .hidden-mobile{
+      display: none;
+    }
+    .search_position {
+      left: 885px;
+    }
+    .container {
+      max-width: 1140px;
+    }
+    nav {
+      font-size: 14px;
+      display: block;
+    }
+    nav a {
+      font-weight: 500;
+      color: #333;
+    }
+    /* first stage */
+    nav > ul {
+      height: 50px;
+      margin-bottom: 5px;
+    }
+    nav > ul > li > a {
+      padding: 15px 25px;
+    }
+    nav ul > li.submenu:hover > a:after {
+      margin-top: 2px;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid green;
+    }
+    nav > ul > li:hover {
+      border-bottom: 5px solid green;
+    }
+    /* second stage (the mega-menu) */
+    nav ul.megamenu {
+      width: 1092px;
+      top: -9999px;
+      left: 0;
+      padding: 20px 10px 0 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    }
+    nav ul li:hover ul.megamenu {
+      top: 100%;
+    }
+    /* third stage (child-menus in the mega-menu) */
+    nav ul.megamenu ul {
+      width: 20%;
+      margin-bottom: 10px;
+    }
+    nav ul.megamenu h4 {
+      margin-bottom: 5px;
+    }
+    nav ul.megamenu ul li a {
+      margin-top: 10px;
+    }
+    .menu_for_xl {
+      min-height: 32%;
+      max-width: 1092px;
+      top: 138px !important;
+      min-width: 1085px !important;
+      left: 412px !important;
+    }
+    .menu_for_lg {
+      min-height: 32%;
+      max-width: 1092px;
+      top: 138px !important;
+      min-width: 1085px !important;
+      left: 7.5% !important;
+    }
+    .menu_for_md {
+      min-height: 32%;
+      max-width: 1092px;
+      top: 138px !important;
+      min-width: 1085px !important;
+      left: 30px !important;
+    }
+    .main-menu {
+      margin-bottom: 6px;
+      height: 70px;
+      margin-top: -10px;
+    }
+    .v-list__tile {
+      margin-top: 18px;
+    }
+
+    .head_section {
+      font-size: 12px;
+      line-height: 12px;
+      letter-spacing: 0.05em;
+    }
+    .link-format {
+      font-size: 12px;
+    }
+    .head_menu {
+      font-size: 12px;
+      line-height: 24px;
+    }
+  }
+</style>
+<div class="">
+  <div class="hidden-sm-and-down">
+    <div class="layout">
+      <div class="flex sm2">
+        <a href="/" >
+          <img src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/header.41ac21fa.png" style="height: 2rem; cursor: pointer;">
+        </a>
+      </div>
+
+      <div class="flex text-md-center subheading sm4"> Santoral: <%= santoral.name %></div>
+
+      <div class="flex sm2 pointer">
+        <div class="v-responsive v-image" style="height: 24px;">
+          <div>
+            <img src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/clear-day.1cbef1c7.svg" style="height: 24px;">
+          </div>
+          <div class="text-md-center subheading">
+            <%= location_name %>: 
+            <% if weather[0].present? %> 
+              <%= weather[0].current_temp %>°
+            <% else %>
+              <%= 'Clima no disponible' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex sm2 text-md-center subheading pointer">
+        <i aria-hidden="true" class="v-icon material-icons theme--light">
+        multiline_chart</i>
+        Indicadores
+        <div class="v-dialog__container" style="display: block;"></div>
+      </div>
+
+      <div class="flex text-md-right text-capitalize title font-weight-regular sm3">
+        <a href="/perfil" style="text-decoration: none; color: black;">
+          ¡Hola <%= user.name %>!
+          <div class="v-avatar" style="height: 30px; width: 30px;">
+            <div aria-label="Avatar" class="v-responsive v-image">
+              <% if user.image.present? %>
+                <%= image_tag(user.image) %>
+              <% end %>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+    <div class="layout">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAAGCAIAAABilV9xAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUYzOTAyN0I3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUYzOTAyN0M3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5RjM5MDI3OTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5RjM5MDI3QTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PonKw5gAAABVSURBVHja7NTBDUBQFADBRw8qEEWox0F+GSISzahADz9ulKMJFy8zHexlm9iu+L/1eBJUzHVJUNGVO0HFNIwJKs69j1zaADAsAMMCDAvAsAA+8QowAJynCJumWcovAAAAAElFTkSuQmCC" class="hidden-sm-and-down" style="height: 0.5rem; width: 50%;">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAAGCAIAAABilV9xAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUYzOTAyN0I3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUYzOTAyN0M3NDJCMTFFNkE5OENGODZCMjgzQURBQ0QiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5RjM5MDI3OTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5RjM5MDI3QTc0MkIxMUU2QTk4Q0Y4NkIyODNBREFDRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PonKw5gAAABVSURBVHja7NTBDUBQFADBRw8qEEWox0F+GSISzahADz9ulKMJFy8zHexlm9iu+L/1eBJUzHVJUNGVO0HFNIwJKs69j1zaADAsAMMCDAvAsAA+8QowAJynCJumWcovAAAAAElFTkSuQmCC" class="hidden-sm-and-down" style="height: 0.5rem; width: 50%;">
+    </div>
+  </div>
+  <nav fixed>
+    <ul id="ul_menu">
+      <li class="submenu" id="submenu1">
+        <a href="#" title="Menu 1" class="head_menu">EN LÍNEA</a>
+        <ul class="megamenu" id="megamenu1">
+          <% menu_parents = menus.where(id: [1, 5, 14, 17, 22, 25, 31, 35]) %>
+          <% menu_parents.each do |menu_parent| %>
+            <ul>
+              <h4 class="head_section"><%= menu_parent.title %></h4>
+              <% menus.where(parent_id: menu_parent.id).each do |link| %>
+                 <% if link.link.downcase[0..3] == 'http'%>
+                  <%= link_to link.title, link.link %>
+                <% else %>
+                  <%= link_to link.title, '/' + link.link %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </ul>
+      </li>
+
+      <li class="submenu" id="submenu1">
+        <a href="#" title="Menu 1" class="head_menu">INFORMADOS</a>
+        <ul class="megamenu" id="megamenu1">
+          <% menu_parents = menus.where(id: [38, 42, 53, 56, 59, 65, 68, 71, 75, 78, 81, 82]) %>
+          <% menu_parents.each do |menu_parent| %>
+            <ul>
+              <h4 class="head_section"><%= menu_parent.title %></h4>
+              <% menus.where(parent_id: menu_parent.id).each do |link| %>
+                 <% if link.link.downcase[0..3] == 'http'%>
+                  <%= link_to link.title, link.link %>
+                <% else %>
+                  <%= link_to link.title, '/' + link.link %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </ul>
+      </li>
+
+      <li class="submenu" id="submenu1">
+        <a href="#" title="Menu 1" class="head_menu">MIS BENEFICIOS</a>
+        <ul class="megamenu" id="megamenu1">
+          <% menu_parents = menus.where(id: [91, 105, 108, 113, 116, 125, 132, 149, 157, 164]) %>
+          <% menu_parents.each do |menu_parent| %>
+            <ul>
+              <h4 class="head_section"><%= menu_parent.title %></h4>
+              <% menus.where(parent_id: menu_parent.id).each do |link| %>
+                <% if link.link.downcase[0..3] == 'http'%>
+                  <%= link_to link.title, link.link %>
+                <% else %>
+                  <%= link_to link.title, '/' + link.link %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </ul>
+      </li>
+      
+
+      <div class="search_position">
+        <div id="search_desktop" class="hidden-sm-and-down">
+          <div
+            class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--solo-flat v-text-field--enclosed theme--light"
+          >
+            <div class="v-input__control">
+              <div class="v-input__slot">
+                <div class="v-text-field__slot">
+                  <label
+                    aria-hidden="true"
+                    class="v-label theme--light"
+                    style="left: 0px; right: auto; position: absolute;"
+                  >Buscar</label>
+                  <input aria-label="Buscar" right type="text">
+                </div>
+                <div class="v-input__append-inner">
+                  <div class="v-input__icon v-input__icon--append">
+                    <i
+                      aria-hidden="true"
+                      class="v-icon v-icon--link material-icons theme--light"
+                    >search</i>
+                  </div>
+                </div>
+              </div>
+              <div class="v-text-field__details">
+                <div class="v-messages theme--light">
+                  <div class="v-messages__wrapper"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="results_ul" style="display: none;"></ul>
+          <br>
+        </div>
+        <div class="hidden-md-and-up">
+          <div
+            class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--enclosed v-text-field--placeholder theme--light"
+          >
+            <div class="v-input__control">
+              <div class="v-input__slot">
+                <div class="v-text-field__slot">
+                  <input type="text" placeholder="Buscar">
+                </div>
+                <div class="v-input__append-inner">
+                  <div class="v-input__icon v-input__icon--">
+                    <i aria-hidden="true" class="v-icon v-icon--link material-icons theme--light"></i>
+                  </div>
+                </div>
+                <div class="v-input__append-inner">
+                  <div class="v-input__icon v-input__icon--append">
+                    <i
+                      aria-hidden="true"
+                      class="v-icon v-icon--link material-icons theme--light"
+                    >search</i>
+                  </div>
+                </div>
+              </div>
+              <div class="v-text-field__details">
+                <div class="v-messages theme--light">
+                  <div class="v-messages__wrapper"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ul class="results_ul" style="color: red;"></ul>
+          <br>
+        </div>
+      </div>
+    </ul>
+  </nav>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+  $(function() {
+    $( '#dl-menu' ).dlmenu();
+  });
+</script>
+

@@ -43,14 +43,21 @@ module Admin
 
     def update
       authorize @product
-      respond_to do |format|
-        if @product.update(product_params)
-          catch_image(params[:permissions])
-          format.html { redirect_to admin_product_path(@product), notice: 'Birth was successfully updated.'}
-          format.json { render :show, status: :ok, location: @product }
-        else
-          format.html { render :edit}
-          format.json { render json: @product.errors, status: :unprocessable_entity}
+      if params['approved'].present?
+        respond_to do |format|
+          @product.update_attributes(approved: params['approved'])
+          format.json { render :json => {value: "success"} and return}
+        end
+      else
+        respond_to do |format|
+          if @product.update(product_params)
+            catch_image(params[:permissions])
+            format.html { redirect_to admin_product_path(@product), notice: 'Birth was successfully updated.'}
+            format.json { render :show, status: :ok, location: @product }
+          else
+            format.html { render :edit}
+            format.json { render json: @product.errors, status: :unprocessable_entity}
+          end
         end
       end
     end

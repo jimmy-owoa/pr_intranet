@@ -22,7 +22,8 @@ es:
         question_type: Tipo de pregunta
         optional: Obligatorio
       general/user:
-        address: Dirección/Ciudad
+        address: Dirección
+        location_id: Ciudad
         roles: Roles
         last_name: Apellidos
         active: Activo

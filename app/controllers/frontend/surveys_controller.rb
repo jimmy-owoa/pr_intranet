@@ -61,9 +61,9 @@ module Frontend
       data_user = []
       id = params[:id].present? ? params[:id] : nil
       @user = General::User.find(id)
-      if Survey::Question.includes(:answers).where(optional: true).map{|a| a.answers.blank?}.include?(false) == true
+      if Survey::Question.includes(:answers).map{|a| a.answers.blank? }.include?(true)
         data_user << {alert: 1}
-      elsif Survey::Question.includes(:answers).all.map{|a| a.answers.where(user_id: @user.id)}.flatten.count != 0
+      elsif Survey::Question.includes(:answers).map{|a| a.answers.where(user_id: @user.id)}.flatten.count != 0
         data_user << {alert: 1}
       else
         data_user << {alert: 0}

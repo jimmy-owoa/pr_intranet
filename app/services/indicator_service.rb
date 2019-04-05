@@ -21,7 +21,8 @@ class IndicatorService
       uf: format_data(@currencies['uf']['valor']),
       utm: @currencies['utm']['valor'],
       ipc: @currencies['ipc']['valor'],
-      ipsa: format_data(@indexes['listaResult'][1]['Valor'])
+      ipsa: format_data(@indexes['listaResult'][1]['Valor']),
+      ipsa_variation: format_data(@indexes['listaResult'][1]['Variacion'])
     }
   end
 
