@@ -21,7 +21,7 @@ module Admin
       @benefit = General::Benefit.new(benefit_params)
       respond_to do |format|
         if @benefit.save
-          set_tags
+          set_benefit_group
           format.html { redirect_to admin_benefit_path(@benefit), notice: 'Benefit was successfully created.'}
           format.json { render :show, status: :created, location: @benefit}
         else
@@ -34,7 +34,7 @@ module Admin
     def update
       respond_to do |format|
         if @benefit.update(benefit_params)
-          set_tags
+          set_benefit_group
           format.html { redirect_to admin_benefit_path(@benefit), notice: 'Benefit was successfully updated.'}
           format.json { render :show, status: :ok, location: @benefit }
         else
@@ -58,20 +58,20 @@ module Admin
       @benefit = General::Benefit.find(params[:id])
     end
 
-    def set_tags
+    def set_benefit_group
       # Getting terms_names from the form (tags)
-      term_names = params[:terms_names]
-      terms = []
-      if term_names.present?
-        term_names.uniq.each do |tag|
-          terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
+      benefit_groups = params[:benefit_groups]
+      groups = []
+      if benefit_groups.present?
+        benefit_groups.uniq.each do |bg|
+          groups << General::BenefitGroup.where(name: bg).first_or_create
         end
-        @benefit.terms << terms
+        @benefit.benefit_groups << groups
       end   
     end    
 
     def benefit_params
-      params.require(:benefit).permit(:title, :content, :image, terms_names: [])
+      params.require(:benefit).permit(:title, :content, :image, benefit_groups: [])
     end
   end
 end
