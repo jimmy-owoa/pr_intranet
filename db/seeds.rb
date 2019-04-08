@@ -33,47 +33,62 @@ General::Location.find_or_create_by(name: 'Concepcion')
 General::Location.find_or_create_by(name: 'Temuco')
 General::Location.find_or_create_by(name: 'Puerto Montt')
 #users
-puts("******* Creando Usuarios *******")
-General::User.where(
-  name:'Nombre',
-  last_name: 'Apellido',
-  annexed: '1029',
-  password: 'security',
-  password_confirmation: 'security',
-  email: 'admin@security.cl',
-  birthday: Date.today,
-  location_id: 2
-).first_or_create
-General::User.where(
-  name:'Nombre 2',
-  last_name: 'Apellido 2',
-  annexed: '1928',
-  password: 'security',
-  password_confirmation: 'security',
-  email: 'user@security.cl',
-  birthday: Date.today-1,
-  location_id: 2
-).first_or_create
-General::User.where(
-  name:'Persona 3',
-  last_name: 'a cargo de',
-  annexed: '11020',
-  password: 'security',  
-  password_confirmation: 'security',
-  email: 'a-cargo-de@security.cl',
-  birthday: Date.today-2,
-  location_id: 2
-).first_or_create
-General::User.where(
-  name:'Persona 4',
-  last_name: 'rama',
-  annexed: '22212',
-  password: 'security',
-  password_confirmation: 'security',
-  email: 'otro-a-cargode@security.cl',
-  birthday: Date.today-2,
-  location_id: 2
-).first_or_create
+puts("Creando Usuarios")
+users =  
+  [
+    {
+      name:'Persona',
+      last_name: 'Apellido',
+      annexed: '1029',
+      password: 'security',
+      email: 'admin@security.cl',
+      birthday: Date.today,
+      location_id: 2
+    },
+    {
+      name:'Persona 2',
+      last_name: 'Apellido 2',
+      annexed: '1928',
+      password: 'security',
+      email: 'user@security.cl',
+      birthday: Date.today-1,
+      location_id: 2      
+    },
+    {
+      name:'Persona 3',
+      last_name: 'a cargo de',
+      annexed: '11020',
+      password: 'security',  
+      email: 'a-cargo-de@security.cl',
+      birthday: Date.today-2,
+      location_id: 2      
+    },
+    {
+      name:'Persona 4',
+      last_name: 'rama',
+      annexed: '22212',
+      password: 'security',
+      email: 'otro-a-cargode@security.cl',
+      birthday: Date.today-2,
+      location_id: 2      
+    }
+  ]
+users.each do |user|
+  unless General::User.find_by_email(user[:email])
+    General::User.create(
+      name: user[:name],
+      last_name: user[:last_name], 
+      annexed: user[:annexed], 
+      email: user[:email], 
+      password: user[:password], 
+      password_confirmation: user[:password],
+      birthday: user[:birthday],
+      location: user[:location]
+    )
+  else
+    puts "el usuario #{user[:email]} existe"
+  end
+end
 #users / user_admin see admin screen and user see welcome screen
 user_admin = General::User.first
 user = General::User.second

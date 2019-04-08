@@ -27,7 +27,12 @@
         <div class="row" style='padding: 15px'>
           <% @gallery.attachments.each do |image|%>
             <div class="col-md-3" >
+              <figure>                    
                 <%= image_tag(image.attachment.variant(resize: '200x150>'))%>
+                <figcaption>
+                  <%= link_to 'link', rails_blob_url(image.attachment), id: 'link_attachment' %>
+                </figcaption>
+              </figure>
             </div>
           <% end %>
         </div>
