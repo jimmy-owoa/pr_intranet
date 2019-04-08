@@ -15,7 +15,7 @@
                 <li>Prioridad: <%= @menu.priority %></li>
                 <li>Padre:<%= @menu.parent_id %></li>
                 <li>Link: <%= @menu.link %></li>
-                <li>Categorías: <%= @menu.terms.categories.present? ? @menu.terms.categories.map(&:name).join(',') : 'No tiene' %></li>
+                <li>Empresas: <%= @menu.terms.categories.present? ? @menu.terms.categories.map(&:name).join(',') : 'No tiene' %></li>
                 <li>Etiquetas: <%= @menu.terms.tags.present? ? @menu.terms.tags.map(&:name).join(',') : 'No tiene' %></li>                
               </ul>          
             </div>

@@ -99,7 +99,7 @@
       <%= f.file_field :image, accept:'image/*' %>
       <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
-          <%= f.association :terms, collection: General::Term.categories, as: :check_boxes %>
+          <%= f.association :terms, collection: General::Term.categories, as: :check_boxes, label: 'Empresas'  %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
           <% if current_user.has_role? :super_admin and params["action"] != 'new'%>

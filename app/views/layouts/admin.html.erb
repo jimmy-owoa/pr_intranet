@@ -113,33 +113,15 @@
                 <li>
                   <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a></li>
                 </li>                
-                <li>
-                  <a href="#" class="has-dropdown"><i class="fas fa-tag"></i><span>Terms</span></a>
-                  <ul class="menu-dropdown">
-                    <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i> Listado</a></li>
-                    <li><a href="<%= new_admin_term_path %>"><i class="fas fa-tags"></i> Crear nueva</a></li>
-                  </ul>
-                </li>                
+                <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i> Etiquetas</a></li>
                 <li class="menu-header">Marketplace</li>
-                <li><a href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i> Productos</a></li>
+                <li><a href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i> Anuncios</a></li>
                 <li class="menu-header">Eventos</li>
                 <li><a href="<%= admin_births_path %>"><i class="fas fa-dove"></i> Nacimientos</a></li>
                 <li class="menu-header">Configuración</li>
-                <li>
-                  <a href="#" class="has-dropdown"><i class="fas fa-users"></i><span>Usuarios</span></a>
-                  <ul class="menu-dropdown">
-                    <li><a href="<%= admin_users_path %>"><i class="fas fa-list"></i> Listado</a></li>
-                    <li><a href="<%= new_admin_user_path %>"><i class="fas fa-user-plus"></i> Añadir nuevo</a></li>
-                  </ul>
-                </li>
+                <li><a href="<%= admin_users_path %>"><i class="fas fa-users"></i>Usuarios</a></li>
                 <li><a href="<%= admin_analytics_path %>"><i class="fas fa-chart-pie"></i> Analítica</a></li>
-                <li>
-                  <a href="#" class="has-dropdown"><i class="fab fa-trello"></i><span>Menu</span></a>
-                  <ul class="menu-dropdown">
-                    <li><a href="<%= admin_menus_path %>"><i class="fas fa-list"></i> Listado</a></li>
-                    <li><a href="<%= new_admin_menu_path %>"><i class="fas fa-plus-square"></i> Añadir nuevo</a></li>
-                  </ul>
-                </li>
+                <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i> Menús</a></li>
               <% end %>
             </ul>
           </aside>
