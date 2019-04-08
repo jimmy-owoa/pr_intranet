@@ -64,7 +64,8 @@ module Admin
       groups = []
       if benefit_groups.present?
         benefit_groups.uniq.each do |bg|
-          groups << General::BenefitGroup.where(name: bg).first_or_create
+          # groups << General::BenefitGroup.where(name: bg)
+          groups << General::BenefitGroup.find_or_create_by(name: bg) unless @benefit.benefit_groups.pluck(:name).include?(bg)
         end
         @benefit.benefit_groups << groups
       end   
