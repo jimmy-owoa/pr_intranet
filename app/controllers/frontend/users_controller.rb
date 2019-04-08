@@ -87,7 +87,7 @@ module Frontend
       data_user = []
       id = params[:id].present? ? params[:id] : nil
       @user = General::User.find(id)    
-      @location = General::Location.find(@user.location_id).name
+      @location = @user.location.present? ? General::Location.find(@user.location_id).name : 'No definido'
       @today =  Date.today.strftime("%d/%m/%Y")
       @tomorrow = l(Date.today + 1, format: '%A')
       @tomorrow_1 = l(Date.today + 2, format: '%A')
