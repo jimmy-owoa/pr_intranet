@@ -2,9 +2,11 @@ def es_bisiesto?(year)
   year % 4 == 0 && year % 100 != 0 || year % 400 == 0
 end
 #term type
+puts("Creando Term types")
 General::TermType.find_or_create_by(name: 'category')
 General::TermType.find_or_create_by(name: 'tag')
 #terms
+puts("Creando Terms")
 General::Term.find_or_create_by(name: 'Banco', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Factoring', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Inversiones', term_type_id: 1)
@@ -13,11 +15,13 @@ General::Term.find_or_create_by(name: 'Corredora de Seguros', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Travel', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Inmobiliaria', term_type_id: 1)
 #roles
+puts("Creando Roles")
 Role.find_or_create_by(name: 'user')
 Role.find_or_create_by(name: 'post_admin')
 Role.find_or_create_by(name: 'super_admin')
 Role.find_or_create_by(name: 'message_admin')
 #location
+puts("Creando Locations")
 General::Location.find_or_create_by(name: 'Antofagasta')
 General::Location.find_or_create_by(name: 'Santiago')
 General::Location.find_or_create_by(name: 'Copiapo')
@@ -29,7 +33,8 @@ General::Location.find_or_create_by(name: 'Concepcion')
 General::Location.find_or_create_by(name: 'Temuco')
 General::Location.find_or_create_by(name: 'Puerto Montt')
 #users
-General::User.create!(
+puts("Creando Usuarios")
+General::User.where(
   name:'Nombre',
   last_name: 'Apellido',
   annexed: '1029',
@@ -38,8 +43,8 @@ General::User.create!(
   email: 'admin@security.cl',
   birthday: Date.today,
   location_id: 2
-)
-General::User.create!(
+).first_or_create
+General::User.where(
   name:'Nombre 2',
   last_name: 'Apellido 2',
   annexed: '1928',
@@ -48,8 +53,8 @@ General::User.create!(
   email: 'user@security.cl',
   birthday: Date.today-1,
   location_id: 2
-)
-General::User.create!(
+).first_or_create
+General::User.where(
   name:'Persona 3',
   last_name: 'a cargo de',
   annexed: '11020',
@@ -58,8 +63,8 @@ General::User.create!(
   email: 'a-cargo-de@security.cl',
   birthday: Date.today-2,
   location_id: 2
-)
-General::User.create!(
+).first_or_create
+General::User.where(
   name:'Persona 4',
   last_name: 'rama',
   annexed: '22212',
@@ -68,7 +73,7 @@ General::User.create!(
   email: 'otro-a-cargode@security.cl',
   birthday: Date.today-2,
   location_id: 2
-)
+).first_or_create
 #users / user_admin see admin screen and user see welcome screen
 user_admin = General::User.first
 user = General::User.second
@@ -1925,6 +1930,7 @@ generalc = General::Menu.find_by_title('Convenios colectivos')
 # )
 
 ############## SANTORAL ################
+puts("******* Creando Santorales *******")
 General::Santoral.find_or_create_by(name: "María, Madre de Dios", santoral_day: '01-01')
 General::Santoral.find_or_create_by(name: "Basilio, Gregorio", santoral_day: '01-02')
 General::Santoral.find_or_create_by(name: "Genoveva", santoral_day: '01-03')
@@ -2292,6 +2298,7 @@ General::Santoral.find_or_create_by(name: "Tomás Becket, David", santoral_day: 
 General::Santoral.find_or_create_by(name: "Rogelio", santoral_day: '12-30')
 General::Santoral.find_or_create_by(name: "Silvestre", santoral_day: '12-31')
 # benefit group
+puts("******* Creando Grupos de Beneficios *******")
 General::BenefitGroup.find_or_create_by(code:"ASCTY-0",name: "ASESORIAS SECURITY - SIN SINDICATO", description: "ASESORIAS SECURITY - SIN SINDICATO")
 General::BenefitGroup.find_or_create_by(code:"ASCTY-1",name: "ASESORIAS SECURITY - EXTENSIÓN BENEF INVERSIONES", description: "ASESORIAS SECURITY - EXTENSIÓN BENEF INVERSIONES")
 General::BenefitGroup.find_or_create_by(code:"ASCTY-2",name: "ASESORIAS SECURITY - EXTEN DE BENEF INVERSIONES FFVV", description: "ASESORIAS SECURITY - EXTEN DE BENEF INVERSIONES FFVV")
@@ -2348,6 +2355,7 @@ General::BenefitGroup.find_or_create_by(code:"VSCTY-0",name: "VALORES SECURITY S
 General::BenefitGroup.find_or_create_by(code:"VSCTY-1",name: "VALORES SECURITY S.A.COR.BOLSA - EXTENSIÓN BENEF INVERSIONES", description: "VALORES SECURITY S.A.COR.BOLSA - EXTENSIÓN BENEF INVERSIONES")
 General::BenefitGroup.find_or_create_by(code:"VSCTY-2",name: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV", description: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV")
 #LINK
+puts("******* Creando Links *******")
 General::Link.find_or_create_by(
   id: 1,
   title: 'Link 1',
@@ -2379,6 +2387,7 @@ General::Link.find_or_create_by(
   url: 'http://www.gmail.com'
 )
 #SECTION
+puts("******* Creando Secciones *******")
 General::Section.find_or_create_by(
   id: 1,
   title: 'Section 1',
