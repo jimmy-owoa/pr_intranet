@@ -2,11 +2,11 @@ def es_bisiesto?(year)
   year % 4 == 0 && year % 100 != 0 || year % 400 == 0
 end
 #term type
-puts("Creando Term types")
+puts("******* Creando Term types *******")
 General::TermType.find_or_create_by(name: 'category')
 General::TermType.find_or_create_by(name: 'tag')
 #terms
-puts("Creando Terms")
+puts("******* Creando Terms *******")
 General::Term.find_or_create_by(name: 'Banco', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Factoring', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Inversiones', term_type_id: 1)
@@ -15,13 +15,13 @@ General::Term.find_or_create_by(name: 'Corredora de Seguros', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Travel', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Inmobiliaria', term_type_id: 1)
 #roles
-puts("Creando Roles")
+puts("******* Creando Roles *******")
 Role.find_or_create_by(name: 'user')
 Role.find_or_create_by(name: 'post_admin')
 Role.find_or_create_by(name: 'super_admin')
 Role.find_or_create_by(name: 'message_admin')
 #location
-puts("Creando Locations")
+puts("******* Creando Locations *******")
 General::Location.find_or_create_by(name: 'Antofagasta')
 General::Location.find_or_create_by(name: 'Santiago')
 General::Location.find_or_create_by(name: 'Copiapo')
@@ -33,7 +33,7 @@ General::Location.find_or_create_by(name: 'Concepcion')
 General::Location.find_or_create_by(name: 'Temuco')
 General::Location.find_or_create_by(name: 'Puerto Montt')
 #users
-puts("Creando Usuarios")
+puts("******* Creando Usuarios *******")
 General::User.where(
   name:'Nombre',
   last_name: 'Apellido',

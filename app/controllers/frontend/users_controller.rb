@@ -86,7 +86,7 @@ module Frontend
     def current_user_vue
       data_user = []
       id = params[:id].present? ? params[:id] : nil
-      @user = General::User.find(id)
+      @user = General::User.find(id)    
       @location = @user.location.present? ? General::Location.find(@user.location_id).name : 'No definido'
       @today =  Date.today.strftime("%d/%m/%Y")
       @tomorrow = l(Date.today + 1, format: '%A')
