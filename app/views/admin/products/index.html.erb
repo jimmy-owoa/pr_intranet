@@ -3,7 +3,7 @@
   <div class="card">
     <%= form_tag('', method: 'get') do %>
       <div class="form-row">
-        <div class="ml-4 mt-2">
+        <div class="ml-4 mt-2 pb-2">
           <%= select_tag(:approved, options_for_select(@filters), include_blank: 'Seleccione', class: 'custom-select filter') %>
         </div>
       </div>
