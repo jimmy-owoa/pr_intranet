@@ -1,38 +1,42 @@
-<div class="row">
-  <div class="col-md-12">
-    <section class="section">
-      <h1 class="section-header">Menús</h1>
-      <table class='table table-hover'>
-        <thead>
+
+
+<section class="section">
+  <h1 class="section-header"><%= "Menús" %></h1>
+  <div class="card">
+    <div class="table-responsive-md">
+      <table class="table table-hover">
+        <thead class="thead">
           <tr>
-            <th></th>
             <th>Título</th>
             <th>Padre</th>
             <th>Link</th>
             <th>Categorías</th>
+            <th>Acciones</th>
             <th colspan="3"></th>
           </tr>
         </thead>
-        <tbody>
+       <tbody>
           <% @menus.each do |menu| %>
             <tr>
-              <td><%=  %></td>
               <td><%= menu.id %></td>
               <td><%= set_title_menu(menu.parent_id) %></td>
               <td><%= menu.link %></td>
               <td><%= menu.terms.present? ? menu.terms.map(&:name).join(',').truncate(10) : 'No tiene' %></td>
               <td> 
-                <%= link_to t('.show', :default => t("helpers.menus.show")), admin_menu_path(menu) %>
+                <%= link_to t('.show', :default => t("helpers.menus.show")), admin_menu_path(menu), class: 'btn btn-success btn-sm' %>
                 <% if current_user.has_role? :super_admin %>
-                  <%= link_to t('.edit', :default => t("helpers.menus.edit")), edit_admin_menu_path(menu) %>
-                  <%= link_to t('.destroy', :default => t("helpers.menus.destroy")), admin_menu_path(menu),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.menus.confirm", :default => '¿Estás seguro?')) } %>
+                  <%= link_to t('.edit', :default => t("helpers.menus.edit")), edit_admin_menu_path(menu), class: 'btn btn-primary btn-sm' %>
+                  <%= link_to t('.destroy', :default => t("helpers.menus.destroy")), admin_menu_path(menu), class: 'btn btn-danger btn-sm', :method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.menus.confirm", :default => '¿Estás seguro?')) } %>
                 <% end %>
               </td>
             </tr>
           <% end %>
         </tbody>
-      </table>    
-    </section>
+      </table>
+      <div class="row justify-content-center">
+          <%= will_paginate @menus, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
+    </div>
+  <%= link_to "Nuevo", new_admin_product_path, :class => 'btn btn-primary' %>
   </div>
-</div>
-<%= will_paginate @menus, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</section>

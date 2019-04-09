@@ -34,10 +34,9 @@
           </tbody>
         </table>
         <div class="row justify-content-center">
+          <%= will_paginate @benefit_groups, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
         </div>
       </div>
     <%= link_to 'Nueva', new_admin_benefit_group_path, :class => 'btn btn-primary' %>
     </div>
   </section>
-
-<%= will_paginate @benefit_groups, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>

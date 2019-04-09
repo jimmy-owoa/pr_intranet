@@ -51,9 +51,9 @@
           </tbody>
         </table>
         <div class="row justify-content-center">
+          <%= will_paginate @births, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
         </div>
       </div>
     <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary' %>
     </div>
   </section>
-<%= will_paginate @births, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>

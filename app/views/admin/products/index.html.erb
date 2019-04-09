@@ -1,11 +1,18 @@
 <section class="section">
   <h1 class="section-header"><%= "Anuncios" %></h1>
+  <%= form_tag('', method: 'get') do %>
+    <div class="form-row">
+      <div class="form-group " style='margin-left: 10px;padding: 15px;'>
+        <%= select_tag(:approved, options_for_select(@filters), include_blank: 'Seleccione', class: 'custom-select filter') %>
+      </div>
+    </div>
+  <% end %>
   <div class="card">
     <div class="table-responsive-md">
       <table class="table table-hover">
         <thead class="thead">
           <tr>
-            <th></th>
+            <th><%= 'Imagen principal'%></th>
             <th><%= "Nombre" %></th>
             <th><%= "Precio" %></th>
             <th><%= "Aprobado" %></th>
@@ -38,9 +45,17 @@
         </tbody>
       </table>
       <div class="row justify-content-center">
+        <%= will_paginate @products, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
       </div>
     </div>
   <%= link_to "Nuevo", new_admin_product_path, :class => 'btn btn-primary' %>
   </div>
 </section>
-<%= will_paginate @products, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+
+<script>
+$(function() {
+    $('.filter').change(function() {
+        this.form.submit();
+    });
+});
+</script>
