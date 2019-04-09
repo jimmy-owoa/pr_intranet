@@ -6,7 +6,7 @@
         <div class="large-12 columns">
           <div class="row">
           <div class="row" style='margin-left: 10px;padding: 15px;'>
-            <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Elegir', id: 'select_birth', :onchange => 'birth_filter_action()') %>
+            <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Elegir', class: 'custom-select', id: 'select_birth', :onchange => 'birth_filter_action()') %>
             <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'birth_filter', style: 'display: none' %>
           </div>
         </div>
