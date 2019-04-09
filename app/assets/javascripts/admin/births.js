@@ -4,7 +4,7 @@ $(document).on('turbolinks:load', function () {
     cbxs.prop("checked", !cbxs.prop("checked"));
   });
 
-  $(".approved").on("change", function (e) {
+  $(".approved_birth").on("change", function (e) {
     var id;
     id = $(this).data("id");
     return $.ajax({

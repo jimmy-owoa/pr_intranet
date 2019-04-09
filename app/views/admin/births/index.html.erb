@@ -5,10 +5,10 @@
       <%= form_tag('', method: 'get') do %>
         <div class="large-12 columns">
           <div class="row">
-          <div class="row" style='margin-left: 10px;padding: 15px;'>
-            <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Elegir', class: 'custom-select', id: 'select_birth', :onchange => 'birth_filter_action()') %>
-            <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'birth_filter', style: 'display: none' %>
-          </div>
+            <div class="row" style='margin-left: 10px;padding: 15px;'>
+              <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Seleccionar', class: 'custom-select', id: 'select_birth', :onchange => 'birth_filter_action()') %>
+              <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'birth_filter', style: 'display: none' %>
+            </div>
         </div>
       <% end %>
     </div>    
@@ -40,7 +40,7 @@
                   <%= check_box_tag 'birth[approved]', nil, birth.approved?,
                           data: {
                             id: birth.id
-                          }, class: "approved" %>
+                          }, class: "approved_birth" %>
                 </td>                
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-success btn-sm' %>

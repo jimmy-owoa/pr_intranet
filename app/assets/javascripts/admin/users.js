@@ -35,4 +35,19 @@ $(document).on('turbolinks:load', function () {
       $(this).removeClass('shadow-lg');
     }
   );
+  $(".active_user").on("change", function (e) {
+    var id;
+    id = $(this).data("id");
+    return $.ajax({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      },
+      url: "/admin/users/" + id + ".json",
+      type: 'PUT',
+      data: {
+        approved: $(this).is(":checked")
+      }
+    }).done(function (e) {});
+  });
+
 });

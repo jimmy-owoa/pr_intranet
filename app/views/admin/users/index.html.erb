@@ -1,5 +1,16 @@
 <section class="section">
   <h1 class="section-header"><%= "Usuarios" %></h1>
+    <div class="card">
+      <%= form_tag('', method: 'get') do %>
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="row" style='margin-left: 10px;padding: 15px;'>
+              <%= select_tag(:approved, options_for_select(General::User::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Seleccionar', class: 'custom-select', id: 'select_user', :onchange => 'user_filter_action()') %>
+              <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'user_filter', style: 'display: none' %>
+            </div>
+        </div>
+      <% end %>
+    </div>  
   <div class="card">
     <div class="table-responsive-md">
       <table class="table table-hover">
@@ -11,6 +22,7 @@
             <th>Email</th>
             <th>Anexo</th>
             <th>Activo</th>
+            <th><%= "Activar" %></th>
             <th>Acciones</th>
             <th colspan="3"></th>
           </tr>
@@ -28,11 +40,16 @@
               <td><%= user.email %></td>
               <td><%= user.annexed %></td>
               <td><%= user.active? ? 'Si' : 'No' %></td>
+              <td>
+                <%= check_box_tag 'user[approved]', nil, user.active?,
+                        data: {
+                          id: user.id
+                        }, class: "active_user" %>
+              </td>                
               <td> 
                 <%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user), :class => 'btn btn-success btn-sm'  %>
                 <% if current_user.has_role? :super_admin %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_user_path(user), :class => 'btn btn-primary btn-sm' %>
-                  <%= link_to t('.destroy', :default => t("helpers.links.destroy")), admin_post_path(user),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-sm btn-danger' %>
                 <% end %>
               </td>
             </tr>
@@ -46,3 +63,9 @@
   <%= link_to "Nuevo", new_admin_user_path, :class => 'btn btn-primary' %>
   </div>
 </section>
+
+<script>
+  function user_filter_action() {
+    document.getElementById("user_filter").click()
+  }
+</script>
