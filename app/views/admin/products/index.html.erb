@@ -34,10 +34,10 @@
                         }, class: "approved" %>
               </td>
               <td>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalShowProduct_<%= product.id %>">Imágenes</button>              
                 <%= link_to t('.show', :default => t("helpers.links.show")), admin_product_path(product), :class => 'btn btn-success btn-sm' %>  
                 <% if policy(product).edit?  %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(product), :class => 'btn btn-primary btn-sm' %>
-                  <%= link_to 'Deshabilitar', admin_product_path(product), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro??')) },:class => 'btn btn-sm btn-danger' %>
                 <% end %>
               </td>
             </tr>
@@ -59,3 +59,49 @@ $(function() {
     });
 });
 </script>
+
+<% @products.each do |product| %>  
+  <div class="modal fade bd-example-modal-lg" id="modalShowProduct_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
+        </div>
+        <div class="modal-body">
+          <div class="container card">
+            <% if product.unpermitted_images.present? %>    
+              <div class="row">
+                <div class="col-sm-12 pull-left">
+                  imágenes por aprobar
+                </div>
+              </div></br>
+              <div class="row text-center" >
+                <% product.unpermitted_images.each do |image| %>
+                  <div class="col-md-4 approved">
+                    <figure>          
+                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                    </figure>
+                  </div>               
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="container card">
+            <% if product.permitted_images.present? %>
+              <p>Imágenes Aprobadas</p>
+              <div class="row text-center" >
+                <% product.permitted_images.each do |image| %>
+                  <div class="col-md-4">
+                    <figure>          
+                        <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                    </figure>
+                  </div>
+                <% end %>  
+              </div>
+            <% end %>
+          </div><br>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
