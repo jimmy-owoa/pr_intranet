@@ -53,6 +53,7 @@ module Admin
         params[:birth][:gender] = params[:birth][:gender].to_i
         respond_to do |format|
           if @birth.update(birth_params)
+            catch_image(params[:permissions])
             format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully updated.'}
             format.json { render :show, status: :ok, location: @birth }
           else

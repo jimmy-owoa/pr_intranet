@@ -64,8 +64,8 @@
 
   <!-- Modal -->
 <% @births.each do |birth| %>  
-  <div class="modal fade" id="modalShowBirth_<%= birth.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade bd-example-modal-lg" id="modalShowBirth_<%= birth.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
@@ -77,13 +77,13 @@
           <div class="container card">
             <% if birth.unpermitted_images.present? %>    
               <div class="row">
-                <div class="col-sm-10 pull-left">
+                <div class="col-sm-12 pull-left">
                   imágenes por aprobar
                 </div>
               </div></br>
               <div class="row text-center" >
                 <% birth.unpermitted_images.each do |image| %>
-                  <div class="col-md-2 approved">
+                  <div class="col-md-4 approved">
                     <figure>          
                       <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
@@ -91,16 +91,15 @@
                 <% end %>
               </div>
             <% end %>
-            </div>
-            <div class="container card">
+          </div>
+          <div class="container card">
             <% if birth.permitted_images.present? %>
               <p>Imágenes Aprobadas</p>
               <div class="row text-center" >
                 <% birth.permitted_images.each do |image| %>
-                  <div class="col-md-2">
+                  <div class="col-md-4">
                     <figure>          
                         <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                        <figcaption><%= link_to 'Borrar', delete_image_admin_birth_path(image), method: :delete, data: { confirm: '¿Estás seguro??' },:class => 'btn btn-sm btn-danger'%></figcaption>
                     </figure>
                   </div>
                 <% end %>  
