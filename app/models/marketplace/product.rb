@@ -14,6 +14,10 @@ class Marketplace::Product < ApplicationRecord
 
   PRODUCT_TYPE = ['Autos','Propiedades', 'Servicios', 'Varios']
 
+  def self.no_approved
+    where(approved: false)
+  end
+
   def thumb img
     img.variant(resize: '60x60>').processed
   end

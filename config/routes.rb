@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       get 'analytics', to: 'analytics#index'
       get "search", to: "search#search"
       get "searchatt", to: "attachments#search_att"
+      get 'births/no_approved_index', to: 'births#no_approved_index'
+      get 'products/no_approved_index', to: 'products#no_approved_index'
       resources :term_relationships
       resources :comments
       resources :links

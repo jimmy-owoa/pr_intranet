@@ -12,6 +12,10 @@ module Admin
       end
     end
 
+    def no_approved_index
+      @births = Employee::Birth.no_approved.paginate(:page => params[:page], :per_page => 10)
+    end
+    
     def show
       add_breadcrumb "Nacimientos", :admin_births_path
     end
@@ -24,7 +28,6 @@ module Admin
     def edit
       add_breadcrumb "Nacimientos", :admin_births_path
     end
-
 
     def create
       params[:birth][:gender] = params[:birth][:gender].to_i

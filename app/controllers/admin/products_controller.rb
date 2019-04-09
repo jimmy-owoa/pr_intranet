@@ -9,6 +9,10 @@ module Admin
       @products = Marketplace::Product.get_filtered(is_approved).paginate(:page => params[:page], :per_page => 10)
     end
 
+    def no_approved_index
+      @products = Marketplace::Product.no_approved.paginate(:page => params[:page], :per_page => 10)
+    end
+
     def show
       add_breadcrumb "Marketplace", :admin_products_path
     end
