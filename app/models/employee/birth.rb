@@ -7,6 +7,7 @@ class Employee::Birth < ApplicationRecord
   scope :show_birth , -> {where( approved: true)}
   scope :birt_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
 
+  PERMISSION = {true => 'Aprobados', false => 'No aprobados'}
 
   def child_fullname
     if self.child_name.present? && self.child_lastname.present? 
@@ -15,7 +16,11 @@ class Employee::Birth < ApplicationRecord
       return 'Sin nombre'
     end
   end
-
+  
+  def self.approved_filter(data)
+    order(id: :desc).where(["approved LIKE ?", data])
+  end
+  
   def default_image
     if self.images.first.nil?
       self.images.attach(io: File.open("app/assets/images/birth.png"), filename: "birth.png", content_type: "image/png")

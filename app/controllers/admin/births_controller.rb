@@ -4,7 +4,12 @@ module Admin
     
     def index
       add_breadcrumb "Nacimientos", :admin_births_path
-      @births = Employee::Birth.paginate(:page => params[:page], :per_page => 10)
+      if params[:approved].present?
+        aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
+        @births = Employee::Birth.approved_filter(aprov).paginate(:page => params[:page], :per_page => 10)
+      else
+        @births = Employee::Birth.paginate(:page => params[:page], :per_page => 10)
+      end
     end
 
     def show
@@ -38,18 +43,24 @@ module Admin
     end
 
     def update
-      params[:birth][:gender] = params[:birth][:gender].to_i
-      respond_to do |format|
-        if @birth.update(birth_params)
-          catch_image(params[:permissions])
-          format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully updated.'}
-          format.json { render :show, status: :ok, location: @birth }
-        else
-          format.html { render :edit}
-          format.json { render json: @birth.errors, status: :unprocessable_entity}
+      if params['approved'].present?
+        respond_to do |format|
+          @birth.update_attributes(approved: params['approved'])
+          format.json { render :json => {value: "success"} and return}
+        end
+      else
+        params[:birth][:gender] = params[:birth][:gender].to_i
+        respond_to do |format|
+          if @birth.update(birth_params)
+            format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully updated.'}
+            format.json { render :show, status: :ok, location: @birth }
+          else
+            format.html { render :edit}
+            format.json { render json: @birth.errors, status: :unprocessable_entity}
+          end
         end
       end
-    end
+    end    
 
     def catch_image(image)
       if image.present?
