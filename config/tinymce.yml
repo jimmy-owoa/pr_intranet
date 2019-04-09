@@ -1,7 +1,6 @@
 toolbar:
-  - styleselect | bold italic | undo redo | image | link | media | imagetools | emoticons | paste | print | forecolor backcolor
+  - styleselect | bold italic forecolor backcolor | undo redo | image media link | imagetools | emoticons | paste | print
 plugins:
-  - image
   - link
   - wordcount
   - paste
@@ -25,3 +24,6 @@ language:
   - es
 browser_spellcheck:
   - true
+images_upload_url: "/admin/upload"
+automatic_uploads: false
+file_picker_types: "file image media"

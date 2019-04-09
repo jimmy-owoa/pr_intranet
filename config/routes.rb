@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     registrations: "admin/users"
     }, class_name: "General::User"
     namespace :admin do
-      put 'upload/put', to: 'attachments#upload' 
+      post 'upload', to: 'attachments#upload' 
       get 'analytics', to: 'analytics#index'
       get "search", to: "search#search"
       get "searchatt", to: "attachments#search_att"

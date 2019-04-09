@@ -12,7 +12,9 @@ class General::Attachment < ApplicationRecord
   before_save :default_name
 
   def default_name
-    self.name = self.name || self.attachment.filename.to_s
+    if self.attachment.attached?
+      self.name = self.name || self.attachment.attachment.filename.to_s
+    end
   end
   
 
