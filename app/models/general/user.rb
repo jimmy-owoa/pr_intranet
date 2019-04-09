@@ -54,6 +54,14 @@ class General::User < ApplicationRecord
     # http.post(uri, base64)
   end
 
+  def self.birthday?(date)
+    date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
+  end
+
+  def self.welcome?(date)
+    date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
+  end  
+  
   def self.active_filter(data)
     order(id: :desc).where(["active LIKE ?", data])
   end  
