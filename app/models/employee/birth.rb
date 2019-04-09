@@ -7,7 +7,7 @@ class Employee::Birth < ApplicationRecord
   scope :show_birth , -> {where( approved: true)}
   scope :birt_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
 
-  PERMISSION = {true => 'Aprobados', false => 'No aprobados'}
+  PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
 
   def child_fullname
     if self.child_name.present? && self.child_lastname.present? 

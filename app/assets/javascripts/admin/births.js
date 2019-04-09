@@ -18,5 +18,4 @@ $(document).on('turbolinks:load', function () {
       }
     }).done(function (e) {});
   });
-
 });

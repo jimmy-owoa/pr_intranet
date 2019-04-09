@@ -4,7 +4,7 @@ module Admin
     
     def index
       add_breadcrumb "Nacimientos", :admin_births_path
-      if params[:approved].present?
+      if params[:approved] == 'true' || params[:approved] == 'false'
         aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
         @births = Employee::Birth.approved_filter(aprov).paginate(:page => params[:page], :per_page => 10)
       else
