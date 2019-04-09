@@ -29,8 +29,6 @@ module Admin
     def create
       params[:birth][:gender] = params[:birth][:gender].to_i
       @birth = Employee::Birth.new(birth_params)
-      
-      
       respond_to do |format|
         if @birth.save
           format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully created.'}
