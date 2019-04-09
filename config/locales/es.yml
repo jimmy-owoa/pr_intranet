@@ -34,7 +34,7 @@ es:
         image: Avatar
         show_birthday: Activar Cumpleaños
     models:
-      marketplace/product: Producto
+      marketplace/product: Anuncio
       post:
         one: Publicación
         other: Publicaciones
@@ -210,6 +210,15 @@ es:
       submit: Guardar %{model}
       update: Actualizar %{model}
     links:
+      cancel: Cancelar
+      edit: Editar
+      destroy: Eliminar
+      back: Volver
+      block: Bloquear
+      unlock: Desbloquear
+      show: Ver
+      confirm: Confirmar
+    benefits:
       cancel: Cancelar
       edit: Editar
       destroy: Eliminar

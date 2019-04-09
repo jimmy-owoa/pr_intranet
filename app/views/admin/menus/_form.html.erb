@@ -36,8 +36,7 @@
     <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @menu.terms.tags.map(&:name)), multiple: true, class:'form-control string optional', id:'tag_menu' %>
   </div>
   <div class="col-6 col-sm-6">
-    <%= f.label :categories %>
-    <%= f.association :terms, collection: General::Term.categories, as: :check_boxes %>
+    <%= f.association :terms, collection: General::Term.categories, as: :check_boxes, label: 'Categorías' %>
   </div>    
 </div>
     <%= f.submit nil, :class => 'btn btn-primary'%>

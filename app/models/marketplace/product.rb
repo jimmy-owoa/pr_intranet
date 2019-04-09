@@ -24,6 +24,16 @@ class Marketplace::Product < ApplicationRecord
     end
   end
 
+  def self.get_filtered is_approved
+    if is_approved == "true"
+      Marketplace::Product.where(approved: true)
+    elsif is_approved == "false"
+      Marketplace::Product.where(approved: false)
+    else
+      Marketplace::Product.all
+    end
+  end
+
   def permitted_images
     images.attachments.where(permission: 1)
   end

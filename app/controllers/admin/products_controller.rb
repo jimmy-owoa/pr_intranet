@@ -2,10 +2,11 @@ module Admin
   class ProductsController < AdminController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
     
-
     def index
       add_breadcrumb "Marketplace", :admin_products_path
-      @products = Marketplace::Product.paginate(:page => params[:page], :per_page => 10)
+      @filters = [['Todos', 'all'], ['Aprobados', true], ['Sin aprobación', false]]
+      is_approved = params[:approved]
+      @products = Marketplace::Product.get_filtered(is_approved).paginate(:page => params[:page], :per_page => 10)
     end
 
     def show

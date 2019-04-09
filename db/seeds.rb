@@ -2,11 +2,11 @@ def es_bisiesto?(year)
   year % 4 == 0 && year % 100 != 0 || year % 400 == 0
 end
 #term type
-puts("Creando Term types")
+puts("******* Creando Term types *******")
 General::TermType.find_or_create_by(name: 'category')
 General::TermType.find_or_create_by(name: 'tag')
 #terms
-puts("Creando Terms")
+puts("******* Creando Terms *******")
 General::Term.find_or_create_by(name: 'Banco', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Factoring', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Inversiones', term_type_id: 1)
@@ -15,13 +15,13 @@ General::Term.find_or_create_by(name: 'Corredora de Seguros', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Travel', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Inmobiliaria', term_type_id: 1)
 #roles
-puts("Creando Roles")
+puts("******* Creando Roles *******")
 Role.find_or_create_by(name: 'user')
 Role.find_or_create_by(name: 'post_admin')
 Role.find_or_create_by(name: 'super_admin')
 Role.find_or_create_by(name: 'message_admin')
 #location
-puts("Creando Locations")
+puts("******* Creando Locations *******")
 General::Location.find_or_create_by(name: 'Antofagasta')
 General::Location.find_or_create_by(name: 'Santiago')
 General::Location.find_or_create_by(name: 'Copiapo')
@@ -2371,38 +2371,40 @@ General::BenefitGroup.find_or_create_by(code:"VSCTY-1",name: "VALORES SECURITY S
 General::BenefitGroup.find_or_create_by(code:"VSCTY-2",name: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV", description: "VALORES SECURITY S.A.COR.BOLSA - EXTEN DE BENEF INVERSIONES FFVV")
 #LINK
 puts("******* Creando Links *******")
-General::Link.find_or_create_by(
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE general_links;') 
+General::Link.where(
   id: 1,
   title: 'Link 1',
   url: 'http://www.google.cl'
-)
-General::Link.find_or_create_by(
+).first_or_create
+General::Link.where(
   id: 2,
   title: 'Link 2',
   url: 'http://www.fayerwayer.cl'
-)
-General::Link.find_or_create_by(
+).first_or_create
+General::Link.where(
   id: 3,
   title: 'Link 3',
   url: 'https://www.bancosecurity.cl/'
-)
-General::Link.find_or_create_by(
+).first_or_create
+General::Link.where(
   id: 4,
   title: 'Link 4',
   url: 'https://personas.bancosecurity.cl/'
-)
-General::Link.find_or_create_by(
+).first_or_create
+General::Link.where(
   id: 5,
   title: 'Link 5',
   url: 'http://www.security.cl'
-)
-General::Link.find_or_create_by(
+).first_or_create
+General::Link.where(
   id: 6,
   title: 'Link 6',
   url: 'http://www.gmail.com'
-)
+).first_or_create
 #SECTION
 puts("******* Creando Secciones *******")
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE general_sections;') 
 General::Section.find_or_create_by(
   id: 1,
   title: 'Section 1',
