@@ -99,6 +99,8 @@ module Frontend
       data_siblings = []
       data_father = []
       data_benefits = []
+      data_products = []
+      data_messages = []
       if @user.benefit_group.present?
         @user.benefit_group.benefits.each do |benefit|
           data_benefits << {
@@ -146,6 +148,48 @@ module Frontend
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
         }
       end
+      if @user.products.present?
+        @user.products.each do |product|
+          data_products << {
+            name: product.name ,
+            description: product.description,
+            product_type: product.product_type,
+            price: product.price,
+            email: product.email,
+            phone: product.phone,
+            location: product.location,
+            expiration: product.expiration,
+            approved: product.approved,
+            user_id: product.user_id,
+            is_expired: product.is_expired,
+            published_date: product.published_date
+          }
+        end
+      end
+      if General::User.birthday?(@user.birthday)
+        General::Message.where(message_type: 'birthdays').take(1).each do |message|
+          data_messages << {
+            id: message.id,
+            title: message.title,
+            content: message.content,
+            message_type: message.message_type,
+            is_const: message.is_const,
+            image: message.image.attached? ? url_for(message.image) : root_url + '/assets/message.jpeg',
+          }
+        end
+      end
+      if General::User.welcome?(@user.date_entry)
+        General::Message.where(message_type: 'welcomes').take(1).each do |message|
+          data_messages << {
+            id: message.id,
+            title: message.title,
+            content: message.content,
+            message_type: message.message_type,
+            is_const: message.is_const,
+            image: message.image.attached? ? url_for(message.image) : root_url + '/assets/message.jpeg',
+          }
+        end
+      end
       data_user << {
         id: @user.id,
         name: @user.name,
@@ -174,7 +218,9 @@ module Frontend
         benefit_group: {
           name: @user.benefit_group.present? ? @user.benefit_group.name : 'Sin grupo beneficiario',
           benefits: data_benefits.uniq
-        }
+        },
+        products: data_products[0],
+        messages: data_messages
       }
       respond_to do |format|
         format.json { render json: data_user[0] }

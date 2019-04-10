@@ -7,11 +7,17 @@ module Admin
     before_action :user_registered?
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     after_action :set_tracking, only: [:index, :show, :new]
-    after_action :set_tracking_action, only: [:create, :update]
+    after_action :set_tracking_action, only: [:create]
 
     def index
       add_breadcrumb "Usuarios", :admin_users_path
-      @users = General::User.paginate(:page => params[:page], :per_page => 10)
+      if params[:approved] == 'true' || params[:approved] == 'false'
+        aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
+        @users = General::User.active_filter(aprov).paginate(:page => params[:page], :per_page => 10)
+      else
+        @users = General::User.paginate(:page => params[:page], :per_page => 10)
+      end
+
     end
 
     def new
@@ -36,19 +42,26 @@ module Admin
     end
 
     def update
-      if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-        params[:user].delete(:password)
-        params[:user].delete(:password_confirmation)
-      end   
-      respond_to do |format|
-        # user_params[:term_ids].map{ |e| e.gsub!(/[^0-9]/, '') }.reject(&:blank?)
-        if @user.update(user_params)
-          set_tags
-          format.html { redirect_to admin_user_path(@user), notice: 'user was successfully updated.'}
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit}
-          format.json { render json: @user.errors, status: :unprocessable_entity}
+      if params['approved'].present?
+        respond_to do |format|
+          @user.update_attributes(active: params[:approved])
+          format.json { render :json => {value: "success"} and return}
+        end
+      else      
+        if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+          params[:user].delete(:password)
+          params[:user].delete(:password_confirmation)
+        end
+        respond_to do |format|
+          # user_params[:term_ids].map{ |e| e.gsub!(/[^0-9]/, '') }.reject(&:blank?)
+          if @user.update(user_params)
+            set_tags
+            format.html { redirect_to admin_user_path(@user), notice: 'user was successfully updated.'}
+            format.json { render :show, status: :ok, location: @user }
+          else
+            format.html { render :edit}
+            format.json { render json: @user.errors, status: :unprocessable_entity}
+          end
         end
       end
     end

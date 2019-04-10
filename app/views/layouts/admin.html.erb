@@ -115,9 +115,21 @@
                 </li>                
                 <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i> Etiquetas</a></li>
                 <li class="menu-header">Marketplace</li>
-                <li><a href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i> Anuncios</a></li>
+                <li class="dropdown">
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Anuncios</span></a>
+                  <ul class="menu-dropdown">
+                    <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
+                    <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>No aprobados</a></li>
+                  </ul>
+                </li>
                 <li class="menu-header">Eventos</li>
-                <li><a href="<%= admin_births_path %>"><i class="fas fa-dove"></i> Nacimientos</a></li>
+                <li class="dropdown">
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Nacimientos</span></a>
+                  <ul class="menu-dropdown">
+                    <li><a class="nav-link " href="<%= admin_births_path %>"><i class="fas fa-list"></i>Lista</a></li>
+                    <li><a href="<%= admin_births_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>No aprobados</a></li>
+                  </ul>
+                </li>
                 <li class="menu-header">Configuración</li>
                 <li><a href="<%= admin_users_path %>"><i class="fas fa-users"></i>Usuarios</a></li>
                 <li><a href="<%= admin_analytics_path %>"><i class="fas fa-chart-pie"></i> Analítica</a></li>

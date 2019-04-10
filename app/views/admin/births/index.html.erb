@@ -5,10 +5,10 @@
       <%= form_tag('', method: 'get') do %>
         <div class="large-12 columns">
           <div class="row">
-          <div class="row" style='margin-left: 10px;padding: 15px;'>
-            <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Elegir', class: 'custom-select', id: 'select_birth', :onchange => 'birth_filter_action()') %>
-            <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'birth_filter', style: 'display: none' %>
-          </div>
+            <div class="row" style='margin-left: 10px;padding: 15px;'>
+              <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Seleccionar', class: 'custom-select', id: 'select_birth', :onchange => 'birth_filter_action()') %>
+              <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'birth_filter', style: 'display: none' %>
+            </div>
         </div>
       <% end %>
     </div>    
@@ -19,8 +19,6 @@
             <tr>
               <th><%= "Sexo" %></th>
               <th><%= "Nombre" %></th>
-              <th><%= "Padre" %></th>
-              <th><%= "Madre" %></th>
               <th><%= "Día de Nacimiento" %></th>
               <th><%= "Aprobado" %></th>
               <th><%= "Aprobar" %></th>
@@ -30,19 +28,18 @@
           <tbody>
             <% @births.each do |birth| %>
               <tr>
-                <td><%= get_gender_icon(birth) %></td>
+                <td><%= get_gender_icon(birth)  %></td>
                 <td><%= birth.child_fullname %></td>
-                <td><%= birth.full_name_father %></td>
-                <td><%= birth.full_name_mother %></td>
                 <td><%= custom_date_no_hour(birth.birthday) %></td>
                 <td><%= is_approved(birth) %></td>
                 <td>
                   <%= check_box_tag 'birth[approved]', nil, birth.approved?,
                           data: {
                             id: birth.id
-                          }, class: "approved" %>
+                          }, class: "approved_birth" %>
                 </td>                
                 <td>
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalShowBirth_<%= birth.id %>">Imágenes</button>
                   <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-success btn-sm' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_birth_path(birth), :class => 'btn btn-primary btn-sm' %>
                 </td>
@@ -64,3 +61,50 @@
     document.getElementById("birth_filter").click()
   }
 </script>
+
+  <!-- Modal -->
+<% @births.each do |birth| %>  
+  <div class="modal fade bd-example-modal-lg" id="modalShowBirth_<%= birth.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
+        </div>
+        <div class="modal-body">
+          <div class="container card">
+            <% if birth.unpermitted_images.present? %>    
+              <div class="row">
+                <div class="col-sm-12 pull-left">
+                  imágenes por aprobar
+                </div>
+              </div></br>
+              <div class="row text-center" >
+                <% birth.unpermitted_images.each do |image| %>
+                  <div class="col-md-4 attach_birth">
+                    <figure>          
+                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                    </figure>
+                  </div>               
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="container card">
+            <% if birth.permitted_images.present? %>
+              <p>Imágenes Aprobadas</p>
+              <div class="row text-center" >
+                <% birth.permitted_images.each do |image| %>
+                  <div class="col-md-4">
+                    <figure>          
+                        <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                    </figure>
+                  </div>
+                <% end %>  
+              </div>
+            <% end %>
+          </div><br>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

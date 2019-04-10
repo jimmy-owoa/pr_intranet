@@ -20,6 +20,11 @@ class Employee::Birth < ApplicationRecord
   def self.approved_filter(data)
     order(id: :desc).where(["approved LIKE ?", data])
   end
+
+  def self.no_approved
+    where(approved: false)
+  end
+  
   
   def default_image
     if self.images.first.nil?

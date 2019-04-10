@@ -1,0 +1,55 @@
+<%- model_class = Employee::Birth -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Nacimientos no aprobados" %></h1> 
+    <div class="card">
+      <div class="table-responsive-sd table-sm">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= "Sexo" %></th>
+              <th><%= "Nombre" %></th>
+              <th><%= "Padre" %></th>
+              <th><%= "Madre" %></th>
+              <th><%= "Día de Nacimiento" %></th>
+              <th><%= "Aprobado" %></th>
+              <th><%= "Aprobar" %></th>
+              <th><%= "Acciones" %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @births.each do |birth| %>
+              <tr>
+                <td><%= get_gender_icon(birth) %></td>
+                <td><%= birth.child_fullname %></td>
+                <td><%= birth.full_name_father %></td>
+                <td><%= birth.full_name_mother %></td>
+                <td><%= custom_date_no_hour(birth.birthday) %></td>
+                <td><%= is_approved(birth) %></td>
+                <td>
+                  <%= check_box_tag 'birth[approved]', nil, birth.approved?,
+                          data: {
+                            id: birth.id
+                          }, class: "approved_birth" %>
+                </td>                
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-success btn-sm' %>
+                  <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_birth_path(birth), :class => 'btn btn-primary btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+          <%= will_paginate @births, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
+      </div>
+    <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary' %>
+    </div>
+  </section>
+<%= will_paginate @births, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+
+<script>
+  function birth_filter_action() {
+    document.getElementById("birth_filter").click()
+  }
+</script>

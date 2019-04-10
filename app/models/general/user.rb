@@ -32,6 +32,8 @@ class General::User < ApplicationRecord
   scope :birthdays, -> { where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :first_welcome, -> { joins(:image_attachment).where("DATE_FORMAT(general_users.created_at, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
 
+  PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
+
   CITIES = [
     'Antofagasta', 
     'Santiago', 
@@ -51,6 +53,18 @@ class General::User < ApplicationRecord
     http = Net::HTTP.new(uri.host, uri.port)
     # http.post(uri, base64)
   end
+
+  def self.birthday?(date)
+    date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
+  end
+
+  def self.welcome?(date)
+    date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
+  end  
+  
+  def self.active_filter(data)
+    order(id: :desc).where(["active LIKE ?", data])
+  end  
 
   def image_resize
     if self.image.attachment.present?
