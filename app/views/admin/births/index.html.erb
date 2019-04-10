@@ -80,7 +80,7 @@
               </div></br>
               <div class="row text-center" >
                 <% birth.unpermitted_images.each do |image| %>
-                  <div class="col-md-4 approved">
+                  <div class="col-md-4 attach_birth">
                     <figure>          
                       <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
