@@ -25,7 +25,6 @@ class Employee::Birth < ApplicationRecord
     where(approved: false)
   end
   
-  
   def default_image
     if self.images.first.nil?
       self.images.attach(io: File.open("app/assets/images/birth.png"), filename: "birth.png", content_type: "image/png")

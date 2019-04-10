@@ -49,6 +49,8 @@ module Admin
           @birth.update_attributes(approved: params['approved'])
           format.json { render :json => {value: "success"} and return}
         end
+      elsif params['image_id'].present?
+        ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
       else
         params[:birth][:gender] = params[:birth][:gender].to_i
         respond_to do |format|

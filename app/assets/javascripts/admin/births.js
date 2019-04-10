@@ -19,9 +19,10 @@ $(document).on('turbolinks:load', function () {
     }).done(function (e) {});
   });
 
-  $(".attach_birth").on("change", function (e) {
+  $(".approved_birth_attachment").on("change", function (e) {
     var id;
     id = $(this).data("id");
+    image_id = $(this).data("image");
     return $.ajax({
       headers: {
         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -29,7 +30,7 @@ $(document).on('turbolinks:load', function () {
       url: "/admin/births/" + id + ".json",
       type: 'PUT',
       data: {
-        approved: $(this).is(":checked")
+        image_id: image_id
       }
     }).done(function (e) {});
   });

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :galleries
       resources :births do
         member do
+          put :permission_image
           delete :delete_image
         end
       end

@@ -53,6 +53,9 @@ module Admin
           @product.update_attributes(approved: params['approved'])
           format.json { render :json => {value: "success"} and return}
         end
+      elsif params['image_id'].present?
+        binding.pry
+        ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
       else
         respond_to do |format|
           if @product.update(product_params)

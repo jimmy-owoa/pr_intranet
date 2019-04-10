@@ -77,10 +77,17 @@ $(function() {
               </div></br>
               <div class="row text-center" >
                 <% product.unpermitted_images.each do |image| %>
-                  <div class="col-md-4 approved">
+                  <div class="col-md-4">
                     <figure>          
                       <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
+                    <figcaption>
+                      <%= check_box_tag 'attachment', nil, image.permission?,
+                                                data: {
+                                                  id: product.id,
+                                                  image: image.id
+                                                }, class: "approved_product_attachment" %>
+                    </figcaption>                    
                   </div>               
                 <% end %>
               </div>
