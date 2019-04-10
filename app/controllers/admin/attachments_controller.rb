@@ -1,6 +1,6 @@
 module Admin
   class AttachmentsController < AdminController
-    skip_before_action :authenticate_user!, :only => :create
+    skip_before_action :authenticate_user!, :only => [:create, :upload]
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
     before_action :set_terms, only: [:edit, :new]
@@ -15,7 +15,15 @@ module Admin
       end
     end
 
-    def upload
+    def upload 
+      if params[:file].present?
+        new_attachment = General::Attachment.new
+        new_attachment.attachment.attach(params[:file])
+        new_attachment.save 
+      end
+      respond_to do |format|
+      format.json { render json: { "location": url_for(new_attachment.attachment) }.to_json, status: :ok}
+      end
     end
 
     def show
@@ -104,12 +112,14 @@ module Admin
     end
 
     def attachment_params
-      if params["attachment"]["attachment"].kind_of?(Array)
-        params["attachment"]["attachment"] = params["attachment"]["attachment"].first
-      else
-        params["attachment"]["attachment"] = params["attachment"]["attachment"]
+      if params["attachment"].present?
+        if params["attachment"]["attachment"].kind_of?(Array)
+          params["attachment"]["attachment"] = params["attachment"]["attachment"].first
+        else
+          params["attachment"]["attachment"] = params["attachment"]["attachment"]
+        end
+        params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment, term_ids: [] )
       end
-      params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment, term_ids: [] )
     end
 
     def set_tags
