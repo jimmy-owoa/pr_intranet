@@ -8,8 +8,8 @@
         <%= raw @gallery.description %>
       </div>
 
-      <div class="container card">
-        <b><p>Fotos</p></b>
+      <b align='center'><p>Fotos</p></b>
+      <div class="container card scrollDiv">
         <div class="row text-center" >
           <% @gallery.attachments.each do |gal|  %>
             <div class="col-md-4">
@@ -24,7 +24,7 @@
         </div>
       </div><br>
 
-      <%= link_to 'Editar', edit_admin_gallery_path(@gallery) %>
+      <%= link_to 'Editar', edit_admin_gallery_path(@gallery), class: 'btn btn-primary'%>
     </div>
   </div>
 </section>
