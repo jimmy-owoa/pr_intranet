@@ -1,11 +1,11 @@
 <div class="nested-fields row">
-  <div class="col-md-5">
-    <%= f.input :title%>
+  <div class="col-md-1 text-right">
+    <i class="far fa-circle option-circle"></i>
   </div>
   <div class="col-md-5">
-    <%= f.input :placeholder%>
+    <%= f.input :title, label: false, placeholder: 'Opción', input_html: { class: 'option-input'}, wrapper_html: { class: 'option-input-wrapper'} %>
   </div>
-  <div class="col-md-2 text-center">
-    <span class=""><%= link_to_remove_association '<i class="fas fa-times text-center" style="font-size: 25px; margin-top: 20px;"></i>'.html_safe, f %></span>
+  <div class="col-md-2 text-left">
+    <span><%= link_to_remove_association '<i class="fas fa-times text-left remove-option"></i>'.html_safe, f %></span>
   </div>
 </div>

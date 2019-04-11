@@ -11,7 +11,7 @@ module Admin
     end
 
     def report
-      @survey = Survey::Survey.find(params[:id])
+      @survey = Survey::Survey.includes(questions: { answers: :user }).find(params[:id])
       render xlsx: 'report.xlsx.axlsx', filename: "reporte #{@survey.name + ' ' + l(Date.today, format: '%A %d %B %Y') }.xlsx"
     end
 

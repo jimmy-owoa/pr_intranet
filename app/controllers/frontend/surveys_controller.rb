@@ -28,8 +28,9 @@ module Frontend
           id: survey.id,
           name: survey.name,
           show_name: survey.show_name,
+          description: survey.description,
           image: survey.image.attached? ? 
-          url_for(survey.image) : root_url + '/assets/survey.png',
+          url_for(survey.image) : asset_url('survey.png'),
           created_at: survey.created_at.strftime('%d-%m-%Y'),
           questions: data_questions,
           survey_type: survey.survey_type,

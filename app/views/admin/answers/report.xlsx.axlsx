@@ -12,3 +12,50 @@ wb.add_worksheet(name: "Reporte encuesta") do |sheet|
     end
   end
 end
+
+# columns = ('C'..'Z')
+# questions = []
+# answers = []
+# rows = 0
+# @survey.questions.each_with_index do |question,i|
+#   column = columns[i]
+#   questions << {
+#     title: question.title,
+#     column: column,
+#     answers: []
+#   }
+#   answer_data = []
+#   user_id = nil
+#   user_full_name = nil
+#   question_id = nil
+#   response = ""
+#   count = 0
+#   question.answers.order(:user_id).each do |answer|
+#     response = if answer.option.nil?
+#         answer.answer_variable
+#       else
+#         answer.option.title
+#       end
+#     if answer.user_id == user_id && question.id == question_id
+#       questions[:answers][-1] = "#{questions[:answers][-1]},#{response}"
+#     else
+#       if rows < 
+#       questions[:answers] << response
+#     end
+#     user_id = answer.user_id
+#     user_full_name = answer.user.full_name
+#     question_id = question.id
+#     count += 1
+#   end
+# end
+
+# wb = xlsx_package.workbook
+# wb.add_worksheet(name: "Reporte encuesta") do |sheet|
+#   first_row = ['Id Usuario', 'Nombre Usuario']
+#   questions.pluck(:title).each_with_index do |question,i|
+    
+#   end
+#   sheet.add_row first_row
+
+  
+# end

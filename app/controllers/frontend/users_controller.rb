@@ -195,6 +195,7 @@ module Frontend
         name: @user.name,
         last_name: @user.last_name,
         nickname: @nickname,
+        company: @user.company,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
