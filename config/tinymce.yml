@@ -26,3 +26,4 @@ browser_spellcheck:
 images_upload_url: "/admin/upload"
 automatic_uploads: false
 file_picker_types: "file image media"
+
