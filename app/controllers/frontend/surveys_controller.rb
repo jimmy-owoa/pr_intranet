@@ -30,7 +30,7 @@ module Frontend
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ? 
-          url_for(survey.image) : asset_url('survey.png'),
+          url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
           created_at: survey.created_at.strftime('%d-%m-%Y'),
           questions: data_questions,
           survey_type: survey.survey_type,
@@ -55,6 +55,50 @@ module Frontend
           format.html {render :new}
           format.json {render json: @answer.errors, status: :unprocessable_entity}
         end
+      end
+    end
+
+    def survey
+      data = []
+      slug = params[:slug].present? ? params[:slug] : nil
+      survey = Survey::Survey.find_by_slug(slug)
+      data_survey = []
+        data_questions = [] 
+        survey.questions.each do |question|
+          data_options = []
+          question.options.each do |option|
+            data_options << {
+              id: option.id,
+              title: option.title,
+              default: option.default,
+              placeholder: option.placeholder
+            }
+          end
+          data_questions << {
+            id: question.id,
+            title: question.title,
+            question_type: question.question_type,
+            optional: question.optional,
+            options: data_options 
+          }
+        end
+        data_survey << {
+          id: survey.id,
+          name: survey.name,
+          show_name: survey.show_name,
+          description: survey.description,
+          image: survey.image.attached? ? 
+          url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
+          created_at: survey.created_at.strftime('%d-%m-%Y'),
+          questions: data_questions,
+          survey_type: survey.survey_type,
+          slug: survey.slug
+        }
+
+      respond_to do |format|
+        format.html
+        format.json { render json: data_survey[0] }
+        format.js
       end
     end
 
