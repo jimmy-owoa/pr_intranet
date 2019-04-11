@@ -46,22 +46,26 @@
     </div>
   </div>
 
-  <div class="container">
+  <div class="container" align="center">
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <%= link_to t('.back', :default => t("helpers.links.back")), admin_posts_path, :class => 'btn btn-primary btn-sm'  %>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_post_path(@post), :class => 'btn btn-primary btn-sm' %>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <%= link_to 'Deshabilitar', admin_post_path(@post),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger btn-sm' %>
       </div>      
-      <div class="col-sm-3">
+      <div class="col-sm-2">
         <% if @post.galleries.present? %>
           <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".gallery-modal-lg" id='show_gallery'>Ver Galería</button>
         <% end %>
       </div>
+      <div class="col-sm-2">
+        <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %>
+                 <%= link_to "Ver usuario final", "#{environment}/noticias/#{@post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
+      </div>      
     </div>
   </div>
 
