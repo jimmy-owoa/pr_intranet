@@ -1,17 +1,20 @@
 <section class="section">
-  <h1 class="section-header"><%= @section.title %></h1>
-  <div class="container card">
-    <div class="col-md-6 offset-md-4">
-      <h4>URL: <a href='<%= @section.url %>'><%= @section.url %></a></h4>
-      <div style='width: 400px; height: 400px;'>
+  <h1 class="section-header">Título: <%= @section.title %></h1>
+  <div class="card" align="center">
+    <div class="card-body">
+      <p id="notice"><%= notice %></p>
+      <div class="col-12" style="padding-top: 30px;">
         <%=image_tag @section.image.variant(resize: "360x300>")%>
+      </div>
+      <div>
+        <p><%= @section.title %></p>
+        <h4>URL: <a href='<%= @section.url %>'><%= @section.url %></a></h4>
       </div>
     </div>
   </div>
-  <br><br>
+  <div align="center">
+    <%= link_to t('.back', :default => t("helpers.links.back")), admin_sections_path, :class => 'btn btn-primary'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_section_path(@section), :class => 'btn btn-primary' %>
+  </div>  
 </section>
-
-    <div align="center">
-      <%= link_to t('.back', :default => t("helpers.links.back")), admin_sections_path, :class => 'btn btn-primary'  %>
-      <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_section_path(@section), :class => 'btn btn-primary' %>
-    </div>
+    
