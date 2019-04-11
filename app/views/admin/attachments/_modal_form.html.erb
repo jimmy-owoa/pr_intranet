@@ -10,7 +10,6 @@
       <div class="modal-body">
         <div class="tab-v2">
           <ul class="nav nav-tabs" id="myTab">
-            <li class="nav-item pill-tabs"><a href="#upload" data-toggle="tab" id="img1">Subir imagen</a></li>
             <li class="nav-item pill-tabs"><a href="#gallery" data-toggle="tab" id="gal1">Seleccionar desde Biblioteca</a></li>
           </ul>
 
@@ -18,15 +17,7 @@
             <div class="tab-pane fade in " id="upload">
               <br>
               <%= simple_form_for [@post, @attachment], as: 'attachment', url: {action: :create}, :html => { :class => "form" }, remote: true do |f| %>
-                <%= f.error_notification %>
-                <div class="card">
-                  <div class="card-body">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                      <%= f.file_field_tag :attachment%>
-                      <%= f.button :submit, class: 'btn btn-primary'%>
-                    </div>
-                  </div>
-                </div>
+               
               <% end %>
             </div>
             <div class="tab-pane fade in" id="gallery">
