@@ -3,5 +3,6 @@ class PublishPostJob < ApplicationJob
 
   def perform(*args)
     # Do something later
+    puts "I am busy mailing newsletter."
   end
 end
