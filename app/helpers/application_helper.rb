@@ -191,5 +191,19 @@ module ApplicationHelper
     user = General::User.find(id)
     return "#{user.name} #{user.last_name}"
   end
+
+  def message_type type
+    case type
+    when type = "birthdays"
+      return "Cumpleaños"
+    when type = "welcomes"
+      return "Bienvenidos"
+    when type = "general"
+      return "General"
+    else
+      return "Sin Tipo"
+    end
+  end
+  
   
 end

@@ -1,17 +1,34 @@
+<div class="container">
 <section class="section">
-  <h1 class="section-header">Link: <%= @message.id %></h1>
-  <div class="container card">
-    <div class="col-md-12" align="center">
-      <h4>Título: <a href='<%= @message.title %>'><%= @message.title %></a></h4>
-      <div style='width: 400px; height: 400px;'>
-        <%=image_tag @message.image.variant(resize: "360x300>") if @message.image.attached?%>
+  <h2 class="section-header"><%= @message.title %></h2>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5">
+      <% unless @message.image == nil %>
+        <%=image_tag @message.image.variant(resize: "400x400>") ,  class: "img-thumbnail"%>
+      <% end %>
+    </div>
+    <div class="col-sm-7">
+      <div class="card post_card">
+        <b>Título: <%= @message.title %></b><br>
+        <b>Tipo de mensaje: <%= message_type(@message.message_type) %></b><br>
+        <p><strong> Etiquetas incluyentes: </strong></p>
+        <%= @message.terms.inclusive_tags.map(&:name).join(', ') %>
+        <p><strong> Etiquetas excluyentes: </strong></p>
+        <%= @message.terms.excluding_tags.map(&:name).join(', ') %>
+      </div>
+    </div>
+  </div><br />
+  <div class="row">
+    <div class="card post_card">
+      <div class="col-sm-12">
+        <%= @message.content.present? ? raw(@message.content) : 'Sin contenido' %>
       </div>
     </div>
   </div>
-  <br><br>
+  <div class="container" align="center">
+    <%= link_to t('.back', :default => t("helpers.messages.back")), admin_messages_path, :class => 'btn btn-primary'  %>
+    <%= link_to t('.edit', :default => t("helpers.messages.edit")), edit_admin_message_path(@message), :class => 'btn btn-primary' %>        
+  </div>
+</div>
 </section>
-
-    <div align="center">
-      <%= link_to t('.back', :default => t("helpers.messages.back")), admin_messages_path, :class => 'btn btn-primary'  %>
-      <%= link_to t('.edit', :default => t("helpers.messages.edit")), edit_admin_message_path(@message), :class => 'btn btn-primary' %>
-    </div>

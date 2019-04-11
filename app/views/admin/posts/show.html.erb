@@ -2,9 +2,7 @@
 <section class="section">
   <h2 class="section-header"><%= @post.title %></h2>
 </section>
-
 <div class="container">
-
   <div class="card post_card">
     <div class="row">
       <div class="col-md-4">
@@ -21,7 +19,7 @@
   <div class="row">
     <div class="col-sm-5">
       <% unless @post.main_image == nil %>
-        <%= image_tag @post.main_image.large,  class: "img-thumbnail"%>
+        <%= image_tag @post.main_image.large,  class: "img-thumbnail" %>
       <% end %>
     </div>
     <div class="col-sm-7">
