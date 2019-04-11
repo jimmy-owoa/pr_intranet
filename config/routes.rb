@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     post 'products/update_expiration', to: 'products#update_expiration'
     resources :surveys do
       get :survey_count, on: :collection
+      get :survey, on: :collection
     end
     resources :answers
     resources :messages

@@ -23,7 +23,7 @@
       <% end %>
     </div>
     <div class='col-md-10 center'>
-      <% environment = Rails.env.dev? ? 'dev' : 'qa-v1' %>
+      <% environment = Rails.env.development? ? 'dev' : 'qa-v1' %>
       <%= link_to "Link de la encuesta", "http://intranet-security-#{environment}.s3-website.us-east-2.amazonaws.com/encuestas/#{@survey.slug}", target: "_blank" %><br />
     </div>
       <%= link_to t('.back', :default => t("helpers.links.back")), admin_surveys_path, :class => 'btn btn-primary'  %>
