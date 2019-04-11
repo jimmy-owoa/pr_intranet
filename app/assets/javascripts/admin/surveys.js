@@ -44,7 +44,7 @@ $(document).ready(function() {
   function addOptionOnKeypress(e) {
     if (e.keyCode == 13 || e.keyCode == 10) {
       e.preventDefault();
-      var input_parent = $($(e.target).parents()[2]);
+      var input_parent = $($(e.target).parents()[4]);
       var add_options = input_parent
         .siblings(".add_option")
         .children(".add_fields")
@@ -54,6 +54,22 @@ $(document).ready(function() {
       var inputs = input_parent.next(".nested-fields").find(":input");
       var next_index = inputs.index(this) + 1;
       inputs
+        .eq(next_index)
+        .focus()
+        .attr("placeholder", "Opción");
+        
+      var input_parent2 = $($(e.target).parents()[2]);
+      var add_options = input_parent2
+        .siblings(".add_option")
+        .children(".add_fields")
+        .first();
+      add_options.trigger("click");
+
+  
+        
+      var inputs2 = input_parent2.next(".nested-fields").find(":input");
+      var next_index = inputs2.index(this) + 1;
+      inputs2
         .eq(next_index)
         .focus()
         .attr("placeholder", "Opción");

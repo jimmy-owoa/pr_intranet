@@ -15,7 +15,7 @@ module Frontend
       @user = General::User.find(id)
       @nickname = nickname(@user.name)
       # @location = @user.address.present? ? @user.address : General::Location.find(@user.location_id).name
-      @location = General::Location.find(@user.location_id).name
+      @location = @user.location.present? ? General::Location.find(@user.location_id).name : 'No definido'
       if @user.children.first.present?
         @user.children.where.not(parent_id: nil).each do |children|
           data_childrens << {
