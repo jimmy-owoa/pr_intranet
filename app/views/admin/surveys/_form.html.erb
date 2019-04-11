@@ -1,47 +1,42 @@
 <%= f.error_notification %>
 <div class="form-group row">
-  <div class="col-md-5">
+  <div class="col-md-4">
     <%= f.input :name, autofocus: true %>
   </div>
-  <div class="col-md-5">
-    <%= f.input :slug %>
-  </div>
   <div class="col-md-2">
-    <%= f.input :survey_type, collection: @survey_types, selected: @survey.survey_type %>
-  </div>       
-</div>
-<div class="form-group row">
-  <div class="col-md-6">
-    <%= f.input :description, label: 'Descripción' %>
-  </div>
-  <div class="col-md-3 col-sm-6">
-    <%= f.label 'Etiquetas inclusivas' %>
-    <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
-  </div>
-  <div class="col-md-3 col-sm-6">
-    <%= f.label 'Etiquetas excluyentes' %>
-    <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
-  </div>
-</div>
-<div class="form-group row">
-  <div class="col-md-4 col-sm-6">
     <%= f.label "Mostrar Nombre" %><br />
     <% if f.object.new_record? %>
       <%= f.check_box :show_name, checked: true %>
     <% else %>
       <%= f.check_box :show_name%>
     <% end %>
+  </div>          
+  <div class="col-md-6">
+    <%= f.input :slug %>
   </div>
-  <div class="col-md-4 col-sm-6">
-    <%= f.label "Responder una sola vez por usuario" %><br />
-      <%= f.check_box :once_by_user%>
+</div>
+<div class="form-group row">
+  <div class="col-md-7">
+    <%= f.input :description, label: 'Descripción' %>
   </div>
-  <div class="col-md-4">
+</div>
+<div class="form-group row">
+  <div class="col-md-3">
+    <%= f.input :survey_type, collection: @survey_types, selected: @survey.survey_type %>
+  </div>
+  <div class="col-md-3">
+    <%= f.label 'Etiquetas incluyentes' %>
+    <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
+  </div>
+  <div class="col-md-3">
+    <%= f.label 'Etiquetas excluyentes' %>
+    <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
+  </div>    
+  <div class="col-md-3">
     <%= image_tag @survey.image.variant(resize: '150x150>') if @survey.image.attached? %>
     <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
   </div>
 </div>
-
 <div class="col-md-12" align="center" style="margin-bottom: 30px;">
   <h2>Listado de preguntas</h2>
 </div>

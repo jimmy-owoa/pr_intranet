@@ -174,4 +174,22 @@ module ApplicationHelper
     General::Menu.find(parent_id).title if parent_id.present?
   end
 
+  def format_post data
+    case data
+    when data = 0
+      return 'Estilo Normal'
+    when data = 1
+      return 'Estilo Rosado'
+    when data = 2
+      return 'Estilo Naranja'
+    else
+      return 'Sin Estilo'
+    end
+  end
+
+  def fullname_user id
+    user = General::User.find(id)
+    return "#{user.name} #{user.last_name}"
+  end
+  
 end
