@@ -17,7 +17,7 @@ module Admin
     end
 
     def show
-      fresh_when last_modified: @post.updated_at
+      # fresh_when last_modified: @post.updated_at
       add_breadcrumb "Noticias", :admin_posts_path
     end
 
