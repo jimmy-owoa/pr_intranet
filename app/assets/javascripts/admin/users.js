@@ -2,7 +2,7 @@ $(document).on('turbolinks:load', function () {
   $('.for_select').select2({
     tags: true,
     tokenSeparators: [',', ' '],
-    placeholder: "Seleccionar Tags"
+    placeholder: "Seleccionar Etiqueta"
   });
   // ver user_term_ids para agregar tags
   $('#birthday').datetimepicker({
@@ -16,7 +16,7 @@ $(document).on('turbolinks:load', function () {
   $('#user_term_ids').select2({
     tags: true,
     tokenSeparators: [',', ' '],
-    placeholder: "Crear Tags"
+    placeholder: "Crear Etiqueta"
   });
   $("#user_parent_id").select2({
     theme: "bootstrap",

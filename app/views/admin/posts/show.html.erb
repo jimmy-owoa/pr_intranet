@@ -27,9 +27,9 @@
     <div class="col-sm-7">
       <div class="card post_card">
         <b>Slug: <%= @post.slug %></b><br>
-        <p><strong> Tags incluyentes: </strong></p>
+        <p><strong> Etiquetas incluyentes: </strong></p>
         <%= @post.terms.inclusive_tags.map(&:name).join(', ') %>
-        <p><strong> Tags excluyentes: </strong></p>
+        <p><strong> Etiquetas excluyentes: </strong></p>
         <%= @post.terms.excluding_tags.map(&:name).join(', ') %>
         <b>Visibilidad: <%= @post.visibility %></b><br>
         <b>Tipo de publicación: <%= @post.post_type %></b><br>
