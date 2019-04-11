@@ -12,11 +12,11 @@
           </div>
         </div>
         <div class="col-md-4">
-          <%= f.label 'Tags excluyentes' %>
+          <%= f.label 'Etiquetas excluyentes' %>
           <%= select_tag :excluding_tags, options_for_select(@excluding_tags.map{|i| [i.name, i.id]}), multiple: true, class:' form-control string optional' %>
         </div>
         <div class="col-md-4">
-          <%= f.label 'Tags incluyentes' %>
+          <%= f.label 'Etiquetas incluyentes' %>
           <%= select_tag :inclusive_tags, options_for_select(@inclusive_tags.map{|i| [i.name, i.id]}), multiple: true, class:' form-control string optional' %>
         </div>
         <br />

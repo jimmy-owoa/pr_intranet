@@ -12,11 +12,11 @@
           <%= f.input :message_type, collection: @message_types, selected: @message.message_type%>
         </div>  
         <div class="col-12 col-sm-12">
-          <%= f.label 'Tags inclusivos' %>
+          <%= f.label 'Etiquetas inclusivas' %>
           <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
         </div>  
         <div class="col-12 col-sm-12">
-          <%= f.label 'Tags excluyentes' %>
+          <%= f.label 'Etiquetas excluyentes' %>
           <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
         </div>                        
       </div>

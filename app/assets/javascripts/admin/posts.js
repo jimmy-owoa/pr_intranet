@@ -42,7 +42,7 @@ $(document).on('turbolinks:load', function () {
   $('#tag_post').select2({
     tags: false,
     tokenSeparators: [],
-    placeholder: "Seleccionar Tags"
+    placeholder: "Seleccionar Etiqueta"
   });
   $('#post_format').select2({
     theme: "bootstrap",
