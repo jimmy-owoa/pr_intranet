@@ -17,7 +17,7 @@ module Admin
     end
   
     def edit
-      @survey.questions.build
+      @survey.questions.build if @survey.questions.empty?
       @survey_types = Survey::Survey::SURVEY_TYPES
     end
   
@@ -75,7 +75,7 @@ module Admin
     end
   
     def survey_params
-      params.require(:survey).permit(:name, :slug, :show_name, :survey_type, :image, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional,  :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
+      params.require(:survey).permit(:name, :slug, :description, :show_name, :survey_type, :image, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional,  :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
     end
   end
 end

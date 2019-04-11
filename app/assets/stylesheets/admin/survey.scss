@@ -13,3 +13,30 @@
 .question_fields {
   display: contents !important;
 }
+
+.remove-option {
+  font-size: 20px;
+  margin-top: 15px;
+  color: #ccc;
+}
+
+.remove-option:hover {
+  color: #dc3545;
+}
+
+.option-circle {
+  font-size: 15px;
+  margin-top: 17px;
+  margin-right: -20px;
+}
+
+input.form-control.option-input {
+  outline: 0;
+  border-width: 0 0 1px;
+  border-color: #ccc;
+  border-radius: 0;
+  padding: 10px 5px 0 !important;
+}
+input.form-control.option-input:focus {
+  border-color: #000;
+}

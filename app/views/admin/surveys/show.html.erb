@@ -10,20 +10,21 @@
         <% if question.question_type == 'Múltiple' %>
           <% question.options.each do |option| %>
             <br>
-            <input type="checkbox" name="#{option.title}" value="#{option.id}" class=""><%= option.title %>
+            <input type="checkbox" name="#{option.title}" value="#{option.id}"><%= option.title %>
           <% end %> 
         <% end %>
         <% if question.question_type == 'Simple' %>
           <% question.options.each do |option| %>
             <br>
-            <input type="radio" name="#{option.title}" value="#{option.id}" class=""><%= option.title %>
+            <input type="radio" name="#{option.title}" value="#{option.id}"><%= option.title %>
           <% end %> 
         <% end %>
         <br><hr>
       <% end %>
     </div>
     <div class='col-md-10 center'>
-      <%= link_to "Link de la encuesta", "http://intranet-security-dev.s3-website.us-east-2.amazonaws.com" + '/encuestas/' + @survey.slug %><br />
+      <% environment = Rails.env.dev? ? 'dev' : 'qa-v1' %>
+      <%= link_to "Link de la encuesta", "http://intranet-security-#{environment}.s3-website.us-east-2.amazonaws.com/encuestas/#{@survey.slug}", target: "_blank" %><br />
     </div>
       <%= link_to t('.back', :default => t("helpers.links.back")), admin_surveys_path, :class => 'btn btn-primary'  %>
 

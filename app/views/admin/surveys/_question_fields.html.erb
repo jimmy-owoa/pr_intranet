@@ -4,39 +4,29 @@
       <div class="row">
         <div class="col-md-11">
       <h4>Pregunta</h4>
-          <%= f.input :title, input_html: { class: "col-md-7" } %>
+          <%= f.input :title, label: false, input_html: { class: "col-md-7" } %>
         </div>
         <div class="col-md-1" style="font-size: 25px;"><%= link_to_remove_association '<i class="fas fa-times float-right"></i>'.html_safe, f %></div>
       </div>
     </div>
     <div class="col-md-11">
-      <%= f.input :description, input_html: { class: "col-md-7" } %>
+      <%= f.input :optional, as: :boolean, boolean_style: :inline, input_html: { class: "col-md-7" } %>
     </div>
-    <div class="col-md-11">
-      <%= f.input :optional, as: :boolean, boolean_style: :inline, input_html: { class: "col-md-7", include_hidden: false } %>
-    </div>
-    <div class="col-md-11"></br>
-  
-      <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, input_html: { class: "col-md-7 select-question-type", :onchange => "readURL(this)"}  %>
-
+    <div class="col-md-11"><br />
+      <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, include_blank: false, input_html: { class: "col-md-7 select-question-type", include_hidden: false }  %>
       <div class="feedback hidden" style="font-size: 12px; font-weight: 500; color: #868e96; font-style: italic;" id="lineal_message">
         <%= "Escala lineal es considerada desde 0 a 10" %>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12" id="options">
-      <%= f.simple_fields_for :options do |option_form|%>
+    <div class="col-md-12 cosa" id="options">
+      <%= f.simple_fields_for :options, f.object.options.build do |option_form|%>
         <%= render 'option_fields', f: option_form %>
       <% end %>
     </div>
   </div>
   <div class="text-right add_option"><br />
-    <%= link_to_add_association 'Agregar opción', f, :options, class: 'btn btn-success' %>
+    <%= link_to_add_association 'Agregar opción', f, :options, class: 'btn btn-success hidden' %>
   </div>    
 </div>
-<%# <script>
-  function readURL(asunto) {
-    alert(asunto);
-  }
-</script> %>
