@@ -1,17 +1,19 @@
 <section class="section">
   <h1 class="section-header">Título: <%= @link.title %></h1>
-  <div class="container card">
-    <div class="col-md-12" align="center">
-      <div style='width: 400px; height: 400px;'>
+  <div class="card" align="center">
+    <div class="card-body">
+      <p id="notice"><%= notice %></p>
+      <div class="col-12" style="padding-top: 30px;">
         <%=image_tag @link.image.variant(resize: "360x300>")%>
       </div>
-      <h4>URL: <a href='<%= @link.url %>'><%= @link.url %></a></h4>
+      <div>
+        <%= @link.title %>
+        <h4>URL: <a href='<%= @link.url %>'><%= @link.url %></a></h4>
+      </div>
     </div>
   </div>
-  <br><br>
+  <div align="center">
+    <%= link_to t('.back', :default => t("helpers.links.back")), admin_links_path, :class => 'btn btn-primary'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_link_path(@link), :class => 'btn btn-primary' %>
+  </div>  
 </section>
-
-    <div align="center">
-      <%= link_to t('.back', :default => t("helpers.links.back")), admin_links_path, :class => 'btn btn-primary'  %>
-      <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_link_path(@link), :class => 'btn btn-primary' %>
-    </div>
