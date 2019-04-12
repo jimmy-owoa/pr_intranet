@@ -32,6 +32,7 @@ module Admin
 
     def new
       add_breadcrumb "Medios", :admin_attachments_path
+      @image_list = General::Attachment.paginate(:page => params[:page], :per_page => 12)
       @attachment = General::Attachment.new
       respond_to do |format|
       format.html

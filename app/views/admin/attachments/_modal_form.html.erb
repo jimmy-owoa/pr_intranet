@@ -8,35 +8,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="tab-v2">
-          <ul class="nav nav-tabs" id="myTab">
-            <li class="nav-item pill-tabs"><a href="#gallery" data-toggle="tab" id="gal1">Seleccionar desde Biblioteca</a></li>
-          </ul>
-
-          <div class="tab-content">
-            <div class="tab-pane fade in " id="upload">
-              <br>
-              <%= simple_form_for [@post, @attachment], as: 'attachment', url: {action: :create}, :html => { :class => "form" }, remote: true do |f| %>
-               
-              <% end %>
-            </div>
-            <div class="tab-pane fade in" id="gallery">
-              <div class="row justify-content-center">
-                <div class="col-12">
-                  <%= text_field_tag :search, params[:search], id: 'search_att', placeholder: 'Buscar imagen' %>
-                  <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
-                  <%= select_tag :attachment, options_for_select(General::Attachment.all.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}), class: 'show-html', id: 'image-picker_att' %>
-                </div>
-              </div>
-              <button type="button" id="selection-image" class="btn btn-primary" style="float:right">Seleccionar</button>
+        <div id="gallery">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <%= text_field_tag :search, params[:search], id: 'search_att', placeholder: 'Buscar imagen' %>
+              <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
+              <%= select_tag :attachment, options_for_select(@image_list.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}), class: 'show-html', id: 'image-picker_att' %>
             </div>
           </div>
+          <%= js_will_paginate @image_list %>
+          <button type="button" id="selection-image" class="btn btn-primary" style="float:right">Seleccionar</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<script>
-
-</script>
