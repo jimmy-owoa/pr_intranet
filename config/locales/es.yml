@@ -14,7 +14,7 @@ es:
       general/menu:
         priority: Prioridad
         tags: Etiquetas
-        categories: Categorías
+        categories: Empresas
         code: Código
         css_class: Clase CSS
         link: Enlace
