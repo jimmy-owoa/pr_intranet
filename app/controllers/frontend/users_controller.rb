@@ -199,9 +199,9 @@ module Frontend
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
-        categories: @user.terms.categories.map(&:name),
-        inclusive_tags: @user.terms.inclusive_tags.map{|a| { id: a.id, name: a.name, description: a.description, slug: a.slug, permission: a.permission} },
-        excluding_tags: @user.terms.excluding_tags.map{|a| { id: a.id, name: a.name, description: a.description, slug: a.slug, permission: a.permission} },
+        companies: @user.terms.categories.map(&:name),
+        including_tags: @user.terms.inclusive_tags.map{|a| a.name },
+        excluding_tags: @user.terms.excluding_tags.map{|a| a.name },
         email: @user.email,
         annexed: @user.annexed,
         breadcrumbs: [

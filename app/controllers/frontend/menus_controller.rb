@@ -16,7 +16,7 @@ module Frontend
           parent_id: menu.parent_id,
           link: menu.link,
           tags: menu.cached_tags,
-          categories: menu.cached_categories,
+          companies: menu.cached_categories,
         }
       end
       respond_to do |format|
