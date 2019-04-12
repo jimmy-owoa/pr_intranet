@@ -81,12 +81,11 @@
               <% end %>     
               <% if current_user.has_role? :super_admin %>         
                 <li>
-                  <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Imágenes/Galerías</span></a>
+                  <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios</span></a>
                   <ul class="menu-dropdown">
-                    <!-- <li><a href="<%= admin_attachments_path %>"><i class="far fa-images"></i> Biblioteca</a></li> -->
-                    <li><a href="<%= admin_attachments_path %>"><i class="far fa-file-image"></i> Fotografías</a></li>
-                    <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i> Galerías</a></li>
-                    <li><a href="<%= new_admin_attachment_path %>"><i class="fas fa-file-upload"></i> Añadir imágenes</a></li>
+                    <li><a href="<%= admin_attachments_path %>"><i class="far fa-file-image"></i> Fotografías </a></li>
+                    <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i> Galerías </a></li>
+                    <li><a href="<%= new_admin_attachment_path %>"><i class="fas fa-file-upload"></i> Añadir medios </a></li>
                   </ul>
                 </li>
                 <li>
@@ -116,7 +115,7 @@
                 <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i> Etiquetas</a></li>
                 <li class="menu-header">Marketplace</li>
                 <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Anuncios</span></a>
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios</span></a>
                   <ul class="menu-dropdown">
                     <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
                     <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>No aprobados</a></li>
