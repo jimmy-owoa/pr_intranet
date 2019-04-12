@@ -120,8 +120,6 @@ module ApplicationHelper
     ogg = 'video/ogg'
     web = 'video/webm'
     if file.attachment.content_type == mp4 ||
-      #  file.attachment.content_type == flv ||
-      #  file.attachment.content_type == gpp || 
        file.attachment.content_type == mov ||
        file.attachment.content_type == ogg ||
        file.attachment.content_type == web
@@ -133,7 +131,7 @@ module ApplicationHelper
     if supported_img(file) && file.attachment.attached?
       return image_tag @attachment.attachment.variant(resize: "360x300>")
     elsif supported_video(file) && file.attachment.attached?
-      return video_tag(url_for(file.attachment), controls: '')
+      return video_tag(url_for(file.attachment), controls: '', width: '1024px')
     else
       return '<h4>Archivo no soportado</h4>'.html_safe
     end
