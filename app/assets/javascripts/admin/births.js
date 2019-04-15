@@ -35,4 +35,8 @@ $(document).on('turbolinks:load', function () {
     }).done(function (e) {});
   });
 
+  $('.close').on('click', function(){
+    $('.modal').modal('hide');
+  });
+
 });
