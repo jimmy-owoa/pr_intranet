@@ -16,7 +16,7 @@
         <tbody>
           <% @products.each do |product| %>
             <tr>
-              <td><%= image_tag product.thumb(product.images.first), :class=> 'img-thumbnail' unless product.images.first.nil? %></td>
+              <td data-toggle="modal" data-target="#modalShowProduct_<%= product.id %>"><%= image_tag product.thumb(product.images.first), :class=> 'img-thumbnail' unless product.images.first.nil? %></td>
               <td><%= product.name %></td>
               <td><%= product.price %></td>
               <td><%= is_approved(product) %></td>
@@ -52,3 +52,57 @@ $(function() {
     });
 });
 </script>
+<% @products.each do |product| %>
+  <div class="modal fade bd-example-modal-lg" id="modalShowProduct_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="container card">
+            <% if product.unpermitted_images.present? %>
+              <div class="row">
+                <div class="col-sm-12 pull-left">
+                  imágenes por aprobar
+                </div>
+              </div></br>
+              <div class="row text-center" >
+                <% product.unpermitted_images.each do |image| %>
+                  <div class="col-md-4">
+                    <figure>
+                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                    </figure>
+                    <figcaption>
+                      <%= check_box_tag 'attachment', nil, image.permission?,
+                                                data: {
+                                                  id: product.id,
+                                                  image: image.id
+                                                }, class: "approved_product_attachment" %>
+                    </figcaption>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <div class="container card">
+            <% if product.permitted_images.present? %>
+              <p>Imágenes Aprobadas</p>
+              <div class="row text-center" >
+                <% product.permitted_images.each do |image| %>
+                  <div class="col-md-4">
+                    <figure>
+                        <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                    </figure>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div><br>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
