@@ -10,13 +10,17 @@ class Employee::Birth < ApplicationRecord
   PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
 
   def child_fullname
-    if self.child_name.present? && self.child_lastname.present? 
+    if self.child_name.present? && self.child_lastname.present?
       return self.child_name + ' ' + self.child_lastname
     else
       return 'Sin nombre'
     end
   end
-  
+
+  def thumb img
+    img.variant(resize: '60x60>').processed
+  end
+
   def self.approved_filter(data)
     order(id: :desc).where(["approved LIKE ?", data])
   end
@@ -24,7 +28,7 @@ class Employee::Birth < ApplicationRecord
   def self.no_approved
     where(approved: false)
   end
-  
+
   def default_image
     if self.images.first.nil?
       self.images.attach(io: File.open("app/assets/images/birth.png"), filename: "birth.png", content_type: "image/png")
@@ -47,5 +51,5 @@ class Employee::Birth < ApplicationRecord
   def unpermitted_images
     images.attachments.where(permission: 0)
   end
-  
+
 end

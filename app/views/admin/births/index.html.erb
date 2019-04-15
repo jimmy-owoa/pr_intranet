@@ -11,12 +11,13 @@
             </div>
         </div>
       <% end %>
-    </div>    
+    </div>
     <div class="card">
       <div class="table-responsive-sd table-sm">
         <table class="table table-hover">
           <thead class="thead">
             <tr>
+              <th></th>
               <th><%= "Sexo" %></th>
               <th><%= "Nombre" %></th>
               <th><%= "Día de Nacimiento" %></th>
@@ -28,7 +29,8 @@
           <tbody>
             <% @births.each do |birth| %>
               <tr>
-                <td><%= get_gender_icon(birth)  %></td>
+                <td data-toggle="modal" data-target="#modalShowBirth_<%= birth.id %>"><%= image_tag birth.thumb(birth.images.first), :class=> 'img-thumbnail' unless birth.images.first.nil? %></td>
+                <td><%= get_gender_icon(birth) %></td>
                 <td><%= birth.child_fullname %></td>
                 <td><%= custom_date_no_hour(birth.birthday) %></td>
                 <td><%= is_approved(birth) %></td>
@@ -37,11 +39,11 @@
                           data: {
                             id: birth.id
                           }, class: "approved_birth" %>
-                </td>                
+                </td>
                 <td>
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalShowBirth_<%= birth.id %>">Imágenes</button>
                   <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-success btn-sm' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_birth_path(birth), :class => 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Deshabilitar', admin_birth_path(birth),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger btn-sm' %>
                 </td>
               </tr>
             <% end %>
@@ -63,7 +65,7 @@
 </script>
 
   <!-- Modal -->
-<% @births.each do |birth| %>  
+<% @births.each do |birth| %>
   <div class="modal fade bd-example-modal-lg" id="modalShowBirth_<%= birth.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -72,7 +74,7 @@
         </div>
         <div class="modal-body">
           <div class="container card">
-            <% if birth.unpermitted_images.present? %>    
+            <% if birth.unpermitted_images.present? %>
               <div class="row">
                 <div class="col-sm-12 pull-left">
                   imágenes por aprobar
@@ -81,7 +83,7 @@
               <div class="row text-center" >
                 <% birth.unpermitted_images.each do |image| %>
                   <div class="col-md-4 attach_birth">
-                    <figure>          
+                    <figure>
                       <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
                     <figcaption>
@@ -90,8 +92,8 @@
                                                   id: birth.id,
                                                   image: image.id
                                                 }, class: "approved_birth_attachment" %>
-                    </figcaption>           
-                  </div>               
+                    </figcaption>
+                  </div>
                 <% end %>
               </div>
             <% end %>
@@ -102,11 +104,11 @@
               <div class="row text-center" >
                 <% birth.permitted_images.each do |image| %>
                   <div class="col-md-4">
-                    <figure>          
+                    <figure>
                         <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
                   </div>
-                <% end %>  
+                <% end %>
               </div>
             <% end %>
           </div><br>
