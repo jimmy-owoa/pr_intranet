@@ -10,7 +10,7 @@ class General::Attachment < ApplicationRecord
 
   after_create :path
   before_save :default_name
-
+  
   def default_name
     if self.attachment.attached?
       self.name = self.name || self.attachment.attachment.filename.to_s
