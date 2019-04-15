@@ -47,7 +47,9 @@ $(document).on('turbolinks:load', function () {
       data: {
         approved: $(this).is(":checked")
       }
-    }).done(function (e) {});
+    }).done(function (e) {
+      alertify.success('Estado del usuario cambiado');
+    });
   });
 
 });

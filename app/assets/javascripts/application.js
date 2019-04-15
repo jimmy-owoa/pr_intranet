@@ -37,6 +37,8 @@
 //= require admin/surveys
 //= require admin/benefit_groups
 //= require owl.carousel
+//= require alertify
+//= require alertify/confirm-ujs
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require ahoy

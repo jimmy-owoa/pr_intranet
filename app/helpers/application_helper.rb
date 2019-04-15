@@ -202,6 +202,4 @@ module ApplicationHelper
       return "Sin Tipo"
     end
   end
-  
-  
 end
