@@ -27,6 +27,7 @@ module Frontend
         data_surveys << {
           id: survey.id,
           name: survey.name,
+          url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ? 
@@ -85,6 +86,7 @@ module Frontend
         data_survey << {
           id: survey.id,
           name: survey.name,
+          url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ? 

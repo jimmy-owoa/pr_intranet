@@ -31,7 +31,7 @@ module Admin
       @image = ActiveStorage::Attachment.find(params[:id])
       @image.purge
       redirect_back(fallback_location: root_path)
-    end    
+    end
 
     def create
       @product = Marketplace::Product.new(product_params)

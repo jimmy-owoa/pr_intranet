@@ -16,7 +16,9 @@ $(document).on('turbolinks:load', function () {
       data: {
         approved: $(this).is(":checked")
       }
-    }).done(function (e) {});
+    }).done(function (e) {
+      alertify.success('Estado del nacimiento cambiado');
+    });
   });
 
   $(".approved_birth_attachment").on("change", function (e) {
@@ -32,7 +34,9 @@ $(document).on('turbolinks:load', function () {
       data: {
         image_id: image_id
       }
-    }).done(function (e) {});
+    }).done(function (e) {
+      alertify.success('Estado de la imagen cambiada');
+    });
   });
 
   $('.close').on('click', function(){

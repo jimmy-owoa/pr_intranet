@@ -21,11 +21,11 @@ module Frontend
       end
       respond_to do |format|
         format.json { render json: data }
-        format.js      
+        format.js
       end
     end
 
-    def api_menu 
+    def api_menu
       user_id = 3 # TODO: Cambiar al correcto
       location_id = 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
@@ -42,7 +42,7 @@ module Frontend
       end
       data = {
         menus: menus,
-        user: user,      
+        user: user,
         weather: weather,
         santoral: santoral[0],
         location_name: location.name,
@@ -52,6 +52,6 @@ module Frontend
       respond_to do |format|
         format.json { render json: menu_json }
       end
-    end 
+    end
   end
 end

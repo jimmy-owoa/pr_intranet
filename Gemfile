@@ -95,7 +95,8 @@ gem 'owlcarousel-rails'
 gem 'jquery-minicolors-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
-
+#alerttify
+gem 'alertifyjs-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
