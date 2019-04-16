@@ -546,7 +546,7 @@
             <ul>
               <h4 class="head_section"><%= menu_parent.title %></h4>
               <% menus.where(parent_id: menu_parent.id).each do |link| %>
-                 <% if link.link.downcase[0..3] == 'http'%>
+                <% if link.link.downcase[0..3] == 'http'%>
                   <%= link_to link.title, link.link %>
                 <% else %>
                   <%= link_to link.title, '/' + link.link %>
@@ -565,7 +565,7 @@
             <ul>
               <h4 class="head_section"><%= menu_parent.title %></h4>
               <% menus.where(parent_id: menu_parent.id).each do |link| %>
-                 <% if link.link.downcase[0..3] == 'http'%>
+                <% if link.link.downcase[0..3] == 'http'%>
                   <%= link_to link.title, link.link %>
                 <% else %>
                   <%= link_to link.title, '/' + link.link %>
@@ -594,7 +594,6 @@
           <% end %>
         </ul>
       </li>
-      
 
       <div class="search_position">
         <div id="search_desktop" class="hidden-sm-and-down">
@@ -667,8 +666,6 @@
     </ul>
   </nav>
 </div>
-
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>

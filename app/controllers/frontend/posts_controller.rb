@@ -94,11 +94,12 @@ module Frontend
       id: post.id,
       title: post.title,
       main_image: post.main_image,
+      url: root_url + 'admin/posts/' + "#{post.id}" + '/edit',
       user_id: General::User.find(post.user_id).name,
       created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
       content: post.content,
       post_type: post.post_type,
-      important: post.important,      
+      important: post.important,
       tags: post.terms.tags,
       main_image: image,
       format: post.format,
@@ -114,7 +115,7 @@ module Frontend
     respond_to do |format|
       format.json { render json: data[0] }
       format.js
-    end    
+    end
   end
 
   private

@@ -31,6 +31,7 @@ module Frontend
         name: product.name,
         approved: product.approved,
         product_type: product.product_type,
+        url: root_url + 'admin/products/' + "#{product.id}" + '/edit',
         user_id: General::User.find(product.user_id).id,
         created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
         price: product.price,

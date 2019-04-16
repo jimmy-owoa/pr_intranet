@@ -11,6 +11,7 @@ module Frontend
         data << {
           id: benefit.id,
           title: benefit.title,
+          url: root_url + 'admin/benefit_groups/' + "#{benefit.id}" + '/edit',
           content: benefit.content,
           image: @image
         }
@@ -29,14 +30,15 @@ module Frontend
       data << {
         id: benefit.id,
         title: benefit.title,
+        url: root_url + 'admin/benefit_groups/' + "#{benefit.id}" + '/edit',
         content: benefit.content,
         image: @image
       }
       respond_to do |format|
         format.json { render json: data[0] }
         format.js
-      end    
-    end    
+      end
+    end
 
     def show
       respond_to do |format|
