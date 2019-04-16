@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get "searchatt", to: "attachments#search_att"
       get 'births/no_approved_index', to: 'births#no_approved_index'
       get 'products/no_approved_index', to: 'products#no_approved_index'
+      get 'menus/testing', to: 'menus#testing'
       resources :term_relationships
       resources :comments
       resources :links
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
       resources :answers do 
         get :report, on: :member
       end
-      resources :menus
+      resources :menus 
       resources :messages
       resources :sections
       put 'products/update_expiration', to: 'products#update_expiration'

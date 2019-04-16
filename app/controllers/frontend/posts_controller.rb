@@ -3,8 +3,10 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]  
     
   def index
+    user_posts = filter_posts(params[:id])
     page = params[:page]
-    params[:category].present? ? posts = News::Post.where(post_type: params[:category]).page(page).per(10) : posts = News::Post.page(page).per(10)
+    params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select{|post| post.post_type == params[:category]}).page(page).per(10) :
+     posts = Kaminari.paginate_array(user_posts).page(page).per(10)
     data = []
     gallery = []
     posts.each do |post|
@@ -43,6 +45,19 @@ module Frontend
       format.json { render json: {hits: data} }
       format.js
     end
+    
+  end
+
+  def filter_posts id
+    user = General::User.find(id)
+    user_tags = user.terms.tags.map(&:name)
+    posts = []
+    News::Post.all.each do |post| 
+      post.terms.tags.each do |tag|
+        posts.push(post) if tag.name.in?(user_tags)
+      end
+    end
+    posts
   end
 
   def important_posts
