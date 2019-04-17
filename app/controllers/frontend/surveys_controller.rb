@@ -1,11 +1,10 @@
 module Frontend
   class SurveysController < FrontendController
-    
     def index
       surveys = Survey::Survey.includes(questions: :options)
       data_surveys = []
       surveys.each do |survey|
-        data_questions = [] 
+        data_questions = []
         survey.questions.each do |question|
           data_options = []
           question.options.each do |option|
@@ -27,6 +26,7 @@ module Frontend
         data_surveys << {
           id: survey.id,
           name: survey.name,
+          once_by_user: survey.once_by_user,
           url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
           show_name: survey.show_name,
           description: survey.description,
@@ -64,7 +64,7 @@ module Frontend
       slug = params[:slug].present? ? params[:slug] : nil
       survey = Survey::Survey.find_by_slug(slug)
       data_survey = []
-        data_questions = [] 
+        data_questions = []
         survey.questions.each do |question|
           data_options = []
           question.options.each do |option|
@@ -80,16 +80,17 @@ module Frontend
             title: question.title,
             question_type: question.question_type,
             optional: question.optional,
-            options: data_options 
+            options: data_options
           }
         end
         data_survey << {
           id: survey.id,
           name: survey.name,
+          once_by_user: survey.once_by_user,
           url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
           show_name: survey.show_name,
           description: survey.description,
-          image: survey.image.attached? ? 
+          image: survey.image.attached? ?
           url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
           created_at: survey.created_at.strftime('%d-%m-%Y'),
           questions: data_questions,

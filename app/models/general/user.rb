@@ -35,16 +35,16 @@ class General::User < ApplicationRecord
   PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
 
   CITIES = [
-    'Antofagasta', 
-    'Santiago', 
-    'Copiapó', 
-    'La Serena', 
-    'Viña del Mar', 
+    'Antofagasta',
+    'Santiago',
+    'Copiapó',
+    'La Serena',
+    'Viña del Mar',
     'Rancagua',
-    'Talca', 
-    'Concepción', 
-    'Temuco', 
-    'Puerto Montt'    
+    'Talca',
+    'Concepción',
+    'Temuco',
+    'Puerto Montt'
   ]
 
   def base_64_exa(file)
@@ -60,11 +60,20 @@ class General::User < ApplicationRecord
 
   def self.welcome?(date)
     date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
-  end  
-  
+  end
+
+
+  def self.welcome?(date)
+    today = Date.today.strftime("%d/%m/%Y")
+    if date.present?
+      date.strftime("%d/%m/%Y") == today
+    end
+  end
+
+
   def self.active_filter(data)
     order(id: :desc).where(["active LIKE ?", data])
-  end  
+  end
 
   def image_resize
     if self.image.attachment.present?

@@ -1,7 +1,7 @@
 module Frontend
   class PostsController < FrontendController
-    after_action :set_tracking, only: [:index, :show, :new]  
-    
+    after_action :set_tracking, only: [:index, :show, :new]
+
   def index
     page = params[:page]
     params[:category].present? ? posts = News::Post.where(post_type: params[:category]).page(page).per(10) : posts = News::Post.page(page).per(10)
@@ -74,7 +74,7 @@ module Frontend
       format.json { render json: data }
       format.js
     end
-  end  
+  end
 
   def post
     data = []
