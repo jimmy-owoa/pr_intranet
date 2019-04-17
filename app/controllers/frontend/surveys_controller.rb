@@ -1,8 +1,15 @@
 module Frontend
   class SurveysController < FrontendController
     def index
-      surveys = Survey::Survey.includes(questions: :options)
       data_surveys = []
+      surveys_all = []
+      surveys = Survey::Survey.includes(questions: :options)
+      # query_1 = Survey::Survey.includes(questions: :answers).where(once_by_user: true).where.not("survey_answers.user_id" => 3)
+      # query_2 = Survey::Survey.includes(questions: :answers).where(once_by_user: false)
+      #queries
+      # surveys_all << query_1 if query_1.present?
+      # surveys_all << query_2 if query_2.present?
+      #######
       surveys.each do |survey|
         data_questions = []
         survey.questions.each do |question|
@@ -20,7 +27,7 @@ module Frontend
             title: question.title,
             question_type: question.question_type,
             optional: question.optional,
-            options: data_options 
+            options: data_options
           }
         end
         data_surveys << {
@@ -30,7 +37,7 @@ module Frontend
           url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
           show_name: survey.show_name,
           description: survey.description,
-          image: survey.image.attached? ? 
+          image: survey.image.attached? ?
           url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
           created_at: survey.created_at.strftime('%d-%m-%Y'),
           questions: data_questions,
@@ -44,6 +51,18 @@ module Frontend
         format.json { render json: data_surveys }
         format.js
       end
+    end
+
+    def filter_surveys id
+      user = General::User.find(id)
+      user_tags = user.terms.tags.map(&:name)
+      surveys = []
+      Survey::Survey.all.each do |survey| 
+        survey.terms.tags.each do |tag|
+          surveys.push(survey) if tag.name.in?(user_tags)
+        end
+      end
+      posts
     end
 
     def create

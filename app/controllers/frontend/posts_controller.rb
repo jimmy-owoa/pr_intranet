@@ -6,7 +6,7 @@ module Frontend
     user_posts = filter_posts(params[:id])
     page = params[:page]
     params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select{|post| post.post_type == params[:category]}).page(page).per(10) :
-     posts = Kaminari.paginate_array(user_posts).page(page).per(10)
+    posts = Kaminari.paginate_array(user_posts).page(page).per(10)
     data = []
     gallery = []
     posts.each do |post|
@@ -45,7 +45,6 @@ module Frontend
       format.json { render json: {hits: data} }
       format.js
     end
-    
   end
 
   def filter_posts id

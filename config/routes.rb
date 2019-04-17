@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :benefit_groups
-  end
   devise_scope :user do
     root to: "devise/sessions#new"
   end
@@ -83,7 +80,9 @@ Rails.application.routes.draw do
       get :survey_count, on: :collection
       get :survey, on: :collection
     end
-    resources :benefit_groups
+    resources :benefit_groups, only: [:index] do
+      get :benefits_group, on: :collection
+    end
     resources :answers
     resources :messages
     resources :links
