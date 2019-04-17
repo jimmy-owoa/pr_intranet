@@ -33,8 +33,8 @@ module Frontend
       weather = General::WeatherInformation.current(location_id)
       location = General::Location.find(location_id) 
       santoral = General::Santoral.current
-      if user.rut.present?
-        exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{user.rut}")
+      if user.legal_number.present?
+        exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{user.legal_number}")
         exa_menu_response = Net::HTTP.get_response exa_menu_url
         exa_menu = JSON.parse(exa_menu_response.body)
       else

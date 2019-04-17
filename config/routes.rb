@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get "searchatt", to: "attachments#search_att"
       get 'births/no_approved_index', to: 'births#no_approved_index'
       get 'products/no_approved_index', to: 'products#no_approved_index'
+      get 'menus/testing', to: 'menus#testing'
       resources :term_relationships
       resources :comments
       resources :links
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
       resources :answers do 
         get :report, on: :member
       end
-      resources :menus
+      resources :menus 
       resources :messages
       resources :sections
       put 'products/update_expiration', to: 'products#update_expiration'
@@ -73,6 +74,7 @@ Rails.application.routes.draw do
     resources :users, only: [:update, :show] do
       get :user, on: :collection
       get :current_user_vue, on: :collection
+      get :current_user_vue_temp, on: :collection
       get :parents_data, on: :collection
     end
     post 'users/upload', to: 'users#upload'
@@ -81,6 +83,7 @@ Rails.application.routes.draw do
       get :survey_count, on: :collection
       get :survey, on: :collection
     end
+    resources :benefit_groups
     resources :answers
     resources :messages
     resources :links

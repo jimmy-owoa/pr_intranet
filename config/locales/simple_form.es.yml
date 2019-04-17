@@ -51,6 +51,7 @@ es:
       user:
         terms: Taxonomía
         birthday: Fecha de nacimiento
+        legal_number: Rut
         edit:
           terms: Categoría
           roles: Roles
