@@ -58,9 +58,15 @@ class General::User < ApplicationRecord
     date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
   end
 
-  def self.welcome?(date)
-    date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
-  end  
+  def self.welcome?(id, date)
+    today = Date.today.strftime("%d/%m/%Y")
+    user = find(id)
+    if date.present?
+      date.strftime("%d/%m/%Y") == today
+    else
+      user.update_attributes(date_entry: today)
+    end
+  end
   
   def self.active_filter(data)
     order(id: :desc).where(["active LIKE ?", data])
