@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     resources :users, only: [:update, :show] do
       get :user, on: :collection
       get :current_user_vue, on: :collection
+      get :current_user_vue_temp, on: :collection
       get :parents_data, on: :collection
     end
     post 'users/upload', to: 'users#upload'
@@ -82,6 +83,7 @@ Rails.application.routes.draw do
       get :survey_count, on: :collection
       get :survey, on: :collection
     end
+    resources :benefit_groups
     resources :answers
     resources :messages
     resources :links
