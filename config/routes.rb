@@ -67,10 +67,9 @@ Rails.application.routes.draw do
     get "searchv", to: "search#search_vue"
     get "searchm", to: "search#search_menu"
     get 'indicators', to: 'frontend#indicators'
-    get 'weather', to: 'frontend#weather'
-    get 'weather_info', to: 'weather_information#weather'
     get 'births/calendar_births', to: 'births#calendar_births'
     get 'menus/api_menu', to: 'menus#api_menu'
+    resources :weather
     resources :users, only: [:update, :show] do
       get :user, on: :collection
       get :current_user_vue, on: :collection
