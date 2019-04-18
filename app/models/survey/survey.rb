@@ -12,12 +12,12 @@ class Survey::Survey < ApplicationRecord
   before_save :unique_slug, :set_survey_type
 
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
-  
+
   def get_name_survey_type
     SURVEY_TYPES.find { |st| st[1] == self.survey_type }[0]
   end
 
-  def get_answer_count 
+  def get_answer_count
     Survey::Answer.joins(:question).where(survey_questions: { survey_id: id }).count
   end
   private
@@ -27,7 +27,7 @@ class Survey::Survey < ApplicationRecord
 
   def unique_slug
     self.slug = if self.slug.blank?
-      self.name.blank? ? set_slug(self.get_name_survey_type) : set_slug(self.name.parameterize)   
+      self.name.blank? ? set_slug(self.get_name_survey_type) : set_slug(self.name.parameterize)
       else
         set_slug(self.slug.parameterize)
       end

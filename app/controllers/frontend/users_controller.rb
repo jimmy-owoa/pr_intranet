@@ -1,7 +1,7 @@
 module Frontend
   class UsersController < FrontendController
     include Rails.application.routes.url_helpers
-    
+
     def nickname(name)
       name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present?  ? name : name.split.first
     end
@@ -21,9 +21,9 @@ module Frontend
           data_childrens << {
             id: children.id,
             name: children.name,
-            last_name: children.last_name, 
+            last_name: children.last_name,
             position: children.position,
-            company: children.company,          
+            company: children.company,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
           }
@@ -36,8 +36,8 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company,          
-            image: sibling.image.attached? ? 
+            company: sibling.company,
+            image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
           }
         end
@@ -48,8 +48,8 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company,        
-          image: @user.parent.image.attached? ? 
+          company: @user.parent.company,
+          image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
         }
       end
@@ -65,7 +65,7 @@ module Frontend
         address: @user.address,
         location: @location,
         date_entry: @user.date_entry,
-        image: @user.image.attached? ? 
+        image: @user.image.attached? ?
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
         tags: @user.terms.tags.map(&:name),
         categories: @user.terms.categories.map(&:name),
@@ -95,9 +95,9 @@ module Frontend
           data_childrens << {
             id: children.id,
             name: children.name,
-            last_name: children.last_name, 
+            last_name: children.last_name,
             position: children.position,
-            company: children.company,          
+            company: children.company,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
           }
@@ -110,8 +110,8 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company,          
-            image: sibling.image.attached? ? 
+            company: sibling.company,
+            image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
           }
         end
@@ -122,8 +122,8 @@ module Frontend
           name: user.parent.name,
           last_name: user.parent.last_name,
           position: user.parent.position,
-          company: user.parent.company,        
-          image: user.parent.image.attached? ? 
+          company: user.parent.company,
+          image: user.parent.image.attached? ?
           url_for(user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
         }
       end
@@ -141,9 +141,8 @@ module Frontend
     def current_user_vue
       data_user = []
       id = params[:id].present? ? params[:id] : nil
-      @user = General::User.find(id)    
+      @user = General::User.find(id)
       @nickname = nickname(@user.name)
-      
       data_benefits = []
       data_products = []
       data_messages = []
@@ -157,7 +156,7 @@ module Frontend
         }
         end
       end
-      
+
       if @user.products.present?
         @user.products.each do |product|
           data_products << {
@@ -230,14 +229,14 @@ module Frontend
       respond_to do |format|
         format.json { render json: data_user[0] }
         format.js
-      end    
+      end
     end
 
     def current_user_vue_temp
       data_user = []
       benefit_group = params[:group] if params[:group].present?
       id = General::BenefitGroup.where(name: benefit_group).first.general_users.first.id
-      @user = General::User.find(id)    
+      @user = General::User.find(id)
       @location = @user.location.present? ? General::Location.find(@user.location_id).name : 'No definido'
       @today =  Date.today.strftime("%d/%m/%Y")
       @tomorrow = l(Date.today + 1, format: '%A')
@@ -267,9 +266,9 @@ module Frontend
           data_childrens << {
             id: children.id,
             name: children.name,
-            last_name: children.last_name, 
+            last_name: children.last_name,
             position: children.position,
-            company: children.company,          
+            company: children.company,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
           }
@@ -282,8 +281,8 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company,          
-            image: sibling.image.attached? ? 
+            company: sibling.company,
+            image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
           }
         end
@@ -294,8 +293,8 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company,        
-          image: @user.parent.image.attached? ? 
+          company: @user.parent.company,
+          image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
         }
       end
@@ -380,9 +379,8 @@ module Frontend
       respond_to do |format|
         format.json { render json: data_user[0] }
         format.js
-      end    
+      end
     end
-    
     # def parents_data
     #   id = params[:id].present? ? params[:id] : nil
     #   data = []

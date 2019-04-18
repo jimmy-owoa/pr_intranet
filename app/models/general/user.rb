@@ -35,16 +35,16 @@ class General::User < ApplicationRecord
   PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
 
   CITIES = [
-    'Antofagasta', 
-    'Santiago', 
-    'Copiapó', 
-    'La Serena', 
-    'Viña del Mar', 
+    'Antofagasta',
+    'Santiago',
+    'Copiapó',
+    'La Serena',
+    'Viña del Mar',
     'Rancagua',
-    'Talca', 
-    'Concepción', 
-    'Temuco', 
-    'Puerto Montt'    
+    'Talca',
+    'Concepción',
+    'Temuco',
+    'Puerto Montt'
   ]
 
   def base_64_exa(file)
@@ -67,10 +67,10 @@ class General::User < ApplicationRecord
       user.update_attributes(date_entry: today)
     end
   end
-  
+
   def self.active_filter(data)
     order(id: :desc).where(["active LIKE ?", data])
-  end  
+  end
 
   def image_resize
     if self.image.attachment.present?
@@ -88,7 +88,7 @@ class General::User < ApplicationRecord
         avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg")
     end
   end
-  
+
   def full_name
     self.name + ' ' + self.last_name
   end
