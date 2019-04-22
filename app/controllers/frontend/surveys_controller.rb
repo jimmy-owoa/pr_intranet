@@ -56,8 +56,8 @@ module Frontend
     def user_surveys
       user_id =  params[:id]
       data_surveys = []
+      #model method
       surveys = Survey::Survey.survey_data(user_id)
-
       surveys.flatten.each do |survey|
         data_questions = []
         survey.questions.each do |question|
@@ -90,27 +90,18 @@ module Frontend
           created_at: survey.created_at.strftime('%d-%m-%Y'),
           questions: data_questions,
           survey_type: survey.survey_type,
-          slug: survey.slug
+          slug: survey.slug,
+          inclusive_tags: survey.terms.inclusive_tags.map(&:name).sort_by!{ |e| e.downcase },
+          excluding_tags: survey.terms.excluding_tags.map(&:name).sort_by!{ |e| e.downcase }
         }
       end
-
+      #model method
+      data = Survey::Survey.filter_surveys(user_id, data_surveys)
       respond_to do |format|
         format.html
-        format.json { render json: data_surveys }
+        format.json { render json: data }
         format.js
       end
-    end
-
-    def filter_surveys id
-      user = General::User.find(id)
-      user_tags = user.terms.tags.map(&:name)
-      surveys = []
-      Survey::Survey.all.each do |survey| 
-        survey.terms.tags.each do |tag|
-          surveys.push(survey) if tag.name.in?(user_tags)
-        end
-      end
-      posts
     end
 
     def create
@@ -186,7 +177,7 @@ module Frontend
       respond_to do |format|
         format.json { render json: data_user[0] }
         format.js
-      end 
+      end
     end
   end
 end

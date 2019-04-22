@@ -30,6 +30,28 @@ class Survey::Survey < ApplicationRecord
     @data_surveys << include_survey.where(once_by_user: false)
   end
 
+  def self.filter_surveys id, data_surveys
+    surveys = []
+    user = General::User.find(id)
+    user_tags = user.terms.tags.map(&:name)
+    data_surveys.each do |survey|
+      if (survey[:excluding_tags].present? && survey[:inclusive_tags].present?)
+        survey[:excluding_tags].each do |et|
+          surveys << survey if et.in?(user_tags)
+          surveys.pop if et.in?(user_tags) == false
+        end
+        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(user_tags) }
+      elsif (survey[:excluding_tags].present? && survey[:inclusive_tags].blank?)
+        surveys << survey if et.in?(user_tags)
+        surveys.pop if et.in?(user_tags) == false
+      elsif (survey[:inclusive_tags].present? && survey[:excluding_tags].blank?)
+        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(user_tags) }
+      else
+        surveys << survey
+      end
+    end
+    surveys.uniq
+  end
 
   def get_name_survey_type
     SURVEY_TYPES.find { |st| st[1] == self.survey_type }[0]
@@ -70,5 +92,4 @@ class Survey::Survey < ApplicationRecord
       val
     end
   end
-  
 end
