@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get 'births/no_approved_index', to: 'births#no_approved_index'
       get 'products/no_approved_index', to: 'products#no_approved_index'
       get 'menus/testing', to: 'menus#testing'
+      get 'menus/html', to: 'menus#html'
       resources :term_relationships
       resources :comments
       resources :links
@@ -55,7 +56,6 @@ Rails.application.routes.draw do
     post 'answers_save_from_vue', to: 'answers#answers_save_from_vue'
     post 'answers_options_save_from_vue', to: 'answers#answers_options_save_from_vue'
     post 'check_data', to: 'answers#check_data'
-    get 'menus/index'
     get 'menus/menus'
     get 'santorals/santorals'
     get 'welcome/users', to: 'welcomes#users'
@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     get 'indicators', to: 'frontend#indicators'
     get 'births/calendar_births', to: 'births#calendar_births'
     get 'menus/api_menu', to: 'menus#api_menu'
+
     resources :weather
     resources :users, only: [:update, :show] do
       get :user, on: :collection
@@ -107,4 +108,5 @@ Rails.application.routes.draw do
     end
     root to: 'application#index'
   end
+
 end
