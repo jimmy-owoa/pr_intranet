@@ -53,6 +53,54 @@ module Frontend
       end
     end
 
+    def user_surveys
+      user_id =  params[:id]
+      data_surveys = []
+      surveys = Survey::Survey.survey_data(user_id)
+
+      surveys.flatten.each do |survey|
+        data_questions = []
+        survey.questions.each do |question|
+          data_options = []
+          question.options.each do |option|
+            data_options << {
+              id: option.id,
+              title: option.title,
+              default: option.default,
+              placeholder: option.placeholder
+            }
+          end
+          data_questions << {
+            id: question.id,
+            title: question.title,
+            question_type: question.question_type,
+            optional: question.optional,
+            options: data_options
+          }
+        end
+        data_surveys << {
+          id: survey.id,
+          name: survey.name,
+          once_by_user: survey.once_by_user,
+          url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
+          show_name: survey.show_name,
+          description: survey.description,
+          image: survey.image.attached? ?
+          url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
+          created_at: survey.created_at.strftime('%d-%m-%Y'),
+          questions: data_questions,
+          survey_type: survey.survey_type,
+          slug: survey.slug
+        }
+      end
+
+      respond_to do |format|
+        format.html
+        format.json { render json: data_surveys }
+        format.js
+      end
+    end
+
     def filter_surveys id
       user = General::User.find(id)
       user_tags = user.terms.tags.map(&:name)

@@ -33,7 +33,15 @@
         <% else %>
           <%= f.check_box :show_name%>
         <% end %>
-      </div>  
+      </div>
+      <div class="col-md-12">
+        <%= f.label "Una respuesta por usuario" %><br />
+        <% if f.object.new_record? %>
+          <%= f.check_box :once_by_user, checked: true %>
+        <% else %>
+          <%= f.check_box :once_by_user%>
+        <% end %>
+      </div>
       <div class="col-md-12">
         <%= f.label 'Etiquetas incluyentes' %>
         <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>

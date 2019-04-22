@@ -13,6 +13,24 @@ class Survey::Survey < ApplicationRecord
 
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
 
+  def self.survey_data user_id
+    @data_surveys = []
+    include_survey = self.includes(questions: [options: :answers])
+    include_survey.where(once_by_user: true).each do |survey|
+      survey.questions.each do |question|
+        #sumamos surveys si no tiene alguna respuesta
+        @data_surveys << survey if question.answers.present? == false
+        question.answers.each do |answer|
+          #sumamos surveys si tiene respuesta pero ninguna con el id del usuario
+          @data_surveys << survey unless answer.user_id != user_id
+        end
+      end
+    end
+    #sumamos surveys que se pueden responder más de una vez
+    @data_surveys << include_survey.where(once_by_user: false)
+  end
+
+
   def get_name_survey_type
     SURVEY_TYPES.find { |st| st[1] == self.survey_type }[0]
   end
