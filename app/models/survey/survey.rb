@@ -35,11 +35,13 @@ class Survey::Survey < ApplicationRecord
     user = General::User.find(id)
     user_tags = user.terms.tags.map(&:name)
     data_surveys.each do |survey|
+      #si la encuesta tiene  inclusive y excluding tags, ve si hay algún term excluding del survey en los terms del user. Si tiene todos, los guarda, si no los saca del array.
       if (survey[:excluding_tags].present? && survey[:inclusive_tags].present?)
         survey[:excluding_tags].each do |et|
           surveys << survey if et.in?(user_tags)
           surveys.pop if et.in?(user_tags) == false
         end
+        #arreglar esta linea
         survey[:inclusive_tags].each{|et| surveys << survey if et.in?(user_tags) }
       elsif (survey[:excluding_tags].present? && survey[:inclusive_tags].blank?)
         surveys << survey if et.in?(user_tags)
