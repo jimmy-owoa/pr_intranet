@@ -42,7 +42,7 @@ class Survey::Survey < ApplicationRecord
     inclusive_tags = user.terms.tags.inclusive_tags.map(&:name)
     data_surveys.each do |survey|
       comparation = sort_survey(survey[:excluding_tags]) == sort_survey(excluding_tags)
-      #si la encuesta tiene  inclusive y excluding tags, ve si hay algún term excluding del survey en los terms del user. Si tiene todos, los guarda, si no los saca del array.
+      #toma los terms excluyentes del usuario y los del survey, los ordena y compara. Si no son iguales, no los agrega al array surveys.
       if (survey[:excluding_tags].present? && survey[:inclusive_tags].present?)
         surveys << survey if comparation
         survey[:inclusive_tags].each{|et| surveys << survey if et.in?(inclusive_tags) } if comparation == false
