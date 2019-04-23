@@ -30,24 +30,32 @@ class Survey::Survey < ApplicationRecord
     @data_surveys << include_survey.where(once_by_user: false)
   end
 
+  def self.sort_survey data
+    data.partition{|x| x.is_a? String}.map(&:sort).flatten
+  end
+
   def self.filter_surveys id, data_surveys
     surveys = []
     user = General::User.find(id)
     user_tags = user.terms.tags.map(&:name)
+    excluding_tags = user.terms.tags.excluding_tags.map(&:name)
+    inclusive_tags = user.terms.tags.inclusive_tags.map(&:name)
     data_surveys.each do |survey|
+      comparation = sort_survey(survey[:excluding_tags]) == sort_survey(excluding_tags)
       #si la encuesta tiene  inclusive y excluding tags, ve si hay algún term excluding del survey en los terms del user. Si tiene todos, los guarda, si no los saca del array.
       if (survey[:excluding_tags].present? && survey[:inclusive_tags].present?)
-        survey[:excluding_tags].each do |et|
-          surveys << survey if et.in?(user_tags)
-          surveys.pop if et.in?(user_tags) == false
-        end
-        #arreglar esta linea
-        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(user_tags) }
+        surveys << survey if comparation
+        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(inclusive_tags) } if comparation == false
+        # survey[:excluding_tags].each do |et|
+        #   surveys << survey if et.in?(user_tags)
+        #   surveys.pop if et.in?(user_tags) == false
+        # end
       elsif (survey[:excluding_tags].present? && survey[:inclusive_tags].blank?)
-        surveys << survey if et.in?(user_tags)
-        surveys.pop if et.in?(user_tags) == false
+        surveys << survey if comparation
+        # surveys << survey if et.in?(user_tags)
+        # surveys.pop if et.in?(user_tags) == false
       elsif (survey[:inclusive_tags].present? && survey[:excluding_tags].blank?)
-        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(user_tags) }
+        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(inclusive_tags) }
       else
         surveys << survey
       end
