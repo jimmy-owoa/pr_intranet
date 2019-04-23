@@ -24,6 +24,7 @@
 //= require cocoon
 //= require vendors
 //= require tinymce
+//= require admin/admin
 //= require admin/posts
 //= require admin/attachments
 //= require admin/users
