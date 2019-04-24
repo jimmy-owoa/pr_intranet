@@ -41,8 +41,6 @@ module Frontend
         end
         @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact
         data << [users, posts, @menus]
-      else
-        data << { message: 'Ingresar parametro de busqueda' }
       end
       respond_to do |format|
         format.json { render json: data[0] }
@@ -64,8 +62,6 @@ module Frontend
             }
         end
         data = items
-      else
-        data = { message: 'Ingresar parametro de busqueda' }
       end
       respond_to do |format|
         format.json { render json: data }

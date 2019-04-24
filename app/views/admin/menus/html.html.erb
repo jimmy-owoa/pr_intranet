@@ -1,39 +1,39 @@
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 <div class="v-app">
   <div class="hidden-sm-and-down">
     <div class="layout">
-      <div class="flex sm2">
+      <div class="flex sm1">
         <a href="/" >
           <img src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/header.41ac21fa.png" style="height: 2rem; cursor: pointer;">
         </a>
       </div>
 
-      <div class="flex text-md-center subheading sm4"> Santoral: <%= @data[:santoral] %></div>
-
-      <div class="flex sm2 pointer">
-        <div class="v-responsive v-image" style="height: 24px;">
-          <div>
-            <img src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/clear-day.1cbef1c7.svg" style="height: 24px;">
-          </div>
-          <div class="text-md-center subheading">
-            <%= @data[:location_name] %>: 
-            <% if @data[:weather][0].present? %> 
-              <%= @data[:weather][0].current_temp %>°
-            <% else %>
-              <%= 'Clima no disponible' %>
-            <% end %>
-          </div>
-        </div>
+      <div class="flex sm2 text-md-center pt-2 subheading"> 
+        <p>Santoral: <%= @data[:santoral].name %></p>
+      </div>
+      
+      <div class="flex sm2 text-md-center pointer">
+        <a href="#weather_modal" style="text-decoration: none; color: black;">
+          <%= image_tag("#{root_url}assets/weather/#{@data[:weather][0].icon}.svg", style: " height: 24px;") %>
+          <%= @data[:location_name] %>: 
+          <% if @data[:weather][0].present? %> 
+            <%= @data[:weather][0].current_temp %>°
+          <% else %>
+            <%= 'Clima no disponible' %>
+          <% end %>
+        </a>
       </div>
 
       <div class="flex sm2 text-md-center subheading pointer">
-        <i aria-hidden="true" class="v-icon material-icons theme--light">
-        multiline_chart</i>
-        Indicadores
-        <div class="v-dialog__container" style="display: block;"></div>
+        <a href="#indicators_modal" style="text-decoration: none; color: black;">
+          <i aria-hidden="true" class="v-icon material-icons theme--light">
+          multiline_chart</i>
+          Indicadores
+        </a>
       </div>
 
       <div class="flex text-md-right text-capitalize title font-weight-regular sm3">
@@ -115,13 +115,196 @@
       </li>
     </ul>
   </nav>
+  <div id="weather_modal" class="modalDialog">
+    <div>
+      <a href="#close" title="Close" class="close">X</a>
+      <div class="layout">
+        <div class="flex">
+          <div class="v-card v-card--flat v-sheet theme--light">
+            <div class="v-responsive v-image" style="height: 100px;">
+              <%= image_tag("#{root_url}assets/weather/#{@data[:weather][0].icon}.svg", class: "v-image__image v-image__image--contain", style: "background-position: center center;") %>
+            </div>
+            <div class="v-card__title">
+              <div class="flex">
+                <h3 class="text-md-center headline mb-2">Hoy</h3>
+                <p class="text-md-center subheading">Actual: <%= @data[:weather][0].current_temp %>°</p>
+                <p class="text-md-center subheading">Mínima:<%= @data[:weather][0].min_temp %>°</p>
+                <p class="text-md-center subheading">Máxima:<%= @data[:weather][0].max_temp %>°</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="v-card v-card--flat v-sheet theme--light">
+            <div class="v-responsive v-image" style="height: 100px;">
+              <%= image_tag("#{root_url}assets/weather/#{@data[:weather][0].tomorrow_icon}.svg", class: "v-image__image v-image__image--contain", style: "background-position: center center;") %>
+            </div>
+            <div class="v-card__title">
+              <div class="flex">
+                <h3 class="text-md-center headline mb-2"> <%= l(Date.today + 1, format: '%A') %></h3>
+                <p class="text-md-center subheading">Mínima:<%= @data[:weather][0].tomorrow_max %>°</p>
+                <p class="text-md-center subheading">Máxima:<%= @data[:weather][0].tomorrow_min %>°</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="v-card v-card--flat v-sheet theme--light">
+            <div class="v-responsive v-image" style="height: 100px;">
+              <%= image_tag("#{root_url}assets/weather/#{@data[:weather][0].after_tomorrow_icon}.svg", class: "v-image__image v-image__image--contain", style: "background-position: center center;") %>
+            </div>
+            <div class="v-card__title">
+              <div class="flex">
+                <h3 class="text-md-center headline mb-2"> <%= l(Date.today + 2, format: '%A') %></h3>
+                <p class="text-md-center subheading">Mínima:<%= @data[:weather][0].after_tomorrow_min %>°</p>
+                <p class="text-md-center subheading">Máxima:<%= @data[:weather][0].after_tomorrow_max %>°</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="v-card v-card--flat v-sheet theme--light">
+            <div class="v-responsive v-image" style="height: 100px;">
+              <%= image_tag("#{root_url}assets/weather/#{@data[:weather][0].aa_tomorrow_icon}.svg", class: "v-image__image v-image__image--contain", style: "background-position: center center;") %>
+            </div>
+            <div class="v-card__title">
+              <div class="flex">
+                <h3 class="text-md-center headline mb-2"> <%= l(Date.today + 3, format: '%A') %></h3>
+                <p class="text-md-center subheading">Mínima:<%= @data[:weather][0].aa_tomorrow_min %>°</p>
+                <p class="text-md-center subheading">Máxima:<%= @data[:weather][0].aa_tomorrow_max %>°</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="v-card v-card--flat v-sheet theme--light">
+            <div class="v-responsive v-image" style="height: 100px;">
+              <%= image_tag("#{root_url}assets/weather/#{@data[:weather][0].aaa_tomorrow_icon}.svg", class: "v-image__image v-image__image--contain", style: "background-position: center center;") %>
+            </div>
+            <div class="v-card__title">
+              <div class="flex">
+                <h3 class="text-md-center headline mb-2"> <%= l(Date.today + 4, format: '%A') %></h3>
+                <p class="text-md-center subheading">Mínima:<%= @data[:weather][0].aaa_tomorrow_min %>°</p>
+                <p class="text-md-center subheading">Máxima:<%= @data[:weather][0].aaa_tomorrow_max %>°</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="indicators_modal" class="modalDialog">
+    <div>
+      <a href="#close" title="Close" class="close">X</a>
+      <div class="layout">
+        <h1>Indicadores</h1>
+      </div>
+    </div>
+  </div>
 </div>
 
 <style type="text/css" media="screen">
-.hidden-sm-and-down{
-  display: none;
-}
-
+  .modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+  }
+  .modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
+  }
+  .modalDialog > div {
+    max-width: 1024px;
+    position: relative;
+    margin: 10% auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff ;
+    background: -moz-linear-gradient(#fff);
+    background: -webkit-linear-gradient(#fff);
+    background: -o-linear-gradient(#fff);
+    -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  }
+  .close {
+    background: #606061;
+    color: #FFFFFF;
+    line-height: 25px;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    top: -10px;
+    width: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+  }
+  .close:hover { background: #00d9ff; }
+  .v-image {
+    z-index: 0;
+  } 
+  .v-image__image{
+    background-repeat: no-repeat;
+  }
+  .v-image__image--contain {
+    background-size: contain;
+  }
+  .v-image__image, .v-image__placeholder {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .theme--light.v-card {
+    background-color: #fff;
+    border-color: #fff;
+    color: rgba(0,0,0,.87);
+  }
+  .v-card {
+    -webkit-box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    text-decoration: none;
+  }
+  .v-card--flat {
+    -webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);
+    box-shadow: 0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);
+  }
+  .hidden-sm-and-down{
+    display: none;
+  }
+  .pointer{
+    cursor: pointer;
+  }
+  .v-sheet {
+    display: block;
+    border-radius: 2px;
+    position: relative;
+    -webkit-transition: .3s cubic-bezier(.25,.8,.5,1);
+    transition: .3s cubic-bezier(.25,.8,.5,1);
+  }
+  .theme--light.v-sheet {
+    background-color: #fff;
+    border-color: #fff;
+    color: rgba(0,0,0,.87);
+  }
  .application--wrap {
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
@@ -178,6 +361,13 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+}
+.v-responsive__sizer {
+    -webkit-transition: padding-bottom .2s cubic-bezier(.25,.8,.5,1);
+    transition: padding-bottom .2s cubic-bezier(.25,.8,.5,1);
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 0px;
+    flex: 0 0 0px;
 }
 .v-image {
     z-index: 0;
@@ -377,12 +567,15 @@ nav ul.megamenu ul li a:hover {
   align-items: center;
 }
 .pl-1 {
-    padding-left: 4px !important;
+  padding-left: 4px !important;
 }
 
 
 .text-md-right {
-    text-align: right !important;
+  text-align: right !important;
+}
+.text-md-center {
+  text-align: center !important;
 }
 
 .subheading {
@@ -489,7 +682,7 @@ nav ul.megamenu ul li a:hover {
   /* second stage (the mega-menu) */
 
   nav ul.megamenu {
-    width: 1092px;
+    width: 100%;
     top: -9999px;
     left: 0;
     padding: 20px 10px 0 10px;

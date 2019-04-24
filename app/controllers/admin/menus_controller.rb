@@ -36,35 +36,10 @@ module Admin
         exa_menu: exa_menu
       }
       respond_to do |format|
-        format.html 
+        format.json { render @data }
       end
     end
     
-    def testing
-      user_id = 3 # TODO: Cambiar al correcto
-      location_id = 2 # TODO: Cambiar al correcto
-      menus = General::Menu.all
-      user = General::User.find(user_id)
-      weather = General::WeatherInformation.current(location_id)
-      location = General::Location.find(location_id) 
-      santoral = General::Santoral.current
-      if user.legal_number.present?
-        exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{user.legal_number}")
-        exa_menu_response = Net::HTTP.get_response exa_menu_url
-        exa_menu = JSON.parse(exa_menu_response.body)
-      else
-        exa_menu = ""
-      end
-      data = {
-        menus: menus,
-        user: user,      
-        weather: weather,
-        santoral: santoral[0],
-        location_name: location.name,
-        exa_menu: exa_menu
-      }
-    end
-
     def create
       @menu = General::Menu.new(menu_params)
       respond_to do |format|

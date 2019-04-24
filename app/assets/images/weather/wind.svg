@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64pt" height="64pt" viewBox="0 0 64 64" version="1.1">
+<defs>
+<filter id="alpha" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+  <feColorMatrix type="matrix" in="SourceGraphic" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+</filter>
+<mask id="mask0">
+  <g filter="url(#alpha)">
+<rect x="0" y="0" width="64" height="64" style="fill:rgb(0%,0%,0%);fill-opacity:0.6;stroke:none;"/>
+  </g>
+</mask>
+<image id="image6" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAAJ0lEQVR4nO3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAIB3A0BAAAGP8slRAAAAAElFTkSuQmCC"/>
+<mask id="mask1">
+  <g filter="url(#alpha)">
+<rect x="0" y="0" width="64" height="64" style="fill:rgb(0%,0%,0%);fill-opacity:0.6;stroke:none;"/>
+  </g>
+</mask>
+<image id="image10" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAAJ0lEQVR4nO3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAIB3A0BAAAGP8slRAAAAAElFTkSuQmCC"/>
+<mask id="mask2">
+  <g filter="url(#alpha)">
+<rect x="0" y="0" width="64" height="64" style="fill:rgb(0%,0%,0%);fill-opacity:0.6;stroke:none;"/>
+  </g>
+</mask>
+<image id="image14" width="64" height="64" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAAJ0lEQVR4nO3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAIB3A0BAAAGP8slRAAAAAElFTkSuQmCC"/>
+</defs>
+<g id="surface1">
+<use xlink:href="#image6" mask="url(#mask0)"/>
+<use xlink:href="#image10" mask="url(#mask1)"/>
+<use xlink:href="#image14" mask="url(#mask2)"/>
+<path style="fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(89.803922%,89.803922%,89.803922%);stroke-opacity:1;stroke-miterlimit:4;" d="M -660.885389 457.71165 L -735.385389 457.71165 C -740.119764 457.71165 -744.940077 457.625713 -749.455702 456.196025 C -753.971327 454.758525 -758.119764 451.914775 -760.611952 447.883525 C -763.104139 443.852275 -763.791639 438.727275 -762.330702 434.219463 C -760.861952 429.71165 -757.291639 425.96165 -752.885389 424.21165 C -749.955702 423.047588 -746.682264 422.7429 -743.588514 423.352275 C -740.494764 423.96165 -737.580702 425.477275 -735.307264 427.664775 C -733.033827 429.852275 -731.408827 432.696025 -730.682264 435.766338 C -729.955702 438.83665 -730.127577 442.110088 -731.174452 445.08665 " transform="matrix(0.5,0,0,0.5,387.993476,-198.562856)"/>
+<path style="fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(89.803922%,89.803922%,89.803922%);stroke-opacity:1;stroke-miterlimit:4;" d="M -660.885389 470.985088 L -714.885389 470.985088 C -717.893202 470.985088 -720.924452 471.008525 -723.893202 471.508525 C -726.861952 472.008525 -729.768202 473.000713 -732.299452 474.633525 C -734.830702 476.258525 -736.963514 478.531963 -738.322889 481.219463 C -739.682264 483.906963 -740.252577 487.000713 -739.885389 489.985088 C -739.369764 494.188213 -736.971327 498.1179 -733.471327 500.4929 C -729.971327 502.8679 -725.432264 503.641338 -721.338514 502.571025 C -717.244764 501.4929 -713.674452 498.578838 -711.799452 494.789775 C -709.916639 491.000713 -709.768202 486.391338 -711.385389 482.485088 " transform="matrix(0.5,0,0,0.5,387.993476,-198.562856)"/>
+<path style="fill:none;stroke-width:7;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(89.803922%,89.803922%,89.803922%);stroke-opacity:1;stroke-miterlimit:4;" d="M -660.885389 443.71165 L -696.885389 443.71165 C -700.635389 443.71165 -704.479139 443.625713 -707.986952 442.289775 C -709.736952 441.625713 -711.385389 440.656963 -712.768202 439.391338 C -714.158827 438.125713 -715.268202 436.5554 -715.963514 434.8054 C -716.658827 433.063213 -716.924452 431.14915 -716.713514 429.289775 C -716.510389 427.422588 -715.822889 425.610088 -714.744764 424.078838 C -713.666639 422.539775 -712.197889 421.281963 -710.518202 420.446025 C -708.838514 419.602275 -706.955702 419.188213 -705.080702 419.21165 C -701.822889 419.250713 -698.604139 420.6804 -696.385389 423.071025 C -694.166639 425.46165 -692.979139 428.77415 -693.174452 432.02415 " transform="matrix(0.5,0,0,0.5,387.993476,-198.562856)"/>
+</g>
+</svg>

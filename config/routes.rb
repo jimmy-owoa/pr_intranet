@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get 'births/no_approved_index', to: 'births#no_approved_index'
       get 'products/no_approved_index', to: 'products#no_approved_index'
       get 'menus/testing', to: 'menus#testing'
-      get 'menus/html', to: 'menus#html'
+      get 'menus/html', to: 'menus#html', :defaults => { :format => 'json' }
       resources :term_relationships
       resources :comments
       resources :links
