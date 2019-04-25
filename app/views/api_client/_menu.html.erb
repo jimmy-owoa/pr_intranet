@@ -684,7 +684,7 @@
       <div class="flex">
         <div class="v-card v-card--flat v-sheet theme--light">
           <div class="v-responsive v-image" style="height: 100px;">
-            <%= image_tag("#{root_url}assets/weather/#{weather[0].icon}.svg",
+            <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"),
                 class: "v-image__image v-image__image--contain", style:
                 "background-position: center center;") %>
           </div>
@@ -708,7 +708,7 @@
         <div class="v-card v-card--flat v-sheet theme--light">
           <div class="v-responsive v-image" style="height: 100px;">
             <%=
-            image_tag("#{root_url}assets/weather/#{weather[0].tomorrow_icon}.svg",
+            image_tag(asset_url("weather/#{weather[0].tomorrow_icon}.svg"),
             class: "v-image__image v-image__image--contain", style:
             "background-position: center center;") %>
           </div>
@@ -731,7 +731,7 @@
         <div class="v-card v-card--flat v-sheet theme--light">
           <div class="v-responsive v-image" style="height: 100px;">
             <%=
-            image_tag("#{root_url}assets/weather/#{weather[0].after_tomorrow_icon}.svg",
+            image_tag(asset_url("weather/#{weather[0].after_tomorrow_icon}.svg"),
             class: "v-image__image v-image__image--contain", style:
             "background-position: center center;") %>
           </div>
@@ -754,7 +754,7 @@
         <div class="v-card v-card--flat v-sheet theme--light">
           <div class="v-responsive v-image" style="height: 100px;">
             <%=
-            image_tag("#{root_url}assets/weather/#{weather[0].aa_tomorrow_icon}.svg",
+            image_tag(asset_url("weather/#{weather[0].aa_tomorrow_icon}.svg"),
             class: "v-image__image v-image__image--contain", style:
             "background-position: center center;") %>
           </div>
@@ -777,7 +777,7 @@
         <div class="v-card v-card--flat v-sheet theme--light">
           <div class="v-responsive v-image" style="height: 100px;">
             <%=
-            image_tag("#{root_url}assets/weather/#{weather[0].aaa_tomorrow_icon}.svg",
+            image_tag(asset_url("weather/#{weather[0].aaa_tomorrow_icon}.svg"),
             class: "v-image__image v-image__image--contain", style:
             "background-position: center center;") %>
           </div>
@@ -912,7 +912,7 @@
         <a href="#weather_modal" style="text-decoration: none; color: black;">
           <div class="v-responsive v-image" style="height: 24px;">
             <div>
-              <%= image_tag("#{root_url}assets/weather/#{weather[0].icon}.svg", style: "height: 24px; cursor: pointer;")%>
+              <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 24px; cursor: pointer;")%>
             </div>
             <div class="text-md-center subheading">
               <%= location_name %>: 
