@@ -65,12 +65,15 @@ es:
           type: Tipo
           image: Imagen
         edit:
-          image: Imagen  
+          image: Imagen
       benefit:
         new:
           image: Imagen
         edit:
-          image: Imagen          
+          image: Imagen
+      benefit_group:
+        new:
+          code: Código
       account:
         fields:
           name: Etiqueta

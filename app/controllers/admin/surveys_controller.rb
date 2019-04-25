@@ -1,26 +1,26 @@
-module Admin 
+module Admin
   class SurveysController < AdminController
     before_action :set_survey, only: [:show, :destroy, :edit, :update]
-  
+
     def index
       @surveys = Survey::Survey.order(id: :desc).all
     end
-  
+
     def show
     end
-  
+
     def new
       @survey = Survey::Survey.new
       @survey.terms.build
       @survey.questions.build
       @survey_types = Survey::Survey::SURVEY_TYPES
     end
-  
+
     def edit
       @survey.questions.build if @survey.questions.empty?
       @survey_types = Survey::Survey::SURVEY_TYPES
     end
-  
+
     def create
       @survey = Survey::Survey.new(survey_params)
       respond_to do |format|
@@ -34,7 +34,7 @@ module Admin
         end
       end
     end
-  
+
     def update
       respond_to do |format|
         if @survey.update(survey_params)
@@ -47,7 +47,7 @@ module Admin
         end
       end
     end
-  
+
     def destroy
       @survey.destroy
       respond_to do |format|
@@ -55,9 +55,13 @@ module Admin
         format.json { head :no_content }
       end
     end
-  
+
     private
-    
+
+    def check_object_exist object
+      Survey::Survey.last == object
+    end
+
     def set_tags
       # Getting terms_names from the form (tags)
       term_names = params[:terms_names]
@@ -66,14 +70,16 @@ module Admin
         term_names.uniq.each do |tag|
           terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
         end
+        @survey.terms.destroy_all unless check_object_exist(@survey) #no funcionó el new_record? ya que el objeto está creado
+        # @survey.terms.destroy_all unless @survey.changed?
         @survey.terms << terms
-      end   
-    end    
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_survey
       @survey = Survey::Survey.find(params[:id])
     end
-  
+
     def survey_params
       params.require(:survey).permit(:name, :slug, :description, :show_name, :survey_type, :once_by_user, :image, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional,  :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
     end

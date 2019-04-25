@@ -13,6 +13,50 @@ class Survey::Survey < ApplicationRecord
 
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
 
+  def self.survey_data user_id
+    @data_surveys = []
+    include_survey = self.includes(questions: [options: :answers])
+    include_survey.where(once_by_user: true).each do |survey|
+      survey.questions.each do |question|
+        #sumamos surveys si no tiene alguna respuesta
+        @data_surveys << survey if question.answers.present? == false
+        question.answers.each do |answer|
+          #sumamos surveys si tiene respuesta pero ninguna con el id del usuario
+          @data_surveys << survey unless answer.user_id != user_id
+        end
+      end
+    end
+    #sumamos surveys que se pueden responder más de una vez
+    @data_surveys << include_survey.where(once_by_user: false)
+  end
+
+  def self.sort_survey data
+    data.partition{|x| x.is_a? String}.map(&:sort).flatten
+  end
+
+  def self.filter_surveys id, data_surveys
+    surveys = []
+    user = General::User.find(id)
+    user_tags = user.terms.tags.map(&:name)
+    excluding_tags = user.terms.tags.excluding_tags.map(&:name)
+    inclusive_tags = user.terms.tags.inclusive_tags.map(&:name)
+    data_surveys.each do |survey|
+      comparation = sort_survey(survey[:excluding_tags]) == sort_survey(excluding_tags)
+      #toma los terms excluyentes del usuario y los del survey, los ordena y compara. Si no son iguales, no los agrega al array surveys.
+      if (survey[:excluding_tags].present? && survey[:inclusive_tags].present?)
+        surveys << survey if comparation
+        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(inclusive_tags) } if comparation == false
+      elsif (survey[:excluding_tags].present? && survey[:inclusive_tags].blank?)
+        surveys << survey if comparation
+      elsif (survey[:inclusive_tags].present? && survey[:excluding_tags].blank?)
+        survey[:inclusive_tags].each{|et| surveys << survey if et.in?(inclusive_tags) }
+      else
+        surveys << survey
+      end
+    end
+    surveys.uniq
+  end
+
   def get_name_survey_type
     SURVEY_TYPES.find { |st| st[1] == self.survey_type }[0]
   end
@@ -52,5 +96,4 @@ class Survey::Survey < ApplicationRecord
       val
     end
   end
-  
 end
