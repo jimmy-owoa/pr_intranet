@@ -4,12 +4,6 @@ module Frontend
       data_surveys = []
       surveys_all = []
       surveys = Survey::Survey.includes(questions: :options)
-      # query_1 = Survey::Survey.includes(questions: :answers).where(once_by_user: true).where.not("survey_answers.user_id" => 3)
-      # query_2 = Survey::Survey.includes(questions: :answers).where(once_by_user: false)
-      #queries
-      # surveys_all << query_1 if query_1.present?
-      # surveys_all << query_2 if query_2.present?
-      #######
       surveys.each do |survey|
         data_questions = []
         survey.questions.each do |question|

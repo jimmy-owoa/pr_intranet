@@ -46,14 +46,8 @@ class Survey::Survey < ApplicationRecord
       if (survey[:excluding_tags].present? && survey[:inclusive_tags].present?)
         surveys << survey if comparation
         survey[:inclusive_tags].each{|et| surveys << survey if et.in?(inclusive_tags) } if comparation == false
-        # survey[:excluding_tags].each do |et|
-        #   surveys << survey if et.in?(user_tags)
-        #   surveys.pop if et.in?(user_tags) == false
-        # end
       elsif (survey[:excluding_tags].present? && survey[:inclusive_tags].blank?)
         surveys << survey if comparation
-        # surveys << survey if et.in?(user_tags)
-        # surveys.pop if et.in?(user_tags) == false
       elsif (survey[:inclusive_tags].present? && survey[:excluding_tags].blank?)
         survey[:inclusive_tags].each{|et| surveys << survey if et.in?(inclusive_tags) }
       else
