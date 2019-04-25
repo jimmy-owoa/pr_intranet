@@ -39,14 +39,6 @@ module Frontend
       data_indicators = []
       if indicator.where(date: today).present?    
         data_indicators << {
-          TODAY: l(Date.today, format: '%A %d %B %Y'),
-          YESTERDAY: (Date.today-1).strftime("%d/%m"),
-          YESTERDAY_1: (Date.today-2).strftime("%d/%m"),
-          YESTERDAY_2: (Date.today-3).strftime("%d/%m"),
-          MONTH: l(Date.today, format: '%B'),
-          MONTH_1: l(Date.today-1.month, format: '%B'),
-          MONTH_2: l(Date.today-2.month, format: '%B'),
-          MONTH_3: l(Date.today-3.month, format: '%B'),
           DOLAR: indicator.indicator_type(1).last,
           EURO: indicator.indicator_type(2).last,
           UF: indicator.indicator_type(3).last,
@@ -63,14 +55,6 @@ module Frontend
         }
       else
         data_indicators << {
-          TODAY: l(Date.today, format: '%A %d %B %Y'),
-          YESTERDAY: (Date.today-1).strftime("%d/%m"),
-          YESTERDAY_1: (Date.today-2).strftime("%d/%m"),
-          YESTERDAY_2: (Date.today-3).strftime("%d/%m"),
-          MONTH: l(Date.today, format: '%B'),
-          MONTH_1: l(Date.today-1.month, format: '%B'),
-          MONTH_2: l(Date.today-2.month, format: '%B'),
-          MONTH_3: l(Date.today-3.month, format: '%B'),   
           DOLAR: indicator.where(economic_indicator_type_id: 1).last.value,
           EURO: indicator.where(economic_indicator_type_id: 2).last.value,
           UF: indicator.where(economic_indicator_type_id: 3).last.value,
@@ -96,7 +80,7 @@ module Frontend
       data = {
         menus: menus,
         user: user,
-        weather: weather,
+        weather: weather.present? ? weather : General::WeatherInformation.last(location_id),
         santoral: santoral[0],
         location_name: location.name,
         exa_menu: exa_menu,
