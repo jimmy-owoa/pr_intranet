@@ -4,7 +4,6 @@ class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
   searchkick word: [:name, :last_name, :email, :annexed]
-  
   #relationships
   has_one_attached :image
   has_many :user_term_relationships, -> { where(object_type: 'General::User') }, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :user
@@ -18,8 +17,7 @@ class General::User < ApplicationRecord
 
   accepts_nested_attributes_for :terms
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable
 
   # callbacks
   after_create :assign_default_role, :image_resize

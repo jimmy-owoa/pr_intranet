@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     registrations: "admin/users"
     }, class_name: "General::User"
     namespace :admin do
-      post 'upload', to: 'attachments#upload' 
+      post 'upload', to: 'attachments#upload'
       get 'analytics', to: 'analytics#index'
       get "search", to: "search#search"
       get "searchatt", to: "attachments#search_att"
@@ -31,10 +31,10 @@ Rails.application.routes.draw do
       resources :surveys
       resources :benefits
       resources :benefit_groups
-      resources :answers do 
+      resources :answers do
         get :report, on: :member
       end
-      resources :menus 
+      resources :menus
       resources :messages
       resources :sections
       put 'products/update_expiration', to: 'products#update_expiration'
@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :surveys do
       get :survey_count, on: :collection
       get :survey, on: :collection
+      get :user_surveys, on: :collection
     end
     resources :benefit_groups, only: [:index] do
       get :benefits_group, on: :collection
@@ -103,7 +104,7 @@ Rails.application.routes.draw do
       get :post, on: :collection
       get :important_posts, on: :collection
     end
-    resources :births do 
+    resources :births do
       get :get_home_births, on: :collection
     end
     root to: 'application#index'

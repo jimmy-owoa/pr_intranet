@@ -18,8 +18,9 @@
     </div>
     <div class="col-sm-12">
       <div class="card">
-        <div class="card-body">  
-          <% if @birth.images.attachments.present?%>
+        <div class="card-body">
+          <%# <% if @birth.images.attachments.present?%>
+          <% if @birth.permitted_images.present? %>
             <% @birth.permitted_images.each do |image| %>
               <%= image_tag image.variant(resize: '250x200>'), class: 'image_attach'%>
             <% end %>

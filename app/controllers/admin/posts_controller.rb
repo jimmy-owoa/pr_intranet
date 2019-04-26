@@ -111,7 +111,7 @@ module Admin
           terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
         end
         @post.terms << terms
-      end   
+      end
     end
   end
 end
