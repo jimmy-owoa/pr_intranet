@@ -692,13 +692,13 @@
             <div class="flex">
               <h3 class="text-md-center headline mb-2">Hoy</h3>
               <p class="text-md-center subheading">
-                Actual: <%= weather[0].current_temp %>°
+                Actual: <%= weather[0].current_temp.to_i %>°
               </p>
               <p class="text-md-center subheading">
-                Mínima:<%= weather[0].min_temp %>°
+                Mínima:<%= weather[0].min_temp.to_i %>°
               </p>
               <p class="text-md-center subheading">
-                Máxima:<%= weather[0].max_temp %>°
+                Máxima:<%= weather[0].max_temp.to_i %>°
               </p>
             </div>
           </div>
@@ -718,10 +718,10 @@
                 <%= l(Date.today + 1, format: '%A') %>
               </h3>
               <p class="text-md-center subheading">
-                Mínima:<%= weather[0].tomorrow_max %>°
+                Mínima:<%= weather[0].tomorrow_min.to_i %>°
               </p>
               <p class="text-md-center subheading">
-                Máxima:<%= weather[0].tomorrow_min %>°
+                Máxima:<%= weather[0].tomorrow_max.to_i %>°
               </p>
             </div>
           </div>
@@ -741,10 +741,10 @@
                 <%= l(Date.today + 2, format: '%A') %>
               </h3>
               <p class="text-md-center subheading">
-                Mínima:<%= weather[0].after_tomorrow_min %>°
+                Mínima:<%= weather[0].after_tomorrow_min.to_i %>°
               </p>
               <p class="text-md-center subheading">
-                Máxima:<%= weather[0].after_tomorrow_max %>°
+                Máxima:<%= weather[0].after_tomorrow_max.to_i %>°
               </p>
             </div>
           </div>
@@ -764,10 +764,10 @@
                 <%= l(Date.today + 3, format: '%A') %>
               </h3>
               <p class="text-md-center subheading">
-                Mínima:<%= weather[0].aa_tomorrow_min %>°
+                Mínima:<%= weather[0].aa_tomorrow_min.to_i %>°
               </p>
               <p class="text-md-center subheading">
-                Máxima:<%= weather[0].aa_tomorrow_max %>°
+                Máxima:<%= weather[0].aa_tomorrow_max.to_i %>°
               </p>
             </div>
           </div>
@@ -787,10 +787,10 @@
                 <%= l(Date.today + 4, format: '%A') %>
               </h3>
               <p class="text-md-center subheading">
-                Mínima:<%= weather[0].aaa_tomorrow_min %>°
+                Mínima:<%= weather[0].aaa_tomorrow_min.to_i %>°
               </p>
               <p class="text-md-center subheading">
-                Máxima:<%= weather[0].aaa_tomorrow_max %>°
+                Máxima:<%= weather[0].aaa_tomorrow_max.to_i %>°
               </p>
             </div>
           </div>
@@ -917,7 +917,7 @@
             <div class="text-md-center subheading">
               <%= location_name %>: 
 							<% if weather[0].present? %> 
-								<%= weather[0].current_temp %>° 
+								<%= weather[0].current_temp.to_i %>° 
 							<% else %>
 								<%= 'Clima no disponible'%> 
 							<% end %>
