@@ -1,5 +1,6 @@
 class Users::AuthenticationController < ApplicationController
-  skip_before_action :authenticate_request
+  skip_before_action :authenticate_request, raise: false
+  # raise false se puso por que se llama más de una vez (es por rails 5, stackoverflow)
 
   def authenticate
 
@@ -11,4 +12,5 @@ class Users::AuthenticationController < ApplicationController
       render json: { error: command.errors }, status: :unauthorized
     end
   end
+
 end
