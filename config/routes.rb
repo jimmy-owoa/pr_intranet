@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_scope :user do
     root to: "devise/sessions#new"
   end
+  #authenticate jtw
+  post 'authenticate', to: 'users/authentication#authenticate'
+  #
   devise_for :users,
   controllers: {
     sessions: "users/sessions",

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   include Pundit
   before_action :set_ip
   protect_from_forgery
@@ -18,7 +19,7 @@ class ApplicationController < ActionController::Base
     else
       return frontend_welcome_path
     end
-  end  
+  end
 
   def after_sign_out_path_for(resource_or_scope)
     new_user_session_path
@@ -27,8 +28,9 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.config.available_locales = :es
   end
-  
+
   private
+
   def user_not_authorized
     flash[:alert] = "Tú no estás autorizado para realizar esta acción."
     redirect_to(request.referrer || admin_root_path)

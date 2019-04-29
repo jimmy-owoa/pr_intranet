@@ -1,4 +1,8 @@
 class Frontend::FrontendController < ApplicationController
+#login / Applicationcontroller with base, no api
+before_action :authenticate_request
+
+attr_reader :current_user
 
   def index
   end
@@ -8,7 +12,7 @@ class Frontend::FrontendController < ApplicationController
     today = Date.today.strftime("%d/%m/%Y")
     indicator = General::EconomicIndicator
     indicators = indicator.where(date: today)
-    if indicator.where(date: today).present?    
+    if indicator.where(date: today).present?
       data << {
         TODAY: l(Date.today, format: '%A %d %B %Y'),
         YESTERDAY: (Date.today-1).strftime("%d/%m"),
@@ -61,6 +65,13 @@ class Frontend::FrontendController < ApplicationController
       format.json { render json: data }
       format.js
     end
+  end
+
+  private
+
+  def authenticate_request
+    @current_user = AuthorizeApiRequest.call(request.headers).result
+    render json: { error: 'Not Authorized' }, status: 401 unless @current_user
   end
 
  end
