@@ -3,14 +3,11 @@ class ApplicationController < ActionController::Base
   include Pundit
   before_action :set_ip
   protect_from_forgery
-  # before_action :authenticate_user!
   before_action :set_locale
-  # after_action :track_action
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   def set_ip
     @ip = Rails.env.production? ? Rails.application.credentials.production : Rails.application.credentials.develop # Develop ip
-    # @ip = Rails.application.credentials.production # Production ip
   end
 
   def after_sign_in_path_for(user)
