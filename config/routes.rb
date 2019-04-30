@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     get "searchm", to: "search#search_menu"
     get 'indicators', to: 'frontend#indicators'
     get 'births/calendar_births', to: 'births#calendar_births'
-    get 'menus/api_menu', to: 'menus#api_menu'
+    get 'menus/api_menu/:user_id(/:location_id)', to: 'menus#api_menu'
 
     resources :weather
     resources :users, only: [:update, :show] do

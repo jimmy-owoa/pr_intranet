@@ -26,8 +26,14 @@ module Frontend
     end
 
     def api_menu
-      user_id = 3 # TODO: Cambiar al correcto
-      location_id = 2 # TODO: Cambiar al correcto
+      base_api_url = root_url
+      base_search_url = if Rails.env.dev?
+        "http://localhost:8080/#/resultados/"
+      else
+        "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/#/resultados/"
+      end
+      user_id = params[:user_id] # TODO: Cambiar al correcto
+      location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
       user = General::User.find(user_id)
       weather = General::WeatherInformation.current(location_id)
@@ -86,6 +92,8 @@ module Frontend
         exa_menu: exa_menu,
         indicators: data_indicators[0],
         today: today,
+        base_api_url: base_api_url,
+        base_search_url: base_search_url
       }
       menu_json = render_to_string(partial: 'api_client/menu.html.erb', layout: false, locals: data).to_json
       respond_to do |format|
