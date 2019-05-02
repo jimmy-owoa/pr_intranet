@@ -67,7 +67,7 @@ module Frontend
       data << {
         id: post.id,
         published_at: post.published_at,
-        title: post.title,
+        title: post.title.capitalize,
         main_image: post.main_image,
         user_id: General::User.find(post.user_id).name,
         created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
