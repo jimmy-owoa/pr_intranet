@@ -8,18 +8,49 @@
         </button>
       </div>
       <div class="modal-body">
-        <div id="gallery">
-          <div class="row justify-content-center">
-            <div class="col-12">
-              <%= text_field_tag :search, params[:search], id: 'search_att', placeholder: 'Buscar imagen' %>
-              <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
-              <%= select_tag :attachment, options_for_select(@image_list.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}), class: 'show-html', id: 'image-picker_att' %>
+        <div class="tab-v2">
+          <ul class="nav nav-tabs" id="myTab">
+            <li class="nav-item pill-tabs"><a href="#select_image" data-toggle="tab" id="image_picker">Seleccionar desde Biblioteca</a></li>
+            <li class="nav-item pill-tabs"><a href="#upload_image" data-toggle="tab" id="image_upload">Subir nueva imagen</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade in" id="upload_image">
+             <%= simple_form_for [@post, @attachment], as: 'attachment', url: {action: :create}, :html => { :class => "form" }, remote: true do |f| %>
+               <%= f.error_notification %>
+               <div class="card">
+                 <div class="card-body">
+                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                     <%= f.file_field :attachment%>
+                     <%= f.button :submit, class: 'btn btn-primary', id: 'btn_upload'%>
+                   </div>
+                 </div>
+               </div>
+               <% end %>
+            </div>
+            <div class="tab-pane fade in" id="select_image">
+                <div class="row justify-content-center">
+              <div class="col-12">
+                <%= text_field_tag :search, params[:search], id: 'search_att', placeholder: 'Buscar imagen' %>
+                <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
+                <%= select_tag :attachment, options_for_select(@image_list.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}), class: 'show-html', id: 'image-picker_att' %>
+              </div>
+            </div>
+              <button type="button" id="selection-image" class="btn btn-primary" style="float:right">Seleccionar</button>
             </div>
           </div>
-          <%= js_will_paginate @image_list %>
-          <button type="button" id="selection-image" class="btn btn-primary" style="float:right">Seleccionar</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  $("#btn_upload").click(function() {
+    let value = $("#attachment_attachment")[0].files[0].name;
+    if (value.length > 0) {
+      $("#main_image, #main_image_nil").text(value);
+    }
+    $("#main_image_modal").modal("toggle");
+    $("#post_main_image_id").val(value);
+  });
+</script>

@@ -3,13 +3,13 @@ $(document).ready(function(){
   $("#image-picker_att").imagepicker();
   $("#main_image_modal").modal("show");
 
-  $("#img1, #gal1").click(function() {
-    if (this.id == "img1") {
-      $("#img1").toggleClass("clicked_img");
-      $("#gal1").removeClass("clicked_img");
-    } else if (this.id == "gal1") {
-      $("#gal1").toggleClass("clicked_img");
-      $("#img1").removeClass("clicked_img");
+  $("#image_upload, #image_picker").click(function() {
+    if (this.id == "image_upload") {
+      $("#image_upload").toggleClass("clicked_img");
+      $("#image_picker").removeClass("clicked_img");
+    } else if (this.id == "image_picker") {
+      $("#image_picker").toggleClass("clicked_img");
+      $("#image_upload").removeClass("clicked_img");
     }
   });
   

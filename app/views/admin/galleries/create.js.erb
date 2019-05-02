@@ -4,4 +4,3 @@ $("#post_gallery_ids").empty();
   $("#post_gallery_ids").append("<option value=" + '<%= i[0] %>'   + ">" + '<%= i[1] %>' + "</option>");
 <% end %>
 $("#post_gallery_ids").val('<%= @galleries_list.last[0] %>');
-swal("Buen trabajo!", "La Galeria ha sido creada correctamente", "success");
