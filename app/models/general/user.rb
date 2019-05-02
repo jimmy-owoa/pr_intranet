@@ -90,6 +90,21 @@ class General::User < ApplicationRecord
   def full_name
     self.name + ' ' + self.last_name
   end
+
+  def self.what_role? user
+    if user.has_role?("user")
+      return "user"
+    elsif user.has_role?("post_admin")
+      return "post_admin"
+    elsif user.has_role?("super_admin")
+      return "super_admin"
+    elsif user.has_role?("message_admin")
+      return "message_admin"
+    else
+      "no_role"
+    end
+  end
+
   def assign_default_role
     add_role(:user) if roles.blank?
   end
@@ -97,8 +112,8 @@ class General::User < ApplicationRecord
   def only_admin?
     true if roles.map{|q| q.name }.any? "super_admin"
     false
-  end   
-  
+  end
+
   def self.users_welcome
     # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
     General::User.last(4)

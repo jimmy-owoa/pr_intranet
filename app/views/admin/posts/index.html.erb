@@ -24,6 +24,8 @@
                 <td><%= custom_date_no_hour(post.published_at) %></td>
                 <td><%= custom_date_no_hour(post.created_at)  %></td>
                 <td>
+                  <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %>
+                                  <%= link_to "Cliente", "#{environment}/#/noticias/#{post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
                   <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_post_path(post), :class => 'btn btn-success btn-sm' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),
