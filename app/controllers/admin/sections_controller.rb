@@ -20,7 +20,7 @@ module Admin
       @section = General::Section.new(section_params)
       respond_to do |format|
         if @section.save
-          format.html { redirect_to admin_section_path(@section), notice: 'Section was successfully created.' }
+          format.html { redirect_to admin_section_path(@section), notice: 'Sección fue creada satisfactorialmente.' }
           format.json { render :show, status: :created, location: @section }
         else
           format.html { render :new }
@@ -32,7 +32,7 @@ module Admin
     def update
       respond_to do |format|
         if @section.update(section_params)
-          format.html { redirect_to admin_section_path(@section), notice: 'Section was successfully updated.' }
+          format.html { redirect_to admin_section_path(@section), notice: 'Sección fue actualizada satisfactorialmente.' }
           format.json { render :show, status: :ok, location: @section }
         else
           format.html { render :edit }
@@ -44,7 +44,7 @@ module Admin
     def destroy
       @section.destroy
       respond_to do |format|
-        format.html { redirect_to sections_url, notice: 'Section was successfully destroyed.' }
+        format.html { redirect_to sections_url, notice: 'Sección fue eliminada satisfactorialmente.' }
         format.json { head :no_content }
       end
     end

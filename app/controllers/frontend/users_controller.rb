@@ -204,6 +204,7 @@ module Frontend
         name: @user.name,
         last_name: @user.last_name,
         nickname: @nickname,
+        role: General::User.what_role?(@user),
         company: @user.company,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
