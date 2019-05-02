@@ -3,7 +3,6 @@ class Users::AuthenticationController < ApplicationController
   # raise false se puso por que se llama más de una vez (es por rails 5, stackoverflow)
 
   def authenticate
-
     command = AuthenticateUserEmployee.call(params[:email], params[:password])
 
     if command.success?
