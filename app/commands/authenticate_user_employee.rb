@@ -16,7 +16,6 @@ class AuthenticateUserEmployee
 
   def user
     user = General::UserEmployee.find_by_email(email)
-    binding.pry
     return user if user && user.authenticate(password)
 
     errors.add :user_authentication, 'invalid credentials'
