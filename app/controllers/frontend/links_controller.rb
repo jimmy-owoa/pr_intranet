@@ -1,7 +1,7 @@
 module Frontend
   class LinksController < FrontendController
     def index
-      links = General::Link.last(6)
+      links = General::Link.last(5)
       data = []
       links.each do |link|
         data << {
