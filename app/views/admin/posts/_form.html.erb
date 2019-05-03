@@ -107,9 +107,9 @@
           <h4> Galería </h4>
           <br>
           <% if @post.id.nil? %>
-          <%= link_to 'Establecer Galería', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery1' %>
+            <%= link_to 'Establecer Galería', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery1' %>
           <% else %>
-          <%= link_to 'Establecer Galería', new_admin_post_gallery_path(@post), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery2' %>
+            <%= link_to 'Establecer Galería', new_admin_post_gallery_path(@post), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery2' %>
           <% end %>
         </div>
       </div>

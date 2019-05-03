@@ -97,7 +97,7 @@ module Admin
 
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
-      :main_image_id, :terms, :post_parent_id, :visibility, :post_class, :post_order, 
+      :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order, 
       :published_at, :user_id, :post_type, :format, :permission, :important, :extract,
       gallery_ids: [], term_ids: [], terms_names: [])
     end

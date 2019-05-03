@@ -15,17 +15,10 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade in" id="upload_image">
-             <%= simple_form_for [@post, @attachment], as: 'attachment', url: {action: :create}, :html => { :class => "form" }, remote: true do |f| %>
-               <%= f.error_notification %>
-               <div class="card">
-                 <div class="card-body">
-                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                     <%= f.file_field :attachment%>
-                     <%= f.button :submit, class: 'btn btn-primary', id: 'btn_upload'%>
-                   </div>
-                 </div>
-               </div>
-               <% end %>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <%= file_field_tag :main_image_select%>
+                <button type="button" class="btn btn-primary" id="btn_select">Seleccionar imagen</button>
+              </div>
             </div>
             <div class="tab-pane fade in" id="select_image">
                 <div class="row justify-content-center">
@@ -45,12 +38,20 @@
 </div>
 
 <script>
-  $("#btn_upload").click(function() {
-    let value = $("#attachment_attachment")[0].files[0].name;
-    if (value.length > 0) {
-      $("#main_image, #main_image_nil").text(value);
+  $("#btn_select").click(function() {
+    if ($("#main_image_select")[0].files[0] != null){ 
+      let name = $("#main_image_select")[0].files[0].name;
+      let value = $("#main_image_select")[0].value;
+      if (name.length > 1) {
+        $("#main_image, #main_image_nil").text(name);
+        alert("Imagen principal seleccionada")
+      }
+    }
+    else
+    {
+      alert("No has seleccionado ninguna imagen principal")
     }
     $("#main_image_modal").modal("toggle");
-    $("#post_main_image_id").val(value);
+
   });
 </script>
