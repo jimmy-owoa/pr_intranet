@@ -62,7 +62,7 @@
       </div>
       <div class="col-sm-2">
         <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %>
-                 <%= link_to "Ver usuario final", "#{environment}/noticias/#{@post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
+                 <%= link_to "Ver usuario final", "#{environment}#/noticias/#{@post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
       </div>      
     </div>
   </div>
