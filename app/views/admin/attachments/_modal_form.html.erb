@@ -11,7 +11,7 @@
         <div class="tab-v2">
           <ul class="nav nav-tabs" id="myTab">
             <li class="nav-item pill-tabs"><a href="#select_image" data-toggle="tab" id="image_picker">Seleccionar desde Biblioteca</a></li>
-            <li class="nav-item pill-tabs"><a href="#upload_image" data-toggle="tab" id="image_upload">Subir nueva imagen</a></li>
+            <%# <li class="nav-item pill-tabs"><a href="#upload_image" data-toggle="tab" id="image_upload">Subir nueva imagen</a></li> %>
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade in" id="upload_image">
@@ -39,7 +39,7 @@
 
 <script>
   $("#btn_select").click(function() {
-    if ($("#main_image_select")[0].files[0] != null){ 
+    if ($("#main_image_select")[0].files[0] != null){
       let name = $("#main_image_select")[0].files[0].name;
       let value = $("#main_image_select")[0].value;
       if (name.length > 1) {
@@ -55,3 +55,4 @@
 
   });
 </script>
+

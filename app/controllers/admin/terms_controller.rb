@@ -7,7 +7,7 @@ module Admin
         @terms = General::Term.order(id: :desc).where(["permission LIKE ?", "%#{params[:type]}%"]).paginate(:page => params[:page], :per_page => 10)
       else
         @terms = General::Term.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
-      end          
+      end
     end
 
     def show

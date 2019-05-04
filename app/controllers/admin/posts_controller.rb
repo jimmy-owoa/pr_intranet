@@ -1,6 +1,6 @@
 module Admin
   class PostsController < AdminController
-    
+
     before_action :set_post, only: [:show, :edit, :update, :destroy]
     respond_to :html, :json
     before_action :set_categories, only: [:edit, :new]
@@ -28,6 +28,7 @@ module Admin
     def new
       add_breadcrumb "Noticias", :admin_posts_path
       @post = News::Post.new
+      @attachment = General::Attachment.new
       @post.terms.build
     end
 

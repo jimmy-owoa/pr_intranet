@@ -22,7 +22,7 @@ module Frontend
     respond_to do |format|
       format.json {render json: data}
       format.js
-    end    
+    end
   end
 
   def get_home_welcome

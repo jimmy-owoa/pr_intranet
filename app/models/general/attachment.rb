@@ -19,7 +19,7 @@ class General::Attachment < ApplicationRecord
   
 
   def thumb
-    begin 
+    begin
       return self.attachment.variant(resize: '120x120>').processed
     rescue
       if self.attachment.content_type == 'text/plain'

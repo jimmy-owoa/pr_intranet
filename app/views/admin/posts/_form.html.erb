@@ -18,7 +18,7 @@
       </div>
       <%= f.hidden_field :user_id, value: current_user.id %>
       <div class="col-md-4 hidden">
-        <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
+        <%#= f.association :main_image, collecion: @attachments, class: 'hidden'%>
       </div>
       <div class="col-md-4 hidden">
         <%= f.association :galleries, collecion: @galleries %>
@@ -51,7 +51,7 @@
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>
 
             <% else %>
-            
+
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>
             <% end %>
             <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
@@ -78,13 +78,13 @@
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas incluyentes' %>
           <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
-        </div>  
+        </div>
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas excluyentes' %>
           <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
-        </div>          
+        </div>
       </div>
-    </div>    
+    </div>
     <div class="card p-2" >
       <div class="form-group">
           <div class="col-md-12 col-sm-12">
@@ -94,9 +94,14 @@
             <% if @post.id.nil? %>
               <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) %>
               <br />
-              <%= link_to 'Imagen Principal', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %>
+              <%= link_to 'Imagen desde galería', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %><br /><br />
+              <b><p>Adjuntar imagen</p></b>
+              <%= f.file_field :main_image, :style=>"width: 180px" %>
             <% else %>
-              <%= link_to 'Imagen Principal', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+              <%= image_tag @post.main_image.variant(resize: "160x200")  %>
+              <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+              <b><p>Adjuntar imagen</p></b>
+              <%= f.file_field :main_image, :style=>"width: 180px" %>
             <% end %>
           </div>
       </div>

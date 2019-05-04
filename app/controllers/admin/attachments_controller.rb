@@ -15,7 +15,7 @@ module Admin
       end
     end
 
-    def upload 
+    def upload
       if params[:file].present?
         new_attachment = General::Attachment.new
         new_attachment.attachment.attach(params[:file])
