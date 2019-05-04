@@ -18,9 +18,9 @@
   </div>
   <div class="row">
     <div class="col-sm-5">
-      <% unless @post.main_image == nil %>
-        <%= image_tag @post.main_image,  class: "img-thumbnail" %>
-      <% end %>
+
+      <%= image_tag News::Post.check_image(@post)  %>
+
     </div>
     <div class="col-sm-7">
       <div class="card post_card">

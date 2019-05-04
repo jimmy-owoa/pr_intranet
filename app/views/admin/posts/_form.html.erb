@@ -18,7 +18,7 @@
       </div>
       <%= f.hidden_field :user_id, value: current_user.id %>
       <div class="col-md-4 hidden">
-        <%#= f.association :main_image, collecion: @attachments, class: 'hidden'%>
+        <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
       </div>
       <div class="col-md-4 hidden">
         <%= f.association :galleries, collecion: @galleries %>
@@ -98,7 +98,8 @@
               <b><p>Adjuntar imagen</p></b>
               <%= f.file_field :main_image, :style=>"width: 180px" %>
             <% else %>
-              <%= image_tag @post.main_image.variant(resize: "160x200")  %>
+              <%# <%= image_tag @post.main_image.variant(resize: "160x200")  %>
+              <%= image_tag News::Post.check_image(@post)  %>
               <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
               <b><p>Adjuntar imagen</p></b>
               <%= f.file_field :main_image, :style=>"width: 180px" %>

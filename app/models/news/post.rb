@@ -9,7 +9,7 @@ class News::Post < ApplicationRecord
   has_many :attachments, as: :attachable
   has_and_belongs_to_many :galleries, class_name: 'General::Gallery'
   belongs_to :post_parent, class_name: 'News::Post', optional: true
-  # belongs_to :main_image, class_name: 'General::Attachment', optional: true
+  belongs_to :main_image, class_name: 'General::Attachment', optional: true
   has_one_attached :main_image
   belongs_to :user, class_name: 'General::User', optional: true, touch: true
 
@@ -47,7 +47,15 @@ class News::Post < ApplicationRecord
   def cached_tags
     Rails.cache.fetch :tags, :expires_in => 1.days do
       self.terms.tags
-    end 
+    end
+  end
+
+  def self.check_image(post)
+    if post.main_image_id.present?
+      General::Attachment.find(post.main_image_id).attachment.variant(resize: "160x200")
+    else
+      post.main_image.variant(resize: "160x200")
+    end
   end
 
   private
