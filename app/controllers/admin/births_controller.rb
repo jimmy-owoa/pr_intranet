@@ -1,7 +1,7 @@
 module Admin 
   class BirthsController < AdminController
     before_action :set_birth, only: [:show, :destroy, :edit, :update]
-    
+
     def index
       add_breadcrumb "Nacimientos", :admin_births_path
       if params[:approved] == 'true' || params[:approved] == 'false'
@@ -15,7 +15,7 @@ module Admin
     def no_approved_index
       @births = Employee::Birth.no_approved.paginate(:page => params[:page], :per_page => 10)
     end
-    
+
     def show
       add_breadcrumb "Nacimientos", :admin_births_path
     end
@@ -64,7 +64,7 @@ module Admin
           end
         end
       end
-    end    
+    end
 
     def catch_image(image)
       if image.present?
@@ -78,7 +78,7 @@ module Admin
       @image = ActiveStorage::Attachment.find(params[:id])
       @image.purge
       redirect_back(fallback_location: root_path)
-    end    
+    end
 
     def destroy
       @birth.destroy

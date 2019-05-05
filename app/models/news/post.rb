@@ -53,8 +53,11 @@ class News::Post < ApplicationRecord
   def self.check_image(post)
     if post.main_image_id.present?
       General::Attachment.find(post.main_image_id).attachment.variant(resize: "160x200")
-    else
+    elsif post.main_image.attachment.present?
       post.main_image.variant(resize: "160x200")
+    else
+      ('/assets/post_news_mini.png')
+      # (root_url '/assets/post_news_mini.png')
     end
   end
 
