@@ -55,10 +55,8 @@ module Admin
     def update
       params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       respond_to do |format|
-        # check_main_image_id(@post)
         if @post.update(post_params)
           set_tags
-          # check_main_image(@post)
           format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully updated.'}
           format.json { render :show, status: :ok, location: @post }
         else
@@ -68,20 +66,14 @@ module Admin
       end
     end
 
-    def check_main_image_id(post)
-      if (post.main_image_id == params["post"]["main_image_id"].to_i) && post.main_image.attachment.present?
+    def delete_image
+      post = News::Post.find(params[:post_id])
+      if post.main_image_id.present?
         post.update_attributes(main_image_id: nil)
-      elsif (post.main_image_id != params["post"]["main_image_id"].to_i) && post.main_image.attachment.present?
-        
-        binding.pry
-        
-        post.update_attributes(main_image_id: nil)
-      elsif params["post"]["main_image_id"].present?
-        post.main_image.purge if post.main_image.attachment.present?
-      elsif post.main_image.attachment.present?
-        post.update_attributes(main_image_id: nil)
+        redirect_back(fallback_location: root_path)
       else
-        return false
+        post.main_image.purge
+        redirect_back(fallback_location: root_path)
       end
     end
 
