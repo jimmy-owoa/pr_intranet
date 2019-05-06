@@ -24,7 +24,7 @@ module Frontend
         title: post.title.capitalize,
         main_image: post.main_image,
         user_name: post.cached_users_names,
-        published_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
+        published_at: post.created_at.strftime("%d/%m/%Y · %H:%M"),
         content: post.content,
         post_type: post.post_type,
         important: post.important,
@@ -66,11 +66,10 @@ module Frontend
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
-        published_at: post.published_at,
         title: post.title.capitalize,
         main_image: post.main_image,
         user_id: General::User.find(post.user_id).name,
-        created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
+        published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
         content: post.content,
         post_type: post.post_type,
         important: post.important,
@@ -94,6 +93,17 @@ module Frontend
     data = []
     slug = params[:slug].present? ? params[:slug] : nil
     post = News::Post.find_by_slug(slug)
+    relationed_posts = News::Post.where(post_type: post.post_type).last(5) - [post]
+    data_relationed_posts = []
+    relationed_posts.each do |post|
+      data_relationed_posts << {
+        id: post.id,
+        title: post.title.capitalize.slice(0..52) + '...',
+        slug: post.slug,
+        published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
+        main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
+      }
+    end
     image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
     gallery = []
       if post.galleries.present?
@@ -106,13 +116,13 @@ module Frontend
       end
     data << {
       id: post.id,
-      title: post.title,
+      title: post.title.capitalize,
       main_image: post.main_image,
       url: root_url + 'admin/posts/' + "#{post.id}" + '/edit',
       user_id: General::User.find(post.user_id).name,
-      created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
+      published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
       content: post.content,
-      post_type: post.post_type,
+      post_type: post.post_type.upcase,
       important: post.important,
       tags: post.terms.tags,
       main_image: image,
@@ -123,8 +133,8 @@ module Frontend
           {link: '/noticias', name: 'Noticias'},
           {link: '#', name: post.title.truncate(30)}
         ],
-      gallery: gallery
-
+      gallery: gallery,
+      relationed_posts: data_relationed_posts
     }
     respond_to do |format|
       format.json { render json: data[0] }
