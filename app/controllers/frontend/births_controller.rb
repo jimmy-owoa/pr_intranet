@@ -20,10 +20,10 @@ module Frontend
           photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
           images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
-          created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           birthday: birth.birthday,
           father: birth.full_name_father,
           mother: birth.full_name_mother,
+          created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           breadcrumbs: [
               {link: '/', name: 'Inicio' },
               {link: '/nacimientos', name: 'Nacimientos' },
