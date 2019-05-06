@@ -50,7 +50,6 @@ Rails.application.routes.draw do
       resources :attachments, only: [:create, :new]
       resources :galleries, only: [:create, :new]
       get :deleted, on: :collection
-      delete :delete_image
     end
     resources :term_types
     resources :users
