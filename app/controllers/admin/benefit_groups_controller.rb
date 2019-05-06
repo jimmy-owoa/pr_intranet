@@ -44,7 +44,7 @@ module Admin
     def destroy
       @benefit_group.destroy
       respond_to do |format|
-        format.html { redirect_to admin_benefits_path, notice: 'BenefitGroup was successfully destroyed.'}
+        format.html { redirect_to admin_benefit_groups_path, notice: 'BenefitGroup was successfully destroyed.'}
         format.json { head :no_content }
       end
     end

@@ -5,7 +5,8 @@ module Frontend
       data = []
       sections.each do |section|
         data << {
-          title: section.title,
+          id: section.id,
+          title: section.title.upcase,
           description: section.description,
           position: section.position,
           image: url_for(section.image.variant(resize: '800x800>')),
