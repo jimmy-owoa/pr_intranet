@@ -16,6 +16,10 @@
         <%= f.text_area :content, class: 'tinymce' %>
         <%= tinymce height: "900" %>
       </div>
+      <div class="col-md-12" style="margin-bottom: 20px;">
+
+        <%= f.input :extract%>
+      </div>
       <%= f.hidden_field :user_id, value: current_user.id %>
       <div class="col-md-4 hidden">
         <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
@@ -38,7 +42,7 @@
             <% else %>
               <%= f.check_box :important, class: 'post_type'%>
             <% end %>
-        </div>        
+        </div>
         <%# <div class="col-md-12">
           <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
         <%# </div> %>
@@ -47,11 +51,8 @@
         <div class="col-md-12 col-sm-12"><br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
             <% if @post.try(:published_at).present? %>
-
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>
-
             <% else %>
-
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>
             <% end %>
             <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
@@ -96,23 +97,23 @@
               <br />
               <%= link_to 'Imagen desde galería', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %><br /><br />
               <b><p>Adjuntar imagen</p></b>
-              <%= f.file_field :main_image, :style=>"width: 180px" %>
-            <% else %>
-              <%# <%= image_tag @post.main_image.variant(resize: "160x200")  %>
-              <%= image_tag News::Post.check_image(@post), class: 'post_image'  %>
-              <% if @post.main_image_id.present? || @post.main_image.attachment.present? %>
-                <td>
-                  <div class="text-center">
-                    <%= link_to 'Borrar', admin_post_delete_image_path(@post), method: :delete, data: { confirm: '¿Estás seguro??' },:class => 'btn btn-sm btn-danger'%>
-                  </div>
-                </td>
+              <%= f.fields_for :main_image do |aa| %>
+                <div class="field">
+                  <br>
+                  <%= aa.file_field :attachment, :style=>"width: 180px" %>
+                </div>
               <% end %>
+            <% else %>
+              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200"))  %>
               <br />
-              <% if @post.main_image_id.nil? && @post.main_image.attachment.nil? %>
                 <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
                 <b><p>Adjuntar imagen</p></b>
-                <%= f.file_field :main_image, :style=>"width: 180px" %>
-              <% end %>
+                <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
+                  <div class="field">
+                    <br>
+                    <%= aa.file_field :attachment %>
+                  </div>
+                <% end %>
             <% end %>
           </div>
       </div>

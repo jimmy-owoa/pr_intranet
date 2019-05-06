@@ -6,14 +6,15 @@ class News::Post < ApplicationRecord
   has_many :post_term_relationships, -> {where(object_type: 'News::Post')},
             class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :post
   has_many :terms, through: :post_term_relationships
-  has_many :attachments, as: :attachable
   has_and_belongs_to_many :galleries, class_name: 'General::Gallery'
   belongs_to :post_parent, class_name: 'News::Post', optional: true
-  belongs_to :main_image, class_name: 'General::Attachment', optional: true
-  has_one_attached :main_image
   belongs_to :user, class_name: 'General::User', optional: true, touch: true
+  has_many :attachments, as: :attachable
+  belongs_to :main_image, class_name: 'General::Attachment', optional: true
+  # has_one_attached :main_image
 
   accepts_nested_attributes_for :terms
+  accepts_nested_attributes_for :main_image
 
   after_initialize :set_status
 
@@ -41,7 +42,7 @@ class News::Post < ApplicationRecord
   def cached_users_names
     Rails.cache.fetch :user_name, :expires_in => 1.days do
       General::User.find(self.user_id).name
-    end 
+    end
   end
 
   def cached_tags
@@ -52,9 +53,8 @@ class News::Post < ApplicationRecord
 
   def self.check_image(post)
     if post.main_image_id.present?
-      General::Attachment.find(post.main_image_id).attachment.variant(resize: "160x200")
-    elsif post.main_image.attachment.present?
-      post.main_image.variant(resize: "160x200")
+      # post.main_image.attachment
+      post.main_image.attachment.variant(resize: '300x300>')
     else
       ('/assets/post_news_mini.png')
       # (root_url '/assets/post_news_mini.png')

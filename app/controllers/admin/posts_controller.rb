@@ -29,11 +29,14 @@ module Admin
       add_breadcrumb "Noticias", :admin_posts_path
       @post = News::Post.new
       @attachment = General::Attachment.new
+      # @post.build_main_image
+      @post.build_main_image
       @post.terms.build
     end
 
     def edit
       add_breadcrumb "Noticias", :admin_posts_path
+      # @main_image = @post.main_image || @post.build_main_image
     end
 
     def create
@@ -42,7 +45,6 @@ module Admin
       respond_to do |format|
         if @post.save
           set_tags
-          check_main_image(@post)
           format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully created.'}
           format.json { render :show, status: :created, location: @post}
         else
@@ -63,25 +65,6 @@ module Admin
           format.html { render :edit}
           format.json { render json: @post.errors, status: :unprocessable_entity}
         end
-      end
-    end
-
-    def delete_image
-      post = News::Post.find(params[:post_id])
-      if post.main_image_id.present?
-        post.update_attributes(main_image_id: nil)
-        redirect_back(fallback_location: root_path)
-      else
-        post.main_image.purge
-        redirect_back(fallback_location: root_path)
-      end
-    end
-
-    def check_main_image(post)
-      # _changed?
-      if post.main_image.attachment.present?
-        post.update_attributes(main_image_id: nil)
-        return false
       end
     end
 
@@ -118,9 +101,10 @@ module Admin
 
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
-      :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order, 
+      :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order,
       :published_at, :user_id, :post_type, :format, :permission, :important, :extract,
-      gallery_ids: [], term_ids: [], terms_names: [])
+      gallery_ids: [], term_ids: [], terms_names: [],
+      main_image_attributes: [:attachment], general_attachment_attributes: [ :general_attachment])
     end
 
     def set_tags
