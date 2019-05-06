@@ -11,13 +11,13 @@ module Frontend
       users.each do |user|
         data << {
           id: user.id,
-          email: user.email,
-          created_at: user.created_at,
           name: user.name,
           last_name: user.last_name,
           full_name: user.name + ' ' + user.last_name,
+          email: user.email,
           active: user.active,
           annexed: user.annexed,
+          created_at: user.created_at,
           birthday: user.birthday.strftime("%d/%m/%Y"),
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           show_birthday: user.show_birthday,
@@ -39,13 +39,13 @@ module Frontend
       users.each do |user|
         data << {
           id: user.id,
-          email: user.email,
-          created_at: user.created_at,
           name: user.name,
-          last_name: user.last_name,
           full_name: user.name + ' ' + user.last_name,
+          last_name: user.last_name,
+          email: user.email,
           active: user.active,
           annexed: user.annexed,
+          created_at: user.created_at,
           birthday: user.birthday.strftime("%d/%m/%Y"),
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           show_birthday: user.show_birthday,
@@ -67,13 +67,13 @@ module Frontend
       birthdays_filtered.each do |user|
         data << {
           id: user.id,
-          email: user.email,
-          created_at: user.created_at,
           name: user.name,
           last_name: user.last_name,
+          email: user.email,
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,
+          created_at: user.created_at,
           show_birthday: user.show_birthday,
           company: user.company,
           image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png'
@@ -93,10 +93,10 @@ module Frontend
         @image = user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png'
         data << {
           id: user.id,
-          email: user.email,
           name: user.name,
           last_name: user.last_name,
           full_name: user.name + ' ' + user.last_name,
+          email: user.email,
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,

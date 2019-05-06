@@ -21,10 +21,10 @@ module Frontend
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
-        title: post.title,
+        title: post.title.capitalize,
         main_image: post.main_image,
         user_name: post.cached_users_names,
-        created_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
+        published_at: post.created_at.strftime("%d/%m/%Y %H:%M"),
         content: post.content,
         post_type: post.post_type,
         important: post.important,
