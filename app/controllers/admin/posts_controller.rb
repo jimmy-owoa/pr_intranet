@@ -29,14 +29,12 @@ module Admin
       add_breadcrumb "Noticias", :admin_posts_path
       @post = News::Post.new
       @attachment = General::Attachment.new
-      # @post.build_main_image
       @post.build_main_image
       @post.terms.build
     end
 
     def edit
       add_breadcrumb "Noticias", :admin_posts_path
-      # @main_image = @post.main_image || @post.build_main_image
     end
 
     def create
