@@ -92,17 +92,27 @@
               <%# <img id="image" src="#" alt="your image" /> %>
             <br>
             <% if @post.id.nil? %>
-              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) %>
+              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '40x40', :crop => :fill) %>
               <br />
               <%= link_to 'Imagen desde galería', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %><br /><br />
               <b><p>Adjuntar imagen</p></b>
               <%= f.file_field :main_image, :style=>"width: 180px" %>
             <% else %>
               <%# <%= image_tag @post.main_image.variant(resize: "160x200")  %>
-              <%= image_tag News::Post.check_image(@post)  %>
-              <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
-              <b><p>Adjuntar imagen</p></b>
-              <%= f.file_field :main_image, :style=>"width: 180px" %>
+              <%= image_tag News::Post.check_image(@post), class: 'post_image'  %>
+              <% if @post.main_image_id.present? || @post.main_image.attachment.present? %>
+                <td>
+                  <div class="text-center">
+                    <%= link_to 'Borrar', admin_post_delete_image_path(@post), method: :delete, data: { confirm: '¿Estás seguro??' },:class => 'btn btn-sm btn-danger'%>
+                  </div>
+                </td>
+              <% end %>
+              <br />
+              <% if @post.main_image_id.nil? && @post.main_image.attachment.nil? %>
+                <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+                <b><p>Adjuntar imagen</p></b>
+                <%= f.file_field :main_image, :style=>"width: 180px" %>
+              <% end %>
             <% end %>
           </div>
       </div>
