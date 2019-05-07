@@ -64,6 +64,15 @@ module Frontend
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
+      gallery = []
+        if post.galleries.present?
+          post.galleries.first.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
+            gallery << {
+              id: image.id,
+              url: url_for(image.attachment)
+            }
+          end
+        end
       data << {
         id: post.id,
         title: post.title.capitalize,
@@ -80,7 +89,8 @@ module Frontend
           {link: '#', name: post.title.truncate(30)}
         ],
         main_image: @image,
-        format: post.format
+        format: post.format,
+        gallery: gallery,
       }
     end
     respond_to do |format|
