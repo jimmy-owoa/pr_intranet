@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 2019_04_29_150824) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "benefit_group_id"
   end
 
   create_table "general_daily_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -306,6 +307,7 @@ ActiveRecord::Schema.define(version: 2019_04_29_150824) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
@@ -326,7 +328,6 @@ ActiveRecord::Schema.define(version: 2019_04_29_150824) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
-    t.integer "location_id"
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
