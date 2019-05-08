@@ -124,6 +124,7 @@ GEM
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     chronic (0.10.2)
+    clipboard-rails (1.7.1)
     cocoon (1.2.12)
     coderay (1.1.2)
     coffee-rails (4.2.2)
@@ -386,6 +387,7 @@ DEPENDENCIES
   capistrano-rbenv
   capybara (>= 2.15)
   chromedriver-helper
+  clipboard-rails
   cocoon
   coffee-rails (~> 4.2)
   dalli

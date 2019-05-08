@@ -40,29 +40,8 @@
 //= require owl.carousel
 //= require alertify
 //= require alertify/confirm-ujs
+//= require clipboard
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require ahoy
 //= require_self
-
-alertify.defaults = {
-  // language resources
-  glossary: {
-    // dialogs default title
-    title: "AlertifyJS",
-    // ok button text
-    ok: "Si",
-    // cancel button text
-    cancel: "Cancelar"
-  },
-
-  // theme settings
-  theme: {
-    // class name attached to prompt dialog input textbox.
-    input: "ajs-input",
-    // class name attached to ok button
-    ok: "ajs-ok",
-    // class name attached to cancel button
-    cancel: "ajs-cancel"
-  }
-};

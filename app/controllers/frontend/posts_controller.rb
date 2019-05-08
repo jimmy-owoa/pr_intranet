@@ -99,6 +99,16 @@ module Frontend
     end
   end
 
+  def fix_content content
+    content = content.gsub("video controls=\"controls\"", 'source')
+    if Rails.env.development?
+      content = content.gsub("<source src=\"../..", '<video src="http://localhost:3000')
+    else
+      content = content.gsub("<source src=\"../..", '<video src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+    end
+    content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
+  end
+
   def post
     data = []
     slug = params[:slug].present? ? params[:slug] : nil
@@ -116,6 +126,7 @@ module Frontend
     end
     image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
     gallery = []
+    content = fix_content(post.content)
       if post.galleries.present?
         post.galleries.first.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
           gallery << {
@@ -131,7 +142,7 @@ module Frontend
       url: root_url + 'admin/posts/' + "#{post.id}" + '/edit',
       user_id: General::User.find(post.user_id).name,
       published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-      content: post.content,
+      content: content,
       post_type: post.post_type.upcase,
       important: post.important,
       tags: post.terms.tags,

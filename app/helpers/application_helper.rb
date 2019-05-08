@@ -137,6 +137,16 @@ module ApplicationHelper
     end
   end
 
+  def show_media_index file
+    if supported_img(file) && file.attached?
+      return image_tag file.attachment.variant(resize: "360x300>")
+    elsif supported_video(file) && file.attached?
+      return video_tag(url_for(file.attachment), width: '224px')
+    else
+      return '<h4>Archivo no soportado</h4>'.html_safe
+    end
+  end
+
   def map_attachments 
     General::Attachment.all.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}] if supported_img(i) && i.present?}
   end
@@ -160,7 +170,7 @@ module ApplicationHelper
     when true
       'Masculino'
     when false
-      'Femenino'            
+      'Femenino'
     end
   end
 

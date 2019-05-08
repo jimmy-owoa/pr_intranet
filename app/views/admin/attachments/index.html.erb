@@ -5,10 +5,12 @@
     <% @attachments.each do |at| %>
       <div class="col-md-3">
         <div class="card" style="width: 14rem;">
-          <%= image_tag url_for(at.attachment), class: "card-img-top" %>
+
+          <%= show_media_index(at.attachment) %>
+
           <div class="card-body">
             <h5 class="card-title"><%= at.name %></h5>
-            <%= link_to 'Ruta', rails_blob_url(at.attachment), id: 'link_attachment',target: "_blank" %>         
+            <%= link_to 'Ruta', rails_blob_url(at.attachment), id: 'link_attachment',target: "_blank" %>
           </div>
           <div class="card-body">
             <%= link_to t('.show', :default => t("helpers.links.show")),
