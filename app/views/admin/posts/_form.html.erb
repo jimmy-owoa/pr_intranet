@@ -111,7 +111,7 @@
                 <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
                   <div class="field">
                     <br>
-                    <%= aa.file_field :attachment %>
+                    <%= aa.file_field :attachment, :style=>"width: 180px" %>
                   </div>
                 <% end %>
             <% end %>
@@ -136,8 +136,8 @@
         <div class="col-md-12 col-sm-12">
           <h4> Formato </h4>
         </div>
-         <div class="col-md-12">
-          <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
+          <div class="col-md-12">
+            <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
           <div>
             <i class="fas fa-exclamation-circle" rel="tooltip" title="Estilo 1: Normal - Estilo 2: Rosado - Estilo 3: Naranja" id="ben_img"></i>
           </div>
