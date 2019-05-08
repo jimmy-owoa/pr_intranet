@@ -245,7 +245,7 @@ es:
       block: Bloquear
       unlock: Desbloquear
       show: Ver
-      confirm: Confirmar      
+      confirm: Confirmar
   number:
     currency:
       format:

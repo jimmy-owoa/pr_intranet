@@ -45,3 +45,11 @@
 //= require jquery.minicolors.simple_form
 //= require ahoy
 //= require_self
+function confirm_data() {
+  setTimeout(function() {
+    document.getElementsByClassName("ajs-ok")[0].innerHTML = "Confirmar";
+    document.getElementsByClassName("ajs-cancel")[0].innerHTML = "Cancelar";
+    document.getElementsByClassName("ajs-header")[0].innerHTML =
+      "Tu confirmación es necesaria";
+  }, 100);
+}
