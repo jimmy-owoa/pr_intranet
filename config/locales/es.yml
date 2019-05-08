@@ -9,6 +9,7 @@ es:
         placeholder: Sugerencia
       news/post:
         format: Formato
+        extract: Extracto
       general/message:
         message_type: Tipo de Mensaje
       general/menu:
