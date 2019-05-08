@@ -152,7 +152,8 @@ module Frontend
             id: benefit.id,
             name: benefit.title,
             content: benefit.content,
-            image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png'
+            image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
+            benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : '',
         }
         end
       end
@@ -258,7 +259,9 @@ module Frontend
             id: benefit.id,
             name: benefit.title,
             content: benefit.content,
-            image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png'
+            image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
+            benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name : '',
+            benefit_group: benefit.benefit_group
         }
         end
       end
@@ -370,7 +373,7 @@ module Frontend
         childrens: data_childrens,
         siblings: data_siblings,
         father: data_father,
-        benefit_group: {
+        benefits: {
           name: @user.benefit_group.present? ? @user.benefit_group.name : 'Sin grupo beneficiario',
           benefits: data_benefits.uniq
         },
