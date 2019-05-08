@@ -983,7 +983,7 @@
           <% menu_parents = menus.where(id: [38, 42, 53, 56, 59, 65, 68, 71, 75,
           78, 81, 82]) %> <% menu_parents.each do |menu_parent| %>
           <ul>
-            <h4 class="head_section"><%= menu_parent.title %></h4>
+            <%= link_to menu_parent.title, '/#/' + menu_parent.link, class: 'head_section'%>
             <% menus.where(parent_id: menu_parent.id).each do |link| %> <% if
             link.link.downcase[0..3] == 'http'%> <%= link_to link.title,
             link.link %> <% else %> <%= link_to link.title, '/#/' + link.link %>
@@ -994,16 +994,23 @@
       </li>
 
       <li class="submenu" id="submenu1">
-        <a class="head_menu" href="#" title="Menu 1">MIS BENEFICIOS</a>
+        <a class="head_menu" href="#/beneficios" title="Menu 1">MIS BENEFICIOS</a>
         <ul class="megamenu" id="megamenu1">
-          <% menu_parents = menus.where(id: [91, 105, 108, 113, 116, 125, 132,
-          149, 157, 164]) %> <% menu_parents.each do |menu_parent| %>
+          <% menu_parents = menus.where(id: [91, 105, 108, 113, 116, 125, 132, 149, 157, 164]) %> 
+          <% menu_parents.each do |menu_parent| %>
           <ul>
-            <h4 class="head_section"><%= menu_parent.title %></h4>
-            <% menus.where(parent_id: menu_parent.id).each do |link| %> <% if
-            link.link.downcase[0..3] == 'http'%> <%= link_to link.title,
-            link.link %> <% else %> <%= link_to link.title, '/#/' + link.link %>
-            <% end %> <% end %>
+            <%= link_to menu_parent.title, '/#/beneficios/tipo/' + menu_parent.link, class: 'head_section'%>
+            <% menus_filtered = menus.where(parent_id: menu_parent.id) %>
+            <% menus_filtered.limit(3).each do |link| %> 
+              <% if link.link.downcase[0..3] == 'http'%> 
+                <%= link_to link.title, link.link %>
+              <% else %> 
+                <%= link_to link.title, '/#/' + link.link %>
+              <% end %> 
+            <% end %>
+            <% if menus_filtered.length > 3 %>
+              <%= link_to 'Ver mas', '/#/beneficios/tipo/' + menu_parent.link , style:'color: red;' %>
+            <% end %>
           </ul>
           <% end %>
         </ul>

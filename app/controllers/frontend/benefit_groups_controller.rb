@@ -22,7 +22,8 @@ module Frontend
           title: benefit.title,
           content: benefit.content,
           url: root_url + 'admin/benefit_groups/' + "#{benefit.id}" + '/edit',
-          image: @image
+          image: @image,
+          benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : '',
         }
       end
       respond_to do |format|
