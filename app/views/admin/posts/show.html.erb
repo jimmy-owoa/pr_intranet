@@ -72,9 +72,9 @@
           <div class="row text-center" >
             <% @post.galleries.each do |gal| %>
               <figure>
-                <figcaption class='text-center'><%= gal.name%></figcaption>
+                <figcaption class='text-center'> <b>Nombre galería:</b>  <%= gal.name%></figcaption>
                 <% gal.attachments.each do |image| %>
-                  <%= image_tag(image.attachment.attachment.variant(resize: '400x300>'), style: 'padding: 6px;') %>
+                  <%= image_tag(image.attachment.attachment.variant(resize: '300x255>'), class: 'img-thumbnail post_attachment') %>
                 <% end %>
             <% end %>
           </div>
@@ -82,5 +82,4 @@
       </div>
     </div>
   </div>
-  
 </div>
