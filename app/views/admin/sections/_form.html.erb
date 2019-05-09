@@ -1,29 +1,33 @@
 <%= f.error_notification %>
   <div class="form-group row">
-    <div class="col-6">
-      <%= f.input :title, required: true, autofocus: true %>
+    <div class="col-sm-7">
+      <div class="row">
+        <div class="col-12 col-sm-12">
+          <%= f.input :title, required: true, autofocus: true %>
+        </div>
+        <div class="col-12 col-sm-12">
+          <%= f.label 'Url Interna' %></br>
+          <%= f.select :url, News::Post.all.map{|p| ["#{p.id} - #{p.title}".truncate(60), p.slug] }, include_blank: true %>
+        </div>
+        <div class="col-12 col-sm-12">
+          <%= f.input :position, required: true, autofocus: true %>
+        </div>
+        <div class="col-12 col-sm-12">
+          <%= f.input :description, required: true, autofocus: true,  :input_html => {:rows => 10} %>
+        </div>
+      </div>
     </div>
-     <div class="col-6">
-      <%= f.input :description, required: true, autofocus: true %>
-    </div>
-     <div class="col-6">
-      <%= f.input :position, required: true, autofocus: true %>
-    </div>
-    <div class="col-6">
-      <%= f.label 'Url Interna' %></br>
-      <%= f.select :url, News::Post.all.map{|p| ["#{p.id} - #{p.title}".truncate(60), p.slug] }, include_blank: true %>
-
-    </div>
-    <div class="col-5">
-      <div class="card border-secondary mb-3">
-        <div class="card-body text-secondary border border-primary rounded">
-          <% if @section.image.attachment.present? %>
-                <%= image_tag(@section.image.variant(resize: '300x300>'), class: 'left') %>
-          <% else %>  
-            <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
-          <% end %>
-          <div class="left">
-            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+    <div class="col-sm-5">
+      <div class="row">
+        <div class="card border-secondary mb-2">
+          <div class="card-body text-secondary border border-primary rounded">
+            <% if @section.image.attachment.present? %>
+                  <%= image_tag(@section.image.variant(resize: '300x300>'), class: 'left') %>
+            <% else %>
+              <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
+            <% end %>
+            <div class="left">
+              <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
           </div>
         </div>
       </div>
