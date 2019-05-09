@@ -1,5 +1,5 @@
 <section class="section">
-  <h1 class="section-header">Agregar medios</h1>
+  <h1 class="section-header">Agregar medios</h1><br />
   <%= simple_form_for @attachment, as: 'attachment', url: {action: :create}, :html => { :class => "form" } do |f| %>
     <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
