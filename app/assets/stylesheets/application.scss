@@ -16,25 +16,25 @@
  *= require jquery.minicolors
 
  */
-@import 'bootstrap';
-@import 'toastr';
-@import 'font-awesome-sprockets';
-@import 'font-awesome';
-@import 'select2';
+@import "bootstrap";
+@import "toastr";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+@import "select2";
 @import "alertify";
 @import "alertify/default";
 @import "alertify/bootstrap";
-@import 'vendors';
-@import 'tempusdominus-bootstrap-4.css';
-@import 'admin/users';
-@import 'admin/posts';
-@import 'admin/galleries';
-@import 'admin/attachments';
-@import 'admin/terms';
-@import 'admin/search.scss';
-@import 'admin/birthdays.scss';
-@import 'admin/menus';
-@import 'admin/survey';
+@import "vendors";
+@import "tempusdominus-bootstrap-4.css";
+@import "admin/users";
+@import "admin/posts";
+@import "admin/galleries";
+@import "admin/attachments";
+@import "admin/terms";
+@import "admin/search.scss";
+@import "admin/birthdays.scss";
+@import "admin/menus";
+@import "admin/survey";
 
 .content_security {
   max-width: 770px;
@@ -43,11 +43,11 @@
 
 .bottom_nav {
   padding-top: 30px;
-  padding-bottom: 50px
+  padding-bottom: 50px;
 }
 
 .block2 {
-  background: #7D7D7D;
+  background: #7d7d7d;
   height: 60px;
   color: white;
 }
@@ -67,7 +67,7 @@
 }
 
 .block3_birthday {
-  background: #4F8B35;
+  background: #4f8b35;
   color: white;
 }
 
@@ -116,16 +116,21 @@
   overflow-y: scroll;
 }
 
+.scrollDivPostImage {
+  height: 450px;
+  overflow-y: scroll;
+}
+
 .label-custom {
   font-weight: 500;
   color: #868e96;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-size: 11px;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
 }
 
 .menu-dropdown {
-  margin-left: 12px !important
+  margin-left: 12px !important;
 }
 
 #ben_img {
