@@ -260,8 +260,7 @@ module Frontend
             name: benefit.title,
             content: benefit.content,
             image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
-            benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name : '',
-            benefit_group: benefit.benefit_group
+            benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name : ''
         }
         end
       end
