@@ -6,10 +6,10 @@
           <%= f.input :name %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.input :last_name %> 
+          <%= f.input :last_name %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-          <%= f.input :legal_number %> 
+          <%= f.input :legal_number %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
           <%= f.input :email,required: true,autofocus: true ,input_html: { autocomplete: "email" }%>
@@ -21,7 +21,6 @@
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
           <%= f.input :password_confirmation,required: true,input_html: { autocomplete: "new-password" } %>
         </div>
-        
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
           <div class="input-group date" id="birthday" data-target-input="nearest">
             <% if @user.try(:birthday).present? %>
@@ -38,10 +37,10 @@
           <%= f.input :annexed %> 
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-          <%= f.input :position %> 
+          <%= f.input :position %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-          <%= f.input :company %> 
+          <%= f.input :company %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <div class="input-group date" id="date_entry" data-target-input="nearest">
@@ -53,8 +52,8 @@
             <div class="input-group-append" data-target="#date_entry" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="far fa-handshake"></i></div>
             </div>
-          </div>     
-        </div> 
+          </div>
+        </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.label :tags %>
           <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
@@ -64,12 +63,12 @@
           <% if f.object.location.present? %>
             <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }, f.object.location.id), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
           <% else %>
-            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>          
+            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
           <% end %>
         </div>
         <div class="col-6 col-sm-6">
-          <%= f.input :address %> 
-        </div>     
+          <%= f.input :address %>
+        </div>
         <div class="col-4 col-sm-6">
           <%= f.label 'Jerarquía' %>
           <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
@@ -79,24 +78,24 @@
           <%= f.input :active, as: :boolean, label: false %>
         </div>
         <div class="col-4 col-sm-3">
-          <% if current_user.has_role? :super_admin %>            
+          <% if current_user.has_role? :super_admin %>
             <%= f.label :show_birthday %>
             <%= f.input :show_birthday, as: :boolean, label: false %>
-          <% end %>        
-        </div>                 
-      </div>      
-    </div> 
+          <% end %>
+        </div>
+      </div>
+    </div>
     <div class="col-4" >
       <div class="card border-secondary mb-3" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
         <% if @user.image.attachment.present? %>
           <%= image_tag(@user.image.attachment.variant(resize: '130x180!').processed, class: 'center') %>
-        <% else %>  
+        <% else %>
           <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
         <% end %>
         </div>
-      </div>      
-      <%= f.file_field :image, accept:'image/*' %>
+      </div>
+      <%= f.file_field :image, accept:'image/*', class: 'user_image' %>
       <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
           <%= f.association :terms, collection: General::Term.categories, as: :check_boxes, label: 'Empresas'  %>
