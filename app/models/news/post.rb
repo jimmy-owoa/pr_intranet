@@ -2,6 +2,8 @@ class News::Post < ApplicationRecord
   acts_as_paranoid
   searchkick match: :word, searchable: [:title, :slug, :content]
 
+  validates_presence_of :title, :published_at
+
   has_many :comments, class_name: 'News::Comment'
   has_many :post_term_relationships, -> {where(object_type: 'News::Post')},
             class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :post
