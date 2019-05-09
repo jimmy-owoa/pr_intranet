@@ -20,11 +20,11 @@
             <td>
               <% if user.image.attachment.present? %>
                 <%= image_tag(user.image.attachment.variant(resize: '40x40!').processed, class: 'rounded-circle border border-secondary') %>
-              <% end %>      
+              <% end %>
             </td>
             <td><%= user.name %></td>
             <td><%= user.last_name %></td>
-            <td><%= user.email %></td>
+            <td><%= mail_to(user.email) %></td>
             <td><%= user.birthday.present? ? custom_date_no_hour(user.birthday) : '' %></td>
             <td><%= user.annexed %></td>
             <td><%= user.active? ? 'Si' : 'No' %></td>
