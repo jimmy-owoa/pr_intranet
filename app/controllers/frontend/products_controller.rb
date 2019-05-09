@@ -2,16 +2,75 @@ module Frontend
   class ProductsController < FrontendController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
 
-  #callbacks
-  after_action :set_tracking, only: [:index, :show, :new]
+    #callbacks
+    after_action :set_tracking, only: [:index, :show, :new]
 
-  def index
-    products = Marketplace::Product.all
-    data = []
-    normal_sizes = []
-    large_sizes = []
-    thumb_sizes = []
-    products.each do |product|
+    def index
+      products = Marketplace::Product.all
+      data = []
+      normal_sizes = []
+      large_sizes = []
+      thumb_sizes = []
+      products.each do |product|
+        product.images.each do |image|
+          thumb_sizes << {
+            id: image.id,
+            url: url_for(image.variant(resize: "100x100"))
+          }
+          normal_sizes << {
+            id: image.id,
+            url: url_for(image.variant(resize: "500x500>"))
+          }
+          large_sizes << {
+            id: image.id,
+            url: url_for(image)
+          }
+        end
+        data << {
+          id: product.id,
+          name: product.name,
+          approved: product.approved,
+          product_type: product.product_type,
+          url: root_url + 'admin/products/' + "#{product.id}" + '/edit',
+          user_id: General::User.find(product.user_id).id,
+          created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
+          price: product.price,
+          location: product.location,
+          email: product.email,
+          phone: product.phone,
+          is_expired: product.is_expired,
+          expiration: product.expiration,
+          description: product.description,
+          main_image: product.images.first.present? ? url_for(product.images.first) : nil,
+          images: product.images.present? ? {
+            thumbs: thumb_sizes,
+            normal_size: normal_sizes,
+            large_size: large_sizes
+          } : root_url + '/assets/noimage.jpg',
+          breadcrumbs: [
+            {link: '/', name: 'Inicio' },
+            {link: '/avisos', name: 'Avisos'},
+            {link: '#', name: product.name.truncate(30)}
+          ]
+        }
+        thumb_sizes = []
+        normal_sizes = []
+        large_sizes = []
+
+      end
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
+    def product
+      slug = params[:slug].present? ? params[:slug] : nil
+      product = Marketplace::Product.find(slug)
+      data = []
+      normal_sizes = []
+      large_sizes = []
+      thumb_sizes = []
       product.images.each do |image|
         thumb_sizes << {
           id: image.id,
@@ -29,88 +88,29 @@ module Frontend
       data << {
         id: product.id,
         name: product.name,
-        approved: product.approved,
-        product_type: product.product_type,
-        url: root_url + 'admin/products/' + "#{product.id}" + '/edit',
-        user_id: General::User.find(product.user_id).id,
-        created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
+        description: product.description,
+        type: product.product_type,
         price: product.price,
-        location: product.location,
+        created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
         email: product.email,
         phone: product.phone,
-        is_expired: product.is_expired,
+        tags: product.terms.tags,
+        location: product.location,
         expiration: product.expiration,
-        description: product.description,
-        main_image: product.images.first.present? ? url_for(product.images.first) : nil,
+        approved: product.approved,
+        user_id: product.user_id,
+        is_expired: product.is_expired,
         images: product.images.present? ? {
           thumbs: thumb_sizes,
           normal_size: normal_sizes,
           large_size: large_sizes
-        } : root_url + '/assets/noimage.jpg',
-        breadcrumbs: [
-          {link: '/', name: 'Inicio' },
-          {link: '/avisos', name: 'Avisos'},
-          {link: '#', name: product.name.truncate(30)}
-        ]
+        } : root_url + '/assets/noimage.jpg'
       }
-      thumb_sizes = []
-      normal_sizes = []
-      large_sizes = []
-
+      respond_to do |format|
+        format.json { render json: data[0] }
+        format.js
+      end
     end
-    respond_to do |format|
-      format.json { render json: data }
-      format.js
-    end
-  end
-
-  def product
-    slug = params[:slug].present? ? params[:slug] : nil
-    product = Marketplace::Product.find(slug)
-    data = []
-    normal_sizes = []
-    large_sizes = []
-    thumb_sizes = []
-    product.images.each do |image|
-      thumb_sizes << {
-        id: image.id,
-        url: url_for(image.variant(resize: "100x100"))
-      }
-      normal_sizes << {
-        id: image.id,
-        url: url_for(image.variant(resize: "500x500>"))
-      }
-      large_sizes << {
-        id: image.id,
-        url: url_for(image)
-      }
-    end
-    data << {
-      id: product.id,
-      name: product.name,
-      description: product.description,
-      type: product.product_type,
-      price: product.price,
-      created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
-      email: product.email,
-      phone: product.phone,
-      tags: product.terms.tags,
-      location: product.location,
-      expiration: product.expiration,
-      approved: product.approved,
-      user_id: product.user_id,
-      is_expired: product.is_expired,
-      images: product.images.present? ? {
-        thumbs: thumb_sizes,
-        normal_size: normal_sizes,
-        large_size: large_sizes
-      } : root_url + '/assets/noimage.jpg'
-    }
-    respond_to do |format|
-      format.json { render json: data[0] }
-      format.js
-    end
-  end
 
     def new
       @product = Marketplace::Product.new
