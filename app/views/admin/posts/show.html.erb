@@ -69,12 +69,20 @@
     <div class="modal fade gallery-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-          <div class="row text-center" >
+          <div class="row text-center scrollDivPostImage" >
             <% @post.galleries.each do |gal| %>
-              <figure>
-                <figcaption class='text-center'><%= gal.name%></figcaption>
+                <p class='col-md-12 text-center'>
+                  <b>Nombre galería:</b>  <%= gal.name %>
+                </p><br />
                 <% gal.attachments.each do |image| %>
-                  <%= image_tag(image.attachment.attachment.variant(resize: '400x300>'), style: 'padding: 6px;') %>
+                  <div class="col-md-6">
+                    <figure>
+                      <%= image_tag(image.attachment.attachment.variant(resize: '300x255>'), class: 'img-thumbnail post_attachment') %>
+                    <figure>
+                    <figcaption>
+                      <%= image.name %>
+                    </figcaption>
+                  </div>
                 <% end %>
             <% end %>
           </div>
@@ -82,5 +90,4 @@
       </div>
     </div>
   </div>
-  
 </div>
