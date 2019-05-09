@@ -23,6 +23,7 @@
     <div class="col-sm-7">
       <div class="card post_card">
         <b>Slug: <%= @post.slug %></b><br>
+        <b>Publicado el: <%= custom_date(@post.published_at) %></b><br>
         <p><strong> Etiquetas incluyentes: </strong></p>
         <%= @post.terms.inclusive_tags.map(&:name).join(', ') %>
         <p><strong> Etiquetas excluyentes: </strong></p>
