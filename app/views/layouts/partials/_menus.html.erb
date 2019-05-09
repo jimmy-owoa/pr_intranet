@@ -7,7 +7,6 @@
         <th>Título</th>
         <th>Descripción</th>
         <th>CSS Class</th>
-        <th>Prioridad</th>
         <th>Padre</th>
         <th>Link - URL</th>
         <th>Acciones</th>
@@ -20,7 +19,6 @@
             <td><%= menu.title %></td>
             <td><%= menu.description %></td>
             <td><%= menu.css_class %><div style="width:60px;height:5px;background:<%= menu.css_class %>"></div></td>
-            <td><%= menu.priority%></td>
             <td><%= menu.parent_id ? General::Menu.parent_name_menu(menu.parent_id) : 'Sin padre'  %></td>
             <td><%= menu.link %></td>
             <td><%= link_to t('.show', :default => t("helpers.links.show")),

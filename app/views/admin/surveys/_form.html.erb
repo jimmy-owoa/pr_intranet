@@ -49,14 +49,14 @@
       <div class="col-md-12">
         <%= f.label 'Etiquetas excluyentes' %>
         <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
-      </div>    
+      </div>
       <div class="col-md-12">
         <%= image_tag @survey.image.variant(resize: '150x150>') if @survey.image.attached? %>
         <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
       </div>
     </div>
 <div class="survey-form-actions">
-  <%= link_to_add_association 'Agregar pregunta', f, :questions, style: 'float: left;', class: 'btn btn-success', data: { 
+  <%= link_to_add_association 'Agregar pregunta', f, :questions, style: 'float: left;', class: 'btn btn-success', data: {
   association_insertion_node: '#questions', association_insertion_method: :append } %>
   <%= f.submit action_name == 'edit' ? 'Guardar encuesta' : 'Crear encuesta', class: 'btn btn-primary', style: 'float: right;' %>
 </div>
