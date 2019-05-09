@@ -1,4 +1,5 @@
 $(document).on("turbolinks:load", function() {
+  $("[rel=tooltip]").tooltip({ placement: 'right'});
   $("#terms_names").select2({
     tags: true,
     tokenSeparators: [",", " "]

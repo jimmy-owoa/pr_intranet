@@ -19,7 +19,7 @@
         <div class="card-body text-secondary">
           <% if @benefit.image.attachment.present? %>
               <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
-          <% else %>  
+          <% else %>
             <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
           <% end %>
           <div class="left">
