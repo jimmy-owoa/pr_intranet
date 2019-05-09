@@ -36,21 +36,13 @@ module Admin
     def edit
       add_breadcrumb "Noticias", :admin_posts_path
     end
-
-    def manage_time post
-      if post.published_at.nil?
-        post.update_attributes(published_at: Time.now)
-      end
-    end
     
-
     def create
       # params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       @post = News::Post.new(post_params)
       respond_to do |format|
         if @post.save
           set_tags
-          manage_time(@post)
           format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully created.'}
           format.json { render :show, status: :created, location: @post}
         else
@@ -65,7 +57,6 @@ module Admin
       respond_to do |format|
         if @post.update(post_params)
           set_tags
-          manage_time(@post)
           format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully updated.'}
           format.json { render :show, status: :ok, location: @post }
         else

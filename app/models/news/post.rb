@@ -20,7 +20,7 @@ class News::Post < ApplicationRecord
 
   after_initialize :set_status
 
-  before_save :unique_slug
+  before_save :unique_slug, :manage_time
 
   scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5)}
 
@@ -64,6 +64,13 @@ class News::Post < ApplicationRecord
   end
 
   private
+
+  def manage_time
+    if published_at.nil?
+      update_attributes(published_at: Time.now)
+    end
+  end
+  
 
   def unique_slug
     self.slug = if self.slug.blank?
