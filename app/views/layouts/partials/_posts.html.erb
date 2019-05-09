@@ -14,10 +14,12 @@
       </tr>
       </thead>
       <tbody>
+        <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %>
         <% @posts.each do |post| %>
           <tr>
             <td><%= post.title %></td>
-            <td><%= post.slug %></td>
+            <%# <td><%= post.slug %></td>
+            <td><%= link_to "#{post.slug}", "#{environment}/#/noticias/#{post.slug}", target: "_blank" %></td>
             <td><%= post.status %></td>
             <td><%= post.post_type %></td>
             <td><%= post.important.present? ? 'Si' : 'No' %></td>
