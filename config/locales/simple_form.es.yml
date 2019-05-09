@@ -125,7 +125,7 @@ es:
         username_or_email: Usuario o Email
         whole_word: Toda la palabra
         title: Título
-        slug: Slug
+        slug: 'Enlace (ejemplo: enlace-de-la-noticia)'
         content: Contenido
         status: Estado
         term_id: Id Clasificacion

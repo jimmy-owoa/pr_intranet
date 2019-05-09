@@ -1,24 +1,19 @@
 <%= f.error_notification %>
-<div class="col-md-12 row pb-4">
+<div class="col-md-12 row pb-4 pt-4" style="background-color: #FbFbFb; border-radius: 25px">
   <div class="wrapper col-md-9">
     <div class="form-group row">
-      <div class="col-md-4">
-        <%= f.input :title, required: true, autofocus: true  %>
+      <div class="col-md-12">
+        <%= f.input :title, required: true, autofocus: true, placeholder: 'Ingrese el título aquí' %>
+      </div>
+      <div class="col-md-12">
+        <%= f.input :extract, placeholder: 'Ingrese el extracto de la noticia aquí'%>
       </div>
       <div class="col-md-4">
-        <%= f.input :slug %>
-      </div>
-      <div class="col-md-4 col-sm-4">
-        <%= f.label :post_type %><br>
-        <%= f.select :post_type, News::Post::TYPE.map { |m| m }, class:'post_type form-control string optional', id:'post_type' %>
+        <%= f.input :slug, placeholder: 'enlace-de-la-noticia' %>
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.text_area :content, class: 'tinymce' %>
         <%= tinymce height: "900" %>
-      </div>
-      <div class="col-md-12" style="margin-bottom: 20px;">
-
-        <%= f.input :extract%>
       </div>
       <%= f.hidden_field :user_id, value: current_user.id %>
       <div class="col-md-4 hidden">
@@ -30,13 +25,17 @@
     </div>
   </div>
   <div class="col-md-3">
-    <div class="card p-4 wrapper">
+    <div class="card text-md-center p-2 wrapper">
       <div class="form-group row">
+        <div class="col-md-12">
+            <%= f.label :post_type %><br>
+            <%= f.select :post_type, News::Post::TYPE.map { |m| m }, class:'post_type form-control string optional', id:'post_type' %>
+        </div>
         <div class="col-md-12">
           <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
         </div>
         <div class="col-md-12">
-            <%= f.label "Destacada" %>
+            <%= f.label "Noticia destacada" %>
             <% if f.object.new_record? %>
               <%= f.check_box :important, class: 'post_type', checked: true %>
             <% else %>
@@ -66,7 +65,7 @@
         </div>
       </div>
     </div>
-    <div class="card p-4 wrapper" >
+    <div class="card pl-4 wrapper" >
       <input type="checkbox" id="select_all" class="form-check-input"/> <strong>Seleccionar todas</strong>
       <div class="form-group">
         <div class= 'scrollDivPost categories'>
@@ -74,7 +73,7 @@
         </div>
       </div>
     </div>
-    <div class="card p-4 wrapper" >
+    <div class="card text-md-center p-2 wrapper" >
       <div class="form-group row ">
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas incluyentes' %>
@@ -86,42 +85,36 @@
         </div>
       </div>
     </div>
-    <div class="card p-2" >
+    <div class="card text-md-center p-2" >
       <div class="form-group">
           <div class="col-md-12 col-sm-12">
-            <h4> Imagen principal </h4>
-              <%# <img id="image" src="#" alt="your image" /> %>
-            <br>
+            <h5 class="card-title">Imagen principal</h5>
             <% if @post.id.nil? %>
-              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '40x40', :crop => :fill) %>
-              <br />
-              <%= link_to 'Imagen desde galería', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true %><br /><br />
-              <b><p>Adjuntar imagen</p></b>
+              <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%><br/>
+              <b><p>Subir Imagen</p></b>
               <%= f.fields_for :main_image do |aa| %>
-                <div class="field">
-                  <br>
-                  <%= aa.file_field :attachment, :style=>"width: 180px" %>
+                <div class="">
+                  <%= aa.file_field :attachment, class:'card-link' %>
                 </div>
               <% end %>
             <% else %>
               <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200"))  %>
               <br />
-                <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+                <%= link_to 'Seleccionar imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
                 <b><p>Adjuntar imagen</p></b>
                 <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
-                  <div class="field">
-                    <br>
-                    <%= aa.file_field :attachment, :style=>"width: 180px" %>
+                  <div class="">
+                    <%= aa.file_field :attachment %>
                   </div>
                 <% end %>
             <% end %>
           </div>
       </div>
     </div>
-    <div class="card pt-2" >
+    <div class="card text-md-center pt-2" >
       <div class="form-group ">
         <div class="col-md-12 col-sm-12">
-          <h4> Galería </h4>
+          <h5 class="card-title"> Galería </h5>
           <br>
           <% if @post.id.nil? %>
             <%= link_to 'Establecer Galería', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery1' %>
@@ -131,10 +124,10 @@
         </div>
       </div>
     </div>
-    <div class="card pt-2" >
+    <div class="card text-md-center p-2" >
       <div class="form-group ">
         <div class="col-md-12 col-sm-12">
-          <h4> Formato </h4>
+          <h5 class="card-title"> Formato </h5>
         </div>
           <div class="col-md-12">
             <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
@@ -149,5 +142,11 @@
 <script>
 $(document).ready(function(){
     $("[rel=tooltip]").tooltip({ placement: 'right'});
+});
+$('input,textarea').focus(function(){
+   $(this).data('placeholder',$(this).attr('placeholder'))
+          .attr('placeholder','');
+}).blur(function(){
+   $(this).attr('placeholder',$(this).data('placeholder'));
 });
 </script>

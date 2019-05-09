@@ -10,6 +10,7 @@ es:
       news/post:
         format: Formato
         extract: Extracto
+        slug: Enlace
       general/message:
         message_type: Tipo de Mensaje
       general/menu:
