@@ -4,8 +4,8 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-5">
-      <% unless @message.image == nil %>
-        <%=image_tag @message.image.variant(resize: "400x400>") ,  class: "img-thumbnail"%>
+      <% if @message.image.attached? %>
+        <%=image_tag @message.image.attachment.variant(resize: "400x400>") ,  class: "img-thumbnail"%>
       <% end %>
     </div>
     <div class="col-sm-7">

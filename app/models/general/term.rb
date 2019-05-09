@@ -1,5 +1,7 @@
 class General::Term < ApplicationRecord
   validates :name, uniqueness: true
+  validates_presence_of :name, uniqueness: true
+  validates_presence_of :term_type_id
 
   has_many :post_term_relationships,-> {where(object_type: 'General::Post')}, class_name: 'General::TermRelationship'
   has_many :posts, through: :post_term_relationships

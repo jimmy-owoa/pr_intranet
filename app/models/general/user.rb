@@ -4,6 +4,7 @@ class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
   searchkick word: [:name, :last_name, :email, :annexed]
+  validates_presence_of :name, :email
   #relationships
   has_one_attached :image
   has_many :user_term_relationships, -> { where(object_type: 'General::User') }, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :user
