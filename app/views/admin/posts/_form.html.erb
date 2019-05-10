@@ -106,7 +106,7 @@
                 </div>
               <% end %>
             <% else %>
-              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200"))  %>
+              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.attachment.attached? %>
               <br />
                 <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
                 <b><p>Adjuntar imagen</p></b>
