@@ -139,7 +139,8 @@ module Frontend
       data_user = []
       id = params[:full_legal_number].present? ? params[:full_legal_number] : nil
       rut= params[:full_legal_number]
-      @user= General::User.find_by_legal_number(rut[0...-1])
+      
+      @user = General::User.find(3453)
       @nickname = nickname(@user.name)
       data_benefits = []
       data_products = []
@@ -212,7 +213,7 @@ module Frontend
         id: @user.id,
         name: @user.name,
         last_name: @user.last_name,
-        full_legal_number: @user.legal_number + @user.legal_number_verification,
+        # full_legal_number: @user.legal_number + @user.legal_number_verification,
         nickname: @nickname,
         role: General::User.what_role?(@user),
         company: @user.company,
