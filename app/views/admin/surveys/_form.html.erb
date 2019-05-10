@@ -62,7 +62,7 @@
   </div>
   <div class="wrapper col-md-9">
     <%= f.submit action_name == 'edit' ? 'Guardar encuesta' : 'Crear encuesta', class: 'btn btn-primary'%>
-    <%= link_to_add_association 'Agregar pregunta', f, :questions, class: 'btn btn-success', data: {
-    association_insertion_node: '#questions', association_insertion_method: :append }, style: "float: right;" %>
+    <%= link_to_add_association 'Agregar pregunta', f, :questions, class: 'btn btn-success buttons_group', data: {
+    association_insertion_node: '#questions', association_insertion_method: :append } %>
   <div>
 </div>
