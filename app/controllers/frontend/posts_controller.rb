@@ -108,6 +108,7 @@ module Frontend
       content = content.gsub("<img src=\"rails/", '<img src="http://localhost:3000/rails/')
     else
       content = content.gsub("<source src=\"../..", '<video src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+      content = content.gsub("<source src=\"", '<video src="')
       content = content.gsub("<img src=\"../..", '<img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
       content = content.gsub("<img src=\"rails/", '<img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/rails/')
     end
