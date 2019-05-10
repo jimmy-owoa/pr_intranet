@@ -1,66 +1,68 @@
 <%= f.error_notification %>
-<div class="col-md-12 row">
+<div class="container">
+  <div class="col-md-12 row">
+    <div class="wrapper col-md-9">
+      <div class="form-group card">
+        <div class="col-md-4">
+          <%= f.input :name, autofocus: true %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :slug %>
+        </div>
+        <div class="col-md-12">
+          <%= f.input :description, label: 'Descripción' %>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <h2 class="text-center">Listado de preguntas</h2>
+      </div>
+      <div class="col-md-12 card" id="questions">
+        <%= f.simple_fields_for :questions do |question_form|%>
+          <%= render 'question_fields', f: question_form %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-3 pl-4">
+      <div class="card p-2 wrapper form-group row">
+        <div class="col-md-12">
+          <%= f.input :survey_type, collection: @survey_types, selected: @survey.survey_type %>
+        </div>
+        <div class="col-md-12">
+          <%= f.label "Mostrar Nombre" %><br />
+          <% if f.object.new_record? %>
+            <%= f.check_box :show_name, checked: true %>
+          <% else %>
+            <%= f.check_box :show_name%>
+          <% end %>
+        </div>
+        <div class="col-md-12">
+          <%= f.label "Una respuesta por usuario" %><br />
+          <% if f.object.new_record? %>
+            <%= f.check_box :once_by_user, checked: true %>
+          <% else %>
+            <%= f.check_box :once_by_user%>
+          <% end %>
+        </div>
+        <div class="col-md-12">
+          <%= f.label 'Etiquetas incluyentes' %>
+          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
+          <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
+        </div>
+        <div class="col-md-12">
+          <%= f.label 'Etiquetas excluyentes' %>
+          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
+          <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
+        </div>
+        <div class="col-md-12">
+          <%= image_tag @survey.image.variant(resize: '150x150>') if @survey.image.attached? %>
+          <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="wrapper col-md-9">
-    <div class="form-group card">
-      <div class="col-md-4">
-        <%= f.input :name, autofocus: true %>
-      </div>
-      <div class="col-md-6">
-        <%= f.input :slug %>
-      </div>
-      <div class="col-md-12">
-        <%= f.input :description, label: 'Descripción' %>
-      </div>
-    </div>
-    <div class="col-md-12">
-      <h2 class="text-center">Listado de preguntas</h2>
-    </div>
-    <div class="col-md-12 card" id="questions">
-      <%= f.simple_fields_for :questions do |question_form|%>
-        <%= render 'question_fields', f: question_form %>
-      <% end %>
-    </div>
-  </div>
-  <div class="col-md-3 pl-4">
-    <div class="card p-2 wrapper form-group row">
-      <div class="col-md-12">
-        <%= f.input :survey_type, collection: @survey_types, selected: @survey.survey_type %>
-      </div>
-      <div class="col-md-12">
-        <%= f.label "Mostrar Nombre" %><br />
-        <% if f.object.new_record? %>
-          <%= f.check_box :show_name, checked: true %>
-        <% else %>
-          <%= f.check_box :show_name%>
-        <% end %>
-      </div>
-      <div class="col-md-12">
-        <%= f.label "Una respuesta por usuario" %><br />
-        <% if f.object.new_record? %>
-          <%= f.check_box :once_by_user, checked: true %>
-        <% else %>
-          <%= f.check_box :once_by_user%>
-        <% end %>
-      </div>
-      <div class="col-md-12">
-        <%= f.label 'Etiquetas incluyentes' %>
-        <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
-        <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
-      </div>
-      <div class="col-md-12">
-        <%= f.label 'Etiquetas excluyentes' %>
-        <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
-        <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
-      </div>
-      <div class="col-md-12">
-        <%= image_tag @survey.image.variant(resize: '150x150>') if @survey.image.attached? %>
-        <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
-      </div>
-    </div>
-<div class="survey-form-actions">
-  <%= link_to_add_association 'Agregar pregunta', f, :questions, style: 'float: left;', class: 'btn btn-success', data: {
-  association_insertion_node: '#questions', association_insertion_method: :append } %>
-  <%= f.submit action_name == 'edit' ? 'Guardar encuesta' : 'Crear encuesta', class: 'btn btn-primary', style: 'float: right;' %>
-</div>
-  </div>
+    <%= f.submit action_name == 'edit' ? 'Guardar encuesta' : 'Crear encuesta', class: 'btn btn-primary'%>
+    <%= link_to_add_association 'Agregar pregunta', f, :questions, class: 'btn btn-success buttons_group', data: {
+    association_insertion_node: '#questions', association_insertion_method: :append } %>
+  <div>
 </div>
