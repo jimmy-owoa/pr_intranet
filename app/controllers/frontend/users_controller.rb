@@ -82,7 +82,7 @@ module Frontend
     
     def parents_data
       id = params[:id].present? ? params[:id] : nil
-      user = General::User.find(id) 
+      user = General::User.find(id)
       data_childrens = []
       data_siblings = []
       data_father = []
@@ -139,7 +139,7 @@ module Frontend
       data_user = []
       id = params[:full_legal_number].present? ? params[:full_legal_number] : nil
       rut= params[:full_legal_number]
-      @user= General::User.find_by_legal_number(rut[0...-1])  
+      @user= General::User.find_by_legal_number(rut[0...-1])
       @nickname = nickname(@user.name)
       data_benefits = []
       data_products = []
@@ -160,10 +160,10 @@ module Frontend
                 name: benefit.title,
                 content: benefit.content,
                 image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
-              } 
+              }
             end
             data[:benefit_types] << benefit_type_hash
-          end 
+          end
         end
       end
       if @user.products.present?
@@ -208,14 +208,13 @@ module Frontend
           }
         end
       end
-      role = @user.roles.blank? ? @user.add_role(:user) : General::User.what_role?(@user)
       data_user << {
         id: @user.id,
         name: @user.name,
         last_name: @user.last_name,
         full_legal_number: @user.legal_number + @user.legal_number_verification,
         nickname: @nickname,
-        role: role,
+        role: General::User.what_role?(@user),
         company: @user.company,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
