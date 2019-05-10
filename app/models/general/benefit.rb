@@ -12,4 +12,8 @@ class General::Benefit < ApplicationRecord
   accepts_nested_attributes_for :benefit_groups
 
   validates_presence_of :title, :benefit_group_id
+  
+  def self.allowed_by_benefit_group(benefit_group_id)
+    includes(:benefit_groups).where(general_benefit_groups: { id: benefit_group_id }) if benefit_group_id.present?
+  end
 end
