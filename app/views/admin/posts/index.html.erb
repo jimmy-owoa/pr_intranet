@@ -7,7 +7,7 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th><%= 'Id' %></th>
+              <th><%= 'ID' %></th>
               <th><%= 'Título' %></th>
               <th><%= 'Estado' %></th>
               <th><%= 'Fecha Publicación' %></th>
@@ -34,7 +34,7 @@
                               admin_post_path(post),
                               :method => :delete,
                               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
-                              :class => 'btn btn-sm btn-danger', onclick: 'confirm_data()', onclick: 'confirm_data()'%>
+                              :class => 'btn btn-sm btn-danger', onclick: 'confirm_data()'%>
                 </td>
               </tr>
             <% end %>

@@ -181,3 +181,5 @@ es:
       mark: "*"
       text: necesario
     'yes': Sí
+    error_notification:
+      default_message: "Por favor revisar los siguientes problemas:"

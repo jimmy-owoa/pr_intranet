@@ -56,6 +56,7 @@
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.label :tags %>
+          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>          
           <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @user.terms.tags.map(&:name)), multiple: true, class:'for_select form-control string optional' %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">

@@ -10,4 +10,6 @@ class General::Benefit < ApplicationRecord
   
   accepts_nested_attributes_for :terms
   accepts_nested_attributes_for :benefit_groups
+
+  validates_presence_of :title, :benefit_group_id
 end

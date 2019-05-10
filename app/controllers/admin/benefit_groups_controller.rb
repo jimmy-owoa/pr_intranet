@@ -56,7 +56,7 @@ module Admin
     end
 
     def benefit_params
-      params.require(:benefit).permit(:code, :name, :description)
+      params.require(:benefit_group).permit(:code, :name, :description)
     end
   end
 end
