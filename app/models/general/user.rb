@@ -102,7 +102,7 @@ class General::User < ApplicationRecord
     elsif user.has_role?("message_admin")
       return "message_admin"
     else
-      "no_role"
+      user.add_role(:user)
     end
   end
 
