@@ -200,12 +200,13 @@ module Frontend
           }
         end
       end
+      role = @user.roles.blank? ? @user.add_role(:user) : General::User.what_role?(@user)
       data_user << {
         id: @user.id,
         name: @user.name,
         last_name: @user.last_name,
         nickname: @nickname,
-        role: General::User.what_role?(@user),
+        role: role,
         company: @user.company,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
