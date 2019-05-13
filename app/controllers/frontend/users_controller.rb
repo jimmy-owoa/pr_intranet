@@ -263,14 +263,25 @@ module Frontend
       data_products = []
       data_messages = []
       if @user.benefit_group.present?
-        @user.benefit_group.benefits.each do |benefit|
-          data_benefits << {
-            id: benefit.id,
-            name: benefit.title,
-            content: benefit.content,
-            image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
-            benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name : ''
-        }
+        data = { benefit_types: [] }
+        @benefit_types = General::BenefitType.all
+        @benefit_types.each do |benefit_type|
+          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(@user.benefit_group.try(:id))
+          if allowed_benefits.present?
+            benefit_type_hash = {
+              name: benefit_type.name,
+              benefits: []
+            }
+            allowed_benefits.each do |benefit|
+              benefit_type_hash[:benefits] << {
+                id: benefit.id,
+                name: benefit.title,
+                content: benefit.content,
+                image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
+              }
+            end
+            data[:benefit_types] << benefit_type_hash
+          end
         end
       end
       if @user.children.first.present?
@@ -357,6 +368,7 @@ module Frontend
         name: @user.name,
         last_name: @user.last_name,
         nickname: @nickname,
+        full_legal_number: @user.legal_number + @user.legal_number_verification,
         company: @user.company,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
@@ -381,9 +393,9 @@ module Frontend
         childrens: data_childrens,
         siblings: data_siblings,
         father: data_father,
-        benefits: {
+        benefit_group: {
           name: @user.benefit_group.present? ? @user.benefit_group.name : 'Sin grupo beneficiario',
-          benefits: data_benefits
+          benefits: data
         },
         products: data_products[0],
         messages: data_messages
