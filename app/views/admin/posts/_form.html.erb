@@ -8,7 +8,7 @@
       <div class="col-md-12">
         <%= f.input :extract, placeholder: 'Ingrese el extracto de la noticia aquí'%>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-12">
         <%= f.input :slug, placeholder: 'enlace-de-la-noticia' %>
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">
@@ -42,9 +42,6 @@
               <%= f.check_box :important, class: 'post_type'%>
             <% end %>
         </div>
-        <%# <div class="col-md-12">
-          <%= f.input :visibility, collection: News::Post::VISIBILITY, prompt: :translate %>
-        <%# </div> %>
         <div class="col-md-12">
         </div>
         <div class="col-md-12 col-sm-12"><br>
