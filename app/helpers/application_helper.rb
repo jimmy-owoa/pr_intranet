@@ -56,9 +56,9 @@ module ApplicationHelper
 
   def custom_date_no_hour d
     d.strftime("%d/%m/%Y") if d.present?
-  end 
+  end
 
-  def load_options_multiple question 
+  def load_options_multiple question
     question.options.each do |option|
     end
   end
@@ -105,9 +105,9 @@ module ApplicationHelper
     jpeg = 'image/jpeg'
     jpg = 'image/jpg'
     png = 'image/png'
-    if file.attachment.content_type == jpeg || 
-       file.attachment.content_type == jpg || 
-       file.attachment.content_type == png
+    if file.attachment.content_type == jpeg ||
+      file.attachment.content_type == jpg ||
+      file.attachment.content_type == png
       return true
     end 
   end
@@ -120,9 +120,9 @@ module ApplicationHelper
     ogg = 'video/ogg'
     web = 'video/webm'
     if file.attachment.content_type == mp4 ||
-       file.attachment.content_type == mov ||
-       file.attachment.content_type == ogg ||
-       file.attachment.content_type == web
+      file.attachment.content_type == mov ||
+      file.attachment.content_type == ogg ||
+      file.attachment.content_type == web
       return true
     end
   end
@@ -147,7 +147,7 @@ module ApplicationHelper
     end
   end
 
-  def map_attachments 
+  def map_attachments
     General::Attachment.all.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}] if supported_img(i) && i.present?}
   end
 

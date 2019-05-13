@@ -50,9 +50,9 @@
         <div class="col-md-12 col-sm-12"><br>
           <div class="input-group date" id="published_at" data-target-input="nearest">
             <% if @post.try(:published_at).present? %>
-              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at'%>
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at', class:'post_published_at'%>
             <% else %>
-              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false %>
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false, class:'post_published_at' %>
             <% end %>
             <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -77,10 +77,12 @@
       <div class="form-group row ">
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas incluyentes' %>
+        <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
           <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
         </div>
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas excluyentes' %>
+          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>          
           <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
         </div>
       </div>
@@ -98,7 +100,7 @@
                 </div>
               <% end %>
             <% else %>
-              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200"))  %>
+              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.attachment.attached? %>
               <br />
                 <%= link_to 'Seleccionar imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
                 <b><p>Adjuntar imagen</p></b>

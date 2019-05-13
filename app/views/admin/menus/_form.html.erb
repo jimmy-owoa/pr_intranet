@@ -14,7 +14,7 @@
       </div>
       <div class="col-12 col-sm-10">
         <%= f.input :priority %>
-      </div>            
+      </div>
     </div>
   </div>
   <div class="col-6">
@@ -28,15 +28,16 @@
       </div>
       <div class="col-12 col-sm-10"></br>
         <%= f.input :link %>
-      </div>            
+      </div>
     </div>
-  </div>  
+  </div>
   <div class="col-6 col-sm-6">
     <%= f.label :tags %>
+    <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
     <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @menu.terms.tags.map(&:name)), multiple: true, class:'form-control string optional', id:'tag_menu' %>
   </div>
   <div class="col-6 col-sm-6">
     <%= f.association :terms, collection: General::Term.categories, as: :check_boxes, label: 'Empresas' %>
-  </div>    
+  </div>
 </div>
-    <%= f.submit nil, :class => 'btn btn-primary'%>
+<%= f.submit nil, :class => 'btn btn-primary'%>

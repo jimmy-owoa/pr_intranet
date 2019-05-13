@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $("[rel=tooltip]").tooltip({ placement: 'right'});
   $(".select-question-type").on("change", function() {
     var selectedVal = $(this).val();
     if (selectedVal == "Escala lineal") {
@@ -7,33 +8,6 @@ $(document).ready(function() {
       $("#lineal_message").hide();
     }
   });
-  //  $('.select-question-type').change(
-  //    function () {
-  //      var option = document.getElementsByClassName("add_option")[0];
-  //      if ($(this).val() == "Verdadero o Falso") {
-  //        option.style.display = "none";
-  //      } else {
-  //        option.style.display = "block";
-  //      }
-  //    }); =
-  // var triggered = false;
-  // $(document).on({
-  //   keypress: function(e) {
-  //     if(!triggered){
-  //       addOptionOnKeypress(e, "keypress");
-  //     }
-  //   },
-  //   keyup: function(e) {
-  //     if (!triggered) {
-  //       addOptionOnKeypress(e, "keyup");
-  //     }
-  //   },
-  //   keydown: function(e) {
-  //     if (!triggered) {
-  //       addOptionOnKeypress(e, "keydown");
-  //     }
-  //   }
-  // });
 
   $(document).on({
     keydown: function(e) {

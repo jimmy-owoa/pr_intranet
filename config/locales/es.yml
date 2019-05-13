@@ -11,6 +11,7 @@ es:
         format: Formato
         extract: Extracto
         slug: Enlace
+        title: Título
       general/message:
         message_type: Tipo de Mensaje
       general/menu:
@@ -20,6 +21,7 @@ es:
         code: Código
         css_class: Clase CSS
         link: Enlace
+        title: Título
       survey/question:
         question_type: Tipo de pregunta
         optional: Obligatorio
@@ -35,6 +37,20 @@ es:
         annexed: Anexo
         image: Avatar
         show_birthday: Activar Cumpleaños
+        name: Nombre
+      general/term:
+        name: Nombre
+        Term type: Tipo de publicación
+      general/benefit_group:
+        name: Nombre  
+      general/benefit:  
+        title: Título
+      general/message:    
+        title: Título
+      general/link:  
+        title: Título
+      survey/survey:
+        name: Nombre
     models:
       marketplace/product: Anuncio
       post:

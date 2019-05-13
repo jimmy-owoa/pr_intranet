@@ -2,6 +2,8 @@ class News::Post < ApplicationRecord
   acts_as_paranoid
   searchkick match: :word, searchable: [:title, :slug, :content]
 
+  validates_presence_of :title
+
   has_many :comments, class_name: 'News::Comment'
   has_many :post_term_relationships, -> {where(object_type: 'News::Post')},
             class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :post
@@ -18,7 +20,7 @@ class News::Post < ApplicationRecord
 
   after_initialize :set_status
 
-  before_save :unique_slug
+  before_save :unique_slug, :manage_time
 
   scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5)}
 
@@ -62,6 +64,13 @@ class News::Post < ApplicationRecord
   end
 
   private
+
+  def manage_time
+    if published_at.nil?
+      update_attributes(published_at: Time.now)
+    end
+  end
+  
 
   def unique_slug
     self.slug = if self.slug.blank?

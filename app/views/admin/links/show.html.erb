@@ -4,7 +4,9 @@
     <div class="card-body">
       <p id="notice"><%= notice %></p>
       <div class="col-12" style="padding-top: 30px;">
-        <%=image_tag @link.image.variant(resize: "360x300>")%>
+        <% if @link.image.attached? %>
+          <%=image_tag @link.image.variant(resize: "360x300>")%>
+        <% end %>
       </div>
       <div>
         <p><%= @link.title %></p>

@@ -9,8 +9,8 @@ module Admin
         @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact.paginate(:page => params[:page], :per_page => 18)
       else
         @users = General::User.paginate(:page => params[:page], :per_page => 10)
-        @posts = News::Post.all
-        @menus = General::Menu.all
+        @posts = News::Post.paginate(:page => params[:page], :per_page => 10)
+        @menus = General::Menu.paginate(:page => params[:page], :per_page => 10)
       end
     end
   end

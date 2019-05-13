@@ -295,6 +295,15 @@
     text-transform: uppercase;
   }
 
+  li.submenu > ul > ul > a{
+    line-height: 25px;
+  }
+
+  nav ul.megamenu ul li {
+    display: block;
+    padding-top: 5px;
+  }
+
   nav ul.megamenu ul li {
     display: block;
   }
@@ -395,6 +404,14 @@
     flex-grow: 1;
     flex-basis: auto;
     max-width: 100%;
+  }
+  .flex.sm2 {
+    -ms-flex-preferred-size: 16.666666666666664%;
+    flex-basis: 16.666666666666664%;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    max-width: 16.666666666666664%;
   }
   .flex.sm4 {
     flex-basis: 33.33333333333333%;
@@ -899,12 +916,12 @@
         <a href="/#/">
           <img
             src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/header.41ac21fa.png"
-            style="height: 2rem; cursor: pointer;"
+            style="height: 2rem; cursor: pointer; margin-top: 2px;"
           />
         </a>
       </div>
 
-      <div class="flex text-md-left subheading sm2">
+      <div class="flex text-md-left subheading sm2" style="margin-top: 3px;">
         Santoral: <%= santoral.name %>
       </div>
 
@@ -912,9 +929,9 @@
         <a href="#weather_modal" style="text-decoration: none; color: black;">
           <div class="v-responsive v-image" style="height: 24px;">
             <div>
-              <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 24px; cursor: pointer;")%>
+              <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 24px; cursor: pointer; margin: 5px 0 0 0;padding-right: 7px;")%>
             </div>
-            <div class="text-md-center subheading">
+            <div class="text-md-center subheading" style="margin-top: 3px;">
               <%= location_name %>: 
 							<% if weather[0].present? %> 
 								<%= weather[0].current_temp.to_i %>° 
@@ -928,9 +945,8 @@
 
       <div class="flex sm2 text-md-left subheading pointer">
         <a href="#indicators_modal" style="text-decoration: none; color: black;">
-					<i aria-hidden="true" class="v-icon material-icons theme--light">multiline_chart</i>
-						Indicadores económicos
-					<div class="v-dialog__container" style="display: block;"></div>
+					<i aria-hidden="true" class="v-icon material-icons theme--light" style="margin-top: 3px;">multiline_chart</i>
+						<div style="margin-top: -26px; margin-left: 27px;">Indicadores económicos</div>
 				</a>
       </div>
 
@@ -938,9 +954,10 @@
         <a href="/#/perfil" style="text-decoration: none; color: black;">
           ¡Hola <%= user.name %>!
           <div class="v-avatar" style="height: 30px; width: 30px;">
-            <div aria-label="Avatar" class="v-responsive v-image">
-              <% if user.image.attached? %> <%= image_tag(user.image) %> <% end
-              %>
+            <div aria-label="Avatar" class="v-responsive v-image" style="margin-top: -5px;">
+              <% if user.image.attached? %> 
+                <%= image_tag(user.image) %> 
+              <% end%>
             </div>
           </div>
         </a>
@@ -1009,7 +1026,7 @@
               <% end %> 
             <% end %>
             <% if menus_filtered.length > 3 %>
-              <%= link_to 'Ver mas', '/#/beneficios/tipo/' + menu_parent.link , style:'color: red;' %>
+              <%= link_to 'Ver más +', '/#/beneficios/' + menu_parent.link , style:'text-decoration: underline' %>
             <% end %>
           </ul>
           <% end %>
