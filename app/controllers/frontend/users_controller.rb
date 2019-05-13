@@ -212,7 +212,7 @@ module Frontend
         id: @user.id,
         name: @user.name,
         last_name: @user.last_name,
-        full_legal_number: @user.legal_number + @user.legal_number_verification,
+        full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         nickname: @nickname,
         role: General::User.what_role?(@user),
         company: @user.company,
@@ -368,7 +368,7 @@ module Frontend
         name: @user.name,
         last_name: @user.last_name,
         nickname: @nickname,
-        full_legal_number: @user.legal_number + @user.legal_number_verification,
+        full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         company: @user.company,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
