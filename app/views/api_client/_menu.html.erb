@@ -922,7 +922,7 @@
       </div>
 
       <div class="flex text-md-left subheading sm2" style="margin-top: 3px;">
-        Santoral: <%= santoral.name %>
+        Santoral: <%= santoral.name[0...12] %>
       </div>
 
       <div class="flex sm2 pointer">
@@ -952,8 +952,8 @@
 
       <div class="flex text-md-right text-capitalize title font-weight-regular sm4">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
-          ¡Hola <%= user.name %>!
-          <div class="v-avatar" style="height: 30px; width: 30px;">
+           <!-- ¡Hola <%= user.name %>! -->
+          <div class="v-avatar" style="height: 50px; width: 50px; margin-top: -15px;">
             <div aria-label="Avatar" class="v-responsive v-image" style="margin-top: -5px;">
               <% if user.image.attached? %> 
                 <%= image_tag(user.image) %> 
