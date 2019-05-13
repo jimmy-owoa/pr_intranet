@@ -1,5 +1,5 @@
 module Admin
-  class SearchController < AdminController  
+  class SearchController < AdminController
     def search
       search = params[:term].present? ? params[:term] : nil
       if search
