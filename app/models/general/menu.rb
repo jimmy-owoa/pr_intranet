@@ -1,5 +1,5 @@
 class General::Menu < ApplicationRecord
-  searchkick text_middle: [:title, :link]
+  searchkick word: [{title: :exact, link: :exact}]
 
   validates_presence_of :title
 

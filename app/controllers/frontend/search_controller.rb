@@ -53,7 +53,7 @@ module Frontend
       data = {}
       search = params[:term].present? ? params[:term] : nil
       if search.present?
-        result = General::Menu.search search, fields: [:title, :link], match: :text_middle
+        result = General::Menu.search search, fields: [:title, :link], match: :word
         result.with_hit.map{|a| a[0] if a[0].parent_id != nil && a[1]["_type"] == "general/menu"}.compact.each do |m|
           items <<
             {
