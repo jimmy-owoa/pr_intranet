@@ -16,7 +16,6 @@
       <table class="table table-hover">
         <thead class="thead">
           <tr>
-            <th><%= 'ID' %></th>
             <th><%= 'Nombre' %></th>
             <th><%= 'Slug' %></th>
             <th><%= 'Orden' %></th>
@@ -27,7 +26,6 @@
         <tbody>
           <% @terms.each do |term| %>
             <tr>
-              <td><%= link_to term.id, admin_term_path(term) %></td>
               <td><%= term.name %></td>
               <td><%= term.slug  %></td>
               <td><%= term.term_order %></td>

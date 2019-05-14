@@ -15,7 +15,6 @@
           <tbody>
             <% @links.each do |link| %>
               <tr>
-                <td><%= link_to link.id, admin_link_path(link) %></td>
                 <td><%= link.title %></td>
                 <td><%= custom_date_no_hour(link.created_at) %></td>
                 <td>
