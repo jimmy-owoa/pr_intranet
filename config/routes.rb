@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get "searchatt", to: "attachments#search_att"
       get 'births/no_approved_index', to: 'births#no_approved_index'
       get 'products/no_approved_index', to: 'products#no_approved_index'
+      get 'products/approved_index', to: 'products#approved_index'
       get 'menus/testing', to: 'menus#testing'
       get 'menus/html', to: 'menus#html', :defaults => { :format => 'json' }
       resources :term_relationships
