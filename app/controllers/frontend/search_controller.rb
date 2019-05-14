@@ -17,7 +17,7 @@ module Frontend
             email: user.email,
             annexed: user.annexed,
             birthday: user.birthday,
-            image: user.image.attached? ? 
+            image: user.image.attached? ?
             url_for(user.image) : root_url + '/assets/default_avatar.png'
           }
         end
@@ -45,7 +45,7 @@ module Frontend
       respond_to do |format|
         format.json { render json: data[0] }
         format.js
-      end      
+      end
     end
 
     def search_menu
@@ -56,7 +56,7 @@ module Frontend
         result = General::Menu.search search, fields: [:title, :link], match: :text_middle
         result.with_hit.map{|a| a[0] if a[0].parent_id != nil && a[1]["_type"] == "general/menu"}.compact.each do |m|
           items <<
-            {              
+            {
               name: m.title,
               link: m.link
             }
@@ -66,7 +66,7 @@ module Frontend
       respond_to do |format|
         format.json { render json: data }
         format.js
-      end      
+      end
     end
 
   end

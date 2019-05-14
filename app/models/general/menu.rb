@@ -18,13 +18,13 @@ class General::Menu < ApplicationRecord
   def cached_categories
     Rails.cache.fetch([:terms, object_id, :name], expires_in: 30.minutes) do
       terms.categories.map(&:name)
-    end  
+    end
   end
 
   def cached_tags
     Rails.cache.fetch([:terms, object_id, :name], expires_in: 30.minutes) do
       terms.tags.map(&:name)
-    end  
+    end
   end
 
 end
