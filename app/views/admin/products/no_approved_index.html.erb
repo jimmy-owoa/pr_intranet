@@ -8,7 +8,6 @@
             <th><%= 'Imagen principal'%></th>
             <th><%= "Nombre" %></th>
             <th><%= "Precio" %></th>
-            <th><%= "Aprobado" %></th>
             <th><%= "Aprobar" %></th>
             <th><%= "Acciones" %></th>
           </tr>
@@ -19,12 +18,13 @@
               <td data-toggle="modal" data-target="#modalShowProduct_<%= product.id %>"><%= image_tag product.thumb(product.images.first), :class=> 'img-thumbnail' unless product.images.first.nil? %></td>
               <td><%= product.name %></td>
               <td>$ <%= product.price %></td>
-              <td><%= is_approved(product) %></td>
               <td>
-                <%= check_box_tag 'product[approved]', nil, product.approved?,
+                <%# <%= check_box_tag 'product[approved]', nil, product.approved?,
                         data: {
                           id: product.id
                         }, class: "approved" %>
+                <%= link_to "Aprobar", admin_product_path(product, product: {approved: true}) , method: :put, :class => 'btn btn-primary btn-sm', data: { confirm: "¿Estás seguro?"}, onclick: 'confirm_data()' %>
+
               </td>
               <td>
                 <%= link_to t('.show', :default => t("helpers.links.show")), admin_product_path(product), :class => 'btn btn-success btn-sm' %>
