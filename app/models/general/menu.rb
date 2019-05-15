@@ -25,6 +25,47 @@ class General::Menu < ApplicationRecord
     Rails.cache.fetch([:terms, object_id, :name], expires_in: 30.minutes) do
       terms.tags.map(&:name)
     end
+<<<<<<< HEAD
+=======
+  end
+
+  def children(integration_menu = nil)
+    menus = []
+    if integration_menu.present? && integration_menu.key?(self.integration_code) && integration_menu[self.integration_code]["drop_down"].present?
+      temp = get_dropdowns(integration_menu[self.integration_code]["drop_down"],menus)
+      menus << temp if temp.is_a?(Hash)
+    else
+      data = General::Menu.where(parent_id: self.id)
+      data.each do |menu|
+        menus << {
+          title: menu.title,
+          link: menu.link,
+          menu_id: menu.id
+        }
+      end
+    end
+    menus
+  end
+
+  def get_dropdowns(dropdown,menus)
+    dropdown.each do |key,value|
+      if value.is_a?(Hash) && value.key?("drop_down")
+        menus << {
+          title: value["nombre"],
+          link: "",
+          menu_id: -1
+        }
+        get_dropdowns(value,menus)
+      elsif value["nombre"].present?
+        menus << {
+          title: value["nombre"],
+          link: "https://misecurity-qa2.exa.cl#{value['link']}",
+          menu_id: -1
+        }
+      end
+    end
+    menus
+>>>>>>> develop
   end
 
 end

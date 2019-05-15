@@ -71,6 +71,118 @@
     width: 100%;
     height: 100%;
   }
+  .v-text-field {
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+  .v-text-field.v-text-field--enclosed {
+    margin: 0;
+    padding: 0;
+  }
+  .v-input {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    font-size: 16px;
+    text-align: left;
+  }
+  .v-text-field.v-text-field--solo .v-input__control {
+    min-height: 48px;
+    padding: 0;
+  }
+  .v-input__control {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: auto;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .v-text-field.v-text-field--enclosed .v-text-field__details, .v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {
+    padding: 0 12px;
+  }
+
+  .theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
+      border-radius: 2px;
+      background: #fff;
+  }
+
+  .v-text-field > .v-input__control > .v-input__slot {
+      cursor: text;
+      -webkit-transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+      transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+  }
+  .v-text-field > .v-input__control > .v-input__slot > .v-text-field__slot {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    position: relative;
+  }
+  .v-text-field.v-text-field--solo .v-text-field__slot {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  .v-input__slot {
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      color: inherit;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      margin-bottom: 8px;
+      min-height: inherit;
+      position: relative;
+      -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+      transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+      width: 100%;
+  }
+  .theme--light.v-input:not(.v-input--is-disabled) input, .theme--light.v-input:not(.v-input--is-disabled) textarea {
+    color: rgba(0,0,0,0.87);
+  }
+  .v-input input {
+      max-height: 32px;
+  }
+  .v-text-field input {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      line-height: 20px;
+      padding: 8px 0 8px;
+      max-width: 100%;
+      min-width: 0px;
+      width: 100%;
+  }
+  button, input, select, textarea {
+      background-color: transparent;
+      border-style: none;
+      color: inherit;
+  }
+  button, input, optgroup, select, textarea {
+      font: inherit;
+  }
+  input {
+      border-radius: 0;
+  }
+
   .theme--light.v-card {
     background-color: #fff;
     border-color: #fff;
@@ -199,8 +311,7 @@
   }
   .search_position {
     position: absolute;
-    left: 885px;
-    padding-right: 0;
+    right: 0px;
     height: 30px;
   }
   .container {
@@ -210,7 +321,6 @@
     padding: 24px;
     width: 100%;
   }
-
   nav {
     position: inherit;
     width: 100%;
@@ -265,7 +375,6 @@
     position: absolute;
     display: flex;
     flex-wrap: wrap;
-    max-width: 1300px;
     top: -9999px;
     left: 0;
     padding: 20px 10px 0;
@@ -472,7 +581,7 @@
 
   @media (min-width: 960px) {
     .search_position {
-      left: 885px;
+      right: 0px;
     }
     .container {
       max-width: 1140px;
@@ -574,6 +683,21 @@
       font-size: 14px;
       line-height: 24px;
     }
+    .results_ul {
+      background-color: white;
+      border: 2px solid darkgrey;
+      border-radius: 8px;
+      font: inherit;
+      line-height: 1.5em;
+      padding: 1em 2.5em 1em 1em;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      display: none;
+      z-index: 100000 !important;
+      position: absolute;
+    }
   }
 
   /* ################################################################## */
@@ -598,7 +722,7 @@
       display: none;
     }
     .search_position {
-      left: 885px;
+      right: 0px;
     }
     .container {
       max-width: 1140px;
@@ -628,8 +752,7 @@
       border-bottom: 5px solid green;
     }
     /* second stage (the mega-menu) */
-    nav ul.megamenu {
-      max-width: 1300px;
+    nav ul.megamen1300px;
       top: -9999px;
       left: 0;
       padding: 20px 10px 0;
@@ -909,7 +1032,7 @@
       </div>
     </div>
   </div>
-<div class="">
+<div style="padding-top: 20px;">
   <div class="hidden-sm-and-down">
     <div class="layout">
       <div class="flex sm2">
@@ -922,7 +1045,7 @@
       </div>
 
       <div class="flex text-md-left subheading sm2" style="margin-top: 3px;">
-        Santoral: <%= santoral.name %>
+        Santoral: <%= santoral.name[0...12] %>
       </div>
 
       <div class="flex sm2 pointer">
@@ -952,8 +1075,8 @@
 
       <div class="flex text-md-right text-capitalize title font-weight-regular sm4">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
-          ¡Hola <%= user.name %>!
-          <div class="v-avatar" style="height: 30px; width: 30px;">
+           ¡Hola <%= user.name %>!
+          <div class="v-avatar" style="height: 50px; width: 50px; margin-top: -15px;">
             <div aria-label="Avatar" class="v-responsive v-image" style="margin-top: -5px;">
               <% if user.image.attached? %> 
                 <%= image_tag(user.image) %> 
@@ -977,80 +1100,38 @@
     </div>
   </div>
   <nav fixed>
+    <% main_menus = General::Menu.where(parent_id: nil) %>
     <ul id="ul_menu">
-      <li class="submenu" id="submenu1">
-        <a class="head_menu" href="#" title="Menu 1">EN LÍNEA</a>
-        <ul class="megamenu" id="megamenu1">
-          <% menu_parents = menus.where(id: [1, 5, 14, 17, 22, 25, 31, 35]) %>
-          <% menu_parents.each do |menu_parent| %>
-          <ul>
-            <h4 class="head_section"><%= menu_parent.title %></h4>
-            <% menus.where(parent_id: menu_parent.id).each do |link| %> <% if
-            link.link.downcase[0..3] == 'http'%> <%= link_to link.title,
-            link.link %> <% else %> <%= link_to link.title, '/#/' + link.link %>
-            <% end %> <% end %>
-          </ul>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="submenu" id="submenu1">
-        <a class="head_menu" href="#" title="Menu 1">INFORMADOS</a>
-        <ul class="megamenu" id="megamenu1">
-          <% menu_parents = menus.where(id: [38, 42, 53, 56, 59, 65, 68, 71, 75,
-          78, 81, 82]) %> <% menu_parents.each do |menu_parent| %>
-          <ul>
-            <%= link_to menu_parent.title, '/#/' + menu_parent.link, class: 'head_section'%>
-            <% menus.where(parent_id: menu_parent.id).each do |link| %> <% if
-            link.link.downcase[0..3] == 'http'%> <%= link_to link.title,
-            link.link %> <% else %> <%= link_to link.title, '/#/' + link.link %>
-            <% end %> <% end %>
-          </ul>
-          <% end %>
-        </ul>
-      </li>
-
-      <li class="submenu" id="submenu1">
-        <a class="head_menu" href="#/beneficios" title="Menu 1">MIS BENEFICIOS</a>
-        <ul class="megamenu" id="megamenu1">
-          <% menu_parents = menus.where(id: [91, 105, 108, 113, 116, 125, 132, 149, 157, 164]) %> 
-          <% menu_parents.each do |menu_parent| %>
-          <ul>
-            <%= link_to menu_parent.title, '/#/beneficios/tipo/' + menu_parent.link, class: 'head_section'%>
-            <% menus_filtered = menus.where(parent_id: menu_parent.id) %>
-            <% menus_filtered.limit(3).each do |link| %> 
-              <% if link.link.downcase[0..3] == 'http'%> 
-                <%= link_to link.title, link.link %>
-              <% else %> 
-                <%= link_to link.title, '/#/' + link.link %>
-              <% end %> 
-            <% end %>
-            <% if menus_filtered.length > 3 %>
-              <%= link_to 'Ver más +', '/#/beneficios/' + menu_parent.link , style:'text-decoration: underline' %>
+      <% main_menus.each do |main_menu| %>
+        <li class="submenu" id="submenu1">
+          <a class="head_menu" href="#" title="Menu 1"><%= main_menu.title %></a>
+          <ul class="megamenu" id="megamenu1">
+            <% main_menu.children.each do |menu_parent| %>
+              <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
+              <ul>
+                <h4 class="head_section"><%= menu_parent_object.title %></h4>
+                <% menu_parent_object.children(exa_menu).each do |link| %>
+                  <% if link[:link].downcase[0..3] == 'http'%>
+                    <%= link_to link[:title], link[:link] %>
+                  <% else %>
+                    <%= link_to link[:title], '/#/' + link[:link] %>
+                  <% end %>
+                <% end %>
+              </ul>
             <% end %>
           </ul>
-          <% end %>
-        </ul>
-      </li>
+        </li>
+      <% end %>
 
+      <li>
       <div class="search_position">
         <div class="hidden-sm-and-down" id="search_desktop">
           <div class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--solo-flat v-text-field--enclosed theme--light">
             <div class="v-input__control">
               <div class="v-input__slot">
                 <div class="v-text-field__slot">
-                  <label
-                    aria-hidden="true"
-                    class="v-label theme--light"
-                    style="position: absolute;"
-                  ></label>
-                  <input
-                    aria-label="Buscar"
-                    id="search_toolbar"
-                    keyondown=""
-                    right
-                    type="text"
-                  />
+                  <label aria-hidden="true" class="v-label theme--light"></label>
+                  <input aria-label="Buscar" id="search_toolbar" right type="text"/>
                 </div>
                 <div class="v-input__append-inner">
                   <div class="v-input__icon v-input__icon--append">
@@ -1066,46 +1147,11 @@
             </div>
           </div>
           <ul class="results_ul" style="color: red;"></ul>
-          <br />
+          <br/>
         </div>
-        <div class="hidden-md-and-up">
-          <div
-            class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--enclosed v-text-field--placeholder theme--light"
-          >
-            <div class="v-input__control">
-              <div class="v-input__slot">
-                <div class="v-text-field__slot">
-                  <input placeholder="Buscar" type="text" />
-                </div>
-                <div class="v-input__append-inner">
-                  <div class="v-input__icon v-input__icon--">
-                    <i
-                      aria-hidden="true"
-                      class="v-icon v-icon--link material-icons theme--light"
-                    ></i>
-                  </div>
-                </div>
-                <div class="v-input__append-inner">
-                  <div class="v-input__icon v-input__icon--append">
-                    <i
-                      aria-hidden="true"
-                      class="v-icon v-icon--link material-icons theme--light"
-                      >search</i
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="v-text-field__details">
-                <div class="v-messages theme--light">
-                  <div class="v-messages__wrapper"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ul class="results_ul" style="color: red;"></ul>
-          <br />
-        </div>
+       
       </div>
+      </li>
     </ul>
   </nav>
 </div>
