@@ -25,8 +25,6 @@ class General::Menu < ApplicationRecord
     Rails.cache.fetch([:terms, object_id, :name], expires_in: 30.minutes) do
       terms.tags.map(&:name)
     end
-<<<<<<< HEAD
-=======
   end
 
   def children(integration_menu = nil)
@@ -65,7 +63,6 @@ class General::Menu < ApplicationRecord
       end
     end
     menus
->>>>>>> develop
   end
 
 end
