@@ -6,5 +6,5 @@ class General::UserEmployee < ApplicationRecord
   def setup
     self.password_digest = BCrypt::Password.create(self.password_digest)
   end
-  
+
 end
