@@ -18,6 +18,10 @@ class Marketplace::Product < ApplicationRecord
     where(approved: false)
   end
 
+  def self.approved
+    where(approved: true)
+  end
+
   def thumb img
     img.variant(resize: '60x60>').processed
   end
