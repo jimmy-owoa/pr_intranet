@@ -3,7 +3,7 @@ module Frontend
     include Rails.application.routes.url_helpers
 
     def index    
-      galleries = General::Gallery.all.joins(:attachments).uniq.last(3)
+      galleries = General::Gallery.all.joins(:attachments).uniq.last(9)
       data = []
       galleries.each do |gal|
         attachments = []

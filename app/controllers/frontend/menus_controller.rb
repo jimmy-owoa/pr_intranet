@@ -97,7 +97,7 @@ module Frontend
       }
       menu_json = render_to_string(partial: 'api_client/menu.html.erb', layout: false, locals: data).to_json
       respond_to do |format|
-        format.json { render json: menu_json }
+        format.json { render json: menu_json.encode("UTF-8") }
       end
     end
   end

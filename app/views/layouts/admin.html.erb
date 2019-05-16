@@ -78,8 +78,8 @@
                     <li><a href="<%= new_admin_post_path %>"><i class="fas fa-plus-circle"></i> Crear nueva</a></li>
                   </ul>
                 </li>
-              <% end %>     
-              <% if current_user.has_role? :super_admin %>         
+              <% end %>
+              <% if current_user.has_role? :super_admin %>
                 <li>
                   <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios</span></a>
                   <ul class="menu-dropdown">
@@ -89,7 +89,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span>Encuestas</span></a>
+                  <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span style="font-size: 13px;">Encuestas/Formularios</span></a>
                   <ul class="menu-dropdown">
                     <li><a href="<%= admin_surveys_path %>"><i class="fas fa-list"></i>Listado</a></li>
                     <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
@@ -119,6 +119,7 @@
                   <ul class="menu-dropdown">
                     <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
                     <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
+                    <li><a href="<%= admin_products_approved_index_path %>"><i class="fas fa-check-circle"></i>Aprobados</a></li>
                   </ul>
                 </li>
                 <li class="menu-header">Eventos</li>

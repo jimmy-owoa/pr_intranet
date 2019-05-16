@@ -22,6 +22,7 @@ es:
         css_class: Clase CSS
         link: Enlace
         title: Título
+        integration_code: Código Exa
       survey/question:
         question_type: Tipo de pregunta
         optional: Obligatorio

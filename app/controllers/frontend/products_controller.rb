@@ -99,6 +99,7 @@ module Frontend
         expiration: product.expiration,
         approved: product.approved,
         user_id: product.user_id,
+        user_full_name: General::User.find(product.user_id).full_name,
         is_expired: product.is_expired,
         images: product.images.present? ? {
           thumbs: thumb_sizes,

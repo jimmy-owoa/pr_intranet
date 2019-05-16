@@ -13,6 +13,10 @@ module Admin
       @products = Marketplace::Product.no_approved.paginate(:page => params[:page], :per_page => 10)
     end
 
+    def approved_index
+      @products = Marketplace::Product.approved.paginate(:page => params[:page], :per_page => 10)
+    end
+
     def show
       add_breadcrumb "Marketplace", :admin_products_path
     end
@@ -48,11 +52,14 @@ module Admin
 
     def update
       authorize @product
-      if params['approved'].present?
-        respond_to do |format|
-          @product.update_attributes(approved: params['approved'])
-          format.json { render :json => {value: "success"} and return}
-        end
+      # if params['approved'].present?
+      #   respond_to do |format|
+      #     @product.update_attributes(approved: params['approved'])
+      #     format.json { render :json => {value: "success"} and return}
+      #   end
+      if params["product"]["approved"].present?
+        @product.update_attributes(approved: params["product"]["approved"])
+        redirect_to request.referrer, notice: "Aprobando"
       elsif params['image_id'].present?
         ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
       else

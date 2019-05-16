@@ -14,8 +14,8 @@
     </div>
     <div class="col-md-11"><br />
       <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, include_blank: false, input_html: { class: "col-md-7 select-question-type", include_hidden: false }  %>
-      <div class="feedback hidden" style="font-size: 12px; font-weight: 500; color: #868e96; font-style: italic;" id="lineal_message">
-        <%= "Escala lineal es considerada desde 0 a 10" %>
+      <div id="message_selection">
+        <%= "Selección Múltiple: Permite seleccionar más de una opción. Ej: ¿Qué deportes te gustan? Opciones: Tenis, Basquetbol, Futbol" %>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
   </div>
   <div class="text-right add_option"><br />
     <%= link_to_add_association 'Agregar opción', f, :options, class: 'btn btn-success' %>
-  </div>    
+  </div>
   <div style="border-bottom: 2px dotted lightgrey; padding-bottom: 20px;">
   </div>
 </div>
