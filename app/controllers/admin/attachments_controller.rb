@@ -19,7 +19,7 @@ module Admin
       if params[:file].present?
         new_attachment = General::Attachment.new
         new_attachment.attachment.attach(params[:file])
-        new_attachment.save 
+        new_attachment.save
       end
       respond_to do |format|
       format.json { render json: { "location": url_for(new_attachment.attachment) }.to_json, status: :ok}

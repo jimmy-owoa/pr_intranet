@@ -1,5 +1,5 @@
 toolbar:
-  - styleselect | bold italic forecolor backcolor| undo redo | image media link | imagetools | emoticons | paste | print |
+  - styleselect alignleft aligncenter alignright | bold italic forecolor backcolor| undo redo | image media link | imagetools | emoticons | paste | print |
 plugins:
   - link
   - wordcount
