@@ -14,10 +14,12 @@ class Survey::Survey < ApplicationRecord
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
   STATUS = ['Publicado','Borrador', 'Programado']
 
+  scope :published_surveys, -> { where(status: "Publicado").order(published_at: :desc)}
+
   def self.survey_data user_id
     @data_surveys = []
     include_survey = self.includes(questions: [options: :answers])
-    include_survey.where(once_by_user: true).each do |survey|
+    include_survey.where(once_by_user: true).published_surveys.each do |survey|
       survey.questions.each do |question|
         #sumamos surveys si no tiene alguna respuesta
         @data_surveys << survey if question.answers.present? == false
