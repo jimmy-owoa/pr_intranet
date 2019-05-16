@@ -1,4 +1,11 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
+  namespace :admin do
+    resources :benefit_groups
+  end
   devise_scope :user do
     root to: "devise/sessions#new"
   end
