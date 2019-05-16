@@ -6,7 +6,6 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th><%= "ID" %></th>
               <th><%= "Nombre" %></th>
               <th><%= "Cantidad de fotos" %></th>
               <th><%= "Fecha Creación" %></th>
@@ -16,8 +15,7 @@
           <tbody>
             <% @galleries.each do |gallery| %>
               <tr>
-                <td><%= link_to gallery.id, admin_gallery_path(gallery) %></td>
-                <td><%= gallery.name %></td>
+                <td><%= link_to gallery.name, admin_gallery_path(gallery) %></td>
                 <td><%= gallery.attachments.count %></td>
                 <td><%= custom_date_no_hour(gallery.created_at) %></td>
                 <td>

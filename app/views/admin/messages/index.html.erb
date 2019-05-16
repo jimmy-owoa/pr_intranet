@@ -6,7 +6,6 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th><%= 'ID' %></th>
               <th><%= 'Título' %></th>
               <th><%= 'Tipo' %></th>
               <th><%= 'Acciones' %></th>
@@ -15,8 +14,7 @@
           <tbody>
             <% @messages.each do |message| %>
               <tr>
-                <td><%= link_to message.id, admin_message_path(message) %></td>
-                <td><%= message.title %></td>
+                <td><%= link_to message.title, admin_message_path(message) %></td>
                 <td><%= message.get_name_message_types %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.messages.show")),

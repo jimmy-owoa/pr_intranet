@@ -6,7 +6,6 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th><%= 'ID' %></th>
               <th><%= 'Título' %></th>
               <th><%= 'Acciones' %></th>
             </tr>
@@ -14,8 +13,7 @@
           <tbody>
             <% @benefits.each do |benefit| %>
               <tr>
-                <td><%= link_to benefit.id, admin_benefit_path(benefit) %></td>
-                <td><%= benefit.title %></td>
+                <td><%= link_to benefit.title, admin_benefit_path(benefit) %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.benefits.show")),
                               admin_benefit_path(benefit), :class => 'btn btn-success btn-xs' %>
