@@ -72,11 +72,7 @@
               <li class="menu-header">Módulos</li>
               <% if current_user.has_role? :super_admin or current_user.has_role? :post_admin %>
                 <li>
-                  <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i>
-                  <span>
-                    Noticias ➟
-                  </span>
-                  </a>
+                  <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i><span>Noticias <b>↓</b></span></a>
                   <ul class="menu-dropdown">
                     <li><a href="<%= admin_posts_path %>"><i class="fas fa-list"></i> Listado</a></li>
                     <li><a href="<%= new_admin_post_path %>"><i class="fas fa-plus-circle"></i> Crear nueva</a></li>
@@ -85,7 +81,7 @@
               <% end %>
               <% if current_user.has_role? :super_admin %>
                 <li>
-                  <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios ➟</span></a>
+                  <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios <b>↓</b></span></a>
                   <ul class="menu-dropdown">
                     <li><a href="<%= admin_attachments_path %>"><i class="far fa-file-image"></i> Lista de medios </a></li>
                     <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i> Galerías </a></li>
@@ -93,7 +89,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span style="font-size: 12px;">Encuestas/Formularios ➟</span></a>
+                  <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span style="font-size: 12px;">Encuestas/Formularios <b style="font-size: 14px;">↓</b></span></a>
                   <ul class="menu-dropdown">
                     <li><a href="<%= admin_surveys_path %>"><i class="fas fa-list"></i>Listado</a></li>
                     <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
@@ -101,7 +97,7 @@
                   </ul>
                 </li>
                 <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-home"></i><span>Edición Home ➟</span></a>
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-home"></i><span>Edición Home <b>↓</b></span></a>
                   <ul class="menu-dropdown">
                     <li><a class="nav-link " href="<%= admin_links_path %>"><i class="fas fa-list"></i>Links</a></li>
                     <li><a href="<%= admin_sections_path %>"><i class="fas fa-puzzle-piece"></i>Secciones</a></li>
@@ -119,7 +115,7 @@
                 <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i> Etiquetas</a></li>
                 <li class="menu-header">Marketplace</li>
                 <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios ➟</span></a>
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios <b>↓</b></span></a>
                   <ul class="menu-dropdown">
                     <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
                     <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
@@ -128,7 +124,7 @@
                 </li>
                 <li class="menu-header">Eventos</li>
                 <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Nacimientos ➟</span></a>
+                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Nacimientos <b>↓</b></span></a>
                   <ul class="menu-dropdown">
                     <li><a class="nav-link " href="<%= admin_births_path %>"><i class="fas fa-list"></i>Lista</a></li>
                     <li><a href="<%= admin_births_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
