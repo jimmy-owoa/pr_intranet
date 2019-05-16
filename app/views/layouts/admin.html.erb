@@ -62,9 +62,9 @@
                 <div class="user-role">
                 <% if current_user.has_role? :super_admin%>
                   <%= 'Administrador' %>
-                 <% else %>
+                <% else %>
                   <%= 'Administrador de Noticias' %>
-                 <% end %>
+                <% end %>
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span style="font-size: 13px;">Encuestas/Formularios</span></a>
+                  <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span>Encuestas</span></a>
                   <ul class="menu-dropdown">
                     <li><a href="<%= admin_surveys_path %>"><i class="fas fa-list"></i>Listado</a></li>
                     <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
