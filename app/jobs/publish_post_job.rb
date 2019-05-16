@@ -14,5 +14,4 @@ class PublishPostJob < ApplicationJob
       "DATE_FORMAT(published_at, '%d/%m/%Y %H:%M') = ? AND status = ?", Time.now.strftime("%d/%m/%Y %H:%M"), 'Programado'
     )
   end
-  
 end

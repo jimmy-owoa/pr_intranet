@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_14_163116) do
+ActiveRecord::Schema.define(version: 2019_05_16_154840) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -456,6 +456,8 @@ ActiveRecord::Schema.define(version: 2019_05_14_163116) do
     t.boolean "show_name", default: true
     t.text "description"
     t.boolean "once_by_user", default: true
+    t.datetime "published_at"
+    t.string "status"
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
   end
 

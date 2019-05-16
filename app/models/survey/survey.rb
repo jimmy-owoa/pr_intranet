@@ -12,6 +12,7 @@ class Survey::Survey < ApplicationRecord
   before_save :unique_slug, :set_survey_type
 
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
+  STATUS = ['Publicado','Borrador', 'Programado']
 
   def self.survey_data user_id
     @data_surveys = []
