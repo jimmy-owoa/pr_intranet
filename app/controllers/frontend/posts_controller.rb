@@ -153,9 +153,6 @@ module Frontend
       end
     end
     content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
-
-    #VIDEOS
-
   end
 
   def post
