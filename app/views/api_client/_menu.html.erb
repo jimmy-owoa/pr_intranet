@@ -487,6 +487,11 @@
     line-height: 18px;
     color: #333333;
   }
+  .arrow_down_menu{
+    color: #8fca00;
+    width: 18px;
+    padding-left: 8px;
+  }
   .align-center {
     -webkit-box-align: center;
     -ms-flex-align: center;
@@ -1104,7 +1109,7 @@
     <ul id="ul_menu">
       <% main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
-          <a class="head_menu" href="#" title="Menu 1"><%= main_menu.title %></a>
+          <a class="head_menu" href="#" title="Menu 1"><%= main_menu.title %><%= image_tag asset_url("arrowdown.png") , class: "arrow_down_menu"%></a>
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
