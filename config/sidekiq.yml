@@ -1,0 +1,9 @@
+development:
+  :concurrency: 5
+  :pidfile: ./tmp/pids/sidekiq.pid
+  :logfile: ./log/sidekiq.log
+production:
+  :concurrency: 3
+:queues:
+  - publish_post
+  - publish_survey

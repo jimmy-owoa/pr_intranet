@@ -28,6 +28,21 @@
           <%= f.input :survey_type, collection: @survey_types, selected: @survey.survey_type %>
         </div>
         <div class="col-md-12">
+          <%= f.input :status, collection: Survey::Survey::STATUS, prompt: :translate %>
+        </div>
+        <div class="col-md-12 col-sm-12"><br>
+          <div class="input-group date" id="survey_published_at" data-target-input="nearest">
+            <% if @post.try(:published_at).present? %>
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#survey_published_at', class:'survey_published_at'%>
+            <% else %>
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#survey_published_at', placeholder: "Fecha de publicación", label: false, class:'survey_published_at' %>
+            <% end %>
+            <div class="input-group-append" data-target="#survey_published_at" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div><br>
+        <div class="col-md-12">
           <%= f.label "Mostrar Nombre" %><br />
           <% if f.object.new_record? %>
             <%= f.check_box :show_name, checked: true %>

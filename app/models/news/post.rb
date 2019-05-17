@@ -24,6 +24,8 @@ class News::Post < ApplicationRecord
 
   scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5)}
 
+  scope :published_posts, -> { where(status: "Publicado").order(published_at: :desc)}
+
   STATUS = ['Publicado','Borrador', 'Programado']
   VISIBILITY = ['Público', 'Privada']
   FORMAT = {0 => 'Estilo normal', 1 => 'Estilo rosado', 2 => 'Estilo naranja'}

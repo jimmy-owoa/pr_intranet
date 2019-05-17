@@ -51,7 +51,7 @@ module Frontend
     user = General::User.find(id)
     user_tags = user.terms.tags.map(&:name)
     posts = []
-    News::Post.all.each do |post|
+    News::Post.published_posts.each do |post|
       post.terms.tags.each do |tag|
         posts.push(post) if tag.name.in?(user_tags)
       end
@@ -103,16 +103,54 @@ module Frontend
     content = content.gsub("video controls=\"controls\"", 'source')
     if Rails.env.development?
       content = content.gsub("<source src=\"../..", '<video src="http://localhost:3000')
-      content = content.gsub("<source src=\"", '<video src="')
+      content = content.gsub("<source src=\"", '<video src="http://localhost:3000/rails/')
       content = content.gsub("<img src=\"../..", '<img src="http://localhost:3000')
       content = content.gsub("<img src=\"rails/", '<img src="http://localhost:3000/rails/')
-      # content = content.gsub("<video style=\"float: right;\"", "<source style=\"float: right;\"")
-
+      #video
+      if content.include?("<p><video style=\"float: right;\"")
+        content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
+      end
+      if content.include?("<p><video style=\"float: left;\"")
+        content = content.gsub("<p><video style=\"float: left;\"", '<p align="left"><source style="float: left;"')
+      end
+      if content.include?("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"")
+        content = content.gsub("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"", '<p align="center"><source style="display: block; margin-left: auto; margin-right: auto;"')
+      end
+      #image
+      if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
+        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://localhost:3000')
+      end
+      if content.include?("<p><img style=\"float: right;\"")
+        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://localhost:3000')
+      end
+      if content.include?("<p><img style=\"float: left;\"")
+        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://localhost:3000')
+      end
     else
       content = content.gsub("<source src=\"../..", '<video src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
-      content = content.gsub("<source src=\"", '<video src="')
+      content = content.gsub("<source src=\"", '<video src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/rails/')
       content = content.gsub("<img src=\"../..", '<img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
       content = content.gsub("<img src=\"rails/", '<img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/rails/')
+      #video
+      if content.include?("<p><video style=\"float: right;\"")
+        content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
+      end
+      if content.include?("<p><video style=\"float: left;\"")
+        content = content.gsub("<p><video style=\"float: left;\"", '<p align="left"><source style="float: left;"')
+      end
+      if content.include?("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"")
+        content = content.gsub("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"", '<p align="center"><source style="display: block; margin-left: auto; margin-right: auto;"')
+      end
+      #image
+      if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
+        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+      end
+      if content.include?("<p><img style=\"float: right;\"")
+        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+      end
+      if content.include?("<p><img style=\"float: left;\"")
+        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+      end
     end
     content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
   end
