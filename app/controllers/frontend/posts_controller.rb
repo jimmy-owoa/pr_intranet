@@ -51,7 +51,7 @@ module Frontend
     user = General::User.find(id)
     user_tags = user.terms.tags.map(&:name)
     posts = []
-    News::Post.all.each do |post|
+    News::Post.published_posts.each do |post|
       post.terms.tags.each do |tag|
         posts.push(post) if tag.name.in?(user_tags)
       end
