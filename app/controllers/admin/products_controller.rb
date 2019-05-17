@@ -41,6 +41,7 @@ module Admin
       @product = Marketplace::Product.new(product_params)
       respond_to do |format|
         if @product.save
+          @product.update_attributes(user_id: current_user.id)
           format.html { redirect_to admin_product_path(@product), notice: 'Birth was successfully created.'}
           format.json { render :show, status: :created, location: @product}
         else

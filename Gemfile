@@ -97,7 +97,7 @@ gem 'axlsx_rails'
 #test carousel
 gem 'owlcarousel-rails'
 #works
-gem 'sidekiq'
+# gem 'sidekiq'
 #code css
 gem 'jquery-minicolors-rails'
 # Use ActiveStorage variant
