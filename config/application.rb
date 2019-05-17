@@ -14,8 +14,7 @@ module Intranet
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    config.active_job.queue_adapter = :sidekiq
-
+    # config.active_job.queue_adapter = :sidekiq
 
     config.time_zone = "America/Santiago"
 
