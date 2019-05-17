@@ -15,6 +15,7 @@
             <th><%= 'Imagen principal'%></th>
             <th><%= "Nombre" %></th>
             <th><%= "Precio" %></th>
+            <th><%= "Publicado por" %></th>
             <th><%= "Aprobado" %></th>
             <th><%= "Aprobar" %></th>
             <th><%= "Acciones" %></th>
@@ -25,7 +26,8 @@
             <tr>
               <td data-toggle="modal" data-target="#modalShowProduct_<%= product.id %>"><%= image_tag product.thumb(product.images.first), :class=> 'img-thumbnail' unless product.images.first.nil? %></td>
               <td><%= product.name %></td>
-              <td>$ <%= product.price %></td>
+              <td><%= product.currency %> <%= product.price.to_i %></td>
+              <td><%= product.user.full_name %></td>
               <td><%= is_approved(product) %></td>
               <td>
                 <%= check_box_tag 'product[approved]', nil, product.approved?,

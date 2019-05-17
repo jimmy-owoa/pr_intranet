@@ -13,6 +13,8 @@ class Marketplace::Product < ApplicationRecord
   scope :show_product , -> {where(approved: true)}
 
   PRODUCT_TYPE = ['Autos','Propiedades', 'Servicios', 'Varios']
+  CURRENCY = ['$','UF']
+
 
   def self.no_approved
     where(approved: false)

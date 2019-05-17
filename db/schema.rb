@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_16_154840) do
+ActiveRecord::Schema.define(version: 2019_05_17_195326) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -352,6 +352,7 @@ ActiveRecord::Schema.define(version: 2019_05_16_154840) do
     t.integer "user_id"
     t.boolean "is_expired", default: false
     t.date "published_date"
+    t.string "currency"
   end
 
   create_table "news_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -159,6 +159,7 @@ es:
         price: Precio
         product_type: Tipo de anuncio
         location: Locación
+        currency: Moneda
         phone: Teléfono de contacto
         expiration: Caducidad de la publicación
         images: Imágenes
