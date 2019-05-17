@@ -1,9 +1,9 @@
 module Admin
   class GalleriesController < AdminController
-  
+
   before_action :set_gallery, only: [:show, :edit, :update, :destroy]
   before_action :set_post, only: [:create, :new]
-  
+
   def index
     add_breadcrumb "Galerías", :admin_galleries_path
     @galleries = General::Gallery.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
