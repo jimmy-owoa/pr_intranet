@@ -16,4 +16,8 @@ class General::Benefit < ApplicationRecord
   def self.allowed_by_benefit_group(benefit_group_id)
     includes(:benefit_groups).where(general_benefit_groups: { id: benefit_group_id }) if benefit_group_id.present?
   end
+
+  def benefit_group
+    General::BenefitGroup.find(self.benefit_group_id)
+  end
 end

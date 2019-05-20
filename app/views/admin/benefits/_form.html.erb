@@ -1,8 +1,17 @@
 <%= f.error_notification %>
   <div class="form-group row">
-    <div class="col-7">
+    <div class="col-7 row">
       <div class="col-md-12">
         <%= f.input :title, required: true, autofocus: true %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :code, autofocus: true %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :url, autofocus: true %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :benefit_type_id, required: true, autofocus: true %>
       </div>
       <div class="col-md-12">
         <%= f.label 'Grupo beneficiario' %>
