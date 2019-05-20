@@ -11,7 +11,7 @@
         <%= f.input :url, autofocus: true %>
       </div>
       <div class="col-md-4">
-        <%= f.input :benefit_type_id, required: true, autofocus: true %>
+        <%= f.input :benefit_type_id, collection: General::BenefitType.all, required: true, autofocus: true %>
       </div>
       <div class="col-md-12">
         <%= f.label 'Grupo beneficiario' %>

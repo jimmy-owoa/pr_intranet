@@ -46,6 +46,9 @@ es:
         name: Nombre  
       general/benefit:  
         title: Título
+        code: Código
+        url: Link
+        benefit_type_id: Tipo de beneficio
       general/message:    
         title: Título
       general/link:  
