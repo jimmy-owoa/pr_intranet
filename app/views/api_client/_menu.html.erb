@@ -822,6 +822,7 @@
   }
 </style>
 <div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>" style="height: 0 !important; margin: 0 !important; padding: 0 !important"></div>
+<!-- WEATHER MODAL START -->
 <div class="modalDialog" id="weather_modal">
   <div>
     <a href="#close" title="Close" class="close">X</a>
@@ -944,92 +945,93 @@
     </div>
   </div>
 </div>
+<!-- WEATHER MODAL END -->
+<!-- INDICATORS MODAL START  -->
 <div id="indicators_modal" class="modalDialog">
-    <div>
-      <a href="#close" title="Close" class="close">X</a>
-      <div class="layout">
-        <div class="flex">
-          <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-            <div class="v-card__title">
-              <div class="text-truncate">Dolar</div>
+  <div>
+    <a href="#close" title="Close" class="close">X</a>
+    <div class="layout">
+      <div class="flex">
+        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
+          <div class="v-card__title">
+            <div class="text-truncate">Dolar</div>
+          </div>
+          <div class="flex">
+            <div class="v-card__title subheading font-weight-light">
+              <div>Hoy: $<%= indicators[:DOLAR] %></div>
             </div>
-            <div class="flex">
-              <div class="v-card__title subheading font-weight-light">
-                <div>Hoy: $<%= indicators[:DOLAR] %></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
+          <div class="v-card__title">
+            <div class="text-truncate">EURO</div>
+          </div>
+          <div class="flex">
+            <div class="v-card__title subheading font-weight-light">
+              <div>Hoy: $<%= indicators[:EURO] %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
+          <div class="v-card__title">
+            <div class="text-truncate">UF</div>
+          </div>
+          <div class="flex">
+            <div class="v-card__title subheading font-weight-light">
+              <div>
+                Hoy: $<%= indicators[:UF] %>
+                <p class="subheading font-weight-light">Ayer: $<%= indicators[:LATEST_UF].second_to_last%></p>
               </div>
             </div>
           </div>
         </div>
-        <div class="flex">
-          <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-            <div class="v-card__title">
-              <div class="text-truncate">EURO</div>
-            </div>
-            <div class="flex">
-              <div class="v-card__title subheading font-weight-light">
-                <div>Hoy: $<%= indicators[:EURO] %></div>
+      </div>
+      <div class="flex">
+        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
+          <div class="v-card__title">
+            <div class="text-truncate">IPC</div>
+          </div>
+          <div class="flex">
+            <div class="v-card__title subheading font-weight-light">
+              <div>
+                Hoy: $<%= indicators[:IPC] %>
+                <p><%= l(today-1.month, format: '%B') %>: <%= indicators[:LATEST_IPC].second_to_last %> </p>
+                <%= l(today-2.month, format: '%B') %>: <%= indicators[:LATEST_IPC].third_to_last %>
               </div>
             </div>
           </div>
         </div>
-        <div class="flex">
-          <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-            <div class="v-card__title">
-              <div class="text-truncate">UF</div>
-            </div>
-            <div class="flex">
-              <div class="v-card__title subheading font-weight-light">
-                <div>
-                  Hoy: $<%= indicators[:UF] %>
-                  <p class="subheading font-weight-light">Ayer: $<%= indicators[:LATEST_UF].second_to_last%></p>
-                </div>
+      </div>
+      <div class="flex">
+        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
+          <div class="v-card__title">
+            <div class="text-truncate">UTM</div>
+          </div>
+          <div class="flex">
+            <div class="v-card__title subheading font-weight-light">
+              <div>
+                Hoy: $<%= indicators[:UTM] %>
+                <p><%= l(today-1.month, format: '%B') %>: <%= indicators[:LATEST_UTM].second_to_last %> </p>
+                <%= l(today-2.month, format: '%B') %>: <%= indicators[:LATEST_UTM].third_to_last %>
               </div>
             </div>
           </div>
         </div>
-        <div class="flex">
-          <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-            <div class="v-card__title">
-              <div class="text-truncate">IPC</div>
-            </div>
-            <div class="flex">
-              <div class="v-card__title subheading font-weight-light">
-                <div>
-                  Hoy: $<%= indicators[:IPC] %>
-                  <p><%= l(today-1.month, format: '%B') %>: <%= indicators[:LATEST_IPC].second_to_last %> </p>
-                  <%= l(today-2.month, format: '%B') %>: <%= indicators[:LATEST_IPC].third_to_last %>
-                </div>
-              </div>
-            </div>
+      </div>
+      <div class="flex">
+        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
+          <div class="v-card__title">
+            <div class="text-truncate">IPSA</div>
           </div>
-        </div>
-        <div class="flex">
-          <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-            <div class="v-card__title">
-              <div class="text-truncate">UTM</div>
-            </div>
-            <div class="flex">
-              <div class="v-card__title subheading font-weight-light">
-                <div>
-                  Hoy: $<%= indicators[:UTM] %>
-                  <p><%= l(today-1.month, format: '%B') %>: <%= indicators[:LATEST_UTM].second_to_last %> </p>
-                  <%= l(today-2.month, format: '%B') %>: <%= indicators[:LATEST_UTM].third_to_last %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex">
-          <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-            <div class="v-card__title">
-              <div class="text-truncate">IPSA</div>
-            </div>
-            <div class="flex">
-              <div class="v-card__title subheading font-weight-light">
-                <div>
-                  Hoy: $<%= indicators[:IPSA] %>
-                  <p>Variación: <%= indicators[:IPSA_VARIATION] %></p>
-                </div>
+          <div class="flex">
+            <div class="v-card__title subheading font-weight-light">
+              <div>
+                Hoy: $<%= indicators[:IPSA] %>
+                <p>Variación: <%= indicators[:IPSA_VARIATION] %></p>
               </div>
             </div>
           </div>
@@ -1037,6 +1039,8 @@
       </div>
     </div>
   </div>
+</div>
+<!-- INDICATORS MODAL END -->
 <div style="padding-top: 20px;">
   <div class="hidden-sm-and-down">
     <div class="layout">
@@ -1096,6 +1100,7 @@
       <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 0.5rem; width: 50%;"/>
     </div>
   </div>
+  <!-- MENU START -->
   <nav fixed>
     <% main_menus = General::Menu.where(parent_id: nil) %>
     <ul id="ul_menu">
@@ -1151,4 +1156,5 @@
       </li>
     </ul>
   </nav>
+  <!-- MENU END -->
 </div>
