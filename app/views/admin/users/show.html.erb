@@ -5,7 +5,7 @@
           <div class="card-body text-secondary border border-primary rounded">
             <%= user_avatar(@user.id) %>
           </div>
-        </div>      
+        </div>
       </div>
       <div class="col-8">
         <div class="card">
@@ -26,7 +26,7 @@
               <b>Creado el:</b> <%= custom_date(@user.created_at) %></br>
               <b>Última actualización:</b> <%= custom_date(@user.updated_at) %></br>
               <b>Estado:</b> <%= @user.active? ? 'Si' : 'No'  %></br>
-            </p>     
+            </p>
           </div>
         </div>
       </div>
