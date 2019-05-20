@@ -79,7 +79,7 @@
         </div>
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas excluyentes' %>
-          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>          
+          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
           <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
         </div>
       </div>
@@ -94,7 +94,7 @@
               <b><p>Subir Imagen</p></b>
               <%= f.fields_for :main_image do |aa| %>
                 <div class="">
-                  <%= aa.file_field :attachment, class:'card-link' %>
+                  <%= aa.file_field :attachment, class:'card-link', onchange:"readURL(this);" %>
                 </div>
               <% end %>
             <% else %>
@@ -104,7 +104,7 @@
                 <b><p>Adjuntar imagen</p></b>
                 <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
                   <div class="">
-                    <%= aa.file_field :attachment %>
+                    <%= aa.file_field :attachment, onchange="readURL(this);" %>
                   </div>
                 <% end %>
             <% end %>
@@ -149,4 +149,6 @@ $('input,textarea').focus(function(){
 }).blur(function(){
    $(this).attr('placeholder',$(this).data('placeholder'));
 });
+
+
 </script>
