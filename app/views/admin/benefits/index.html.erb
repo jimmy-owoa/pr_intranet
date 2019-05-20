@@ -16,7 +16,7 @@
           <tbody>
             <% @benefits.each do |benefit| %>
               <tr>
-                <td><%= benefit.alias %></td>
+                <td><%= benefit.try(:alias) %></td>
                 <td><%= benefit.code %></td>
                 <td><%= link_to benefit.title, admin_benefit_path(benefit) %></td>
                 <td><%= benefit.benefit_group.present? ? benefit.benefit_group.name : "Sin Grupo" %></td>
