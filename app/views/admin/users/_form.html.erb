@@ -90,7 +90,7 @@
       <div class="card border-secondary mb-3" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
         <% if @user.image.attachment.present? %>
-          <%= image_tag(@user.image.attachment.variant(resize: '130x180!').processed, class: 'center') %>
+          <%= image_tag(@user.image, class: 'center') %>
         <% else %>
           <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
         <% end %>

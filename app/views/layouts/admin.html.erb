@@ -106,13 +106,16 @@
                 <li>
                   <a href="<%= admin_messages_path %>"><i class="far fa-envelope"></i>Mensajes</a></li>
                 </li>
-                <li>
-                  <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a></li>
-                </li>
-                <li>
-                  <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a></li>
-                </li>
                 <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i> Etiquetas</a></li>
+                <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
+                  <li class="menu-header">Beneficios</li>
+                  <li>
+                    <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a></li>
+                  </li>
+                  <li>
+                    <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a></li>
+                  </li>
+                <% end %>
                 <li class="menu-header">Marketplace</li>
                 <li class="dropdown">
                   <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios <b>↓</b></span></a>

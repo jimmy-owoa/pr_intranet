@@ -4,6 +4,7 @@ module Admin
 
     def index
       @benefit_groups = General::BenefitGroup.paginate(:page => params[:page], :per_page => 10)
+      @benefit_group = General::BenefitGroup.benefit_group_user(current_user)
     end
 
     def show

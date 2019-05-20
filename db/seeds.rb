@@ -16,10 +16,11 @@ General::Term.find_or_create_by(name: 'Travel', term_type_id: 1)
 General::Term.find_or_create_by(name: 'Inmobiliaria', term_type_id: 1)
 #roles
 puts("******* Creando Roles *******")
-Role.find_or_create_by(name: 'user')
-Role.find_or_create_by(name: 'post_admin')
-Role.find_or_create_by(name: 'super_admin')
-Role.find_or_create_by(name: 'message_admin')
+Role.find_or_create_by(name: 'user') # normal user
+Role.find_or_create_by(name: 'post_admin') #post admin
+Role.find_or_create_by(name: 'super_admin') #super admin
+Role.find_or_create_by(name: 'message_admin') #message admin
+Role.find_or_create_by(name: 'benefit_admin') #benefits admin
 #location
 puts("******* Creando Locations *******")
 General::Location.find_or_create_by(name: 'Antofagasta')
