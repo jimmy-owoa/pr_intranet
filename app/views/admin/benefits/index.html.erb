@@ -19,7 +19,7 @@
                 <td><%= benefit.alias %></td>
                 <td><%= benefit.code %></td>
                 <td><%= link_to benefit.title, admin_benefit_path(benefit) %></td>
-                <td><%= benefit.benefit_group.name %></td>
+                <td><%= benefit.benefit_group.present? ? benefit.benefit_group.name : "Sin Grupo" %></td>
                 <td>
                   <%= link_to t('.show', :default => t("helpers.benefits.show")),
                               admin_benefit_path(benefit), :class => 'btn btn-success btn-xs' %>
