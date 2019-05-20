@@ -3,7 +3,7 @@ module Admin
     before_action :set_benefit, only: [:show, :edit, :update, :destroy]
 
     def index
-      @benefits = General::Benefit.order(id: :desc).all
+        @benefits = General::Benefit.user_benefits(current_user)
     end
 
     def show
