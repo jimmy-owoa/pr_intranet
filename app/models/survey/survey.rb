@@ -9,12 +9,17 @@ class Survey::Survey < ApplicationRecord
 
   validates :name, presence: :true
 
+  after_initialize :set_status
   before_save :unique_slug, :set_survey_type
 
   SURVEY_TYPES = [['Encuesta','survey'],['Formulario','form']]
   STATUS = ['Publicado','Borrador', 'Programado']
 
   scope :published_surveys, -> { where(status: "Publicado").order(published_at: :desc)}
+
+  def set_status
+    self.status ||= 'Publicado'
+  end
 
   def self.survey_data user_id
     @data_surveys = []
