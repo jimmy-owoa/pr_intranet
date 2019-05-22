@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   namespace :frontend, :defaults => { :format => 'json'} do
     post 'answers_save_from_vue', to: 'answers#answers_save_from_vue'
     post 'answers_options_save_from_vue', to: 'answers#answers_options_save_from_vue'
+    post 'answers_options_multiple_save_from_vue', to: 'answers#answers_options_multiple_save_from_vue'
     post 'check_data', to: 'answers#check_data'
     get 'menus/menus'
     get 'santorals/santorals'

@@ -66,7 +66,6 @@ module Admin
       else
         respond_to do |format|
           if @product.update(product_params)
-            binding.pry
             catch_image(params[:permissions])
             format.html { redirect_to admin_product_path(@product), notice: 'Birth was successfully updated.'}
             format.json { render :show, status: :ok, location: @product }

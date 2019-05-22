@@ -20,12 +20,12 @@ class Survey::Survey < ApplicationRecord
     @data_surveys = []
     include_survey = self.includes(questions: [options: :answers])
     include_survey.where(once_by_user: true).published_surveys.each do |survey|
-      survey.questions.each do |question|
+      survey.questions.where(optional: true).each do |question|
         #sumamos surveys si no tiene alguna respuesta
-        @data_surveys << survey if question.answers.present? == false
+        @data_surveys << survey if question.answers.blank?
         question.answers.each do |answer|
           #sumamos surveys si tiene respuesta pero ninguna con el id del usuario
-          @data_surveys << survey unless answer.user_id != user_id
+          @data_surveys << survey if answer.user_id != user_id.to_i
         end
       end
     end
