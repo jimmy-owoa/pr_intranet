@@ -98,9 +98,7 @@
                 </div>
               <% end %>
             <% else %>
-              <% if @post.main_image.blank?%>
-                <img id="image_preview" src="#" alt="Adjunte imagen" / >
-              <% end %>
+              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
               <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
               <br />
                 <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
