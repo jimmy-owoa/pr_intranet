@@ -79,7 +79,7 @@
         </div>
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas excluyentes' %>
-          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>          
+          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
           <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
         </div>
       </div>
@@ -89,21 +89,26 @@
           <div class="col-md-12 col-sm-12">
             <h5 class="card-title">Imagen principal</h5>
             <% if @post.id.nil? %>
+              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) %>
               <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%><br/>
               <b><p>Subir Imagen</p></b>
               <%= f.fields_for :main_image do |aa| %>
                 <div class="">
-                  <%= aa.file_field :attachment, class:'card-link' %>
+                  <%= aa.file_field :attachment, class:'card-link', onchange:"readURL(this);" %>
                 </div>
               <% end %>
             <% else %>
-              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.attachment.attached? %>
+              <% if @post.main_image.blank?%>
+                <img id="image_preview" src="#" alt="Adjunte imagen" / >
+              <% end %>
+              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
               <br />
-                <%= link_to 'Seleccionar imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+                <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+                <br />
                 <b><p>Adjuntar imagen</p></b>
                 <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
                   <div class="">
-                    <%= aa.file_field :attachment %>
+                    <%= aa.file_field :attachment, onchange:"readURL(this);" %>
                   </div>
                 <% end %>
             <% end %>
@@ -148,4 +153,19 @@ $('input,textarea').focus(function(){
 }).blur(function(){
    $(this).attr('placeholder',$(this).data('placeholder'));
 });
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#image_preview")
+          .attr("src", e.target.result)
+          .width(180)
+          .height(120);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
 </script>
