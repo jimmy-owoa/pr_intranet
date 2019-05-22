@@ -23,7 +23,7 @@ module Frontend
             format.html {render :new}
             format.json {render json: @answer.errors, status: :unprocessable_entity}
           end
-        end      
+        end
       end
     end
 
@@ -41,7 +41,24 @@ module Frontend
           end
         end
       end
-    end    
+    end
+
+    def answers_options_multiple_save_from_vue 
+      answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
+      if answer.present?
+        id_option = Survey::Option.find_by_title(params.dig("answer","option","option")).id
+        answer.update(option_id: id_option)
+      else
+        respond_to do |format|
+          if answer.save
+            format.json
+          else
+            format.html {render :new}
+            format.json {render json: answer.errors, status: :unprocessable_entity}
+          end
+        end
+      end
+    end
 
     def answers_save_from_vue
       answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
