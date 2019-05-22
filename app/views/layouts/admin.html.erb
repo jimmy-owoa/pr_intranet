@@ -7,7 +7,6 @@
     <%= stylesheet_link_tag    'application', media: 'all'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
     <div class="modal" id="gallery_modal"></div>
     <div class="modal" id="main_image_modal"></div>
@@ -144,15 +143,12 @@
     </div>
     <div class="main-content">
       <%= flash_messages %>
-
       <%= render partial: 'layouts/partials/search' %>
       <%= yield%>
     </div>
     <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
     <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"> </script>
-
   </body>
 </html>
-
 <style>
 </style>
