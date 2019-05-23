@@ -31,8 +31,8 @@ module Frontend
           is_expired: product.is_expired,
           expiration: product.expiration,
           description: product.description,
-          main_image: product.images.first.present? ? url_for(product.images.first) : nil,
-          items: product.images.present? ? items : root_url + '/assets/noimage.jpg',
+          main_image: product.images.first.present? ? url_for(product.images.first) :  root_url + '/assets/noimage.png',
+          items: product.images.present? ? items : root_url + '/assets/noimage.png',
           breadcrumbs: [
             {link: '/', name: 'Inicio' },
             {link: '/avisos', name: 'Avisos'},
