@@ -19,7 +19,7 @@ module Frontend
           price: product.price,
           is_expired: product.is_expired,
           expiration: product.expiration,
-          main_image: product.images.first.present? ? url_for(product.images.first) :  root_url + '/assets/noimage.png',
+          main_image: product.images.first.present? ? url_for(product.images.first) :  root_url + ActionController::Base.helpers.asset_url('noimage.png'),
           breadcrumbs: [
             {link: '/', name: 'Inicio' },
             {link: '/avisos', name: 'Avisos'},
@@ -60,7 +60,11 @@ module Frontend
         user_id: product.user_id,
         user_full_name: General::User.find(product.user_id).full_name,
         is_expired: product.is_expired,
-        items: product.images.present? ? items : root_url + '/assets/noimage.jpg'
+        items: product.images.present? ? items : 
+        [{
+          src: root_url + ActionController::Base.helpers.asset_url('noimage.png'),
+          thumbnail: root_url + ActionController::Base.helpers.asset_url('noimage.png')
+        }]
       }
       respond_to do |format|
         format.json { render json: data[0] }
