@@ -21,9 +21,6 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "select2";
-@import "alertify";
-@import "alertify/default";
-@import "alertify/bootstrap";
 @import "vendors";
 @import "tempusdominus-bootstrap-4.css";
 @import "admin/users";
@@ -101,8 +98,6 @@
   border: 2px solid lightgreen;
   border-radius: 20px;
 }
-
-
 
 .font_bottom_nav {
   color: grey;

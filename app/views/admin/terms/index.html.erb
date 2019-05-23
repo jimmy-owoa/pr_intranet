@@ -36,10 +36,10 @@
                 <%= link_to t('.edit', :default => t("helpers.links.edit")),
                             edit_admin_term_path(term), :class => 'btn btn-primary btn-sm' %>
                 <%= link_to 'Eliminar',
-                            admin_post_path(term),
+                            admin_term_path(term),
                             :method => :delete,
-                            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
-                            :class => 'btn btn-sm btn-danger', onclick: 'confirm_data()' %>
+                            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },
+                            :class => 'btn btn-sm btn-danger'%>
               </td>
             </tr>
           <% end %>

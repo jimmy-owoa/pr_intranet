@@ -43,7 +43,7 @@
                 <td>
                   <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-success btn-sm' %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_birth_path(birth), :class => 'btn btn-primary btn-sm' %>
-                  <%= link_to 'Deshabilitar', admin_birth_path(birth),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger btn-sm', onclick: 'confirm_data()' %>
+                  <%= link_to 'Deshabilitar', admin_birth_path(birth),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger btn-sm' %>
                 </td>
               </tr>
             <% end %>

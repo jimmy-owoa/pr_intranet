@@ -51,7 +51,7 @@
         <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_post_path(@post), :class => 'btn btn-primary btn-sm' %>
       </div>
       <div class="col-sm-2">
-        <%= link_to 'Deshabilitar', admin_post_path(@post),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger btn-sm', onclick: 'confirm_data()' %>
+        <%= link_to 'Deshabilitar', admin_post_path(@post),:method => 'delete',:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro?')) },:class => 'btn btn-danger btn-sm' %>
       </div>
       <div class="col-sm-2">
         <% if @post.galleries.present? %>
