@@ -20,7 +20,7 @@ module Frontend
             id: question.id,
             title: question.title,
             question_type: question.question_type,
-            optional: question.optional,
+            optional: question.optional? ? false : true,
             options: data_options
           }
         end
@@ -68,7 +68,7 @@ module Frontend
             id: question.id,
             title: question.title,
             question_type: question.question_type,
-            optional: question.optional,
+            optional: question.optional? ? false : true,
             options: data_options
           }
         end
@@ -132,7 +132,7 @@ module Frontend
             id: question.id,
             title: question.title,
             question_type: question.question_type,
-            optional: question.optional,
+            optional: question.optional? ? false : true,
             options: data_options
           }
         end
