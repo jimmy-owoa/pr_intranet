@@ -10,29 +10,16 @@ module Frontend
       data = []
       items = []
       products.each do |product|
-        product.images.each do |image|
-          items << {
-            src: url_for(image),
-            thumbnail: url_for(image.variant(resize: "100x100")) 
-          }
-        end
         data << {
           id: product.id,
           name: product.name,
           approved: product.approved,
           product_type: product.product_type,
           url: root_url + 'admin/products/' + "#{product.id}" + '/edit',
-          user_id: General::User.find(product.user_id).id,
-          created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
           price: product.price,
-          location: product.location,
-          email: product.email,
-          phone: product.phone,
           is_expired: product.is_expired,
           expiration: product.expiration,
-          description: product.description,
           main_image: product.images.first.present? ? url_for(product.images.first) :  root_url + '/assets/noimage.png',
-          items: product.images.present? ? items : root_url + '/assets/noimage.png',
           breadcrumbs: [
             {link: '/', name: 'Inicio' },
             {link: '/avisos', name: 'Avisos'},
