@@ -44,7 +44,11 @@
         <%= f.input :expiration, input_html: { value: 30 }  %>
       </div>
       <div class="col-md-2">
+      <% if @product.new_record? %>
         <%= f.input :approved, label: false %>
+        <% else %>
+        <%= f.input :approved, label: false, input_html: { checked: true } %>
+      <% end %>
       </div>
       <div class="col-md-4">
         <%= f.input :images, as: :file, input_html: { multiple: true, accept:'image/*' } %>

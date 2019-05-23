@@ -20,6 +20,7 @@
 //= require bootstrap-sprockets
 //= require toastr
 //= require moment
+//= require data-confirm-modal
 //= require tempusdominus-bootstrap-4.js
 //= require cocoon
 //= require vendors
@@ -38,18 +39,14 @@
 //= require admin/surveys
 //= require admin/benefit_groups
 //= require owl.carousel
-//= require alertify
-//= require alertify/confirm-ujs
 //= require clipboard
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require ahoy
 //= require_self
-function confirm_data() {
-  setTimeout(function() {
-    document.getElementsByClassName("ajs-ok")[0].innerHTML = "Confirmar";
-    document.getElementsByClassName("ajs-cancel")[0].innerHTML = "Cancelar";
-    document.getElementsByClassName("ajs-header")[0].innerHTML =
-      "Tu confirmación es necesaria";
-  }, 100);
-}
+
+dataConfirmModal.setDefaults({
+  title: "¿Estás seguro?",
+  commit: "Aceptar",
+  cancel: "Cancelar"
+});
