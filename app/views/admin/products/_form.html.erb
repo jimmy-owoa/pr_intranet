@@ -44,11 +44,12 @@
         <%= f.input :expiration, input_html: { value: 30 }  %>
       </div>
       <div class="col-md-2">
-      <% if @product.new_record? %>
-        <%= f.input :approved, label: false %>
+        <% if f.object.new_record? %>
+          <%= f.check_box :approved, checked: false %>
+          <%= f.label 'Aprobado'%>
         <% else %>
-        <%= f.input :approved, label: false, input_html: { checked: true } %>
-      <% end %>
+          <%= f.check_box :approved, checked: true, hidden: true%>
+        <% end %>
       </div>
       <div class="col-md-4">
         <%= f.input :images, as: :file, input_html: { multiple: true, accept:'image/*' } %>
@@ -96,7 +97,16 @@
   </div><br>
 <% end %>
 
-  <div class="container col-md-12">
-    <%= link_to 'Volver', :back, class:'btn btn-success' %>
-    <%= f.submit nil, class: 'btn btn-primary' %>
+  <div class="container col-md-12 text-center">
+    <%= link_to 'Volver', :back, class:'btn btn-primary' %>
+    <% if @product.id.present? %>
+      <%= f.submit 'Aprobar', class: 'btn btn-success' %>
+      <%= link_to 'Desaprobar',
+          admin_product_path(@product),
+          :method => :delete,
+          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
+          :class => 'btn btn-danger'%>    
+    <% else%>
+      <%= f.submit nil, class: 'btn btn-success' %>
+    <% end %>
   </div>
