@@ -15,6 +15,7 @@ module Frontend
           name: product.name,
           approved: product.approved,
           product_type: product.product_type,
+          user_id: product.user_id,
           url: root_url + 'admin/products/' + "#{product.id}" + '/edit',
           price: product.price,
           is_expired: product.is_expired,
