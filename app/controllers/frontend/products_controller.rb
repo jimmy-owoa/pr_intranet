@@ -8,22 +8,12 @@ module Frontend
     def index
       products = Marketplace::Product.all
       data = []
-      normal_sizes = []
-      large_sizes = []
-      thumb_sizes = []
+      items = []
       products.each do |product|
         product.images.each do |image|
-          thumb_sizes << {
-            id: image.id,
-            url: url_for(image.variant(resize: "100x100"))
-          }
-          normal_sizes << {
-            id: image.id,
-            url: url_for(image.variant(resize: "500x500>"))
-          }
-          large_sizes << {
-            id: image.id,
-            url: url_for(image)
+          items << {
+            src: url_for(image),
+            thumbnail: url_for(image.variant(resize: "100x100")) 
           }
         end
         data << {
@@ -42,21 +32,13 @@ module Frontend
           expiration: product.expiration,
           description: product.description,
           main_image: product.images.first.present? ? url_for(product.images.first) : nil,
-          images: product.images.present? ? {
-            thumbs: thumb_sizes,
-            normal_size: normal_sizes,
-            large_size: large_sizes
-          } : root_url + '/assets/noimage.jpg',
+          items: product.images.present? ? items : root_url + '/assets/noimage.jpg',
           breadcrumbs: [
             {link: '/', name: 'Inicio' },
             {link: '/avisos', name: 'Avisos'},
             {link: '#', name: product.name.truncate(30)}
           ]
         }
-        thumb_sizes = []
-        normal_sizes = []
-        large_sizes = []
-
       end
       respond_to do |format|
         format.json { render json: data }
@@ -68,21 +50,11 @@ module Frontend
       slug = params[:slug].present? ? params[:slug] : nil
       product = Marketplace::Product.find(slug)
       data = []
-      normal_sizes = []
-      large_sizes = []
-      thumb_sizes = []
+      items = []
       product.images.each do |image|
-        thumb_sizes << {
-          id: image.id,
-          url: url_for(image.variant(resize: "100x100"))
-        }
-        normal_sizes << {
-          id: image.id,
-          url: url_for(image.variant(resize: "500x500>"))
-        }
-        large_sizes << {
-          id: image.id,
-          url: url_for(image)
+        items << {
+          src: url_for(image),
+          thumbnail: url_for(image.variant(resize: "100x100")) 
         }
       end
       data << {
@@ -101,11 +73,7 @@ module Frontend
         user_id: product.user_id,
         user_full_name: General::User.find(product.user_id).full_name,
         is_expired: product.is_expired,
-        images: product.images.present? ? {
-          thumbs: thumb_sizes,
-          normal_size: normal_sizes,
-          large_size: large_sizes
-        } : root_url + '/assets/noimage.jpg'
+        items: product.images.present? ? items : root_url + '/assets/noimage.jpg'
       }
       respond_to do |format|
         format.json { render json: data[0] }
