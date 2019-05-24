@@ -8,7 +8,7 @@
           <%= show_media_index(at.attachment) %>
           <div class="card-body">
 
-              <h5 class="card-title"><%= best_in_place at, :name, url: admin_attachment_path(at) %></h5>
+              <h5 class="card-title"><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}  %></h5>
 
             <%= link_to 'Ruta', rails_blob_url(at.attachment), id: 'link_attachment',target: "_blank" %>
           </div>
@@ -35,7 +35,8 @@
 </div>
 
 <script>
-$(document).ready(function() {
-  $('.best_in_place').best_in_place()
-});
+  $(document).ready(function() {
+    $('.best_in_place').best_in_place()
+    $('.best_in_place').bind("ajax:success", function(){ alert('Se cambió el nombre de '+$(this).data('attachName')); });
+  });
 </script>
