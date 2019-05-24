@@ -96,6 +96,7 @@ gem 'axlsx_rails'
 # gem 'mini_magick', '~> 4.8'
 #test carousel
 gem 'owlcarousel-rails'
+gem 'best_in_place', '~> 3.0.1'
 #works
 # gem 'sidekiq'
 #code css
