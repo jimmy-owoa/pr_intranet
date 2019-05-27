@@ -56,7 +56,7 @@ module Admin
           # user_params[:term_ids].map{ |e| e.gsub!(/[^0-9]/, '') }.reject(&:blank?)
           if @user.update(user_params)
             set_tags
-            format.html { redirect_to admin_user_path(@user), notice: 'user was successfully updated.'}
+            format.html { redirect_to admin_user_path(@user), notice: 'Usuario fue actualizado con éxito.'}
             format.json { render :show, status: :ok, location: @user }
           else
             format.html { render :edit}

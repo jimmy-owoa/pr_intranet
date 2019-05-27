@@ -24,7 +24,7 @@ module Admin
       @link = General::Link.new(link_params)
       respond_to do |format|
         if @link.save
-          format.html { redirect_to admin_link_path(@link), notice: 'Link was successfully created.'}
+          format.html { redirect_to admin_link_path(@link), notice: 'Link fue creada con éxito.'}
           format.json { render :show, status: :created, location: @link}
           format.js
         else
@@ -38,7 +38,7 @@ module Admin
     def update
       respond_to do |format|
         if @link.update(link_params)
-          format.html { redirect_to admin_link_path(@link), notice: 'Link was successfully updated.'}
+          format.html { redirect_to admin_link_path(@link), notice: 'Link fue actualizada con éxito.'}
           format.json { render :show, status: :ok, location: @link }
         else
           format.html { render :edit}
@@ -50,7 +50,7 @@ module Admin
     def destroy
       @link.destroy
       respond_to do |format|
-        format.html { redirect_to admin_links_path, notice: 'Link was successfully destroyed.'}
+        format.html { redirect_to admin_links_path, notice: 'Link fue eliminada con éxito.'}
         format.json { head :no_content }
       end
     end

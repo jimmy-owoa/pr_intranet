@@ -21,7 +21,7 @@ module Admin
       @benefit_group = General::BenefitGroup.new(benefit_params)
       respond_to do |format|
         if @benefit_group.save
-          format.html { redirect_to admin_benefit_path(@benefit_group), notice: 'BenefitGroup was successfully created.'}
+          format.html { redirect_to admin_benefit_path(@benefit_group), notice: 'Grupo de beneficio fue creado con éxito.'}
           format.json { render :show, status: :created, location: @benefit_group}
         else
           format.html {render :new}
@@ -33,7 +33,7 @@ module Admin
     def update
       respond_to do |format|
         if @benefit_group.update(benefit_params)
-          format.html { redirect_to admin_benefit_path(@benefit_group), notice: 'BenefitGroup was successfully updated.'}
+          format.html { redirect_to admin_benefit_path(@benefit_group), notice: 'Grupo de beneficio fue actualizado con éxito.'}
           format.json { render :show, status: :ok, location: @benefit_group }
         else
           format.html { render :edit}
@@ -45,7 +45,7 @@ module Admin
     def destroy
       @benefit_group.destroy
       respond_to do |format|
-        format.html { redirect_to admin_benefit_groups_path, notice: 'BenefitGroup was successfully destroyed.'}
+        format.html { redirect_to admin_benefit_groups_path, notice: 'Grupo de beneficio fue eliminado con éxito.'}
         format.json { head :no_content }
       end
     end

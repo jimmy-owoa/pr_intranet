@@ -42,7 +42,7 @@ module Admin
       respond_to do |format|
         if @product.save
           @product.update_attributes(user_id: current_user.id)
-          format.html { redirect_to admin_product_path(@product), notice: 'Birth was successfully created.'}
+          format.html { redirect_to admin_product_path(@product), notice: 'Producto fue creada con éxito.'}
           format.json { render :show, status: :created, location: @product}
         else
           format.html {render :new}
@@ -67,7 +67,7 @@ module Admin
         respond_to do |format|
           if @product.update(product_params)
             catch_image(params[:permissions])
-            format.html { redirect_to admin_product_path(@product), notice: 'Birth was successfully updated.'}
+            format.html { redirect_to admin_product_path(@product), notice: 'Producto fue actualizado con éxito.'}
             format.json { render :show, status: :ok, location: @product }
           else
             format.html { render :edit}
@@ -80,7 +80,7 @@ module Admin
     def destroy
       @product.destroy
       respond_to do |format|
-        format.html { redirect_to admin_products_path, notice: 'Birth was successfully destroyed.'}
+        format.html { redirect_to admin_products_path, notice: 'Producto fue eliminado con éxito.'}
         format.json { head :no_content }
       end
     end

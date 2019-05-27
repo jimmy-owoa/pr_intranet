@@ -20,7 +20,7 @@ module Admin
       @comment = News::Comment.new(comment_params)
       respond_to do |format|
         if @comment.save
-          format.html { redirect_to edit_admin_comment_path(@comment), notice: 'Comment was successfully created.'}
+          format.html { redirect_to edit_admin_comment_path(@comment), notice: 'Comentario fue creado con éxito.'}
           format.json { render :show, status: :created, location: @comment}
         else
           format.html { render :new}
@@ -32,7 +32,7 @@ module Admin
     def update
       respond_to do |format|
         if @comment.update(comment_params)
-          format.html { redirect_to admin_comment_path(@comment), notice: 'Comment was successfully updated.'}
+          format.html { redirect_to admin_comment_path(@comment), notice: 'Comentario fue actualizado con éxito.'}
           format.json { render :show, status: :ok, location: @comment }
         else
           format.html { render :edit}
@@ -44,7 +44,7 @@ module Admin
     def destroy
       @comment.destroy
       respond_to do |format|
-        format.html { redirect_to admin_comments_path, notice: 'Comment was successfully destroyed.'}
+        format.html { redirect_to admin_comments_path, notice: 'Comentario fue destruido con éxito.'}
         format.json { head :no_content }
       end
     end
