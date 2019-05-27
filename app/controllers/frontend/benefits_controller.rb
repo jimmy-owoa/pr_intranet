@@ -13,7 +13,8 @@ module Frontend
           title: benefit.title,
           url: root_url + 'admin/benefit_groups/' + "#{benefit.id}" + '/edit',
           content: benefit.content,
-          image: @image
+          image: @image,
+          link: benefit.url
         }
       end
       respond_to do |format|
@@ -32,7 +33,8 @@ module Frontend
         title: benefit.title,
         url: root_url + 'admin/benefit_groups/' + "#{benefit.id}" + '/edit',
         content: benefit.content,
-        image: @image
+        image: @image,
+        link: benefit.url
       }
       respond_to do |format|
         format.json { render json: data[0] }
