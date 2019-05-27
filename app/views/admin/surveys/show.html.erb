@@ -22,12 +22,25 @@
         <br><hr>
       <% end %>
     </div>
-    <div class='col-md-10 center'>
+    <div class='col-md-12 center'>
       <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %>
-      <%= link_to "Link de la encuesta", "#{environment}/encuestas/#{@survey.slug}", target: "_blank" %><br />
+      <%= link_to "Abrir en cliente", "#{environment}/encuestas/#{@survey.slug}", target: "_blank" %> 
+        <br />
     </div>
-      <%= link_to t('.back', :default => t("helpers.links.back")), admin_surveys_path, :class => 'btn btn-primary'  %>
-
+    <div class="col-md-12 center"><br />
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_survey_path(@survey), :class => 'btn btn-primary btn-sm' %>
+      <%= link_to 'Deshabilitar',admin_survey_path(@survey),
+                                :method => :delete,
+                                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro??')) },
+                                :class => 'btn btn-sm btn-danger'%>
+      <button class="clipboard-btn_survey btn btn-primary btn-sm" data-clipboard-action="copy" data-clipboard-target="#link_survey">
+        Copiar url
+      </button>
+        <%= link_to t('.back', :default => t("helpers.links.back")), admin_surveys_path, :class => 'btn btn-primary btn-sm'  %>
+      <div>
+    </div>
+    <div class='col-md-10' style="color: white;">
+      <b id="link_survey"><%= "#{environment}/encuestas/#{@survey.slug}" %></b>
+    </div>
   </div>
 </div>
-
