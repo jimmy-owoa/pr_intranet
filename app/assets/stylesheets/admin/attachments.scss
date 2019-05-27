@@ -4,12 +4,3 @@
 .video-media video {
   width: 800px;
 }
-
-img {
-  object-fit: none; /* Do not scale the image */
-  object-position: center; /* Center the image within the element */
-  width: 90%;
-  max-height: 250px;
-  margin-bottom: 2rem;
-  margin: 10px;
-}
