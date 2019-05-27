@@ -1,6 +1,6 @@
 module Admin
   class MessagesController < AdminController
-    
+
     before_action :set_message, only: [:show, :edit, :update, :destroy]
 
     def index
@@ -10,7 +10,7 @@ module Admin
     def show
       add_breadcrumb "Messages", :admin_messages_path
     end
-    
+
     def new
       add_breadcrumb "Messages", :admin_messages_path
       @message = General::Message.new
@@ -26,7 +26,7 @@ module Admin
       respond_to do |format|
         if @message.save
           set_tags
-          format.html { redirect_to admin_message_path(@message), notice: 'Message was successfully created.'}
+          format.html { redirect_to admin_message_path(@message), notice: 'Mensaje fue creado con éxito.'}
           format.json { render :show, status: :created, location: @message}
           format.js
         else
@@ -41,7 +41,7 @@ module Admin
       respond_to do |format|
         if @message.update(message_params)
           set_tags
-          format.html { redirect_to admin_message_path(@message), notice: 'Message was successfully updated.'}
+          format.html { redirect_to admin_message_path(@message), notice: 'Mensaje fue actualizado con éxito.'}
           format.json { render :show, status: :ok, location: @message }
         else
           format.html { render :edit}
@@ -53,7 +53,7 @@ module Admin
     def destroy
       @message.destroy
       respond_to do |format|
-        format.html { redirect_to admin_messages_path, notice: 'Message was successfully destroyed.'}
+        format.html { redirect_to admin_messages_path, notice: 'Mensaje fue eliminado con éxito.'}
         format.json { head :no_content }
       end
     end
@@ -73,8 +73,8 @@ module Admin
           terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
         end
         @message.terms << terms
-      end   
-    end    
+      end
+    end
 
     def message_params
       params.require(:message).permit(:title, :content, :message_type, :is_const, :image, terms_names: [])

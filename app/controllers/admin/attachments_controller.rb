@@ -4,6 +4,7 @@ module Admin
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
     before_action :set_terms, only: [:edit, :new]
+    respond_to :json, :html
 
     def index
       add_breadcrumb "Medios", :admin_attachments_path
@@ -61,14 +62,25 @@ module Admin
     end
 
     def update
-      respond_to do |format|
-        if @attachment.update(attachment_params)
-          set_tags
-          format.html { redirect_to admin_attachment_path(@attachment), notice: 'Archivo fué correctamente actualizado.'}
-          format.json { render :show, status: :ok, location: @attachment }
-        else
-          format.html { render :edit}
-          format.json { render json: @attachment.errors, status: :unprocessable_entity}
+      attch_name = params.dig("general_attachment","name")
+      if attch_name.present?
+        respond_to do |format|
+          if @attachment.update_attributes(name: attch_name)
+            format.json { head :ok }
+          else
+            format.json { respond_with_bip(@attachment) }
+          end
+        end
+      else
+        respond_to do |format|
+          if @attachment.update(attachment_params)
+            set_tags
+            format.html { redirect_to admin_attachment_path(@attachment), notice: 'Archivo fué correctamente actualizado.'}
+            format.json { render :show, status: :ok, location: @attachment }
+          else
+            format.html { render :edit}
+            format.json { render json: @attachment.errors, status: :unprocessable_entity}
+          end
         end
       end
     end

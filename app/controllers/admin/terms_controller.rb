@@ -24,7 +24,7 @@ module Admin
       @term = General::Term.new(term_params)
       respond_to do |format|
         if @term.save
-          format.html { redirect_to edit_admin_term_path(@term), notice: 'Term was successfully created.'}
+          format.html { redirect_to edit_admin_term_path(@term), notice: 'Etiqueta fue creada con éxito.'}
           format.json { render :show, status: :created, location: @term}
         else
           format.html { render :new}
@@ -36,7 +36,7 @@ module Admin
     def update
       respond_to do |format|
         if @term.update(term_params)
-          format.html { redirect_to admin_term_path(@term), notice: 'Term was successfully updated.'}
+          format.html { redirect_to admin_term_path(@term), notice: 'Etiqueta fue actualizada con éxito.'}
           format.json { render :show, status: :ok, location: @term }
         else
           format.html { render :edit}
@@ -48,7 +48,7 @@ module Admin
     def destroy
       @term.destroy
       respond_to do |format|
-        format.html { redirect_to admin_terms_path, notice: 'Term was successfully destroyed.'}
+        format.html { redirect_to admin_terms_path, notice: 'Etiqueta fue eliminada con éxito.'}
         format.json { head :no_content }
       end
     end

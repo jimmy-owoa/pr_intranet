@@ -22,7 +22,7 @@ module Admin
       respond_to do |format|
         if @benefit.save
           set_benefit_group
-          format.html { redirect_to admin_benefit_path(@benefit), notice: 'Benefit was successfully created.'}
+          format.html { redirect_to admin_benefit_path(@benefit), notice: 'Beneficio fue creado con éxito.'}
           format.json { render :show, status: :created, location: @benefit}
         else
           format.html {render :new}
@@ -35,7 +35,7 @@ module Admin
       respond_to do |format|
         if @benefit.update(benefit_params)
           set_benefit_group
-          format.html { redirect_to admin_benefit_path(@benefit), notice: 'Benefit was successfully updated.'}
+          format.html { redirect_to admin_benefit_path(@benefit), notice: 'Beneficio fue actualizado con éxito.'}
           format.json { render :show, status: :ok, location: @benefit }
         else
           format.html { render :edit}
@@ -47,7 +47,7 @@ module Admin
     def destroy
       @benefit.destroy
       respond_to do |format|
-        format.html { redirect_to admin_benefits_path, notice: 'Benefit was successfully destroyed.'}
+        format.html { redirect_to admin_benefits_path, notice: 'Beneficio fue eliminado con éxito.'}
         format.json { head :no_content }
       end
     end

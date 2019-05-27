@@ -142,8 +142,8 @@
       </div>
     </div>
     <div class="main-content">
-      <%= flash_messages %>
       <%= render partial: 'layouts/partials/search' %>
+      <%= flash_messages %>
       <%= yield%>
     </div>
     <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
@@ -151,4 +151,16 @@
   </body>
 </html>
 <style>
+  .fade:not(.show) {
+    opacity: 1 !important;
+    background: darkgreen;
+    color: white;
+  }
 </style>
+
+<script>
+$("#close_flash").click(function() {
+  $(".alert").fadeOut();
+});
+setTimeout(function() { $(".alert").fadeOut("slow"); }, 3000);
+</script>

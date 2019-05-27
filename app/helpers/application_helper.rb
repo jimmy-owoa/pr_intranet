@@ -9,7 +9,7 @@ module ApplicationHelper
   def flash_messages(opts = {})
     flash.each do |msg_type, message|
       concat(content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} fade in") do
-        concat content_tag(:button, 'x', class: "close", data: { dismiss: 'alert' })
+        concat content_tag(:button, 'x', class: "close", id: "close_flash", data: { dismiss: 'alert' })
         concat message
       end)
     end
@@ -139,8 +139,11 @@ module ApplicationHelper
 
   def show_media_index file
     if supported_img(file) && file.attached?
-      return image_tag file.attachment.variant(resize: "360x300>")
-    elsif supported_video(file) && file.attached?
+      # if  file.attachment.metadata.dig("width") <= 450 && file.attachment.metadata.dig("height") <= 450
+        return image_tag file.attachment.variant(resize: "200x250>")
+      # elsif (file.attachment.metadata.dig("width") > 450 && file.attachment.metadata.dig("height") > 450) 
+      #   return image_tag file.attachment.variant(combine_options: { gravity: 'Center', crop: '200x250+0+0' })
+    elsif supported_video(file) && file.attached? 
       return video_tag(url_for(file.attachment), width: '224px')
     else
       return '<h4>Archivo no soportado</h4>'.html_safe

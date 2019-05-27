@@ -7,7 +7,7 @@
       <%= f.input :name, required: true %>
       <%= f.label :description %>
       <%= f.text_area :description, :class => "tinymce", :rows => 2 %>
-      <%= tinymce %>       
+      <%= tinymce %>
     </div>
   </div>
 </div>
@@ -27,7 +27,7 @@
         <div class="row" style='padding: 15px'>
           <% @gallery.attachments.each do |image|%>
             <div class="col-md-3" >
-              <figure>                    
+              <figure>
                 <%= image_tag(image.attachment.variant(resize: '200x150>'))%>
                 <figcaption>
                   <%= link_to 'Ruta', rails_blob_url(image.attachment), id: 'link_attachment',target: "_blank" %>

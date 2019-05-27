@@ -127,10 +127,10 @@ module Frontend
         content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://localhost:3000')
       end
     else
-      content = content.gsub("<source src=\"../..", '<video src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
-      content = content.gsub("<source src=\"", '<video src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/rails/')
-      content = content.gsub("<img src=\"../..", '<img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
-      content = content.gsub("<img src=\"rails/", '<img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/rails/')
+      content = content.gsub("<source src=\"../..", '<video src="http://18.224.219.66')
+      content = content.gsub("<source src=\"", '<video src="http://18.224.219.66/rails/')
+      content = content.gsub("<img src=\"../..", '<img src="http://18.224.219.66')
+      content = content.gsub("<img src=\"rails/", '<img src="http://18.224.219.66/rails/')
       #video
       if content.include?("<p><video style=\"float: right;\"")
         content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
@@ -143,13 +143,13 @@ module Frontend
       end
       #image
       if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://18.224.219.66')
       end
       if content.include?("<p><img style=\"float: right;\"")
-        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://18.224.219.66')
       end
       if content.include?("<p><img style=\"float: left;\"")
-        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com')
+        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://18.224.219.66')
       end
     end
     content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')

@@ -1,4 +1,36 @@
 $(document).ready(function() {
+  $(".clipboard-btn_survey").tooltip({
+    trigger: "click",
+    placement: "bottom"
+  });
+
+  function setTooltip(btn, message) {
+    $(btn)
+      .tooltip("show")
+      .attr("data-original-title", message)
+      .tooltip("show");
+  }
+
+  function hideTooltip(btn) {
+    setTimeout(function() {
+      $(btn).tooltip("hide");
+    }, 1000);
+  }
+
+  // Clipboard
+
+  var clipboard = new Clipboard(".clipboard-btn_survey");
+
+  clipboard.on("success", function(e) {
+    setTooltip(e.trigger, "Copiado");
+    hideTooltip(e.trigger);
+  });
+
+  clipboard.on("error", function(e) {
+    setTooltip(e.trigger, "error!");
+    hideTooltip(e.trigger);
+  });
+
   $("[rel=tooltip]").tooltip({ placement: "right" });
   $(".select-question-type").on("change", function() {
     var selectedVal = $(this).val();

@@ -34,7 +34,7 @@ module Admin
       @birth = Employee::Birth.new(birth_params)
       respond_to do |format|
         if @birth.save
-          format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully created.'}
+          format.html { redirect_to admin_birth_path(@birth), notice: 'Nacimiento fue creado con éxito.'}
           format.json { render :show, status: :created, location: @birth}
         else
           format.html {render :new}
@@ -56,7 +56,7 @@ module Admin
         respond_to do |format|
           if @birth.update(birth_params)
             catch_image(params[:permissions])
-            format.html { redirect_to admin_birth_path(@birth), notice: 'Birth was successfully updated.'}
+            format.html { redirect_to admin_birth_path(@birth), notice: 'Nacimiento fue actualizado con éxito.'}
             format.json { render :show, status: :ok, location: @birth }
           else
             format.html { render :edit}
@@ -83,7 +83,7 @@ module Admin
     def destroy
       @birth.destroy
       respond_to do |format|
-        format.html { redirect_to admin_births_path, notice: 'Birth was successfully destroyed.'}
+        format.html { redirect_to admin_births_path, notice: 'Nacimiento fue eliminado con éxito.'}
         format.json { head :no_content }
       end
     end

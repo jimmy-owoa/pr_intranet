@@ -4,12 +4,12 @@
   <div class='row'>
     <% @attachments.each do |at| %>
       <div class="col-md-3">
-        <div class="card" style="width: 14rem;">
-
+        <div class="card">
           <%= show_media_index(at.attachment) %>
-
           <div class="card-body">
-            <h5 class="card-title"><%= at.name %></h5>
+
+              <h5 class="card-title"><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}  %></h5>
+
             <%= link_to 'Ruta', rails_blob_url(at.attachment), id: 'link_attachment',target: "_blank" %>
           </div>
           <div class="card-body">
@@ -33,3 +33,10 @@
     <%= link_to 'Nueva Imagen', new_admin_attachment_path, :class => 'btn btn-primary btn-sm' %>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('.best_in_place').best_in_place()
+    $('.best_in_place').bind("ajax:success", function(){ alert('Se cambió el nombre de '+$(this).data('attachName')); });
+  });
+</script>

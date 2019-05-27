@@ -43,7 +43,7 @@ module Admin
       respond_to do |format|
         if @post.save
           set_tags
-          format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully created.'}
+          format.html { redirect_to admin_post_path(@post), notice: 'Noticia fue creada con éxito.'}
           format.json { render :show, status: :created, location: @post}
         else
           format.html {render :new}
@@ -57,7 +57,7 @@ module Admin
       respond_to do |format|
         if @post.update(post_params)
           set_tags
-          format.html { redirect_to admin_post_path(@post), notice: 'Post was successfully updated.'}
+          format.html { redirect_to admin_post_path(@post), notice: 'Noticia fue actualizada con éxito.'}
           format.json { render :show, status: :ok, location: @post }
         else
           format.html { render :edit}
@@ -69,7 +69,7 @@ module Admin
     def destroy
       @post.destroy
       respond_to do |format|
-        format.html { redirect_to admin_posts_path, notice: 'Post was successfully destroyed.'}
+        format.html { redirect_to admin_posts_path, notice: 'Noticia fue eliminada con éxito.'}
         format.json { head :no_content }
       end
     end

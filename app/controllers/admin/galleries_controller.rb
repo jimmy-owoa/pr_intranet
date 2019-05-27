@@ -38,7 +38,7 @@ module Admin
     respond_to do |format|
       if @gallery.save
         @galleries_list = General::Gallery.all.map{|a| [a.id, a.name]}
-        format.html { redirect_to edit_admin_gallery_path(@gallery), notice: 'Gallery was successfully created.' }
+        format.html { redirect_to edit_admin_gallery_path(@gallery), notice: 'Galería fue creada con éxito.' }
         format.json { render :show, status: :created, location: @gallery }
         format.js
       else
@@ -52,7 +52,7 @@ module Admin
   def update
     respond_to do |format|
       if @gallery.update(gallery_params)
-        format.html { redirect_to admin_gallery_path(@gallery), notice: 'Gallery was successfully updated.' }
+        format.html { redirect_to admin_gallery_path(@gallery), notice: 'Galería fue actualizada con éxito.' }
         format.json { render :show, status: :ok, location: @gallery }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ module Admin
   def destroy
     @gallery.destroy
     respond_to do |format|
-      format.html { redirect_to admin_galleries_path, notice: 'Gallery was successfully destroyed.' }
+      format.html { redirect_to admin_galleries_path, notice: 'Galería fue eliminada con éxito.' }
       format.json { head :no_content }
     end
   end
