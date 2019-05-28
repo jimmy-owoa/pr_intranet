@@ -262,15 +262,6 @@
     height: inherit;
     width: inherit;
   }
-  .v-avatar,
-  .v-avatar .v-icon,
-  .v-avatar .v-image,
-  .v-avatar img {
-    border-radius: 50%;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-  }
   .v-responsive {
     position: relative;
     overflow: hidden;
@@ -1038,10 +1029,10 @@
       <div class="flex text-md-right text-capitalize title font-weight-regular sm4">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
            ¡Hola <%= user.name %>!
-          <div class="v-avatar" style="height: 65px; width: 65px; margin-top: -30px;">
-            <div aria-label="Avatar" class="v-responsive v-image" style="margin-top: -5px;">
+          <div class="v-avatar" style="height: 50px; width: 50px; margin-top: -15px;">
+            <div aria-label="Avatar" class=" v-image" style="margin-top: -5px;">
               <% if user.image.attached? %> 
-                <%= image_tag(user.image) %> 
+                <%= image_tag(user.image, style:'object-fit: cover;') %> 
               <% end%>
             </div>
           </div>
