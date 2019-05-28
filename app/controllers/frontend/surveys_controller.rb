@@ -115,7 +115,9 @@ module Frontend
     def survey
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
-      survey = Survey::Survey.find_by_slug(slug)
+      surveys = Survey::Survey.survey_data(3)
+      survey = surveys.select {|survey| survey.slug == slug if survey.present?}
+      survey = survey[0]
       data_survey = []
         data_questions = []
         survey.questions.each do |question|
