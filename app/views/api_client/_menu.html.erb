@@ -1055,7 +1055,12 @@
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
               <ul>
-                <h4 class="head_section"><%= menu_parent_object.title %></h4>
+               
+                <% if menu_parent_object.link.present? %>
+                  <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
+                <% else %>
+                  <h4 class="head_section"><%= menu_parent_object.title %></h4>
+                <% end %>
                 <% menu_parent_object.children(exa_menu).each do |link| %>
                   <% if link[:link].downcase[0..3] == 'http'%>
                     <%= link_to link[:title], link[:link] %>
