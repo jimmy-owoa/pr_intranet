@@ -60,7 +60,8 @@ module Admin
       #   end
       if params["product"]["approved"].present?
         @product.update_attributes(approved: params["product"]["approved"])
-        redirect_to request.referrer, notice: "Aprobando"
+        @product.update(product_params)
+        redirect_to request.referrer, notice: "Aprobado"
       elsif params['image_id'].present?
         ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
       else
