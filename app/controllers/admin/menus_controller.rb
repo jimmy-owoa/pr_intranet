@@ -10,7 +10,7 @@ module Admin
       @menu = General::Menu.new
     end
 
-    def html 
+    def html
       @user_id = 3 # TODO: Cambiar al correcto
       @location_id = 2 # TODO: Cambiar al correcto
       @menus = General::Menu.all
