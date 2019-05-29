@@ -33,8 +33,8 @@
   </div>
   <div class="col-6 col-sm-6">
     <%= f.label :tags %>
-    <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
     <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @menu.terms.tags.map(&:name)), multiple: true, class:'form-control string optional', id:'tag_menu' %>
+    <p class="tip_format">Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse</p>
   </div>
   <div class="col-6 col-sm-6">
     <%= f.association :terms, collection: General::Term.categories, as: :check_boxes, label: 'Empresas' %>

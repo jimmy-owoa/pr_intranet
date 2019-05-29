@@ -172,12 +172,21 @@ module Frontend
     end
     image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
     gallery = []
+    items = []
     content = fix_content(post.content)
       if post.galleries.present?
         post.galleries.first.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
           gallery << {
             id: image.id,
             url: url_for(image.attachment)
+          }
+        end
+      end
+      if post.galleries.present?
+        post.galleries.first.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
+          items << {
+            src: url_for(image.attachment),
+            thumbnail: url_for(image.attachment.variant(resize: "100x100"))
           }
         end
       end
@@ -201,6 +210,7 @@ module Frontend
           {link: '#', name: post.title.truncate(30)}
         ],
       gallery: gallery,
+      items: items,
       relationed_posts: data_relationed_posts
     }
     respond_to do |format|

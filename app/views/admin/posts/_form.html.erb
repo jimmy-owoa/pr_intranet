@@ -74,13 +74,12 @@
       <div class="form-group row ">
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas incluyentes' %>
-        <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
           <%= select_tag :terms_names, options_for_select(General::Term.inclusive_tags.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
         </div>
         <div class="col-12 col-sm-12">
           <%= f.label 'Etiquetas excluyentes' %>
-          <i class="fas fa-exclamation-circle" rel="tooltip" title="Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse "></i>
           <%= select_tag :terms_names, options_for_select(General::Term.excluding_tags.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
+          <div class="tip_format">Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse</div>
         </div>
       </div>
     </div>
@@ -133,8 +132,8 @@
         </div>
           <div class="col-md-12">
             <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
-          <div>
-            <i class="fas fa-exclamation-circle" rel="tooltip" title="Estilo 1: Normal - Estilo 2: Rosado - Estilo 3: Naranja" id="ben_img"></i>
+          <div class="tip_format">
+            Estilo 1: Normal - Estilo 2: Rosado - Estilo 3: Naranja
           </div>
         </div>
       </div>
@@ -143,13 +142,11 @@
 </div>
 <script>
 $(document).ready(function(){
-    $("[rel=tooltip]").tooltip({ placement: 'right'});
-});
 $('input,textarea').focus(function(){
-   $(this).data('placeholder',$(this).attr('placeholder'))
+  $(this).data('placeholder',$(this).attr('placeholder'))
           .attr('placeholder','');
 }).blur(function(){
-   $(this).attr('placeholder',$(this).data('placeholder'));
+  $(this).attr('placeholder',$(this).data('placeholder'));
 });
 
   function readURL(input) {
@@ -165,5 +162,5 @@ $('input,textarea').focus(function(){
       reader.readAsDataURL(input.files[0]);
     }
   }
-
+});
 </script>

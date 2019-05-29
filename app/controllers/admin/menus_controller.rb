@@ -10,7 +10,7 @@ module Admin
       @menu = General::Menu.new
     end
 
-    def html 
+    def html
       @user_id = 3 # TODO: Cambiar al correcto
       @location_id = 2 # TODO: Cambiar al correcto
       @menus = General::Menu.all
@@ -28,7 +28,7 @@ module Admin
       end
       @data = {
         menus: @menus,
-        user: @user,      
+        user: @user,
         weather: @weather,
         santoral: @santoral[0],
         location_name: @location.name,
@@ -38,7 +38,7 @@ module Admin
         format.json { render @data }
       end
     end
-    
+
     def create
       @menu = General::Menu.new(menu_params)
       respond_to do |format|
