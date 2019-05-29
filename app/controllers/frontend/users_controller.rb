@@ -71,7 +71,7 @@ module Frontend
         father: data_father,
         breadcrumbs: [
             {link: '/', name: 'Inicio' },
-            {link: '#', name: (@user.name + ' ' + @user.last_name).truncate(30)}
+            {link: '#', name: 'Buscar'}
           ]
       }
       respond_to do |format|
@@ -160,6 +160,8 @@ module Frontend
                 name: benefit.title,
                 content: benefit.content,
                 image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
+                url: root_url + 'admin/benefits/' + "#{benefit.id}" + '/edit',
+                link: benefit.url
               }
             end
             data[:benefit_types] << benefit_type_hash
@@ -226,7 +228,7 @@ module Frontend
         annexed: @user.annexed,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
-          {link: '#', name: @nickname}
+          {link: '#', name: 'Mi perfil'}
         ],
         address: @user.address,
         location: @location,
@@ -380,7 +382,7 @@ module Frontend
         annexed: @user.annexed,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
-          {link: '#', name: @nickname}
+          {link: '#', name: 'Mi perfil'}
         ],
         address: @user.address,
         location: @location,

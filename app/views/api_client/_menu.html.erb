@@ -262,15 +262,6 @@
     height: inherit;
     width: inherit;
   }
-  .v-avatar,
-  .v-avatar .v-icon,
-  .v-avatar .v-image,
-  .v-avatar img {
-    border-radius: 50%;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-  }
   .v-responsive {
     position: relative;
     overflow: hidden;
@@ -1037,11 +1028,11 @@
       </div>
       <div class="flex text-md-right text-capitalize title font-weight-regular sm4">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
-           <%# ¡Hola <%= user.name %>
-          <div class="v-avatar" style="height: 65px; width: 65px; margin-top: -30px;">
-            <div aria-label="Avatar" class="v-responsive v-image" style="margin-top: -5px;">
+           ¡Hola <%= user.name %>!
+          <div class="v-avatar" style="height: 50px; width: 50px; margin-top: -15px;">
+            <div aria-label="Avatar" class=" v-image" style="margin-top: -5px;">
               <% if user.image.attached? %> 
-                <%= image_tag(user.image) %> 
+                <%= image_tag(user.image, style:'object-fit: cover;') %> 
               <% end%>
             </div>
           </div>
@@ -1064,7 +1055,11 @@
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
               <ul>
-                <h4 class="head_section"><%= menu_parent_object.title %></h4>
+                <% if menu_parent_object.link.present? %>
+                  <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
+                <% else %>
+                  <h4 class="head_section"><%= menu_parent_object.title %></h4>
+                <% end %>
                 <% menu_parent_object.children(exa_menu).each do |link| %>
                   <% if link[:link].downcase[0..3] == 'http'%>
                     <%= link_to link[:title], link[:link] %>

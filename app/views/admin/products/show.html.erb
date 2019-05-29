@@ -36,5 +36,8 @@
       </div>
     </div>
   </div>
-  <%= link_to t('.back', :default => t("helpers.links.back")), :back, :class => 'btn btn-primary'  %>
+  <div class="col-sm-12 text-center">
+    <%= link_to t('.back', :default => t("helpers.links.back")), :back, :class => 'btn btn-primary'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(@product), :class => 'btn btn-primary' %>
+  </div>
 </div>

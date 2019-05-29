@@ -21,17 +21,13 @@ module Frontend
           name: product.name,
           approved: product.approved,
           product_type: product.product_type,
+          user_id: product.user_id,
           url: root_url + 'admin/products/' + "#{product.id}" + '/edit',
-          user_id: General::User.find(product.user_id).id,
-          created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
           price: product.price,
-          location: product.location,
-          email: product.email,
-          phone: product.phone,
           is_expired: product.is_expired,
           expiration: product.expiration,
           description: product.description,
-          main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: {resize: "400>x300>", gravity: 'Center' })) :  root_url + '/assets/noimage.png',
+          main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: {resize: "400>x300>", gravity: 'Center' })) :  root_url + ActionController::Base.helpers.asset_url('noimage.png'),
           items: product.images.present? ? items : root_url + '/assets/noimage.png',
           breadcrumbs: [
             {link: '/', name: 'Inicio' },
@@ -74,7 +70,11 @@ module Frontend
         user_id: product.user_id,
         user_full_name: General::User.find(product.user_id).full_name,
         is_expired: product.is_expired,
-        items: product.images.present? ? items : root_url + '/assets/noimage.jpg'
+        items: product.images.present? ? items : 
+        [{
+          src: root_url + ActionController::Base.helpers.asset_url('noimage.png'),
+          thumbnail: root_url + ActionController::Base.helpers.asset_url('noimage.png')
+        }]
       }
       respond_to do |format|
         format.json { render json: data[0] }
