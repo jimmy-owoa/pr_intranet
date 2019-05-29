@@ -8,14 +8,20 @@ module Frontend
       galleries.each do |gal|
         attachments = []
         gal.attachments.each do |att|
-          attachments << {
-            img: url_for(att.attachment)
-          }
+          if att.attachment.metadata.dig("width").to_i < 351
+            attachments << {
+              img: url_for(att.attachment.variant(combine_options: {resize: 'x351', gravity: 'Center'}))
+            }
+          else
+            attachments << {
+              img: url_for(att.attachment.variant(combine_options: {resize: 'x351>', gravity: 'Center'}))
+            }
+          end
         end
         data << {
           id: gal.id,
           name: gal.name,
-          main_image: url_for(gal.attachments.first.attachment),
+          main_image: url_for(gal.attachments.first.attachment.variant(combine_options: {resize: 'x351', gravity: 'Center'})),
           images: attachments,
         }
       end

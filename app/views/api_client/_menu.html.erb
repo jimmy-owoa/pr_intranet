@@ -93,8 +93,8 @@
     text-align: left;
   }
   .v-text-field.v-text-field--solo .v-input__control {
-    min-height: 48px;
-    padding: 0;
+    min-height: 11px;
+    padding-top: 6px;
   }
   .v-input__control {
     display: -webkit-box;
@@ -299,7 +299,7 @@
   }
   .search_position {
     position: absolute;
-    right: 0px;
+    top: 0px;
     height: 30px;
   }
   .container {
@@ -991,7 +991,7 @@
 <!-- INDICATORS MODAL END -->
 <div style="padding-top: 20px;">
   <div class="hidden-sm-and-down">
-    <div class="layout">
+    <div class="layout" style="padding-bottom: 13px;">
       <div class="flex sm2">
         <a href="/#/">
           <img
@@ -1010,7 +1010,7 @@
               <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 24px; cursor: pointer; margin: 5px 0 0 0;padding-right: 7px;")%>
             </div>
             <div class="text-md-center subheading" style="margin-top: 3px;">
-              <%= location_name %>: 
+              <%= location_name %> 
 							<% if weather[0].present? %> 
 								<%= weather[0].current_temp.to_i %>° 
 							<% else %>
@@ -1020,17 +1020,17 @@
           </div>
         </a>
       </div>
-      <div class="flex sm2 text-md-left subheading pointer">
+      <div class="flex sm2 text-md-left subheading pointer" style="margin-left: -63px;">
         <a href="#indicators_modal" style="text-decoration: none; color: black;">
-					<i aria-hidden="true" class="v-icon material-icons theme--light" style="margin-top: 3px;">multiline_chart</i>
+					<i aria-hidden="true" class="v-icon material-icons theme--light" style="margin-top: 3px;">equalizer</i>
 						<div style="margin-top: -26px; margin-left: 27px;">Indicadores económicos</div>
 				</a>
       </div>
-      <div class="flex text-md-right text-capitalize title font-weight-regular sm4">
+      <div class="flex text-md-right text-capitalize title font-weight-regular sm4" style="margin-left: 63px;">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
-           ¡Hola <%= user.name %>!
-          <div class="v-avatar" style="height: 50px; width: 50px; margin-top: -15px;">
-            <div aria-label="Avatar" class=" v-image" style="margin-top: -5px;">
+          <div style="position: absolute; right: 361px;">¡Hola <%= user.name %>!</div>
+          <div class="v-avatar" style="height: 42px; width: 42px; margin-top: -15px;">
+            <div aria-label="Avatar" class=" v-image" style="margin-top: 7px;">
               <% if user.image.attached? %> 
                 <%= image_tag(user.image, style:'object-fit: cover;') %> 
               <% end%>
@@ -1050,12 +1050,11 @@
     <ul id="ul_menu">
       <% main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
-          <a class="head_menu" href="#" title="Menu 1"><%= main_menu.title %><%= image_tag asset_url("arrowdown.png") , class: "arrow_down_menu"%></a>
+          <a class="head_menu" style="font-size: 14px;" href="#" title="Menu 1"><%= main_menu.title.upcase %></a>
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
               <ul>
-               
                 <% if menu_parent_object.link.present? %>
                   <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
                 <% else %>
@@ -1073,30 +1072,13 @@
           </ul>
         </li>
       <% end %>
+      <li class="submenu" id="submenu1">
+        <a class="head_menu" style="font-size: 14px;" href="#"><%= 'INVERSIONES' %></a>
+      </li>
       <li>
-      <div class="search_position">
+      <div class="search_position" style="padding-top: 12px; padding-right: 15px;">
         <div class="hidden-sm-and-down" id="search_desktop">
-          <div class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--solo-flat v-text-field--enclosed theme--light">
-            <div class="v-input__control">
-              <div class="v-input__slot" style="border: 2px solid darkgray;">
-                <div class="v-text-field__slot">
-                  <label aria-hidden="true" class="v-label theme--light"></label>
-                  <input aria-label="Buscar" id="search_toolbar" right type="text"/>
-                </div>
-                <div class="v-input__append-inner">
-                  <div class="v-input__icon v-input__icon--append">
-                    <i aria-hidden="true" class="v-icon v-icon--link material-icons theme--light">search</i>
-                  </div>
-                </div>
-              </div>
-              <div class="v-text-field__details">
-                <div class="v-messages theme--light">
-                  <div class="v-messages__wrapper"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ul class="results_ul" style="color: red;"></ul>
+          <i aria-hidden="true" class="v-icon v-icon--link material-icons theme--light">search</i>
           <br/>
         </div>
       </div>
