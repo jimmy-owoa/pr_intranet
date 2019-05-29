@@ -13,7 +13,7 @@ module Frontend
         product.images.each do |image|
           items << {
             src: url_for(image),
-            thumbnail: url_for(image.variant(resize: "100x100")) 
+            thumbnail: url_for(image.variant(resize: "100x100"))
           }
         end
         data << {
@@ -31,7 +31,7 @@ module Frontend
           is_expired: product.is_expired,
           expiration: product.expiration,
           description: product.description,
-          main_image: product.images.first.present? ? url_for(product.images.first) :  root_url + '/assets/noimage.png',
+          main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: {resize: "400>x300>", gravity: 'Center' })) :  root_url + '/assets/noimage.png',
           items: product.images.present? ? items : root_url + '/assets/noimage.png',
           breadcrumbs: [
             {link: '/', name: 'Inicio' },
@@ -47,6 +47,7 @@ module Frontend
     end
 
     def product
+
       slug = params[:slug].present? ? params[:slug] : nil
       product = Marketplace::Product.find(slug)
       data = []
@@ -54,7 +55,7 @@ module Frontend
       product.images.each do |image|
         items << {
           src: url_for(image),
-          thumbnail: url_for(image.variant(resize: "100x100")) 
+          thumbnail: url_for(image.variant(resize: "100x100"))
         }
       end
       data << {
@@ -98,15 +99,15 @@ module Frontend
       user_id = params[:user_id]
       images = params[:images]
       product_type = params[:product_type]
-      @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone, 
+      @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone,
         description: description, location: location, user_id: user_id, approved: false, expiration: 30)
 
-      if images.present? 
+      if images.present?
         images.each do |image|
           base64_image = image[1].sub(/^data:.*,/, '')
           decoded_image = Base64.decode64(base64_image)
           image_io = StringIO.new(decoded_image)
-          @product_image = { io: image_io, filename: name }  
+          @product_image = { io: image_io, filename: name }
           @product.images.attach(@product_image)
         end
       end

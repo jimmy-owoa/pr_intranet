@@ -11,5 +11,4 @@ $(document).ready(function() {
     tags: false,
     tokenSeparators: []
   });
-  $("[rel=tooltip]").tooltip({ placement: 'right'});
 });
