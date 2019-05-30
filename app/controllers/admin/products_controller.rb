@@ -58,10 +58,6 @@ module Admin
           @product.update_attributes(approved: params['approved'])
           format.json { render :json => {value: "success"} and return}
         end
-      elsif params["product"]["approved"].present?
-          @product.update_attributes(approved: params["product"]["approved"])
-          @product.update(product_params)
-          redirect_to request.referrer, notice: "Aprobado"
       elsif params['image_id'].present?
         ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
       else
