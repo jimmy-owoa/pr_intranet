@@ -995,8 +995,8 @@
       <div class="flex sm2">
         <a href="/#/">
           <img
-            src="http://intranet-security-dev.s3-website.us-east-2.amazonaws.com/img/header.41ac21fa.png"
-            style="height: 2rem; cursor: pointer; margin-top: 2px;"
+            src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png"
+            style="height: 2.5rem; cursor: pointer; margin-top: -2px;"
           />
         </a>
       </div>
@@ -1028,9 +1028,9 @@
       </div>
       <div class="flex text-md-right text-capitalize title font-weight-regular sm4" style="margin-left: 63px;">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
-          <div style="position: absolute; right: 361px;">¡Hola <%= user.name %>!</div>
+          ¡Hola <%= user.name %>!
           <div class="v-avatar" style="height: 42px; width: 42px; margin-top: -15px;">
-            <div aria-label="Avatar" class=" v-image" style="margin-top: 7px;">
+            <div aria-label="Avatar" class=" v-image">
               <% if user.image.attached? %> 
                 <%= image_tag(user.image, style:'object-fit: cover;') %> 
               <% end%>
