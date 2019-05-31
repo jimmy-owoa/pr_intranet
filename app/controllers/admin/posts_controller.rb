@@ -36,7 +36,7 @@ module Admin
     def edit
       add_breadcrumb "Noticias", :admin_posts_path
     end
-    
+
     def create
       # params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       @post = News::Post.new(post_params)
