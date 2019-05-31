@@ -312,7 +312,7 @@
   nav {
     position: inherit;
     width: 100%;
-    background: #fafafa;
+    background: #f2f2f2;
     font-size: 14px;
   }
   /* first stage */
@@ -324,7 +324,6 @@
     margin: 0 auto 5px;
     padding: 0;
     height: 50px;
-    border-bottom: 1px solid#ddd;
     z-index: 9;
   }
   nav a {
@@ -769,7 +768,7 @@
     }
   }
 </style>
-<div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>" style="height: 0 !important; margin: 0 !important; padding: 0 !important"></div>
+<div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>"></div>
 <!-- WEATHER MODAL START -->
 <div class="modalDialog" id="weather_modal">
   <div>
@@ -989,7 +988,7 @@
   </div>
 </div>
 <!-- INDICATORS MODAL END -->
-<div style="padding-top: 20px;">
+<div style="padding-top: 33px;" >
   <div class="hidden-sm-and-down">
     <div class="layout" style="padding-bottom: 13px;">
       <div class="flex sm3">
@@ -1007,7 +1006,7 @@
         <a href="#weather_modal" style="text-decoration: none; color: black;">
           <div class="v-responsive v-image" style="height: 24px;">
             <div>
-              <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 24px; cursor: pointer; margin: 5px 0 0 0;padding-right: 7px;")%>
+              <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 24px; cursor: pointer; padding-right: 7px;")%>
             </div>
             <div class="text-md-center subheading" style="margin-top: 3px;">
               <%= location_name %> 
@@ -1020,23 +1019,25 @@
           </div>
         </a>
       </div>
-      <div class="flex sm3 text-md-left subheading pointer" style="margin-left: -12px;">
+      <div class="flex sm3 text-md-left subheading pointer">
         <a href="#indicators_modal" style="text-decoration: none; color: black;">
 					<i aria-hidden="true" class="v-icon material-icons theme--light" style="margin-top: 3px;">equalizer</i>
-						<div style="margin-top: -26px; margin-left: 27px;">Indicadores económicos</div>
+						<div style="margin-top: -27px; margin-left: 27px;">Indicadores económicos</div>
 				</a>
       </div>
-      <div class="flex text-md-right text-capitalize title font-weight-regular sm4" style="margin-left: 63px;">
+      <div class="flex text-md-right text-capitalize title font-weight-regular sm4" style="margin-left: 63px; margin-top: -2px;">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
           ¡Hola <%= user.name %>!
+        </a>
+        <a href="/#/perfil">
           <div class="v-avatar" style="height: 42px; width: 42px; margin-top: -15px;">
-            <div aria-label="Avatar" class=" v-image">
+            <div aria-label="Avatar" class=" v-image" style="padding-top: 4px;">
               <% if user.image.attached? %> 
                 <%= image_tag(user.image, style:'object-fit: cover;') %> 
               <% end%>
             </div>
           </div>
-        </a>
+          </a>
       </div>
     </div>
     <div class="layout">
