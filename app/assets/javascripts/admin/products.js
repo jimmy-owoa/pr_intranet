@@ -29,6 +29,8 @@ $(document).on("turbolinks:load", function() {
     var id;
     id = $(this).data("id");
     image_id = $(this).data("image");
+    console.log(id);
+    console.log(image_id);
     return $.ajax({
       headers: {
         "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content")

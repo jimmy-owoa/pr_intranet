@@ -53,15 +53,11 @@ module Admin
 
     def update
       authorize @product
-      # if params['approved'].present?
-      #   respond_to do |format|
-      #     @product.update_attributes(approved: params['approved'])
-      #     format.json { render :json => {value: "success"} and return}
-      #   end
-      if params["product"]["approved"].present?
-        @product.update_attributes(approved: params["product"]["approved"])
-        @product.update(product_params)
-        redirect_to request.referrer, notice: "Aprobado"
+      if params['approved'].present?
+        respond_to do |format|
+          @product.update_attributes(approved: params['approved'])
+          format.json { render :json => {value: "success"} and return}
+        end
       elsif params['image_id'].present?
         ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
       else
