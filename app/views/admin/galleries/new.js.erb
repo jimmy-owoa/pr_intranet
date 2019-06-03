@@ -12,8 +12,8 @@ $("select.image-picker").imagepicker({
         $('#gallery_modal').modal('toggle');
         $('#post_gallery_ids').val(values);
         if (values >= 1) {
-          console.log(values)
-          $('#gallery1, #gallery2').text(`Galerías seleccionas: ${values}`)
+          console.log($('#post_gallery_ids'))
+          $('#gallery1, #gallery2').text(`Galerías seleccionadas: ${values}`)
         }
         $('#gallery_modal').modal('hide');
       }
