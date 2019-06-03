@@ -1,46 +1,32 @@
-<div class="form-group row">
-  <div class="col-md-10 center card p-4">
-    <div class="col-md-10 center">  
-      <%= image_tag @survey.image.variant(resize: '360x300>') if @survey.image.attached? %><br />
-      <h4><%= @survey.name %></h4><br>
-      <% @survey.questions.each_with_index do |question, index| %>
-        <h5><b>Pregunta <%= index + 1 %>: <%= question.title %></b><br>
-        <%= question.description %>
-        <%= load_option(question) %>
-        <% if question.question_type == 'Múltiple' %>
-          <% question.options.each do |option| %>
-            <br>
-            <input type="checkbox" name="#{option.title}" value="#{option.id}"><%= option.title %>
-          <% end %> 
-        <% end %>
-        <% if question.question_type == 'Simple' %>
-          <% question.options.each do |option| %>
-            <br>
-            <input type="radio" name="#{option.title}" value="#{option.id}"><%= option.title %>
-          <% end %> 
-        <% end %>
-        <br><hr>
-      <% end %>
-    </div>
-    <div class='col-md-12 center'>
-      <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %>
-      <%= link_to "Abrir en cliente", "#{environment}/encuestas/#{@survey.slug}", target: "_blank" %> 
-        <br />
-    </div>
-    <div class="col-md-12 center"><br />
-      <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_survey_path(@survey), :class => 'btn btn-primary btn-sm' %>
-      <%= link_to 'Deshabilitar',admin_survey_path(@survey),
-                                :method => :delete,
-                                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Estás seguro??')) },
-                                :class => 'btn btn-sm btn-danger'%>
-      <button class="clipboard-btn_survey btn btn-primary btn-sm" data-clipboard-action="copy" data-clipboard-target="#link_survey">
-        Copiar url
-      </button>
-        <%= link_to t('.back', :default => t("helpers.links.back")), admin_surveys_path, :class => 'btn btn-primary btn-sm'  %>
-      <div>
-    </div>
-    <div class='col-md-10' style="color: white;">
-      <b id="link_survey"><%= "#{environment}/encuestas/#{@survey.slug}" %></b>
+<div class='section'>
+  <h1 class='section-header'>Título: <%= @survey.name.capitalize %></h1>
+  <div class='form-group row'>
+    <div class='col-md-11 center card p-4'>
+      <div class='col-md-12 text-center'>  
+        <%= image_tag @survey.image.variant(resize: '360x300>') if @survey.image.attached? %><br />
+        <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %><br />
+        <%= link_to 'Ver en cliente final', "#{environment}/#/encuestas/#{@survey.slug}", target: '_blank', class: 'btn btn-sm btn-success' %> 
+      </div>
+      <div class='col-md-12 text-center pt-4'>  
+        <%= text_field_tag 'Hola', "#{environment}/#/encuestas/#{@survey.slug}", readonly: true, size: '50', onclick: 'this.select();'%>
+        <button class='clipboard-btn_survey btn btn-primary btn-sm' data-clipboard-action='copy' data-clipboard-target='#link_survey'>
+            Copiar link
+          </button>
+          <div class='col-md-12 text-center' style='color: white;'>
+            <b id='link_survey'><%= "#{environment}/encuestas/#{@survey.slug}" %></b>
+          </div>
+        </div>
+      <div class='col-md-12 text-center'><br />
+        <%= link_to t('.edit', :default => t('helpers.links.edit')),edit_admin_survey_path(@survey), :class => 'btn btn-primary btn-sm' %>
+        <%= link_to 'Deshabilitar',admin_survey_path(@survey),
+                                  :method => :delete,
+                                  :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => '¿Estás seguro??')) },
+                                  :class => 'btn btn-sm btn-danger'%>
+        
+          <%= link_to t('.back', :default => t('helpers.links.back')), admin_surveys_path, :class => 'btn btn-primary btn-sm'  %>
+        <div>
+      </div>
+   
     </div>
   </div>
 </div>
