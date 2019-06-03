@@ -11,7 +11,7 @@ class ExaBenefitsService
       General::BenefitGroup.where(name: bg["name"], code: bg["code"]).first_or_create
       bg["benefits"].each do |benefit|
         bg_id = General::BenefitGroup.last.id
-        General::Benefit.where(title: benefit["name"], url: benefit["url"], code: benefit["code"], benefit_type_id: 1).first_or_create(benefit_group_id: bg_id)
+        General::Benefit.where(title: benefit["name"], url: benefit["url"], code: benefit["code"], benefit_type_id: 1).first_or_create(benefit_groups: General::BenefitGroup.find(bg_id))
         if benefit["variables"].present?
           benefit["variables"].each do |variable|  
             benefit_id =  General::Benefit.last.id
