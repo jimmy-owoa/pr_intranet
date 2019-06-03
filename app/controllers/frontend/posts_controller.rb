@@ -51,7 +51,19 @@ module Frontend
     user = General::User.find(id)
     user_tags = user.terms.tags.map(&:name)
     posts = []
-    News::Post.published_posts.each do |post|
+    News::Post.published_posts.each do |post| 
+      post.terms.tags.each do |tag|
+        posts.push(post) if tag.name.in?(user_tags)
+      end
+    end
+    posts
+  end
+
+  def filter_important_posts id
+    user = General::User.find(id)
+    user_tags = user.terms.tags.map(&:name)
+    posts = []
+    News::Post.published_posts.where(important: true).each do |post| 
       post.terms.tags.each do |tag|
         posts.push(post) if tag.name.in?(user_tags)
       end
@@ -60,7 +72,7 @@ module Frontend
   end
 
   def important_posts
-    posts = News::Post.includes(:main_image).important
+    posts = filter_important_posts(params[:id]).last(5)
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
