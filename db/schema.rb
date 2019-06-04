@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_20_192424) do
+ActiveRecord::Schema.define(version: 2019_06_04_220220) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -105,6 +105,10 @@ ActiveRecord::Schema.define(version: 2019_05_20_192424) do
     t.integer "benefit_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "variable_id"
+    t.string "amount"
+    t.string "currency"
+    t.string "url"
   end
 
   create_table "general_benefit_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -316,15 +320,6 @@ ActiveRecord::Schema.define(version: 2019_05_20_192424) do
     t.index ["user_id"], name: "index_general_users_roles_on_user_id"
   end
 
-  create_table "general_variables", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.float "amount"
-    t.string "currency"
-    t.bigint "general_benefit_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["general_benefit_id"], name: "index_general_variables_on_general_benefit_id"
-  end
-
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "location_id"
     t.date "date"
@@ -476,7 +471,6 @@ ActiveRecord::Schema.define(version: 2019_05_20_192424) do
 
   add_foreign_key "general_term_relationships", "general_terms", column: "term_id"
   add_foreign_key "general_terms", "general_term_types", column: "term_type_id"
-  add_foreign_key "general_variables", "general_benefits"
   add_foreign_key "news_comments", "news_posts", column: "post_id"
   add_foreign_key "news_posts", "general_attachments", column: "main_image_id"
   add_foreign_key "news_posts", "general_terms", column: "term_id"

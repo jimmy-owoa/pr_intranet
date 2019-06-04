@@ -11,10 +11,16 @@
         <% end %>
       </div>
       <h5><%= raw @benefit.content %> </h5>
-      <h5>Pertenece a los siguientes grupos beneficiarios: </h5>
+      <h4>Pertenece a los siguientes grupos beneficiarios: </h4>
       <% @benefit.benefit_groups.each do |bg| %> 
-        <p>- <%= bg.name %></p>
+         <h4><%= bg.name %> :</h4>
+          <%= bg.benefit_group_relationships.where(benefit: @benefit).first.currency %>  |
+          <%= bg.benefit_group_relationships.where(benefit: @benefit).first.amount %> |
+          <%= bg.benefit_group_relationships.where(benefit: @benefit).first.url %>
+          </p>
       <% end %>
+       
+
     </div>
   </div>
   <br><br>
