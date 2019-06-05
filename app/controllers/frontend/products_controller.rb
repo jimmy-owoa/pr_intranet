@@ -43,7 +43,6 @@ module Frontend
     end
 
     def product
-
       slug = params[:slug].present? ? params[:slug] : nil
       product = Marketplace::Product.find(slug)
       data = []
@@ -74,7 +73,12 @@ module Frontend
         [{
           src: root_url + ActionController::Base.helpers.asset_url('noimage.png'),
           thumbnail: root_url + ActionController::Base.helpers.asset_url('noimage.png')
-        }]
+        }],
+        breadcrumbs: [
+          {link: '/', name: 'Inicio' },
+          {link: '/avisos-clasificados', name: 'Avisos clasificados'},
+          {link: '#', name: 'Aviso' }
+        ],
       }
       respond_to do |format|
         format.json { render json: data[0] }
