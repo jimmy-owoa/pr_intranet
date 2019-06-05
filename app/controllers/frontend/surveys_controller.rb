@@ -120,7 +120,8 @@ module Frontend
       survey = Survey::Survey.find_by_slug(slug)
       count = 0
       if survey.once_by_user?
-        survey.questions.where(optional: true).each do |question|
+        required = survey.questions.where(optional: true)
+        required.each do |question|
           question.answers.each do |answer|
             if answer.user_id == 3
               count += 1
@@ -128,7 +129,7 @@ module Frontend
           end
         end
       end
-      if count == 0
+      if count != required.count
         data_survey = []
         data_questions = []
         survey.questions.each do |question|
