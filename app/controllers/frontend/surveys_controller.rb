@@ -51,7 +51,9 @@ module Frontend
       user_id =  params[:id]
       data_surveys = []
       #model method
+      no_once_by_user_surveys = Survey::Survey.where(once_by_user: false)
       surveys = Survey::Survey.survey_data(user_id)
+      surveys << no_once_by_user_surveys
       surveys.flatten.each do |survey|
         data_questions = []
         survey.questions.each do |question|
@@ -94,7 +96,7 @@ module Frontend
       data = Survey::Survey.filter_surveys(user_id, data_surveys)
       respond_to do |format|
         format.html
-        format.json { render json: data }
+        format.json { render json: data_surveys }
         format.js
       end
     end
@@ -115,10 +117,19 @@ module Frontend
     def survey
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
-      surveys = Survey::Survey.survey_data(3)
-      survey = surveys.select {|survey| survey.slug == slug if survey.present?}
-      survey = survey[0]
-      data_survey = []
+      survey = Survey::Survey.find_by_slug(slug)
+      count = 0
+      if survey.once_by_user?
+        survey.questions.where(optional: true).each do |question|
+          question.answers.each do |answer|
+            if answer.user_id == 3
+              count += 1
+            end
+          end
+        end
+      end
+      if count == 0
+        data_survey = []
         data_questions = []
         survey.questions.each do |question|
           data_options = []
@@ -152,14 +163,16 @@ module Frontend
           survey_type: survey.survey_type,
           slug: survey.slug
         }
-
+      else
+        data_survey = ["Encuesta ya fué respondida por el usuario"]
+      end
       respond_to do |format|
         format.html
         format.json { render json: data_survey[0] }
         format.js
       end
     end
-
+      
     def survey_count
       data_user = []
       id = params[:id].present? ? params[:id] : nil

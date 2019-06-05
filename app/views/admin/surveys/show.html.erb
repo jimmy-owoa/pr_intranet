@@ -9,13 +9,7 @@
       </div>
       <div class='col-md-12 text-center pt-4'>  
         <%= text_field_tag 'Hola', "#{environment}/#/encuestas/#{@survey.slug}", readonly: true, size: '50', onclick: 'this.select();'%>
-        <button class='clipboard-btn_survey btn btn-primary btn-sm' data-clipboard-action='copy' data-clipboard-target='#link_survey'>
-            Copiar link
-          </button>
-          <div class='col-md-12 text-center' style='color: white;'>
-            <b id='link_survey'><%= "#{environment}/encuestas/#{@survey.slug}" %></b>
-          </div>
-        </div>
+      </div>
       <div class='col-md-12 text-center'><br />
         <%= link_to t('.edit', :default => t('helpers.links.edit')),edit_admin_survey_path(@survey), :class => 'btn btn-primary btn-sm' %>
         <%= link_to 'Deshabilitar',admin_survey_path(@survey),
