@@ -35,7 +35,7 @@ class Survey::Survey < ApplicationRecord
       end
     end
     #sumamos surveys que se pueden responder más de una vez
-    @data_surveys.uniq << include_survey.where(once_by_user: false)
+    @data_surveys.uniq
   end
 
   def self.sort_survey data
