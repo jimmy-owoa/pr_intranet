@@ -177,8 +177,8 @@ Survey::Option.find_or_create_by(title: "Punta Arenas", default: false, placehol
 end
 
 #############menú nuevo#############
-# ELIMINA MENUS Y SU CONTÉO DE ID NECESARIO PARA LOS PARENT_ID / revisar
-ActiveRecord::Base.connection.execute('TRUNCATE TABLE general_menus;') 
+ActiveRecord::Base.connection.execute('TRUNCATE TABLE # ELIMINA MENUS Y SU CONTÉO DE ID NECESARIO PARA LOS PARENT_ID / revisar
+general_menus;') 
 
 #->Vacaciones
 General::Menu.find_or_create_by(
@@ -2413,12 +2413,6 @@ General::Section.find_or_create_by(
   position: 1,
   url: 'url-blablabla-1'
 )
-General::Section.find_or_create_by(
-  id: 2,
-  title: 'Section 2',
-  description: 'Descripción',
-  position: 2,
-  url: 'url-blablabla-2')
 General::Section.find_or_create_by(
   id: 3,
   title: 'Section 3',
