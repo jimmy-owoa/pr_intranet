@@ -43,7 +43,7 @@ module Frontend
       indicator = General::EconomicIndicator
       indicators = indicator.where(date: today)
       data_indicators = []
-      if indicator.where(date: today).present?    
+      if indicator.where(date: today).present?
         data_indicators << {
           DOLAR: indicator.indicator_type(1).last,
           EURO: indicator.indicator_type(2).last,

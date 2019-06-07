@@ -38,7 +38,7 @@ module Frontend
         active: user.active,
         annexed: user.annexed,
         birthday: user.birthday,
-        company: user.company.titleize,
+        company: user.company.present? ? user.company.titleize : nil,
         date: user.date_entry.present? ? user.date_entry.strftime("%Y-%m-%d") : user.date_entry,
         show_birthday: user.show_birthday,
         image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'

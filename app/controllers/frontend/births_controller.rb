@@ -40,7 +40,7 @@ module Frontend
 
     def get_home_births
       data = []
-      births = Employee::Birth.show_birth.last(4)
+      births = Employee::Birth.show_birth.order(birthday: :asc).last(4)
       births.each do |birth|
         images = []
         birth.permitted_images.map{|image| images << url_for(image.variant(resize: '500x500>'))}

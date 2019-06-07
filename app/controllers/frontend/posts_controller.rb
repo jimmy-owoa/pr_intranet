@@ -47,32 +47,31 @@ module Frontend
     end
   end
 
-  def filter_posts id
-    user = General::User.find(id)
-    user_tags = user.terms.tags.map(&:name)
+  def filter_posts (user_id, important = nil)
+    user = General::User.find(user_id)
+    user_inclusive_tags = user.terms.inclusive_tags.map(&:name)
+    user_excluding_tags = user.terms.excluding_tags.map(&:name)
+    user_categories = user.terms.categories.map(&:name)
     posts = []
-    News::Post.published_posts.each do |post| 
-      post.terms.tags.each do |tag|
-        posts.push(post) if tag.name.in?(user_tags)
+    news = News::Post.includes(:terms).published_posts
+    news = news.where(important: important) if important.present?
+    news.each do |post| 
+      show_post = true
+      if post.terms.present? 
+        if post.terms.categories.present?
+          post.terms.categories.each do |tag|
+            show_post = tag.name.in?(user_categories)
+          end
+        end
       end
-    end
-    posts
-  end
-
-  def filter_important_posts id
-    user = General::User.find(id)
-    user_tags = user.terms.tags.map(&:name)
-    posts = []
-    News::Post.published_posts.where(important: true).each do |post| 
-      post.terms.tags.each do |tag|
-        posts.push(post) if tag.name.in?(user_tags)
-      end
+      # TODO: AGREGAR INCLUYENTE Y EXCLUYENTE
+      posts.push(post) if show_post
     end
     posts
   end
 
   def important_posts
-    posts = filter_important_posts(params[:id]).last(5)
+    posts = filter_posts(params[:id], true).last(5)
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'

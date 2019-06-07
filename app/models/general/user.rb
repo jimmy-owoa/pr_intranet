@@ -118,7 +118,7 @@ class General::User < ApplicationRecord
 
   def self.users_welcome
     # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
-    General::User.last(4)
+    General::User.where(date_entry: (Date.today-30.days)..Date.today).order('RAND()').limit(4)
   end
 
 end

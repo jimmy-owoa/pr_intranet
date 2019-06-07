@@ -31,7 +31,7 @@ module Frontend
           items: product.images.present? ? items : root_url + '/assets/noimage.png',
           breadcrumbs: [
             {link: '/', name: 'Inicio' },
-            {link: '/avisos', name: 'Avisos'},
+            {link: '/avisos', name: 'Avisos Clasificados'},
             {link: '#', name: product.name.truncate(30)}
           ]
         }
