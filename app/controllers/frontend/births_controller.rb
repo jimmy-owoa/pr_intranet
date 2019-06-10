@@ -2,14 +2,13 @@ require 'base64'
 require 'stringio'
 module Frontend
   class BirthsController < FrontendController
-  #callbacks
-  layout 'admin'
-  before_action :set_birth, only: [:show, :destroy]
-  after_action :set_tracking, only: [:index, :show, :new, :list]
+    #callbacks
+    layout 'admin'
+    before_action :set_birth, only: [:show, :destroy]
+    after_action :set_tracking, only: [:index, :show, :new, :list]
 
     def index
-      births = Employee::Birth.show_birth.birt_between(1.month.ago, Time.now) #se cambio de un año a un mes
-      births_calendar = Employee::Birth.show_birth
+      births = Employee::Birth.show_birth.births_between(1.month.ago, Time.now) #se cambio de un año a un mes
       data = []
       births.each do |birth|   
         images = []
@@ -20,13 +19,12 @@ module Frontend
           photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
           images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
-          birthday: birth.birthday,
+          birthday: birth.birthday.strftime("%d-%m-%Y"),
           father: birth.full_name_father,
           mother: birth.full_name_mother,
-          created_at: birth.created_at.strftime("%d/%m/%Y %H:%M"),
           breadcrumbs: [
               {link: '/', name: 'Inicio' },
-              {link: '/nacimientos', name: 'Nacimientos' },
+              {link: '/celebremos-nacimientos', name: 'Celebremos nacimientos' },
               {link: '#', name: birth.child_fullname.truncate(30)}
             ]
         }
@@ -63,7 +61,7 @@ module Frontend
     end
 
     def calendar_births
-      births = Employee::Birth.show_birth.birt_between(3.month.ago, -3.month.ago)
+      births = Employee::Birth.show_birth.births_between(3.month.ago, -3.month.ago)
       data = []
       births.each do |birth|
         data << {

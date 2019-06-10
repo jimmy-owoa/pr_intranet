@@ -9,7 +9,6 @@
           <h4>Nombre del nacido:  <%= @birth.child_fullname %></h4>
           <p><strong> Nombre de la madre: </strong> <%= @birth.full_name_mother %></p>
           <p><strong> Nombre del padre: </strong> <%= @birth.full_name_father %></p>
-          <p><strong> Sexo: </strong> <%= @birth.get_gender %></p>
           <p class="card-text">
             <b>Creado:</b> <%= custom_date(@birth.created_at)%>
           </p>

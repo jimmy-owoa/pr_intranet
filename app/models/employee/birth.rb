@@ -5,7 +5,7 @@ class Employee::Birth < ApplicationRecord
   has_many_attached :images
 
   scope :show_birth , -> {where( approved: true)}
-  scope :birt_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
+  scope :births_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
 
   PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
 

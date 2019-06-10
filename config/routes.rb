@@ -70,8 +70,8 @@ Rails.application.routes.draw do
     post 'check_data', to: 'answers#check_data'
     get 'menus/menus'
     get 'santorals/santorals'
-    get 'welcome/users', to: 'welcomes#users'
-    get 'welcome/users_welcome', to: 'welcomes#users_welcome'
+    get 'welcome', to: 'welcomes#index'
+    get 'welcome/welcomes_calendar', to: 'welcomes#welcomes_calendar'
     get 'welcome/get_home_welcome', to: 'welcomes#get_home_welcome'
     get "searchv", to: "search#search_vue"
     get "searchm", to: "search#search_menu"

@@ -9,6 +9,7 @@ class General::Term < ApplicationRecord
   has_many :attachments, through: :attachment_term_relationships
   has_many :products, through: :product_term_relationships
   has_many :product_term_relationships, through: :product_term_relationships
+  
   belongs_to :term_type, class_name: 'General::TermType', optional: true
 
   PERMISSION = {'excluding' => 'Excluyente', 'including' => 'Incluyente'}

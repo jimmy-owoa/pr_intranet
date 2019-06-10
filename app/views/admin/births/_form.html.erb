@@ -34,8 +34,13 @@
       <%= f.label gender_select(@birth.gender)  %>
       <%= f.input_field :gender, label: :false, collection: [ [1, 'Masculino' ], [0, 'Femenino'] ], as: :radio_buttons, checked: @birth.gender, label_method: :last, value_method: :first, required: true%>
       </div>
-      <div class="col-md-3 col-sm-3"></br>
-        <%= f.input :approved, label: false, class: 'custom-control-input' %>
+      <div class="col-md-2">
+        <% if f.object.new_record? %>
+          <%= f.check_box :approved, checked: false %>
+          <%= f.label 'Aprobado'%>
+        <% else %>
+          <%= f.check_box :approved, checked: true, hidden: true%>
+        <% end %>
       </div>
     </div>
   </div>
@@ -44,9 +49,10 @@
     <div class="card p-2">
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
-          <% if @birth.images.attachments.nil? %>
-          <%#= 'image_tag(@birth.photo.attachment, class: center)' %>
+          <% if @birth.images.attachments.nil? || !@birth.permitted_images.present? %>
             <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
+          <% else %>
+            <%= image_tag(@birth.permitted_images.first, class: 'center') %>
           <% end %>
         </div>
       </div>
@@ -96,5 +102,12 @@
         <% end %>
       </div>
     <% end %>
-</div><br>
-<%= f.submit nil, :class => 'btn btn-primary' %>
+    <div class="col-md-4">
+      <%= f.submit 'Aprobar', :class => 'btn btn-success' %>
+      <%= link_to 'Desaprobar',
+          admin_birth_path(@birth),
+          :method => :delete,
+          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
+          :class => 'btn btn-danger' %>
+    </div>
+  </div>
