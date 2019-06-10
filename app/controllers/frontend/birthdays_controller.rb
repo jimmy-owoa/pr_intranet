@@ -62,7 +62,7 @@ module Frontend
 
     def get_home_birthdays
       data = []
-      birthdays_users = General::User.where(birthday: Time.now.beginning_of_day..Time.now.end_of_day).order('RAND()').limit(4)
+      birthdays_users =General::User.where('extract(month from birthday) = ?', Date.today.month).order('RAND()').limit(4)
       birthdays_users.each do |user|
         data << {
           id: user.id,
