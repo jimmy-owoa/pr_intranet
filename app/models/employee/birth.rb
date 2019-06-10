@@ -4,6 +4,8 @@ class Employee::Birth < ApplicationRecord
   enum permission: %i[No Si]
   has_many_attached :images
 
+  belongs_to :user
+
   scope :show_birth , -> {where( approved: true)}
   scope :births_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
 
