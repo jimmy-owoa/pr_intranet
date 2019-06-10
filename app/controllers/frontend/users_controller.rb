@@ -186,7 +186,7 @@ module Frontend
           }
         end
       end
-      if General::User.birthday?(@user.birthday)
+      if @user.birthday?
         General::Message.where(message_type: 'birthdays').take(1).each do |message|
           data_messages << {
             id: message.id,
