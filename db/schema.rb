@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_164345) do
+ActiveRecord::Schema.define(version: 2019_06_10_201811) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_164345) do
     t.date "birthday"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "child_lastname2"
   end
 
   create_table "general_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -307,6 +308,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_164345) do
     t.date "date_entry"
     t.integer "benefit_group_id"
     t.integer "xoops_id"
+    t.string "last_name2"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
   end

@@ -15,7 +15,7 @@ module Frontend
         birth.permitted_images.map{|image| images << url_for(image.variant(resize: '500x500>'))}
         data << {
           id: birth.id,
-          child_full_name: birth.child_name + ' ' + birth.child_lastname,
+          child_full_name: birth.child_name + ' ' + birth.child_lastname + ' ' + birth.child_lastname2,
           photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
           images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
@@ -44,7 +44,7 @@ module Frontend
         birth.permitted_images.map{|image| images << url_for(image.variant(resize: '500x500>'))}
         data << {
           id: birth.id,
-          child_full_name: birth.child_name + ' ' + birth.child_lastname,
+          child_full_name: birth.child_name + ' ' + birth.child_lastname + ' ' + birth.child_lastname2,
           photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
           images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
@@ -66,7 +66,7 @@ module Frontend
       births.each do |birth|
         data << {
           id: birth.id,
-          child_full_name: birth.child_name + ' ' + birth.child_lastname,
+          child_full_name: birth.child_name + ' ' + birth.child_lastname + ' ' + birth.child_lastname2,
           photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
           gender: birth.gender ? 'Masculino' : 'Femenino',
           date: birth.birthday,
@@ -92,6 +92,7 @@ module Frontend
     def create
       child_name = params[:child_name]
       child_lastname = params[:child_lastname]
+      child_lastname2 = params[:child_lastname2]
       full_name_father = params[:full_name_father]
       full_name_mother = params[:full_name_mother]
       approved = params[:approved]
@@ -99,8 +100,8 @@ module Frontend
       birthday = params[:birthday]
       images = params[:images]
       @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, 
-        full_name_father: full_name_father, full_name_mother: full_name_mother, approved: approved,
-        gender: gender, birthday: birthday)
+        child_lastname2: child_lastname2, full_name_father: full_name_father, full_name_mother: full_name_mother,
+        approved: approved, gender: gender, birthday: birthday)
         if images.present? 
           images.each do |image|
             base64_image = image[1].sub(/^data:.*,/, '')
@@ -146,7 +147,7 @@ module Frontend
 
     def birth_params
       params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :child_lastname,
-      :birthday, :photo, :approved, :gender)
+      :child_lastname2, :birthday, :photo, :approved, :gender)
     end
     
   end

@@ -10,8 +10,8 @@ class Employee::Birth < ApplicationRecord
   PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
 
   def child_fullname
-    if self.child_name.present? && self.child_lastname.present?
-      return self.child_name + ' ' + self.child_lastname
+    if self.child_name.present? && self.child_lastname.present? && self.child_lastname2.present?
+      return self.child_name.capitalize + ' ' + self.child_lastname.capitalize + ' ' + self.child_lastname2.capitalize
     else
       return 'Sin nombre'
     end
