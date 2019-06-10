@@ -96,7 +96,7 @@ module Admin
 
     def birth_params
       params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :child_lastname,
-        :child_lastname2, :birthday, :approved, :gender,  images: [])
+        :child_lastname2, :birthday, :approved, :gender, :user_id, images: [])
     end
 
   end
