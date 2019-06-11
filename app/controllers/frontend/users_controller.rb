@@ -408,6 +408,31 @@ module Frontend
       end
     end
 
+    def autocomplete_user 
+      search = params[:user] #acá va la variable del search
+      data = []
+      # donde se busca, por si tenemos que agregar más que nombre y apellidos
+      variables = ["name", "last_name", "last_name2"]
+      queries = []
+
+      variables.each do |var|
+        queries << "#{var} LIKE '%#{ search }%'"
+      end
+
+      query_where = queries.join(" OR ")
+      results = General::User.where(query_where)
+
+      results.each do |result|
+        data << result.name + ' ' + result.last_name  
+      end
+      
+
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
     def upload
       user = General::User.find(params[:user_id])
       image = params[:file]

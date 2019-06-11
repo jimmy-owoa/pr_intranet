@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     get 'welcome/get_home_welcome', to: 'welcomes#get_home_welcome'
     get "searchv", to: "search#search_vue"
     get "searchm", to: "search#search_menu"
+    get 'autocomplete_user', to: 'users#autocomplete_user'
     get 'indicators', to: 'frontend#indicators'
     get 'births/calendar_births', to: 'births#calendar_births'
     get 'menus/api_menu/:user_id(/:location_id)', to: 'menus#api_menu'
