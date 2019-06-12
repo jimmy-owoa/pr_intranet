@@ -412,7 +412,8 @@ namespace :security do
     code: 1231,
     link: "vacaciones",
     priority: nil,
-    parent_id: menu_1.id
+    parent_id: menu_1.id,
+    integration_code: "vacs"
     )
     vacation = General::Menu.find_by_title('Vacaciones')
     menu = General::Menu.find_or_create_by(
@@ -572,7 +573,8 @@ namespace :security do
     code: 35239,
     link: "",
     priority: nil,
-    parent_id: menu_1.id
+    parent_id: menu_1.id,
+    integration_code: "sel"
       )
     selection = General::Menu.find_by_title('Selección')
     #Ingreso solicitudes
@@ -623,7 +625,8 @@ namespace :security do
     code: 75232,
     link: "",
     priority: nil,
-    parent_id: menu_1.id
+    parent_id: menu_1.id,
+    integration_code: "pe" 
     )
     development = General::Menu.find_by_title('Desempeño y Desarrollo')
     #Plan de desarrollo profesional
@@ -656,7 +659,66 @@ namespace :security do
     #priority: nil,
     #parent_id: development.id
     # )
-      
+    General::Menu.find_or_create_by(
+      title: "Gestionar",
+      description: "Gestionar",
+      css_class: "#641160",
+      code: 52592,
+      link: "capacitacion-funcional",
+      priority: nil,
+      parent_id: menu_1.id,
+      integration_code: "manage"
+      )
+    General::Menu.find_or_create_by(
+      title: "Beneficios",
+      description: "Beneficios",
+      css_class: "#641160",
+      code: 52592,
+      link: "capacitacion-funcional",
+      priority: nil,
+      parent_id: menu_3.id,
+      integration_code: "licenses"
+      )
+    General::Menu.find_or_create_by(
+      title: "Bono Rol General",
+      description: "Bono Rol General",
+      css_class: "#641160",
+      code: 52592,
+      link: "capacitacion-funcional",
+      priority: nil,
+      parent_id: menu_3.id,
+      integration_code: "brg"
+      )
+    General::Menu.find_or_create_by(
+      title: "Capacitación",
+      description: "Capacitación",
+      css_class: "#641160",
+      code: 52592,
+      link: "capacitacion-funcional",
+      priority: nil,
+      parent_id: menu_1.id,
+      integration_code: "tr"
+      )
+    General::Menu.find_or_create_by(
+      title: "Biblioteca",
+      description: "Biblioteca",
+      css_class: "#641160",
+      code: 52592,
+      link: "capacitacion-funcional",
+      priority: nil,
+      parent_id: menu_1.id,
+      integration_code: "lib"
+      )
+    General::Menu.find_or_create_by(
+      title: "Mesa Ayuda",
+      description: "Mesa de ayuda",
+      css_class: "#641160",
+      code: 52592,
+      link: "capacitacion-funcional",
+      priority: nil,
+      parent_id: menu_1.id,
+      integration_code: "hd"
+      )
     #Capacitemonos	
     menu = General::Menu.find_or_create_by(
     title: "Capacitemonos",

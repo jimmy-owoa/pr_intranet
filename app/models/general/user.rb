@@ -24,7 +24,7 @@ class General::User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable
 
   # callbacks
-  after_create :assign_default_role, :image_resize, :default_viewed_notification
+  after_create :assign_default_role, :image_resize
   before_update :image_resize
   before_create :only_admin?
 

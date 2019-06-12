@@ -1072,7 +1072,7 @@
                     <% end %>
                   <% end %>
                   <!-- MENU MODAL START -->
-                  <div class="modalDialog" id='menu_<%= menu_parent_object.title %>'>
+                  <div class="modalDialog" id='menu_<%= menu_parent_object.title.downcase %>'>
                     <div class="text-md-center">
                       <a href="#" title="Close" class="close">X</a>
                       <div class="">
@@ -1089,8 +1089,7 @@
                     </div>
                   </div>
                   <!-- MENU MODAL END -->
-                  <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title, style: 'text-decoration: underline;' %>
-                  
+                  <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
                 <% else %>
                    <% submenus.each do |link| %>
                     <% if link[:link].downcase[0..3] == 'http'%>
