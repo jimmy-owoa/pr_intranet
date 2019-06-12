@@ -412,7 +412,14 @@ module Frontend
       search = params[:user] #acá va la variable del search
       data = []
       # donde se busca, por si tenemos que agregar más que nombre y apellidos
-      variables = ["name", "last_name", "last_name2"]
+      variables = [
+        "name",
+        "last_name",
+        "last_name2",
+        "CONCAT(name,' ',last_name)",
+        "CONCAT(name,' ',last_name,' ',last_name2)",
+        "CONCAT(last_name,' ',last_name2)"
+      ]
       queries = []
 
       variables.each do |var|

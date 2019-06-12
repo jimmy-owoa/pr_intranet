@@ -772,7 +772,7 @@
 <!-- WEATHER MODAL START -->
 <div class="modalDialog" id="weather_modal">
   <div>
-    <a href="#close" title="Close" class="close">X</a>
+    <a href="#" title="Close" class="close">X</a>
     <div class="layout">
       <div class="flex">
         <div class="v-card v-card--flat v-sheet theme--light">
@@ -896,7 +896,7 @@
 <!-- INDICATORS MODAL START  -->
 <div id="indicators_modal" class="modalDialog">
   <div>
-    <a href="#close" title="Close" class="close">X</a>
+    <a href="#" title="Close" class="close">X</a>
     <div class="layout">
       <div class="flex">
         <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
@@ -988,6 +988,7 @@
   </div>
 </div>
 <!-- INDICATORS MODAL END -->
+
 <div style="padding-top: 33px;" >
   <div class="hidden-sm-and-down">
     <div class="layout" style="padding-bottom: 13px;">
@@ -1061,11 +1062,42 @@
                 <% else %>
                   <h4 class="head_section"><%= menu_parent_object.title %></h4>
                 <% end %>
-                <% menu_parent_object.children(exa_menu).each do |link| %>
-                  <% if link[:link].downcase[0..3] == 'http'%>
-                    <%= link_to link[:title], link[:link] %>
-                  <% else %>
-                    <%= link_to link[:title], '/#/' + link[:link] %>
+                <% submenus = menu_parent_object.children(exa_menu) %>
+                <% if submenus.length > 3 %>
+                  <% submenus.first(3).each do |link| %>
+                    <% if link[:link].downcase[0..3] == 'http'%>
+                      <%= link_to link[:title], link[:link] %>
+                    <% else %>
+                      <%= link_to link[:title], '/#/' + link[:link] %>
+                    <% end %>
+                  <% end %>
+                  <!-- MENU MODAL START -->
+                  <div class="modalDialog" id='menu_<%= menu_parent_object.title %>'>
+                    <div class="text-md-center">
+                      <a href="#" title="Close" class="close">X</a>
+                      <div class="">
+                        <% submenus.each do |link| %>
+                        <div class="flex ">
+                          <% if link[:link].downcase[0..3] == 'http'%>
+                            <%= link_to link[:title], link[:link] %><br>
+                          <% else %>
+                            <%= link_to link[:title], '/#/' + link[:link] %><br>
+                          <% end %>
+                        </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- MENU MODAL END -->
+                  <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title %>
+                  
+                <% else %>
+                   <% submenus.each do |link| %>
+                    <% if link[:link].downcase[0..3] == 'http'%>
+                      <%= link_to link[:title], link[:link] %>
+                    <% else %>
+                      <%= link_to link[:title], '/#/' + link[:link] %>
+                    <% end %>
                   <% end %>
                 <% end %>
               </ul>
