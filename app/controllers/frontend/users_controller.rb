@@ -237,7 +237,8 @@ module Frontend
           benefits: data
         },
         products: data_products[0],
-        messages: data_messages
+        messages: data_messages,
+        notifications: @user.notifications
       }
       respond_to do |format|
         format.json { render json: data_user[0] }

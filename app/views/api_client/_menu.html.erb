@@ -1077,11 +1077,11 @@
                       <a href="#" title="Close" class="close">X</a>
                       <div class="">
                         <% submenus.each do |link| %>
-                        <div class="flex ">
+                        <div>
                           <% if link[:link].downcase[0..3] == 'http'%>
                             <%= link_to link[:title], link[:link] %><br>
                           <% else %>
-                            <%= link_to link[:title], '/#/' + link[:link] %><br>
+                            <%= link_to link[:title], '/#/' + link[:link] %>
                           <% end %>
                         </div>
                         <% end %>
@@ -1089,7 +1089,7 @@
                     </div>
                   </div>
                   <!-- MENU MODAL END -->
-                  <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title %>
+                  <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title, style: 'text-decoration: underline;' %>
                   
                 <% else %>
                    <% submenus.each do |link| %>

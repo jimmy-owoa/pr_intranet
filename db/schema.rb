@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_10_212533) do
+ActiveRecord::Schema.define(version: 2019_06_12_154539) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -217,6 +217,21 @@ ActiveRecord::Schema.define(version: 2019_06_10_212533) do
     t.text "content"
     t.string "message_type"
     t.boolean "is_const"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "general_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "viewed_at"
+    t.datetime "to_notify_at"
+    t.string "notification_type"
+    t.string "style"
+    t.string "link"
+    t.boolean "external_notification"
+    t.integer "user_id"
+    t.integer "message_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

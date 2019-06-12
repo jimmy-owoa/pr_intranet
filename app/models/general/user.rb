@@ -14,6 +14,7 @@ class General::User < ApplicationRecord
   has_many :products, class_name: 'Marketplace::Product', foreign_key: :user_id
   has_many :answers, class_name: 'Survey::Answer', foreign_key: :user_id
   has_many :births, class_name: 'Employee::Birth', foreign_key: :user_id
+  has_many :notifications, class_name: 'General::Notification'
   
   belongs_to :location, class_name: 'General::Location', inverse_of: :users
   belongs_to :benefit_group, optional: true, class_name: 'General::BenefitGroup'
@@ -23,7 +24,7 @@ class General::User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable
 
   # callbacks
-  after_create :assign_default_role, :image_resize
+  after_create :assign_default_role, :image_resize, :default_viewed_notification
   before_update :image_resize
   before_create :only_admin?
 

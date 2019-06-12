@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  viewed_at: 2019-06-12 11:45:39
+  to_notify_at: 2019-06-12 11:45:39
+  notification_type: MyString
+  external_notification: false
+  style: MyString
+
+two:
+  title: MyString
+  content: MyText
+  viewed_at: 2019-06-12 11:45:39
+  to_notify_at: 2019-06-12 11:45:39
+  notification_type: MyString
+  external_notification: false
+  style: MyString

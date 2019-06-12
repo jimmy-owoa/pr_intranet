@@ -4,6 +4,8 @@ class General::Message < ApplicationRecord
             class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :post
     has_many :terms, through: :message_term_relationships
 
+    has_many :notifications
+
     validates_presence_of :title
 
     MESSAGE_TYPES = [['Cumpleaños', 'birthdays'], ['Bienvenidos', 'welcomes'], ['General', 'general']]
