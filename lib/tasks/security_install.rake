@@ -410,7 +410,6 @@ namespace :security do
     title: "Vacaciones",
     description: "Vacaciones Security",
     css_class: "#000000",
-    code: 1231,
     link: "vacaciones",
     priority: nil,
     parent_id: menu_1.id,
@@ -418,11 +417,10 @@ namespace :security do
     )
     vacation = General::Menu.find_by_title('Vacaciones')
     menu = General::Menu.find_or_create_by(
-    title: "Solicitudes",
-    description: "Solicitudes",
+    title: "Mis Vacaciones",
+    description: "Mis Vacaciones",
     css_class: "#db9398",
-    code: 1232,
-    link: "solicitudes",
+    link: "https://misecurity.exa.cl/vac_records_register/index",
     priority: nil,
     parent_id: vacation.id
     )
@@ -430,7 +428,6 @@ namespace :security do
     title: "Aprobación",
     description: "Aprobación",
     css_class: "#db9398",
-    code: 1233,
     link: "aprobacion",
     priority: nil,
     parent_id: vacation.id
@@ -439,7 +436,6 @@ namespace :security do
     title: "Vacaciones progresivas",
     description: "Vacaciones progresivas",
     css_class: "#db3562",
-    code: 1234,
     link: "vacaciones-progresivas",
     priority: nil,
     parent_id: vacation.id
@@ -449,7 +445,6 @@ namespace :security do
     title: "Permisos",
     description: "Permisos",
     css_class: "#243in0",
-    code: 121352,
     link: "",
     priority: nil,
     parent_id: menu_1.id
@@ -460,7 +455,6 @@ namespace :security do
     title: "24 Horas para algo importante",
     description: "24 Horas para algo importante",
     css_class: "#3nnd99",
-    code: 11236,
     link: "algo-importante",
     priority: nil,
     parent_id: permission.id
@@ -470,7 +464,6 @@ namespace :security do
     title: "Post Natal Paterno",
     description: "Post Natal Paterno",
     css_class: "#346kg9",
-    code: 91233,
     link: "post-natal-paterno",
     priority: nil,
     parent_id: permission.id
@@ -480,7 +473,6 @@ namespace :security do
     title: "Matrimonio",
     description: "Matrimonio",
     css_class: "#93899h",
-    code: 71232,
     link: "matrimonio",
     priority: nil,
     parent_id: permission.id
@@ -490,7 +482,6 @@ namespace :security do
     title: "Unión Civil",
     description: "Unión Civil",
     css_class: "#64334f",
-    code: 41231,
     link: "union-civil",
     priority: nil,
     parent_id: permission.id
@@ -500,7 +491,6 @@ namespace :security do
     title: "Fallecimiento",
     description: "Fallecimiento",
     css_class: "#04jdj9",
-    code: 41231,
     link: "fallecimiento",
     priority: nil,
     parent_id: permission.id
@@ -510,7 +500,6 @@ namespace :security do
     title: "Examen de Grado",
     description: "Examen de Grado",
     css_class: "#04jdj9",
-    code: 43990,
     link: "examen-de-grado",
     priority: nil,
     parent_id: permission.id
@@ -520,7 +509,6 @@ namespace :security do
     title: "Exámenes Preventivos",
     description: "Exámenes Preventivos",
     css_class: "#983839",
-    code: 43982,
     link: "examenes-preventivos",
     priority: nil,
     parent_id: permission.id
@@ -530,7 +518,6 @@ namespace :security do
     title: "Día Libre para cambio de casa",
     description: "Día Libre para cambio de casa",
     css_class: "#7889s0",
-    code: 41932,
     link: "dia-libre-cambio-casa",
     priority: nil,
     parent_id: permission.id
@@ -540,7 +527,6 @@ namespace :security do
     title: "Tarjeta de trabajo bien hecho",
     description: "Tarjeta de trabajo bien hecho",
     css_class: "#c5590k",
-    code: 45235,
     link: "",
     priority: nil,
     parent_id: menu_1.id
@@ -551,7 +537,6 @@ namespace :security do
     title: "Ingresar tarjeta",
     description: "Ingresar tarjeta",
     css_class: "#9883hb",
-    code: 12336,
     link: "ingreso-tarjeta",
     priority: nil,
     parent_id: work_card.id
@@ -561,7 +546,6 @@ namespace :security do
     title: "Mis tarjetas",
     description: "Mis tarjetas",
     css_class: "#989390",
-    code: 48336,
     link: "mis-tarjetas",
     priority: nil,
     parent_id: work_card.id
@@ -571,7 +555,6 @@ namespace :security do
     title: "Selección",
     description: "Selección",
     css_class: "#m28390",
-    code: 35239,
     link: "",
     priority: nil,
     parent_id: menu_1.id,
@@ -583,8 +566,7 @@ namespace :security do
     title: "Ingreso solicitudes",
     description: "Ingreso solicitudes",
     css_class: "#n89279",
-    code: 91232,
-    link: "ingreso-solicitudes",
+    link: "https://misecurity.exa.cl/sel_requirements/new",
     priority: nil,
     parent_id: selection.id
     )
@@ -593,8 +575,7 @@ namespace :security do
     title: "Seguimiento",
     description: "Seguimiento",
     css_class: "#g77900",
-    code: 91232,
-    link: "seguimiento",
+    link: "https://misecurity.exa.cl/sel_process_trackers",
     priority: nil,
     parent_id: selection.id
     )
@@ -603,8 +584,7 @@ namespace :security do
     title: "Mis solicitudes",
     description: "Mis solicitudes",
     css_class: "#yu8999",
-    code: 98282,
-    link: "mis-solicitudes",
+    link: "https://misecurity.exa.cl/sel_requirements/mine",
     priority: nil,
     parent_id: selection.id
     )
@@ -613,17 +593,24 @@ namespace :security do
     title: "Evaluación de solicitudes",
     description: "Evaluación de solicitudes",
     css_class: "#b77890",
-    code: 92242,
-    link: "evaluacion-solicitudes",
+    link: "https://misecurity.exa.cl/sel_req_processes/eval/to_eval",
     priority: nil,
     parent_id: selection.id
     )
+    #Oportunidades Security
+    menu = General::Menu.find_or_create_by(
+    title: "Oportunidades Security",
+    description: "Oportunidades Security",
+    css_class: "#b77890",
+    link: "https://misecurity.exa.cl/job_market",
+    priority: nil,
+    parent_id: selection.id
+    )    
     #->Desempeño y Desarrollo	
     menu = General::Menu.find_or_create_by(
     title: "Desempeño y Desarrollo",
     description: "Desempeño y Desarrollo",
     css_class: "#968390",
-    code: 75232,
     link: "",
     priority: nil,
     parent_id: menu_1.id,
@@ -635,8 +622,16 @@ namespace :security do
     title: "Plan de desarrollo profesional",
     description: "Plan de desarrollo profesional",
     css_class: "#v77890",
-    code: 87736,
-    link: "plan-desarrollo-profesional",
+    link: "https://misecurity.exa.cl/tracking_processes/3/index",
+    priority: nil,
+    parent_id: development.id
+    )
+    #Feedback
+    menu = General::Menu.find_or_create_by(
+    title: "Feedback",
+    description: "Feedback",
+    css_class: "#v77890",
+    link: "https://misecurity.exa.cl/pe/uniq",
     priority: nil,
     parent_id: development.id
     )
@@ -645,7 +640,6 @@ namespace :security do
     title: "Talento",
     description: "Talento",
     css_class: "#d77780",
-    code: 82799,
     link: "talento",
     priority: nil,
     parent_id: development.id
@@ -660,72 +654,71 @@ namespace :security do
     #priority: nil,
     #parent_id: development.id
     # )
+    #Gestionar
     General::Menu.find_or_create_by(
-      title: "Gestionar",
-      description: "Gestionar",
-      css_class: "#641160",
-      code: 52592,
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "manage"
-      )
+    title: "Gestionar",
+    description: "Gestionar",
+    css_class: "#641160",
+    link: "capacitacion-funcional",
+    priority: nil,
+    parent_id: menu_1.id,
+    integration_code: "manage"
+    )
+    #Beneficios
     General::Menu.find_or_create_by(
-      title: "Beneficios",
-      description: "Beneficios",
-      css_class: "#641160",
-      code: 52592,
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_3.id,
-      integration_code: "licenses"
-      )
+    title: "Beneficios",
+    description: "Beneficios",
+    css_class: "#641160",
+    link: "capacitacion-funcional",
+    priority: nil,
+    parent_id: menu_3.id,
+    integration_code: "licenses"
+    )
+    #Bono Rol General
     General::Menu.find_or_create_by(
-      title: "Bono Rol General",
-      description: "Bono Rol General",
-      css_class: "#641160",
-      code: 52592,
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_3.id,
-      integration_code: "brg"
-      )
+    title: "Bono Rol General",
+    description: "Bono Rol General",
+    css_class: "#641160",
+    link: "capacitacion-funcional",
+    priority: nil,
+    parent_id: menu_3.id,
+    integration_code: "brg"
+    )
+    #Capacitémonos
     General::Menu.find_or_create_by(
-      title: "Capacitación",
-      description: "Capacitación",
-      css_class: "#641160",
-      code: 52592,
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "tr"
-      )
+    title: "Capacitémonos",
+    description: "Capacitémonos",
+    css_class: "#641160",
+    link: "capacitacion-funcional",
+    priority: nil,
+    parent_id: menu_1.id,
+    integration_code: "tr"
+    )
+    #Biblioteca
     General::Menu.find_or_create_by(
-      title: "Biblioteca",
-      description: "Biblioteca",
-      css_class: "#641160",
-      code: 52592,
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "lib"
-      )
+    title: "Biblioteca",
+    description: "Biblioteca",
+    css_class: "#641160",
+    link: "capacitacion-funcional",
+    priority: nil,
+    parent_id: menu_1.id,
+    integration_code: "lib"
+    )
+    #Mesa Ayuda
     General::Menu.find_or_create_by(
-      title: "Mesa Ayuda",
-      description: "Mesa de ayuda",
-      css_class: "#641160",
-      code: 52592,
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "hd"
-      )
+    title: "Mesa Ayuda",
+    description: "Mesa de ayuda",
+    css_class: "#641160",
+    link: "capacitacion-funcional",
+    priority: nil,
+    parent_id: menu_1.id,
+    integration_code: "hd"
+    )
     #Capacitemonos	
     menu = General::Menu.find_or_create_by(
     title: "Capacitemonos",
     description: "Capacitemonos",
     css_class: "#768393",
-    code: 55235,
     link: "",
     priority: nil,
     parent_id: menu_1.id
@@ -736,7 +729,6 @@ namespace :security do
     title: "Capacitación Corporativa",
     description: "Capacitación Corporativa",
     css_class: "#647720",
-    code: 52599,
     link: "capacitacion-corporativa",
     priority: nil,
     parent_id: capacitation.id
@@ -746,18 +738,16 @@ namespace :security do
     title: "Capacitación Funcional",
     description: "Capacitación Funcional",
     css_class: "#641160",
-    code: 52592,
     link: "capacitacion-funcional",
     priority: nil,
     parent_id: capacitation.id
     )
-    #Programa excelencia
+    #Programa de capacitación
     menu = General::Menu.find_or_create_by(
-    title: "Programa excelencia",
-    description: "Programa excelencia",
+    title: "Programa de capacitación",
+    description: "Programa de capacitación",
     css_class: "#649370",
-    code: 52340,
-    link: "programa-excelencia",
+    link: "programa-capacitación",
     priority: nil,
     parent_id: capacitation.id
     )
@@ -766,8 +756,7 @@ namespace :security do
     title: "Material de Capacitación",
     description: "Material de Capacitación",
     css_class: "#379908",
-    code: 52239,
-    link: "material-capacitacion",
+    link: "https://misecurity.exa.cl/biblioteca",
     priority: nil,
     parent_id: capacitation.id
     )
@@ -776,8 +765,7 @@ namespace :security do
     title: "Historial de Capacitación",
     description: "Historial de Capacitación",
     css_class: "#379100",
-    code: 52189,
-    link: "historial-capacitacion",
+    link: "https://misecurity.exa.cl/user_profile",
     priority: nil,
     parent_id: capacitation.id
     )
@@ -786,7 +774,6 @@ namespace :security do
     title: "Remuneraciones",
     description: "Remuneraciones",
     css_class: "#366678",
-    code: 65235,
     link: "",
     priority: nil,
     parent_id: menu_1.id
@@ -797,8 +784,7 @@ namespace :security do
     title: "Liquidaciones",
     description: "Liquidaciones",
     css_class: "#299900",
-    code: 67789,
-    link: "liquidaciones",
+    link: "https://expert.adpsoluciones.com/Expert/inicio/ini/Login.aspx?AspxAutoDetectCookieSupport=1",
     priority: nil,
     parent_id: remuneration.id
     )
@@ -807,8 +793,7 @@ namespace :security do
     title: "Anticipos",
     description: "Anticipos",
     css_class: "#23929",
-    code: 67199,
-    link: "anticipos",
+    link: "https://expert.adpsoluciones.com/Expert/inicio/ini/Login.aspx?AspxAutoDetectCookieSupport=1",
     priority: nil,
     parent_id: remuneration.id
     )
@@ -817,7 +802,6 @@ namespace :security do
     title: "APV",
     description: "APV",
     css_class: "#23121",
-    code: 61149,
     link: "apv",
     priority: nil,
     parent_id: remuneration.id
@@ -827,7 +811,6 @@ namespace :security do
     title: "Certificados",
     description: "Certificados",
     css_class: "#88999",
-    code: 78829,
     link: "",
     priority: nil,
     parent_id: menu_1.id
@@ -838,7 +821,6 @@ namespace :security do
     title: "Antigüedad",
     description: "Antigüedad",
     css_class: "#29929",
-    code: 78829,
     link: "antiguedad",
     priority: nil,
     parent_id: certification.id
@@ -848,7 +830,6 @@ namespace :security do
     title: "Renta",
     description: "Renta",
     css_class: "#22929",
-    code: 78195,
     link: "renta",
     priority: nil,
     parent_id: certification.id
@@ -859,7 +840,6 @@ namespace :security do
     title: "Noticias",
     description: "Noticias new menu",
     css_class: "#b13362",
-    code: 1235,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -879,7 +859,6 @@ namespace :security do
     title: "Corporativas",
     description: "corporativas",
     css_class: "#b13362",
-    code: 1236,
     link: "corporativas",
     priority: nil,
     parent_id: post.id
@@ -889,7 +868,6 @@ namespace :security do
     title: "Miscelaneos",
     description: "Miscelaneos",
     css_class: "#b10312",
-    code: 1237,
     link: "miscelaneos",
     priority: nil,
     parent_id: post.id
@@ -899,7 +877,6 @@ namespace :security do
     title: "Conociéndonos",
     description: "Conociéndonos",
     css_class: "#a15293",
-    code: 1238,
     link: "conociendonos",
     priority: nil,
     parent_id: post.id
@@ -909,7 +886,6 @@ namespace :security do
     title: "Políticas",
     description: "Políticas",
     css_class: "#bp1332",
-    code: 17235,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -920,8 +896,7 @@ namespace :security do
     title: "Corporativas",
     description: "Corporativas",
     css_class: "#65293",
-    code: 44238,
-    link: "corporativas",
+    link: "https://misecurity.exa.cl/biblioteca/134",
     priority: nil,
     parent_id: politic.id
     )
@@ -930,8 +905,7 @@ namespace :security do
     title: "Políticas Factoring Security",
     description: "Políticas Factoring Security",
     css_class: "#93293",
-    code: 41258,
-    link: "politicas-factoring-security",
+    link: "https://misecurity.exa.cl/biblioteca/135",
     priority: nil,
     parent_id: politic.id
     )
@@ -940,8 +914,7 @@ namespace :security do
     title: "Políticas Inversiones Security",
     description: "Políticas Inversiones Security",
     css_class: "#92213",
-    code: 11358,
-    link: "politicas-inversiones-security",
+    link: "https://misecurity.exa.cl/biblioteca/136",
     priority: nil,
     parent_id: politic.id
     )
@@ -950,8 +923,7 @@ namespace :security do
     title: "Políticas Corredora Security",
     description: "Políticas Corredora Security",
     css_class: "#52413",
-    code: 71552,
-    link: "politicas-corredora-security",
+    link: "https://misecurity.exa.cl/biblioteca/137",
     priority: nil,
     parent_id: politic.id
     )
@@ -960,8 +932,7 @@ namespace :security do
     title: "Políticas Travel Security",
     description: "Políticas Travel Security",
     css_class: "#59213",
-    code: 79551,
-    link: "politicas-travel-security",
+    link: "https://misecurity.exa.cl/biblioteca/138",
     priority: nil,
     parent_id: politic.id
     )
@@ -970,8 +941,7 @@ namespace :security do
     title: "Políticas Banco Security",
     description: "Políticas Banco Security",
     css_class: "#52233",
-    code: 71541,
-    link: "politicas-banco-security",
+    link: "https://misecurity.exa.cl/biblioteca/139",
     priority: nil,
     parent_id: politic.id
     )
@@ -980,8 +950,7 @@ namespace :security do
     title: "Políticas Vida Security",
     description: "Políticas Vida Security",
     css_class: "#58211",
-    code: 72549,
-    link: "politicas-vida-security",
+    link: "https://misecurity.exa.cl/biblioteca/140",
     priority: nil,
     parent_id: politic.id
     )
@@ -990,8 +959,7 @@ namespace :security do
     title: "Políticas Mandatos Security",
     description: "Políticas Mandatos Security",
     css_class: "#58019",
-    code: 74540,
-    link: "politicas-mandatos-security",
+    link: "https://misecurity.exa.cl/biblioteca/141",
     priority: nil,
     parent_id: politic.id
     )
@@ -1000,8 +968,7 @@ namespace :security do
     title: "Políticas Grupo Security",
     description: "Políticas Grupo Security",
     css_class: "#52419",
-    code: 71500,
-    link: "politicas-grupo-security",
+    link: "https://misecurity.exa.cl/biblioteca/142",
     priority: nil,
     parent_id: politic.id
     )
@@ -1010,8 +977,7 @@ namespace :security do
     title: "Políticas Hipotecaria",
     description: "Políticas Hipotecaria",
     css_class: "#56411",
-    code: 74501,
-    link: "politicas-hipotecarias-security",
+    link: "https://misecurity.exa.cl/biblioteca/143",
     priority: nil,
     parent_id: politic.id
     )
@@ -1020,7 +986,6 @@ namespace :security do
     title: "Guardianes del Security",
     description: "Guardianes del Security",
     css_class: "#p19362",
-    code: 91225,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1031,7 +996,6 @@ namespace :security do
     title: "Información importante",
     description: "Información importante",
     css_class: "#96312",
-    code: 96101,
     link: "informacion-importante",
     priority: nil,
     parent_id: guardian.id
@@ -1041,7 +1005,6 @@ namespace :security do
     title: "Tutoriales",
     description: "Tutoriales",
     css_class: "#93382",
-    code: 98801,
     link: "tutoriales",
     priority: nil,
     parent_id: guardian.id
@@ -1051,7 +1014,6 @@ namespace :security do
     title: "Cliente Integral",
     description: "Cliente Integral",
     css_class: "#139362",
-    code: 99923,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1062,8 +1024,7 @@ namespace :security do
     title: "Refiere aquí",
     description: "Refiere aquí",
     css_class: "#92352",
-    code: 98304,
-    link: "refiere-aqui",
+    link: "http://integracion.gr.security.cl/modules/uinfo/referidos.php",
     priority: nil,
     parent_id: integral.id
     )
@@ -1072,8 +1033,16 @@ namespace :security do
     title: "Acceso al sitio ",
     description: "Acceso al sitio ",
     css_class: "#92654",
-    code: 93303,
-    link: "acceso-sitio",
+    link: "http://clienteintegral.security.cl/",
+    priority: nil,
+    parent_id: integral.id
+    )
+    #Busca tu cliente 
+    menu = General::Menu.find_or_create_by(
+    title: "Busca tu cliente ",
+    description: "Busca tu cliente ",
+    css_class: "#92654",
+    link: "http://ventacruzadabo/ConsultaClienteIntegral.aspx",
     priority: nil,
     parent_id: integral.id
     )
@@ -1082,7 +1051,6 @@ namespace :security do
     title: "Reconociendo",
     description: "Reconociendo",
     css_class: "#00034",
-    code: 78888,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1093,7 +1061,6 @@ namespace :security do
     title: "Tarjeta de trabajo bien hecho ",
     description: "Tarjeta de trabajo bien hecho ",
     css_class: "#002838",
-    code: 763403,
     link: "tarjeta-trabajo-bien-hecho",
     priority: nil,
     parent_id: recognize.id
@@ -1103,7 +1070,6 @@ namespace :security do
     title: "Premio Espíritu",
     description: "Premio Espíritu",
     css_class: "#006868",
-    code: 764404,
     link: "premio-espiritu",
     priority: nil,
     parent_id: recognize.id
@@ -1113,7 +1079,6 @@ namespace :security do
     title: "Premio Integración",
     description: "Premio Integración",
     css_class: "#001811",
-    code: 764111,
     link: "premio-integracion",
     priority: nil,
     parent_id: recognize.id
@@ -1123,7 +1088,6 @@ namespace :security do
     title: "Premio Calidad de servicio",
     description: "Premio Calidad de servicio",
     css_class: "#002289",
-    code: 764998,
     link: "premio-calidad-servicio",
     priority: nil,
     parent_id: recognize.id
@@ -1133,7 +1097,6 @@ namespace :security do
     title: "Grupo Best",
     description: "Grupo Best",
     css_class: "#007778",
-    code: 79003,
     link: "grupo-best",
     priority: nil,
     parent_id: recognize.id
@@ -1143,7 +1106,6 @@ namespace :security do
     title: "Oportunidades Security",
     description: "Oportunidades Security",
     css_class: "#34444",
-    code: 38443,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1154,8 +1116,7 @@ namespace :security do
     title: "Cargos disponibles",
     description: "Cargos disponibles",
     css_class: "#38899",
-    code: 39999,
-    link: "cargo-disponible",
+    link: "https://misecurity.exa.cl/job_market",
     priority: nil,
     parent_id: opportunity.id
     )
@@ -1164,7 +1125,6 @@ namespace :security do
     title: "Referidos",
     description: "Referidos",
     css_class: "#311222",
-    code: 32990,
     link: "referidos",
     priority: nil,
     parent_id: opportunity.id
@@ -1174,7 +1134,6 @@ namespace :security do
     title: "Programa Previsional",
     description: "Programa Previsional",
     css_class: "#24224",
-    code: 28223,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1185,8 +1144,7 @@ namespace :security do
     title: "Solicita tu asesoría",
     description: "Solicita tu asesoría",
     css_class: "#21998",
-    code: 22765,
-    link: "solicita-asesoria",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLScBs8L8223yfTqW_QRl8RxVn8ICRKodaHJIGqrfY9m5yRxtfg/viewform",
     priority: nil,
     parent_id: program.id
     )
@@ -1195,7 +1153,6 @@ namespace :security do
     title: "Información",
     description: "Información",
     css_class: "#29938",
-    code: 29769,
     link: "informacion",
     priority: nil,
     parent_id: program.id
@@ -1205,7 +1162,6 @@ namespace :security do
     title: "Celebremos",
     description: "Celebremos",
     css_class: "#64220",
-    code: 68002,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1216,7 +1172,6 @@ namespace :security do
     title: "Nacimientos",
     description: "Nacimientos",
     css_class: "#67778",
-    code: 63520,
     link: "celebremos-nacimientos",
     priority: nil,
     parent_id: celebrate.id
@@ -1226,7 +1181,6 @@ namespace :security do
     title: "Cumpleaños",
     description: "Cumpleaños",
     css_class: "#67338",
-    code: 63424,
     link: "celebremos-cumpleaños",
     priority: nil,
     parent_id: celebrate.id
@@ -1236,7 +1190,6 @@ namespace :security do
     title: "Bienvenidos",
     description: "Bienvenidos",
     css_class: "#62278",
-    code: 63903,
     link: "celebremos-bienvenidos",
     priority: nil,
     parent_id: celebrate.id
@@ -1246,7 +1199,6 @@ namespace :security do
     title: "Ayuda a la comunidad",
     description: "Ayuda a la comunidad",
     css_class: "#54550",
-    code: 55002,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1257,7 +1209,6 @@ namespace :security do
     title: "Fundación Las Rosas",
     description: "Fundación Las Rosas",
     css_class: "#55258",
-    code: 55999,
     link: "fundacion-las-rosas",
     priority: nil,
     parent_id: community.id
@@ -1267,7 +1218,6 @@ namespace :security do
     title: "Fundación Mi Parque",
     description: "Fundación Mi Parque",
     css_class: "#55599",
-    code: 55876,
     link: "fundacion-mi-parque",
     priority: nil,
     parent_id: community.id
@@ -1277,7 +1227,6 @@ namespace :security do
     title: "Puertas abiertas",
     description: "Puertas abiertas",
     css_class: "#89999",
-    code: 87764,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1288,7 +1237,6 @@ namespace :security do
     title: "Solicitar Puertas Abiertas",
     description: "Solicitar Puertas Abiertas",
     css_class: "#80003",
-    code: 82330,
     link: "solicitar-puertas-abiertas",
     priority: nil,
     parent_id: door_open.id
@@ -1298,7 +1246,6 @@ namespace :security do
     title: "Descripción",
     description: "Descripción",
     css_class: "#82939",
-    code: 83648,
     link: "descripcion",
     priority: nil,
     parent_id: door_open.id
@@ -1308,7 +1255,6 @@ namespace :security do
     title: "Cultura Corporativa",
     description: "Cultura Corporativa",
     css_class: "#65677",
-    code: 63200,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1320,7 +1266,6 @@ namespace :security do
     title: "Tiempo libre",
     description: "Tiempo libre",
     css_class: "#11110",
-    code: 11145,
     link: "",
     priority: nil,
     parent_id: menu_2.id
@@ -1331,7 +1276,6 @@ namespace :security do
     title: "Avisos clasificados",
     description: "Avisos clasificados",
     css_class: "#11100",
-    code: 11399,
     link: "avisos-clasificados",
     priority: nil,
     parent_id: free_time.id
@@ -1341,7 +1285,6 @@ namespace :security do
     title: "Biblioteca y ludoteca",
     description: "Biblioteca y ludoteca",
     css_class: "#12000",
-    code: 14957,
     link: "biblioteca-ludoteca",
     priority: nil,
     parent_id: free_time.id
@@ -1351,7 +1294,6 @@ namespace :security do
     title: "Jugar y aprender",
     description: "Jugar y aprender",
     css_class: "#19300",
-    code: 18355,
     link: "jugar-y-aprender",
     priority: nil,
     parent_id: free_time.id
@@ -1361,7 +1303,6 @@ namespace :security do
     title: "Ser +",
     description: "Ser +",
     css_class: "#12333",
-    code: 13678,
     link: "ser-mas",
     priority: nil,
     parent_id: free_time.id
@@ -1371,7 +1312,6 @@ namespace :security do
     title: "Concursos de cuentos",
     description: "Concursos de cuentos",
     css_class: "#14559",
-    code: 13659,
     link: "concurso-cuentos",
     priority: nil,
     parent_id: free_time.id
@@ -1381,7 +1321,6 @@ namespace :security do
     title: "Concursos de fotografía",
     description: "Concursos de fotografía",
     css_class: "#15277",
-    code: 15289,
     link: "concurso-fotografia",
     priority: nil,
     parent_id: free_time.id
@@ -1391,7 +1330,6 @@ namespace :security do
     title: "Concurso de pintura",
     description: "Concurso de pintura",
     css_class: "#13447",
-    code: 13553,
     link: "concurso-pintura",
     priority: nil,
     parent_id: free_time.id
@@ -1401,7 +1339,6 @@ namespace :security do
     title: "Concuros Papá Espíritu Security",
     description: "Concuros Papá Espíritu Security",
     css_class: "#12222",
-    code: 19920,
     link: "concurso-papa-espiritu-security",
     priority: nil,
     parent_id: free_time.id
@@ -1413,7 +1350,6 @@ namespace :security do
     title: "Bonos",
     description: "Bonos",
     css_class: "#y32233",
-    code: 12399,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1423,7 +1359,6 @@ namespace :security do
     title: "Vacaciones",
     description: "Vacaciones",
     css_class: "#y32571",
-    code: 12498,
     link: "bono-vacaciones",
     priority: nil,
     parent_id: bonus.id
@@ -1432,7 +1367,6 @@ namespace :security do
     title: "Bono Auxiliar de Párvulo Materno",
     description: "Bono Auxiliar de Párvulo Materno",
     css_class: "#y32571",
-    code: 1239,
     link: "bono-auxiliar-parvulo-materno",
     priority: nil,
     parent_id: bonus.id
@@ -1441,7 +1375,6 @@ namespace :security do
     title: "Bono Auxiliar de Párvulo Paterno",
     description: "Bono Auxiliar de Párvulo Paterno",
     css_class: "#366s12",
-    code: 1240,
     link: "bono-auxiliar-parvulo-paterno",
     priority: nil,
     parent_id: bonus.id
@@ -1450,7 +1383,6 @@ namespace :security do
     title: "Sala Cuna",
     description: "Sala Cuna",
     css_class: "#334d12",
-    code: 12400,
     link: "bono-sala-cuna",
     priority: nil,
     parent_id: bonus.id
@@ -1459,7 +1391,6 @@ namespace :security do
     title: "Jardín Infantil",
     description: "Jardín Infantil",
     css_class: "#124dd2",
-    code: 12403,
     link: "bono-jardin-infantil",
     priority: nil,
     parent_id: bonus.id
@@ -1468,7 +1399,6 @@ namespace :security do
     title: "Nacimiento",
     description: "Nacimiento",
     css_class: "#2930dj",
-    code: 12407,
     link: "bono-nacimiento",
     priority: nil,
     parent_id: bonus.id
@@ -1477,7 +1407,6 @@ namespace :security do
     title: "Matrimonio",
     description: "Matrimonio",
     css_class: "#b2310o",
-    code: 1242,
     link: "bono-de-matrimonio",
     priority: nil,
     parent_id: bonus.id
@@ -1486,7 +1415,6 @@ namespace :security do
     title: "Unión Civil",
     description: "Unión Civil",
     css_class: "#34949j",
-    code: 12422,
     link: "bono-union-civil",
     priority: nil,
     parent_id: bonus.id
@@ -1495,7 +1423,6 @@ namespace :security do
     title: "Fallecimiento",
     description: "Fallecimiento",
     css_class: "#109220",
-    code: 1241,
     link: "bono-fallecimiento",
     priority: nil,
     parent_id: bonus.id
@@ -1504,7 +1431,6 @@ namespace :security do
     title: "Escolaridad",
     description: "Escolaridad",
     css_class: "#a81123",
-    code: 12423,
     link: "bono-escolaridad",
     priority: nil,
     parent_id: bonus.id
@@ -1513,7 +1439,6 @@ namespace :security do
     title: "Gestión Empresa",
     description: "Gestión Empresa",
     css_class: "#a81234",
-    code: 12483,
     link: "bono-gestion-empresa",
     priority: nil,
     parent_id: bonus.id
@@ -1522,7 +1447,6 @@ namespace :security do
     title: "Ahorro Jubilación 1+1",
     description: "Ahorro Jubilación 1+1",
     css_class: "#a89i89",
-    code: 12463,
     link: "bono-ahorro-jubilacion",
     priority: nil,
     parent_id: bonus.id
@@ -1531,7 +1455,6 @@ namespace :security do
     title: "Aguinaldo Fiestas Patrias",
     description: "Aguinaldo Fiestas Patrias",
     css_class: "#a12203",
-    code: 1244,
     link: "aguinaldo-fiestas-patrias",
     priority: nil,
     parent_id: bonus.id
@@ -1541,7 +1464,6 @@ namespace :security do
     title: "Créditos y Subsidios",
     description: "Créditos y Subsidios",
     css_class: "#u88899",
-    code: 49900,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1552,7 +1474,6 @@ namespace :security do
     title: "Créditos Banca Empleados",
     description: "Créditos Banca Empleados",
     css_class: "#r8899",
-    code: 66679,
     link: "creditos-banca-empleados",
     priority: nil,
     parent_id: credit.id
@@ -1562,7 +1483,6 @@ namespace :security do
     title: "Subsidio Habitacional",
     description: "Subsidio Habitacional",
     css_class: "#w2222",
-    code: 99920,
     link: "subsidio-habitacional",
     priority: nil,
     parent_id: credit.id
@@ -1572,7 +1492,6 @@ namespace :security do
     title: "Seguros",
     description: "Seguros",
     css_class: "#o0293",
-    code: 24849,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1583,7 +1502,6 @@ namespace :security do
     title: "Seguro de Salud y Catastrófico",
     description: "Seguro de Salud y Catastrófico",
     css_class: "#53444",
-    code: 48489,
     link: "seguro-salud-catastrofico",
     priority: nil,
     parent_id: secure.id
@@ -1593,7 +1511,6 @@ namespace :security do
     title: "Seguro de vida",
     description: "Seguro de vida",
     css_class: "#59990",
-    code: 45323,
     link: "seguro-de-vida",
     priority: nil,
     parent_id: secure.id
@@ -1603,7 +1520,6 @@ namespace :security do
     title: "Seguro Dental",
     description: "Seguro Dental",
     css_class: "#40110",
-    code: 41300,
     link: "seguro-dental",
     priority: nil,
     parent_id: secure.id
@@ -1613,7 +1529,6 @@ namespace :security do
     title: "Seguro Vida 24 Rentas",
     description: "Seguro Vida 24 Rentas",
     css_class: "#42199",
-    code: 42390,
     link: "seguro-vida-24-rentas",
     priority: nil,
     parent_id: secure.id
@@ -1623,7 +1538,6 @@ namespace :security do
     title: "Becas",
     description: "Becas",
     css_class: "#33330",
-    code: 39490,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1634,7 +1548,6 @@ namespace :security do
     title: "Becas de estudio hijos",
     description: "Becas de estudio hijos",
     css_class: "#55543",
-    code: 55322,
     link: "becas-estudio-hijos",
     priority: nil,
     parent_id: scholarship.id
@@ -1644,7 +1557,6 @@ namespace :security do
     title: "Becas de estudio para empleados",
     description: "Becas de estudio para empleados",
     css_class: "#53321",
-    code: 55322,
     link: "becas-estudio-empleados",
     priority: nil,
     parent_id: scholarship.id
@@ -1654,7 +1566,6 @@ namespace :security do
     title: "Tiempo Libre",
     description: "Beneficios Tiempo Libre",
     css_class: "#o0293",
-    code: 24849,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1665,7 +1576,6 @@ namespace :security do
     title: "Jornada reducida (viernes)",
     description: "Jornada reducida (viernes)",
     css_class: "#19384",
-    code: 12900,
     link: "jornada-reducida",
     priority: nil,
     parent_id: b_free_time.id
@@ -1675,7 +1585,6 @@ namespace :security do
     title: "24 hrs para algo importante",
     description: "24 hrs para algo importante",
     css_class: "#18299",
-    code: 17268,
     link: "24-horas-algo-importante",
     priority: nil,
     parent_id: b_free_time.id
@@ -1685,7 +1594,6 @@ namespace :security do
     title: "Vacaciones temporada baja",
     description: "Vacaciones temporada baja",
     css_class: "#17283",
-    code: 17253,
     link: "vacaciones-temporada-baja",
     priority: nil,
     parent_id: b_free_time.id
@@ -1695,7 +1603,6 @@ namespace :security do
     title: "Día Libre para cambio de casa",
     description: "Día Libre para cambio de casa",
     css_class: "#12900",
-    code: 12939,
     link: "dia-libre-cambio-casa",
     priority: nil,
     parent_id: b_free_time.id
@@ -1705,7 +1612,6 @@ namespace :security do
     title: "Días adicionales de vacaciones",
     description: "Días adicionales de vacaciones",
     css_class: "#14899",
-    code: 14889,
     link: "dia-adicionales-vacaciones",
     priority: nil,
     parent_id: b_free_time.id
@@ -1715,7 +1621,6 @@ namespace :security do
     title: "Horarios de salida en días especiales",
     description: "Horarios de salida en días especiales",
     css_class: "#12936",
-    code: 12366,
     link: "horario-salida-dias-especiales",
     priority: nil,
     parent_id: b_free_time.id
@@ -1725,7 +1630,6 @@ namespace :security do
     title: "Examen de Grado",
     description: "Examen de Grado",
     css_class: "#11190",
-    code: 12993,
     link: "examen-de-grado",
     priority: nil,
     parent_id: b_free_time.id
@@ -1735,7 +1639,6 @@ namespace :security do
     title: "Exámenes Preventivos",
     description: "Exámenes Preventivos",
     css_class: "#13403",
-    code: 13849,
     link: "examenes-preventivos",
     priority: nil,
     parent_id: b_free_time.id
@@ -1745,7 +1648,6 @@ namespace :security do
     title: "Familia",
     description: "Familia",
     css_class: "#400jk3",
-    code: 54888,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1756,7 +1658,6 @@ namespace :security do
     title: "Post Natal Paterno",
     description: "Post Natal Paterno",
     css_class: "#400339",
-    code: 43330,
     link: "familia-post-natal-paterno",
     priority: nil,
     parent_id: family.id
@@ -1766,7 +1667,6 @@ namespace :security do
     title: "Regreso Paulatino Materno",
     description: "Regreso Paulatino Materno",
     css_class: "#49000",
-    code: 47888,
     link: "regreso-paulatino-materno",
     priority: nil,
     parent_id: family.id
@@ -1776,7 +1676,6 @@ namespace :security do
     title: "Securitylandia Verano - Invierno",
     description: "Securitylandia Verano - Invierno",
     css_class: "#444555",
-    code: 41122,
     link: "securitylandia-verano-invierno",
     priority: nil,
     parent_id: family.id
@@ -1786,7 +1685,6 @@ namespace :security do
     title: "Tardes de Invierno",
     description: "Tardes de Invierno",
     css_class: "#446788",
-    code: 45678,
     link: "tardes-de-invierno",
     priority: nil,
     parent_id: family.id
@@ -1796,7 +1694,6 @@ namespace :security do
     title: "Premio Excelencia Académica",
     description: "Premio Excelencia Académica",
     css_class: "#46777",
-    code: 42200,
     link: "premio-excelencia-academica",
     priority: nil,
     parent_id: family.id
@@ -1806,7 +1703,6 @@ namespace :security do
     title: "Premio PSU",
     description: "Premio PSU",
     css_class: "#43989",
-    code: 49002,
     link: "premio-psu",
     priority: nil,
     parent_id: family.id
@@ -1816,7 +1712,6 @@ namespace :security do
     title: "Celebrando",
     description: "Celebrando",
     css_class: "#o0293",
-    code: 24849,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1827,7 +1722,6 @@ namespace :security do
     title: "Cumpleaños",
     description: "Cumpleaños",
     css_class: "#54321",
-    code: 54564,
     link: "celebrando-cumpleanos",
     priority: nil,
     parent_id: celebrating.id
@@ -1837,7 +1731,6 @@ namespace :security do
     title: "Fiesta Fin de Año",
     description: "Fiesta Fin de Año",
     css_class: "#54666",
-    code: 55561,
     link: "celebrando-fiesta-fin-de-ano",
     priority: nil,
     parent_id: celebrating.id
@@ -1847,7 +1740,6 @@ namespace :security do
     title: "Paseo Grupo Security",
     description: "Paseo Grupo Security",
     css_class: "#57888",
-    code: 50399,
     link: "celebrando-paseo-grupo-security",
     priority: nil,
     parent_id: celebrating.id
@@ -1857,7 +1749,6 @@ namespace :security do
     title: "Fiestas Patrias",
     description: "Fiestas Patrias",
     css_class: "#54321",
-    code: 54333,
     link: "celebrando-fiestas-patrias",
     priority: nil,
     parent_id: celebrating.id
@@ -1867,7 +1758,6 @@ namespace :security do
     title: "Nacimientos mini Security",
     description: "Nacimientos mini Security",
     css_class: "#51113",
-    code: 51394,
     link: "celebrando-nacimiento-mini-security",
     priority: nil,
     parent_id: celebrating.id
@@ -1877,7 +1767,6 @@ namespace :security do
     title: "Regalo Inicio año escolar",
     description: "Regalo Inicio año escolar",
     css_class: "#50099",
-    code: 56660,
     link: "celebrando-inicio-ano-escolar",
     priority: nil,
     parent_id: celebrating.id
@@ -1887,7 +1776,6 @@ namespace :security do
     title: "Pascua de Resurrección",
     description: "Pascua de Resurrección",
     css_class: "#56697",
-    code: 51239,
     link: "celebrando-pascua-resurreccion",
     priority: nil,
     parent_id: celebrating.id
@@ -1897,7 +1785,6 @@ namespace :security do
     title: "Regalo de Navidad para hijos",
     description: "Regalo de Navidad para hijos",
     css_class: "#56666",
-    code: 57778,
     link: "celebrando-regalo-navidad-hijos",
     priority: nil,
     parent_id: celebrating.id
@@ -1907,7 +1794,6 @@ namespace :security do
     title: "Regalo Navidad con sentido",
     description: "Regalo Navidad con sentido",
     css_class: "#54111",
-    code: 59992,
     link: "celebrando-regalo-navidad-con-sentido",
     priority: nil,
     parent_id: celebrating.id
@@ -1917,7 +1803,6 @@ namespace :security do
     title: "Regalo Día de la madre",
     description: "Regalo Día de la madre",
     css_class: "#55446",
-    code: 55666,
     link: "celebrando-regalo-dia-madre",
     priority: nil,
     parent_id: celebrating.id
@@ -1927,7 +1812,6 @@ namespace :security do
     title: "Regalo Día de padre",
     description: "Regalo Día de padre",
     css_class: "#51116",
-    code: 51512,
     link: "celebrando-regalo-dia-padre",
     priority: nil,
     parent_id: celebrating.id
@@ -1937,7 +1821,6 @@ namespace :security do
     title: "Regalo Día del abuelo",
     description: "Regalo Día del abuelo",
     css_class: "#59998",
-    code: 51428,
     link: "celebrando-dia-abuelo",
     priority: nil,
     parent_id: celebrating.id
@@ -1947,7 +1830,6 @@ namespace :security do
     title: "Regalo Día de la mujer",
     description: "Regalo Día de la mujer",
     css_class: "#58889",
-    code: 52839,
     link: "celebrando-dia-mujer",
     priority: nil,
     parent_id: celebrating.id
@@ -1957,7 +1839,6 @@ namespace :security do
     title: "Regalo Día del abuelo",
     description: "Regalo Día del abuelo",
     css_class: "#53428",
-    code: 52937,
     link: "celebrando-dia-abuelo",
     priority: nil,
     parent_id: celebrating.id
@@ -1967,7 +1848,6 @@ namespace :security do
     title: "Regalo Pasamos Agosto",
     description: "Regalo Pasamos Agosto",
     css_class: "#51222",
-    code: 52930,
     link: "celebrando-regalo-pasamos-agosto",
     priority: nil,
     parent_id: celebrating.id
@@ -1977,7 +1857,6 @@ namespace :security do
     title: "Día de la Secretaria",
     description: "Día de la Secretaria",
     css_class: "#53339",
-    code: 53390,
     link: "celebrando-dia-secretaria",
     priority: nil,
     parent_id: celebrating.id
@@ -1987,7 +1866,6 @@ namespace :security do
     title: "Programa Yo Elijo Salud y Sustentabilidad",
     description: "Programa Yo Elijo Salud y Sustentabilidad",
     css_class: "#88863",
-    code: 82536,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -1998,7 +1876,6 @@ namespace :security do
     title: "Fun Fridays",
     description: "Fun Fridays",
     css_class: "#53339",
-    code: 53390,
     link: "celebrando-fun-fridays",
     priority: nil,
     parent_id: healthy.id
@@ -2008,7 +1885,6 @@ namespace :security do
     title: "Cuida tu Salud - Exámenes preventivos",
     description: "Cuida tu Salud - Exámenes preventivos",
     css_class: "#59579",
-    code: 53390,
     link: "celebrando-fun-fridays",
     priority: nil,
     parent_id: healthy.id
@@ -2018,7 +1894,6 @@ namespace :security do
     title: "Construcción de la Plaza",
     description: "Construcción de la Plaza",
     css_class: "#55677",
-    code: 53388,
     link: "celebrando-construccion-plaza",
     priority: nil,
     parent_id: healthy.id
@@ -2028,7 +1903,6 @@ namespace :security do
     title: "Clases de cueca",
     description: "Clases de cueca",
     css_class: "#53444",
-    code: 56880,
     link: "celebrando-clases-cueca",
     priority: nil,
     parent_id: healthy.id
@@ -2038,7 +1912,6 @@ namespace :security do
     title: "Colación de Embarazadas",
     description: "Colación de Embarazadas",
     css_class: "#51110",
-    code: 58880,
     link: "celebrando-colacion-embarazadas",
     priority: nil,
     parent_id: healthy.id
@@ -2048,7 +1921,6 @@ namespace :security do
     title: "Actividades deportivas",
     description: "Actividades deportivas",
     css_class: "#52020",
-    code: 59000,
     link: "celebrando-actividades-deportivas",
     priority: nil,
     parent_id: healthy.id
@@ -2058,7 +1930,6 @@ namespace :security do
     title: "Charlas",
     description: "Charlas",
     css_class: "#56667",
-    code: 59988,
     link: "celebrando-charlas",
     priority: nil,
     parent_id: healthy.id
@@ -2068,7 +1939,6 @@ namespace :security do
     title: "Convenios generales",
     description: "Convenios generales",
     css_class: "#32099",
-    code: 10399,
     link: "",
     priority: nil,
     parent_id: menu_3.id
@@ -2079,7 +1949,6 @@ namespace :security do
     title: "Convenio Movistar",
     description: "Convenio Movistar",
     css_class: "#77889",
-    code: 72377,
     link: "convenio-movistar",
     priority: nil,
     parent_id: general.id
@@ -2089,7 +1958,6 @@ namespace :security do
     title: "Convenios Restaurantes",
     description: "Convenios Restaurantes",
     css_class: "#76555",
-    code: 72444,
     link: "convenio-movistar",
     priority: nil,
     parent_id: general.id
@@ -2099,7 +1967,6 @@ namespace :security do
     title: "Convenios Hoteles",
     description: "Convenios Hoteles",
     css_class: "#71120",
-    code: 78899,
     link: "convenio-hoteles",
     priority: nil,
     parent_id: general.id
@@ -2109,7 +1976,6 @@ namespace :security do
     title: "Convenios de Salud",
     description: "Convenios de Salud",
     css_class: "#77767",
-    code: 72769,
     link: "convenio-salud",
     priority: nil,
     parent_id: general.id
@@ -2119,7 +1985,6 @@ namespace :security do
     title: "Convenios Dentales",
     description: "Convenios Dentales",
     css_class: "#788000",
-    code: 774747,
     link: "convenios-dentales",
     priority: nil,
     parent_id: general.id
@@ -2129,7 +1994,6 @@ namespace :security do
     title: "Convenios Gimnasio",
     description: "Convenios Gimnasio",
     css_class: "#788993",
-    code: 780300,
     link: "convenios-gimnasio",
     priority: nil,
     parent_id: general.id
@@ -2139,7 +2003,6 @@ namespace :security do
     title: "Convenios colectivos",
     description: "Convenios colectivos",
     css_class: "#32032",
-    code: 10319,
     link: "",
     priority: nil,
     parent_id: menu_3.id
