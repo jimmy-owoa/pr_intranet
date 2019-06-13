@@ -600,15 +600,6 @@ namespace :security do
     priority: nil,
     parent_id: selection.id
     )
-    #Oportunidades Security
-    menu = General::Menu.find_or_create_by(
-    title: "Oportunidades Security",
-    description: "Oportunidades Security",
-    css_class: "#b77890",
-    link: "https://misecurity.exa.cl/job_market",
-    priority: nil,
-    parent_id: selection.id
-    )    
     #->Desempeño y Desarrollo	
     menu = General::Menu.find_or_create_by(
     title: "Desempeño y Desarrollo",
