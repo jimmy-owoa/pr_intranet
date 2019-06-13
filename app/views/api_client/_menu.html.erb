@@ -1067,6 +1067,8 @@
                   <% submenus.first(3).each do |link| %>
                     <% if link[:link].downcase[0..3] == 'http'%>
                       <%= link_to link[:title], link[:link] %>
+                    <% elsif link[:post_slug].present? %>
+                      <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
                     <% else %>
                       <%= link_to link[:title], '/#/' + link[:link] %>
                     <% end %>
@@ -1080,6 +1082,8 @@
                         <div>
                           <% if link[:link].downcase[0..3] == 'http'%>
                             <%= link_to link[:title], link[:link] %><br>
+                          <% elsif link[:post_slug].present? %>
+                            <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
                           <% else %>
                             <%= link_to link[:title], '/#/' + link[:link] %>
                           <% end %>
@@ -1094,6 +1098,8 @@
                    <% submenus.each do |link| %>
                     <% if link[:link].downcase[0..3] == 'http'%>
                       <%= link_to link[:title], link[:link] %>
+                    <% elsif link[:post_slug].present? %>
+                      <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
                     <% else %>
                       <%= link_to link[:title], '/#/' + link[:link] %>
                     <% end %>

@@ -26,6 +26,9 @@ namespace :security do
     Role.find_or_create_by(name: 'message_admin')
     Role.find_or_create_by(name: 'benefit_admin')
     puts("******* Creando Santorales *******")
+    extra_post = News::Post.create(title: 'Página informativa', format: 0, post_type: 'Conociéndonos', content: 'Contenido del sitio informativo', important: false, user_id: 1)
+    
+    puts("******* Creando Santorales *******")
     General::Santoral.find_or_create_by(name: "María, Madre de Dios", santoral_day: '01-01')
     General::Santoral.find_or_create_by(name: "Basilio, Gregorio", santoral_day: '01-02')
     General::Santoral.find_or_create_by(name: "Genoveva", santoral_day: '01-03')
@@ -428,7 +431,7 @@ namespace :security do
     title: "Aprobación",
     description: "Aprobación",
     css_class: "#db9398",
-    link: "aprobacion",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: vacation.id
     )
@@ -436,7 +439,7 @@ namespace :security do
     title: "Vacaciones progresivas",
     description: "Vacaciones progresivas",
     css_class: "#db3562",
-    link: "vacaciones-progresivas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: vacation.id
     )
@@ -455,7 +458,7 @@ namespace :security do
     title: "24 Horas para algo importante",
     description: "24 Horas para algo importante",
     css_class: "#3nnd99",
-    link: "algo-importante",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -464,7 +467,7 @@ namespace :security do
     title: "Post Natal Paterno",
     description: "Post Natal Paterno",
     css_class: "#346kg9",
-    link: "post-natal-paterno",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -473,7 +476,7 @@ namespace :security do
     title: "Matrimonio",
     description: "Matrimonio",
     css_class: "#93899h",
-    link: "matrimonio",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -482,7 +485,7 @@ namespace :security do
     title: "Unión Civil",
     description: "Unión Civil",
     css_class: "#64334f",
-    link: "union-civil",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -491,7 +494,7 @@ namespace :security do
     title: "Fallecimiento",
     description: "Fallecimiento",
     css_class: "#04jdj9",
-    link: "fallecimiento",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -500,7 +503,7 @@ namespace :security do
     title: "Examen de Grado",
     description: "Examen de Grado",
     css_class: "#04jdj9",
-    link: "examen-de-grado",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -509,7 +512,7 @@ namespace :security do
     title: "Exámenes Preventivos",
     description: "Exámenes Preventivos",
     css_class: "#983839",
-    link: "examenes-preventivos",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -518,7 +521,7 @@ namespace :security do
     title: "Día Libre para cambio de casa",
     description: "Día Libre para cambio de casa",
     css_class: "#7889s0",
-    link: "dia-libre-cambio-casa",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: permission.id
     )
@@ -537,7 +540,7 @@ namespace :security do
     title: "Ingresar tarjeta",
     description: "Ingresar tarjeta",
     css_class: "#9883hb",
-    link: "ingreso-tarjeta",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: work_card.id
     )
@@ -546,7 +549,7 @@ namespace :security do
     title: "Mis tarjetas",
     description: "Mis tarjetas",
     css_class: "#989390",
-    link: "mis-tarjetas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: work_card.id
     )
@@ -640,7 +643,7 @@ namespace :security do
     title: "Talento",
     description: "Talento",
     css_class: "#d77780",
-    link: "talento",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: development.id
     )
@@ -729,7 +732,7 @@ namespace :security do
     title: "Capacitación Corporativa",
     description: "Capacitación Corporativa",
     css_class: "#647720",
-    link: "capacitacion-corporativa",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: capacitation.id
     )
@@ -738,7 +741,7 @@ namespace :security do
     title: "Capacitación Funcional",
     description: "Capacitación Funcional",
     css_class: "#641160",
-    link: "capacitacion-funcional",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: capacitation.id
     )
@@ -747,7 +750,7 @@ namespace :security do
     title: "Programa de capacitación",
     description: "Programa de capacitación",
     css_class: "#649370",
-    link: "programa-capacitación",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: capacitation.id
     )
@@ -802,7 +805,7 @@ namespace :security do
     title: "APV",
     description: "APV",
     css_class: "#23121",
-    link: "apv",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: remuneration.id
     )
@@ -821,7 +824,7 @@ namespace :security do
     title: "Antigüedad",
     description: "Antigüedad",
     css_class: "#29929",
-    link: "antiguedad",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: certification.id
     )
@@ -830,7 +833,7 @@ namespace :security do
     title: "Renta",
     description: "Renta",
     css_class: "#22929",
-    link: "renta",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: certification.id
     )
@@ -996,7 +999,7 @@ namespace :security do
     title: "Información importante",
     description: "Información importante",
     css_class: "#96312",
-    link: "informacion-importante",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: guardian.id
     )
@@ -1005,7 +1008,7 @@ namespace :security do
     title: "Tutoriales",
     description: "Tutoriales",
     css_class: "#93382",
-    link: "tutoriales",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: guardian.id
     )
@@ -1061,7 +1064,7 @@ namespace :security do
     title: "Tarjeta de trabajo bien hecho ",
     description: "Tarjeta de trabajo bien hecho ",
     css_class: "#002838",
-    link: "tarjeta-trabajo-bien-hecho",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: recognize.id
     )
@@ -1070,7 +1073,7 @@ namespace :security do
     title: "Premio Espíritu",
     description: "Premio Espíritu",
     css_class: "#006868",
-    link: "premio-espiritu",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: recognize.id
     )
@@ -1079,7 +1082,7 @@ namespace :security do
     title: "Premio Integración",
     description: "Premio Integración",
     css_class: "#001811",
-    link: "premio-integracion",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: recognize.id
     )
@@ -1088,7 +1091,7 @@ namespace :security do
     title: "Premio Calidad de servicio",
     description: "Premio Calidad de servicio",
     css_class: "#002289",
-    link: "premio-calidad-servicio",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: recognize.id
     )
@@ -1097,7 +1100,7 @@ namespace :security do
     title: "Grupo Best",
     description: "Grupo Best",
     css_class: "#007778",
-    link: "grupo-best",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: recognize.id
     )
@@ -1125,7 +1128,7 @@ namespace :security do
     title: "Referidos",
     description: "Referidos",
     css_class: "#311222",
-    link: "referidos",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: opportunity.id
     )
@@ -1153,7 +1156,7 @@ namespace :security do
     title: "Información",
     description: "Información",
     css_class: "#29938",
-    link: "informacion",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: program.id
     )
@@ -1209,7 +1212,7 @@ namespace :security do
     title: "Fundación Las Rosas",
     description: "Fundación Las Rosas",
     css_class: "#55258",
-    link: "fundacion-las-rosas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: community.id
     )
@@ -1218,7 +1221,7 @@ namespace :security do
     title: "Fundación Mi Parque",
     description: "Fundación Mi Parque",
     css_class: "#55599",
-    link: "fundacion-mi-parque",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: community.id
     )
@@ -1237,7 +1240,7 @@ namespace :security do
     title: "Solicitar Puertas Abiertas",
     description: "Solicitar Puertas Abiertas",
     css_class: "#80003",
-    link: "solicitar-puertas-abiertas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: door_open.id
     )
@@ -1246,7 +1249,7 @@ namespace :security do
     title: "Descripción",
     description: "Descripción",
     css_class: "#82939",
-    link: "descripcion",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: door_open.id
     )
@@ -1285,7 +1288,7 @@ namespace :security do
     title: "Biblioteca y ludoteca",
     description: "Biblioteca y ludoteca",
     css_class: "#12000",
-    link: "biblioteca-ludoteca",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: free_time.id
     )
@@ -1294,7 +1297,7 @@ namespace :security do
     title: "Jugar y aprender",
     description: "Jugar y aprender",
     css_class: "#19300",
-    link: "jugar-y-aprender",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: free_time.id
     )
@@ -1303,7 +1306,7 @@ namespace :security do
     title: "Ser +",
     description: "Ser +",
     css_class: "#12333",
-    link: "ser-mas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: free_time.id
     )
@@ -1312,7 +1315,7 @@ namespace :security do
     title: "Concursos de cuentos",
     description: "Concursos de cuentos",
     css_class: "#14559",
-    link: "concurso-cuentos",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: free_time.id
     )
@@ -1321,7 +1324,7 @@ namespace :security do
     title: "Concursos de fotografía",
     description: "Concursos de fotografía",
     css_class: "#15277",
-    link: "concurso-fotografia",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: free_time.id
     )
@@ -1330,7 +1333,7 @@ namespace :security do
     title: "Concurso de pintura",
     description: "Concurso de pintura",
     css_class: "#13447",
-    link: "concurso-pintura",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: free_time.id
     )
@@ -1339,7 +1342,7 @@ namespace :security do
     title: "Concuros Papá Espíritu Security",
     description: "Concuros Papá Espíritu Security",
     css_class: "#12222",
-    link: "concurso-papa-espiritu-security",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: free_time.id
     )
@@ -1359,7 +1362,7 @@ namespace :security do
     title: "Vacaciones",
     description: "Vacaciones",
     css_class: "#y32571",
-    link: "bono-vacaciones",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1367,7 +1370,7 @@ namespace :security do
     title: "Bono Auxiliar de Párvulo Materno",
     description: "Bono Auxiliar de Párvulo Materno",
     css_class: "#y32571",
-    link: "bono-auxiliar-parvulo-materno",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1375,7 +1378,7 @@ namespace :security do
     title: "Bono Auxiliar de Párvulo Paterno",
     description: "Bono Auxiliar de Párvulo Paterno",
     css_class: "#366s12",
-    link: "bono-auxiliar-parvulo-paterno",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1383,7 +1386,7 @@ namespace :security do
     title: "Sala Cuna",
     description: "Sala Cuna",
     css_class: "#334d12",
-    link: "bono-sala-cuna",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1391,7 +1394,7 @@ namespace :security do
     title: "Jardín Infantil",
     description: "Jardín Infantil",
     css_class: "#124dd2",
-    link: "bono-jardin-infantil",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1399,7 +1402,7 @@ namespace :security do
     title: "Nacimiento",
     description: "Nacimiento",
     css_class: "#2930dj",
-    link: "bono-nacimiento",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1407,7 +1410,7 @@ namespace :security do
     title: "Matrimonio",
     description: "Matrimonio",
     css_class: "#b2310o",
-    link: "bono-de-matrimonio",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1415,7 +1418,7 @@ namespace :security do
     title: "Unión Civil",
     description: "Unión Civil",
     css_class: "#34949j",
-    link: "bono-union-civil",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1423,7 +1426,7 @@ namespace :security do
     title: "Fallecimiento",
     description: "Fallecimiento",
     css_class: "#109220",
-    link: "bono-fallecimiento",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1431,7 +1434,7 @@ namespace :security do
     title: "Escolaridad",
     description: "Escolaridad",
     css_class: "#a81123",
-    link: "bono-escolaridad",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1439,7 +1442,7 @@ namespace :security do
     title: "Gestión Empresa",
     description: "Gestión Empresa",
     css_class: "#a81234",
-    link: "bono-gestion-empresa",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1447,7 +1450,7 @@ namespace :security do
     title: "Ahorro Jubilación 1+1",
     description: "Ahorro Jubilación 1+1",
     css_class: "#a89i89",
-    link: "bono-ahorro-jubilacion",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1455,7 +1458,7 @@ namespace :security do
     title: "Aguinaldo Fiestas Patrias",
     description: "Aguinaldo Fiestas Patrias",
     css_class: "#a12203",
-    link: "aguinaldo-fiestas-patrias",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: bonus.id
     )
@@ -1474,7 +1477,7 @@ namespace :security do
     title: "Créditos Banca Empleados",
     description: "Créditos Banca Empleados",
     css_class: "#r8899",
-    link: "creditos-banca-empleados",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: credit.id
     )
@@ -1483,7 +1486,7 @@ namespace :security do
     title: "Subsidio Habitacional",
     description: "Subsidio Habitacional",
     css_class: "#w2222",
-    link: "subsidio-habitacional",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: credit.id
     )
@@ -1502,7 +1505,7 @@ namespace :security do
     title: "Seguro de Salud y Catastrófico",
     description: "Seguro de Salud y Catastrófico",
     css_class: "#53444",
-    link: "seguro-salud-catastrofico",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: secure.id
     )
@@ -1511,7 +1514,7 @@ namespace :security do
     title: "Seguro de vida",
     description: "Seguro de vida",
     css_class: "#59990",
-    link: "seguro-de-vida",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: secure.id
     )
@@ -1520,7 +1523,7 @@ namespace :security do
     title: "Seguro Dental",
     description: "Seguro Dental",
     css_class: "#40110",
-    link: "seguro-dental",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: secure.id
     )
@@ -1529,7 +1532,7 @@ namespace :security do
     title: "Seguro Vida 24 Rentas",
     description: "Seguro Vida 24 Rentas",
     css_class: "#42199",
-    link: "seguro-vida-24-rentas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: secure.id
     )
@@ -1548,7 +1551,7 @@ namespace :security do
     title: "Becas de estudio hijos",
     description: "Becas de estudio hijos",
     css_class: "#55543",
-    link: "becas-estudio-hijos",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: scholarship.id
     )
@@ -1557,7 +1560,7 @@ namespace :security do
     title: "Becas de estudio para empleados",
     description: "Becas de estudio para empleados",
     css_class: "#53321",
-    link: "becas-estudio-empleados",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: scholarship.id
     )
@@ -1576,7 +1579,7 @@ namespace :security do
     title: "Jornada reducida (viernes)",
     description: "Jornada reducida (viernes)",
     css_class: "#19384",
-    link: "jornada-reducida",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1585,7 +1588,7 @@ namespace :security do
     title: "24 hrs para algo importante",
     description: "24 hrs para algo importante",
     css_class: "#18299",
-    link: "24-horas-algo-importante",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1594,7 +1597,7 @@ namespace :security do
     title: "Vacaciones temporada baja",
     description: "Vacaciones temporada baja",
     css_class: "#17283",
-    link: "vacaciones-temporada-baja",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1603,7 +1606,7 @@ namespace :security do
     title: "Día Libre para cambio de casa",
     description: "Día Libre para cambio de casa",
     css_class: "#12900",
-    link: "dia-libre-cambio-casa",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1612,7 +1615,7 @@ namespace :security do
     title: "Días adicionales de vacaciones",
     description: "Días adicionales de vacaciones",
     css_class: "#14899",
-    link: "dia-adicionales-vacaciones",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1621,7 +1624,7 @@ namespace :security do
     title: "Horarios de salida en días especiales",
     description: "Horarios de salida en días especiales",
     css_class: "#12936",
-    link: "horario-salida-dias-especiales",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1630,7 +1633,7 @@ namespace :security do
     title: "Examen de Grado",
     description: "Examen de Grado",
     css_class: "#11190",
-    link: "examen-de-grado",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1639,7 +1642,7 @@ namespace :security do
     title: "Exámenes Preventivos",
     description: "Exámenes Preventivos",
     css_class: "#13403",
-    link: "examenes-preventivos",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: b_free_time.id
     )
@@ -1658,7 +1661,7 @@ namespace :security do
     title: "Post Natal Paterno",
     description: "Post Natal Paterno",
     css_class: "#400339",
-    link: "familia-post-natal-paterno",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: family.id
     )
@@ -1667,7 +1670,7 @@ namespace :security do
     title: "Regreso Paulatino Materno",
     description: "Regreso Paulatino Materno",
     css_class: "#49000",
-    link: "regreso-paulatino-materno",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: family.id
     )
@@ -1676,7 +1679,7 @@ namespace :security do
     title: "Securitylandia Verano - Invierno",
     description: "Securitylandia Verano - Invierno",
     css_class: "#444555",
-    link: "securitylandia-verano-invierno",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: family.id
     )
@@ -1685,7 +1688,7 @@ namespace :security do
     title: "Tardes de Invierno",
     description: "Tardes de Invierno",
     css_class: "#446788",
-    link: "tardes-de-invierno",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: family.id
     )
@@ -1694,7 +1697,7 @@ namespace :security do
     title: "Premio Excelencia Académica",
     description: "Premio Excelencia Académica",
     css_class: "#46777",
-    link: "premio-excelencia-academica",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: family.id
     )
@@ -1703,7 +1706,7 @@ namespace :security do
     title: "Premio PSU",
     description: "Premio PSU",
     css_class: "#43989",
-    link: "premio-psu",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: family.id
     )
@@ -1722,7 +1725,7 @@ namespace :security do
     title: "Cumpleaños",
     description: "Cumpleaños",
     css_class: "#54321",
-    link: "celebrando-cumpleanos",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1731,7 +1734,7 @@ namespace :security do
     title: "Fiesta Fin de Año",
     description: "Fiesta Fin de Año",
     css_class: "#54666",
-    link: "celebrando-fiesta-fin-de-ano",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1740,7 +1743,7 @@ namespace :security do
     title: "Paseo Grupo Security",
     description: "Paseo Grupo Security",
     css_class: "#57888",
-    link: "celebrando-paseo-grupo-security",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1749,7 +1752,7 @@ namespace :security do
     title: "Fiestas Patrias",
     description: "Fiestas Patrias",
     css_class: "#54321",
-    link: "celebrando-fiestas-patrias",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1758,7 +1761,7 @@ namespace :security do
     title: "Nacimientos mini Security",
     description: "Nacimientos mini Security",
     css_class: "#51113",
-    link: "celebrando-nacimiento-mini-security",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1767,7 +1770,7 @@ namespace :security do
     title: "Regalo Inicio año escolar",
     description: "Regalo Inicio año escolar",
     css_class: "#50099",
-    link: "celebrando-inicio-ano-escolar",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1776,7 +1779,7 @@ namespace :security do
     title: "Pascua de Resurrección",
     description: "Pascua de Resurrección",
     css_class: "#56697",
-    link: "celebrando-pascua-resurreccion",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1785,7 +1788,7 @@ namespace :security do
     title: "Regalo de Navidad para hijos",
     description: "Regalo de Navidad para hijos",
     css_class: "#56666",
-    link: "celebrando-regalo-navidad-hijos",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1794,7 +1797,7 @@ namespace :security do
     title: "Regalo Navidad con sentido",
     description: "Regalo Navidad con sentido",
     css_class: "#54111",
-    link: "celebrando-regalo-navidad-con-sentido",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1803,7 +1806,7 @@ namespace :security do
     title: "Regalo Día de la madre",
     description: "Regalo Día de la madre",
     css_class: "#55446",
-    link: "celebrando-regalo-dia-madre",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1812,7 +1815,7 @@ namespace :security do
     title: "Regalo Día de padre",
     description: "Regalo Día de padre",
     css_class: "#51116",
-    link: "celebrando-regalo-dia-padre",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1821,7 +1824,7 @@ namespace :security do
     title: "Regalo Día del abuelo",
     description: "Regalo Día del abuelo",
     css_class: "#59998",
-    link: "celebrando-dia-abuelo",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1830,7 +1833,7 @@ namespace :security do
     title: "Regalo Día de la mujer",
     description: "Regalo Día de la mujer",
     css_class: "#58889",
-    link: "celebrando-dia-mujer",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1839,7 +1842,7 @@ namespace :security do
     title: "Regalo Día del abuelo",
     description: "Regalo Día del abuelo",
     css_class: "#53428",
-    link: "celebrando-dia-abuelo",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1848,7 +1851,7 @@ namespace :security do
     title: "Regalo Pasamos Agosto",
     description: "Regalo Pasamos Agosto",
     css_class: "#51222",
-    link: "celebrando-regalo-pasamos-agosto",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1857,7 +1860,7 @@ namespace :security do
     title: "Día de la Secretaria",
     description: "Día de la Secretaria",
     css_class: "#53339",
-    link: "celebrando-dia-secretaria",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: celebrating.id
     )
@@ -1876,7 +1879,7 @@ namespace :security do
     title: "Fun Fridays",
     description: "Fun Fridays",
     css_class: "#53339",
-    link: "celebrando-fun-fridays",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: healthy.id
     )
@@ -1885,7 +1888,7 @@ namespace :security do
     title: "Cuida tu Salud - Exámenes preventivos",
     description: "Cuida tu Salud - Exámenes preventivos",
     css_class: "#59579",
-    link: "celebrando-fun-fridays",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: healthy.id
     )
@@ -1894,7 +1897,7 @@ namespace :security do
     title: "Construcción de la Plaza",
     description: "Construcción de la Plaza",
     css_class: "#55677",
-    link: "celebrando-construccion-plaza",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: healthy.id
     )
@@ -1903,7 +1906,7 @@ namespace :security do
     title: "Clases de cueca",
     description: "Clases de cueca",
     css_class: "#53444",
-    link: "celebrando-clases-cueca",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: healthy.id
     )
@@ -1912,7 +1915,7 @@ namespace :security do
     title: "Colación de Embarazadas",
     description: "Colación de Embarazadas",
     css_class: "#51110",
-    link: "celebrando-colacion-embarazadas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: healthy.id
     )
@@ -1921,7 +1924,7 @@ namespace :security do
     title: "Actividades deportivas",
     description: "Actividades deportivas",
     css_class: "#52020",
-    link: "celebrando-actividades-deportivas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: healthy.id
     )
@@ -1930,7 +1933,7 @@ namespace :security do
     title: "Charlas",
     description: "Charlas",
     css_class: "#56667",
-    link: "celebrando-charlas",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: healthy.id
     )
@@ -1949,7 +1952,7 @@ namespace :security do
     title: "Convenio Movistar",
     description: "Convenio Movistar",
     css_class: "#77889",
-    link: "convenio-movistar",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: general.id
     )
@@ -1958,7 +1961,7 @@ namespace :security do
     title: "Convenios Restaurantes",
     description: "Convenios Restaurantes",
     css_class: "#76555",
-    link: "convenio-movistar",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: general.id
     )
@@ -1967,7 +1970,7 @@ namespace :security do
     title: "Convenios Hoteles",
     description: "Convenios Hoteles",
     css_class: "#71120",
-    link: "convenio-hoteles",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: general.id
     )
@@ -1976,7 +1979,7 @@ namespace :security do
     title: "Convenios de Salud",
     description: "Convenios de Salud",
     css_class: "#77767",
-    link: "convenio-salud",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: general.id
     )
@@ -1985,7 +1988,7 @@ namespace :security do
     title: "Convenios Dentales",
     description: "Convenios Dentales",
     css_class: "#788000",
-    link: "convenios-dentales",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: general.id
     )
@@ -1994,7 +1997,7 @@ namespace :security do
     title: "Convenios Gimnasio",
     description: "Convenios Gimnasio",
     css_class: "#788993",
-    link: "convenios-gimnasio",
+    post_id: extra_post.id,
     priority: nil,
     parent_id: general.id
     )

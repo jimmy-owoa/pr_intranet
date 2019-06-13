@@ -2,6 +2,7 @@ class General::Menu < ApplicationRecord
   searchkick word: [{title: :exact, link: :exact}]
 
   # validates_presence_of :title
+  belongs_to :post, class_name: "News::Post", foreign_key: "post_id", optional: true
 
   has_many :menu_term_relationships, -> {where(object_type: 'General::Menu')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :menu
   has_many :terms, through: :menu_term_relationships
@@ -35,10 +36,12 @@ class General::Menu < ApplicationRecord
     else
       data = General::Menu.where(parent_id: self.id)
       data.each do |menu|
+        
         menus << {
           title: menu.title,
-          link: menu.link,
-          menu_id: menu.id
+          link: menu.link.present? ? menu.link : '',
+          menu_id: menu.id,
+          post_slug: menu.post.present? ? menu.post.slug : ''
         }
       end
     end

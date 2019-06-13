@@ -8,6 +8,7 @@ class News::Post < ApplicationRecord
   has_many :post_term_relationships, -> {where(object_type: 'News::Post')},
             class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :post
   has_many :terms, through: :post_term_relationships
+  has_many :menus, class_name: 'General::Menu'
   has_and_belongs_to_many :galleries, class_name: 'General::Gallery'
   belongs_to :post_parent, class_name: 'News::Post', optional: true
   belongs_to :user, class_name: 'General::User', optional: true, touch: true
