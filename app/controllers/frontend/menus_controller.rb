@@ -30,7 +30,7 @@ module Frontend
       base_search_url = if Rails.env.dev?
         "http://localhost:8080/#/resultados/"
       else
-        "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/#/resultados/"
+        "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
       end
       rut= params[:user_id]
       user = General::User.find_by_legal_number(rut[0...-1])      
