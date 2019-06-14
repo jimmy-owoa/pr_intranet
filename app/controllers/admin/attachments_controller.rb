@@ -131,7 +131,7 @@ module Admin
         else
           params["attachment"]["attachment"] = params["attachment"]["attachment"]
         end
-        params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment, term_ids: [] )
+        params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment, :caption, term_ids: [] )
       end
     end
 
