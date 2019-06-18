@@ -86,6 +86,7 @@ module Frontend
       data = {
         menus: menus,
         user: user,
+        user_image: url_for(user.image.variant(combine_options: {resize: 'x42', gravity: 'Center'})),
         weather: weather.present? ? weather : General::WeatherInformation.last(location_id),
         santoral: santoral[0],
         location_name: location.name,

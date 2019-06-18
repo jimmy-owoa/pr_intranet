@@ -63,6 +63,7 @@ module Frontend
         company: @user.company,
         address: @user.address,
         location: @location,
+        full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
@@ -70,12 +71,12 @@ module Frontend
         siblings: data_siblings,
         father: data_father,
         breadcrumbs: [
-            {link: '/', name: 'Inicio' },
-            {link: '#', name: 'Buscar'}
-          ]
+          {link: '/', name: 'Inicio' },
+          {link: '#', name: 'Buscar'}
+        ]
       }
       respond_to do |format|
-        format.json { render json: data_user }
+        format.json { render json: data_user[0] }
         format.js
       end
     end
