@@ -54,11 +54,14 @@ module Admin
   end
 
   def update
-    images = params[:attachments_attributes].keys.map(&:to_i)
+    attachments_attributes = params[:attachments_attributes]
+    images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
     respond_to do |format|
       if @gallery.update(gallery_params)
-        images.each do |image|
-          @gallery.attachments << General::Attachment.find(image)
+        if images.present? 
+          images.each do |image|
+            @gallery.attachments << General::Attachment.find(image)
+          end
         end
         format.html { redirect_to admin_gallery_path(@gallery), notice: 'Galería fue actualizada con éxito.' }
         format.json { render :show, status: :ok, location: @gallery }
