@@ -14,4 +14,9 @@ $(document).on('turbolinks:load', function () {
         $('input:submit').attr('disabled', false);
       }
     });
+
+  $("#posts").select2({
+    tags: false,
+    tokenSeparators: [",", " "]
+  });
 });

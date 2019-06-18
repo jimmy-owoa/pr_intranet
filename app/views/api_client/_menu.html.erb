@@ -1,4 +1,25 @@
 <style media="screen" type="text/css">
+  .top-info{
+    width: 17%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .inline{
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .vl {
+    display: inline-block;
+    height: 33px;
+    vertical-align: middle;
+    border-right: 1px solid black;
+  }
+  .vl2 {
+    display: inline-block;
+    height: 33px;
+    vertical-align: middle;
+    border-left: 1px solid black;
+  }
   .modalDialog {
     position: fixed;
     font-family: Arial, Helvetica, sans-serif;
@@ -453,7 +474,7 @@
     font-weight: 700;
     font-size: 12px;
     line-height: 18px;
-    color: #333333;
+    color: white;
   }
   .arrow_down_menu{
     color: #8fca00;
@@ -543,6 +564,7 @@
     .head_menu {
       font-size: 14px;
       line-height: 24px;
+      color: white;
     }
     .hidden-sm-and-down {
       display: block;
@@ -637,6 +659,7 @@
     .head_menu {
       font-size: 14px;
       line-height: 24px;
+      color: white;
     }
     .results_ul {
       background-color: white;
@@ -662,6 +685,7 @@
     .head_menu {
       font-size: 12px;
       line-height: 24px;
+      color: white;
     }
     .hidden-sm-and-down {
       display: block;
@@ -765,6 +789,7 @@
     .head_menu {
       font-size: 12px;
       line-height: 24px;
+      color: white;
     }
   }
 </style>
@@ -989,65 +1014,60 @@
 </div>
 <!-- INDICATORS MODAL END -->
 
-<div style="padding-top: 33px;" >
+  <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 15.55px; width: 100%"/>
+
+<div style="padding-top: 30px;" >
   <div class="hidden-sm-and-down">
-    <div class="layout" style="padding-bottom: 13px;">
-      <div class="flex sm3">
+    <div class="layout" style="height: 53px;">
+      <div class="flex text-md-left inline md2">
         <a href="/#/">
-          <img
-            src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png"
-            style="height: 2.5rem; cursor: pointer; margin-top: -2px;"
-          />
+          <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 50px; cursor: pointer; margin-top: -2px;"/>
         </a>
       </div>
-      <div class="flex text-md-left subheading sm3" style="margin-top: 3px;">
-        Santoral: <%= santoral.name[0...12] %>
-      </div>
-      <div class="flex sm2 pointer" style="margin-left: -45px;">
-        <a href="#weather_modal" style="text-decoration: none; color: black;">
-          <div class="v-responsive v-image" style="height: 24px;">
-            <div>
-              <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 24px; cursor: pointer; padding-right: 7px;")%>
-            </div>
-            <div class="text-md-center subheading" style="margin-top: 3px;">
-              <%= location_name %> 
-							<% if weather[0].present? %> 
-								<%= weather[0].current_temp.to_i %>° 
-							<% else %>
-								<%= 'Clima no disponible'%> 
-							<% end %>
-            </div>
+      <div class="flex md8 inline">
+        <div class="layout">
+          <div class="flex md5 subheading top-info text-md-right" style="margin-right: 19px; margin-left: 2%;">
+            <%= 'Santoral: ' + santoral.name[0...12] %>
           </div>
-        </a>
+          <div class="vl"></div>
+          <div class="flex md3 top-info text-md-center" style="margin: 0px -2.3%;">
+            <a href="#weather_modal" style="text-decoration: none; color: black;">
+              <div class="text-md-center subheading">
+                <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 22px; cursor: pointer; padding-right: 7px; vertical-align: middle;")%>
+                <%= location_name %> 
+                <% if weather[0].present? %> 
+                  <%= weather[0].current_temp.to_i %>° 
+                <% else %>
+                  <%= 'Clima no disponible'%> 
+                <% end %>
+              </div>
+            </a>
+          </div>
+          <div class="vl2"></div>
+          <div class="flex md4 subheading pointer text-md-center top-info" style="margin-left: -22px;">
+            <a href="#indicators_modal" style="text-decoration: none; color: black;">
+              <i class="material-icons inline">equalizer</i>
+              Indicadores económicos
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="flex sm3 text-md-left subheading pointer">
-        <a href="#indicators_modal" style="text-decoration: none; color: black;">
-					<i aria-hidden="true" class="v-icon material-icons theme--light" style="margin-top: 3px;">equalizer</i>
-						<div style="margin-top: -27px; margin-left: 27px;">Indicadores económicos</div>
-				</a>
-      </div>
-      <div class="flex text-md-right text-capitalize title font-weight-regular sm4" style="margin-left: 63px; margin-top: -2px;">
+      <div class="flex md2 text-md-right text-capitalize title font-weight-regular inline">
         <a href="/#/perfil" style="text-decoration: none; color: black;">
           ¡Hola <%= user.name %>!
-        </a>
-        <a href="/#/perfil">
-          <div class="v-avatar" style="height: 42px; width: 42px; margin-top: -15px;">
-            <div aria-label="Avatar" class=" v-image" style="padding-top: 4px;">
+          <div class="v-avatar" style="height: 42px; width: 42px;">
+            <div aria-label="Avatar" class="inline v-image">
               <% if user.image.attached? %> 
-                <%= image_tag(user.image, style:'object-fit: cover;') %> 
+                <%= image_tag(user_image, style:'object-fit: cover;') %> 
               <% end%>
             </div>
           </div>
           </a>
       </div>
     </div>
-    <div class="layout">
-      <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 0.5rem; width: 50%;"/>
-      <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 0.5rem; width: 50%;"/>
-    </div>
   </div>
   <!-- MENU START -->
-  <nav fixed>
+  <nav fixed style="background-color: #2b245b;">
     <% main_menus = General::Menu.where(parent_id: nil) %>
     <ul id="ul_menu">
       <% main_menus.each do |main_menu| %>

@@ -5,6 +5,8 @@ es:
         position: Posición
       general/link:
         url: Dirección URL
+      general/gallery:
+        post: Noticia
       survey/option:
         placeholder: Sugerencia
       news/post:

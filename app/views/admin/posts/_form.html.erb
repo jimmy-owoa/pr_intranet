@@ -19,9 +19,6 @@
       <div class="col-md-4 hidden">
         <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
       </div>
-      <div class="col-md-4 hidden">
-        <%= f.association :galleries, collecion: @galleries %>
-      </div>
     </div>
   </div>
   <div class="col-md-3">
@@ -110,19 +107,6 @@
                 <% end %>
             <% end %>
           </div>
-      </div>
-    </div>
-    <div class="card text-md-center pt-2" >
-      <div class="form-group ">
-        <div class="col-md-12 col-sm-12">
-          <h5 class="card-title"> Galería </h5>
-          <br>
-          <% if @post.id.nil? %>
-            <%= link_to 'Establecer Galería', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery1' %>
-          <% else %>
-            <%= link_to 'Establecer Galería', new_admin_post_gallery_path(@post), 'data-toggle' => 'modal', 'data-target' => '#gallery_modal', class:'', remote: true, id: 'gallery2' %>
-          <% end %>
-        </div>
       </div>
     </div>
     <div class="card text-md-center p-2" >

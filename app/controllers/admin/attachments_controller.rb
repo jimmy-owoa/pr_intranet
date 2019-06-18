@@ -1,6 +1,7 @@
 module Admin
   class AttachmentsController < AdminController
     skip_before_action :authenticate_user!, :only => [:create, :upload]
+    skip_before_action :verify_authenticity_token, only: :create
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
     before_action :set_terms, only: [:edit, :new]
@@ -86,10 +87,17 @@ module Admin
     end
 
     def destroy
-      @attachment.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_attachments_path, notice: 'Archivo fué correctamente eliminado.'}
-        format.json { head :no_content }
+      att_id = params[:id]
+      gal_id = General::Attachment.find(att_id).gallery_ids
+      if gal_id.present?
+        @attachment.destroy
+          redirect_to edit_admin_gallery_path(gal_id)
+      else
+        @attachment.destroy
+        respond_to do |format|
+          format.html { redirect_to admin_attachments_path, notice: 'Archivo fué correctamente eliminado.'}
+          format.json { head :no_content }
+        end
       end
     end
 

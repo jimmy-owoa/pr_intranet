@@ -35,8 +35,12 @@ module Admin
 
   def create
     @gallery = General::Gallery.new(gallery_params)
+    images = params[:attachments_attributes].keys.map(&:to_i)
     respond_to do |format|
       if @gallery.save
+        images.each do |image|
+          @gallery.attachments << General::Attachment.find(image)
+        end
         @galleries_list = General::Gallery.all.map{|a| [a.id, a.name]}
         format.html { redirect_to edit_admin_gallery_path(@gallery), notice: 'Galería fue creada con éxito.' }
         format.json { render :show, status: :created, location: @gallery }
@@ -50,8 +54,12 @@ module Admin
   end
 
   def update
+    images = params[:attachments_attributes].keys.map(&:to_i)
     respond_to do |format|
       if @gallery.update(gallery_params)
+        images.each do |image|
+          @gallery.attachments << General::Attachment.find(image)
+        end
         format.html { redirect_to admin_gallery_path(@gallery), notice: 'Galería fue actualizada con éxito.' }
         format.json { render :show, status: :ok, location: @gallery }
       else
@@ -80,7 +88,7 @@ module Admin
       end
     end
     def gallery_params
-      params.require(:gallery).permit(:name, :description, :date, attachment_ids: [] )
+      params.require(:gallery).permit(:name, :description, :date, :post_id, attachment_ids: [] )
     end
   end
 end

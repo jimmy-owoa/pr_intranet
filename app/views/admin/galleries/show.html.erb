@@ -3,12 +3,13 @@
   <div class="card">
     <div class="card-body">
       <p id="notice"><%= notice %></p>
+      <p>Esta galería pertenece a la noticia: <%= @gallery.post.title %></p>
       <div class="col-12" style="padding-top: 30px;">
         <b><p>Descripción</p></b>
         <%= raw @gallery.description %>
       </div>
 
-      <b align='center'><p>Fotos</p></b>
+      <b>Fotos</b>
       <div class="container card scrollDiv">
         <div class="row text-center" >
           <% @gallery.attachments.each do |gal|  %>
@@ -22,7 +23,7 @@
             </div>
           <% end %>  
         </div>
-      </div><br>
+      </div>
 
       <%= link_to 'Editar', edit_admin_gallery_path(@gallery), class: 'btn btn-primary'%>
     </div>
