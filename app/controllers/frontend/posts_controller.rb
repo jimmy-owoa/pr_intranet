@@ -21,7 +21,7 @@ module Frontend
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
-        title: post.title.capitalize,
+        title: post.title,
         main_image: post.main_image,
         user_name: post.cached_users_names,
         published_at: post.created_at.strftime("%d/%m/%Y · %H:%M"),
@@ -86,7 +86,7 @@ module Frontend
         end
       data << {
         id: post.id,
-        title: post.title.capitalize,
+        title: post.title,
         main_image: post.main_image,
         user_id: General::User.find(post.user_id).name,
         published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
@@ -175,7 +175,7 @@ module Frontend
     relationed_posts.each do |post|
       data_relationed_posts << {
         id: post.id,
-        title: post.title.capitalize.slice(0..52) + '...',
+        title: post.title.slice(0..52) + '...',
         slug: post.slug,
         published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
         main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
@@ -191,7 +191,7 @@ module Frontend
       end
     data << {
       id: post.id,
-      title: post.title.capitalize,
+      title: post.title,
       main_image: post.main_image,
       url: root_url + 'admin/posts/' + "#{post.id}" + '/edit',
       user_id: General::User.find(post.user_id).name,

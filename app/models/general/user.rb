@@ -75,7 +75,7 @@ class General::User < ApplicationRecord
   end
 
   def image_resize
-    if self.image.attachment.present?
+    if self.image.attachment.present? && self.attribute_changed?(:image_id)
       avatar = self.image
       filename = avatar.filename.to_s
         attachment_path = "#{Dir.tmpdir}/#{avatar.filename}"
@@ -121,7 +121,7 @@ class General::User < ApplicationRecord
 
   def self.users_welcome
     # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
-    General::User.where(date_entry: (Date.today-30.days)..Date.today).order('RAND()')
+    General::User.where(date_entry: (Date.today-60.days)..Date.today).order('RAND()')
   end
 
 end
