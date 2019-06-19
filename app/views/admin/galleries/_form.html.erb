@@ -20,21 +20,25 @@
   <div class="col-md-12 pt-4" >
     <%= file_field_tag 'attachment[attachment][]', id: "fileinputuploader", class: 'file-loading', multiple: true %>
   </div>
-  <div class="container card scrollDiv">
-    <div class="row text-center" >
-      <% @gallery.attachments.each do |gal| %>
-        <div class="col-md-4">
-          <figure>                    
-            <%= image_tag gal.attachment.variant(resize: '250x250>'), class: 'image_attach' %>
-            <%= link_to 'Eliminar', admin_attachment_path(gal, @gallery.id),  :method => :delete, class:'btn btn-danger'%>
-            <figcaption>
-              <%= gal.name %>
-            </figcaption>
-          </figure>
+  <% if @gallery.id != nil %>
+    <div class="pt-4">
+      <div class="container col-md-12 card scrollDiv">
+        <div class="row text-center" >
+          <% @gallery.attachments.each do |image| %>
+            <div class="col-md-3">
+              <figure>                    
+                <%= image_tag image.attachment.variant(resize: '250x250>'), class: 'image_attach' %>
+                <%= link_to 'Eliminar', admin_attachment_path(image, @gallery.id),  :method => :delete, class:'btn btn-danger'%>
+                <figcaption>
+                  <%= image.name %>
+                </figcaption>
+              </figure>
+            </div>
+          <% end %>
         </div>
-      <% end %>  
+      </div>
     </div>
-  </div>
+  <% end %>  
   <div class="form-actions col-12">
     <%= f.button :submit, class: 'btn btn-success center'%>
   </div>

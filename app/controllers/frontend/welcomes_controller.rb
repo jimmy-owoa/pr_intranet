@@ -2,7 +2,7 @@ module Frontend
   class WelcomesController < FrontendController
 
     def welcomes_calendar
-      users = General::User.all
+      users = General::User.users_welcome
       data= []
       users.each do |user|
         image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
@@ -50,9 +50,9 @@ module Frontend
     end
 
     def index
-      new_users = General::User.users_welcome
+      new_users = General::User.where.not(date_entry: nil).order(date_entry: :desc)
       page = params[:page]
-      users = Kaminari.paginate_array(new_users).page(page).per(2)
+      users = Kaminari.paginate_array(new_users).page(page).per(9)
       data= []
       users.each do |user|
         image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + '/assets/default_avatar.png'
@@ -63,8 +63,8 @@ module Frontend
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,
-          company: user.company,
-          date: user.date_entry.strftime("%Y-%m-%d"),
+          company: user.company.present? ? user.company : 'Sin información',
+          date_entry: user.date_entry.strftime("%d-%m-%Y"),
           image: image
         }
       end
