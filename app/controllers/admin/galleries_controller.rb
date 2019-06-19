@@ -35,11 +35,14 @@ module Admin
 
   def create
     @gallery = General::Gallery.new(gallery_params)
-    images = params[:attachments_attributes].keys.map(&:to_i)
+    attachments_attributes = params[:attachments_attributes]
+    images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
     respond_to do |format|
       if @gallery.save
-        images.each do |image|
-          @gallery.attachments << General::Attachment.find(image)
+        if images.present? 
+          images.each do |image|
+            @gallery.attachments << General::Attachment.find(image)
+          end
         end
         @galleries_list = General::Gallery.all.map{|a| [a.id, a.name]}
         format.html { redirect_to edit_admin_gallery_path(@gallery), notice: 'Galería fue creada con éxito.' }

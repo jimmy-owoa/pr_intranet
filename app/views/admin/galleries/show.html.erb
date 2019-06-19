@@ -12,16 +12,18 @@
       <b>Fotos</b>
       <div class="container card scrollDiv">
         <div class="row text-center" >
-          <% @gallery.attachments.each do |gal|  %>
-            <div class="col-md-4">
-              <figure>                    
-                <%= image_tag gal.attachment.variant(resize: '250x250>'), class: 'image_attach' %>
-                <figcaption>
-                  <%= gal.name %>
-                </figcaption>
-              </figure>
-            </div>
-          <% end %>  
+          <% if @gallery.attachments.present? %>
+            <% @gallery.attachments.each do |gal|  %>
+              <div class="col-md-4">
+                <figure>                    
+                  <%= image_tag gal.attachment.variant(resize: '250x250>'), class: 'image_attach' %>
+                  <figcaption>
+                    <%= gal.name %>
+                  </figcaption>
+                </figure>
+              </div>
+            <% end %> 
+          <% end %> 
         </div>
       </div>
 
