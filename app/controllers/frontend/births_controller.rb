@@ -61,7 +61,7 @@ module Frontend
     end
 
     def calendar_births
-      births = Employee::Birth.show_birth.births_between(3.month.ago, -3.month.ago)
+      births = Employee::Birth.show_birth.births_between(1.year.ago, Time.now)
       data = []
       births.each do |birth|
         data << {
