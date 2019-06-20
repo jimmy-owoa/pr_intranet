@@ -77,7 +77,6 @@ module Frontend
         }
       end
       if user.legal_number.present?
-        data_benefits = { benefit_types: [] }
         benefit_types = General::BenefitType.all
         benefits = []
         benefit_types.each do |benefit_type|
@@ -109,7 +108,8 @@ module Frontend
         indicators: data_indicators[0],
         today: today,
         base_api_url: base_api_url,
-        base_search_url: base_search_url
+        base_search_url: base_search_url,
+        benefits: benefits
       }
       menu_json = render_to_string(partial: 'api_client/menu.html.erb', layout: false, locals: data).to_json
       respond_to do |format|

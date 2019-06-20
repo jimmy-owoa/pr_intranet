@@ -1118,7 +1118,11 @@
                     </div>
                   </div>
                   <!-- MENU MODAL END -->
-                  <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
+                  <% if General::Menu.parent_name_menu(menu_parent_object.parent_id) == "Mis beneficios"%>
+                    <%= link_to 'Ver mas', '/#/beneficios', style: 'text-decoration: underline;' %>
+                  <% else %>
+                    <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
+                  <% end %>
                 <% else %>
                    <% submenus.each do |link| %>
                     <% if link[:link].downcase[0..3] == 'http'%>
