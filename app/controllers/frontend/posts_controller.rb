@@ -71,7 +71,7 @@ module Frontend
   end
 
   def important_posts
-    posts = filter_posts(params[:id], true).last(5)
+    posts = filter_posts(params[:id], true).first(5)
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
