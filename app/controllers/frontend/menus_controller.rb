@@ -77,6 +77,21 @@ module Frontend
         }
       end
       if user.legal_number.present?
+        data_benefits = { benefit_types: [] }
+        benefit_types = General::BenefitType.all
+        benefits = []
+        benefit_types.each do |benefit_type|
+          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(user.benefit_group.try(:id))
+          if allowed_benefits.present?
+            benefit_type_hash = {
+              name: benefit_type.name,
+              benefits: []
+            }
+            allowed_benefits.each do |benefit|
+              benefits << benefit
+            end
+          end
+        end
         exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{user.legal_number}#{user.legal_number_verification}")
         exa_menu_response = Net::HTTP.get_response exa_menu_url
         exa_menu = JSON.parse(exa_menu_response.body)
