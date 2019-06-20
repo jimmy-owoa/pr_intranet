@@ -8,7 +8,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new, :list]
 
     def index
-      births = Employee::Birth.show_birth.births_between(1.month.ago, Time.now) #se cambio de un año a un mes
+      births = Employee::Birth.show_birth.births_between(1.year.ago, Time.now) #se cambio de un año a un mes
       data = []
       births.each do |birth|   
         images = []

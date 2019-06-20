@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-body">
       <p id="notice"><%= notice %></p>
-      <p>Esta galería pertenece a la noticia: <%= @gallery.post.title %></p>
+      <p>Esta galería pertenece a la noticia: <% if @gallery.post.present? %> <%= @gallery.post.title %> <% end %> </p>
       <div class="col-12" style="padding-top: 30px;">
         <b><p>Descripción</p></b>
         <%= raw @gallery.description %>
