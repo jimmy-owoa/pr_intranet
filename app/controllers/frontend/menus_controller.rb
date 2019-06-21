@@ -82,10 +82,6 @@ module Frontend
         benefit_types.each do |benefit_type|
           allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(user.benefit_group.try(:id))
           if allowed_benefits.present?
-            benefit_type_hash = {
-              name: benefit_type.name,
-              benefits: []
-            }
             allowed_benefits.each do |benefit|
               benefits << benefit
             end
