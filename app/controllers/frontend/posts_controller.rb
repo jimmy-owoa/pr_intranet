@@ -8,16 +8,7 @@ module Frontend
     params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select{|post| post.post_type == params[:category]}).page(page).per(10) :
     posts = Kaminari.paginate_array(user_posts).page(page).per(10)
     data = []
-    gallery = []
     posts.each do |post|
-      if post.gallery.present?
-        post.gallery.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
-          gallery << {
-            id: image.id,
-            url: url_for(image.attachment)
-          }
-        end
-      end
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
@@ -37,8 +28,7 @@ module Frontend
           {link: '#', name: post.title.truncate(30)}
         ],
         main_image: @image,
-        format: post.format,
-        gallery: gallery
+        format: post.format
       }
     end
     respond_to do |format|
@@ -74,16 +64,7 @@ module Frontend
     posts = filter_posts(params[:id], true).first(5)
     data = []
     posts.each do |post|
-      @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
-      gallery = []
-        if post.gallery.present?
-          post.gallery.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
-            gallery << {
-              id: image.id,
-              url: url_for(image.attachment)
-            }
-          end
-        end
+      @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'        
       data << {
         id: post.id,
         title: post.title,
@@ -101,7 +82,6 @@ module Frontend
         ],
         main_image: @image,
         format: post.format,
-        gallery: gallery,
       }
     end
     respond_to do |format|
