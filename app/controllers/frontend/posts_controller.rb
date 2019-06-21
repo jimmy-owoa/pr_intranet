@@ -26,7 +26,7 @@ module Frontend
         user_name: post.cached_users_names,
         published_at: post.created_at.strftime("%d/%m/%Y · %H:%M"),
         content: post.content,
-        post_type: post.post_type,
+        post_type: post.post_type.present? ? post.post_type.upcase : '',
         important: post.important,
         tags: post.cached_tags,
         slug: post.slug,
@@ -91,7 +91,7 @@ module Frontend
         user_id: General::User.find(post.user_id).name,
         published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
         content: post.content,
-        post_type: post.post_type,
+        post_type: post.post_type.present? ? post.post_type.upcase : '',
         important: post.important,
         slug: post.slug,
         breadcrumbs: [
