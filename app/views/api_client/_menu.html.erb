@@ -1090,9 +1090,9 @@
                     <% elsif link[:post_slug].present? %>
                       <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
                     <% else %>
-                      <% benefit = General::Benefit.find_by_title(link[:title]) %>
+                      <% benefit = benefits.select{|benefit| benefit.title == link[:title]} %>
                       <% if benefit.present? %>
-                        <%= link_to link[:title], '/#/beneficios/' + benefit.id.to_s %>
+                        <%= link_to link[:title], '/#/beneficios/' + benefit[0].id.to_s %>
                       <% else %>
                         <%= link_to link[:title], '/#/' + link[:link] %>
                       <% end %>
