@@ -1092,7 +1092,6 @@
                     <% elsif main_menu.title == "Mis beneficios" %>
                       <% benefit = benefits.select{|benefit| benefit.title == link[:title]} %>
                       <% if benefit.present? %>
-                      <% binding.pry %>
                         <%= link_to link[:title], '/#/beneficios/' + benefit[0].id.to_s %>
                       <% end %>
                     <% else %>
