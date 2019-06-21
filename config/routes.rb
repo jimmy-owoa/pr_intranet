@@ -116,6 +116,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:show, :index] do
       get :post, on: :collection
       get :important_posts, on: :collection
+      get :gallery, on: :collection
     end
     resources :births do
       get :get_home_births, on: :collection

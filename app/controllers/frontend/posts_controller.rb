@@ -37,6 +37,30 @@ module Frontend
     end
   end
 
+  def gallery 
+    post_id = params[:post_id]
+    post = News::Post.find(post_id)
+    page = params[:page]
+    gallery = { items: [] }
+    items = []
+    if post.gallery.present?
+      attachments = Kaminari.paginate_array(post.gallery.attachments).page(page).per(5)
+      attachments.each do |image| # Por ahora está mostrando sólo la primera galería
+        items << {
+          src: url_for(image.attachment),
+          w: image.attachment.blob.metadata[:width],
+          h: image.attachment.blob.metadata[:height],
+          title: image.name
+        }
+      end
+      gallery[:items] << items
+    end
+    respond_to do |format|
+      format.json { render json: {hits: items} }
+      format.js
+    end
+  end
+
   def filter_posts (user_id, important = nil)
     user = General::User.find(user_id)
     user_inclusive_tags = user.terms.inclusive_tags.map(&:name)
@@ -162,20 +186,8 @@ module Frontend
       }
     end
     image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
-    gallery = { items: [] }
-    items = []
+
     content = fix_content(post.content)
-      if post.gallery.present?
-        post.gallery.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
-          items << {
-            src: url_for(image.attachment),
-            w: image.attachment.blob.metadata[:width],
-            h: image.attachment.blob.metadata[:height],
-            title: image.name
-          }
-        end
-        gallery[:items] << items
-      end
     data << {
       id: post.id,
       title: post.title,
@@ -195,7 +207,6 @@ module Frontend
           {link: '/noticias', name: 'Noticias'},
           {link: '#', name: post.title.truncate(30)}
         ],
-      gallery: gallery,
       relationed_posts: data_relationed_posts
     }
     respond_to do |format|
