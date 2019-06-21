@@ -182,12 +182,19 @@ module Frontend
       }
     end
     image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
-    gallery = []
+    gallery = { items: [] }
+    items = []
     content = fix_content(post.content)
       if post.gallery.present?
         post.gallery.attachments.each do |image| # Por ahora está mostrando sólo la primera galería
-          gallery.push(url_for(image.attachment))
+          items << {
+            src: url_for(image.attachment),
+            w: image.attachment.blob.metadata[:width],
+            h: image.attachment.blob.metadata[:height],
+            title: image.name
+          }
         end
+        gallery[:items] << items
       end
     data << {
       id: post.id,
@@ -208,7 +215,7 @@ module Frontend
           {link: '/noticias', name: 'Noticias'},
           {link: '#', name: post.title.truncate(30)}
         ],
-      images: gallery,
+      gallery: gallery,
       relationed_posts: data_relationed_posts
     }
     respond_to do |format|
