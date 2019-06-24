@@ -1096,7 +1096,7 @@
                         <% benefit_count += 1 %>
                         <%= link_to link[:title], '/#/beneficios/' + benefit.id.to_s %>
                         <% if benefit_count > 2 %>
-                          <%= link_to 'Ver mas', '/#/beneficios', style: 'text-decoration: underline;' %>
+                          <%= link_to 'Ver más', '/#/beneficios', style: 'text-decoration: underline;' %>
                         <% end %>
                       <% end %>
                     <% else %>
@@ -1124,7 +1124,7 @@
                   </div>
                   <!-- MENU MODAL END -->
                   <% if main_menu.title != "Mis beneficios" %>
-                    <%= link_to 'Ver mas', '/#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
+                    <%= link_to 'Ver más', '/#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
                   <% end %>
                 <% else %>
                   <% submenus.each do |link| %>
