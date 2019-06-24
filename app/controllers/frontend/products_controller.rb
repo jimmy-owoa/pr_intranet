@@ -11,10 +11,12 @@ module Frontend
       items = []
       products.each do |product|
         product.images.each do |image|
-          items << {
-            src: url_for(image),
-            thumbnail: url_for(image.variant(resize: "100x100"))
-          }
+          if image.present?
+            items << {
+              src: url_for(image),
+              thumbnail: url_for(image.variant(resize: "100x100"))
+            }
+          end
         end
         data << {
           id: product.id,
@@ -23,6 +25,7 @@ module Frontend
           product_type: product.product_type,
           user_id: product.user_id,
           url: root_url + 'admin/products/' + "#{product.id}" + '/edit',
+          currency: product.currency,
           price: product.price,
           is_expired: product.is_expired,
           expiration: product.expiration,
@@ -43,21 +46,24 @@ module Frontend
     end
 
     def product
-      slug = params[:slug].present? ? params[:slug] : nil
-      product = Marketplace::Product.find(slug)
+      id = params[:id].present? ? params[:id] : nil
+      product = Marketplace::Product.find(id)
       data = []
       items = []
       product.images.each do |image|
-        items << {
-          src: url_for(image),
-          thumbnail: url_for(image.variant(resize: "100x100"))
-        }
+        if image.present?
+          items << {
+            src: url_for(image),
+            thumbnail: url_for(image.variant(resize: "100x100"))
+          }
+        end
       end
       data << {
         id: product.id,
         name: product.name,
         description: product.description,
         type: product.product_type,
+        currency: product.currency,
         price: product.price,
         created_at: product.created_at.strftime("%d/%m/%Y %H:%M"),
         email: product.email,
