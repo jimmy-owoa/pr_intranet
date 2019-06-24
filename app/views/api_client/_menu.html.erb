@@ -1091,7 +1091,9 @@
                     <% elsif link[:post_slug].present? %>
                       <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
                     <% elsif main_menu.title == "Mis beneficios" %>
-                      <% benefit = benefits.find_by_title(link[:title]) %>
+                      <% if benefits.present? %>
+                        <% benefit = benefits.find_by_title(link[:title]) %>
+                      <% end %>
                       <% if benefit.present? %>
                         <% benefit_count += 1 %>
                         <%= link_to link[:title], '/#/beneficios/' + benefit.id.to_s %>
