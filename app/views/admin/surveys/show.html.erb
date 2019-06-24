@@ -4,7 +4,7 @@
     <div class='col-md-11 center card p-4'>
       <div class='col-md-12 text-center'>  
         <%= image_tag @survey.image.variant(resize: '360x300>') if @survey.image.attached? %><br />
-        <% environment = Rails.env.development? ? 'http://localhost:8080' : 'http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com' %><br />
+        <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://misecurity.elmejorlugarparatrabajar.cl' %><br />
         <%= link_to 'Ver en cliente final', "#{environment}/#/encuestas/#{@survey.slug}", target: '_blank', class: 'btn btn-sm btn-success' %> 
       </div>
       <div class='col-md-12 text-center pt-4'>  
