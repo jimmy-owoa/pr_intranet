@@ -8,7 +8,7 @@ module Frontend
       posts = []
       search = params[:term].present? ? params[:term] : nil
       if search
-        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], operator: "or"
+        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], operator: "and"
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.each do |user|
           users << {
             id: user.id,
@@ -29,7 +29,7 @@ module Frontend
             title: post.title,
             slug: post.slug,
             content: post.content,
-            published_at: post.published_at,
+            published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : '',
             terms: post.term_id,
             parent: post.post_parent_id,
             visibility: post.visibility,
