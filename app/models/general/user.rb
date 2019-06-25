@@ -3,7 +3,7 @@ require "net/http"
 class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
-  searchkick word: [:name, :last_name, :email, :annexed]
+  searchkick language: "spanish"
   validates_presence_of :name, :email
   #relationships
   has_one_attached :image
@@ -49,6 +49,12 @@ class General::User < ApplicationRecord
     'Puerto Montt'
   ]
 
+  def search_data 
+    {
+      full_name: "#{name} #{last_name}",
+      annexed: annexed
+    }
+  end
   def base_64_exa(file)
     uri = URI("https://misecurity-qa.exa.cl/user_sync_photo/update_photo")
     base64 = Base64.strict_encode64(open(file).to_a.join)

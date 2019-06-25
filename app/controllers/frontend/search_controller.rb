@@ -8,7 +8,8 @@ module Frontend
       posts = []
       search = params[:term].present? ? params[:term] : nil
       if search
-        result = Searchkick.search search, index_name: [General::User, News::Post, General::Menu], operator: "and"
+        # result = General::User.search search, fields: [:name], match: :word
+        result = Searchkick.search(search, index_name: [General::User, General::Menu, News::Post], operator: "and", order: { _score: :desc })
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.each do |user|
           users << {
             id: user.id,
