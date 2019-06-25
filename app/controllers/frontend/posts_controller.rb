@@ -44,13 +44,15 @@ module Frontend
     gallery = { items: [] }
     items = []
     if post.gallery.present?
-      attachments = Kaminari.paginate_array(post.gallery.attachments).page(page).per(5)
+      attachments = post.gallery.attachments
       attachments.each do |image| # Por ahora está mostrando sólo la primera galería
         items << {
+          id: image.id,
           src: url_for(image.attachment),
           w: image.attachment.blob.metadata[:width],
           h: image.attachment.blob.metadata[:height],
-          title: image.name
+          title: image.name,
+          placeolder: url_for(image.attachment.variant(resize: "80x>"))
         }
       end
       gallery[:items] << items

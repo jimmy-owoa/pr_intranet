@@ -27,5 +27,5 @@ General::Location.find_or_create_by(name: 'Puerto Montt')
 puts("******* Creando Usuario admin *******")
 General::User.create(name: 'Admin Exa', email: 'admin@exaconsultores.cl', password: 'exaConsultores', password_confirmation: 'exaConsultores', location_id: 2)
 puts("******* Asignando rol Super Admin al usuario admin@exaconsultores.cl *******")
-user_admin = General::User.first
+user_admin = General::User.find_by_email("admin@exaconsultores.cl")
 user_admin.add_role :super_admin
