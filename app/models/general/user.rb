@@ -3,7 +3,7 @@ require "net/http"
 class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
-  searchkick language: "spanish"
+  searchkick
   validates_presence_of :name, :email
   #relationships
   has_one_attached :image
