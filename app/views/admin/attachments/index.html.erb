@@ -7,7 +7,7 @@
         <div class="card">
           <%= show_media_index(at.attachment) %>
           <div class="card-body">
-              <h6 class=""><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}  %></h6>
+            <h6 style='width: 90%; border: 2px solid #ccc; border-radius: 4px; box-sizing: border-box;'><%=best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}%></h6>
           </div>
           <div class="card-body">
             <%= link_to t('.show', :default => t("helpers.links.show")),
