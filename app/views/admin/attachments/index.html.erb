@@ -3,14 +3,11 @@
   </section>
   <div class='row'>
     <% @attachments.each do |at| %>
-      <div class="col-md-3">
+      <div class="col col-xl-2 col-lg-3">
         <div class="card">
           <%= show_media_index(at.attachment) %>
           <div class="card-body">
-
-              <h5 class="card-title"><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}  %></h5>
-
-            <%= link_to 'Ruta', rails_blob_url(at.attachment), id: 'link_attachment',target: "_blank" %>
+              <h6 class=""><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}  %></h6>
           </div>
           <div class="card-body">
             <%= link_to t('.show', :default => t("helpers.links.show")),

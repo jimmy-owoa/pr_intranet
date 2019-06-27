@@ -140,11 +140,11 @@ module ApplicationHelper
   def show_media_index file
     if supported_img(file) && file.attached?
       # if  file.attachment.metadata.dig("width") <= 450 && file.attachment.metadata.dig("height") <= 450
-        return image_tag file.attachment.variant(resize: "200x250>")
+        return image_tag(file.attachment.variant(combine_options: {resize: 'x251', gravity: 'Center'}), style: 'height: 150px; width: 100%; object-fit: cover;')
       # elsif (file.attachment.metadata.dig("width") > 450 && file.attachment.metadata.dig("height") > 450) 
       #   return image_tag file.attachment.variant(combine_options: { gravity: 'Center', crop: '200x250+0+0' })
     elsif supported_video(file) && file.attached? 
-      return video_tag(url_for(file.attachment), width: '224px')
+      return video_tag(url_for(file.attachment), style: 'width: 100%; height: 150px; object-fit: cover;')
     else
       return '<h4>Archivo no soportado</h4>'.html_safe
     end
