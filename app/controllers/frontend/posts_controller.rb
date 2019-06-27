@@ -3,7 +3,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]
 
   def index
-    user_posts = filter_posts(params[:id])
+    user_posts = News::Post.filter_posts(params[:id])
     page = params[:page]
     params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select{|post| post.post_type == params[:category]}).page(page).per(10) :
     posts = Kaminari.paginate_array(user_posts).page(page).per(10)
@@ -63,31 +63,8 @@ module Frontend
     end
   end
 
-  def filter_posts (user_id, important = nil)
-    user = General::User.find(user_id)
-    user_inclusive_tags = user.terms.inclusive_tags.map(&:name)
-    user_excluding_tags = user.terms.excluding_tags.map(&:name)
-    user_categories = user.terms.categories.map(&:name)
-    posts = []
-    news = News::Post.includes(:terms).published_posts
-    news = news.where(important: important) if important.present?
-    news.each do |post| 
-      show_post = true
-      if post.terms.present? 
-        if post.terms.categories.present?
-          post.terms.categories.each do |tag|
-            show_post = tag.name.in?(user_categories)
-          end
-        end
-      end
-      # TODO: AGREGAR INCLUYENTE Y EXCLUYENTE
-      posts.push(post) if show_post
-    end
-    posts
-  end
-
   def important_posts
-    posts = filter_posts(params[:id], true).first(5)
+    posts = News::Post.filter_posts(params[:id], true).first(5)
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'        
@@ -119,10 +96,10 @@ module Frontend
   def fix_content content
     content = content.gsub("video controls=\"controls\"", 'source')
     if Rails.env.development?
-      content = content.gsub("<source src=\"../..", '<video src="http://localhost:3000')
-      content = content.gsub("<source src=\"", '<video src="http://localhost:3000/rails/')
-      content = content.gsub("<img src=\"../..", '<img src="http://localhost:3000')
-      content = content.gsub("<img src=\"rails/", '<img src="http://localhost:3000/rails/')
+      content = content.gsub("<source src=\"../..", '<video src="http://192.168.1.70:3000')
+      content = content.gsub("<source src=\"", '<video src="http://192.168.1.70:3000/')
+      content = content.gsub("<img src=\"../..", '<img src="http://192.168.1.70:3000')
+      content = content.gsub("<img src=\"rails/", '<img src="http://192.168.1.70:3000/')
       #video
       if content.include?("<p><video style=\"float: right;\"")
         content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
@@ -135,19 +112,19 @@ module Frontend
       end
       #image
       if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://localhost:3000')
+        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://192.168.1.70:3000')
       end
       if content.include?("<p><img style=\"float: right;\"")
-        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://localhost:3000')
+        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://192.168.1.70:3000')
       end
       if content.include?("<p><img style=\"float: left;\"")
-        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://localhost:3000')
+        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://192.168.1.70:3000')
       end
     else
-      content = content.gsub("<source src=\"../..", '<video src="http://18.224.219.66')
-      content = content.gsub("<source src=\"", '<video src="http://18.224.219.66/rails/')
-      content = content.gsub("<img src=\"../..", '<img src="http://18.224.219.66')
-      content = content.gsub("<img src=\"rails/", '<img src="http://18.224.219.66/rails/')
+      content = content.gsub("<source src=\"../..", '<video src="https://admin.elmejorlugarparatrabajar.cl')
+      content = content.gsub("<source src=\"", '<video src="https://admin.elmejorlugarparatrabajar.cl/')
+      content = content.gsub("<img src=\"../..", '<img src="https://admin.elmejorlugarparatrabajar.cl')
+      content = content.gsub("<img src=\"rails/", '<img src="https://admin.elmejorlugarparatrabajar.cl/')
       #video
       if content.include?("<p><video style=\"float: right;\"")
         content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
@@ -160,13 +137,13 @@ module Frontend
       end
       #image
       if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://18.224.219.66')
+        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://admin.elmejorlugarparatrabajar.cl')
       end
       if content.include?("<p><img style=\"float: right;\"")
-        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://18.224.219.66')
+        content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="https://admin.elmejorlugarparatrabajar.cl')
       end
       if content.include?("<p><img style=\"float: left;\"")
-        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://18.224.219.66')
+        content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="https://admin.elmejorlugarparatrabajar.cl')
       end
     end
     content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')

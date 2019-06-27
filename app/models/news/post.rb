@@ -66,6 +66,29 @@ class News::Post < ApplicationRecord
     end
   end
 
+  def self.filter_posts (user_id, important = nil)
+    user = General::User.find(user_id)
+    user_inclusive_tags = user.terms.inclusive_tags.map(&:name)
+    user_excluding_tags = user.terms.excluding_tags.map(&:name)
+    user_categories = user.terms.categories.map(&:name)
+    posts = []
+    news = News::Post.includes(:terms).published_posts
+    news = news.where(important: important) if important.present?
+    news.each do |post| 
+      show_post = true
+      if post.terms.present? 
+        if post.terms.categories.present?
+          post.terms.categories.each do |tag|
+            show_post = tag.name.in?(user_categories)
+          end
+        end
+      end
+      # TODO: AGREGAR INCLUYENTE Y EXCLUYENTE
+      posts.push(post) if show_post
+    end
+    posts
+  end
+
   private
 
   def manage_time
