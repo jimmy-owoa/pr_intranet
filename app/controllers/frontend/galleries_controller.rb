@@ -10,9 +10,8 @@ module Frontend
       data = []
       galleries.each do |gal|
         attachments = []
-        if gal.attachments.present?           
-          main_image = gal.attachments.first.present? ? gal.attachments.first.attachment.
-          variant(combine_options: {resize: 'x351', gravity: 'Center'}) : root_url + '/assets/noimage.png'
+        if gal.attachments.present? && gal.attachments.first.attachment.attached?           
+          main_image = gal.attachments.first.attachment.variant(combine_options: {resize: 'x351', gravity: 'Center'})
           data << {
             id: gal.id,
             name: gal.name,
