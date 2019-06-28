@@ -1,13 +1,11 @@
 module Admin
   class PostsController < AdminController
-
     before_action :set_post, only: [:show, :edit, :update, :destroy]
     respond_to :html, :json
     before_action :set_categories, only: [:edit, :new]
     before_action :set_attachments, only: [:edit, :new]
 
     def index
-      add_breadcrumb "Noticias", :admin_posts_path
       @posts = News::Post.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
       respond_to do |format|
         format.html
@@ -17,8 +15,6 @@ module Admin
     end
 
     def show
-      # fresh_when last_modified: @post.updated_at
-      add_breadcrumb "Noticias", :admin_posts_path
     end
 
     def deleted
@@ -26,23 +22,24 @@ module Admin
     end
 
     def new
-      add_breadcrumb "Noticias", :admin_posts_path
       @post = News::Post.new
       @attachment = General::Attachment.new
+      @files = General::File.all
       @post.build_main_image
       @post.terms.build
+      # @post.files.build
     end
 
     def edit
-      add_breadcrumb "Noticias", :admin_posts_path
+      @files = General::File.all
     end
 
     def create
-      # params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       @post = News::Post.new(post_params)
       respond_to do |format|
         if @post.save
           set_tags
+          set_files
           format.html { redirect_to admin_post_path(@post), notice: 'Noticia fue creada con éxito.'}
           format.json { render :show, status: :created, location: @post}
         else
@@ -57,6 +54,7 @@ module Admin
       respond_to do |format|
         if @post.update(post_params)
           set_tags
+          set_files
           format.html { redirect_to admin_post_path(@post), notice: 'Noticia fue actualizada con éxito.'}
           format.json { render :show, status: :ok, location: @post }
         else
@@ -93,6 +91,7 @@ module Admin
     def set_galleries
       @galleries = General::Gallery
     end
+
     def set_attachments
       @attachments = General::Attachment
     end
@@ -101,10 +100,17 @@ module Admin
       params.require(:post).permit(:title, :slug, :content, :status,
       :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order,
       :published_at, :user_id, :post_type, :format, :permission, :important, :extract,
-      gallery_ids: [], term_ids: [], terms_names: [],
-      main_image_attributes: [:attachment], general_attachment_attributes: [ :general_attachment])
+      gallery_ids: [], term_ids: [], terms_names: [], file_ids: [],
+      main_image_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
     end
-
+    # SEGUIR CON SUBIR ARCHIVOS DESDE EL FORMULARIO DEL POST
+    def set_files
+      file_ids = params[:file_ids]
+      if file_ids.present?
+        @post.file_ids = file_ids
+      end
+    end
+    
     def set_tags
       # Getting terms_names from the form (tags)
       term_names = params[:terms_names]

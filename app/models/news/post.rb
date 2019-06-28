@@ -10,9 +10,11 @@ class News::Post < ApplicationRecord
   has_many :terms, through: :post_term_relationships
   has_many :menus, class_name: 'General::Menu'
   has_one :gallery, class_name: 'General::Gallery'
+  has_many :attachments, as: :attachable
+  has_many :files, class_name: 'General::File'
+
   belongs_to :post_parent, class_name: 'News::Post', optional: true
   belongs_to :user, class_name: 'General::User', optional: true, touch: true
-  has_many :attachments, as: :attachable
   belongs_to :main_image, class_name: 'General::Attachment', optional: true
   # has_one_attached :main_image
 
@@ -66,6 +68,7 @@ class News::Post < ApplicationRecord
     end
   end
 
+  # TODO: optimizar
   def self.filter_posts (user_id, important = nil)
     user = General::User.find(user_id)
     user_inclusive_tags = user.terms.inclusive_tags.map(&:name)

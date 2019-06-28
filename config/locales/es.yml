@@ -44,6 +44,9 @@ es:
       general/term:
         name: Nombre
         Term type: Tipo de publicación
+      general/file:
+        name: Nombre
+        file: Archivo
       general/benefit_group:
         name: Nombre  
       general/benefit:  
@@ -71,6 +74,7 @@ es:
       attachment: Adjunto
       post: Publicación
       user: Usuario
+      general/file: Archivo
       general/user: Usuario
       general/section: Sección
       general/term: Taxonomía
@@ -79,7 +83,7 @@ es:
       general/attachment: Archivo
       general/message: Mensaje
       general/benefit: Beneficio
-      news/post: 
+      news/post: Noticia
       general/section: Sección
       employee/birth: Nacimiento
     errors:
@@ -234,6 +238,15 @@ es:
       submit: Guardar %{model}
       update: Actualizar %{model}
     links:
+      cancel: Cancelar
+      edit: Editar
+      destroy: Eliminar
+      back: Volver
+      block: Bloquear
+      unlock: Desbloquear
+      show: Ver
+      confirm: Confirmar
+    files:
       cancel: Cancelar
       edit: Editar
       destroy: Eliminar

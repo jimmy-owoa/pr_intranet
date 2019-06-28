@@ -3,6 +3,10 @@ $(document).on("turbolinks:load", function() {
     tags: true,
     tokenSeparators: [",", " "]
   });
+  $("#file_ids").select2({
+    tags: false,
+    placeholder: "Seleccionar Archivos"
+  });
   $("#published_at").datetimepicker({
     sideBySide: true,
     icons: {
