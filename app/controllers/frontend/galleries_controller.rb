@@ -6,7 +6,8 @@ module Frontend
       user_id = params[:user_id]
       posts = News::Post.includes(:gallery).filter_posts(user_id).select {|post| post.gallery != nil}
       galleries = []
-      galleries = load_galleries posts, galleries
+      offset = 1
+      galleries = load_galleries posts.pluck(:id), galleries, offset
       data = []
       galleries.each do |gal|
         attachments = []
@@ -29,11 +30,12 @@ module Frontend
 
     private
 
-    def load_galleries posts, galleries, offset = 0
-      galleries += General::Gallery.where(post_id: posts.pluck(:id)).offset(offset).limit(9 - offset)
-      offset += galleries.count
+    def load_galleries post_ids, galleries, offset
+      return galleries if offset > 9
+      galleries += General::Gallery.where(post_id: post_ids).offset(offset).limit(1)
       if galleries.count <= 9
-        load_galleries posts, galleries, offset
+        offset += 1
+        return load_galleries(post_ids, galleries, offset)
       else
         return galleries
       end
