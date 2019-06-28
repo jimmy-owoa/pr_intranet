@@ -4,9 +4,9 @@ module Frontend
 
     def index
       user_id = params[:user_id]
-      posts = News::Post.filter_posts(user_id).select {|post| post.gallery != nil}
-      gallery_ids = posts.map(&:gallery).map(&:id)
-      galleries = General::Gallery.find(gallery_ids).first(9)
+      posts = News::Post.includes(:gallery).filter_posts(user_id).select {|post| post.gallery != nil}
+      galleries = []
+      galleries = load_galleries posts, galleries
       data = []
       galleries.each do |gal|
         attachments = []
@@ -24,6 +24,18 @@ module Frontend
       respond_to do |format|
         format.json { render json: data }
         format.js
+      end
+    end
+
+    private
+
+    def load_galleries posts, galleries, offset = 0
+      galleries += General::Gallery.where(post_id: posts.pluck(:id)).offset(offset).limit(9 - offset)
+      offset += galleries.count
+      if galleries.count < 9
+        load_galleries posts, galleries, offset
+      else
+        return galleries
       end
     end
   end
