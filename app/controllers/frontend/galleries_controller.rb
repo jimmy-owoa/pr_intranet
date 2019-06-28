@@ -6,7 +6,7 @@ module Frontend
       user_id = params[:user_id]
       posts = News::Post.includes(:gallery).filter_posts(user_id).select {|post| post.gallery.present?}
       galleries = []
-      offset = 1
+      offset = 0
       galleries = load_galleries posts.pluck(:id), galleries, offset
       data = []
       galleries.each do |gal|
