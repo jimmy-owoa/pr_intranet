@@ -4,7 +4,7 @@ module Frontend
 
     def index
       user_id = params[:user_id]
-      posts = News::Post.includes(:gallery).filter_posts(user_id).select {|post| post.gallery != nil}
+      posts = News::Post.includes(:gallery).filter_posts(user_id).select {|post| post.gallery.present?}
       galleries = []
       offset = 1
       galleries = load_galleries posts.pluck(:id), galleries, offset
