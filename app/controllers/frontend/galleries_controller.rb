@@ -10,15 +10,17 @@ module Frontend
       data = []
       galleries.each do |gal|
         attachments = []
-        main_image = gal.attachments.present? ? gal.attachments.first.attachment.
-        variant(combine_options: {resize: 'x351', gravity: 'Center'}) : root_url + '/assets/noimage.png'
-        data << {
-          id: gal.id,
-          name: gal.name,
-          publish_date: gal.created_at.strftime("%d-%m-%Y"),
-          main_image: url_for(main_image),
-          post_slug: gal.post.present? ? gal.post.slug : nil
-        }
+        if gal.attachments.present?           
+          main_image = gal.attachments.first.present? ? gal.attachments.first.attachment.
+          variant(combine_options: {resize: 'x351', gravity: 'Center'}) : root_url + '/assets/noimage.png'
+          data << {
+            id: gal.id,
+            name: gal.name,
+            publish_date: gal.created_at.strftime("%d-%m-%Y"),
+            main_image: url_for(main_image),
+            post_slug: gal.post.present? ? gal.post.slug : nil
+          }
+        end
       end
       respond_to do |format|
         format.json { render json: data }
