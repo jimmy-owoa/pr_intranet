@@ -3,7 +3,7 @@ module Frontend
     def index
       sections = General::Section.all
       data = []
-      last_know_us_post = News::Post.where(post_type: "Conociéndonos").published_posts.last
+      last_know_us_post = News::Post.where(post_type: "Conociéndonos").published_posts.first
       data_products = []
       Marketplace::Product.show_product.last(20).each do |product|
         data_products << {
