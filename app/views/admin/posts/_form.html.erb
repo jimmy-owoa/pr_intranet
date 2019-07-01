@@ -135,14 +135,15 @@
   </div>
 </div>
 <script>
-$(document).ready(function(){
-$('input,textarea').focus(function(){
-  $(this).data('placeholder',$(this).attr('placeholder'))
-          .attr('placeholder','');
-}).blur(function(){
-  $(this).attr('placeholder',$(this).data('placeholder'));
-});
+  $(document).ready(function(){
+    $('input,textarea').focus(function(){
+      $(this).data('placeholder',$(this).attr('placeholder'))
+              .attr('placeholder','');
+    }).blur(function(){
+      $(this).attr('placeholder',$(this).data('placeholder'));
+    });
 
+  });
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -152,9 +153,7 @@ $('input,textarea').focus(function(){
           .width(180)
           .height(120);
       };
-
       reader.readAsDataURL(input.files[0]);
     }
   }
-});
 </script>
