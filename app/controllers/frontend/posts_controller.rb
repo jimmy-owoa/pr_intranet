@@ -5,8 +5,8 @@ module Frontend
   def index
     user_posts = News::Post.filter_posts(params[:id])
     page = params[:page]
-    params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select{|post| post.post_type == params[:category]}).page(page).per(10) :
-    posts = Kaminari.paginate_array(user_posts).page(page).per(10)
+    params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select{|post| post.post_type == params[:category]}).page(page).per(4) :
+    posts = Kaminari.paginate_array(user_posts).page(page).per(4)
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
@@ -14,9 +14,7 @@ module Frontend
         id: post.id,
         title: post.title,
         main_image: post.main_image,
-        user_name: post.cached_users_names,
         published_at: post.created_at.strftime("%d/%m/%Y · %H:%M"),
-        content: post.content,
         post_type: post.post_type.present? ? post.post_type.upcase : '',
         important: post.important,
         tags: post.cached_tags,
