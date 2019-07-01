@@ -68,6 +68,8 @@
               </div>
             </div>
             <ul class="sidebar-menu">
+              <li class="menu-header">Administrador</li>
+              <li><a href="https://misecurity.elmejorlugarparatrabajar.cl/#/" target="blank"><i class="fas fa-eye"></i> Ver Intranet</a></li>
               <li class="menu-header">Módulos</li>
               <% if current_user.has_role? :super_admin or current_user.has_role? :post_admin %>
                 <li>
