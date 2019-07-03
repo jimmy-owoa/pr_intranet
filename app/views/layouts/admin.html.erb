@@ -24,7 +24,7 @@
             <li class="dropdown dropdown-list-toggle">
               <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep">
                 <i class="fas fa-bell"></i>
-              </a>
+            </a>
               <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">
                   Notificaciones
@@ -36,7 +36,7 @@
                       <b>Nicolás Duhart está de cumpleaños hoy</b>
                       <div class="time">05-10-2018</div>
                     </div>
-                  </a>
+                </a>
                 </div>
               </div>
             </li>
@@ -44,9 +44,9 @@
               <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
                 <i class="ion ion-android-person d-lg-none"></i>
                 <div class="d-sm-none d-lg-inline-block">Hola <%= current_user.name %></div>
-              </a>
+            </a>
               <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i> <%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
+                <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i><%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
                 <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-times"></i><%= link_to 'Salir', destroy_user_session_path, method: :delete%></a>
               </div>
             </li>
@@ -69,14 +69,14 @@
             </div>
             <ul class="sidebar-menu">
               <li class="menu-header">Administrador</li>
-              <li><a href="https://misecurity.elmejorlugarparatrabajar.cl/#/" target="_blank"><i class="fas fa-eye"></i> Ver Intranet</a></li>
+              <li><a href="https://misecurity.elmejorlugarparatrabajar.cl/#/" target="_blank"><i class="fas fa-eye"></i>Ver Intranet</a></li>
               <li class="menu-header">Módulos</li>
               <% if current_user.has_role? :super_admin or current_user.has_role? :post_admin %>
                 <li>
                   <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i><span>Noticias <b>↓</b></span></a>
                   <ul class="menu-dropdown">
-                    <li><a href="<%= admin_posts_path %>"><i class="fas fa-list"></i> Listado</a></li>
-                    <li><a href="<%= new_admin_post_path %>"><i class="fas fa-plus-circle"></i> Crear nueva</a></li>
+                    <li><a href="<%= admin_posts_path %>"><i class="fas fa-list"></i>Listado</a></li>
+                    <li><a href="<%= new_admin_post_path %>"><i class="fas fa-file"></i>Crear nueva</a></li>
                   </ul>
                 </li>
               <% end %>
@@ -84,9 +84,10 @@
                 <li>
                   <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios <b>↓</b></span></a>
                   <ul class="menu-dropdown">
-                    <li><a href="<%= admin_attachments_path %>"><i class="far fa-file-image"></i> Lista de medios </a></li>
-                    <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i> Galerías </a></li>
-                    <li><a href="<%= new_admin_attachment_path %>"><i class="fas fa-file-upload"></i> Añadir medios </a></li>
+                    <li><a href="<%= admin_attachments_path %>"><i class="far fa-file-image"></i>Lista de medios</a></li>
+                    <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i>Galerías</a></li>
+                    <li><a href="<%= new_admin_attachment_path %>"><i class="fas fa-file-upload"></i>Añadir medios</a></li>
+                    <li><a href="<%= admin_files_path %>"><i class="fas fa-folder"></i>Archivos</a></li>
                   </ul>
                 </li>
                 <li>
@@ -94,7 +95,7 @@
                   <ul class="menu-dropdown">
                     <li><a href="<%= admin_surveys_path %>"><i class="fas fa-list"></i>Listado</a></li>
                     <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
-                    <li><a href="<%= new_admin_survey_path %>"><i class="fas fa-plus-circle"></i> Crear nueva</a></li>
+                    <li><a href="<%= new_admin_survey_path %>"><i class="fas fa-plus-circle"></i>Crear nueva</a></li>
                   </ul>
                 </li>
                 <li class="dropdown">
@@ -107,7 +108,7 @@
                 <li>
                   <a href="<%= admin_messages_path %>"><i class="far fa-envelope"></i>Mensajes</a></li>
                 </li>
-                <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i> Etiquetas</a></li>
+                <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i>Etiquetas</a></li>
                 <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
                   <li class="menu-header">Beneficios</li>
                   <li>
@@ -136,7 +137,7 @@
                 </li>
                 <li class="menu-header">Configuración</li>
                 <li><a href="<%= admin_users_path %>"><i class="fas fa-users"></i>Usuarios</a></li>
-                <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i> Menús</a></li>
+                <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
               <% end %>
             </ul>
           </aside>
