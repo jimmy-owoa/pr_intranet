@@ -95,13 +95,14 @@ module Frontend
       child_lastname2 = params[:child_lastname2]
       full_name_father = params[:full_name_father]
       full_name_mother = params[:full_name_mother]
+      is_public = params[:is_public]
       approved = params[:approved]
       gender = params[:gender]
       birthday = params[:birthday]
       images = params[:images]
       @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, 
         child_lastname2: child_lastname2, full_name_father: full_name_father, full_name_mother: full_name_mother,
-        approved: approved, gender: gender, birthday: birthday)
+        approved: approved, gender: gender, birthday: birthday, is_public: is_public)
         if images.present? 
           images.each do |image|
             base64_image = image[1].sub(/^data:.*,/, '')
@@ -146,7 +147,7 @@ module Frontend
     end
 
     def birth_params
-      params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :child_lastname,
+      params.require(:birth).permit(:full_name_mother, :full_name_father, :is_public, :child_name, :child_lastname,
       :child_lastname2, :birthday, :photo, :approved, :gender)
     end
     

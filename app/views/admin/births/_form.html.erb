@@ -11,8 +11,6 @@
       <div class="col-md-4">
         <%= f.input :child_lastname2, required: true %>
       </div>
-    </div>
-    <div class="row">
       <div class="col-md-6">
         <%= f.input :full_name_father, required: true  %>
       </div>
@@ -22,9 +20,7 @@
       <div class="col-md-6">
         <%= f.input :user_id  %>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 col-sm-6"></br>
+      <div class="col-md-4 col-sm-4">
         <div class="input-group date" id="birthday" data-target-input="nearest">
           <% if @birth.try(:birthday).present? %>
             <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @birth.try(:birthday).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#birthday'%>
@@ -36,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3"></br>
+      <div class="col-md-3">
       <%= f.label gender_select(@birth.gender)  %>
       <%= f.input_field :gender, label: :false, collection: [ [1, 'Masculino' ], [0, 'Femenino'] ], as: :radio_buttons, checked: @birth.gender, label_method: :last, value_method: :first, required: true%>
       </div>
@@ -48,9 +44,14 @@
           <%= f.check_box :approved, checked: true, hidden: true%>
         <% end %>
       </div>
-    </div>
+      <div class="col-md-2">
+        <div class="custom-control custom-checkbox pt-4">
+          <%= f.check_box :is_public, class:'custom-control-input' %>
+          <%= f.label 'Es público', class: 'custom-control-label', for: 'birth_is_public'%>
+        </div>
+      </div>
   </div>
-
+</div>
   <div class="col-md-4">
     <div class="card p-2">
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">

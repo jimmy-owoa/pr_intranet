@@ -6,7 +6,7 @@ class Employee::Birth < ApplicationRecord
 
   belongs_to :user, class_name: 'General::User', optional: true
 
-  scope :show_birth , -> {where( approved: true)}
+  scope :show_birth , -> {where( approved: true, is_public: true)}
   scope :births_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
 
   PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
