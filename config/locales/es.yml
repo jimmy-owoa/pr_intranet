@@ -3,6 +3,8 @@ es:
     attributes:
       general/section:
         position: Posición
+      general/attachment:
+        caption: Pie de foto
       general/link:
         url: Dirección URL
       general/gallery:
@@ -54,6 +56,7 @@ es:
         code: Código
         url: Link
         benefit_type_id: Tipo de beneficio
+        is_special: Es especial
       general/message:    
         title: Título
       general/link:  
