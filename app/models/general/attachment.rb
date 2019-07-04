@@ -17,7 +17,6 @@ class General::Attachment < ApplicationRecord
     end
   end
 
-
   def thumb
     begin
       return self.attachment.variant(resize: '120x120>').processed
@@ -30,7 +29,7 @@ class General::Attachment < ApplicationRecord
 
   def medium
     begin
-    return self.attachment.attachment.variant(resize: '300x300>').processed
+      return self.attachment.attachment.variant(resize: '300x300>').processed
     rescue
       return nil
     end

@@ -64,6 +64,9 @@ module Admin
 
     def update
       attch_name = params.dig("general_attachment","name")
+      name = attachment_params[:name]
+      caption = attachment_params[:caption]
+      attachment = attachment_params[:attachment]
       if attch_name.present?
         respond_to do |format|
           if @attachment.update_attributes(name: attch_name)
@@ -74,7 +77,13 @@ module Admin
         end
       else
         respond_to do |format|
-          if @attachment.update(attachment_params)
+          if name.present? || caption.present?
+            @attachment.update(name: name, caption: caption)
+            @attachment.update(attachment: attachment) if attachment.present?
+            set_tags
+            format.html { redirect_to admin_attachment_path(@attachment), notice: 'Archivo fué correctamente actualizado.'}
+            format.json { render :show, status: :ok, location: @attachment }
+          elsif @attachment.update(attachment_params)
             set_tags
             format.html { redirect_to admin_attachment_path(@attachment), notice: 'Archivo fué correctamente actualizado.'}
             format.json { render :show, status: :ok, location: @attachment }
