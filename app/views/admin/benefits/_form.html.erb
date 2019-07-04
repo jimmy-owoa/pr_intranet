@@ -4,20 +4,23 @@
       <div class="col-md-6">
         <%= f.input :title, required: true, autofocus: true %>
       </div>
-      <div class="col-md-4">
-        <%= f.input :alias, autofocus: true %>
-      </div>
-      <div class="col-md-2">
-        <%= f.input :is_special, autofocus: true %>
+      <div class="col-md-3">
+        <%= f.input :alias %>
       </div>
       <div class="col-md-3">
-        <%= f.input :code, autofocus: true %>
+        <div class="custom-control custom-checkbox pt-4">
+          <%= f.check_box :is_special, class:'custom-control-input' %>
+          <%= f.label 'Es Beneficios Vida', class: 'custom-control-label', for: 'benefit_is_special'%>
+        </div>
       </div>
       <div class="col-md-4">
-        <%= f.input :url, autofocus: true %>
+        <%= f.input :code %>
       </div>
       <div class="col-md-4">
-        <%= f.input :benefit_type_id, collection: General::BenefitType.all, required: true, autofocus: true %>
+        <%= f.input :url %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :benefit_type_id, collection: General::BenefitType.all, required: true %>
       </div>
       <div class="col-md-12">
         <%= f.label 'Grupo beneficiario' %>
@@ -31,7 +34,7 @@
     </div>
     <div class="col-5" >
       <div class="card border-secondary border border-primary rounded">
-        <div class="card-body text-secondary">
+        <div class="card-body text-secondary text-md-center">
           <% if @benefit.image.attachment.present? %>
               <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
           <% else %>

@@ -56,7 +56,7 @@ es:
         code: Código
         url: Link
         benefit_type_id: Tipo de beneficio
-        is_special: Es especial
+        is_special: Es Beneficios Vida
       general/message:    
         title: Título
       general/link:  
