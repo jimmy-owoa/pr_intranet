@@ -1072,7 +1072,10 @@
     <ul id="ul_menu">
       <% main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
-          <a class="head_menu" style="font-size: 14px;" href="#" title="Menu 1"><%= main_menu.title.upcase %></a>
+          <a class="head_menu" style="font-size: 14px;" href="#" title="Menu 1">
+            <%= main_menu.title.upcase %>
+            <i class="fas fa-chevron-down"></i>
+          </a>
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>

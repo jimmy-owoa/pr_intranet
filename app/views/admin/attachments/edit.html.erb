@@ -12,9 +12,10 @@
                 </div>
                 <div class="col-md-12 text-center pt-4">
                   <%= f.file_field :attachment %>
+                  <%= tinymce height: "400"  %>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                  <%= f.input :name, required: true %>
+                  <%= f.text_area :name, class: 'tinymce' %>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                   <%= f.input :caption %>
