@@ -28,9 +28,9 @@
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
-/config/credentials.yml.enc
-/config/environments/development.rb
+config/master.key
+config/credentials.yml.enc
+config/environments/development.rb
 # Ignore database.yml
 /config/database.yml
 
