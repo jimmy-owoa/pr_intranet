@@ -15,10 +15,11 @@
                   <%= tinymce height: "400"  %>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                  <%= f.text_area :name, class: 'tinymce' %>
+                  <%= f.input :name %>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                  <%= f.input :caption %>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <%= f.label "Pie de foto"%>
+                  <%= f.text_area :caption, class: 'tinymce' %>
                 </div>
               </div>
             </div>
