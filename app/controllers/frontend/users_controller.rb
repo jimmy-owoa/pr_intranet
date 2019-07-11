@@ -442,6 +442,18 @@ module Frontend
       end
     end
 
+    def set_user
+      token = params[:token]
+      # START DECRYPT AND VALIDATION
+      result = General::User.decrypt(token)
+      # END DECRYPT
+      cookies.encrypted[:sso_unt] = {
+        value: result, 
+        expires: 1.hour 
+      }
+      render json: { data: cookies.encrypted[:sso_unt] }, callback: "*"
+    end
+
     def upload
       user = General::User.find(params[:user_id])
       image = params[:file]
