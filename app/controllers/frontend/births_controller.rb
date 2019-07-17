@@ -100,9 +100,10 @@ module Frontend
       gender = params[:gender]
       birthday = params[:birthday]
       images = params[:images]
+      user_id = params[:user_id]
       @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, 
         child_lastname2: child_lastname2, full_name_father: full_name_father, full_name_mother: full_name_mother,
-        approved: approved, gender: gender, birthday: birthday, is_public: is_public)
+        approved: approved, gender: gender, birthday: birthday, is_public: is_public, user_id: user_id)
         if images.present? 
           images.each do |image|
             base64_image = image[1].sub(/^data:.*,/, '')

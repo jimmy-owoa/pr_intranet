@@ -5,10 +5,19 @@ class UserNotifierMailer < ApplicationMailer
   def send_signup_email(user)
     @user = user
     mail( :to => @user.email,
-    :subject => 'Thanks for signing up for our amazing app' )
+      :subject => 'Thanks for signing up for our amazing app' )
+    end
+    
+  # UserNotifierMailer.send_test("jeremias@exaconsultores.cl").deliver
+  def send_test email
+    mail(to: email, subject: 'Test')
   end
 
-  def send_test email
-    mail(to: email, subject: 'Este es un test')
+  def send_birth_approved email
+    mail(to: email, subject: 'Nacimiento aprobado')
+  end
+
+  def send_birth_not_approved email
+    mail(to: email, subject: 'Nacimiento rechazado')
   end
 end

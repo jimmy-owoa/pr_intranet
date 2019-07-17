@@ -44,9 +44,15 @@ module Admin
     end
 
     def update
-      if params['approved'].present?
+      approved = params['approved']
+      if approved.present?
         respond_to do |format|
-          @birth.update_attributes(approved: params['approved'])
+          if approved == "true"
+            UserNotifierMailer.send_birth_approved(@birth.user.email).deliver 
+          else
+            UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
+          end
+          @birth.update_attributes(approved: approved)
           format.json { render :json => {value: "success"} and return}
         end
       elsif params['image_id'].present?
@@ -82,6 +88,7 @@ module Admin
 
     def destroy
       @birth.destroy
+      UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
       respond_to do |format|
         format.html { redirect_to admin_births_path, notice: 'Nacimiento fue eliminado con éxito.'}
         format.json { head :no_content }
