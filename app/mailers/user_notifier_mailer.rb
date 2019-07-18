@@ -20,4 +20,12 @@ class UserNotifierMailer < ApplicationMailer
   def send_birth_not_approved email
     mail(to: email, subject: 'Nacimiento rechazado')
   end
+
+  def send_product_approved email 
+    mail(to: email, subject: 'Aviso aprobado')
+  end
+
+  def send_product_not_approved email
+    mail(to: email, subject: 'Aviso rechazado')
+  end
 end

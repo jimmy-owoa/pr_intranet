@@ -53,9 +53,15 @@ module Admin
 
     def update
       authorize @product
-      if params['approved'].present?
+      approved = params['approved']
+      if approved.present?
         respond_to do |format|
-          @product.update_attributes(approved: params['approved'])
+          if approved == "true"
+            UserNotifierMailer.send_product_approved(@product.user.email).deliver 
+          else
+            UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
+          end
+          @product.update_attributes(approved: approved)
           format.json { render :json => {value: "success"} and return}
         end
       elsif params['image_id'].present?
@@ -77,6 +83,7 @@ module Admin
     def destroy
       @product.destroy
       respond_to do |format|
+        UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
         format.html { redirect_to admin_products_path, notice: 'Producto fue eliminado con éxito.'}
         format.json { head :no_content }
       end
