@@ -21,7 +21,9 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email, subject: 'Nacimiento rechazado')
   end
 
-  def send_product_approved email 
+  def send_product_approved email, name, product_id
+    @name = name
+    @product_id = product_id
     mail(to: email, subject: 'Aviso aprobado')
   end
 

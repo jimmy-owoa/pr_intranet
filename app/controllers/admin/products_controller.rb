@@ -57,7 +57,7 @@ module Admin
       if approved.present?
         respond_to do |format|
           if approved == "true"
-            UserNotifierMailer.send_product_approved(@product.user.email).deliver 
+            UserNotifierMailer.send_product_approved(@product.user.email, @product.user.name, @product.id).deliver 
           else
             UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
           end
