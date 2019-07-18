@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_11_215031) do
+ActiveRecord::Schema.define(version: 2019_07_18_172317) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -445,6 +445,14 @@ ActiveRecord::Schema.define(version: 2019_07_11_215031) do
     t.index ["main_image_id"], name: "index_news_posts_on_main_image_id"
     t.index ["post_parent_id"], name: "index_news_posts_on_post_parent_id"
     t.index ["term_id"], name: "index_news_posts_on_term_id"
+  end
+
+  create_table "religion_gospels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
