@@ -92,6 +92,7 @@ module Frontend
         santoral: santoral[0],
         location_name: location.name,
         exa_menu: exa_menu,
+        gospel: Religion::Gospel.where(date: Date.today).first,
         indicators: data_indicators[0],
         today: today,
         base_api_url: base_api_url,

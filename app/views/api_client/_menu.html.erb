@@ -1013,7 +1013,16 @@
   </div>
 </div>
 <!-- INDICATORS MODAL END -->
-
+<!-- GOSPEL MODAL START -->
+<div class="modalDialog" id="gospel_modal">
+  <div>
+    <a href="#" title="Close" class="close">X</a>
+    <div class="layout">
+      <%=raw gospel.content.chomp "Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>" %>
+    </div>
+  </div>
+</div>
+<!-- GOSPEL MODAL END -->
   <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 15.55px; width: 100%"/>
 
 <div style="padding-top: 30px;" >
@@ -1027,7 +1036,9 @@
       <div class="flex md8 inline">
         <div class="layout">
           <div class="flex md5 subheading top-info text-md-right" style="margin-right: 19px; margin-left: 2%;">
-            <%= 'Santoral: ' + santoral.name[0...12] %>
+            <a href="#gospel_modal" style="text-decoration: none; color: black;">
+              <%= 'Santoral: ' + santoral.name[0...12] %>
+            </a>
           </div>
           <div class="vl"></div>
           <div class="flex md3 top-info text-md-center" style="margin: 0px -2.3%;">
