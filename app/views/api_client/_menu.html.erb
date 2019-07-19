@@ -1017,8 +1017,11 @@
 <div class="modalDialog" id="gospel_modal">
   <div>
     <a href="#" title="Close" class="close">X</a>
-    <div class="layout">
-      <%=raw gospel.content.chomp "Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>" %>
+    <div class="layout row">
+      <div class="flex md12 text-md-center">
+        <p><b><%=raw gospel.title %></b></p>
+        <%=raw gospel.content.chomp "Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>" %>
+      </div>
     </div>
   </div>
 </div>
