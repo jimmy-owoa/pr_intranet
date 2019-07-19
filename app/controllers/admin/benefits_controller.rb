@@ -32,7 +32,6 @@ module Admin
     end
 
     def update
-      binding.pry
       respond_to do |format|
         if @benefit.update(benefit_params)
           set_benefit_group
