@@ -64,9 +64,11 @@ module Admin
 
     def update
       attch_name = params.dig("general_attachment","name")
-      name = attachment_params[:name]
-      caption = attachment_params[:caption]
-      attachment = attachment_params[:attachment]
+      if attch_name.blank? 
+        name = attachment_params[:name]
+        caption = attachment_params[:caption]
+        attachment = attachment_params[:attachment]
+      end
       if attch_name.present?
         respond_to do |format|
           if @attachment.update_attributes(name: attch_name)
