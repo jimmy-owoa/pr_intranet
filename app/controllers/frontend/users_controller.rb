@@ -442,6 +442,15 @@ module Frontend
       end
     end
 
+    def sso_user_auth
+      data = params[:data] 
+      cipher_key = params[:cipher_key]
+      response = InternalAuth.decrypt data, cipher_key
+      respond_to do |format|
+        format.json { render json: response }
+      end
+    end
+
     def set_user
       token = params[:token]
       # START DECRYPT AND VALIDATION

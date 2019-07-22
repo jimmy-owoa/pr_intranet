@@ -5,7 +5,7 @@ class InternalAuth
   def initialize
   end
 
-  def decrypt data, cipher_key = nil
+  def self.decrypt data, cipher_key = nil
     cipher = OpenSSL::Cipher.new 'aes-256-cbc'
     cipher.decrypt
     cipher.key = cipher_key || Rails.application.secrets.cipher_key
@@ -22,7 +22,4 @@ class InternalAuth
     return decrypted[0..(decrypted.length - 11)]
   end
 
-  def self.decrypt
-    new.decrypt
-  end
 end
