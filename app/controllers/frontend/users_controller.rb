@@ -443,11 +443,22 @@ module Frontend
     end
 
     def sso_user_auth
-      data = params[:data] 
-      cipher_key = params[:cipher_key]
-      response = InternalAuth.decrypt data, cipher_key
+      url = "https://10.240.200.141/api/userauth2"
+      res = Net::HTTP.get_response url
+      json = JSON.parse(res.body)
+      if json['data'].blank?
+        respond_to do |format|
+          format.json { render json: "" }
+        end
+        return
+      end
+      data = json['data']
+      cipher_key = "EB5932580C920015B65B4B308FF7F352"
+      nt_user = InternalAuth.decrypt data, cipher_key
+      user = General::User.find_by_nt_user(nt_user)
+      rut = user.legal_number + user.legal_number_verification
       respond_to do |format|
-        format.json { render json: response }
+        format.json { render json: rut }
       end
     end
 

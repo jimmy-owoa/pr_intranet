@@ -21,5 +21,5 @@ class InternalAuth
     timestamp = decrypted[-10..(decrypted.length - 1)].to_i
     return decrypted[0..(decrypted.length - 11)]
   end
-
+  # en rails hay que llamar al otro servicio
 end

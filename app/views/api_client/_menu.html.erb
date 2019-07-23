@@ -1,12 +1,23 @@
 <style media="screen" type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
+
+  .modal-hover{
+    text-decoration: none; 
+    color: black;
+  }
+  a.modal-hover:hover{
+    color: #789c4a;
+    border-bottom: 1px solid #789c4a;
+    padding-bottom: 2px;
+  }
   .top-info{
     width: 17%;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: text-bottom;
   }
   .inline{
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: text-bottom;
   }
   .vl {
     display: inline-block;
@@ -327,8 +338,8 @@
     -webkit-box-flex: 1;
     flex: 1 1 100%;
     margin: auto;
-    padding: 24px;
-    width: 100%;
+    padding: 14px;
+    max-width: 1346px !important;
   }
   nav {
     position: inherit;
@@ -1026,57 +1037,52 @@
   </div>
 </div>
 <!-- GOSPEL MODAL END -->
-  <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 15.55px; width: 100%"/>
+<img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 15.55px; width: 100%"/>
 
-<div style="padding-top: 30px;" >
-  <div class="hidden-sm-and-down">
-    <div class="layout" style="height: 53px;">
-      <div class="flex text-md-left inline md2">
-        <a href="/#/">
-          <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 50px; cursor: pointer; margin-top: -2px;"/>
-        </a>
-      </div>
-      <div class="flex md8 inline">
-        <div class="layout">
-          <div class="flex md5 subheading top-info text-md-right" style="margin-right: 19px; margin-left: 2%;">
-            <a href="#gospel_modal" style="text-decoration: none; color: black;">
-              <%= 'Santoral: ' + santoral.name[0...12] %>
-            </a>
-          </div>
-          <div class="vl"></div>
-          <div class="flex md3 top-info text-md-center" style="margin: 0px -2.3%;">
-            <a href="#weather_modal" style="text-decoration: none; color: black;">
-              <div class="text-md-center subheading">
-                <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 22px; cursor: pointer; padding-right: 7px; vertical-align: middle;")%>
-                <%= location_name %> 
-                <% if weather[0].present? %> 
-                  <%= weather[0].current_temp.to_i %>° 
-                <% else %>
-                  <%= 'Clima no disponible'%> 
-                <% end %>
-              </div>
-            </a>
-          </div>
-          <div class="vl2"></div>
-          <div class="flex md4 subheading pointer text-md-center top-info" style="margin-left: -22px;">
-            <a href="#indicators_modal" style="text-decoration: none; color: black;">
-              <i class="material-icons inline">equalizer</i>
-              Indicadores económicos
-            </a>
-          </div>
+<div style="padding-top: 20px;" >
+  <div class="container">
+    <div class="hidden-sm-and-down">
+      <div class="layout" style="height: 53px;">
+        <div class="flex text-md-left inline md2">
+          <a href="/#/">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 50px; cursor: pointer; margin-top: -2px;"/>
+          </a>
         </div>
-      </div>
-      <div class="flex md2 text-md-right text-capitalize title font-weight-regular inline">
-        <a href="/#/perfil" style="text-decoration: none; color: black;">
-          ¡Hola <%= user.name %>!
-          <div class="v-avatar" style="height: 42px; width: 42px;">
-            <div aria-label="Avatar" class="inline v-image">
-              <% if user.image.attached? %> 
-                <%= image_tag(user_image, style:'object-fit: cover;') %> 
-              <% end%>
+        <div class="flex md8 inline">
+          <div class="layout">
+            <div class="flex md5 subheading top-info text-md-right" style="margin-right: 19px; margin-left: 2%;">
+              <a href="#gospel_modal" class="modal-hover">
+                <%= 'Santoral: ' + santoral.name[0...12] %>
+              </a>
+            </div>
+            <div class="flex md3 top-info text-md-center" style="margin: 0px -2.3%;">
+              <div href="#weather_modal">
+                <div class="text-md-center subheading">
+                  <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 22px; cursor: pointer; padding-right: 7px; vertical-align: middle;")%>
+                  <%=link_to location_name  + " " + weather[0].current_temp.to_i.to_s + "°" , "#weather_modal", class: "modal-hover" %>
+                </div>
+              </div>
+            </div>
+            <div class="flex md4 subheading pointer text-md-center top-info" style="margin-left: -22px;">
+              <i class="material-icons inline" style="font-family: 'Material Icons' !important">equalizer</i>
+              <a href="#indicators_modal" class="modal-hover">
+                Indicadores económicos
+              </a>
             </div>
           </div>
-          </a>
+        </div>
+        <div class="flex md2 text-md-right text-capitalize title font-weight-regular inline">
+          <a href="/#/perfil" style="text-decoration: none; color: black;">
+            ¡Hola <%= user.name %>!
+            <div class="v-avatar" style="height: 42px; width: 42px;">
+              <div aria-label="Avatar" class="inline v-image">
+                <% if user.image.attached? %> 
+                  <%= image_tag(user_image, style:'object-fit: cover;') %> 
+                <% end%>
+              </div>
+            </div>
+            </a>
+        </div>
       </div>
     </div>
   </div>
