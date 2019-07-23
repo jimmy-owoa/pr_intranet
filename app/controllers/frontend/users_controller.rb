@@ -443,7 +443,7 @@ module Frontend
     end
 
     def sso_user_auth
-      url = "https://10.240.200.141/api/userauth2"
+      url = URI.parse "https://10.240.200.141/api/userauth2"
       res = Net::HTTP.get_response url
       json = JSON.parse(res.body)
       if json['data'].blank?
