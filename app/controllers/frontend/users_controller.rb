@@ -444,7 +444,7 @@ module Frontend
     end
 
     def sso_user_auth
-      url = URI.parse "https://10.240.200.141/redirect/api/userauth2"
+      url = URI.parse "https://10.242.201.32/redirect/api/UserAuth2"
       res = Net::HTTP.get_response url
       json = JSON.parse(res.body) if res.present?
       if json['data'].blank?
