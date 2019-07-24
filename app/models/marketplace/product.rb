@@ -11,6 +11,7 @@ class Marketplace::Product < ApplicationRecord
   before_save :update_published_date
 
   scope :show_product , -> {where(approved: true)}
+  scope :approved_and_not_expired, -> { where(approved: true).where(is_expired: false) }
 
   PRODUCT_TYPE = ['Autos','Propiedades', 'Servicios', 'Varios']
   CURRENCY = ['$','UF']

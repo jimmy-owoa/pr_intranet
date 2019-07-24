@@ -82,8 +82,8 @@ module Frontend
     end
 
     def parents_data
-      id = params[:id].present? ? params[:id] : nil
-      user = General::User.find(id)
+      rut = params[:rut].present? ? params[:rut] : nil
+      user = General::User.find_by_legal_number(rut[0...-1])
       data_childrens = []
       data_siblings = []
       data_father = []
@@ -454,7 +454,7 @@ module Frontend
       end
       data = json['data']
       cipher_key = "EB5932580C920015B65B4B308FF7F352"
-      nt_user = InternalAuth.decrypt data, cipher_key
+      nt_user = InternalAuth.decrypt(data, cipher_key)
       user = General::User.find_by_nt_user(nt_user)
       rut = user.legal_number + user.legal_number_verification
       respond_to do |format|
