@@ -219,6 +219,7 @@ module Frontend
         nickname: @nickname,
         role: General::User.what_role?(@user),
         company: @user.company,
+        position: @user.position,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + '/assets/default_avatar.png',
