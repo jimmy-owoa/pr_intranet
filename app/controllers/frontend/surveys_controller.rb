@@ -119,8 +119,8 @@ module Frontend
       slug = params[:slug].present? ? params[:slug] : nil
       survey = Survey::Survey.find_by_slug(slug)
       count = 0
+      required = survey.questions.where(optional: true)
       if survey.once_by_user?
-        required = survey.questions.where(optional: true)
         required.each do |question|
           question.answers.each do |answer|
             if answer.user_id == 3
