@@ -83,6 +83,7 @@ Rails.application.routes.draw do
     get 'menus/api_menu_vue/:user_id(/:location_id)', to: 'menus#api_menu_vue'
     get 'sso_auth/:token', to: 'users#set_user'
     get 'sso_user_auth', to: 'users#sso_user_auth'
+    # get 'test_sso', to: 'users#test_sso'
     resources :galleries
     resources :weather
     resources :users, only: [:update, :show] do
