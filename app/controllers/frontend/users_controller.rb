@@ -450,6 +450,25 @@ module Frontend
       end
     end
     
+    # def sso_user_auth
+    #   if params['data'].present?
+    #     json = JSON.parse(params['data'])
+    #     data = json['data']
+    #   else
+    #     respond_to do |format|
+    #       format.json { render json: "" }
+    #     end
+    #     return
+    #   end
+    #   cipher_key = "EB5932580C920015B65B4B308FF7F352"
+    #   nt_user = InternalAuth.decrypt(data, cipher_key)
+    #   user = General::User.find_by_nt_user(nt_user)
+    #   rut = user.legal_number + user.legal_number_verification
+    #   respond_to do |format|
+    #     format.json { render json: rut }
+    #   end
+    # end
+
     def sso_user_auth
       if params['data'].present?
         json = JSON.parse(params['data'])
@@ -460,18 +479,57 @@ module Frontend
         end
         return
       end
-      # url = URI.parse "https://10.242.201.32/redirect/api/UserAuth2"
-      # res = Net::HTTP.get_response url
-      # json = JSON.parse(res.body) if res.present?
-      cipher_key = "EB5932580C920015B65B4B308FF7F352"
-      nt_user = InternalAuth.decrypt(data, cipher_key)
-      user = General::User.find_by_nt_user(nt_user)
-      rut = user.legal_number + user.legal_number_verification
+    
+      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      Rails.logger.info "%%%%%%%%%%% Revision data %%%%%%%%%%%%%"
+      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      Rails.logger.info "&&& #{json} &&&"
+      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      Rails.logger.info "%%%%%%%%% Fin Revision data %%%%%%%%%%%"
+      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      begin
+        data = json['data']
+        cipher_key = "EB5932580C920015B65B4B308FF7F352"
+        nt_user = InternalAuth.decrypt(data, cipher_key)
+
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+        Rails.logger.info "%%%%%%%%%% Revision ntuser %%%%%%%%%%%%"
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+        Rails.logger.info "&&& #{nt_user} &&&"
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+        Rails.logger.info "%%%%%%%% Fin Revision ntuser %%%%%%%%%%"
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      rescue
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+        Rails.logger.info "%%%%%%%% Se cayo al desencriptar %%%%%%%%%%"
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      end
+
+      begin
+        if nt_user.present?
+          user = General::User.where(nt_user: nt_user).first
+          
+          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+          Rails.logger.info "%%%%%%%%%% Revision user %%%%%%%%%%%%"
+          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+          Rails.logger.info "&&& #{user.try(:legal_number)} &&&"
+          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+          Rails.logger.info "%%%%%%%% Fin Revision ntuser %%%%%%%%%%"
+          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+
+          rut = user.legal_number + user.legal_number_verification
+        end
+      rescue
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+        Rails.logger.info "%%%%%%%% Se cayo al cargar el usuario %%%%%%%%%%"
+        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      end
       respond_to do |format|
         format.json { render json: rut }
       end
     end
 
+    
     def set_user
       token = params[:token]
       # START DECRYPT AND VALIDATION
