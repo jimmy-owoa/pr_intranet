@@ -451,8 +451,15 @@ module Frontend
     end
     
     def sso_user_auth
-      json = JSON.parse(params['data'])
-      data = json['data']
+      if params['data'].present?
+        json = JSON.parse(params['data'])
+        data = json['data']
+      else
+        respond_to do |format|
+          format.json { render json: "" }
+        end
+        return
+      end
       # url = URI.parse "https://10.242.201.32/redirect/api/UserAuth2"
       # res = Net::HTTP.get_response url
       # json = JSON.parse(res.body) if res.present?
