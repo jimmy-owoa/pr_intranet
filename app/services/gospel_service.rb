@@ -3,6 +3,7 @@ class GospelService
   require 'net/http'
 
   def initialize
+    puts "******** Gospel service starts ********"
     @api = "http://feed.evangelizo.org/v2/reader.php?"
     @type = "reading"
     @type_title = "reading_lt"
@@ -19,6 +20,7 @@ class GospelService
       title = Net::HTTP.get_response(request_title).body.force_encoding("UTF-8")
       content = Net::HTTP.get_response(request_content).body.force_encoding("UTF-8")
       Religion::Gospel.where(title: title, content: content, date: date).first_or_create
+      puts "======= Gospel with date <#{date}> passed succefully =======".green
       count += 1
     end
   end
@@ -27,4 +29,15 @@ class GospelService
     new.perform
   end
 
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+
+  def red
+    colorize(31)
+  end
+
+  def green
+    colorize(32)
+  end
 end

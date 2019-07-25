@@ -1,4 +1,5 @@
 namespace :security do
+  desc 'Generate default data for Security Group'
   task install: :environment do
     def es_bisiesto?(year)
       year % 4 == 0 && year % 100 != 0 || year % 400 == 0
