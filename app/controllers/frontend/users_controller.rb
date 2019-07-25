@@ -463,12 +463,6 @@ module Frontend
       # url = URI.parse "https://10.242.201.32/redirect/api/UserAuth2"
       # res = Net::HTTP.get_response url
       # json = JSON.parse(res.body) if res.present?
-      if data.blank?
-        respond_to do |format|
-          format.json { render json: "" }
-        end
-        return
-      end
       cipher_key = "EB5932580C920015B65B4B308FF7F352"
       nt_user = InternalAuth.decrypt(data, cipher_key)
       user = General::User.find_by_nt_user(nt_user)
