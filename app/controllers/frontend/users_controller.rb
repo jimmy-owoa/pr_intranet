@@ -24,7 +24,7 @@ module Frontend
             position: children.position,
             company: children.company,
             image: children.image.attached? ?
-            url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+            url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
       end
@@ -37,7 +37,7 @@ module Frontend
             position: sibling.position,
             company: sibling.company,
             image: sibling.image.attached? ?
-            url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+            url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
       end
@@ -49,7 +49,7 @@ module Frontend
           position: @user.parent.position,
           company: @user.parent.company,
           image: @user.parent.image.attached? ?
-          url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+          url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
       end
       data_user << {
@@ -66,7 +66,7 @@ module Frontend
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
-        url_for(@user.image) : root_url + '/assets/default_avatar.png',
+        url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
         childrens: data_childrens,
         siblings: data_siblings,
         father: data_father,
@@ -97,7 +97,7 @@ module Frontend
             position: children.position,
             company: children.company,
             image: children.image.attached? ?
-            url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+            url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
       end
@@ -110,7 +110,7 @@ module Frontend
             position: sibling.position,
             company: sibling.company,
             image: sibling.image.attached? ?
-            url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+            url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
       end
@@ -122,7 +122,7 @@ module Frontend
           position: user.parent.position,
           company: user.parent.company,
           image: user.parent.image.attached? ?
-          url_for(user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+          url_for(user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
       end
       data << {
@@ -160,7 +160,7 @@ module Frontend
                 id: benefit.id,
                 name: benefit.title,
                 content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
+                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
                 url: root_url + 'admin/benefits/' + "#{benefit.id}" + '/edit',
                 link: benefit.url
               }
@@ -222,7 +222,7 @@ module Frontend
         position: @user.position,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
-        url_for(@user.image) : root_url + '/assets/default_avatar.png',
+        url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
         companies: @user.terms.categories.map(&:name),
         including_tags: @user.terms.inclusive_tags.map{|a| a.name },
         excluding_tags: @user.terms.excluding_tags.map{|a| a.name },
@@ -282,7 +282,7 @@ module Frontend
                 id: benefit.id,
                 name: benefit.title,
                 content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : root_url + '/assets/default_avatar.png',
+                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
               }
             end
             data[:benefit_types] << benefit_type_hash
@@ -298,7 +298,7 @@ module Frontend
             position: children.position,
             company: children.company,
             image: children.image.attached? ?
-            url_for(children.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+            url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
       end
@@ -311,7 +311,7 @@ module Frontend
             position: sibling.position,
             company: sibling.company,
             image: sibling.image.attached? ?
-            url_for(sibling.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+            url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
       end
@@ -323,7 +323,7 @@ module Frontend
           position: @user.parent.position,
           company: @user.parent.company,
           image: @user.parent.image.attached? ?
-          url_for(@user.parent.image.variant(resize: '150x150')) : root_url + '/assets/default_avatar.png'
+          url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
       end
       if @user.products.present?
@@ -377,7 +377,7 @@ module Frontend
         company: @user.company,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
-        url_for(@user.image) : root_url + '/assets/default_avatar.png',
+        url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
         companies: @user.terms.categories.map(&:name),
         including_tags: @user.terms.inclusive_tags.map{|a| a.name },
         excluding_tags: @user.terms.excluding_tags.map{|a| a.name },

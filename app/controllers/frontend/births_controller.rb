@@ -16,7 +16,7 @@ module Frontend
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname + ' ' + birth.child_lastname2,
-          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
+          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + ActionController::Base.helpers.asset_url('birth.png'),
           images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           birthday: birth.birthday.strftime("%d-%m-%Y"),
@@ -45,7 +45,7 @@ module Frontend
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname + ' ' + birth.child_lastname2,
-          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + '/assets/birth.png',
+          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + ActionController::Base.helpers.asset_url('birth.png'),
           images: images,
           gender: birth.gender ? 'Masculino' : 'Femenino',
           birthday: birth.birthday,
