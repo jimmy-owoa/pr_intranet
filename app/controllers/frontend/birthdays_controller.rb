@@ -21,7 +21,7 @@ module Frontend
           birthday: user.birthday.strftime("%d/%m/%Y"),
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png',
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
           open: false,
         }
       end
@@ -49,7 +49,7 @@ module Frontend
           birthday: user.birthday.strftime("%d/%m/%Y"),
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png',
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
           open: false,
         }
       end
@@ -75,7 +75,7 @@ module Frontend
           created_at: user.created_at,
           show_birthday: user.show_birthday,
           company: user.company,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png'
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
       end
       respond_to do |format|
@@ -89,7 +89,7 @@ module Frontend
       @users_calendar = General::User.date_birth.show_birthday
       data = []
       @users_calendar.each do |user|
-        @image = user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + '/assets/default_avatar.png'
+        @image = user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         data << {
           id: user.id,
           name: user.name,

@@ -19,7 +19,7 @@ module Frontend
             annexed: user.annexed,
             birthday: user.birthday,
             image: user.image.attached? ?
-            url_for(user.image) : root_url + '/assets/default_avatar.png'
+            url_for(user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
         result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|

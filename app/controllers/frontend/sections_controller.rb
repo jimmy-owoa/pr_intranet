@@ -10,7 +10,7 @@ module Frontend
           id: product.id,
           name: product.name,
           price: product.price.to_i,
-          image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: {resize: '440x', gravity: 'Center'})) : root_url + '/assets/noimage.png'
+          image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: {resize: '440x', gravity: 'Center'})) : root_url + ActionController::Base.helpers.asset_url('noimage.png')
         }
       end
       sections.each do |section|
@@ -20,7 +20,7 @@ module Frontend
             title: section.title.upcase,
             description: ActionController::Base.helpers.strip_tags(last_know_us_post.content[0..368]) + "...",
             position: section.position,
-            image: last_know_us_post.main_image.present? ? url_for(last_know_us_post.main_image.attachment.variant(resize: '800x800>')) : root_url + '/assets/news.jpg',
+            image: last_know_us_post.main_image.present? ? url_for(last_know_us_post.main_image.attachment.variant(resize: '800x800>')) : root_url + ActionController::Base.helpers.asset_url('news.jpg'),
             url: last_know_us_post.slug
           }
         elsif section.position == 3
