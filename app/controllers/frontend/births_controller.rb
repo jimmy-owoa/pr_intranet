@@ -67,7 +67,7 @@ module Frontend
         data << {
           id: birth.id,
           child_full_name: birth.child_name + ' ' + birth.child_lastname + ' ' + birth.child_lastname2,
-          photo: url_for(birth.images.attachments.first.variant(resize: '500x500>')),
+          photo: birth.images.attachments.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + ActionController::Base.helpers.asset_url('birth.png'),
           gender: birth.gender ? 'Masculino' : 'Femenino',
           date: birth.birthday,
           father: birth.full_name_father,
