@@ -96,6 +96,7 @@ module Frontend
         gospel: Religion::Gospel.where(date: Date.today).first,
         indicators: data_indicators[0],
         today: today,
+        beauty_date: l(today, format: "%d de %B, %y"),
         base_api_url: base_api_url,
         base_search_url: base_search_url,
         benefits: benefits
