@@ -3,16 +3,15 @@
 
   #menu_section > * {
     font-family: 'Titillium Web', sans-serif !important;
-
   }
   .modal-hover{
-    font-family: 'Titillium Web', sans-serif ;
+    font-family: 'Titillium Web', sans-serif !important;
     font-size: 15px;
     text-decoration: none; 
-    color: #9d9d9c;
+    color: #9d9d9c !important;
   }
   a.modal-hover:hover{
-    color: #789c4a;
+    color: #789c4a !important;
     border-bottom: 1px solid #789c4a;
     padding-bottom: 2px;
   }
@@ -471,7 +470,7 @@
   .head_section {
     font-family: Lato, sans-serif;
     font-size: 12px;
-    color: #8fca00;
+    color: #8fca00 !important;
     line-height: 12px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -634,7 +633,7 @@
     .head_menu {
       font-size: 14px;
       line-height: 24px;
-      color: white;
+      color: white !important !important;
     }
     .hidden-sm-and-down {
       display: flex;
@@ -729,7 +728,7 @@
     .head_menu {
       font-size: 14px;
       line-height: 24px;
-      color: white;
+      color: white !important;
     }
     .results_ul {
       background-color: white;
@@ -755,7 +754,7 @@
     .head_menu {
       font-size: 12px;
       line-height: 24px;
-      color: white;
+      color: white !important;
     }
     .hidden-sm-and-down {
       display: flex;
@@ -780,7 +779,7 @@
     }
     nav a {
       font-weight: 500;
-      color: #333;
+      color: #333 !important;
     }
     /* first stage */
     nav > ul {
@@ -859,7 +858,7 @@
     .head_menu {
       font-size: 12px;
       line-height: 24px;
-      color: white;
+      color: white !important;
     }
   }
 </style>
@@ -1107,45 +1106,45 @@
             <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: -2px;"/>
           </a>
         </div>
-        <div class="flex sm9">
+        <div class="flex sm12">
           <div class="layout align-end fill-height">
-            <div class="flex sm3 subheading top-info text-md-center pl-1">
+            <div class="flex sm2 subheading top-info text-md-right">
               <a href="#gospel_modal" class="modal-hover">
                 <%= 'Santoral: ' + santoral.name[0...12] %>
               </a>
             </div>
-            <div class="flex sm3 top-info text-md-center">
+            <div class="flex sm2 top-info text-md-right">
               <div href="#weather_modal">
-                <div class="text-md-center subheading">
+                <div class="text-md-right subheading">
                   <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 22px; cursor: pointer; padding-right: 7px; vertical-align: middle;")%>
                   <%=link_to location_name  + " " + weather[0].current_temp.to_i.to_s + "°" , "#weather_modal", class: "modal-hover" %>
                 </div>
               </div>
             </div>
-            <div class="flex sm3 subheading pointer text-md-center top-info">
+            <div class="flex sm3 subheading pointer text-md-right top-info">
               <i class="material-icons inline">equalizer</i>
               <a href="#indicators_modal" class="modal-hover">
                 Indicadores económicos
               </a>
             </div>
-            <div class="flex sm3 subheading top-info text-md-center pl-1">
-              <a href="#gospel_modal" class="modal-hover">
+            <div class="flex sm2 subheading top-info text-md-right pl-1">
+              <a class="modal-hover">
                 <%= beauty_date %>
               </a>
             </div>
-          </div>
-        </div>
-        <div class="flex sm2 text-md-center text-capitalize title font-weight-regular inline">
-          <a href="/#/perfil" style="text-decoration: none; color: black;">
-            ¡Hola <%= user.name %>!
-            <div class="v-avatar" style="height: 42px; width: 42px;">
-              <div aria-label="Avatar" class="inline v-image">
-                <% if user.image.attached? %> 
-                  <%= image_tag(user_image, style:'object-fit: cover;') %> 
-                <% end%>
-              </div>
+            <div class="flex sm3 text-md-right text-capitalize inline">
+              <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: black;">
+                <%= user.name %> Jaramillo
+                <div class="v-avatar" style="height: 42px; width: 42px;">
+                  <div aria-label="Avatar" class="inline v-image">
+                    <% if user.image.attached? %> 
+                      <%= image_tag(user_image, style:'object-fit: cover;') %> 
+                    <% end%>
+                  </div>
+                </div>
+                </a>
             </div>
-            </a>
+          </div>
         </div>
       </div>
     </div>
