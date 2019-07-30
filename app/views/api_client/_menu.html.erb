@@ -1,23 +1,29 @@
 <style media="screen" type="text/css">
   @import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
 
+  #menu_section > * {
+    font-family: 'Titillium Web', sans-serif !important;
+  }
   .modal-hover{
+    font-family: 'Titillium Web', sans-serif !important;
+    font-size: 15px;
     text-decoration: none; 
-    color: black;
+    color: #9d9d9c !important;
   }
   a.modal-hover:hover{
-    color: #789c4a;
+    color: #789c4a !important;
     border-bottom: 1px solid #789c4a;
     padding-bottom: 2px;
   }
   .top-info{
     width: 17%;
+    height: 71%;
     display: inline-block;
-    vertical-align: text-bottom;
+    vertical-align: middle;
   }
   .inline{
     display: inline-block;
-    vertical-align: text-bottom;
+    vertical-align: middle;
   }
   .vl {
     display: inline-block;
@@ -33,7 +39,7 @@
   }
   .modalDialog {
     position: fixed;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     top: 0;
     right: 0;
     bottom: 0;
@@ -326,7 +332,7 @@
   * {
     margin: 0;
     padding: 0;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     box-sizing: border-box;
   }
   .search_position {
@@ -334,8 +340,7 @@
     top: 0px;
     height: 30px;
   }
-  .container {
-    -webkit-box-flex: 1;
+  .container-menu {
     flex: 1 1 100%;
     margin: auto;
     padding: 14px;
@@ -465,7 +470,7 @@
   .head_section {
     font-family: Lato, sans-serif;
     font-size: 12px;
-    color: #8fca00;
+    color: #8fca00 !important;
     line-height: 12px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -497,6 +502,12 @@
     -ms-flex-align: center;
     align-items: center;
   }
+  .align-end {
+    align-items: flex-end;
+  }
+  .fill-height {
+    height: 100%;
+  }
   .pl-1 {
     padding-left: 4px !important;
   }
@@ -517,6 +528,11 @@
     flex-basis: auto;
     max-width: 100%;
   }
+  .flex.sm1 {
+    flex-basis: 8.333333333333332%;
+    flex-grow: 0;
+    max-width: 8.333333333333332%;
+  }
   .flex.sm2 {
     -ms-flex-preferred-size: 16.666666666666664%;
     flex-basis: 16.666666666666664%;
@@ -525,18 +541,60 @@
     flex-grow: 0;
     max-width: 16.666666666666664%;
   }
-  .flex.sm4 {
-    flex-basis: 33.33333333333333%;
-    -webkit-box-flex: 0;
-    flex-grow: 0;
-    max-width: 33.33333333333333%;
-  }
   .flex.sm3 {
     flex-basis: 25%;
     -webkit-box-flex: 0;
     flex-grow: 0;
     max-width: 25%;
   }
+  .flex.sm4 {
+    flex-basis: 33.33333333333333%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 33.33333333333333%;
+  }
+  .flex.sm5 {
+    flex-basis: 41.66666666666667%;
+    flex-grow: 0;
+    max-width: 41.66666666666667%;
+  }
+  .flex.sm6 {
+    flex-basis: 50%;
+    flex-grow: 0;
+    max-width: 50%;
+  }
+  .flex.sm7 {
+    flex-basis: 58.333333333333336%;
+    flex-grow: 0;
+    max-width: 58.333333333333336%;
+  }
+  .flex.sm8 {
+    flex-basis: 66.66666666666666%;
+    flex-grow: 0;
+    max-width: 66.66666666666666%;
+  }
+  .flex.sm9 {
+    flex-basis: 75%;
+    flex-grow: 0;
+    max-width: 75%;
+  }
+  .flex.sm10 {
+    flex-basis: 83.33333333333334%;
+    flex-grow: 0;
+    max-width: 83.33333333333334%;
+  }
+  .flex.sm11 {
+    flex-basis: 91.66666666666666%;
+    flex-grow: 0;
+    max-width: 91.66666666666666%;
+  }
+  .flex.sm12 {
+      flex-basis: 100%;
+      flex-grow: 0;
+      max-width: 100%;
+  }
+  
+
   .layout {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -575,10 +633,10 @@
     .head_menu {
       font-size: 14px;
       line-height: 24px;
-      color: white;
+      color: white !important !important;
     }
     .hidden-sm-and-down {
-      display: block;
+      display: flex;
     }
   }
   @media (min-width: 960px) {
@@ -670,7 +728,7 @@
     .head_menu {
       font-size: 14px;
       line-height: 24px;
-      color: white;
+      color: white !important;
     }
     .results_ul {
       background-color: white;
@@ -696,10 +754,10 @@
     .head_menu {
       font-size: 12px;
       line-height: 24px;
-      color: white;
+      color: white !important;
     }
     .hidden-sm-and-down {
-      display: block;
+      display: flex;
     }
     .hidden-mobile {
       display: none;
@@ -721,7 +779,7 @@
     }
     nav a {
       font-weight: 500;
-      color: #333;
+      color: #333 !important;
     }
     /* first stage */
     nav > ul {
@@ -800,7 +858,7 @@
     .head_menu {
       font-size: 12px;
       line-height: 24px;
-      color: white;
+      color: white !important;
     }
   }
 </style>
@@ -1029,7 +1087,7 @@
   <div>
     <a href="#" title="Close" class="close">X</a>
     <div class="layout row">
-      <div class="flex md12 text-md-center">
+      <div class="flex sm12 text-md-center">
         <p><b><%=raw gospel.title %></b></p>
         <%=raw gospel.content.chomp "Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>" %>
       </div>
@@ -1039,49 +1097,54 @@
 <!-- GOSPEL MODAL END -->
 <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 15.55px; width: 100%"/>
 
-<div style="padding-top: 20px;" >
-  <div class="container">
+<div style="padding-top: 20px;" id="menu_section">
+  <div class="container-menu">
     <div class="hidden-sm-and-down">
       <div class="layout" style="height: 53px;">
-        <div class="flex text-md-left inline md2">
-          <a href="/#/">
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 50px; cursor: pointer; margin-top: -2px;"/>
+        <div class="flex text-md-left inline sm2">
+          <a href="/#/" style="padding-left: 20%">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: -2px;"/>
           </a>
         </div>
-        <div class="flex md8 inline">
-          <div class="layout">
-            <div class="flex md5 subheading top-info text-md-right" style="margin-right: 19px; margin-left: 2%;">
+        <div class="flex sm12">
+          <div class="layout align-end fill-height">
+            <div class="flex sm2 subheading top-info text-md-right">
               <a href="#gospel_modal" class="modal-hover">
                 <%= 'Santoral: ' + santoral.name[0...12] %>
               </a>
             </div>
-            <div class="flex md3 top-info text-md-center" style="margin: 0px -2.3%;">
+            <div class="flex sm2 top-info text-md-right">
               <div href="#weather_modal">
-                <div class="text-md-center subheading">
+                <div class="text-md-right subheading">
                   <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 22px; cursor: pointer; padding-right: 7px; vertical-align: middle;")%>
                   <%=link_to location_name  + " " + weather[0].current_temp.to_i.to_s + "°" , "#weather_modal", class: "modal-hover" %>
                 </div>
               </div>
             </div>
-            <div class="flex md4 subheading pointer text-md-center top-info" style="margin-left: -22px;">
-              <i class="material-icons inline" style="font-family: 'Material Icons' !important">equalizer</i>
+            <div class="flex sm3 subheading pointer text-md-right top-info">
+              <i class="material-icons inline">equalizer</i>
               <a href="#indicators_modal" class="modal-hover">
                 Indicadores económicos
               </a>
             </div>
-          </div>
-        </div>
-        <div class="flex md2 text-md-right text-capitalize title font-weight-regular inline">
-          <a href="/#/perfil" style="text-decoration: none; color: black;">
-            ¡Hola <%= user.name %>!
-            <div class="v-avatar" style="height: 42px; width: 42px;">
-              <div aria-label="Avatar" class="inline v-image">
-                <% if user.image.attached? %> 
-                  <%= image_tag(user_image, style:'object-fit: cover;') %> 
-                <% end%>
-              </div>
+            <div class="flex sm2 subheading top-info text-md-right pl-1">
+              <a class="modal-hover">
+                <%= beauty_date %>
+              </a>
             </div>
-            </a>
+            <div class="flex sm3 text-md-right text-capitalize inline">
+              <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: black;">
+                <%= user.name %> Jaramillo
+                <div class="v-avatar" style="height: 42px; width: 42px;">
+                  <div aria-label="Avatar" class="inline v-image">
+                    <% if user.image.attached? %> 
+                      <%= image_tag(user_image, style:'object-fit: cover;') %> 
+                    <% end%>
+                  </div>
+                </div>
+                </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1169,7 +1232,7 @@
       <% end %>
      <li>
       <div class="search_position">
-        <div class="hidden-sm-and-down" id="search_desktop">
+        <div class="hidden-sm-and-down" id="search_desktop" style="height: 30px;">
           <div class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--solo-flat v-text-field--enclosed theme--light">
             <div class="v-input__control">
               <div class="v-input__slot" style="border: 2px solid darkgray;">
