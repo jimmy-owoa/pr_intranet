@@ -4,7 +4,7 @@ module Admin
     before_action :set_link, only: [:show, :edit, :update, :destroy]
 
     def index
-      @links = General::Link.last(5)
+      @links = General::Link.last(8)
     end
 
     def show
