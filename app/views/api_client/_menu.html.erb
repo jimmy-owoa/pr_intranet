@@ -343,7 +343,9 @@
   .container-menu {
     flex: 1 1 100%;
     margin: auto;
+    margin-top: -10px;
     padding: 14px;
+    padding-bottom: 26px;
     max-width: 1346px !important;
   }
   nav {
@@ -1097,13 +1099,13 @@
 <!-- GOSPEL MODAL END -->
 <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/huincha.jpg" style="height: 15.55px; width: 100%"/>
 
-<div style="padding-top: 20px;" id="menu_section">
+<div style="padding-top: 20px;" id="menu_section"> 
   <div class="container-menu">
     <div class="hidden-sm-and-down">
       <div class="layout" style="height: 53px;">
         <div class="flex text-md-left inline sm2">
           <a href="/#/" style="padding-left: 20%">
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: -2px;"/>
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;"/>
           </a>
         </div>
         <div class="flex sm12">
@@ -1116,7 +1118,7 @@
             <div class="flex sm2 top-info text-md-right">
               <div href="#weather_modal">
                 <div class="text-md-right subheading">
-                  <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 22px; cursor: pointer; padding-right: 7px; vertical-align: middle;")%>
+                  <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 25px; cursor: pointer; padding-right: 4px; vertical-align: middle; padding-bottom: 4px")%>
                   <%=link_to location_name  + " " + weather[0].current_temp.to_i.to_s + "°" , "#weather_modal", class: "modal-hover" %>
                 </div>
               </div>
@@ -1133,7 +1135,7 @@
               </a>
             </div>
             <div class="flex sm3 text-md-right text-capitalize inline">
-              <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: black;">
+              <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: #211651;">
                 <%= user.name %> Jaramillo
                 <div class="v-avatar" style="height: 42px; width: 42px;">
                   <div aria-label="Avatar" class="inline v-image">
@@ -1150,14 +1152,13 @@
     </div>
   </div>
   <!-- MENU START -->
-  <nav fixed style="background-color: #2b245b;">
+  <nav fixed style="background-color: #211651;">
     <% main_menus = General::Menu.where(parent_id: nil) %>
     <ul id="ul_menu">
       <% main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
-          <a class="head_menu" style="font-size: 14px;" href="#" title="Menu 1">
+          <a class="head_menu" style="font-size: 18px; padding-right: 120px;" href="#" title="Menu 1">
             <%= main_menu.title.upcase %>
-            <i class="fas fa-chevron-down"></i>
           </a>
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
