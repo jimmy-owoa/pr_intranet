@@ -381,11 +381,11 @@
   nav ul > li.submenu:hover > a:after {
     margin-top: 2px;
     border-top: 5px solid transparent;
-    border-bottom: 5px solid green;
+    /* border-bottom: 5px solid green; */
   }
   nav > ul > li:hover {
     /* background: red; */
-    border-bottom: 5px solid green;
+    /* border-bottom: 5px solid green; */
   }
   /* second stage (the mega-menu) */
   nav ul.megamenu {
@@ -393,14 +393,17 @@
     display: flex;
     flex-wrap: wrap;
     top: -9999px;
-    left: 0;
     padding: 20px 10px 0;
     background: #fff;
     text-align: left;
+    max-width: 1340px;
     /* border-top: 5px solid green; */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     z-index: 1;
     transition-delay: 0.15s;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0%);
   }
   nav ul li:hover ul.megamenu {
     top: 100%;
@@ -512,6 +515,9 @@
   }
   .pl-1 {
     padding-left: 4px !important;
+  }
+  .pl-2 {
+    padding-left: 8px !important;
   }
   .text-md-right {
     text-align: right !important;
@@ -663,16 +669,15 @@
     nav ul > li.submenu:hover > a:after {
       margin-top: 2px;
       border-top: 5px solid transparent;
-      border-bottom: 5px solid green;
+      /* border-bottom: 5px solid green; */
     }
     nav > ul > li:hover {
-      border-bottom: 5px solid green;
+      /* border-bottom: 5px solid green; */
     }
     /* second stage (the mega-menu) */
     nav ul.megamenu {
       width: 100%;
       top: -9999px;
-      left: 0;
       padding: 20px 10px 0;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
@@ -794,15 +799,16 @@
     nav ul > li.submenu:hover > a:after {
       margin-top: 2px;
       border-top: 5px solid transparent;
-      border-bottom: 5px solid green;
+      /* border-bottom: 5px solid green; */
     }
     nav > ul > li:hover {
-      border-bottom: 5px solid green;
+      /* border-bottom: 5px solid green; */
     }
-    /* second stage (the mega-menu) */
-    nav ul.megamen1300px;
+    /* second stage (the mega-menu) csc*/
+    nav ul.megamenu{
+      flex: 1 1 100%;
+      margin: auto;
       top: -9999px;
-      left: 0;
       padding: 20px 10px 0;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
@@ -1103,13 +1109,13 @@
   <div class="container-menu">
     <div class="hidden-sm-and-down">
       <div class="layout" style="height: 53px;">
-        <div class="flex text-md-left inline sm2">
-          <a href="/#/" style="padding-left: 20%">
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;"/>
-          </a>
-        </div>
         <div class="flex sm12">
           <div class="layout align-end fill-height">
+            <div class="flex text-md-left inline sm2">
+              <a href="/#/" style="padding-left: 15%">
+                <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;"/>
+              </a>
+            </div>
             <div class="flex sm2 subheading top-info text-md-right">
               <a href="#gospel_modal" class="modal-hover">
                 <%= 'Santoral: ' + santoral.name[0...12] %>
@@ -1154,7 +1160,7 @@
   <!-- MENU START -->
   <nav fixed style="background-color: #211651;">
     <% main_menus = General::Menu.where(parent_id: nil) %>
-    <ul id="ul_menu">
+    <ul id="ul_menu" style="margin-bottom: 0px;">
       <% main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
           <a class="head_menu" style="font-size: 18px; padding-right: 120px;" href="#" title="Menu 1">
@@ -1231,10 +1237,12 @@
           </ul>
         </li>
       <% end %>
+            <i class="v-icon v-icon--link material-icons theme--dark">search</i>
      <li>
       <div class="search_position">
         <div class="hidden-sm-and-down" id="search_desktop" style="height: 30px;">
-          <div class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--solo-flat v-text-field--enclosed theme--light">
+
+          <%# <div class="v-input v-text-field v-text-field--single-line v-text-field--solo v-text-field--solo-flat v-text-field--enclosed theme--light">
             <div class="v-input__control">
               <div class="v-input__slot" style="border: 2px solid darkgray;">
                 <div class="v-text-field__slot">
@@ -1253,7 +1261,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> %>
           <ul class="results_ul" style="color: red;"></ul>
           <br/>
         </div>
