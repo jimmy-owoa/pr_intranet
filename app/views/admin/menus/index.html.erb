@@ -2,7 +2,7 @@
 
 <section class="section">
   <h1 class="section-header"><%= "Menús" %></h1>
-  <%= link_to "Nuevo", new_admin_menu_path, :class => 'btn btn-primary' %>
+  <%= link_to "Nuevo", new_admin_menu_path, :class => 'btn btn-primary btn-sm' %>
   <div class="card">
     <div class="table-responsive-md">
       <table class="table table-hover">
@@ -11,7 +11,6 @@
             <th>Título</th>
             <th>Padre</th>
             <th>Link</th>
-            <th>Categorías</th>
             <th>Acciones</th>
             <th colspan="3"></th>
           </tr>
@@ -22,7 +21,7 @@
               <td><%= link_to menu.title, admin_menu_path(menu) %></td>
               <td><%= set_title_menu(menu.parent_id) %></td>
               <td><%= menu.link %></td>
-              <td><%= menu.terms.present? ? menu.terms.map(&:name).join(',').truncate(10) : 'No tiene' %></td>
+              <!--<td><%= menu.terms.present? ? menu.terms.map(&:name).join(',').truncate(10) : 'No tiene' %></td>-->
               <td>
                 <%= link_to t('.show', :default => t("helpers.menus.show")), admin_menu_path(menu), class: 'btn btn-success btn-sm' %>
                 <% if current_user.has_role? :super_admin %>

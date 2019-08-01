@@ -57,7 +57,7 @@
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
           <% if @birth.images.attachments.nil? || !@birth.permitted_images.present? %>
-            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
+            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="150px" style="object-fit: cover;"  />
           <% else %>
             <%= image_tag(@birth.permitted_images.first, class: 'center') %>
           <% end %>
@@ -95,7 +95,7 @@
         </div>
     </div>
   <% end %>
-  <div class="container card">
+  <div class="container">
     <% if @birth.permitted_images.present? %>
       <p>Imágenes Aprobadas</p>
       <div class="row text-center" >
@@ -119,6 +119,6 @@
             :class => 'btn btn-danger' %>
       </div>
     <% else %>
-      <%= f.submit nil, class: 'btn btn-success' %>
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
     <% end %>
   </div>

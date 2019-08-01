@@ -1,43 +1,45 @@
 <%= f.error_notification %>
-<div class="row form-group">
-  <div class="col-6">
-    <div class="row">
-      <div class="col-12 col-sm-10">
-        <%= f.input :title, autofocus: true   %>
-      </div>
-      <div class="col-12 col-sm-10">
-        <%= f.input :css_class, as: :minicolors, input_html: {data: {
-          minicolors: {theme: :bootstrap, position: :right}}} %>
-      </div>
-      <div class="col-12 col-sm-10">
-        <%= f.input :integration_code %>
-      </div>
-      <div class="col-12 col-sm-10">
-        <%= f.input :priority %>
-      </div>
-    </div>
-  </div>
-  <div class="col-6">
-    <div class="row">
-      <div class="col-12 col-sm-10">
-          <%= f.input :description, :as => :text %>
-      </div>
-      <div class="col-12 col-sm-10">
-        <%= f.label 'Padre' %>
-        <%= f.select :parent_id,  General::Menu.where(parent_id: nil).map{ |m| [m.title, m.id] }, include_blank: true%>
-      </div>
-      <div class="col-12 col-sm-10"></br>
-        <%= f.input :link %>
+<div class="card p-4">
+  <div class="row form-group">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-12 col-sm-10">
+          <%= f.input :title, autofocus: true   %>
+        </div>
+        <div class="col-12 col-sm-10">
+          <%= f.input :css_class, as: :minicolors, input_html: {data: {
+            minicolors: {theme: :bootstrap, position: :right}}} %>
+        </div>
+        <div class="col-12 col-sm-10">
+          <%= f.input :integration_code %>
+        </div>
+        <div class="col-12 col-sm-10">
+          <%= f.input :priority %>
+        </div>
       </div>
     </div>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-12 col-sm-10">
+            <%= f.input :description, :as => :text %>
+        </div>
+        <div class="col-12 col-sm-10">
+          <%= f.label 'Padre' %>
+          <%= f.select :parent_id,  General::Menu.where(parent_id: nil).map{ |m| [m.title, m.id] }, include_blank: true%>
+        </div>
+        <div class="col-12 col-sm-10"></br>
+          <%= f.input :link %>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-6">
+      <%= f.label :tags %>
+      <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @menu.terms.tags.map(&:name)), multiple: true, class:'form-control string optional', id:'tag_menu' %>
+      <p class="tip_format">Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse</p>
+    </div>
+    <div class="col-6 col-sm-6">
+      <%= f.association :terms, collection: General::Term.categories, as: :check_boxes, label: 'Empresas' %>
+    </div>
   </div>
-  <div class="col-6 col-sm-6">
-    <%= f.label :tags %>
-    <%= select_tag :term_names, options_for_select(General::Term.tags.map(&:name), @menu.terms.tags.map(&:name)), multiple: true, class:'form-control string optional', id:'tag_menu' %>
-    <p class="tip_format">Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse</p>
-  </div>
-  <div class="col-6 col-sm-6">
-    <%= f.association :terms, collection: General::Term.categories, as: :check_boxes, label: 'Empresas' %>
-  </div>
+  <%= f.submit nil, :class => 'btn btn-primary'%>
 </div>
-<%= f.submit nil, :class => 'btn btn-primary'%>
