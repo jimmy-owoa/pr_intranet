@@ -1,6 +1,7 @@
 <%= f.error_notification %>
+<div class="card p-4">
   <div class="form-group row">
-    <div class="col-7 row">
+    <div class="col-8 row">
       <div class="col-md-6">
         <%= f.input :title, required: true, autofocus: true %>
       </div>
@@ -32,7 +33,7 @@
         <%= tinymce %>
       </div>
     </div>
-    <div class="col-5" >
+    <div class="col-4" >
       <div class="card border-secondary border border-primary rounded">
         <div class="card-body text-secondary text-md-center">
           <% if @benefit.image.attachment.present? %>
@@ -50,4 +51,5 @@
       </div>
     </div>
   </div>
+</div>
 <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
