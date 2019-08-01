@@ -52,6 +52,7 @@ es:
         terms: Taxonomía
         birthday: Fecha de nacimiento
         legal_number: Rut
+        legal_number_verification: Dígito verificador
         edit:
           terms: Categoría
           roles: Roles
