@@ -6,9 +6,9 @@ module Admin
       add_breadcrumb "Nacimientos", :admin_births_path
       if params[:approved] == 'true' || params[:approved] == 'false'
         aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
-        @births = Employee::Birth.approved_filter(aprov).paginate(:page => params[:page], :per_page => 10)
+        @births = Employee::Birth.order(created_at: :desc).approved_filter(aprov).paginate(:page => params[:page], :per_page => 10)
       else
-        @births = Employee::Birth.paginate(:page => params[:page], :per_page => 10)
+        @births = Employee::Birth.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       end
     end
 
