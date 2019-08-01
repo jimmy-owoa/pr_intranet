@@ -1,6 +1,7 @@
 <%- model_class = General::Term -%>
 <section class="section">
   <h1 class="section-header"><%= "Etiquetas" %></h1>
+    <%= link_to "Nueva", new_admin_term_path, :class => 'btn btn-primary btn-sm' %>
     <div class="card">
       <%= form_tag('', method: 'get') do %>
         <div class="large-12 columns">
@@ -49,6 +50,5 @@
         <%= will_paginate %>
       </div>
     </div>
-    <%= link_to "Nueva", new_admin_term_path, :class => 'btn btn-primary' %>
   </div>
 </section>

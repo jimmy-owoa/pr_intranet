@@ -1,5 +1,6 @@
 <section class="section">
   <h1 class="section-header"><%= "Anuncios" %></h1>
+  <%= link_to "Nuevo", new_admin_product_path, :class => 'btn btn-primary btn-sm' %>
   <div class="card">
     <%= form_tag('', method: 'get') do %>
       <div class="form-row">
@@ -51,7 +52,6 @@
         <%= will_paginate @products, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
       </div>
     </div>
-  <%= link_to "Nuevo", new_admin_product_path, :class => 'btn btn-primary' %>
   </div>
 </section>
 

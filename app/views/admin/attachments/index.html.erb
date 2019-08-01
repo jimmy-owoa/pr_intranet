@@ -1,6 +1,6 @@
 <section class="section">
   <h1 class="section-header"><%= "Fotos" %></h1>
-  </section>
+  <%= link_to 'Nueva imagen/video', new_admin_attachment_path, :class => 'btn btn-primary btn-sm' %>
   <div class='row'>
     <% @attachments.each do |at| %>
       <div class="col col-xl-2 col-lg-3">
@@ -22,14 +22,12 @@
       </div>
     <% end %>
   </div>
-<div class='row'>
-    <div class="col-md-10">
-      <%= will_paginate @attachments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  <div class='row'>
+      <div class="col-md-10">
+        <%= will_paginate @attachments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>
   </div>
-  <div class="col-md-2">
-    <%= link_to 'Nueva Imagen', new_admin_attachment_path, :class => 'btn btn-primary btn-sm' %>
-  </div>
-</div>
+</section>
 
 <script>
   $(document).ready(function() {

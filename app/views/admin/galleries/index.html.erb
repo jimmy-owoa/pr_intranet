@@ -1,6 +1,7 @@
 <%- model_class = General::Gallery -%>
   <section class="section">
     <h1 class="section-header"><%= "Galerías" %></h1>
+    <%= link_to "Nueva", new_admin_gallery_path, :class => 'btn btn-primary btn-sm' %>
     <div class="card">
       <div class="table-responsive-md">
         <table class="table table-hover">
@@ -37,6 +38,5 @@
           <%= will_paginate %>
         </div>
       </div>
-    <%= link_to "Nueva", new_admin_gallery_path, :class => 'btn btn-primary' %>
     </div>
   </section>
