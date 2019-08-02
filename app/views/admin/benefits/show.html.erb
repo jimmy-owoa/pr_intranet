@@ -2,7 +2,6 @@
   <h1 class="section-header"><%= @benefit.title %></h1>
   <div class="container card">
     <div class="col-md-12" align="center">
-      <h4>Título: <a href='<%= @benefit.title %>'><%= @benefit.title %></a></h4>
       <div style='max-width: 400px; max-height: 400px;'>
         <% if @benefit.image.attached? %>
           <%=image_tag @benefit.image.variant(resize: "360x300>")%>
@@ -12,13 +11,28 @@
       </div>
       <h5><%= raw @benefit.content %> </h5>
       <h4>Pertenece a los siguientes grupos beneficiarios: </h4>
-      <% @benefit.benefit_groups.each do |bg| %> 
-         <h4><%= bg.name %> :</h4>
-          <%= bg.benefit_group_relationships.where(benefit: @benefit).first.currency %>  |
-          <%= bg.benefit_group_relationships.where(benefit: @benefit).first.amount %> |
-          <%= bg.benefit_group_relationships.where(benefit: @benefit).first.url %>
-          </p>
-      <% end %>
+        <div class="table-responsive-md">
+          <table class="table table-hover">
+            <thead class="thead">
+              <tr>
+                <th><%= 'Nombre' %></th>
+                <th><%= 'Currency' %></th>
+                <th><%= 'Amount' %></th>
+                <th><%= 'Url' %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @benefit.benefit_group_relationships.order(:benefit_group_id).each do |bgr| %> 
+                <tr>
+                  <td><%= bgr.benefit_group.name %> :</td>
+                  <td><%= bgr.currency %></td>
+                  <td><%= bgr.amount %></td>
+                  <td><%= link_to bgr.url, bgr.url %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
        
 
     </div>
