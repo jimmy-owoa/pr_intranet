@@ -3,7 +3,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]
 
   def index
-    user_posts = News::Post.filter_posts(params[:id])
+    user_posts = News::Post.filter_posts(params[:ln_user])
     page = params[:page]
     params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select{|post| post.post_type == params[:category]}).page(page).per(4) :
     posts = Kaminari.paginate_array(user_posts).page(page).per(4)
@@ -62,7 +62,7 @@ module Frontend
   end
 
   def important_posts
-    posts = News::Post.filter_posts(params[:id], true).first(5)
+    posts = News::Post.filter_posts(params[:ln_user], true).first(5)
     data = []
     posts.each do |post|
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'        

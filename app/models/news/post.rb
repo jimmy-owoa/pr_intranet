@@ -69,8 +69,8 @@ class News::Post < ApplicationRecord
   end
 
   # TODO: optimizar
-  def self.filter_posts (user_id, important = nil)
-    user = General::User.find(user_id)
+  def self.filter_posts (ln_user, important = nil)
+    user = General::User.get_user_by_ln ln_user
     user_inclusive_tags = user.terms.inclusive_tags.map(&:name)
     user_excluding_tags = user.terms.excluding_tags.map(&:name)
     user_categories = user.terms.categories.map(&:name)

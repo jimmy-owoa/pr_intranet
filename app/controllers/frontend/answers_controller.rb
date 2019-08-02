@@ -12,7 +12,8 @@ module Frontend
   
     def create
       @answer = Survey::Answer.new(answer_params)
-      find_answer = Survey::Answer.where(question_id: params[:question_id], user_id: params[:user_id], option_id: params[:option_id]).try(:first)
+      user = General::User.get_user_by_ln params[:ln_user]
+      find_answer = Survey::Answer.where(question_id: params[:question_id], user_id: user.id, option_id: params[:option_id]).try(:first)
       if find_answer.present?
         find_answer.destroy
       else
@@ -28,7 +29,8 @@ module Frontend
     end
 
     def answers_options_save_from_vue 
-      answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
+      user = General::User.get_user_by_ln params[:ln_user]
+      answer = Survey::Answer.where(user_id: user.id, question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: user.id, question_id: params[:question_id])
       if answer.present?
         answer.update(option_id: params[:option_id])
       else
@@ -44,7 +46,8 @@ module Frontend
     end
 
     def answers_options_multiple_save_from_vue 
-      answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
+      user = General::User.get_user_by_ln params[:ln_user]
+      answer = Survey::Answer.where(user_id: user.id, question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: user.id, question_id: params[:question_id])
       if answer.present?
         id_option = Survey::Option.find_by_title(params.dig("answer","option","option")).id
         answer.update(option_id: id_option)
@@ -61,7 +64,8 @@ module Frontend
     end
 
     def answers_save_from_vue
-      answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
+      user = General::User.get_user_by_ln params[:ln_user]
+      answer = Survey::Answer.where(user_id: user.id, question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: user.id, question_id: params[:question_id])
       answer.answer_variable = params[:answer_variable]
       respond_to do |format|
         if answer.save
@@ -75,7 +79,8 @@ module Frontend
     end
 
     def check_data
-      @survey = Survey::Survey.includes(questions: :answers).where(id: params[:survey_id]).where("survey_answers.user_id" => params[:user_id], "survey_questions.optional" => true)
+      user = General::User.get_user_by_ln params[:ln_user]
+      @survey = Survey::Survey.includes(questions: :answers).where(id: params[:survey_id]).where("survey_answers.user_id" => user.id, "survey_questions.optional" => true)
       # @survey = Survey::Answer.includes(question: :survey).where(user_id:  2, "survey_questions.optional" => true, "survey_surveys.id" => params['survey_id'])
       if @survey.blank? #si está en blanco, puede pasar
         respond_to do |format|
@@ -113,7 +118,7 @@ module Frontend
     end
   
     def answer_params
-      params.require(:answer).permit(:user_id, :question_id, :option_id,:answer_variable)
+      params.require(:answer).permit(:user_id, :ln_user, :question_id, :option_id,:answer_variable)
     end
   end
 end

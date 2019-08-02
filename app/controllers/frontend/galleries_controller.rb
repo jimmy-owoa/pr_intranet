@@ -3,8 +3,8 @@ module Frontend
     include Rails.application.routes.url_helpers
 
     def index
-      user_id = params[:user_id]
-      posts = News::Post.includes(:gallery).filter_posts(user_id).select {|post| post.gallery.present?}
+      ln_user = params[:ln_user]
+      posts = News::Post.includes(:gallery).filter_posts(ln_user).select {|post| post.gallery.present?}
       galleries = []
       offset = 0
       galleries = load_galleries posts.pluck(:id), galleries, offset
