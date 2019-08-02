@@ -32,7 +32,7 @@ module Frontend
 
     def load_galleries post_ids, galleries, offset
       return galleries if offset > 9
-      galleries += General::Gallery.where(post_id: post_ids).offset(offset).limit(1)
+      galleries += General::Gallery.where(post_id: post_ids).order(created_at: :desc).offset(offset).limit(1)
       if galleries.count <= 9
         offset += 1
         return load_galleries(post_ids, galleries, offset)

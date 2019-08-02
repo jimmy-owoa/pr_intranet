@@ -48,11 +48,19 @@ module Frontend
     end
 
     def user_surveys
-      user_id =  params[:id]
+      user =  General::User.get_user_by_ln params[:ln_user]
       data_surveys = []
+      if user.has_role?(:super_admin) || user.has_role?(:admin)
+        respond_to do |format|
+          format.html
+          format.json { render json: Survey::Survey.all}
+          format.js
+        end
+        return
+      end
       #model method
       no_once_by_user_surveys = Survey::Survey.where(once_by_user: false)
-      surveys = Survey::Survey.survey_data(user_id)
+      surveys = Survey::Survey.survey_data(user.id)
       surveys << no_once_by_user_surveys
       surveys.flatten.each do |survey|
         data_questions = []
@@ -93,7 +101,7 @@ module Frontend
         }
       end
       #model method
-      data = Survey::Survey.filter_surveys(user_id, data_surveys)
+      data = Survey::Survey.filter_surveys(user.id, data_surveys)
       respond_to do |format|
         format.html
         format.json { render json: data_surveys }
@@ -116,6 +124,7 @@ module Frontend
 
     def survey
       data = []
+      user = General::User.get_user_by_ln params[:ln_user]
       slug = params[:slug].present? ? params[:slug] : nil
       survey = Survey::Survey.find_by_slug(slug)
       count = 0
@@ -129,7 +138,7 @@ module Frontend
           end
         end
       end
-      if count != required.count
+      if count != required.count || user.has_role?(:super_admin) || user.has_role?(:admin)
         data_survey = []
         data_questions = []
         survey.questions.each do |question|
@@ -176,13 +185,13 @@ module Frontend
       
     def survey_count
       data_user = []
-      id = params[:id].present? ? params[:id] : nil
-      @user = General::User.find(id)
+      ln_user = params[:ln_user].present? ? params[:ln_user] : nil
+      @user = General::User.get_user_by_ln ln_user
       association = Survey::Question.includes(:answers)
       #si hay alguna pregunta sin ninguna respuesta, alerta
       if association.map{|a| a.answers.blank? }.include?(true)
         data_user << {alert: 1}
-      elsif association.map{|a| a.answers.map(&:user_id).include?(@user.id) }.include?(false)
+      elsif association.map{|a| a.answers.map(&:ln_user).include?(@user.id) }.include?(false)
         data_user << {alert: 1}
       else
         data_user << {alert: 0}
