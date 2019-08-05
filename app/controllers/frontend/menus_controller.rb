@@ -93,7 +93,7 @@ module Frontend
         santoral: santoral[0],
         location_name: location.name,
         exa_menu: exa_menu,
-        gospel: Religion::Gospel.where(date: Date.today).first,
+        gospel: Religion::Gospel.where(date: Date.today).present? ? Religion::Gospel.where(date: Date.today).first : Religion::Gospel.last,
         indicators: data_indicators[0],
         today: today,
         beauty_date: l(today, format: "%d de %B, %Y"),
