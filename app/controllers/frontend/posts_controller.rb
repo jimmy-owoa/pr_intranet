@@ -170,7 +170,7 @@ module Frontend
       title: post.title,
       main_image: post.main_image,
       url: root_url + 'admin/posts/' + "#{post.id}" + '/edit',
-      user_id: General::User.find(post.user_id).name,
+      user_id: post.user_id,
       published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
       content: content,
       post_type: post.post_type.present? ? post.post_type.upcase : '',
@@ -178,7 +178,7 @@ module Frontend
       tags: post.terms.tags,
       main_image: image,
       format: post.format,
-      extract: post.extract,
+      extract: post.extract.present? ? post.extract : "",
       breadcrumbs: [
           {link: '/', name: 'Inicio' },
           {link: '/noticias', name: 'Noticias'},
