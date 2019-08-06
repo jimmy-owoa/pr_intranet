@@ -6,7 +6,7 @@
   }
   .modal-hover{
     font-family: 'Titillium Web', sans-serif !important;
-    font-size: 15px;
+    font-size: 17px;
     text-decoration: none; 
     color: #9d9d9c !important;
   }
@@ -344,7 +344,7 @@
     flex: 1 1 100%;
     margin: auto;
     margin-top: -10px;
-    padding: 14px;
+    padding: 24px;
     padding-bottom: 26px;
     max-width: 1346px !important;
   }
@@ -473,7 +473,7 @@
     margin-top: 18px;
   }
   .head_section {
-    font-family: Lato, sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     font-size: 12px;
     color: #8fca00 !important;
     line-height: 12px;
@@ -485,17 +485,17 @@
     font-size: 14px;
     font-weight: 400;
     color: #333333;
-    font-family: Lato, sans-serif;
+    font-family: 'Titillium Web', sans-serif;
   }
   .link-format:hover {
     text-decoration: underline;
   }
   .head_menu {
-    font-family: Lato, sans-serif;
+    font-family: 'Titillium Web', sans-serif;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 18px;
-    color: white;
+    color: white !important;
   }
   .arrow_down_menu{
     color: #8fca00;
@@ -638,11 +638,6 @@
     nav {
       font-size: 16px;
     }
-    .head_menu {
-      font-size: 14px;
-      line-height: 24px;
-      color: white !important !important;
-    }
     .hidden-sm-and-down {
       display: flex;
     }
@@ -732,11 +727,6 @@
     .link-format {
       font-size: 14px;
     }
-    .head_menu {
-      font-size: 14px;
-      line-height: 24px;
-      color: white !important;
-    }
     .results_ul {
       background-color: white;
       border: 2px solid darkgrey;
@@ -757,11 +747,6 @@
   @media (min-width: 600px) {
     nav {
       font-size: 16px;
-    }
-    .head_menu {
-      font-size: 12px;
-      line-height: 24px;
-      color: white !important;
     }
     .hidden-sm-and-down {
       display: flex;
@@ -862,11 +847,6 @@
     }
     .link-format {
       font-size: 12px;
-    }
-    .head_menu {
-      font-size: 12px;
-      line-height: 24px;
-      color: white !important;
     }
   }
 </style>
@@ -1116,37 +1096,37 @@
                 <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;"/>
               </a>
             </div>
-            <div class="flex sm2 subheading top-info text-md-right">
+            <div class="flex sm2 subheading top-info text-md-center">
               <a href="#gospel_modal" class="modal-hover">
                 <%= 'Santoral: ' + santoral.name[0...12] %>
               </a>
             </div>
-            <div class="flex sm2 top-info text-md-right">
+            <div class="flex sm2 top-info">
               <div href="#weather_modal">
-                <div class="text-md-right subheading">
+                <div class="text-md-center subheading">
                   <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 25px; cursor: pointer; padding-right: 4px; vertical-align: middle; padding-bottom: 4px")%>
                   <%=link_to location_name  + " " + weather[0].current_temp.to_i.to_s + "°" , "#weather_modal", class: "modal-hover" %>
                 </div>
               </div>
             </div>
-            <div class="flex sm3 subheading pointer text-md-right top-info">
-              <i class="material-icons inline">equalizer</i>
+            <div class="flex sm2 subheading pointer text-md-center top-info">
+              <i class="material-icons inline" style="margin-top: -6px;">equalizer</i>
               <a href="#indicators_modal" class="modal-hover">
                 Indicadores económicos
               </a>
             </div>
-            <div class="flex sm2 subheading top-info text-md-right pl-1">
+            <div class="flex sm2 subheading top-info text-md-center pl-1">
               <a class="modal-hover">
                 <%= beauty_date %>
               </a>
             </div>
-            <div class="flex sm3 text-md-right inline">
-              <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: #211651;">
+            <div class="flex sm3 text-md-right">
+              <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 23px; text-decoration: none; color: #211651;">
                 <%= user.name %>
                 <div class="v-avatar" style="height: 42px; width: 42px;">
                   <div aria-label="Avatar" class="inline v-image">
                     <% if user.image.attached? %> 
-                      <%= image_tag(user_image, style:'object-fit: cover;') %> 
+                      <%= image_tag(user_image, style:'object-fit: cover; border: 1px solid #1383cb') %> 
                     <% end%>
                   </div>
                 </div>
@@ -1163,7 +1143,7 @@
     <ul id="ul_menu" style="margin-bottom: 0px;">
       <% main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
-          <a class="head_menu" style="font-size: 18px; padding-right: 120px;" href="#" title="Menu 1">
+          <a class="head_menu" style="padding-right: 100px; letter-spacing: 1px;" href="#" title="Menu 1">
             <%= main_menu.title.upcase %>
           </a>
           <ul class="megamenu" id="megamenu1">
