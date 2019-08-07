@@ -40,6 +40,7 @@ module Frontend
       weather = General::WeatherInformation.current(location_id)
       location = General::Location.find(location_id) 
       santoral = General::Santoral.current
+      santoral_next = General::Santoral.next
       today = Date.today
       indicator = General::EconomicIndicator
       indicators = indicator.where(date: today)
@@ -90,7 +91,8 @@ module Frontend
         user: user,
         user_image: url_for(user.image.variant(combine_options: {resize: 'x42', gravity: 'Center'})),
         weather: weather.present? ? weather : General::WeatherInformation.last(location_id),
-        santoral: santoral[0],
+        santoral: santoral.last,
+        santoral_next: santoral_next.last,
         location_name: location.name,
         exa_menu: exa_menu,
         gospel: Religion::Gospel.where(date: Date.today).present? ? Religion::Gospel.where(date: Date.today).last : Religion::Gospel.last,
