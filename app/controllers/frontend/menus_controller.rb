@@ -34,11 +34,12 @@ module Frontend
         "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
       end
       rut= params[:user_id]
-      user = General::User.find_by_legal_number(rut[0...-1])      
+      user = General::User.find_by_legal_number(rut[0...-1])
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
       weather = General::WeatherInformation.current(location_id)
-      location = General::Location.find(location_id) 
+      uv_index = weather.last.get_uv
+      location = General::Location.find(location_id)
       santoral = General::Santoral.current
       santoral_next = General::Santoral.next
       today = Date.today
@@ -91,6 +92,7 @@ module Frontend
         user: user,
         user_image: url_for(user.image.variant(combine_options: {resize: 'x42', gravity: 'Center'})),
         weather: weather.present? ? weather : General::WeatherInformation.last(location_id),
+        uv_index: uv_index,
         santoral: santoral.last,
         santoral_next: santoral_next.last,
         location_name: location.name,

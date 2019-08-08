@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_200039) do
+ActiveRecord::Schema.define(version: 2019_08_08_211801) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -375,6 +375,7 @@ ActiveRecord::Schema.define(version: 2019_08_02_200039) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
+    t.integer "uv_index"
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -25,6 +25,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @antofagasta['currently']['temperature'],
       condition: @antofagasta['currently']['summary'],
       icon: @antofagasta['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @antofagasta['daily']['data'][0]['temperatureMax'],
       min_temp: @antofagasta['daily']['data'][0]['temperatureMin'],
       #######################
@@ -47,6 +48,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @santiago['currently']['temperature'].to_i,
       condition: @santiago['currently']['summary'],
       icon: @santiago['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @santiago['daily']['data'][0]['temperatureMax'].to_i,
       min_temp: @santiago['daily']['data'][0]['temperatureMin'].to_i,
       #######################
@@ -69,6 +71,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @copiapo['currently']['temperature'],
       condition: @copiapo['currently']['summary'],
       icon: @copiapo['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @copiapo['daily']['data'][0]['temperatureMax'],
       min_temp: @copiapo['daily']['data'][0]['temperatureMin'],
       #######################
@@ -91,6 +94,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @la_serena['currently']['temperature'],
       condition: @la_serena['currently']['summary'],
       icon: @la_serena['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @la_serena['daily']['data'][0]['temperatureMax'],
       min_temp: @la_serena['daily']['data'][0]['temperatureMin'],
       #######################
@@ -113,6 +117,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @vina_del_mar['currently']['temperature'],
       condition: @vina_del_mar['currently']['summary'],
       icon: @vina_del_mar['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @vina_del_mar['daily']['data'][0]['temperatureMax'],
       min_temp: @vina_del_mar['daily']['data'][0]['temperatureMin'],
       #######################
@@ -135,6 +140,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @rancagua['currently']['temperature'],
       condition: @rancagua['currently']['summary'],
       icon: @rancagua['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @rancagua['daily']['data'][0]['temperatureMax'],
       min_temp: @rancagua['daily']['data'][0]['temperatureMin'],
       #######################
@@ -157,6 +163,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @talca['currently']['temperature'],
       condition: @talca['currently']['summary'],
       icon: @talca['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @talca['daily']['data'][0]['temperatureMax'],
       min_temp: @talca['daily']['data'][0]['temperatureMin'],
       #######################
@@ -179,6 +186,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @concepcion['currently']['temperature'],
       condition: @concepcion['currently']['summary'],
       icon: @concepcion['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @concepcion['daily']['data'][0]['temperatureMax'],
       min_temp: @concepcion['daily']['data'][0]['temperatureMin'],
       #######################
@@ -201,6 +209,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @temuco['currently']['temperature'],
       condition: @temuco['currently']['summary'],
       icon: @temuco['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @temuco['daily']['data'][0]['temperatureMax'],
       min_temp: @temuco['daily']['data'][0]['temperatureMin'],
       #######################
@@ -223,6 +232,7 @@ class WeatherInformationJob < ApplicationJob
       current_temp: @puerto_montt['currently']['temperature'],
       condition: @puerto_montt['currently']['summary'],
       icon: @puerto_montt['currently']['icon'],
+      uv_index: @santiago['currently']['uvIndex'].to_i,
       max_temp: @puerto_montt['daily']['data'][0]['temperatureMax'],
       min_temp: @puerto_montt['daily']['data'][0]['temperatureMin'],
       #######################
