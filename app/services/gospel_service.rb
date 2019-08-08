@@ -4,7 +4,7 @@ class GospelService
 
   def initialize
     puts "******** Gospel service starts ********"
-    @api = "http://feed.evangelizo.org/v2/reader.php?"
+    @api = "http://feed.evangelizo.org/v2/reader.php"
     @type = "reading"
     @type_title = "reading_lt"
     @lang = "SP"
@@ -20,8 +20,8 @@ class GospelService
       title = Net::HTTP.get_response(request_title).body.force_encoding("UTF-8")
       content = Net::HTTP.get_response(request_content).body.force_encoding("UTF-8")
       Religion::Gospel.where(title: title, content: content, date: date).first_or_create
-      puts "======= Gospel with date <#{date}> passed succefully =======".green
       count += 1
+      puts "======= Gospel with date <#{date}> passed succefully =======".green
     end
   end
   
