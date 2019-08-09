@@ -37,7 +37,7 @@ module Frontend
       user = General::User.find_by_legal_number(rut[0...-1])
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
-      weather = General::WeatherInformation.current(location_id)
+      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id) 
       uv_index = weather.last.get_uv
       location = General::Location.find(location_id)
       santoral = General::Santoral.current
@@ -91,7 +91,7 @@ module Frontend
         menus: menus,
         user: user,
         user_image: url_for(user.image.variant(combine_options: {resize: 'x42', gravity: 'Center'})),
-        weather: weather.present? ? weather : General::WeatherInformation.last(location_id),
+        weather: weather,
         uv_index: uv_index,
         santoral: santoral.last,
         santoral_next: santoral_next.last,
