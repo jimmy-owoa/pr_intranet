@@ -74,7 +74,7 @@ module Frontend
           birthday: user.birthday,
           created_at: user.created_at,
           show_birthday: user.show_birthday,
-          company: user.company,
+          company: user.company.titleize,
           image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
       end
