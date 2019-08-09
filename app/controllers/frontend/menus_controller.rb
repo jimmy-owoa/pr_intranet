@@ -48,13 +48,13 @@ module Frontend
       data_indicators = []
       if indicator.where(date: today).present?
         data_indicators << {
-          DOLAR: indicator.indicator_type(1).last,
-          EURO: indicator.indicator_type(2).last,
-          UF: indicator.indicator_type(3).last,
-          UTM: indicator.indicator_type(4).last,
-          IPC: indicator.indicator_type(5).last,
-          IPSA: indicator.indicator_type(6).last,
-          IPSA_VARIATION: indicator.indicator_type(7).last,
+          DOLAR: indicator.indicator_type(1).last(2),
+          EURO: indicator.indicator_type(2).last(2),
+          UF: indicator.indicator_type(3).last(2),
+          UTM: indicator.indicator_type(4).last(2),
+          IPC: indicator.indicator_type(5).last(2),
+          IPSA: indicator.indicator_type(6).last(2),
+          IPSA_VARIATION: indicator.indicator_type(7).last(2),
           LATEST_DOLAR: indicator.indicator_type(1),
           LATEST_EURO: indicator.indicator_type(2),
           LATEST_UF: indicator.indicator_type(3),
@@ -64,13 +64,13 @@ module Frontend
         }
       else
         data_indicators << {
-          DOLAR: indicator.where(economic_indicator_type_id: 1).last.value,
-          EURO: indicator.where(economic_indicator_type_id: 2).last.value,
-          UF: indicator.where(economic_indicator_type_id: 3).last.value,
-          UTM: indicator.where(economic_indicator_type_id: 4).last.value,
-          IPC: indicator.where(economic_indicator_type_id: 5).last.value,
-          IPSA: indicator.where(economic_indicator_type_id: 6).last.value,
-          IPSA_VARIATION: indicator.where(economic_indicator_type_id: 7).last.value,
+          DOLAR: indicator.where(economic_indicator_type_id: 1).pluck(:value).last(2),
+          EURO: indicator.where(economic_indicator_type_id: 2).pluck(:value).last(2),
+          UF: indicator.where(economic_indicator_type_id: 3).pluck(:value).last(2),
+          UTM: indicator.where(economic_indicator_type_id: 4).pluck(:value).last(2),
+          IPC: indicator.where(economic_indicator_type_id: 5).pluck(:value).last(2),
+          IPSA: indicator.where(economic_indicator_type_id: 6).pluck(:value).last(2),
+          IPSA_VARIATION: indicator.where(economic_indicator_type_id: 7).pluck(:value).last(2),
           LATEST_DOLAR: indicator.indicator_type(1),
           LATEST_EURO: indicator.indicator_type(2),
           LATEST_UF: indicator.indicator_type(3),
