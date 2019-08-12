@@ -1191,10 +1191,10 @@
                 <div class="modal-subheading font-weight-bold white--text" style="padding-top: 77px;">Hoy,  <%= l(today, format: "%d de %B") %></div>
                 <div class="modal-heading font-weight-bold white--text"><%= santoral.name[0...10].upcase %></div>
                 <hr style="width: 52%; margin-left: 25%">
-                <div class="modal-subheading font-weight-bold white--text">Mañana, <%= l(today + 1.days, format: "%d de %B") %></div>
+                <div class="modal-subheading font-weight-bold white--text pt-2">Mañana, <%= l(today + 1.days, format: "%d de %B") %></div>
                 <div class="modal-regular white--text"><%= santoral_next.name[0...21] %></div>
               </div>
-              <div class="flex sm8" style="padding: 45px 45px 0 45px">
+              <div class="flex sm8" style="padding: 45px 45px 0 45px; background-color: #f3f3f3;">
                 <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">
                   <%=raw gospel.title %>
                 </div>
@@ -1223,7 +1223,7 @@
                 <div class="modal-subheading font-weight-bold white--text">Índice uv:</div>
                 <div class="modal-regular white--text"><%= uv_index %></div>
               </div>
-              <div class="flex sm8" style="padding: 45px 40px 0 0;">
+              <div class="flex sm8" style="padding: 45px 40px 0 0; background-color: #f3f3f3;">
                 <div class="layout">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 1.days, format: "%A")%></div>
@@ -1271,7 +1271,7 @@
                 <div class="modal-subheading font-weight-bold white--text">Ayer <%= l(today - 1.days, format: "%d de %B") %></div>
                 <div class="modal-title font-weight-bold primary--text">$<%= indicators[:DOLAR].first %></div>
               </div>
-              <div class="flex sm8" style="padding: 45px 40px 0 0;">
+              <div class="flex sm8" style="padding: 45px 40px 0 0; background-color: #f3f3f3;">
                 <div class="layout">
                   <div class="flex sm4 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">Euro</div>
