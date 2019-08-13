@@ -25,6 +25,7 @@
                   <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://misecurity.elmejorlugarparatrabajar.cl' %>
                   <%= link_to "Ver cliente", "#{environment}/#/encuestas/#{survey.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
                   <%= link_to "Ver", admin_survey_path(survey), class: 'btn btn-success btn-sm' %>
+                  <%= link_to "Editar", edit_admin_survey_path(survey), class: 'btn btn-primary btn-sm' %>
                 </td>
               </tr>
             <% end %>
