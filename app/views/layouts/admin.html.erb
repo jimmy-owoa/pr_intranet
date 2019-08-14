@@ -106,7 +106,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="<%= admin_messages_path %>"><i class="far fa-envelope"></i>Mensajes</a></li>
+                  <a href="<%= admin_messages_path %>"><i class="far fa-comment-alt"></i>Mensajes</a></li>
                 </li>
                 <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i>Etiquetas</a></li>
                 <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>

@@ -11,8 +11,8 @@ module Frontend
 
     def benefits_group
       data = []
-      user_id =  params[:id]
-      benefit_group = General::User.find(user_id).benefit_group
+      ln_user =  params[:ln_user]
+      benefit_group = General::User.find_by_legal_number(ln_user[0...-1]).benefit_group
       benefit_group_name = benefit_group.name
       benefit_group.benefits.each do |benefit|
         @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + '/assets/news.jpg'
