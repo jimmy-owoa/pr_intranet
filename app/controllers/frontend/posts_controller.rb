@@ -122,7 +122,7 @@ module Frontend
       content = content.gsub("<source src=\"../..", '<video src="https://admin.elmejorlugarparatrabajar.cl')
       content = content.gsub("<source src=\"", '<video src="https://admin.elmejorlugarparatrabajar.cl/')
       content = content.gsub("<img src=\"../..", '<img src="https://admin.elmejorlugarparatrabajar.cl')
-      content = content.gsub("<img src=\"/rails/", '<img src="https://admin.elmejorlugarparatrabajar.cl/')
+      content = content.gsub("<img src=\"/rails/", '<img src="https://admin.elmejorlugarparatrabajar.cl/rails/')
       #video
       if content.include?("<p><video style=\"float: right;\"")
         content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
