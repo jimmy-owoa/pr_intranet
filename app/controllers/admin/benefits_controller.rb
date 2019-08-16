@@ -35,7 +35,7 @@ module Admin
       respond_to do |format|
         if @benefit.update(benefit_params)
           set_benefit_group
-          format.html { redirect_to admin_benefit_path(@benefit), notice: 'Beneficio fue actualizado con éxito.'}
+          format.html { redirect_to admin_benefits_path, notice: 'Beneficio fue actualizado con éxito.'}
           format.json { render :show, status: :ok, location: @benefit }
         else
           format.html { render :edit}

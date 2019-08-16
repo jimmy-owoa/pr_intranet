@@ -57,7 +57,7 @@ class General::User < ApplicationRecord
   end
 
   def self.get_user_by_ln ln_user
-    General::User.where(legal_number: ln_user[0...ln_user.length-1], legal_number_verification: ln_user[-1]).first
+    General::User.where(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1]).first
   end
   
   def self.decrypt data, cipher_key = nil

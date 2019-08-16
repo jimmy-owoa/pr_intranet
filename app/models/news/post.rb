@@ -26,8 +26,7 @@ class News::Post < ApplicationRecord
   before_save :unique_slug, :manage_time
 
   scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5)}
-
-  scope :published_posts, -> { where(status: "Publicado").order(published_at: :desc)}
+  scope :published_posts, -> { where('published_at <= ?', Time.now).order(published_at: :desc)}
 
   STATUS = ['Publicado','Borrador', 'Programado']
   VISIBILITY = ['Público', 'Privada']

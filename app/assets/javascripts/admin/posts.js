@@ -8,16 +8,15 @@ $(document).on("turbolinks:load", function() {
     placeholder: "Seleccionar Archivos"
   });
   $("#published_at").datetimepicker({
-    sideBySide: true,
+    sideBySide: false,
     icons: {
       up: "fa fa-chevron-circle-up",
       down: "fa fa-chevron-circle-down",
       next: "fa fa-chevron-circle-right",
       previous: "fa fa-chevron-circle-left"
     },
-    format: "DD/MM/YYYY HH:mm",
-    autoclose: true
-  });
+    format: "DD/MM/YYYY HH:mm"
+    });
 
   $(".owl-carousel").owlCarousel({
     items: 2,
