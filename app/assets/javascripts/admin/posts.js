@@ -8,7 +8,7 @@ $(document).on("turbolinks:load", function() {
     placeholder: "Seleccionar Archivos"
   });
   $("#published_at").datetimepicker({
-    sideBySide: false,
+    sideBySide: true,
     icons: {
       up: "fa fa-chevron-circle-up",
       down: "fa fa-chevron-circle-down",

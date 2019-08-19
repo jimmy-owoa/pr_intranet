@@ -37,7 +37,7 @@ module ApplicationHelper
     when 'Publicado'
       '<span class="badge badge-success">Publicado</span>'.html_safe
     when 'Programado'
-      '<span class="badge badge-info">Borrador</span>'.html_safe
+      '<span class="badge badge-info">Programado</span>'.html_safe
     end
   end
 
