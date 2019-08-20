@@ -42,7 +42,7 @@ module Frontend
     gallery = { items: [] }
     items = []
     if post.gallery.present?
-      attachments = post.gallery.attachments
+      attachments = General::Gallery.where(post_id: post.id).last.attachments
       attachments.each do |image| # Por ahora está mostrando sólo la primera galería
         items << {
           id: image.id,

@@ -64,7 +64,7 @@ module Frontend
           annexed: user.annexed,
           birthday: user.birthday,
           company: user.company.present? ? user.company : 'Sin información',
-          date_entry: user.date_entry.strftime("%d-%m-%Y"),
+          date_entry: l(user.date_entry, format: "%d de %B").downcase,
           image: image
         }
       end

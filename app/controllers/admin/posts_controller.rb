@@ -15,6 +15,7 @@ module Admin
     end
 
     def show
+      @gallery = General::Gallery.where(post_id: @post.id).last
     end
 
     def deleted

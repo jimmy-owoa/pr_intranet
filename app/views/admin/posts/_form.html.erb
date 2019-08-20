@@ -22,6 +22,35 @@
     </div>
   </div>
   <div class="col-md-3">
+    <div class="card text-md-center p-2" >
+      <div class="form-group">
+          <div class="col-md-12 col-sm-12">
+            <h5 class="card-title">Imagen principal</h5>
+            <% if @post.id.nil? %>
+              <%= image_tag((asset_url('post_news_mini.png')), id:'image_preview', :size => '180x120', :crop => :fill ) %>
+              <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%><br/>
+              <b><p>Subir Imagen</p></b>
+              <%= f.fields_for :main_image do |aa| %>
+                <div class="">
+                  <%= aa.file_field :attachment, class:'card-link', onchange:"readURL(this);" %>
+                </div>
+              <% end %>
+            <% else %>
+              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
+              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
+              <br />
+                <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+                <br />
+                <b><p>Adjuntar imagen</p></b>
+                <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
+                  <div class="">
+                    <%= aa.file_field :attachment, onchange:"readURL(this);" %>
+                  </div>
+                <% end %>
+            <% end %>
+          </div>
+      </div>
+    </div>
     <div class="card text-md-center p-2 wrapper">
       <div class="form-group row">
         <div class="col-md-12">
@@ -78,35 +107,6 @@
           <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]} + General::BenefitGroup.all.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
           <div class="tip_format">Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse</div>
         </div>
-      </div>
-    </div>
-    <div class="card text-md-center p-2" >
-      <div class="form-group">
-          <div class="col-md-12 col-sm-12">
-            <h5 class="card-title">Imagen principal</h5>
-            <% if @post.id.nil? %>
-              <%= image_tag((asset_url('post_news_mini.png')), id:'image_preview', :size => '180x120', :crop => :fill ) %>
-              <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%><br/>
-              <b><p>Subir Imagen</p></b>
-              <%= f.fields_for :main_image do |aa| %>
-                <div class="">
-                  <%= aa.file_field :attachment, class:'card-link', onchange:"readURL(this);" %>
-                </div>
-              <% end %>
-            <% else %>
-              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
-              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
-              <br />
-                <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
-                <br />
-                <b><p>Adjuntar imagen</p></b>
-                <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
-                  <div class="">
-                    <%= aa.file_field :attachment, onchange:"readURL(this);" %>
-                  </div>
-                <% end %>
-            <% end %>
-          </div>
       </div>
     </div>
     <!-- <div class="card text-md-center p-2" >

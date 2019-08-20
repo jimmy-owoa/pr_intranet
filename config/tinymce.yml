@@ -27,3 +27,10 @@ browser_spellcheck:
 images_upload_url: "/admin/upload"
 automatic_uploads: false
 file_picker_types: "file image media"
+setup:
+  function(ed) {
+    ed.on('init', function() 
+    {
+        this.getDoc().body.style.fontSize = '12pt';
+    });
+  }

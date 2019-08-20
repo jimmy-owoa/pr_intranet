@@ -60,11 +60,11 @@
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="row text-center scrollDivPostImage" >
-          <% if @post.gallery.present? %>
-            <% @post.gallery.attachments.each do |image| %>
-                <p class='col-md-12 text-center'>
-                  <b>Nombre galería:</b>  <%= @post.gallery.name %>
-                </p><br />
+          <% if @gallery.present? %>
+            <p class='col-md-12 text-center'>
+              <b>Nombre galería:</b>  <%= @gallery.name %>
+            </p><br />
+            <% @gallery.attachments.each do |image| %>
                   <div class="col-md-6">
                     <figure>
                       <%= image_tag(image.attachment.attachment.variant(resize: '300x255>'), class: 'img-thumbnail post_attachment') %>
