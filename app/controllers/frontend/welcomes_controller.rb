@@ -50,8 +50,13 @@ module Frontend
     end
 
     def index
-      new_users = General::User.where.not(date_entry: nil).order(date_entry: :desc)
       page = params[:page]
+      date = params[:date]
+      if date == "0"
+        new_users = General::User.where(date_entry: Date.today).order(date_entry: :desc)
+      else
+        new_users = General::User.where('extract(year from date_entry) = ?', Date.today.year).where('extract(month from date_entry) = ?', date).order(date_entry: :desc)
+      end
       users = Kaminari.paginate_array(new_users).page(page).per(9)
       data= []
       users.each do |user|
