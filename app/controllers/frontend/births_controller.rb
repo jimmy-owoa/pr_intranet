@@ -8,30 +8,40 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new, :list]
 
     def index
-      births = Employee::Birth.show_birth.births_between(1.year.ago, Time.now) #se cambio de un año a un mes
+      page = params[:page]
+      date = params[:date]
+      all_births = Employee::Birth.show_birth.where('extract(month from birthday) = ?', date) #se cambio de un año a un mes
+      births = Kaminari.paginate_array(all_births).page(page).per(9)
       data = []
       births.each do |birth|   
+        birth_father = General::User.where("CONCAT(name,' ',last_name,' ',last_name2) = ?", birth.full_name_father).first
+        birth_mother = General::User.where("CONCAT(name,' ',last_name,' ',last_name2) = ?", birth.full_name_mother).first
+        email = 
+        if birth_father.present?
+           birth_father.email
+        elsif birth_mother.present?
+          birth_mother.email
+        else
+          'sin email'
+        end 
         images = []
         birth.permitted_images.map{|image| images << url_for(image.variant(resize: '500x500>'))}
         data << {
           id: birth.id,
-          child_full_name: birth.child_name + ' ' + birth.child_lastname + ' ' + birth.child_lastname2,
+          name: birth.child_name,
+          last_names: birth.child_lastname + ' ' + birth.child_lastname2,
           photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: '500x500>')) : root_url + ActionController::Base.helpers.asset_url('birth.png'),
           images: images,
-          gender: birth.gender ? 'Masculino' : 'Femenino',
-          birthday: birth.birthday.strftime("%d-%m-%Y"),
+          gender: birth.gender,
+          birthday: l(birth.birthday, format: "%d de %B").downcase,
           father: birth.full_name_father,
           mother: birth.full_name_mother,
-          breadcrumbs: [
-              {link: '/', name: 'Inicio' },
-              {link: '/celebremos-nacimientos', name: 'Celebremos nacimientos' },
-              {link: '#', name: birth.child_fullname.truncate(30)}
-            ]
+          email: email,
         }
       end
       respond_to do |format|
         format.html
-        format.json { render json: data }
+        format.json { render json: {hits: data} }
         format.js
       end
     end

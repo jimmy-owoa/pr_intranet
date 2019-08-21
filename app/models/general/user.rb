@@ -124,7 +124,7 @@ class General::User < ApplicationRecord
   end
 
   def full_name
-    self.name + ' ' + self.last_name
+    self.name + ' ' + self.last_name + ' ' + self.last_name2
   end
 
   def self.what_role? user
