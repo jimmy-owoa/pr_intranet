@@ -53,9 +53,9 @@ module Frontend
       page = params[:page]
       date = params[:date]
       if date == "0"
-        new_users = General::User.where(date_entry: Date.today).order(date_entry: :desc)
+        new_users = General::User.where(date_entry: Date.today).order(date_entry: :asc)
       else
-        new_users = General::User.where('extract(year from date_entry) = ?', Date.today.year).where('extract(month from date_entry) = ?', date).order(date_entry: :desc)
+        new_users = General::User.where('extract(year from date_entry) = ?', Date.today.year).where('extract(month from date_entry) = ?', date).order(date_entry: :asc)
       end
       users = Kaminari.paginate_array(new_users).page(page).per(9)
       data= []

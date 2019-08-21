@@ -10,7 +10,7 @@ module Frontend
     def index
       page = params[:page]
       date = params[:date]
-      all_births = Employee::Birth.show_birth.where('extract(month from birthday) = ?', date) #se cambio de un año a un mes
+      all_births = Employee::Birth.show_birth.where('extract(year from birthday) = ?', Date.today.year).(where('extract(month from birthday) = ?', date) #se cambio de un año a un mes
       births = Kaminari.paginate_array(all_births).page(page).per(9)
       data = []
       births.each do |birth|   
