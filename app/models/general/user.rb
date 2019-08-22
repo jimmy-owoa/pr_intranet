@@ -92,6 +92,14 @@ class General::User < ApplicationRecord
     date.strftime("%d/%m/%Y") == Date.today.strftime("%d/%m/%Y")
   end
 
+  def is_birthday_today
+    today = Date.today
+    if (self.birthday.month == today.month && self.birthday.day == today.day)
+      true
+    else
+      false
+    end 
+  end
   def self.welcome?(id, date)
     today = Date.today.strftime("%d/%m/%Y")
     user = find(id)
@@ -157,7 +165,7 @@ class General::User < ApplicationRecord
   end
 
   def get_color 
-    case self.company
+    case self.company.upcase
       when 'BANCO SECURITY S.A.' || 'FACTORING SECURITY S.A.' || 'MANDATOS SECURITY LIMITADA'
         '#8D0C9A'
       when 'TRAVEX SECURITY' || 'TRAVEL SECURITY S.A.' || 'INMOBILIARIA SECURITY S.A.' || 'INMOBILIARIA SECURITY SIETE' || 'REPRESENTACIONES SECURITY LTDA'

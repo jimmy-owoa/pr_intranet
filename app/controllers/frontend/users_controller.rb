@@ -23,6 +23,7 @@ module Frontend
             last_name: children.last_name,
             position: children.position,
             company: children.company,
+            color: children.get_color,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
@@ -36,6 +37,7 @@ module Frontend
             last_name: sibling.last_name,
             position: sibling.position,
             company: sibling.company,
+            color: sibling.get_color,
             image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
@@ -48,6 +50,7 @@ module Frontend
           last_name: @user.parent.last_name,
           position: @user.parent.position,
           company: @user.parent.company,
+          color: @user.get_color,
           image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
@@ -57,6 +60,7 @@ module Frontend
         name: @user.name,
         nickname: @nickname,
         last_name: @user.last_name,
+        full_name: @user.full_name,
         email: @user.email,
         annexed: @user.annexed,
         position: @user.position,
@@ -65,6 +69,7 @@ module Frontend
         location: @location,
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         date_entry: @user.date_entry,
+        color: @user.get_color,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
         childrens: data_childrens,
@@ -95,7 +100,8 @@ module Frontend
             name: children.name,
             last_name: children.last_name,
             position: children.position,
-            company: children.company,
+            company: children.company.titleize,
+            color: children.get_color,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
@@ -108,7 +114,8 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company,
+            company: sibling.company.titleize,
+            color: sibling.get_color,
             image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
@@ -120,7 +127,8 @@ module Frontend
           name: user.parent.name,
           last_name: user.parent.last_name,
           position: user.parent.position,
-          company: user.parent.company,
+          company: user.parent.company.titleize,
+          color: user.parent.get_color,
           image: user.parent.image.attached? ?
           url_for(user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
@@ -215,10 +223,13 @@ module Frontend
         id: @user.id,
         name: @user.name,
         last_name: @user.last_name,
+        full_name: @user.full_name,
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         nickname: @nickname,
         role: General::User.what_role?(@user),
         company: @user.company,
+        birthday: @user.birthday.strftime("%d / %m / %y"),
+        is_birthday: @user.is_birthday_today,
         position: @user.position,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
@@ -240,7 +251,8 @@ module Frontend
         },
         products: data_products[0],
         messages: data_messages,
-        notifications: @user.notifications
+        notifications: @user.notifications,
+        color: @user.get_color
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
@@ -403,7 +415,8 @@ module Frontend
           benefits: data
         },
         products: data_products[0],
-        messages: data_messages
+        messages: data_messages,
+        color: @user.get_color
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
