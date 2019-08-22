@@ -40,7 +40,8 @@ module Frontend
           company: user.company.present? ? user.company.titleize : nil,
           date: user.date_entry.present? ? user.date_entry.strftime("%Y-%m-%d") : user.date_entry,
           show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
+          color: user.get_color
         }
       end
       respond_to do |format|
@@ -70,7 +71,8 @@ module Frontend
           birthday: user.birthday,
           company: user.company.present? ? user.company : 'Sin información',
           date_entry: l(user.date_entry, format: "%d de %B").downcase,
-          image: image
+          image: image,
+          color: user.get_color
         }
       end
       respond_to do |format|

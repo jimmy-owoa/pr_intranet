@@ -24,6 +24,7 @@ module Frontend
           birthday: l(user.birthday, format: "%d de %B").downcase,
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
+          color: user.get_color
         }
       end
       respond_to do |format|
@@ -75,7 +76,8 @@ module Frontend
           birthday: user.birthday,
           created_at: user.created_at,
           company: user.company.titleize,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
+          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
+          color: user.get_color
         }
       end
       respond_to do |format|

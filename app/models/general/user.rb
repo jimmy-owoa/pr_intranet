@@ -156,4 +156,20 @@ class General::User < ApplicationRecord
     General::User.where(date_entry: (Date.today-100.days)..Date.today).order('RAND()')
   end
 
+  def get_color 
+    case self.company
+      when 'BANCO SECURITY S.A.' || 'FACTORING SECURITY S.A.' || 'MANDATOS SECURITY LIMITADA'
+        '#8D0C9A'
+      when 'TRAVEX SECURITY' || 'TRAVEL SECURITY S.A.' || 'INMOBILIARIA SECURITY S.A.' || 'INMOBILIARIA SECURITY SIETE' || 'REPRESENTACIONES SECURITY LTDA'
+        '#008DCF'
+      when 'VALORES SECURITY S.A.COR.BOLSA' || 'ADM GRAL DE FONDOS SECURITY SA' || 'SECURITIZADORA SECURITY S. A.' || 'INMOBILIARIA CASANUESTRA' || 'GLOBAL SECURITY LTDA.' || 'ASESORIAS SECURITY S.A.'
+        '#FF052B'
+      when 'VIDA SECURITY S.A.' || 'CORREDORA DE SEGUROS SECURITY' || 'HIPOTECARIA SECURITY PRINCIPAL' || 'PROTECTA SECURITY' || 'ADM. SERVICIOS BENEFICIOS LTDA'
+        '#FF6E00'
+      when 'GRUPO SECURITY S.A.' || 'CAPITAL S. A.'
+        '#628D36'
+      else
+        "#000000"
+      end
+  end
 end
