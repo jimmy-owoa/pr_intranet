@@ -65,6 +65,8 @@ module Frontend
         annexed: @user.annexed,
         position: @user.position,
         company: @user.company,
+        birthday: @user.birthday.strftime("%d / %m / %y"),
+        is_birthday: @user.is_birthday_today,
         address: @user.address,
         location: @location,
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
