@@ -723,6 +723,11 @@
     color: #fff !important;
     caret-color: #fff !important;
   }
+  nav > ul > li:hover {
+  /* background: red; */
+  text-decoration: underline;
+  text-underline-position: under;
+}
   /* ################################################################## */
   @media (min-width: 600px) {
     nav {
@@ -955,225 +960,6 @@
   }
 </style>
 <div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>"></div>
-<!-- WEATHER MODAL START -->
-<div class="modalDialog" id="weatherodal">
-  <div>
-    <a href="#" title="Close" class="close">X</a>
-    <div class="layout">
-      <div class="flex">
-        <div class="v-card v-card--flat v-sheet theme--light">
-          <div class="v-responsive v-image" style="height: 100px;">
-            <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"),
-                class: "v-image__image v-image__image--contain", style:
-                "background-position: center center;") %>
-          </div>
-          <div class="v-card__title">
-            <div class="flex">
-              <h3 class="text-md-center headline mb-2">Hoy</h3>
-              <p class="text-md-center subheading">
-                Actual: <%= weather[0].current_temp.to_i %>°
-              </p>
-              <p class="text-md-center subheading">
-                Mínima:<%= weather[0].min_temp.to_i %>°
-              </p>
-              <p class="text-md-center subheading">
-                Máxima:<%= weather[0].max_temp.to_i %>°
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="v-card v-card--flat v-sheet theme--light">
-          <div class="v-responsive v-image" style="height: 100px;">
-            <%=
-            image_tag(asset_url("weather/#{weather[0].tomorrow_icon}.svg"),
-            class: "v-image__image v-image__image--contain", style:
-            "background-position: center center;") %>
-          </div>
-          <div class="v-card__title">
-            <div class="flex">
-              <h3 class="text-md-center headline mb-2">
-                <%= l(Date.today + 1, format: '%A') %>
-              </h3>
-              <p class="text-md-center subheading">
-                Mínima:<%= weather[0].tomorrow_min.to_i %>°
-              </p>
-              <p class="text-md-center subheading">
-                Máxima:<%= weather[0].tomorrow_max.to_i %>°
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="v-card v-card--flat v-sheet theme--light">
-          <div class="v-responsive v-image" style="height: 100px;">
-            <%=
-            image_tag(asset_url("weather/#{weather[0].after_tomorrow_icon}.svg"),
-            class: "v-image__image v-image__image--contain", style:
-            "background-position: center center;") %>
-          </div>
-          <div class="v-card__title">
-            <div class="flex">
-              <h3 class="text-md-center headline mb-2">
-                <%= l(Date.today + 2, format: '%A') %>
-              </h3>
-              <p class="text-md-center subheading">
-                Mínima:<%= weather[0].after_tomorrow_min.to_i %>°
-              </p>
-              <p class="text-md-center subheading">
-                Máxima:<%= weather[0].after_tomorrow_max.to_i %>°
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="v-card v-card--flat v-sheet theme--light">
-          <div class="v-responsive v-image" style="height: 100px;">
-            <%=
-            image_tag(asset_url("weather/#{weather[0].aa_tomorrow_icon}.svg"),
-            class: "v-image__image v-image__image--contain", style:
-            "background-position: center center;") %>
-          </div>
-          <div class="v-card__title">
-            <div class="flex">
-              <h3 class="text-md-center headline mb-2">
-                <%= l(Date.today + 3, format: '%A') %>
-              </h3>
-              <p class="text-md-center subheading">
-                Mínima:<%= weather[0].aa_tomorrow_min.to_i %>°
-              </p>
-              <p class="text-md-center subheading">
-                Máxima:<%= weather[0].aa_tomorrow_max.to_i %>°
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="v-card v-card--flat v-sheet theme--light">
-          <div class="v-responsive v-image" style="height: 100px;">
-            <%=
-            image_tag(asset_url("weather/#{weather[0].aaa_tomorrow_icon}.svg"),
-            class: "v-image__image v-image__image--contain", style:
-            "background-position: center center;") %>
-          </div>
-          <div class="v-card__title">
-            <div class="flex">
-              <h3 class="text-md-center headline mb-2">
-                <%= l(Date.today + 4, format: '%A') %>
-              </h3>
-              <p class="text-md-center subheading">
-                Mínima:<%= weather[0].aaa_tomorrow_min.to_i %>°
-              </p>
-              <p class="text-md-center subheading">
-                Máxima:<%= weather[0].aaa_tomorrow_max.to_i %>°
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- WEATHER MODAL END -->
-<!-- INDICATORS MODAL START  -->
-<div id="indicats_modal" class="modalDialog">
-  <div>
-    <a href="#" title="Close" class="close">X</a>
-    <div class="layout">
-      <div class="flex">
-        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-          <div class="v-card__title">
-            <div class="text-truncate">Dolar</div>
-          </div>
-          <div class="flex">
-            <div class="v-card__title subheading font-weight-light">
-              <div>Hoy: $<%= indicators[:DOLAR] %></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-          <div class="v-card__title">
-            <div class="text-truncate">EURO</div>
-          </div>
-          <div class="flex">
-            <div class="v-card__title subheading font-weight-light">
-              <div>Hoy: $<%= indicators[:EURO] %></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-          <div class="v-card__title">
-            <div class="text-truncate">UF</div>
-          </div>
-          <div class="flex">
-            <div class="v-card__title subheading font-weight-light">
-              <div>
-                Hoy: $<%= indicators[:UF] %>
-                <p class="subheading font-weight-light">Ayer: $<%= indicators[:LATEST_UF].second_to_last%></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-          <div class="v-card__title">
-            <div class="text-truncate">IPC</div>
-          </div>
-          <div class="flex">
-            <div class="v-card__title subheading font-weight-light">
-              <div>
-                Hoy: $<%= indicators[:IPC] %>
-                <p><%= l(today-1.month, format: '%B') %>: <%= indicators[:LATEST_IPC].second_to_last %> </p>
-                <%= l(today-2.month, format: '%B') %>: <%= indicators[:LATEST_IPC].third_to_last %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-          <div class="v-card__title">
-            <div class="text-truncate">UTM</div>
-          </div>
-          <div class="flex">
-            <div class="v-card__title subheading font-weight-light">
-              <div>
-                Hoy: $<%= indicators[:UTM] %>
-                <p><%= l(today-1.month, format: '%B') %>: <%= indicators[:LATEST_UTM].second_to_last %> </p>
-                <%= l(today-2.month, format: '%B') %>: <%= indicators[:LATEST_UTM].third_to_last %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex">
-        <div class="display-1 font-weight-thin v-card v-card--flat v-sheet theme--light">
-          <div class="v-card__title">
-            <div class="text-truncate">IPSA</div>
-          </div>
-          <div class="flex">
-            <div class="v-card__title subheading font-weight-light">
-              <div>
-                Hoy: $<%= indicators[:IPSA] %>
-                <p>Variación: <%= indicators[:IPSA_VARIATION] %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- INDICATORS MODAL END -->
 
 <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="height: 8px; width: 100%"/>
 
@@ -1231,18 +1017,21 @@
                     <div class="primary--text font-weight-bold" style="padding-top: 17px; font-size: 34px"><%= weather[0].tomorrow_max.to_i %> °C </div>
                     <div class="modal-regular primary--text" style="margin-top: -6px;"><%= weather[0].tomorrow_min.to_i %> °C</div>
                   </div>
+                  <hr style="border: 1px solid white; height: 270px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 2.days, format: "%A")%></div>
                     <%= image_tag(asset_url("weather/#{weather[0].tomorrow_icon}.svg"), style:"height: 45px; margin-top: 72px;") %>
                     <div class="primary--text font-weight-bold" style="padding-top: 17px; font-size: 34px"><%= weather[0].after_tomorrow_max.to_i %> °C </div>
                     <div class="modal-regular primary--text" style="margin-top: -6px;"><%= weather[0].after_tomorrow_min.to_i %> °C</div>
                   </div>
+                  <hr style="border: 1px solid white; height: 270px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 3.days, format: "%A")%></div>
                     <%= image_tag(asset_url("weather/#{weather[0].tomorrow_icon}.svg"), style:"height: 45px; margin-top: 72px;") %>
                     <div class="primary--text font-weight-bold" style="padding-top: 17px; font-size: 34px"><%= weather[0].aa_tomorrow_max.to_i %> °C </div>
                     <div class="modal-regular primary--text" style="margin-top: -6px;"><%= weather[0].aa_tomorrow_min.to_i %> °C</div>
                   </div>
+                  <hr style="border: 1px solid white; height: 270px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 4.days, format: "%A")%></div>
                     <%= image_tag(asset_url("weather/#{weather[0].tomorrow_icon}.svg"), style:"height: 45px; margin-top: 72px;") %>
@@ -1266,10 +1055,10 @@
               <div class="flex sm4 text-md-center" style="background: linear-gradient(to right, #211651 -40%, #789c4a 120%); height: 420px; padding-top: 46px">
                 <div class="modal-subheading font-weight-bold white--text" style="text-decoration: underline;">Dólar</div>
                 <div class="modal-subheading font-weight-bold white--text" style="padding-top: 56px;">Hoy <%= l(today, format: "%d de %B") %></div>
-                <div class="modal-title font-weight-bold security-green--text">$<%= indicators[:DOLAR].last %></div>
+                <div class="modal-title font-weight-bold white--text">$<%= indicators[:DOLAR].last %></div>
                 <hr style="width: 47%;margin-top: 12px;margin-left: 28%;margin-bottom: 12px;">
                 <div class="modal-subheading font-weight-bold white--text">Ayer <%= l(today - 1.days, format: "%d de %B") %></div>
-                <div class="modal-title font-weight-bold primary--text">$<%= indicators[:DOLAR].first %></div>
+                <div class="modal-title font-weight-bold white--text">$<%= indicators[:DOLAR].first %></div>
               </div>
               <div class="flex sm8" style="padding: 45px 40px 0 0; background-color: #f3f3f3;">
                 <div class="layout">
@@ -1280,6 +1069,7 @@
                     <div class="primary--text modal-regular" style="margin-top: 43px;">Ayer</div>
                     <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= indicators[:EURO].first %></div>
                   </div>
+                  <hr style="border: 1px solid white; height: 300px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">UF</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;">Hoy</div>
@@ -1287,6 +1077,7 @@
                     <div class="primary--text modal-regular" style="margin-top: 43px;"><%= l(today - 1.months, format: "%B") %></div>
                     <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= indicators[:UF].first %></div>
                   </div>
+                  <hr style="border: 1px solid white; height: 300px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">IPC</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;">Hoy</div>
@@ -1294,6 +1085,7 @@
                     <div class="primary--text modal-regular" style="margin-top: 43px;"><%= l(today - 1.months, format: "%B") %></div>
                     <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= indicators[:IPC].first %></div>
                   </div>
+                  <hr style="border: 1px solid white; height: 300px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">IPSA</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;">Hoy</div>
