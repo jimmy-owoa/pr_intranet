@@ -230,7 +230,7 @@ module Frontend
         nickname: @nickname,
         role: General::User.what_role?(@user),
         company: @user.company,
-        birthday: @user.birthday.strftime("%d / %m / %y"),
+        birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%y") : '',
         is_birthday: @user.is_birthday_today,
         position: @user.position,
         date_entry: @user.date_entry,
