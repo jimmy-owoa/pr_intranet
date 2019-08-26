@@ -94,7 +94,7 @@ class General::User < ApplicationRecord
 
   def is_birthday_today
     today = Date.today
-    if (self.birthday.month == today.month && self.birthday.day == today.day)
+    if (self.birthday.present? && self.birthday.month == today.month && self.birthday.day == today.day)
       true
     else
       false
