@@ -394,6 +394,8 @@ module Frontend
         including_tags: @user.terms.inclusive_tags.map{|a| a.name },
         excluding_tags: @user.terms.excluding_tags.map{|a| a.name },
         email: @user.email,
+        birthday: @user.birthday.strftime("%d / %m / %y"),
+        is_birthday: @user.is_birthday_today,
         annexed: @user.annexed,
         breadcrumbs: [
           {link: '/', name: 'Inicio' },
