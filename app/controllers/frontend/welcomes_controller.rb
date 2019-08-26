@@ -54,11 +54,12 @@ module Frontend
       page = params[:page]
       date = params[:date]
       if date == "0"
-        new_users = General::User.where(date_entry: Date.today).order(date_entry: :asc)
+        new_users = General::User.where(date_entry: Date.today)
       else
-        new_users = General::User.where('extract(year from date_entry) = ?', Date.today.year).where('extract(month from date_entry) = ?', date).order(date_entry: :asc)
+        first_day_selected_month = Time.new(Time.now.year,date,1,0,0,0).to_date
+        new_users = General::User.where(date_entry: first_day_selected_month..first_day_selected_month.end_of_month)
       end
-      users = Kaminari.paginate_array(new_users).page(page).per(9)
+      users = new_users.order(:date_entry).page(page).per(9)
       data= []
       users.each do |user|
         image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -73,7 +74,7 @@ module Frontend
           date_entry: l(user.date_entry, format: "%d de %B").downcase,
           image: image,
           color: user.get_color
-        }
+          }
       end
       respond_to do |format|
         format.json { render json: {hits: data} }

@@ -11,7 +11,7 @@ module Frontend
       page = params[:page]
       date = params[:date]
       all_births = Employee::Birth.show_birth.where('extract(year from birthday) = ?', Date.today.year).where('extract(month from birthday) = ?', date) #se cambio de un año a un mes
-      births = Kaminari.paginate_array(all_births).page(page).per(9)
+      births = all_births.order(:birthday).page(page).per(9)
       data = []
       births.each do |birth|   
         birth_father = General::User.where("CONCAT(name,' ',last_name,' ',last_name2) = ?", birth.full_name_father).first

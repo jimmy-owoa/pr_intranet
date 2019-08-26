@@ -6,11 +6,11 @@ module Frontend
       page = params[:page]
       date = params[:date]
       if date == "0"
-        users = General::User.where(birthday: Date.today).show_birthday.order(birthday: :asc)
+        users = General::User.where(birthday: Date.today).show_birthday
       else
-        users =  General::User.where('extract(month from birthday) = ?', date).show_birthday.order(birthday: :asc)
+        users =  General::User.where('extract(month from birthday) = ?', date).show_birthday
       end
-      birthdays = Kaminari.paginate_array(users).page(page).per(9)
+      birthdays = users.order(:birthday).page(page).per(9)
       data = []
       birthdays.each do |user|
         data << {
