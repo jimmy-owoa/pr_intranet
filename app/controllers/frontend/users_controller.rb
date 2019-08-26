@@ -65,7 +65,7 @@ module Frontend
         annexed: @user.annexed,
         position: @user.position,
         company: @user.company,
-        birthday: @user.birthday.strftime("%d / %m / %y"),
+        birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%y") : '',
         is_birthday: @user.is_birthday_today,
         address: @user.address,
         location: @location,
