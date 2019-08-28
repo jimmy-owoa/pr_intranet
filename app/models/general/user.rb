@@ -33,6 +33,7 @@ class General::User < ApplicationRecord
   scope :date_birth , -> { where("MONTH(birthday) = ?", Date.today.month ) }
   scope :birthdays, -> { where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :first_welcome, -> { joins(:image_attachment).where("DATE_FORMAT(general_users.created_at, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
+  scope :users_birthday_today, -> { where('MONTH(birthday) = ?', Date.today.month).where('DAY(birthday) = ?', Date.today.day)}
 
   PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
 
@@ -100,6 +101,7 @@ class General::User < ApplicationRecord
       false
     end 
   end
+
   def self.welcome?(id, date)
     today = Date.today.strftime("%d/%m/%Y")
     user = find(id)
