@@ -15,14 +15,12 @@ module Frontend
       data = []
       births.each do |birth|   
         birth_father = General::User.where("CONCAT(name,' ',last_name,' ',last_name2) = ?", birth.full_name_father).first
-        birth_mother = General::User.where("CONCAT(name,' ',last_name,' ',last_name2) = ?", birth.full_name_mother).first
-        email = 
         if birth_father.present?
-           birth_father.email
-        elsif birth_mother.present?
-          birth_mother.email
+          email = birth_father.email
+          color = birth_father.get_color
         else
-          'sin email'
+          email = 'sin email'
+          color = 'black'
         end 
         images = []
         birth.permitted_images.map{|image| images << url_for(image.variant(resize: '500x500>'))}
@@ -37,6 +35,7 @@ module Frontend
           father: birth.full_name_father,
           mother: birth.full_name_mother,
           email: email,
+          color: color,
         }
       end
       respond_to do |format|
