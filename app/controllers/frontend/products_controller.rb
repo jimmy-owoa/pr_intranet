@@ -47,7 +47,7 @@ module Frontend
 
     def product
       id = params[:id].present? ? params[:id] : nil
-      product = Marketplace::Product.find(id)
+      product = Marketplace::Product.show_product.where(id: id).first
       data = []
       items = []
       product.images.each do |image|
@@ -65,12 +65,11 @@ module Frontend
         type: product.product_type,
         currency: product.currency,
         price: product.price,
-        published_date: product.published_date.strftime("%d/%m/%Y"),
+        published_date: product.published_date.present? ?  product.published_date.strftime("%d/%m/%Y") : '',
         email: product.email,
         phone: product.phone,
         tags: product.terms.tags,
         location: product.location,
-        expiration: product.published_date + product.expiration.days,
         approved: product.approved,
         user_id: product.user_id,
         user_company: product.user.company,
