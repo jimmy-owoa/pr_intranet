@@ -373,8 +373,8 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
-    t.integer "uv_index"
     t.integer "location_id"
+    t.integer "uv_index"
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
