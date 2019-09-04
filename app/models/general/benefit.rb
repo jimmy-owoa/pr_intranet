@@ -6,7 +6,7 @@ class General::Benefit < ApplicationRecord
   has_many :benefit_group_relationships, class_name: 'General::BenefitGroupRelationship', foreign_key: :benefit_id
   has_many :benefit_groups, -> { distinct }, through: :benefit_group_relationships
   
-  belongs_to :benefit_type
+  belongs_to :benefit_type, class_name: 'General::BenefitType', inverse_of: :benefits
 
   accepts_nested_attributes_for :terms
   accepts_nested_attributes_for :benefit_groups
