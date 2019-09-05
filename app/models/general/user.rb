@@ -21,12 +21,12 @@ class General::User < ApplicationRecord
   has_many :education_institutions, through: :education_states
   has_many :family_members, class_name: 'PersonalData::FamilyMember', foreign_key: :user_id
   
-  belongs_to :location, class_name: 'General::Location', inverse_of: :users
+  belongs_to :location, class_name: 'General::Location', inverse_of: :users, optional: true
   belongs_to :benefit_group, optional: true, class_name: 'General::BenefitGroup'
-  belongs_to :office, class_name: 'Company::Office', foreign_key: :user_id
-  belongs_to :cost_center, class_name: 'Company::CostCenter', foreign_key: :user_id
-  belongs_to :management, class_name: 'Company::Management', foreign_key: :user_id
-  belongs_to :company, class_name: 'Company::Company', inverse_of: :users
+  belongs_to :office, class_name: 'Company::Office', inverse_of: :users, optional: true
+  belongs_to :cost_center, class_name: 'Company::CostCenter', inverse_of: :users, optional: true
+  belongs_to :management, class_name: 'Company::Management', inverse_of: :users, optional: true
+  belongs_to :company, class_name: 'Company::Company', inverse_of: :users, optional: true
 
   accepts_nested_attributes_for :terms
 
