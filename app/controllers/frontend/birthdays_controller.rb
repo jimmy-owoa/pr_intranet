@@ -20,7 +20,7 @@ module Frontend
           full_name: user.name + ' ' + user.last_name,
           email: user.email,
           annexed: user.annexed,
-          company: user.company,
+          company: user.company.name,
           birthday: l(user.birthday, format: "%d de %B").downcase,
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
@@ -75,7 +75,7 @@ module Frontend
           annexed: user.annexed,
           birthday: user.birthday,
           created_at: user.created_at,
-          company: user.company.titleize,
+          company: user.company.name.titleize,
           image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
           color: user.get_color
         }
