@@ -6,7 +6,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]
 
     def index
-      products = Marketplace::Product.all
+      products = Marketplace::Product.show_product
       data = []
       items = []
       products.each do |product|
@@ -47,7 +47,7 @@ module Frontend
 
     def product
       id = params[:id].present? ? params[:id] : nil
-      product = Marketplace::Product.show_product.where(id: id).first
+      product = Marketplace::Product.where(id: id).first
       data = []
       items = []
       product.images.each do |image|
@@ -72,7 +72,7 @@ module Frontend
         location: product.location,
         approved: product.approved,
         user_id: product.user_id,
-        user_company: product.user.company,
+        user_company: product.user.company.name,
         user_full_name: General::User.find(product.user_id).full_name,
         is_expired: product.is_expired,
         items: product.images.present? ? items : 
