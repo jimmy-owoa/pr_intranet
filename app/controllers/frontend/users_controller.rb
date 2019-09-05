@@ -22,7 +22,7 @@ module Frontend
             name: children.name,
             last_name: children.last_name,
             position: children.position,
-            company: children.company,
+            company: children.company.name,
             color: children.get_color,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -36,7 +36,7 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company,
+            company: sibling.company.name,
             color: sibling.get_color,
             image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -49,7 +49,7 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company,
+          company: @user.parent.company.name,
           color: @user.get_color,
           image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -64,7 +64,7 @@ module Frontend
         email: @user.email,
         annexed: @user.annexed,
         position: @user.position,
-        company: @user.company,
+        company: @user.company.name,
         birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%y") : '',
         is_birthday: @user.is_birthday_today,
         address: @user.address,
@@ -102,7 +102,7 @@ module Frontend
             name: children.name,
             last_name: children.last_name,
             position: children.position,
-            company: children.company.titleize,
+            company: children.company.name.titleize,
             color: children.get_color,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -116,7 +116,7 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company.titleize,
+            company: sibling.company.name.titleize,
             color: sibling.get_color,
             image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -129,7 +129,7 @@ module Frontend
           name: user.parent.name,
           last_name: user.parent.last_name,
           position: user.parent.position,
-          company: user.parent.company.titleize,
+          company: user.parent.company.name.titleize,
           color: user.parent.get_color,
           image: user.parent.image.attached? ?
           url_for(user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -229,7 +229,7 @@ module Frontend
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         nickname: @nickname,
         role: General::User.what_role?(@user),
-        company: @user.company,
+        company: @user.company.name,
         birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%y") : '',
         is_birthday: @user.is_birthday_today,
         position: @user.position,
@@ -310,7 +310,7 @@ module Frontend
             name: children.name,
             last_name: children.last_name,
             position: children.position,
-            company: children.company,
+            company: children.company.name,
             image: children.image.attached? ?
             url_for(children.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
@@ -323,7 +323,7 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company,
+            company: sibling.company.name,
             image: sibling.image.attached? ?
             url_for(sibling.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
@@ -335,7 +335,7 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company,
+          company: @user.parent.company.name,
           image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
@@ -388,7 +388,7 @@ module Frontend
         last_name: @user.last_name,
         nickname: @nickname,
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
-        company: @user.company,
+        company: @user.company.name,
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),

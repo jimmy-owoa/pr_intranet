@@ -1,119 +1,120 @@
 <style media="screen" type="text/css">
-  @import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
+  @import url("https://fonts.googleapis.com/css?family=Titillium+Web&display=swap");
 
   #menu_section > * {
-    font-family: 'Titillium Web', sans-serif !important;
+    font-family: "Titillium Web", sans-serif !important;
   }
-  .modal-hover{
-    font-family: 'Titillium Web', sans-serif !important;
+  .modal-hover {
+    font-family: "Titillium Web", sans-serif !important;
     font-size: 16px;
-    text-decoration: none; 
+    text-decoration: none !important;
     color: #9d9d9c !important;
   }
-  a.modal-hover:hover{
+  a.modal-hover:hover {
     color: #789c4a !important;
     border-bottom: 1px solid #789c4a;
     padding-bottom: 2px;
   }
-  .top-info{
+  .top-info {
     width: 17%;
     height: 71%;
     display: inline-block;
     vertical-align: middle;
   }
-  .inline{
+  .inline {
     display: inline-block;
     vertical-align: middle;
   }
   /* MODAL ClASS */
- .btn-close {
-	 color: #72933f;
-	 font-size: 50px;
-	 text-decoration: none;
-	 position: absolute;
-   right: 13px;
-   top: -20px;
+  .btn-close {
+    color: #72933f;
+    font-size: 50px;
+    text-decoration: none;
+    position: absolute;
+    right: 13px;
+    top: -20px;
   }
- .btn-close:hover {
-	 color: #919191;
+  .btn-close:hover {
+    color: #919191;
   }
- .modal:before {
-	 content: "";
-	 display: none;
-	 background: rgba(0,0,0,0.6);
-	 position: fixed;
-	 top: 0;
-	 left: 0;
-	 right: 0;
-	 bottom: 0;
-	 z-index: 10;
+  .modal:before {
+    content: "";
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
   }
- .modal:target:before {
-	 display: block;
+  .modal:target:before {
+    display: block;
   }
- .modal:target .modal-dialog {
-	 -webkit-transform: translate(0,0);
-	 -ms-transform: translate(0,0);
-	 transform: translate(0,0);
-	 top: 20%;
+  .modal:target .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    top: 20%;
   }
- .modal-dialog {
-  background: #fefefe;
-  position: fixed;
-  top: -100%;
-  z-index: 11;
-  -webkit-transform: translate(0,-500%);
-  -ms-transform: translate(0,-500%);
-  transform: translate(0,-500%);
-  -webkit-transition: -webkit-transform 0.5s ease-out;
-  -moz-transition: -moz-transform 0.5s ease-out;
-  -o-transition: -o-transform 0.5s ease-out;
-  transition: transform 0.5s ease-out;
-  max-width: 1300px !important;
+  .modal-dialog {
+    background: #fefefe;
+    position: fixed;
+    top: -100%;
+    z-index: 11;
+    -webkit-transform: translate(0, -500%);
+    -ms-transform: translate(0, -500%);
+    transform: translate(0, -500%);
+    -webkit-transition: -webkit-transform 0.5s ease-out;
+    -moz-transition: -moz-transform 0.5s ease-out;
+    -o-transition: -o-transform 0.5s ease-out;
+    transition: transform 0.5s ease-out;
+    max-width: 1300px !important;
   }
- .modal-body {
-	 padding: 20px;
+  .modal-body {
+    padding: 20px;
   }
- .modal-header, .modal-footer {
-	 padding: 10px 20px;
+  .modal-header,
+  .modal-footer {
+    padding: 10px 20px;
   }
- .modal-header {
-	 border-bottom: #eee solid 1px;
+  .modal-header {
+    border-bottom: #eee solid 1px;
   }
- .modal-header h2 {
-	 font-size: 20px;
+  .modal-header h2 {
+    font-size: 20px;
   }
- .modal-footer {
-	 border-top: #eee solid 1px;
-	 text-align: right;
+  .modal-footer {
+    border-top: #eee solid 1px;
+    text-align: right;
   }
   .modal-subheading {
     font-size: 20px;
-    letter-spacing: 1px; 
+    letter-spacing: 1px;
   }
   .modal-heading {
     font-size: 49px;
     margin-top: -13px;
   }
-  .modal-regular{
+  .modal-regular {
     font-size: 17px;
   }
-  .modal-title{
+  .modal-title {
     font-size: 36px;
   }
   /* MODAL CLASS END */
- .font-weight-bold {
+  .font-weight-bold {
     font-weight: 700 !important;
   }
   .white--text {
-      color: #fff !important;
-      caret-color: #fff !important;
+    color: #fff !important;
+    caret-color: #fff !important;
   }
-  .primary--text{
+  .primary--text {
     color: #1e184a !important;
     caret-color: #1e184a !important;
   }
-  .security-green--text{
+  .security-green--text {
     color: #72933f !important;
     caret-color: #72933f !important;
   }
@@ -131,7 +132,7 @@
   }
   .modalDialog {
     position: fixed;
-    font-family: 'Titillium Web', sans-serif;
+    font-family: "Titillium Web", sans-serif;
     top: 0;
     right: 0;
     bottom: 0;
@@ -242,17 +243,18 @@
     flex-wrap: wrap;
     width: 100%;
   }
-  .v-text-field.v-text-field--enclosed .v-text-field__details, .v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {
+  .v-text-field.v-text-field--enclosed .v-text-field__details,
+  .v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {
     padding: 0 12px;
   }
   .theme--light.v-text-field--solo > .v-input__control > .v-input__slot {
-      border-radius: 2px;
-      background: #fff;
+    border-radius: 2px;
+    background: #fff;
   }
   .v-text-field > .v-input__control > .v-input__slot {
-      cursor: text;
-      -webkit-transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-      transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    cursor: text;
+    -webkit-transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    transition: background 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   }
   .v-text-field > .v-input__control > .v-input__slot > .v-text-field__slot {
     display: -webkit-box;
@@ -269,46 +271,54 @@
     align-items: center;
   }
   .v-input__slot {
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      color: inherit;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      margin-bottom: 8px;
-      min-height: inherit;
-      position: relative;
-      -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-      transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
-      width: 100%;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: inherit;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 8px;
+    min-height: inherit;
+    position: relative;
+    -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+    width: 100%;
   }
-  .theme--light.v-input:not(.v-input--is-disabled) input, .theme--light.v-input:not(.v-input--is-disabled) textarea {
-    color: rgba(0,0,0,0.87);
+  .theme--light.v-input:not(.v-input--is-disabled) input,
+  .theme--light.v-input:not(.v-input--is-disabled) textarea {
+    color: rgba(0, 0, 0, 0.87);
   }
   .v-input input {
-      max-height: 32px;
+    max-height: 32px;
   }
   .v-text-field input {
-      -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-      line-height: 20px;
-      padding: 8px 0 8px;
-      max-width: 100%;
-      min-width: 0px;
-      width: 100%;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    line-height: 20px;
+    padding: 8px 0 8px;
+    max-width: 100%;
+    min-width: 0px;
+    width: 100%;
   }
-  button, input, select, textarea {
-      background-color: transparent;
-      border-style: none;
-      color: inherit;
+  button,
+  input,
+  select,
+  textarea {
+    background-color: transparent;
+    border-style: none;
+    color: inherit;
   }
-  button, input, optgroup, select, textarea {
-      font: inherit;
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font: inherit;
   }
   input {
-      border-radius: 0;
+    border-radius: 0;
   }
   .theme--light.v-card {
     background-color: #fff;
@@ -424,7 +434,7 @@
   * {
     margin: 0;
     padding: 0;
-    font-family: 'Titillium Web', sans-serif;
+    font-family: "Titillium Web", sans-serif;
     box-sizing: border-box;
   }
   .search_position {
@@ -511,7 +521,7 @@
     margin-bottom: 5px;
     text-transform: uppercase;
   }
-  li.submenu > ul > ul > a{
+  li.submenu > ul > ul > a {
     line-height: 25px;
   }
   nav ul.megamenu ul li {
@@ -565,7 +575,7 @@
     margin-top: 18px;
   }
   .head_section {
-    font-family: 'Titillium Web', sans-serif;
+    font-family: "Titillium Web", sans-serif;
     font-size: 12px;
     color: #8fca00 !important;
     line-height: 12px;
@@ -577,12 +587,12 @@
     font-size: 14px;
     font-weight: 400;
     color: #333333;
-    font-family: 'Titillium Web', sans-serif;
+    font-family: "Titillium Web", sans-serif;
   }
   .link-format:hover {
     text-decoration: underline;
   }
-  .arrow_down_menu{
+  .arrow_down_menu {
     color: #8fca00;
     width: 18px;
     padding-left: 8px;
@@ -682,9 +692,9 @@
     max-width: 91.66666666666666%;
   }
   .flex.sm12 {
-      flex-basis: 100%;
-      flex-grow: 0;
-      max-width: 100%;
+    flex-basis: 100%;
+    flex-grow: 0;
+    max-width: 100%;
   }
   .layout {
     display: -webkit-box;
@@ -724,10 +734,10 @@
     caret-color: #fff !important;
   }
   nav > ul > li:hover {
-  /* background: red; */
-  text-decoration: underline;
-  text-underline-position: under;
-}
+    /* background: red; */
+    text-decoration: underline;
+    text-underline-position: under;
+  }
   /* ################################################################## */
   @media (min-width: 600px) {
     nav {
@@ -737,23 +747,23 @@
       display: flex;
     }
     .head_menu {
-    font-family: 'Titillium Web', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 18px;
-    color: white !important;
-  }
+      font-family: "Titillium Web", sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 18px;
+      color: white !important;
+    }
   }
   @media (min-width: 960px) {
     .search_position {
       right: 0px;
     }
     .head_menu {
-    font-family: 'Titillium Web', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 18px;
-    color: white !important;
+      font-family: "Titillium Web", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 18px;
+      color: white !important;
     }
     .container {
       max-width: 1140px;
@@ -899,7 +909,7 @@
       /* border-bottom: 5px solid green; */
     }
     /* second stage (the mega-menu) csc*/
-    nav ul.megamenu{
+    nav ul.megamenu {
       flex: 1 1 100%;
       margin: auto;
       top: -9999px;
@@ -959,6 +969,7 @@
     }
   }
 </style>
+
 <div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>"></div>
 
 <img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="height: 8px; width: 100%"/>
@@ -1253,7 +1264,7 @@
                 </div>
               </div>
             </div>
-            <ul class="results_ul" style="color: red;"></ul>
+            <ul class="results_ul" style="color: red; top: 49px;"></ul>
             <br/>
           </div>
         </div>

@@ -37,7 +37,7 @@ module Frontend
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,
-          company: user.company.present? ? user.company.titleize : nil,
+          company: user.company.present? ? user.company.name.titleize : nil,
           date: user.date_entry.present? ? user.date_entry.strftime("%Y-%m-%d") : user.date_entry,
           show_birthday: user.show_birthday,
           image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
@@ -70,7 +70,7 @@ module Frontend
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,
-          company: user.company.present? ? user.company : 'Sin información',
+          company: user.company.present? ? user.company.name : 'Sin información',
           date_entry: l(user.date_entry, format: "%d de %B").downcase,
           image: image,
           color: user.get_color

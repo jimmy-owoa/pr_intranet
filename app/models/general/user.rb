@@ -15,9 +15,18 @@ class General::User < ApplicationRecord
   has_many :answers, class_name: 'Survey::Answer', foreign_key: :user_id
   has_many :births, class_name: 'Employee::Birth', foreign_key: :user_id
   has_many :notifications, class_name: 'General::Notification'
+  has_many :language_levels, class_name: 'PersonalData::LanguageLevel', foreign_key: :user_id, inverse_of: :user
+  has_many :languages, through: :language_levels
+  has_many :education_states, class_name: 'PersonalData::EducationState', foreign_key: :user_id, inverse_of: :user
+  has_many :education_institutions, through: :education_states
+  has_many :family_members, class_name: 'PersonalData::FamilyMember', foreign_key: :user_id
   
   belongs_to :location, class_name: 'General::Location', inverse_of: :users
   belongs_to :benefit_group, optional: true, class_name: 'General::BenefitGroup'
+  belongs_to :office, class_name: 'Company::Office', foreign_key: :user_id
+  belongs_to :cost_center, class_name: 'Company::CostCenter', foreign_key: :user_id
+  belongs_to :management, class_name: 'Company::Management', foreign_key: :user_id
+  belongs_to :company, class_name: 'Company::Company', inverse_of: :users
 
   accepts_nested_attributes_for :terms
 
@@ -167,7 +176,7 @@ class General::User < ApplicationRecord
   end
 
   def get_color 
-    case self.company.upcase
+    case self.company.name.upcase
       when 'BANCO SECURITY S.A.' || 'FACTORING SECURITY S.A.' || 'MANDATOS SECURITY LIMITADA'
         '#8D0C9A'
       when 'TRAVEX SECURITY' || 'TRAVEL SECURITY S.A.' || 'INMOBILIARIA SECURITY S.A.' || 'INMOBILIARIA SECURITY SIETE' || 'REPRESENTACIONES SECURITY LTDA'

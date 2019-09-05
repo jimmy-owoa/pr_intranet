@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_211801) do
+ActiveRecord::Schema.define(version: 2019_09_04_133024) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -68,6 +68,32 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
     t.timestamp "started_at"
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+  end
+
+  create_table "company_companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "company_cost_centers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "company_managements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "company_offices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "address"
+    t.bigint "commune_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commune_id"], name: "index_company_offices_on_commune_id"
   end
 
   create_table "employee_birthdays", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -133,6 +159,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "benefit_group_id"
     t.bigint "benefit_type_id"
     t.string "code"
     t.string "url"
@@ -329,7 +356,6 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
     t.integer "rgt"
     t.integer "depth"
     t.integer "children_count"
-    t.string "company"
     t.string "position"
     t.string "address"
     t.string "legal_number"
@@ -340,7 +366,25 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
     t.integer "xoops_id"
     t.string "last_name2"
     t.string "nt_user"
+    t.string "gender"
+    t.string "position_classification"
+    t.string "employee_classification"
+    t.string "syndicate_member"
+    t.string "rol"
+    t.string "civil_status"
+    t.string "contract_type"
+    t.string "schedule"
+    t.boolean "is_boss"
+    t.boolean "handicapped"
+    t.boolean "has_children"
+    t.bigint "cost_center_id"
+    t.bigint "office_id"
+    t.bigint "management_id"
+    t.integer "company_id", default: 0
+    t.index ["cost_center_id"], name: "index_general_users_on_cost_center_id"
     t.index ["email"], name: "index_general_users_on_email", unique: true
+    t.index ["management_id"], name: "index_general_users_on_management_id"
+    t.index ["office_id"], name: "index_general_users_on_office_id"
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
   end
 
@@ -353,6 +397,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
@@ -373,8 +418,41 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
-    t.integer "location_id"
     t.integer "uv_index"
+  end
+
+  create_table "location_cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.bigint "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_location_cities_on_region_id"
+  end
+
+  create_table "location_communes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_location_communes_on_city_id"
+  end
+
+  create_table "location_countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "location_regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.bigint "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_location_regions_on_country_id"
   end
 
   create_table "marketplace_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -444,6 +522,58 @@ ActiveRecord::Schema.define(version: 2019_08_08_211801) do
     t.index ["main_image_id"], name: "index_news_posts_on_main_image_id"
     t.index ["post_parent_id"], name: "index_news_posts_on_post_parent_id"
     t.index ["term_id"], name: "index_news_posts_on_term_id"
+  end
+
+  create_table "personal_data_education_institutions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "personal_data_education_states", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "state"
+    t.bigint "education_institution_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_institution_id"], name: "index_personal_data_education_states_on_education_institution_id"
+    t.index ["user_id"], name: "index_personal_data_education_states_on_user_id"
+  end
+
+  create_table "personal_data_family_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "lastname"
+    t.string "relation"
+    t.date "birthday"
+    t.string "gender"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_personal_data_family_members_on_user_id"
+  end
+
+  create_table "personal_data_home_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "address"
+    t.bigint "commune_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commune_id"], name: "index_personal_data_home_addresses_on_commune_id"
+  end
+
+  create_table "personal_data_language_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "language_id"
+    t.string "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_personal_data_language_levels_on_language_id"
+    t.index ["user_id"], name: "index_personal_data_language_levels_on_user_id"
+  end
+
+  create_table "personal_data_languages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "religion_gospels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
