@@ -72,7 +72,7 @@ module Frontend
         location: product.location,
         approved: product.approved,
         user_id: product.user_id,
-        user_company: product.user.company.name,
+        user_company: product.user.company.present? ? product.user.company.name : "",
         user_full_name: General::User.find(product.user_id).full_name,
         is_expired: product.is_expired,
         items: product.images.present? ? items : 
