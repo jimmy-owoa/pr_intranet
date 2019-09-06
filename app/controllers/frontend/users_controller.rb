@@ -49,7 +49,7 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company.present? ? parent.company.name : "",
+          company: @user.parent.company.present? ? @user.parent.company.name : "",
           color: @user.get_color,
           image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -64,7 +64,7 @@ module Frontend
         email: @user.email,
         annexed: @user.annexed,
         position: @user.position,
-        company: @user.company.present? ? user.company.name : "",
+        company: @user.company.present? ? @user.company.name : "",
         birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%y") : '',
         is_birthday: @user.is_birthday_today,
         address: @user.address,
@@ -129,7 +129,7 @@ module Frontend
           name: user.parent.name,
           last_name: user.parent.last_name,
           position: user.parent.position,
-          company: user.parent.company.present? ? parent.company.name.titleize : "",
+          company: user.parent.company.present? ? user.parent.company.name.titleize : "",
           color: user.parent.get_color,
           image: user.parent.image.attached? ?
           url_for(user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
@@ -229,7 +229,7 @@ module Frontend
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
         nickname: @nickname,
         role: General::User.what_role?(@user),
-        company: @user.company.present? ? user.company.name : "",
+        company: @user.company.present? ? @user.company.name : "",
         birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%y") : '',
         is_birthday: @user.is_birthday_today,
         position: @user.position,
@@ -335,7 +335,7 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company.present? ? parent.company.name : "",
+          company: @user.parent.company.present? ? @user.pa@rent.company.name : "",
           image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
@@ -388,7 +388,7 @@ module Frontend
         last_name: @user.last_name,
         nickname: @nickname,
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : 'sin rut',
-        company: @user.company.present? ? user.company.name : "",
+        company: @user.company.present? ? @user.company.name : "",
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
         url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
