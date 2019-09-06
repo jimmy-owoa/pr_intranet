@@ -335,7 +335,7 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company.present? ? @user.pa@rent.company.name : "",
+          company: @user.parent.company.present? ? @user.parent.company.name : "",
           image: @user.parent.image.attached? ?
           url_for(@user.parent.image.variant(resize: '150x150')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
         }
