@@ -18,6 +18,9 @@ class WeatherInformationJob < ApplicationJob
   end
 
   def set_weather
+    if @santiago["error"].present?
+      puts "Error en el llamado a la api darksky.net: " + @santiago["error"]
+    end  
     #save data
     General::WeatherInformation.create(
       location_id: General::Location.antofagasta.id, 
@@ -248,10 +251,7 @@ class WeatherInformationJob < ApplicationJob
       aaa_tomorrow_max: @puerto_montt['daily']['data'][4]['temperatureMax'].to_i,
       aaa_tomorrow_min: @puerto_montt['daily']['data'][4]['temperatureMin'].to_i,
       aaa_tomorrow_icon: @puerto_montt['daily']['data'][4]['icon'],      
-    ) 
-    if @santiago["error"].present?
-       puts "Error en el llamado a la api darksky.net: " + @santiago["error"]
-    end   
+    )  
   end
 
 end
