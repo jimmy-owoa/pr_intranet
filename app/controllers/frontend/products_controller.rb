@@ -6,7 +6,14 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]
 
     def index
-      products = Marketplace::Product.show_product
+      page = params[:page]
+      category = params[:category]
+      if category == "all"
+        products = Marketplace::Product.show_product
+      else
+        products =  Marketplace::Product.where(product_type: category).show_product
+      end
+      products = products.order(:published_date).page(page).per(6)
       data = []
       items = []
       products.each do |product|
@@ -40,7 +47,7 @@ module Frontend
         }
       end
       respond_to do |format|
-        format.json { render json: data }
+        format.json { render json: {hits: data} }
         format.js
       end
     end
@@ -53,7 +60,7 @@ module Frontend
       product.images.each do |image|
         if image.present?
           items << {
-            src: url_for(image),
+            src: url_for(image.variant(combine_options: {resize: "600x400>", gravity: 'Center' })),
             thumbnail: url_for(image.variant(resize: "100x100"))
           }
         end

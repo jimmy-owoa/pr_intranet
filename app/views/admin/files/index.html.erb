@@ -22,7 +22,7 @@
                               admin_file_path(file), :class => 'btn btn-success btn-sm' %>
                   <%= link_to t('.edit', :default => t("helpers.files.edit")),
                               edit_admin_file_path(file), :class => 'btn btn-primary btn-sm' %>
-                  <%= link_to 'Deshabilitar',
+                  <%= link_to 'Eliminar',
                               admin_file_path(file),
                               :method => :delete,
                               :data => { :confirm => t('.confirm', :default => t("helpers.files.confirm", :default => '¿Estás seguro??')) },

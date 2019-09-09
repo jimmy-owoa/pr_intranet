@@ -32,6 +32,7 @@ module Frontend
           images: images,
           gender: birth.gender,
           birthday: l(birth.birthday, format: "%d de %B").downcase,
+          birthday_format_2: birth.birthday.strftime("%d-%m-%Y"),
           father: birth.full_name_father,
           mother: birth.full_name_mother,
           email: email,
