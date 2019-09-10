@@ -1217,11 +1217,11 @@
                         <% submenus.each do |link| %>
                         <div>
                           <% if link[:link].downcase[0..3] == 'http'%>
-                            <%= link_to link[:title], link[:link] %><br>
+                            <%= link_to link[:title], host +  link[:link] %><br>
                           <% elsif link[:post_slug].present? %>
-                            <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
+                            <%= link_to link[:title], host + '#/noticias/' + link[:post_slug]%>
                           <% else %>
-                            <%= link_to link[:title], '/#/' + link[:link] %>
+                            <%= link_to link[:title], host + '#/' + link[:link] %>
                           <% end %>
                         </div>
                         <% end %>
@@ -1230,16 +1230,16 @@
                   </div>
                   <!-- MENU MODAL END -->
                   <% if main_menu.title != "Mis beneficios" %>
-                    <%= link_to 'Ver más', '/#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
+                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
                   <% end %>
                 <% else %>
                   <% submenus.each do |link| %>
                     <% if link[:link].downcase[0..3] == 'http'%>
-                      <%= link_to link[:title], link[:link] %>
+                      <%= link_to link[:title], host + link[:link] %>
                     <% elsif link[:post_slug].present? %>
-                      <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
+                      <%= link_to link[:title], host +  '#/noticias/' + link[:post_slug]%>
                     <% else %>
-                      <%= link_to link[:title], '/#/' + link[:link] %>
+                      <%= link_to link[:title], host + '#/' + link[:link] %>
                     <% end %>
                   <% end %>
                 <% end %>
