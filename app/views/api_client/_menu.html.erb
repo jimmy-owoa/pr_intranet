@@ -4,6 +4,10 @@
   #menu_section {
     font-family: "Titillium Web", sans-serif !important;
   }
+  nav>ul>li>ul .megamenu::before {
+    content: normal;
+  }
+  
   .modal-hover {
     font-family: "Titillium Web", sans-serif !important;
     font-size: 16px;
@@ -1187,22 +1191,22 @@
                   <% submenus.first(3).each do |link| %>
                     <% benefit_count = 0 %>
                     <% if link[:link].downcase[0..3] == 'http'%>
-                      <%= link_to link[:title], link[:link] %>
+                      <%= link_to link[:title], host + link[:link] %>
                     <% elsif link[:post_slug].present? %>
-                      <%= link_to link[:title], '/#/noticias/' + link[:post_slug]%>
+                      <%= link_to link[:title], host + '#/noticias/' + link[:post_slug]%>
                     <% elsif main_menu.title == "Mis beneficios" %>
                       <% if benefits.present? %>
                         <% benefit = benefits.find_by_title(link[:title]) %>
                       <% end %>
                       <% if benefit.present? %>
                         <% benefit_count += 1 %>
-                        <%= link_to link[:title], '/#/beneficios/' + benefit.id.to_s %>
+                        <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s %>
                         <% if benefit_count > 2 %>
-                          <%= link_to 'Ver más', '/#/beneficios', style: 'text-decoration: underline;' %>
+                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;' %>
                         <% end %>
                       <% end %>
                     <% else %>
-                      <%= link_to link[:title], '/#/' + link[:link] %>
+                      <%= link_to link[:title], host + '#/' + link[:link] %>
                     <% end %>
                   <% end %>
                   <!-- MENU MODAL START -->

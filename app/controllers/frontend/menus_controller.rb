@@ -37,6 +37,7 @@ module Frontend
       user = General::User.find_by_legal_number(rut[0...-1])
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
+      host = request.referer == "https://misecurity-qa3.exa.cl/" ? "https://misecurity.elmejorlugarparatrabajar.cl/" : "http://localhost:8080/" 
       weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id) 
       uv_index = weather.last.get_uv
       location = General::Location.find(location_id)
@@ -89,6 +90,7 @@ module Frontend
       end
       data = {
         menus: menus,
+        host: host,
         user: user,
         user_image: url_for(user.image.variant(combine_options: {resize: 'x42', gravity: 'Center'})),
         weather: weather,
