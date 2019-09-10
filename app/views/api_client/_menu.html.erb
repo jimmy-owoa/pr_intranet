@@ -1,7 +1,7 @@
 <style media="screen" type="text/css">
   @import url("https://fonts.googleapis.com/css?family=Titillium+Web&display=swap");
 
-  #menu_section > * {
+  #menu_section {
     font-family: "Titillium Web", sans-serif !important;
   }
   .modal-hover {
@@ -496,11 +496,12 @@
     flex-wrap: wrap;
     top: -9999px;
     padding: 20px 10px 0;
-    background: #fff;
+    background: #fff !important;
     text-align: left;
     max-width: 1340px;
     /* border-top: 5px solid green; */
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    background: transparent;
     z-index: 1;
     transition-delay: 0.15s;
     left: 50%;
@@ -523,6 +524,7 @@
   }
   li.submenu > ul > ul > a {
     line-height: 25px;
+    padding: 0;
   }
   nav ul.megamenu ul li {
     display: block;
