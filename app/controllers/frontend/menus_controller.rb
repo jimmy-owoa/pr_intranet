@@ -40,7 +40,9 @@ module Frontend
       host = if request.referer == "https://misecurity-qa3.exa.cl/" 
               "https://misecurity.elmejorlugarparatrabajar.cl/" 
             elsif request.referer == "https://misecurity.elmejorlugarparatrabajar.cl/" 
-              "https://misecurity.elmejorlugarparatrabajar.cl/"
+              request.referer
+            elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
+              request.referer
             else
               "http://localhost:8080/" 
             end
