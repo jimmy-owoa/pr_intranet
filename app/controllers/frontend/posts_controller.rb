@@ -156,19 +156,16 @@ module Frontend
     relationed_posts.each do |post|
       data_relationed_posts << {
         id: post.id,
-        title: post.title.slice(0..52) + '...',
+        title: post.title.length > 52 ? post.title.upcase.slice(0..52) + '...' : post.title.upcase,
         slug: post.slug,
         published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
         main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       }
     end
-    image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
-
     content = fix_content(post.content)
     data << {
       id: post.id,
       title: post.title,
-      main_image: post.main_image,
       url: root_url + 'admin/posts/' + "#{post.id}" + '/edit',
       user_id: post.user_id,
       published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
@@ -176,7 +173,7 @@ module Frontend
       post_type: post.post_type.present? ? post.post_type.upcase : '',
       important: post.important,
       tags: post.terms.tags,
-      main_image: image,
+      main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg',
       format: post.format,
       extract: post.extract.present? ? post.extract : "",
       breadcrumbs: [
