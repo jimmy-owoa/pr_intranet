@@ -12,7 +12,7 @@ module Frontend
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
-        title: post.title,
+        title: post.title.length > 36 ? post.title.slice(0..36) + '...' : post.title,
         main_image: post.main_image,
         published_at: post.created_at.strftime("%d/%m/%Y · %H:%M"),
         post_type: post.post_type.present? ? post.post_type.upcase : '',
@@ -156,7 +156,7 @@ module Frontend
     relationed_posts.each do |post|
       data_relationed_posts << {
         id: post.id,
-        title: post.title.length > 52 ? post.title.upcase.slice(0..52) + '...' : post.title.upcase,
+        title: post.title.length > 36 ? post.title.upcase.slice(0..36) + '...' : post.title.upcase,
         slug: post.slug,
         published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
         main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
