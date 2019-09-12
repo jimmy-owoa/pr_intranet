@@ -9,7 +9,7 @@ module Frontend
         data << {
           id: user.id,
           email: user.email,
-          full_name: user.name + ' ' + user.last_name,
+          full_name: user.full_name,
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,
@@ -66,7 +66,7 @@ module Frontend
         data << {
           id: user.id,
           email: user.email,
-          full_name: user.name + ' ' + user.last_name,
+          full_name: user.full_name,
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,
