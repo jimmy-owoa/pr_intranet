@@ -143,7 +143,7 @@ class General::User < ApplicationRecord
   end
 
   def full_name
-    self.last_name2.present? ? self.name + ' ' + self.last_name + ' ' + self.last_name2 :  self.name + ' ' + self.last_name
+    self.name + ' ' + self.last_name
   end
 
   def self.what_role? user
