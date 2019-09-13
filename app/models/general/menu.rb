@@ -60,7 +60,7 @@ class General::Menu < ApplicationRecord
       elsif value["nombre"].present?
         menus << {
           title: value["nombre"],
-          link: "https://misecurity-qa2.exa.cl#{value['link']}",
+          link: "https://misecurity-qa3.exa.cl#{value['link']}",
           menu_id: -1
         }
       end
