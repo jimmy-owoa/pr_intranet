@@ -12,7 +12,7 @@ module Frontend
       @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + '/assets/news.jpg'
       data << {
         id: post.id,
-        title: post.title.length > 36 ? post.title.slice(0..36) + '...' : post.title,
+        title: post.title.length > 36 ? post.title.slice(0..42) + '...' : post.title,
         main_image: post.main_image,
         published_at: post.created_at.strftime("%d/%m/%Y · %H:%M"),
         post_type: post.post_type.present? ? post.post_type.upcase : '',
