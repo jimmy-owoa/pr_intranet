@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_04_133024) do
+ActiveRecord::Schema.define(version: 2019_09_13_210610) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -276,6 +276,30 @@ ActiveRecord::Schema.define(version: 2019_09_04_133024) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "general_object_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "object"
+    t.integer "object_id"
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_general_object_profiles_on_profile_id"
+  end
+
+  create_table "general_profile_attributes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "attribute"
+    t.string "value"
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_general_profile_attributes_on_profile_id"
+  end
+
+  create_table "general_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_santorals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "santoral_day"
@@ -330,6 +354,15 @@ ActiveRecord::Schema.define(version: 2019_09_04_133024) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "general_user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_general_user_profiles_on_profile_id"
+    t.index ["user_id"], name: "index_general_user_profiles_on_user_id"
   end
 
   create_table "general_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

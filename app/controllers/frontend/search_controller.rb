@@ -10,7 +10,7 @@ module Frontend
       if search
         # result = General::User.search search, fields: [:name], match: :word
         result = Searchkick.search(search, index_name: [General::User, General::Menu, News::Post], operator: "and", order: { _score: :desc })
-        result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/user"}.compact.each do |user|
+        result.with_hit.map{|a| a[0] if a[1]["_index"][0...13] == "general_users"}.compact.each do |user|
           users << {
             id: user.id,
             name: user.name,
@@ -22,7 +22,7 @@ module Frontend
             url_for(user.image) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
           }
         end
-        result.with_hit.map{|a| a[0] if a[1]["_type"] == "news/post"}.compact.each do |post|
+        result.with_hit.map{|a| a[0] if a[1]["_index"][0...10] == "news_posts"}.compact.each do |post|
           @image = post.main_image.present? ? url_for(post.main_image.path) : nil
           posts << {
             id: post.id,
@@ -40,7 +40,7 @@ module Frontend
             main_image: @image
           }
         end
-        @menus = result.with_hit.map{|a| a[0] if a[1]["_type"] == "general/menu"}.compact
+        @menus = result.with_hit.map{|a| a[0] if a[1]["_index"][0...13] == "general_menus"}.compact
         data << [users, posts, @menus]
       end
       respond_to do |format|
