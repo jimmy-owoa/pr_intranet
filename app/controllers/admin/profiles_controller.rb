@@ -57,8 +57,8 @@ module Admin
     def get_data
       start = Time.now
       users = General::User.all
-      @genders = ["Masculino","Femenino"]
-      @is_boss = users.pluck(:is_boss).uniq.reject(&:blank?).sort
+      @genders = ["Masculino","Femenino", "Todos"]
+      @is_boss = ["Si","No", "Todos"]
       @user_class = users.pluck(:employee_classification).uniq.reject(&:blank?).sort
       @regions = Location::Region.pluck(:name).uniq.reject(&:blank?).sort
       @benefit_groups = General::BenefitGroup.pluck(:name).sort
@@ -70,7 +70,7 @@ module Admin
       @contract_types = users.pluck(:contract_type).uniq.reject(&:blank?).sort
       @roles = users.pluck(:rol).uniq.reject(&:blank?).sort
       @schedules = users.pluck(:schedule).uniq.reject(&:blank?).sort
-      @has_childrens = ["Si", "No"]
+      @has_childrens = ["Si", "No", "Todos"]
       @date_entries = users.pluck(:date_entry).uniq.reject(&:blank?).sort
       Rails.logger.info "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + (Time.now - start).to_s
     end
