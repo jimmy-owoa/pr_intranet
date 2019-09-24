@@ -1,22 +1,13 @@
-# require 'sidekiq/web'
-
 Rails.application.routes.draw do
-  # mount Sidekiq::Web => '/sidekiq'
-
   namespace :admin do
     resources :benefit_groups
   end
-  devise_scope :user do
-    root to: "devise/sessions#new"
-  end
-  #authenticate jtw
-  post 'authenticate', to: 'users/authentication#authenticate'
   #
-  devise_for :users,
-  controllers: {
-    sessions: "users/sessions",
-    registrations: "admin/users"
-    }, class_name: "General::User"
+  devise_for :users, class_name: "General::User"
+  
+    get '/auth/callback' => 'devise/omniauth_callbacks#azure_oauth2'
+    post '/auth/callback' => 'devise/omniauth_callbacks#azure_oauth2'
+
     namespace :admin do
       post 'upload', to: 'attachments#upload'
       get 'analytics', to: 'analytics#index'

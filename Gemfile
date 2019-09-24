@@ -32,8 +32,13 @@ gem 'jwt'
 gem 'simple_command'
 
 gem 'simple_form'
-#authorization system
+
+# authorization system
 gem 'devise'
+# oauth2 azure ad
+gem 'omniauth'
+gem 'omniauth-azure-oauth2'
+
 # this is for the console using 'ap'
 gem 'awesome_print'
 #Nested forms with dynamic fields 
@@ -114,7 +119,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-rails'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -136,7 +141,6 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
