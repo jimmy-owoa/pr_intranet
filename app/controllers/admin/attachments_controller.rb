@@ -1,6 +1,6 @@
 module Admin
   class AttachmentsController < AdminController
-    skip_before_action :authenticate_user!, :only => [:create, :upload]
+    # skip_before_action :authenticate_user!, :only => [:create, :upload]
     skip_before_action :verify_authenticity_token, only: :create
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
