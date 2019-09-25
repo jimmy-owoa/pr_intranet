@@ -58,7 +58,6 @@ module Admin
       elsif params['image_id'].present?
         ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
       else
-        params[:birth][:gender] = params[:birth][:gender].to_i
         respond_to do |format|
           if @birth.update(birth_params)
             catch_image(params[:permissions])

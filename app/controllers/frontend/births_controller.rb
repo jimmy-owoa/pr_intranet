@@ -33,7 +33,7 @@ module Frontend
           gender: birth.gender,
           birthday: l(birth.birthday, format: "%d de %B").downcase,
           birthday_format_2: birth.birthday.strftime("%d-%m-%Y"),
-          father: birth.user.present? ? birth.user.full_name : '',
+          father: birth.user.present? ? birth.user.full_name : "",
           email: email,
           color: color,
         }
@@ -58,9 +58,9 @@ module Frontend
           images: images,
           gender: birth.gender ? "Masculino" : "Femenino",
           birthday: birth.birthday,
-          father: birth.user.present? ? birth.user.full_name : '',
-          color: birth.user.present? ? birth.user.get_color : '',
-          email: birth.user.present? ? birth.user.email : ''
+          father: birth.user.present? ? birth.user.full_name : "",
+          color: birth.user.present? ? birth.user.get_color : "",
+          email: birth.user.present? ? birth.user.email : "",
         }
       end
       respond_to do |format|

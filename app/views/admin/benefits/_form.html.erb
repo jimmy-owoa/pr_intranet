@@ -24,7 +24,8 @@
         <%= f.label 'Grupo beneficiario' %>
         <%= select_tag :benefit_groups, options_for_select(General::BenefitGroup.all.map{|i| [i.name]}, f.object.benefit_groups.map(&:name)), 
         multiple: true, class:' form-control string optional', id: 'benefit_groups' %>
-      </div><br />
+      </div>
+      <br />
       <div class="col-md-12">
         <%= f.text_area :content, :class => "tinymce" %>
         <%= tinymce %>
@@ -34,7 +35,7 @@
       <div class="card border-secondary border border-primary rounded">
         <div class="card-body text-secondary text-md-center">
           <% if @benefit.image.attachment.present? %>
-              <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
+            <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
           <% else %>
           <% end %>
           <div class="left">

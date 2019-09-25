@@ -32,9 +32,21 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
-      <%= f.label gender_select(@birth.gender)  %>
-      <%= f.input_field :gender, label: :false, collection: [ [1, 'Masculino' ], [0, 'Femenino'] ], as: :radio_buttons, checked: @birth.gender, label_method: :last, value_method: :first, required: true%>
+      <div class="col-md-4">
+        <div class="row align-items-center">
+          <div class="col-md-3">
+            <%= f.radio_button :gender, true, class: 'form-control radio-inline'%>
+          </div>
+          <div class="col-md-9">
+            Masculino
+          </div>
+          <div class="col-md-3">
+            <%= f.radio_button :gender, false, class: 'form-control radio-inline'%>
+          </div>
+          <div class="col-md-9">
+            Femenino
+          </div>
+        </div>
       </div>
       <div class="col-md-2">
         <% if f.object.new_record? %>
@@ -50,8 +62,8 @@
           <%= f.label 'Es público', class: 'custom-control-label', for: 'birth_is_public'%>
         </div>
       </div>
+    </div>
   </div>
-</div>
   <div class="col-md-4">
     <div class="card p-2">
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
@@ -70,29 +82,29 @@
       </div>
     </div>
   </div>
-
   <% if @birth.unpermitted_images.present? %>
     <div class="container card">
-        <div class="row">
-          <div class="col-sm-10 pull-left">
-            imágenes por aprobar
-          </div>
-          <div class="col-sm-2 pull-right">
-            <button type="button" class="btn btn-primary btn-sm" id='check_all_birth'>Selecciona todo</button>
-          </div>
-        </div><br />
-        <div class="row text-center" >
-          <% @birth.unpermitted_images.each do |image| %>
-            <div class="col-md-2 approved">
-              <figure>
-                <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                <figcaption>
-                  <%= check_box_tag "permissions[]", image.id -%>
-                </figcaption>
-              </figure>
-            </div>
-          <% end %>
+      <div class="row">
+        <div class="col-sm-10 pull-left">
+          imágenes por aprobar
         </div>
+        <div class="col-sm-2 pull-right">
+          <button type="button" class="btn btn-primary btn-sm" id='check_all_birth'>Selecciona todo</button>
+        </div>
+      </div>
+      <br />
+      <div class="row text-center" >
+        <% @birth.unpermitted_images.each do |image| %>
+          <div class="col-md-2 approved">
+            <figure>
+              <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+              <figcaption>
+                <%= check_box_tag "permissions[]", image.id -%>
+              </figcaption>
+            </figure>
+          </div>
+        <% end %>
+      </div>
     </div>
   <% end %>
   <div class="container">
@@ -102,8 +114,8 @@
         <% @birth.permitted_images.each do |image| %>
           <div class="col-md-2">
             <figure>
-                <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                <figcaption><%= link_to 'Borrar', delete_image_admin_birth_path(image), method: :delete, data: { confirm: '¿Estás seguro??' },:class => 'btn btn-sm btn-danger'%></figcaption>
+              <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+              <figcaption><%= link_to 'Borrar', delete_image_admin_birth_path(image), method: :delete, data: { confirm: '¿Estás seguro??' },:class => 'btn btn-sm btn-danger'%></figcaption>
             </figure>
           </div>
         <% end %>
