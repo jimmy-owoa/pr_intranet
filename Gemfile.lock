@@ -138,6 +138,12 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
+    csvjson (1.0.1)
+    csvreader (1.2.4)
+      csvjson (>= 1.0.0)
+      csvyaml (>= 0.1.0)
+      tabreader (>= 1.0.1)
+    csvyaml (1.0.0)
     dalli (2.7.10)
     data-confirm-modal (1.6.2)
       railties (>= 3.0)
@@ -333,6 +339,7 @@ GEM
     sshkit (1.18.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    tabreader (1.0.1)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -393,6 +400,7 @@ DEPENDENCIES
   clipboard-rails
   cocoon
   coffee-rails (~> 4.2)
+  csvreader
   dalli
   data-confirm-modal
   devise
@@ -440,4 +448,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.17.1
+   1.17.3

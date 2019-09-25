@@ -15,6 +15,14 @@
         <%= f.text_area :content, class: 'tinymce' %>
         <%= tinymce height: "400", :relative_urls => false  %>
       </div>
+
+        <div class="col-md-12 col-sm-12">
+          <h5 class="card-title">Perfilamiento</h5>
+        </div>
+          <div class="col-md-12">
+            <%= select_tag :file_ids, options_for_select(General::Profile.all.map{|profile| [profile.name, profile.id]}), multiple: false, class:' form-control string optional' %>
+        </div>
+
       <%= f.hidden_field :user_id, value: current_user.id %>
       <div class="col-md-4 hidden">
         <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
@@ -85,37 +93,6 @@
         <div class="col-md-12">
           <br>
           <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
-        </div>
-      </div>
-    </div>
-    <div class="card pl-4 wrapper" >
-      <input type="checkbox" id="select_all" class="form-check-input"/> <strong>Seleccionar todas</strong>
-      <div class="form-group">
-        <div class= 'scrollDivPost categories'>
-          <%= f.association :terms, collection: @categories, as: :check_boxes, class: 'custom-control-input', label: false %>
-        </div>
-      </div>
-    </div>
-    <div class="card text-md-center p-2 wrapper" >
-      <div class="form-group row ">
-        <div class="col-12 col-sm-12">
-          <%= f.label 'Etiquetas incluyentes' %>
-          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]} + General::BenefitGroup.all.map{|i| [i.name]}, f.object.terms.inclusive_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'inclusive_tag' %>
-        </div>
-        <div class="col-12 col-sm-12">
-          <%= f.label 'Etiquetas excluyentes' %>
-          <%= select_tag :terms_names, options_for_select(General::Term.tags.map{|i| [i.name]} + General::BenefitGroup.all.map{|i| [i.name]}, f.object.terms.excluding_tags.map(&:name)), multiple: true, class:' form-control string optional', id: 'excluding_tag' %>
-          <div class="tip_format">Las etiquetas se seleccionan haciendo click en entrar/enter o con el botón primario del ratón/mouse</div>
-        </div>
-      </div>
-    </div>
-    <div class="card text-md-center p-2" >
-      <div class="form-group ">
-        <div class="col-md-12 col-sm-12">
-          <h5 class="card-title">Perfilamiento</h5>
-        </div>
-          <div class="col-md-12">
-            <%= select_tag :file_ids, options_for_select(General::Profile.all.map{|profile| [profile.name, profile.id]}), multiple: true, class:' form-control string optional' %>
         </div>
       </div>
     </div>

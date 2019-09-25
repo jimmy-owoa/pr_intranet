@@ -450,7 +450,8 @@ module Frontend
       results = General::User.where(query_where)
 
       results.each do |result|
-        data << result.name + ' ' + result.last_name  
+        data << { value: result.id, 
+                  text: result.name + ' ' + result.last_name}
       end
       
 

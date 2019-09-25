@@ -41,11 +41,11 @@ module Admin
         if @post.save
           set_tags
           set_files
-          format.html { redirect_to admin_post_path(@post), notice: 'Noticia fue creada con éxito.'}
-          format.json { render :show, status: :created, location: @post}
+          format.html { redirect_to admin_post_path(@post), notice: "Noticia fue creada con éxito." }
+          format.json { render :show, status: :created, location: @post }
         else
-          format.html {render :new}
-          format.json {render json: @post.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -56,11 +56,11 @@ module Admin
         if @post.update(post_params)
           set_tags
           set_files
-          format.html { redirect_to admin_post_path(@post), notice: 'Noticia fue actualizada con éxito.'}
+          format.html { redirect_to admin_post_path(@post), notice: "Noticia fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @post }
         else
-          format.html { render :edit}
-          format.json { render json: @post.errors, status: :unprocessable_entity}
+          format.html { render :edit }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -68,12 +68,13 @@ module Admin
     def destroy
       @post.destroy
       respond_to do |format|
-        format.html { redirect_to admin_posts_path, notice: 'Noticia fue eliminada con éxito.'}
+        format.html { redirect_to admin_posts_path, notice: "Noticia fue eliminada con éxito." }
         format.json { head :no_content }
       end
     end
 
-  private
+    private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = News::Post.find(params[:id])
@@ -99,11 +100,12 @@ module Admin
 
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
-      :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order,
-      :published_at, :user_id, :post_type, :format, :permission, :important, :extract,
-      gallery_ids: [], term_ids: [], terms_names: [], file_ids: [],
-      main_image_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
+                                   :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order,
+                                   :published_at, :user_id, :post_type, :format, :permission, :important, :extract,
+                                   gallery_ids: [], term_ids: [], terms_names: [], file_ids: [],
+                                   main_image_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
     end
+
     # SEGUIR CON SUBIR ARCHIVOS DESDE EL FORMULARIO DEL POST
     def set_files
       file_ids = params[:file_ids]
@@ -111,7 +113,7 @@ module Admin
         @post.file_ids = file_ids
       end
     end
-    
+
     def set_tags
       # Getting terms_names from the form (tags)
       term_names = params[:terms_names]

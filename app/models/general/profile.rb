@@ -8,7 +8,8 @@ class General::Profile < ApplicationRecord
     ]
     GENDER = [
       MASCULINO = "masculino",
-      FEMENINO = "femenino"
+      FEMENINO = "femenino",
+      GENDER_ALL = "['masculino', 'femenino']"
     ]
   end
 

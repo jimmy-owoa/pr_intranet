@@ -1,4 +1,4 @@
-module Admin 
+module Admin
   class ProfilesController < AdminController
     before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
@@ -8,10 +8,10 @@ module Admin
 
     def show
     end
-    
+
     def new
-      @profile = General::Profile.new      
-      get_data      
+      @profile = General::Profile.new
+      get_data
     end
 
     def edit
@@ -21,12 +21,12 @@ module Admin
       @profile = General::Profile.new(profile_params)
       respond_to do |format|
         if @profile.save
-          format.html { redirect_to admin_profile_path(@profile), notice: 'Profile fue creada con éxito.'}
-          format.json { render :show, status: :created, location: @profile}
+          format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue creada con éxito." }
+          format.json { render :show, status: :created, location: @profile }
           format.js
         else
-          format.html {render :new}
-          format.json {render json: @profile.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @profile.errors, status: :unprocessable_entity }
           format.js
         end
       end
@@ -35,11 +35,11 @@ module Admin
     def update
       respond_to do |format|
         if @profile.update(profile_params)
-          format.html { redirect_to admin_profile_path(@profile), notice: 'Profile fue actualizada con éxito.'}
+          format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @profile }
         else
-          format.html { render :edit}
-          format.json { render json: @profile.errors, status: :unprocessable_entity}
+          format.html { render :edit }
+          format.json { render json: @profile.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -47,7 +47,7 @@ module Admin
     def destroy
       @profile.destroy
       respond_to do |format|
-        format.html { redirect_to admin_profiles_path, notice: 'Profile fue eliminada con éxito.'}
+        format.html { redirect_to admin_profiles_path, notice: "Profile fue eliminada con éxito." }
         format.json { head :no_content }
       end
     end
@@ -57,8 +57,8 @@ module Admin
     def get_data
       start = Time.now
       users = General::User.all
-      @genders = ["Masculino","Femenino", "Todos"]
-      @is_boss = ["Si","No", "Todos"]
+      @genders = ["Masculino", "Femenino"]
+      @is_boss = ["Si", "No"]
       @user_class = users.pluck(:employee_classification).uniq.reject(&:blank?).sort
       @regions = Location::Region.pluck(:name).uniq.reject(&:blank?).sort
       @benefit_groups = General::BenefitGroup.pluck(:name).sort
@@ -70,7 +70,7 @@ module Admin
       @contract_types = users.pluck(:contract_type).uniq.reject(&:blank?).sort
       @roles = users.pluck(:rol).uniq.reject(&:blank?).sort
       @schedules = users.pluck(:schedule).uniq.reject(&:blank?).sort
-      @has_childrens = ["Si", "No", "Todos"]
+      @has_childrens = ["Si", "No"]
       @date_entries = users.pluck(:date_entry).uniq.reject(&:blank?).sort
       Rails.logger.info "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + (Time.now - start).to_s
     end
