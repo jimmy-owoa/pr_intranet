@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_13_210610) do
+ActiveRecord::Schema.define(version: 2019_09_26_141306) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -252,6 +252,16 @@ ActiveRecord::Schema.define(version: 2019_09_13_210610) do
     t.integer "post_id"
   end
 
+  create_table "general_message_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "viewed_at"
+    t.bigint "user_id"
+    t.bigint "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_general_message_users_on_message_id"
+    t.index ["user_id"], name: "index_general_message_users_on_user_id"
+  end
+
   create_table "general_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -354,6 +364,16 @@ ActiveRecord::Schema.define(version: 2019_09_13_210610) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "general_user_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "viewed_at"
+    t.bigint "user_id"
+    t.bigint "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_general_user_messages_on_message_id"
+    t.index ["user_id"], name: "index_general_user_messages_on_user_id"
   end
 
   create_table "general_user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

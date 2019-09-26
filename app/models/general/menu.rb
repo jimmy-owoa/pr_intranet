@@ -4,16 +4,16 @@ class General::Menu < ApplicationRecord
   # validates_presence_of :title
   belongs_to :post, class_name: "News::Post", foreign_key: "post_id", optional: true
 
-  has_many :menu_term_relationships, -> {where(object_type: 'General::Menu')}, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :menu
+  has_many :menu_term_relationships, -> { where(object_type: "General::Menu") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :menu
   has_many :terms, through: :menu_term_relationships
 
-  scope :parent_name_menu, -> (id) { find(id).title }
+  scope :parent_name_menu, ->(id) { find(id).title }
 
   accepts_nested_attributes_for :terms
 
   #cache menu and relationships
   def self.menu_cached
-    Rails.cache.fetch('General::Menu.all', expires_in: 30.minute) { all.to_a }
+    Rails.cache.fetch("General::Menu.all", expires_in: 30.minute) { all.to_a }
   end
 
   def cached_categories
@@ -31,41 +31,39 @@ class General::Menu < ApplicationRecord
   def children(integration_menu = nil)
     menus = []
     if integration_menu.present? && integration_menu.key?(self.integration_code) && integration_menu[self.integration_code]["drop_down"].present?
-      temp = get_dropdowns(integration_menu[self.integration_code]["drop_down"],menus)
+      temp = get_dropdowns(integration_menu[self.integration_code]["drop_down"], menus)
       menus << temp if temp.is_a?(Hash)
     else
       data = General::Menu.where(parent_id: self.id)
       data.each do |menu|
-        
         menus << {
           title: menu.title,
-          link: menu.link.present? ? menu.link : '',
+          link: menu.link.present? ? menu.link : "",
           menu_id: menu.id,
-          post_slug: menu.post.present? ? menu.post.slug : ''
+          post_slug: menu.post.present? ? menu.post.slug : "",
         }
       end
     end
     menus
   end
 
-  def get_dropdowns(dropdown,menus)
-    dropdown.each do |key,value|
+  def get_dropdowns(dropdown, menus)
+    dropdown.each do |key, value|
       if value.is_a?(Hash) && value.key?("drop_down")
         menus << {
           title: value["nombre"],
           link: "",
-          menu_id: -1
+          menu_id: -1,
         }
-        get_dropdowns(value,menus)
+        get_dropdowns(value, menus)
       elsif value["nombre"].present?
         menus << {
           title: value["nombre"],
-          link: "https://misecurity-qa3.exa.cl#{value['link']}",
-          menu_id: -1
+          link: "https://misecurity-qa3.exa.cl#{value["link"]}",
+          menu_id: -1,
         }
       end
     end
     menus
   end
-
 end

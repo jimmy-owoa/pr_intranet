@@ -92,6 +92,8 @@ Rails.application.routes.draw do
     get "sso_auth/:token", to: "users#set_user"
     get "sso_user_auth", to: "users#sso_user_auth"
     get "test_sso", to: "users#test_sso"
+    get "user_messages", to: "user_messages#index"
+    post "user_message/update", to: "user_messages#update"
     resources :galleries
     resources :weather
     resources :users, only: [:update, :show] do

@@ -22,6 +22,7 @@ class General::User < ApplicationRecord
   has_many :education_institutions, through: :education_states
   has_many :family_members, class_name: "PersonalData::FamilyMember", foreign_key: :user_id
   has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :user_id, inverse_of: :user
+  has_many :user_messages, class_name: "General::UserMessage", foreign_key: :user_id, inverse_of: :user
 
   belongs_to :location, class_name: "General::Location", inverse_of: :users, optional: true
   belongs_to :benefit_group, optional: true, class_name: "General::BenefitGroup"
