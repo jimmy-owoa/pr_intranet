@@ -7,7 +7,7 @@
       </div>
       <div class="col-4">
           <%= f.label 'Sexo' %>
-          <%= select_tag :gender, options_for_select(@genders), multiple: true, class:' form-control string optional' %>
+          <%= select_tag :genders, options_for_select(@genders), multiple: true, class:' form-control string optional' %>
       </div>
       <div class="col-4">
           <%= f.label 'Cargo jefe' %>
@@ -15,27 +15,27 @@
       </div>
       <div class="col-4">
         <%= f.label 'Clasificación Empleado' %>
-        <%= select_tag :employee_classification, options_for_select(@user_class), multiple: true, class:' form-control string optional' %>
+        <%= select_tag :employee_classifications, options_for_select(@employee_classifications), multiple: true, class:' form-control string optional' %>
       </div>
       <div class="col-4">
         <%= f.label 'Región' %>
-        <%= select_tag :employee_classification, options_for_select(@regions), multiple: true, class:' form-control string', id: 'regions' %>
+        <%= select_tag :regions, options_for_select(@regions.collect {|region| [region[1], region[0]]}), multiple: true, class:' form-control string', id: 'regions' %>
       </div>
       <div class="col-4">
         <%= f.label 'Grupo de Beneficiarios' %>
-        <%= select_tag :benefit_groupos, options_for_select(@benefit_groups), multiple: true, class:' form-control string' %>
+        <%= select_tag :benefit_groups, options_for_select(@benefit_groups.collect {|bg| [bg[1], bg[0]]}), multiple: true, class:' form-control string' %>
       </div>
       <div class="col-4">
         <%= f.label 'Empresas' %>
-        <%= select_tag :companies, options_for_select(@companies), multiple: true, class:' form-control string', id: 'companies' %>
+        <%= select_tag :companies, options_for_select(@companies.collect {|company| [company[1], company[0]]}), multiple: true, class:' form-control string', id: 'companies' %>
       </div>
       <div class="col-4">
         <%= f.label 'Gerencias' %>
-        <%= select_tag :managements, options_for_select(@managements), multiple: true, class:' form-control string', id: 'managements' %>
+        <%= select_tag :managements, options_for_select(@managements.collect {|management| [management[1], management[0]]}), multiple: true, class:' form-control string', id: 'managements' %>
       </div>
       <div class="col-4">
         <%= f.label 'Centro de Costos' %>
-        <%= select_tag :cost_centers, options_for_select(@cost_centers), multiple: true, class:' form-control string', id: 'cost_centers' %>
+        <%= select_tag :cost_centers, options_for_select(@cost_centers.collect {|cost_center| [cost_center[1], cost_center[0]]}), multiple: true, class:' form-control string', id: 'cost_centers' %>
       </div>
       <div class="col-4">
         <%= f.label 'Clasificaciones de puesto' %>
@@ -63,7 +63,7 @@
       </div>
       <div class="col-4">
         <%= f.label 'Fecha Ingreso Empresa' %>
-        <%= select_tag :date_entries, options_for_select(@date_entries), multiple: true, class:' form-control string'%>
+        <%= select_tag :entry_dates, options_for_select(@entry_dates), multiple: true, class:' form-control string'%>
       </div>
     </div>
     <div class="col-7">

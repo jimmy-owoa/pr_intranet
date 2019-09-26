@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_26_141306) do
+ActiveRecord::Schema.define(version: 2019_09_26_214310) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -252,16 +252,6 @@ ActiveRecord::Schema.define(version: 2019_09_26_141306) do
     t.integer "post_id"
   end
 
-  create_table "general_message_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "viewed_at"
-    t.bigint "user_id"
-    t.bigint "message_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["message_id"], name: "index_general_message_users_on_message_id"
-    t.index ["user_id"], name: "index_general_message_users_on_user_id"
-  end
-
   create_table "general_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -296,7 +286,7 @@ ActiveRecord::Schema.define(version: 2019_09_26_141306) do
   end
 
   create_table "general_profile_attributes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "attribute"
+    t.string "class_name"
     t.string "value"
     t.bigint "profile_id"
     t.datetime "created_at", null: false
@@ -571,9 +561,11 @@ ActiveRecord::Schema.define(version: 2019_09_26_141306) do
     t.integer "migrated_id"
     t.string "migrated_image_filename"
     t.integer "xoops_topic_id"
+    t.bigint "profile_id"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"
     t.index ["main_image_id"], name: "index_news_posts_on_main_image_id"
     t.index ["post_parent_id"], name: "index_news_posts_on_post_parent_id"
+    t.index ["profile_id"], name: "index_news_posts_on_profile_id"
     t.index ["term_id"], name: "index_news_posts_on_term_id"
   end
 

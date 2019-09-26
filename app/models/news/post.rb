@@ -74,7 +74,9 @@ class News::Post < ApplicationRecord
     user_excluding_tags = user.terms.excluding_tags.map(&:name)
     user_categories = user.terms.categories.map(&:name)
     posts = []
-    news = News::Post.includes(:terms).published_posts
+    profile_ids = user.user_profiles.pluck(:profile_id)
+    news = News::Post.includes(:terms).where(profile_id: profile_ids).published_posts
+    # news = News::Post.includes(:terms).published_posts
     news = news.where(important: important) if important.present?
     news.each do |post|
       show_post = true
