@@ -66,7 +66,7 @@ module Frontend
       posts = News::Post.filter_posts(params[:ln_user], true).first(5)
       data = []
       posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
+        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
         data << {
           id: post.id,
           title: post.title,
