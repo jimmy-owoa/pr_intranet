@@ -59,11 +59,7 @@
       </div>
       <div class="col-4">
         <%= f.label 'Tiene hijos' %>
-        <%= select_tag :has_children, options_for_select(@has_childrens), multiple: true, class:' form-control string'%>
-      </div>
-      <div class="col-4">
-        <%= f.label 'Fecha Ingreso Empresa' %>
-        <%= select_tag :entry_dates, options_for_select(@entry_dates), multiple: true, class:' form-control string'%>
+        <%= select_tag :has_children, options_for_select(@has_children), multiple: true, class:' form-control string'%>
       </div>
     </div>
     <div class="col-7">
