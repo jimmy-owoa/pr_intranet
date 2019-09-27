@@ -1,13 +1,6 @@
 # require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  namespace :admin do
-    get "profiles/index"
-    get "profiles/new"
-    get "profiles/edit"
-    get "profiles/show"
-    get "profiles/delete"
-  end
   # mount Sidekiq::Web => '/sidekiq'
 
   namespace :admin do
@@ -40,7 +33,9 @@ Rails.application.routes.draw do
     resources :attachments
     resources :terms
     resources :galleries
-    resources :profiles
+    resources :profiles do 
+      get :users_list, on: :member
+    end
     resources :births do
       member do
         put :permission_image

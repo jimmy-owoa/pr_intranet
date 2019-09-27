@@ -101,6 +101,25 @@
         <% end %>
         </ul>
       </div>
+      <div class="col-12">
+        Horario:
+        <ul>
+        <% @schedules.each do |s| %>
+        <li><%= s %></li>
+        <% end %>
+        </ul>
+      </div>
+      <div class="col-12">
+        Tiene hijo:
+        <ul>
+        <% @has_children.each do |hc| %>
+        <li><%= hc %></li>
+        <% end %>
+        </ul>
+      </div>
+      <div>
+      <%= link_to 'Descargar listado de usuarios', users_list_admin_profile_path(@profile, format: 'xlsx'), method: 'get'%>
+      </div>
     </div>
   </div>
   <div>

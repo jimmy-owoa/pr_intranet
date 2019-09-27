@@ -3,9 +3,10 @@ $(document).on("turbolinks:load", function() {
     tags: true,
     tokenSeparators: [",", " "]
   });
-  $("#file_ids").select2({
+  $("#post_profile_id").select2({
     tags: false,
-    placeholder: "Seleccionar Archivos"
+    placeholder: "Seleccionar Perfil",
+    width: "100%"
   });
   $("#published_at").datetimepicker({
     sideBySide: true,

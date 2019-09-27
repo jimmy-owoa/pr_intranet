@@ -32,6 +32,7 @@
           <b>Tipo de publicación: <%= @post.post_type %></b><br>
           <b>Importante: <%= @post.important? ? 'Si' : 'No' %></b><br>
           <b>Estilo: <%= format_post(@post.format) %></b><br>
+          <b>Perfilamiento para: <%= @post.profile.name %></b><br>
         </div>
       </div>
     </div><br />

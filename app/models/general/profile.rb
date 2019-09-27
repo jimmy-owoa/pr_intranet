@@ -17,7 +17,11 @@ class General::Profile < ApplicationRecord
   has_many :profile_attributes, class_name: 'General::ProfileAttribute', foreign_key: :profile_id, inverse_of: :profile
   has_many :users, through: :user_profiles
 
+<<<<<<< HEAD
   after_save :set_users
+=======
+  has_many :posts, class_name: 'News::Post', foreign_key: :profile_id, inverse_of: :profile
+>>>>>>> b7c958359b21d938dc02d351fc7f88b55ead427d
 
   def set_users
     query = "1"

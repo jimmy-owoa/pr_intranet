@@ -101,7 +101,7 @@ module Admin
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
                                    :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order,
-                                   :published_at, :user_id, :post_type, :format, :permission, :important, :extract,
+                                   :published_at, :user_id, :post_type, :format, :permission, :important, :extract, :profile_id,
                                    gallery_ids: [], term_ids: [], terms_names: [], file_ids: [],
                                    main_image_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
     end
@@ -110,7 +110,7 @@ module Admin
     def set_files
       file_ids = params[:file_ids]
       if file_ids.present?
-        @post.file_ids = file_ids
+        # @post.file_ids << file_ids
       end
     end
 
