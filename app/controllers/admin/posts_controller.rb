@@ -110,7 +110,7 @@ module Admin
     def set_files
       file_ids = params[:file_ids]
       if file_ids.present?
-        @post.file_ids = file_ids
+        # @post.file_ids << file_ids
       end
     end
 
