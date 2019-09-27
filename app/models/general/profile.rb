@@ -17,6 +17,8 @@ class General::Profile < ApplicationRecord
   has_many :profile_attributes, class_name: 'General::ProfileAttribute', foreign_key: :profile_id, inverse_of: :profile
   has_many :users, through: :user_profiles
 
+  after_save :set_users
+
   def set_users
     query = "1"
     Classes::ALL.each do |class_name|
@@ -24,14 +26,28 @@ class General::Profile < ApplicationRecord
       query += " AND #{class_name} IN (#{profile_attributes_where})" if profile_attributes_where.present?
     end
 
-    General::User.where(query).each do |user|
-      self.users << user
+    query_profile_users = General::User.includes(:profiles).where(query).uniq
+    if query_profile_users.present?
+      new_users = query_profile_users - self.users
+      remove_users = self.users - query_profile_users
+    end
+
+    if new_users.present?
+      new_users.each do |user|
+        self.users << user
+      end
+    end
+
+    if remove_users.present?
+      remove_users.each do |user|
+        General::UserProfile.where(user_id: user.id, profile_id: self.id).destroy_all
+      end
     end
   end
 end
 
-# "location_regions", # model
-#       "general_benefit_group", # model
-#       "company", # model
-#       "company_management", # model
-#       "company_cost_center", # model
+# "location_regions",
+#       "general_benefit_group",
+#       "company",
+#       "company_management",
+#       "company_cost_center",
