@@ -3,7 +3,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]
 
     def index
-      user_posts = News::Post.filter_posts(params[:ln_user])
+      user_posts = News::Post.filter_posts(@request_user)
       page = params[:page]
       params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select { |post| post.post_type == params[:category] }).page(page).per(4) :
         posts = Kaminari.paginate_array(user_posts).page(page).per(4)
@@ -63,7 +63,7 @@ module Frontend
     end
 
     def important_posts
-      posts = News::Post.filter_posts(params[:ln_user], true).first(5)
+      posts = News::Post.filter_posts(@request_user, true).first(5)
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
@@ -152,41 +152,48 @@ module Frontend
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-      relationed_posts = News::Post.where(post_type: post.post_type).last(5) - [post]
-      data_relationed_posts = []
-      relationed_posts.each do |post|
-        data_relationed_posts << {
+      if post.profile_id.in?(@request_user.profile_ids)
+        relationed_posts = News::Post.where(post_type: post.post_type).last(5) - [post]
+        data_relationed_posts = []
+        relationed_posts.each do |post|
+          data_relationed_posts << {
+            id: post.id,
+            title: post.title.length > 36 ? post.title.upcase.slice(0..36) + "..." : post.title.upcase,
+            slug: post.slug,
+            published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
+            main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+          }
+        end
+        content = fix_content(post.content)
+        data << {
           id: post.id,
-          title: post.title.length > 36 ? post.title.upcase.slice(0..36) + "..." : post.title.upcase,
-          slug: post.slug,
+          title: post.title,
+          url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
+          user_id: post.user_id,
           published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
+          content: content,
+          post_type: post.post_type.present? ? post.post_type.upcase : "",
+          important: post.important,
+          tags: post.terms.tags,
           main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+          format: post.format,
+          extract: post.extract.present? ? post.extract : "",
+          breadcrumbs: [
+            { link: "/", name: "Inicio" },
+            { link: "/noticias", name: "Noticias" },
+            { link: "#", name: post.title.truncate(30) },
+          ],
+          relationed_posts: data_relationed_posts,
         }
-      end
-      content = fix_content(post.content)
-      data << {
-        id: post.id,
-        title: post.title,
-        url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
-        user_id: post.user_id,
-        published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-        content: content,
-        post_type: post.post_type.present? ? post.post_type.upcase : "",
-        important: post.important,
-        tags: post.terms.tags,
-        main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
-        format: post.format,
-        extract: post.extract.present? ? post.extract : "",
-        breadcrumbs: [
-          { link: "/", name: "Inicio" },
-          { link: "/noticias", name: "Noticias" },
-          { link: "#", name: post.title.truncate(30) },
-        ],
-        relationed_posts: data_relationed_posts,
-      }
-      respond_to do |format|
-        format.json { render json: data[0] }
-        format.js
+        respond_to do |format|
+          format.json { render json: data[0] }
+          format.js
+        end
+      else 
+        respond_to do |format|
+          format.json { render json: "No tiene acceso" }
+          format.js
+        end
       end
     end
 

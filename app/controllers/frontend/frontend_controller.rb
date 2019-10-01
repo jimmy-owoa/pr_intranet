@@ -2,6 +2,7 @@ class Frontend::FrontendController < ApplicationController
   #login / Applicationcontroller with base, no api
   # before_action :authenticate_request
   attr_reader :current_user
+  before_action :get_user
 
   def index
   end
@@ -67,6 +68,11 @@ class Frontend::FrontendController < ApplicationController
   end
 
   private
+
+  def get_user
+    ln_user = request.headers["Authorization"]
+    @request_user = General::User.get_user_by_ln(ln_user)
+  end
 
   def authenticate_request
     @current_user = AuthorizeApiRequest.call(request.headers).result
