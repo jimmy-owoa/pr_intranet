@@ -15,5 +15,5 @@ Devise.setup do |config|
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
   config.reset_password_within = 6.hours
   config.sign_out_via = :delete
-  config.omniauth :azure_oauth2, client_id: '', client_secret: '', tenant_id: ''
+  config.omniauth :azure_oauth2, client_id: ENV["AAD_CLIENT_ID"], client_secret: ENV["AAD_CLIENT_SECRET"], tenant_id: ENV["AAD_TENANT_ID"]
 end

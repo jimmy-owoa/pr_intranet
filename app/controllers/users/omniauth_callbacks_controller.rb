@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  # You should configure your model like this:
-  # devise :omniauthable, omniauth_providers: [:twitter]
-
   def azure_oauth2
+    Rails.logger.info(request.env['omniauth.auth'])
+    @user = General::User.from_omniauth(request.env['omniauth.auth'])
+    Rails.logger.info(@user.inspect)
   end
 
   def passthru

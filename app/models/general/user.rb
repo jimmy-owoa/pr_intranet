@@ -74,6 +74,10 @@ class General::User < ApplicationRecord
     General::User.where(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1]).first
   end
 
+  def self.from_omniauth(auth)
+    where(email: auth.info.email).first
+  end
+
   def self.decrypt(data, cipher_key = nil)
     cipher = OpenSSL::Cipher.new "aes-256-cbc"
     cipher.decrypt

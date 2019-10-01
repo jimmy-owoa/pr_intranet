@@ -2,17 +2,10 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :benefit_groups
   end
-  devise_scope :user do
-    root to: "devise/sessions#new"
-  end
   #authenticate jtw
   post "authenticate", to: "users/authentication#authenticate"
-  #
-  devise_for :users,
-    controllers: {
-      sessions: "users/sessions",
-      registrations: "admin/users",
-    }, class_name: "General::User"
+
+  devise_for :users, class_name: "General::User", controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   namespace :admin do
     post "upload", to: "attachments#upload"
     get "analytics", to: "analytics#index"
