@@ -9,21 +9,20 @@ class General::Profile < ApplicationRecord
       "syndicate_member",
       "contract_type",
       "rol",
-      "schedule"
+      "schedule",
     ]
   end
 
-  has_many :user_profiles, class_name: 'General::UserProfile', foreign_key: :profile_id, inverse_of: :profile
-  has_many :profile_attributes, class_name: 'General::ProfileAttribute', foreign_key: :profile_id, inverse_of: :profile
+  has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :profile_id, inverse_of: :profile
+  has_many :profile_attributes, class_name: "General::ProfileAttribute", foreign_key: :profile_id, inverse_of: :profile
   has_many :users, through: :user_profiles
 
-  after_save :set_users
-  has_many :posts, class_name: 'News::Post', foreign_key: :profile_id, inverse_of: :profile
+  has_many :posts, class_name: "News::Post", foreign_key: :profile_id, inverse_of: :profile
 
   def set_users
     query = "1"
     Classes::ALL.each do |class_name|
-      profile_attributes_where = self.profile_attributes.where(class_name: class_name).map{|v| "'#{v.value}'"}.join(',')
+      profile_attributes_where = self.profile_attributes.where(class_name: class_name).map { |v| "'#{v.value}'" }.join(",")
       query += " AND #{class_name} IN (#{profile_attributes_where})" if profile_attributes_where.present?
     end
 
@@ -40,7 +39,6 @@ class General::Profile < ApplicationRecord
     end
 
     if remove_users.present?
-      binding.pry
       remove_users.each do |user|
         General::UserProfile.where(user_id: user.id, profile_id: self.id).destroy_all
       end
