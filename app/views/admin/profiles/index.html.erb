@@ -1,0 +1,38 @@
+
+  <section class="section">
+    <h1 class="section-header"><%= "Grupos" %></h1>
+    <%= link_to "Nuevo", new_admin_profile_path, :class => 'btn btn-primary btn-sm' %>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'Estado' %></th>
+              <th><%= 'Título' %></th>
+              <th><%= 'Participantes' %></th>
+              <th><%= 'Fecha Creación' %></th>
+              <th><%= 'Acciones' %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @profiles.each do |profile| %>
+              <tr>
+                <td><%= profile.id %></td>
+                <td><%= profile.name %></td>
+                <td><%= "2810" %></td>
+                <td><%= custom_date_no_hour(profile.created_at) %></td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.profiles.show")),
+                              admin_profile_path(profile), :class => 'btn btn-success btn-sm' %>
+                  <%= link_to t('.edit', :default => t("helpers.profiles.edit")),
+                              edit_admin_profile_path(profile), :class => 'btn btn-success btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+        </div>
+      </div>
+    </div>
+  </section>

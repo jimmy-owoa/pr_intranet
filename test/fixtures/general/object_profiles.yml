@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  object: MyString
+  object_id: 1
+  profile: one
+
+two:
+  object: MyString
+  object_id: 1
+  profile: two

@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'simple_command'
+#csv reader duh
+gem 'csvreader'
 
 gem 'simple_form'
 

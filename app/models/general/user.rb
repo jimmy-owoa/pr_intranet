@@ -1,5 +1,6 @@
 require "uri"
 require "net/http"
+
 class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
@@ -7,17 +8,29 @@ class General::User < ApplicationRecord
   validates_presence_of :name, :email
   #relationships
   has_one_attached :image
-  has_many :user_term_relationships, -> { where(object_type: 'General::User') }, class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :user
+  has_many :user_term_relationships, -> { where(object_type: "General::User") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :user
   has_many :terms, through: :user_term_relationships
   has_many :visits, class_name: "Ahoy::Visit"
-  has_many :posts, class_name: 'News::Post', foreign_key: :user_id
-  has_many :products, class_name: 'Marketplace::Product', foreign_key: :user_id
-  has_many :answers, class_name: 'Survey::Answer', foreign_key: :user_id
-  has_many :births, class_name: 'Employee::Birth', foreign_key: :user_id
-  has_many :notifications, class_name: 'General::Notification'
-  
-  belongs_to :location, class_name: 'General::Location', inverse_of: :users
-  belongs_to :benefit_group, optional: true, class_name: 'General::BenefitGroup'
+  has_many :posts, class_name: "News::Post", foreign_key: :user_id
+  has_many :products, class_name: "Marketplace::Product", foreign_key: :user_id
+  has_many :answers, class_name: "Survey::Answer", foreign_key: :user_id
+  has_many :births, class_name: "Employee::Birth", foreign_key: :user_id
+  has_many :notifications, class_name: "General::Notification"
+  has_many :language_levels, class_name: "PersonalData::LanguageLevel", foreign_key: :user_id, inverse_of: :user
+  has_many :languages, through: :language_levels
+  has_many :education_states, class_name: "PersonalData::EducationState", foreign_key: :user_id, inverse_of: :user
+  has_many :education_institutions, through: :education_states
+  has_many :family_members, class_name: "PersonalData::FamilyMember", foreign_key: :user_id
+  has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :user_id, inverse_of: :user
+  has_many :user_messages, class_name: "General::UserMessage", foreign_key: :user_id, inverse_of: :user
+  has_many :profiles, through: :user_profiles
+
+  belongs_to :location, class_name: "General::Location", inverse_of: :users, optional: true
+  belongs_to :benefit_group, optional: true, class_name: "General::BenefitGroup"
+  belongs_to :office, class_name: "Company::Office", inverse_of: :users, optional: true
+  belongs_to :cost_center, class_name: "Company::CostCenter", inverse_of: :users, optional: true
+  belongs_to :management, class_name: "Company::Management", inverse_of: :users, optional: true
+  belongs_to :company, class_name: "Company::Company", inverse_of: :users, optional: true
 
   accepts_nested_attributes_for :terms
 
@@ -29,40 +42,40 @@ class General::User < ApplicationRecord
   before_create :only_admin?
 
   #scopes
-  scope :show_birthday, -> { where( show_birthday: true) }
-  scope :date_birth , -> { where("MONTH(birthday) = ?", Date.today.month ) }
+  scope :show_birthday, -> { where(show_birthday: true) }
+  scope :date_birth, -> { where("MONTH(birthday) = ?", Date.today.month) }
   scope :birthdays, -> { where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :first_welcome, -> { joins(:image_attachment).where("DATE_FORMAT(general_users.created_at, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
-  scope :users_birthday_today, -> { where('MONTH(birthday) = ?', Time.now.to_date.month).where('DAY(birthday) = ?', Time.now.to_date.day)}
+  scope :users_birthday_today, -> { where("MONTH(birthday) = ?", Time.now.to_date.month).where("DAY(birthday) = ?", Time.now.to_date.day) }
 
-  PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
+  PERMISSION = { "todos" => "Todos", true => "Aprobados", false => "No aprobados" }
 
   CITIES = [
-    'Antofagasta',
-    'Santiago',
-    'Copiapó',
-    'La Serena',
-    'Viña del Mar',
-    'Rancagua',
-    'Talca',
-    'Concepción',
-    'Temuco',
-    'Puerto Montt'
+    "Antofagasta",
+    "Santiago",
+    "Copiapó",
+    "La Serena",
+    "Viña del Mar",
+    "Rancagua",
+    "Talca",
+    "Concepción",
+    "Temuco",
+    "Puerto Montt",
   ]
 
-  def search_data 
+  def search_data
     {
       full_name: "#{name} #{last_name}",
-      annexed: annexed
+      annexed: annexed,
     }
   end
 
-  def self.get_user_by_ln ln_user
+  def self.get_user_by_ln(ln_user)
     General::User.where(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1]).first
   end
-  
-  def self.decrypt data, cipher_key = nil
-    cipher = OpenSSL::Cipher.new 'aes-256-cbc'
+
+  def self.decrypt(data, cipher_key = nil)
+    cipher = OpenSSL::Cipher.new "aes-256-cbc"
     cipher.decrypt
     cipher.key = cipher_key || Rails.application.secrets.cipher_key
     unescaped = CGI.unescape(data) # Se le quita el urlencode
@@ -99,7 +112,7 @@ class General::User < ApplicationRecord
       true
     else
       false
-    end 
+    end
   end
 
   def self.welcome?(id, date)
@@ -120,24 +133,24 @@ class General::User < ApplicationRecord
     if self.image.attachment.present? && self.attribute_changed?(:image_id)
       avatar = self.image
       filename = avatar.filename.to_s
-        attachment_path = "#{Dir.tmpdir}/#{avatar.filename}"
-        File.open(attachment_path, 'wb') do |file|
-          file.write(avatar.download)
-          file.close
-        end
-        image = MiniMagick::Image.open(attachment_path)
-        # if image.width ...
-        image.resize "250x200>"
-        image.write attachment_path
-        avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg")
+      attachment_path = "#{Dir.tmpdir}/#{avatar.filename}"
+      File.open(attachment_path, "wb") do |file|
+        file.write(avatar.download)
+        file.close
+      end
+      image = MiniMagick::Image.open(attachment_path)
+      # if image.width ...
+      image.resize "250x200>"
+      image.write attachment_path
+      avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg")
     end
   end
 
   def full_name
-    self.name + ' ' + self.last_name + ' ' + self.last_name2
+    self.name + " " + self.last_name
   end
 
-  def self.what_role? user
+  def self.what_role?(user)
     if user.has_role?("user")
       return "user"
     elsif user.has_role?("post_admin")
@@ -157,29 +170,33 @@ class General::User < ApplicationRecord
   end
 
   def only_admin?
-    true if roles.map{|q| q.name }.any? "super_admin"
+    true if roles.map { |q| q.name }.any? "super_admin"
     false
   end
 
   def self.users_welcome
     # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
-    General::User.where(date_entry: (Date.today-100.days)..Date.today).order('RAND()')
+    General::User.where(date_entry: (Date.today - 100.days)..Date.today).order("RAND()")
   end
 
-  def get_color 
-    case self.company.upcase
-      when 'BANCO SECURITY S.A.' || 'FACTORING SECURITY S.A.' || 'MANDATOS SECURITY LIMITADA'
-        '#8D0C9A'
-      when 'TRAVEX SECURITY' || 'TRAVEL SECURITY S.A.' || 'INMOBILIARIA SECURITY S.A.' || 'INMOBILIARIA SECURITY SIETE' || 'REPRESENTACIONES SECURITY LTDA'
-        '#008DCF'
-      when 'VALORES SECURITY S.A.COR.BOLSA' || 'ADM GRAL DE FONDOS SECURITY SA' || 'SECURITIZADORA SECURITY S. A.' || 'INMOBILIARIA CASANUESTRA' || 'GLOBAL SECURITY LTDA.' || 'ASESORIAS SECURITY S.A.'
-        '#FF052B'
-      when 'VIDA SECURITY S.A.' || 'CORREDORA DE SEGUROS SECURITY' || 'HIPOTECARIA SECURITY PRINCIPAL' || 'PROTECTA SECURITY' || 'ADM. SERVICIOS BENEFICIOS LTDA'
-        '#FF6E00'
-      when 'GRUPO SECURITY S.A.' || 'CAPITAL S. A.'
-        '#628D36'
+  def get_color
+    if self.company.present?
+      case self.company.name.upcase
+      when "BANCO SECURITY S.A.", "FACTORING SECURITY S.A.", "MANDATOS SECURITY LIMITADA"
+        "#8D0C9A"
+      when "TRAVEX SECURITY", "TRAVEL SECURITY S.A.", "INMOBILIARIA SECURITY S.A.", "INMOBILIARIA SECURITY SIETE", "REPRESENTACIONES SECURITY LTDA"
+        "#008DCF"
+      when "VALORES SECURITY S.A. COR. BOLSA", "ADM GRAL DE FONDOS SECURITY S.A.", "SECURITIZADORA SECURITY S. A.", "INMOBILIARIA CASANUESTRA", "GLOBAL SECURITY LTDA.", "ASESORIAS SECURITY S.A."
+        "#FF052B"
+      when "VIDA SECURITY S.A.", "CORREDORA DE SEGUROS SECURITY", "HIPOTECARIA SECURITY PRINCIPAL", "PROTECTA SECURITY", "ADM. SERVICIOS BENEFICIOS LTDA"
+        "#FF6E00"
+      when "GRUPO SECURITY S.A.", "CAPITAL S.A"
+        "#628D36"
       else
         "#000000"
       end
+    else
+      "#000000"
+    end
   end
 end

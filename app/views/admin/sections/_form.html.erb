@@ -6,14 +6,13 @@
           <%= f.input :title, required: true, autofocus: true %>
         </div>
         <div class="col-12 col-sm-12">
-          <%= f.label 'Url Interna' %></br>
-          <%= f.select :url, News::Post.all.map{|p| ["#{p.id} - #{p.title}".truncate(60), p.slug] }, include_blank: true %>
+          <%= f.input :url, required: true %>
         </div>
         <div class="col-12 col-sm-12">
-          <%= f.input :position, required: true, autofocus: true %>
+          <%= f.input :position, required: true %>
         </div>
         <div class="col-12 col-sm-12">
-          <%= f.input :description, required: true, autofocus: true,  :input_html => {:rows => 10} %>
+          <%= f.input :description, required: true,  :input_html => {:rows => 10} %>
         </div>
       </div>
     </div>

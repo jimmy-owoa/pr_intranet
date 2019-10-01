@@ -24,7 +24,7 @@
             <li class="dropdown dropdown-list-toggle">
               <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep">
                 <i class="fas fa-bell"></i>
-            </a>
+              </a>
               <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">
                   Notificaciones
@@ -36,7 +36,7 @@
                       <b>Nicolás Duhart está de cumpleaños hoy</b>
                       <div class="time">05-10-2018</div>
                     </div>
-                </a>
+                  </a>
                 </div>
               </div>
             </li>
@@ -44,7 +44,7 @@
               <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
                 <i class="ion ion-android-person d-lg-none"></i>
                 <div class="d-sm-none d-lg-inline-block">Hola <%= current_user.name %></div>
-            </a>
+              </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i><%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
                 <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-times"></i><%= link_to 'Salir', destroy_user_session_path, method: :delete%></a>
@@ -59,11 +59,11 @@
               <div class="sidebar-user-details">
                 <div class="user-name"><%= current_user.name %></div>
                 <div class="user-role">
-                <% if current_user.has_role? :super_admin%>
-                  <%= 'Administrador' %>
-                <% else %>
-                  <%= 'Administrador de Noticias' %>
-                <% end %>
+                  <% if current_user.has_role? :super_admin%>
+                    <%= 'Administrador' %>
+                  <% else %>
+                    <%= 'Administrador de Noticias' %>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -107,51 +107,51 @@
                 </li>
                 <li>
                   <a href="<%= admin_messages_path %>"><i class="far fa-comment-alt"></i>Mensajes</a></li>
-                </li>
-                <li><a href="<%= admin_terms_path %>"><i class="fas fa-tags"></i>Etiquetas</a></li>
-                <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
-                  <li class="menu-header">Beneficios</li>
-                  <li>
-                    <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a></li>
-                  </li>
-                  <li>
-                    <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a></li>
-                  </li>
-                <% end %>
-                <li class="menu-header">Marketplace</li>
-                <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios <b>↓</b></span></a>
-                  <ul class="menu-dropdown">
-                    <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
-                    <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
-                    <li><a href="<%= admin_products_approved_index_path %>"><i class="fas fa-check-circle"></i>Aprobados</a></li>
-                  </ul>
-                </li>
-                <li class="menu-header">Eventos</li>
-                <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Nacimientos <b>↓</b></span></a>
-                  <ul class="menu-dropdown">
-                    <li><a class="nav-link " href="<%= admin_births_path %>"><i class="fas fa-list"></i>Lista</a></li>
-                    <li><a href="<%= admin_births_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
-                  </ul>
-                </li>
-                <li class="menu-header">Configuración</li>
-                <li><a href="<%= admin_users_path %>"><i class="fas fa-users"></i>Usuarios</a></li>
-                <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
-              <% end %>
+              </li>
+              <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Grupos</a></li>
+              <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
+                <li class="menu-header">Beneficios</li>
+                <li>
+                  <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a></li>
+              </li>
+              <li>
+                <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a></li>
+            </li>
+          <% end %>
+          <li class="menu-header">Marketplace</li>
+          <li class="dropdown">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios <b>↓</b></span></a>
+            <ul class="menu-dropdown">
+              <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
+              <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
+              <li><a href="<%= admin_products_approved_index_path %>"><i class="fas fa-check-circle"></i>Aprobados</a></li>
             </ul>
-          </aside>
-        </div>
-      </div>
-    </div>
-    <div class="main-content">
-      <%= render partial: 'layouts/partials/search' %>
-      <%= flash_messages %>
-      <%= yield%>
-    </div>
-    <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
-    <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"> </script>
-  </body>
+          </li>
+          <li class="menu-header">Eventos</li>
+          <li class="dropdown">
+            <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Nacimientos <b>↓</b></span></a>
+            <ul class="menu-dropdown">
+              <li><a class="nav-link " href="<%= admin_births_path %>"><i class="fas fa-list"></i>Lista</a></li>
+              <li><a href="<%= admin_births_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
+            </ul>
+          </li>
+          <li class="menu-header">Configuración</li>
+          <li><a href="<%= admin_users_path %>"><i class="fas fa-users"></i>Usuarios</a></li>
+          <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
+        <% end %>
+      </ul>
+    </aside>
+  </div>
+</div>
+</div>
+<div class="main-content">
+  <%= render partial: 'layouts/partials/search' %>
+  <%= flash_messages %>
+  <%= yield%>
+</div>
+<%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
+<script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
+</body>
 </html>
 <style>
   .fade:not(.show) {
@@ -160,10 +160,9 @@
     color: white;
   }
 </style>
-
 <script>
-$("#close_flash").click(function() {
-  $(".alert").fadeOut();
-});
-setTimeout(function() { $(".alert").fadeOut("slow"); }, 3000);
+  $("#close_flash").click(function() {
+    $(".alert").fadeOut();
+  });
+  setTimeout(function() { $(".alert").fadeOut("slow"); }, 3000);
 </script>

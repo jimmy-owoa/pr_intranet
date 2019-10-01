@@ -14,20 +14,18 @@
           <%= f.label 'Es Beneficios Vida', class: 'custom-control-label', for: 'benefit_is_special'%>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <%= f.input :code %>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <%= f.input :url %>
-      </div>
-      <div class="col-md-4">
-        <%= f.input :benefit_type_id, collection: General::BenefitType.all, required: true %>
       </div>
       <div class="col-md-12">
         <%= f.label 'Grupo beneficiario' %>
         <%= select_tag :benefit_groups, options_for_select(General::BenefitGroup.all.map{|i| [i.name]}, f.object.benefit_groups.map(&:name)), 
         multiple: true, class:' form-control string optional', id: 'benefit_groups' %>
-      </div><br />
+      </div>
+      <br />
       <div class="col-md-12">
         <%= f.text_area :content, :class => "tinymce" %>
         <%= tinymce %>
@@ -37,9 +35,8 @@
       <div class="card border-secondary border border-primary rounded">
         <div class="card-body text-secondary text-md-center">
           <% if @benefit.image.attachment.present? %>
-              <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
+            <%= image_tag(@benefit.image.variant(resize: '300x300>'), class: 'left') %>
           <% else %>
-            <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
           <% end %>
           <div class="left">
             <%= f.input :image, required: true, input_html: { accept:'image/*' } %>

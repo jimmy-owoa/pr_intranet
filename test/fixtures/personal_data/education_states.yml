@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  state: MyString
+  education_institution: one
+  user: one
+
+two:
+  state: MyString
+  education_institution: two
+  user: two
