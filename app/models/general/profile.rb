@@ -40,6 +40,7 @@ class General::Profile < ApplicationRecord
     end
 
     if remove_users.present?
+      binding.pry
       remove_users.each do |user|
         General::UserProfile.where(user_id: user.id, profile_id: self.id).destroy_all
       end

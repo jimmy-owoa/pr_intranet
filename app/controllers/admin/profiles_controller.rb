@@ -105,8 +105,8 @@ module Admin
 
     def get_data
       users = General::User.all
-      @genders = ["masculino", "femenino"]
-      @is_boss = ["si", "no"]
+      @genders = ["Masculino", "Femenino"]
+      @is_boss = ["Si", "No"]
       @employee_classifications = users.pluck(:employee_classification).uniq.reject(&:blank?).sort
       @regions = Location::Region.pluck(:id, :name).uniq.reject(&:blank?).sort
       @benefit_groups = General::BenefitGroup.pluck(:id, :name).sort
@@ -118,7 +118,7 @@ module Admin
       @contract_types = users.pluck(:contract_type).uniq.reject(&:blank?).sort
       @roles = users.pluck(:rol).uniq.reject(&:blank?).sort
       @schedules = users.pluck(:schedule).uniq.reject(&:blank?).sort
-      @has_children = ["si", "no"]
+      @has_children = ["Si", "No"]
     end
 
     def get_selected
