@@ -1,7 +1,7 @@
 module Frontend
   class UserMessagesController < FrontendController
     def index
-      user_messages = @request_user.user_messages
+      user_messages = @request_user.get_messages
       messages = []
       user_messages.each do |um|
         if !um.viewed_at

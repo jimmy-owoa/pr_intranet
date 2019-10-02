@@ -13,7 +13,7 @@ class General::Profile < ApplicationRecord
     ]
   end
 
-  has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :profile_id, inverse_of: :profile
+  has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :profile_id, inverse_of: :profile, dependent: :destroy
   has_many :profile_attributes, class_name: "General::ProfileAttribute", foreign_key: :profile_id, inverse_of: :profile
   has_many :users, through: :user_profiles
 
