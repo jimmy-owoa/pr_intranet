@@ -26,9 +26,8 @@ module Frontend
     def benefit
       data = []
       id = params[:id].present? ? params[:id] : nil
-      ln_user = params[:ln_user]
       benefit = General::Benefit.find(id)
-      benefit_group = General::User.find_by_legal_number(ln_user[0...-1]).benefit_group
+      benefit_group = @request_user.benefit_group
       if benefit_group.benefits.include?(benefit)
         benefit_ids = benefit_group.benefits.order(:benefit_type_id, :id).map { |x| x.id }
         benefit_index = benefit_ids.index(benefit.id)

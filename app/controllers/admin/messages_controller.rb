@@ -25,7 +25,7 @@ module Admin
       @message = General::Message.new(message_params)
       respond_to do |format|
         if @message.save
-          set_tags
+          @message.set_users
           format.html { redirect_to admin_message_path(@message), notice: 'Mensaje fue creado con éxito.'}
           format.json { render :show, status: :created, location: @message}
           format.js
@@ -40,7 +40,7 @@ module Admin
     def update
       respond_to do |format|
         if @message.update(message_params)
-          set_tags
+          @message.set_users
           format.html { redirect_to admin_message_path(@message), notice: 'Mensaje fue actualizado con éxito.'}
           format.json { render :show, status: :ok, location: @message }
         else
@@ -77,7 +77,7 @@ module Admin
     end
 
     def message_params
-      params.require(:message).permit(:title, :content, :message_type, :is_const, :image, terms_names: [])
+      params.require(:message).permit(:title, :content, :message_type, :is_const, :image, :profile_id)
     end
   end
 end

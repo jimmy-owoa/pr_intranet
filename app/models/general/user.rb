@@ -47,7 +47,6 @@ class General::User < ApplicationRecord
   scope :birthdays, -> { where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :first_welcome, -> { joins(:image_attachment).where("DATE_FORMAT(general_users.created_at, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :users_birthday_today, -> { where("MONTH(birthday) = ?", Time.now.to_date.month).where("DAY(birthday) = ?", Time.now.to_date.day) }
-
   PERMISSION = { "todos" => "Todos", true => "Aprobados", false => "No aprobados" }
 
   CITIES = [
@@ -117,6 +116,10 @@ class General::User < ApplicationRecord
     else
       false
     end
+  end
+
+  def is_entry_today
+    self.date_entry == Date.today
   end
 
   def self.welcome?(id, date)
@@ -202,5 +205,25 @@ class General::User < ApplicationRecord
     else
       "#000000"
     end
+  end
+
+  def get_messages
+    messages = self.user_messages
+    data = []
+    messages.each do |um|
+      case um.message.message_type.downcase
+      when "birthdays"
+        if um.user.is_birthday_today
+          data << um
+        end
+      when "welcomes"
+        if um.user.is_entry_today
+          data << um
+        end
+      when "general"
+        data << um
+      end
+    end
+    return data
   end
 end

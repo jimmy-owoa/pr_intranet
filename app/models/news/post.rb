@@ -4,21 +4,20 @@ class News::Post < ApplicationRecord
 
   validates_presence_of :title
 
-  
+  has_one :gallery, class_name: "General::Gallery"
+
   has_many :comments, class_name: "News::Comment"
   has_many :post_term_relationships, -> { where(object_type: "News::Post") },
-  class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :post
+           class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :post
   has_many :terms, through: :post_term_relationships
   has_many :menus, class_name: "General::Menu"
-  has_one :gallery, class_name: "General::Gallery"
   has_many :attachments, as: :attachable
   has_many :files, class_name: "General::File"
-  
-  belongs_to :profile, class_name: 'General::Profile', optional: true
+
+  belongs_to :profile, class_name: "General::Profile", optional: true
   belongs_to :post_parent, class_name: "News::Post", optional: true
   belongs_to :user, class_name: "General::User", optional: true, touch: true
   belongs_to :main_image, class_name: "General::Attachment", optional: true
-  # has_one_attached :main_image
 
   accepts_nested_attributes_for :terms
   accepts_nested_attributes_for :main_image
@@ -70,8 +69,7 @@ class News::Post < ApplicationRecord
   end
 
   # TODO: optimizar
-  def self.filter_posts(ln_user, important = nil)
-    user = General::User.get_user_by_ln ln_user
+  def self.filter_posts(user, important = nil)
     user_inclusive_tags = user.terms.inclusive_tags.map(&:name)
     user_excluding_tags = user.terms.excluding_tags.map(&:name)
     user_categories = user.terms.categories.map(&:name)
