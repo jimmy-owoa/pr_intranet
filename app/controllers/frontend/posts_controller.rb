@@ -153,7 +153,7 @@ module Frontend
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
       if post.profile_id.in?(@request_user.profile_ids)
-        relationed_posts = News::Post.where(post_type: post.post_type).last(5) - [post]
+        relationed_posts = News::Post.where(post_type: post.post_type).filter_posts(@request_user).last(5) - [post]
         data_relationed_posts = []
         relationed_posts.each do |post|
           data_relationed_posts << {

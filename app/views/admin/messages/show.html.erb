@@ -11,11 +11,8 @@
     <div class="col-sm-7">
       <div class="card post_card">
         <b>Título: <%= @message.title %></b><br>
+        <b>Mensaje disponible para perfil: <%= @message.profile.name %></b><br>
         <b>Tipo de mensaje: <%= message_type(@message.message_type) %></b><br>
-        <p><strong> Etiquetas incluyentes: </strong></p>
-        <%= @message.terms.inclusive_tags.map(&:name).join(', ') %>
-        <p><strong> Etiquetas excluyentes: </strong></p>
-        <%= @message.terms.excluding_tags.map(&:name).join(', ') %>
       </div>
     </div>
   </div><br />

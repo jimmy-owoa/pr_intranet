@@ -18,6 +18,7 @@ class General::Profile < ApplicationRecord
   has_many :users, through: :user_profiles
 
   has_many :posts, class_name: "News::Post", foreign_key: :profile_id, inverse_of: :profile
+  has_many :messages, class_name: "General::Message", foreign_key: :profile_id, inverse_of: :profile
 
   def set_users
     query = "1"
