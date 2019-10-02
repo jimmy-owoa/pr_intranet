@@ -1,6 +1,5 @@
 class Frontend::FrontendController < ApplicationController
-  #login / Applicationcontroller with base, no api
-  # before_action :authenticate_request
+  before_action :authenticate_request
   attr_reader :current_user
 
   def index
@@ -69,8 +68,7 @@ class Frontend::FrontendController < ApplicationController
   private
 
   def authenticate_request
-    @current_user = AuthorizeApiRequest.call(request.headers).result
-    render json: { error: 'Not Authorized' }, status: 401 unless @current_user
+    render json: { error: 'Not Authorized' }, status: 401 unless current_user
   end
 
 end

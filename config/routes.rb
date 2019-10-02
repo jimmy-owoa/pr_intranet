@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :benefit_groups
-  end
-  #authenticate jtw
-  post "authenticate", to: "users/authentication#authenticate"
-
   devise_for :users, class_name: "General::User", controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   namespace :admin do
     post "upload", to: "attachments#upload"
@@ -16,6 +10,7 @@ Rails.application.routes.draw do
     get "products/approved_index", to: "products#approved_index"
     get "menus/testing", to: "menus#testing"
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
+    resources :benefit_groups
     resources :term_relationships
     resources :comments
     resources :links
