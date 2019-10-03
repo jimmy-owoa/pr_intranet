@@ -68,6 +68,7 @@ class Frontend::FrontendController < ApplicationController
     session[:url] = params[:referrer]
     redirect_to user_azure_oauth2_omniauth_authorize_path
   end
+
   private
 
   def get_user
