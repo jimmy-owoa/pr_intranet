@@ -3,7 +3,7 @@ module Frontend
     def index
       data_surveys = []
       surveys_all = []
-      surveys = Survey::Survey.includes(questions: :options)
+      surveys = Survey::Survey.includes(questions: :options).where(profile_id: @request_user.profile_id)
       surveys.each do |survey|
         data_questions = []
         survey.questions.each do |question|
@@ -125,59 +125,67 @@ module Frontend
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
       survey = Survey::Survey.find_by_slug(slug)
-      count = 0
-      required = survey.questions.where(optional: true)
-      if survey.once_by_user?
-        required.each do |question|
-          question.answers.each do |answer|
-            if answer.user_id == 3
-              count += 1
+      if survey.profile_id.in?(@request_user.profile_ids) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
+        count = 0
+        required = survey.questions.where(optional: true)
+        if survey.once_by_user?
+          required.each do |question|
+            question.answers.each do |answer|
+              if answer.user_id == 3
+                count += 1
+              end
             end
           end
         end
-      end
-      if count != required.count || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
-        data_survey = []
-        data_questions = []
-        survey.questions.each do |question|
-          data_options = []
-          question.options.each do |option|
-            data_options << {
-              id: option.id,
-              title: option.title,
-              default: option.default,
-              placeholder: option.placeholder
+        if count != required.count || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
+          data_survey = []
+          data_questions = []
+          survey.questions.each do |question|
+            data_options = []
+            question.options.each do |option|
+              data_options << {
+                id: option.id,
+                title: option.title,
+                default: option.default,
+                placeholder: option.placeholder
+              }
+            end
+            data_questions << {
+              id: question.id,
+              title: question.title,
+              question_type: question.question_type,
+              optional: question.optional? ? false : true,
+              options: data_options
             }
           end
-          data_questions << {
-            id: question.id,
-            title: question.title,
-            question_type: question.question_type,
-            optional: question.optional? ? false : true,
-            options: data_options
+          data_survey << {
+            id: survey.id,
+            name: survey.name,
+            once_by_user: survey.once_by_user,
+            url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
+            show_name: survey.show_name,
+            description: survey.description,
+            image: survey.image.attached? ?
+            url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
+            created_at: survey.created_at.strftime('%d-%m-%Y'),
+            questions: data_questions,
+            survey_type: survey.survey_type,
+            slug: survey.slug
           }
+        else
+          data_survey = ["Encuesta ya fué respondida por el usuario"]
         end
-        data_survey << {
-          id: survey.id,
-          name: survey.name,
-          once_by_user: survey.once_by_user,
-          url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
-          show_name: survey.show_name,
-          description: survey.description,
-          image: survey.image.attached? ?
-          url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
-          created_at: survey.created_at.strftime('%d-%m-%Y'),
-          questions: data_questions,
-          survey_type: survey.survey_type,
-          slug: survey.slug
-        }
+        respond_to do |format|
+          format.html
+          format.json { render json: data_survey[0] }
+          format.js
+        end
       else
-        data_survey = ["Encuesta ya fué respondida por el usuario"]
-      end
-      respond_to do |format|
-        format.html
-        format.json { render json: data_survey[0] }
-        format.js
+        respond_to do |format|
+          format.html
+          format.json { render json: "No tiene acceso" }
+          format.js
+        end
       end
     end
       

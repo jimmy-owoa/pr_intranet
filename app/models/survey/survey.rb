@@ -106,4 +106,8 @@ class Survey::Survey < ApplicationRecord
       val
     end
   end
+
+  # def get_surveys 
+  #   General::Survey
+  # end
 end
