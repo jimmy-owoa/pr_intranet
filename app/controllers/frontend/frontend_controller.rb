@@ -69,6 +69,10 @@ class Frontend::FrontendController < ApplicationController
     redirect_to user_azure_oauth2_omniauth_authorize_path
   end
 
+  def after_sign_in_path_for(resource)
+    session[:url] || frontend_root_path
+  end
+
   private
 
   def get_user

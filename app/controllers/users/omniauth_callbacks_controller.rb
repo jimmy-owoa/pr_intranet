@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect(@user)
     else
       flash[:alert] = "Debe ingresar a una cuenta válida para continuar."
-      redirect_to(request.referrer || admin_root_path)
+      redirect_to user_azure_oauth2_omniauth_authorize_path
     end
   end
 

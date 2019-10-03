@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
     @ip = Rails.env.production? ? Rails.application.credentials.production : Rails.application.credentials.develop # Develop ip
   end
 
-  def after_sign_in_path_for(resource)
-    session[:url] || root_path
-  end
-
   def set_locale
     I18n.config.available_locales = :es
   end
@@ -21,7 +17,7 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:alert] = "Tú no estás autorizado para realizar esta acción."
+    flash[:alert] = "No estás autorizado para realizar esta acción."
     redirect_to(request.referrer || admin_root_path)
   end
 end
