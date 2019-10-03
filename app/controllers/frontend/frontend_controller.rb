@@ -1,5 +1,5 @@
 class Frontend::FrontendController < ApplicationController
-  before_action :get_user
+  before_action :get_user, except: [:azure_auth]
 
   def index
   end
@@ -64,6 +64,10 @@ class Frontend::FrontendController < ApplicationController
     end
   end
 
+  def azure_auth
+    session[:url] = params[:referrer]
+    redirect_to user_azure_oauth2_omniauth_authorize_path
+  end
   private
 
   def get_user
