@@ -28,10 +28,9 @@
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-config/master.key
-config/environments/development.rb
+/config/master.key
+/config/credentials.yml
 # Ignore database.yml
 /config/database.yml
 
 .DS_Store
-config/database.yml
