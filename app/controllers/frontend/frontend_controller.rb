@@ -65,12 +65,16 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def azure_auth
-    session[:url] = params[:referrer]
-    redirect_to user_azure_oauth2_omniauth_authorize_path
+    if !current_user
+      session[:url] = params[:referrer] || admin_root_path
+      redirect_to user_azure_oauth2_omniauth_authorize_path
+    else
+      redirect_to session[:url]
+    end
   end
 
   def after_sign_in_path_for(resource)
-    session[:url] || frontend_root_path
+    frontend_azure_auth_path
   end
 
   private
