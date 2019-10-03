@@ -1,6 +1,4 @@
 class Frontend::FrontendController < ApplicationController
-  before_action :authenticate_request
-  attr_reader :current_user
   before_action :get_user
 
   def index
@@ -69,12 +67,11 @@ class Frontend::FrontendController < ApplicationController
   private
 
   def get_user
-    ln_user = request.headers["Authorization"]
-    @request_user = General::User.get_user_by_ln(ln_user)
-  end
-
-  def authenticate_request
-    render json: { error: 'Not Authorized' }, status: 401 unless current_user
+    if current_user
+      @request_user = current_user
+    else
+      render json: { error: 'Not Authorized' }, status: 401
+    end
   end
 
 end
