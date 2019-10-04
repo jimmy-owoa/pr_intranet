@@ -10,6 +10,11 @@ class ApplicationController < ActionController::Base
     @ip = Rails.env.production? ? Rails.application.credentials.production : Rails.application.credentials.develop # Develop ip
   end
 
+  def after_sign_in_path_for(resource)
+    session[:current_user] = current_user
+    session[:url] || root_path
+  end
+
   def set_locale
     I18n.config.available_locales = :es
   end

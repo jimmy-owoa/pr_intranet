@@ -64,6 +64,12 @@ class Frontend::FrontendController < ApplicationController
     end
   end
 
+  def current_user_azure
+    respond_to do |format|
+      format.json { render json: session[:current_user] }
+    end
+  end
+
   def azure_auth
     if !current_user
       session[:url] = params[:referrer] || admin_root_path
