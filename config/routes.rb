@@ -74,7 +74,7 @@ Rails.application.routes.draw do
     get "user_messages", to: "user_messages#index"
     post "user_message/update", to: "user_messages#update"
     get "azure_auth", to: "frontend#azure_auth"
-    get "current_user", to: "frontend#current_user_azure"
+    get "current_user_azure", to: "frontend#current_user_azure"
     resources :galleries
     resources :weather
     resources :users, only: [:update, :show] do
