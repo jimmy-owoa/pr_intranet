@@ -2,7 +2,7 @@ require "uri"
 require "net/http"
 
 class General::User < ApplicationRecord
-  acts_as_nested_set
+  # acts_as_nested_set
   rolify
   searchkick
   validates_presence_of :name, :email
@@ -34,7 +34,7 @@ class General::User < ApplicationRecord
 
   accepts_nested_attributes_for :terms
 
-  devise :trackable, :omniauthable, omniauth_providers: [:azure_oauth2]
+  devise :trackable, :database_authenticatable, :omniauthable, omniauth_providers: [:azure_oauth2]
 
   # callbacks
   after_create :assign_default_role, :image_resize

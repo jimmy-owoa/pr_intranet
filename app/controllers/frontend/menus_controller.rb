@@ -2,7 +2,7 @@ require 'uri'
 require 'net/http'
 module Frontend
   class MenusController < FrontendController
-    protect_from_forgery except: :api_menu
+    # protect_from_forgery except: :api_menu
     def menus
       data = []
       menus = General::Menu.all

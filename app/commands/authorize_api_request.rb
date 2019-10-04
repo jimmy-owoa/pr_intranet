@@ -13,8 +13,8 @@ class AuthorizeApiRequest
 
   attr_reader :headers
 
-  def user
-    @user ||= General::UserEmployee.find(decoded_auth_token[:user_id]) if decoded_auth_token
+  def current_user_jwt
+    @user ||= General::User.find(decoded_auth_token[:user_id]) if decoded_auth_token
     @user || errors.add(:token, 'Invalid token') && nil
   end
 

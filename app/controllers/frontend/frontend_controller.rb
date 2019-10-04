@@ -1,5 +1,5 @@
 class Frontend::FrontendController < ApplicationController
-  before_action :get_user, except: [:azure_auth]
+  before_action :get_user, except: [:azure_auth, :current_user_azure]
 
   def index
   end
@@ -11,14 +11,14 @@ class Frontend::FrontendController < ApplicationController
     indicators = indicator.where(date: today)
     if indicator.where(date: today).present?
       data << {
-        TODAY: l(Date.today, format: '%A %d %B %Y'),
-        YESTERDAY: (Date.today-1).strftime("%d/%m"),
-        YESTERDAY_1: (Date.today-2).strftime("%d/%m"),
-        YESTERDAY_2: (Date.today-3).strftime("%d/%m"),
-        MONTH: l(Date.today, format: '%B'),
-        MONTH_1: l(Date.today-1.month, format: '%B'),
-        MONTH_2: l(Date.today-2.month, format: '%B'),
-        MONTH_3: l(Date.today-3.month, format: '%B'),
+        TODAY: l(Date.today, format: "%A %d %B %Y"),
+        YESTERDAY: (Date.today - 1).strftime("%d/%m"),
+        YESTERDAY_1: (Date.today - 2).strftime("%d/%m"),
+        YESTERDAY_2: (Date.today - 3).strftime("%d/%m"),
+        MONTH: l(Date.today, format: "%B"),
+        MONTH_1: l(Date.today - 1.month, format: "%B"),
+        MONTH_2: l(Date.today - 2.month, format: "%B"),
+        MONTH_3: l(Date.today - 3.month, format: "%B"),
         DOLAR: indicator.indicator_type(1).last,
         EURO: indicator.indicator_type(2).last,
         UF: indicator.indicator_type(3).last,
@@ -31,18 +31,18 @@ class Frontend::FrontendController < ApplicationController
         LATEST_UF: indicator.indicator_type(3),
         LATEST_IPC: indicator.indicator_type(5),
         LATEST_UTM: indicator.indicator_type(4),
-        LATEST_IPSA: indicator.indicator_type(6)
+        LATEST_IPSA: indicator.indicator_type(6),
       }
     else
       data << {
-        TODAY: l(Date.today, format: '%A %d %B %Y'),
-        YESTERDAY: (Date.today-1).strftime("%d/%m"),
-        YESTERDAY_1: (Date.today-2).strftime("%d/%m"),
-        YESTERDAY_2: (Date.today-3).strftime("%d/%m"),
-        MONTH: l(Date.today, format: '%B'),
-        MONTH_1: l(Date.today-1.month, format: '%B'),
-        MONTH_2: l(Date.today-2.month, format: '%B'),
-        MONTH_3: l(Date.today-3.month, format: '%B'),   
+        TODAY: l(Date.today, format: "%A %d %B %Y"),
+        YESTERDAY: (Date.today - 1).strftime("%d/%m"),
+        YESTERDAY_1: (Date.today - 2).strftime("%d/%m"),
+        YESTERDAY_2: (Date.today - 3).strftime("%d/%m"),
+        MONTH: l(Date.today, format: "%B"),
+        MONTH_1: l(Date.today - 1.month, format: "%B"),
+        MONTH_2: l(Date.today - 2.month, format: "%B"),
+        MONTH_3: l(Date.today - 3.month, format: "%B"),
         DOLAR: indicator.where(economic_indicator_type_id: 1).last.value,
         EURO: indicator.where(economic_indicator_type_id: 2).last.value,
         UF: indicator.where(economic_indicator_type_id: 3).last.value,
@@ -55,7 +55,7 @@ class Frontend::FrontendController < ApplicationController
         LATEST_UF: indicator.indicator_type(3),
         LATEST_IPC: indicator.indicator_type(5),
         LATEST_UTM: indicator.indicator_type(4),
-        LATEST_iPSA: indicator.indicator_type(6)
+        LATEST_iPSA: indicator.indicator_type(6),
       }
     end
     respond_to do |format|
@@ -65,32 +65,50 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def current_user_azure
+    user = get_current_user_jwt
     respond_to do |format|
-      format.json { render json: session[:current_user] }
+      if user.present?
+        format.json { render json: { message: "OK" } }
+      else
+        format.json { render json: { error: "No hay user" } }
+      end
     end
   end
 
   def azure_auth
-    if !current_user
-      session[:url] = params[:referrer] || admin_root_path
-      redirect_to user_azure_oauth2_omniauth_authorize_path
-    else
-      redirect_to session[:url]
-    end
+    session[:url] = params[:referrer] || admin_root_path
+    redirect_to user_azure_oauth2_omniauth_authorize_path
   end
 
   def after_sign_in_path_for(resource)
-    frontend_azure_auth_path
+    user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
+    session[:url] + "?t=#{user_jwt}"
   end
 
   private
 
+  def get_current_user_jwt
+    @user ||= General::User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+    @user || nil
+  end
+
+  def decoded_auth_token
+
+    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+  end
+
+  def http_auth_header
+    if request.headers['Authorization'].present?
+      return request.headers['Authorization'].split(' ').last
+    end
+    nil
+  end
+
   def get_user
     if current_user
       @request_user = current_user
-    else
-      render json: { error: 'Not Authorized' }, status: 401
+    # else
+    #   render json: { error: "Not Authorized" }
     end
   end
-
 end

@@ -150,7 +150,7 @@ module Frontend
       data_user = []
       id = params[:full_legal_number].present? ? params[:full_legal_number] : nil
       rut = params[:full_legal_number]
-      @user = General::User.find_by_legal_number(rut[0...-1])
+      @user = current_user
       @nickname = nickname(@user.name)
       data_benefits = []
       data_products = []

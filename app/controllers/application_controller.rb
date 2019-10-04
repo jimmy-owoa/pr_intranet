@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   include Pundit
   before_action :set_ip
-  protect_from_forgery
+  # protect_from_forgery
   before_action :set_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -10,12 +10,8 @@ class ApplicationController < ActionController::Base
     @ip = Rails.env.production? ? Rails.application.credentials.production : Rails.application.credentials.develop # Develop ip
   end
 
-  def after_sign_in_path_for(resource)
-    session[:current_user] = current_user
-    session[:url] || root_path
-  end
-
   def set_locale
+    session[:init] = true
     I18n.config.available_locales = :es
   end
 
