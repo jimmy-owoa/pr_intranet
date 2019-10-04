@@ -1,5 +1,6 @@
 class Frontend::FrontendController < ApplicationController
   before_action :get_user, except: [:azure_auth, :current_user_azure]
+  include JsonWebToken
 
   def index
   end
@@ -81,7 +82,7 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def after_sign_in_path_for(resource)
-    user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
+    user_jwt = JsonWebToken.encode(user_id: current_user.id, url: session[:url]) if current_user
     session[:url] + "?t=#{user_jwt}"
   end
 
@@ -93,8 +94,8 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def decoded_auth_token
-
-    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header).first
+    @url_jwt ||= JsonWebToken.decode(http_auth_header).second
   end
 
   def http_auth_header
