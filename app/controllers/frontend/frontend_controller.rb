@@ -69,7 +69,7 @@ class Frontend::FrontendController < ApplicationController
     user = get_current_user_jwt
     respond_to do |format|
       if user.present?
-        format.json { render json: { message: "OK" } }
+        format.json { render json: { message: "OK", token: http_auth_header } }
       else
         format.json { render json: { error: "No hay user" } }
       end
@@ -77,13 +77,9 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def azure_auth
+    Rails.logger.info "&&&&&&&&&&&&&AZURE_AUTH&&&&&&&&&&&&&&&&&&&&&&&  #{params[:referrer]}"
     session[:url] = params[:referrer] || admin_root_path
     redirect_to user_azure_oauth2_omniauth_authorize_path
-  end
-
-  def after_sign_in_path_for(resource)
-    user_jwt = JsonWebToken.encode(user_id: current_user.id, url: session[:url]) if current_user
-    session[:url] + "?t=#{user_jwt}"
   end
 
   private
@@ -94,8 +90,7 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def decoded_auth_token
-    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header).first
-    @url_jwt ||= JsonWebToken.decode(http_auth_header).second
+    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
   end
 
   def http_auth_header
@@ -106,6 +101,7 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def get_user
+    decoded_auth_token
     if current_user
       @request_user = current_user
     # else

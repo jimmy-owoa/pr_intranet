@@ -10,7 +10,4 @@ class Admin::AdminController < ApplicationController
     redirect_to user_azure_oauth2_omniauth_authorize_path if !current_user
   end
 
-  def after_sign_in_path_for(resource)
-    request.env['omniauth.origin'] || admin_root_path
-  end
 end

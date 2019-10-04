@@ -10,8 +10,13 @@ class ApplicationController < ActionController::Base
     @ip = Rails.env.production? ? Rails.application.credentials.production : Rails.application.credentials.develop # Develop ip
   end
 
+  def after_sign_in_path_for(resource)
+    Rails.logger.info "&&&&&&&&&&&&&AFTER_SIGN_IN_PATH_FOR&&&&&&&&&&&&&&&&&&&&&&&  #{resource}"
+    user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
+    request.env['omniauth.origin'] + "?t=#{user_jwt}"
+  end
+
   def set_locale
-    session[:init] = true
     I18n.config.available_locales = :es
   end
 
