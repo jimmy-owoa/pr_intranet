@@ -4,6 +4,8 @@ class Survey::Survey < ApplicationRecord
   has_many :terms, through: :survey_term_relationships
   has_one_attached :image
 
+  belongs_to :profile, class_name: "General::Profile", optional: true, inverse_of: :surveys
+  
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: proc { |att| att['title'].blank? }
   accepts_nested_attributes_for :terms
 
@@ -104,4 +106,8 @@ class Survey::Survey < ApplicationRecord
       val
     end
   end
+
+  # def get_surveys 
+  #   General::Survey
+  # end
 end
