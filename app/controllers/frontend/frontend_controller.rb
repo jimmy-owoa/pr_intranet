@@ -94,18 +94,13 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def http_auth_header
-    if request.headers['Authorization'].present?
-      return request.headers['Authorization'].split(' ').last
+    if request.headers["Authorization"].present?
+      return request.headers["Authorization"].split(" ").last
     end
     nil
   end
 
   def get_user
-    decoded_auth_token
-    if current_user
-      @request_user = current_user
-    # else
-    #   render json: { error: "Not Authorized" }
-    end
+    @request_user = get_current_user_jwt if http_auth_header.present?
   end
 end

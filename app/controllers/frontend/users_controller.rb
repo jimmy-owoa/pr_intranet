@@ -12,7 +12,7 @@ module Frontend
       data_siblings = []
       data_father = []
       id = params[:id].present? ? params[:id] : nil
-      @user = General::User.find(id)
+      @user = @request_user
       @nickname = nickname(@user.name)
       @location = @user.location.present? ? General::Location.find(@user.location_id).name : "No definido"
       if @user.children.first.present?
@@ -25,7 +25,7 @@ module Frontend
             company: children.company.present? ? children.company.name : "",
             color: children.get_color,
             image: children.image.attached? ?
-              url_for(children.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(children.image.variant(resize: "150x150")) : "",
           }
         end
       end
@@ -39,7 +39,7 @@ module Frontend
             company: sibling.company.present? ? sibling.company.name : "",
             color: sibling.get_color,
             image: sibling.image.attached? ?
-              url_for(sibling.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(sibling.image.variant(resize: "150x150")) : "",
           }
         end
       end
@@ -52,7 +52,7 @@ module Frontend
           company: @user.parent.company.present? ? @user.parent.company.name : "",
           color: @user.get_color,
           image: @user.parent.image.attached? ?
-            url_for(@user.parent.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            url_for(@user.parent.image.variant(resize: "150x150")) : "",
         }
       end
       data_user << {
@@ -73,7 +73,7 @@ module Frontend
         date_entry: @user.date_entry,
         color: @user.get_color,
         image: @user.image.attached? ?
-          url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          url_for(@user.image) : "",
         childrens: data_childrens,
         siblings: data_siblings,
         father: data_father,
@@ -90,7 +90,7 @@ module Frontend
 
     def parents_data
       rut = params[:rut].present? ? params[:rut] : nil
-      user = General::User.find_by_legal_number(rut[0...-1])
+      user = @request_user
       data_childrens = []
       data_siblings = []
       data_father = []
@@ -105,7 +105,7 @@ module Frontend
             company: children.company.present? ? children.company.name.titleize : "",
             color: children.get_color,
             image: children.image.attached? ?
-              url_for(children.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(children.image.variant(resize: "150x150")) : "",
           }
         end
       end
@@ -119,7 +119,7 @@ module Frontend
             company: sibling.company.present? ? sibling.company.name.titleize : "",
             color: sibling.get_color,
             image: sibling.image.attached? ?
-              url_for(sibling.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(sibling.image.variant(resize: "150x150")) : "",
           }
         end
       end
@@ -132,7 +132,7 @@ module Frontend
           company: user.parent.company.present? ? user.parent.company.name.titleize : "",
           color: user.parent.get_color,
           image: user.parent.image.attached? ?
-            url_for(user.parent.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            url_for(user.parent.image.variant(resize: "150x150")) : "",
         }
       end
       data << {
@@ -150,16 +150,15 @@ module Frontend
       data_user = []
       id = params[:full_legal_number].present? ? params[:full_legal_number] : nil
       rut = params[:full_legal_number]
-      @user = current_user
-      @nickname = nickname(@user.name)
+      @nickname = nickname(@request_user.name)
       data_benefits = []
       data_products = []
       data_messages = []
-      if @user.benefit_group.present?
+      if @request_user.benefit_group.present?
         data = { benefit_types: [] }
         @benefit_types = General::BenefitType.all
         @benefit_types.each do |benefit_type|
-          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(@user.benefit_group.try(:id))
+          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(@request_user.benefit_group.try(:id))
           if allowed_benefits.present?
             benefit_type_hash = {
               name: benefit_type.name,
@@ -170,8 +169,8 @@ module Frontend
                 id: benefit.id,
                 name: benefit.title,
                 content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-                url: root_url + "admin/benefits/" + "#{benefit.id}" + "/edit",
+                image: benefit.image.attached? ? url_for(benefit.image) : "",
+                url: "admin/benefits/" + "#{benefit.id}" + "/edit",
                 link: benefit.url,
               }
             end
@@ -179,8 +178,8 @@ module Frontend
           end
         end
       end
-      if @user.products.present?
-        @user.products.each do |product|
+      if @request_user.products.present?
+        @request_user.products.each do |product|
           data_products << {
             name: product.name,
             description: product.description,
@@ -197,7 +196,7 @@ module Frontend
           }
         end
       end
-      if @user.birthday?
+      if @request_user.birthday?
         General::Message.where(message_type: "birthdays").take(1).each do |message|
           data_messages << {
             id: message.id,
@@ -209,7 +208,7 @@ module Frontend
           }
         end
       end
-      if General::User.welcome?(@user.id, @user.date_entry)
+      if General::User.welcome?(@request_user.id, @request_user.date_entry)
         General::Message.where(message_type: "welcomes").take(1).each do |message|
           data_messages << {
             id: message.id,
@@ -222,39 +221,39 @@ module Frontend
         end
       end
       data_user << {
-        id: @user.id,
-        name: @user.name,
-        last_name: @user.last_name,
-        full_name: @user.full_name.titleize,
-        full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : "sin rut",
+        id: @request_user.id,
+        name: @request_user.name,
+        last_name: @request_user.last_name,
+        full_name: @request_user.full_name.titleize,
+        full_legal_number: @request_user.legal_number.present? ? @request_user.legal_number + @request_user.legal_number_verification : "sin rut",
         nickname: @nickname,
-        role: General::User.what_role?(@user),
-        company: @user.company.present? ? @user.company.name : "",
-        birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m") : "",
-        is_birthday: @user.is_birthday_today,
-        position: @user.position,
-        date_entry: @user.date_entry,
-        image: @user.image.attached? ?
-          url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-        companies: @user.terms.categories.map(&:name),
-        including_tags: @user.terms.inclusive_tags.map { |a| a.name },
-        excluding_tags: @user.terms.excluding_tags.map { |a| a.name },
-        email: @user.email,
-        annexed: @user.annexed,
+        role: General::User.what_role?(@request_user),
+        company: @request_user.company.present? ? @request_user.company.name : "",
+        birthday: @request_user.birthday.present? ? @request_user.birthday.strftime("%d/%m") : "",
+        is_birthday: @request_user.is_birthday_today,
+        position: @request_user.position,
+        date_entry: @request_user.date_entry,
+        image: @request_user.image.attached? ?
+          url_for(@request_user.image) : "",
+        companies: @request_user.terms.categories.map(&:name),
+        including_tags: @request_user.terms.inclusive_tags.map { |a| a.name },
+        excluding_tags: @request_user.terms.excluding_tags.map { |a| a.name },
+        email: @request_user.email,
+        annexed: @request_user.annexed,
         breadcrumbs: [
           { link: "/", name: "Inicio" },
           { link: "#", name: "Mi perfil" },
         ],
-        address: @user.address,
+        address: @request_user.address,
         location: @location,
         benefit_group: {
-          name: @user.benefit_group.present? ? @user.benefit_group.name : "Sin grupo beneficiario",
+          name: @request_user.benefit_group.present? ? @request_user.benefit_group.name : "Sin grupo beneficiario",
           benefits: data,
         },
         products: data_products[0],
         messages: data_messages,
-        notifications: @user.notifications,
-        color: @user.get_color,
+        notifications: @request_user.notifications,
+        color: @request_user.get_color,
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
@@ -265,8 +264,7 @@ module Frontend
     def current_user_vue_temp
       data_user = []
       benefit_group = params[:group] if params[:group].present?
-      id = General::BenefitGroup.where(name: benefit_group).first.general_users.first.id
-      @user = General::User.find(id)
+      @user = @request_user
       @location = @user.location.present? ? General::Location.find(@user.location_id).name : "No definido"
       @today = Date.today.strftime("%d/%m/%Y")
       @tomorrow = l(Date.today + 1, format: "%A")
@@ -296,7 +294,7 @@ module Frontend
                 id: benefit.id,
                 name: benefit.title,
                 content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+                image: benefit.image.attached? ? url_for(benefit.image) : "",
               }
             end
             data[:benefit_types] << benefit_type_hash
@@ -312,7 +310,7 @@ module Frontend
             position: children.position,
             company: children.company.present? ? children.company.name : "",
             image: children.image.attached? ?
-              url_for(children.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(children.image.variant(resize: "150x150")) : "",
           }
         end
       end
@@ -325,7 +323,7 @@ module Frontend
             position: sibling.position,
             company: sibling.company.present? ? sibling.company.name : "",
             image: sibling.image.attached? ?
-              url_for(sibling.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(sibling.image.variant(resize: "150x150")) : "",
           }
         end
       end
@@ -337,7 +335,7 @@ module Frontend
           position: @user.parent.position,
           company: @user.parent.company.present? ? @user.parent.company.name : "",
           image: @user.parent.image.attached? ?
-            url_for(@user.parent.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            url_for(@user.parent.image.variant(resize: "150x150")) : "",
         }
       end
       if @user.products.present?
@@ -391,7 +389,7 @@ module Frontend
         company: @user.company.present? ? @user.company.name : "",
         date_entry: @user.date_entry,
         image: @user.image.attached? ?
-          url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          url_for(@user.image) : "",
         companies: @user.terms.categories.map(&:name),
         including_tags: @user.terms.inclusive_tags.map { |a| a.name },
         excluding_tags: @user.terms.excluding_tags.map { |a| a.name },

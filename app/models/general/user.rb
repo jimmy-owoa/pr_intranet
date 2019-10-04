@@ -2,7 +2,7 @@ require "uri"
 require "net/http"
 
 class General::User < ApplicationRecord
-  # acts_as_nested_set
+  acts_as_nested_set
   rolify
   searchkick
   validates_presence_of :name, :email
