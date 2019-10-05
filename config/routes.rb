@@ -117,6 +117,6 @@ Rails.application.routes.draw do
     resources :births do
       get :get_home_births, on: :collection
     end
-    root to: "application#index"
   end
+  root to: "application#index"
 end

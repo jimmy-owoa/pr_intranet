@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery
   before_action :set_locale
 
+  def index 
+  end
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   def set_ip
     @ip = Rails.env.production? ? Rails.application.credentials.production : Rails.application.credentials.develop # Develop ip

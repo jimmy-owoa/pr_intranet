@@ -129,7 +129,7 @@ module Frontend
         "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
       end
       rut= params[:user_id]
-      user = General::User.find_by_legal_number(rut[0...-1])      
+      user = @request_user      
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
       weather = General::WeatherInformation.current(location_id)
