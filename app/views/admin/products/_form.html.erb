@@ -88,7 +88,7 @@
           <figure>
             <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
             <figcaption>
-              <%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: '¿Estás seguro??' }, :class => 'btn btn-sm btn-danger'%>
+              <%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: '¿Esta segura(o) que desea eliminar este elemento?' }, :class => 'btn btn-sm btn-danger'%>
             </figcaption>
           </figure>
         </div>
