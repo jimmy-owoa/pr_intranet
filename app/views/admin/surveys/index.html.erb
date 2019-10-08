@@ -1,43 +1,48 @@
 <%- model_class = Survey::Survey -%>
-  <section class="section">
-    <h1 class="section-header"><%= "Encuestas" %></h1>
-    <%= link_to "Nueva", new_admin_survey_path, :class => 'btn btn-primary btn-sm' %>
-    <div class="card">
-      <div class="table-responsive-md">
-        <table class="table table-hover">
-          <thead class="thead">
+<section class="section">
+  <h1 class="section-header"><%= "Encuestas" %></h1>
+  <%= link_to "Nueva", new_admin_survey_path, :class => 'btn btn-primary btn-sm mb-1' %>
+  <div class="card">
+    <div class="table-responsive-md">
+      <table class="table table-hover">
+        <thead class="thead">
+          <tr>
+            <th><%= 'Tipo'%></th>
+            <th><%= 'Título' %></th>
+            <th><%= 'Respuestas' %></th>
+            <th><%= 'Fecha Creación' %></th>
+            <th><%= 'Acciones' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @surveys.each do |survey| %>
             <tr>
-              <th><%= 'Tipo'%></th>
-              <th><%= 'Título' %></th>
-              <th><%= 'Respuestas' %></th>
-              <th><%= 'Fecha Creación' %></th>
-              <th><%= 'Acciones' %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @surveys.each do |survey| %>
-              <tr>
-                <td><%= survey.get_name_survey_type unless survey.survey_type.nil?  %></td>
-                <td><%= survey.name %></td>
-                <td><%= survey.get_answer_count %></td>
-                <td><%= custom_date_no_hour(survey.created_at)  %></td>
-                <td>
-                  <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://misecurity.elmejorlugarparatrabajar.cl' %>
-                  <%= link_to "Ver en intranet", "#{environment}/#/encuestas/#{survey.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
-                  <%= link_to "Ver", admin_survey_path(survey), class: 'btn btn-success btn-sm' %>
-                  <%= link_to "Editar", edit_admin_survey_path(survey), class: 'btn btn-primary btn-sm' %>
-                  <%= link_to 'Eliminar',
+              <td><%= survey.get_name_survey_type unless survey.survey_type.nil?  %></td>
+              <td><%= survey.name %></td>
+              <td><%= survey.get_answer_count %></td>
+              <td><%= custom_date_no_hour(survey.created_at)  %></td>
+              <td>
+                <% if survey.questions.first.present? && survey.questions.first.answers.present? %>
+                  <%= link_to "Ver respuestas", admin_answer_path(survey.questions.first.answers.first.id), class: 'btn btn-info btn-sm' %>
+                <% else %>
+                  <%= link_to "Ver respuestas", "#", class: 'btn btn-info btn-sm disabled' %>
+                <% end %>
+                <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://misecurity.elmejorlugarparatrabajar.cl' %>
+                <%= link_to "Ver en intranet", "#{environment}/#/encuestas/#{survey.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
+                <%= link_to "Ver", admin_survey_path(survey), class: 'btn btn-success btn-sm' %>
+                <%= link_to "Editar", edit_admin_survey_path(survey), class: 'btn btn-primary btn-sm' %>
+                <%= link_to 'Eliminar',
                       admin_survey_path(survey),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
-                      :class => 'btn btn-sm btn-danger'%>                
-                  </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class="row justify-content-center">
-        </div>
+                      :class => 'btn btn-sm btn-danger'%>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="row justify-content-center">
       </div>
     </div>
-  </section>
+  </div>
+</section>

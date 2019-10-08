@@ -48,7 +48,7 @@
 //= require_self
 
 dataConfirmModal.setDefaults({
-  title: "¿Estás seguro?",
+  title: "¿Esta segura(o) que desea eliminar este elemento?",
   commit: "Aceptar",
   cancel: "Cancelar"
 });

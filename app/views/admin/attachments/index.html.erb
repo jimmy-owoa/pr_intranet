@@ -2,7 +2,7 @@
 <%- model_class = General::Attachment -%>
   <section class="section">
     <h1 class="section-header"><%= "Medios" %></h1>
-    <%= link_to "Nuevo", new_admin_attachment_path, :class => 'btn btn-primary btn-sm' %>
+    <%= link_to "Nuevo", new_admin_attachment_path, :class => 'btn btn-primary btn-sm mb-1' %>
     <div class="card">
       <div class="table-responsive-md">
         <table class="table table-hover">
@@ -26,7 +26,7 @@
                   <%= link_to 'Eliminar',
                               admin_attachment_path(at),
                               :method => :delete,
-                              :data => { :confirm => t('.confirm', :default => t("helpers.messages.confirm", :default => '¿Estás seguro??')) },
+                              :data => { :confirm => t('.confirm', :default => t("helpers.messages.confirm", :default => '¿Esta segura(o) que desea eliminar este elemento?')) },
                               :class => 'btn btn-danger' %>
                 </td>
               </tr>

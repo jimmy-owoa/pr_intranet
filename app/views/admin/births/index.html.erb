@@ -1,7 +1,7 @@
 <%- model_class = Employee::Birth -%>
   <section class="section">
     <h1 class="section-header"><%= "Nuevos Nacimientos" %></h1>
-    <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary btn-sm' %>
+    <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary btn-sm mb-1' %>
     <div class="card">
       <%= form_tag('', method: 'get') do %>
         <div class="large-12 columns">
