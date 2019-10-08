@@ -85,8 +85,8 @@ class Frontend::FrontendController < ApplicationController
   private
 
   def get_current_user_jwt
-    @user ||= General::User.find(decoded_auth_token[:user_id]) if decoded_auth_token
-    @user || nil
+    @request_user ||= General::User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+    @request_user || nil
   end
 
   def decoded_auth_token
