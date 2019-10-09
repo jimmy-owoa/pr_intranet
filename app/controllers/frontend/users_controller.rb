@@ -12,7 +12,7 @@ module Frontend
       data_siblings = []
       data_father = []
       id = params[:id].present? ? params[:id] : nil
-      @user = @request_user
+      @user = General::User.find(id)
       @nickname = nickname(@user.name)
       @location = @user.location.present? ? General::Location.find(@user.location_id).name : "No definido"
       if @user.children.first.present?
