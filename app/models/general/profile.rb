@@ -47,9 +47,3 @@ class General::Profile < ApplicationRecord
     end
   end
 end
-
-# "location_regions",
-#       "general_benefit_group",
-#       "company",
-#       "company_management",
-#       "company_cost_center",

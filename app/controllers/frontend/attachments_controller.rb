@@ -7,13 +7,14 @@ module Frontend
     end
 
     private
+
     def set_tracking
       ahoy.track "Attachment Model", params
     end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @attachment = General::Attachment.find(params[:id])
     end
-
   end
 end

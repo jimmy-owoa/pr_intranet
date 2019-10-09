@@ -77,7 +77,6 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def azure_auth
-    Rails.logger.info "&&&&&&&&&&&&&AZURE_AUTH&&&&&&&&&&&&&&&&&&&&&&&  #{params[:referrer]}"
     session[:url] = params[:referrer] || admin_root_path
     redirect_to user_azure_oauth2_omniauth_authorize_path
   end

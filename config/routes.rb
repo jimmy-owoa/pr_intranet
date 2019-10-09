@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, class_name: "General::User", controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, class_name: "General::User", controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   namespace :admin do
     post "upload", to: "attachments#upload"
     get "analytics", to: "analytics#index"
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :attachments
     resources :terms
     resources :galleries
-    resources :profiles do 
+    resources :profiles do
       get :users_list, on: :member
     end
     resources :births do
