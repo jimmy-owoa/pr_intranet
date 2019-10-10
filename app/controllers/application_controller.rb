@@ -13,8 +13,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
-    request.env['omniauth.origin'] + "?t=#{user_jwt}"
+    if request.env.present? && request.env['omniauth.origin'].present?
+      user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
+      request.env['omniauth.origin'] + "?t=#{user_jwt}"
+    else
+      admin_root_path
+    end
   end
 
   def set_locale
