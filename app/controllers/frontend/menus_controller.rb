@@ -33,7 +33,6 @@ module Frontend
       else
         "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
       end
-      rut= params[:user_id]
       user = @request_user
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all

@@ -101,5 +101,8 @@ class Frontend::FrontendController < ApplicationController
 
   def get_user
     @request_user = get_current_user_jwt if http_auth_header.present?
+    if params[:view_as].present? && params[:view_as] != "null"
+      @request_user = General::User.get_user_by_ln(params[:view_as])
+    end 
   end
 end

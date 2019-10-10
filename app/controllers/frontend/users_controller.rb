@@ -148,17 +148,16 @@ module Frontend
 
     def current_user_vue
       data_user = []
-      id = params[:full_legal_number].present? ? params[:full_legal_number] : nil
-      rut = params[:full_legal_number]
-      @nickname = nickname(@request_user.name)
+      user = @request_user
+      @nickname = nickname(user.name)
       data_benefits = []
       data_products = []
       data_messages = []
-      if @request_user.benefit_group.present?
+      if user.benefit_group.present?
         data = { benefit_types: [] }
         @benefit_types = General::BenefitType.all
         @benefit_types.each do |benefit_type|
-          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(@request_user.benefit_group.try(:id))
+          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(user.benefit_group.try(:id))
           if allowed_benefits.present?
             benefit_type_hash = {
               name: benefit_type.name,
@@ -178,8 +177,8 @@ module Frontend
           end
         end
       end
-      if @request_user.products.present?
-        @request_user.products.each do |product|
+      if user.products.present?
+        user.products.each do |product|
           data_products << {
             name: product.name,
             description: product.description,
@@ -196,7 +195,7 @@ module Frontend
           }
         end
       end
-      if @request_user.birthday?
+      if user.birthday?
         General::Message.where(message_type: "birthdays").take(1).each do |message|
           data_messages << {
             id: message.id,
@@ -208,7 +207,7 @@ module Frontend
           }
         end
       end
-      if General::User.welcome?(@request_user.id, @request_user.date_entry)
+      if General::User.welcome?(user.id, user.date_entry)
         General::Message.where(message_type: "welcomes").take(1).each do |message|
           data_messages << {
             id: message.id,
@@ -221,39 +220,39 @@ module Frontend
         end
       end
       data_user << {
-        id: @request_user.id,
-        name: @request_user.name,
-        last_name: @request_user.last_name,
-        full_name: @request_user.full_name.titleize,
-        full_legal_number: @request_user.legal_number.present? ? @request_user.legal_number + @request_user.legal_number_verification : "sin rut",
+        id: user.id,
+        name: user.name,
+        last_name: user.last_name,
+        full_name: user.full_name.titleize,
+        full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
         nickname: @nickname,
-        role: General::User.what_role?(@request_user),
-        company: @request_user.company.present? ? @request_user.company.name : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-        birthday: @request_user.birthday.present? ? @request_user.birthday.strftime("%d/%m") : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-        is_birthday: @request_user.is_birthday_today,
-        position: @request_user.position,
-        date_entry: @request_user.date_entry,
-        image: @request_user.image.attached? ?
-          url_for(@request_user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-        companies: @request_user.terms.categories.map(&:name),
-        including_tags: @request_user.terms.inclusive_tags.map { |a| a.name },
-        excluding_tags: @request_user.terms.excluding_tags.map { |a| a.name },
-        email: @request_user.email,
-        annexed: @request_user.annexed,
+        role: General::User.what_role?(user),
+        company: user.company.present? ? user.company.name : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+        birthday: user.birthday.present? ? user.birthday.strftime("%d/%m") : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+        is_birthday: user.is_birthday_today,
+        position: user.position,
+        date_entry: user.date_entry,
+        image: user.image.attached? ?
+          url_for(user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+        companies: user.terms.categories.map(&:name),
+        including_tags: user.terms.inclusive_tags.map { |a| a.name },
+        excluding_tags: user.terms.excluding_tags.map { |a| a.name },
+        email: user.email,
+        annexed: user.annexed,
         breadcrumbs: [
           { link: "/", name: "Inicio" },
           { link: "#", name: "Mi perfil" },
         ],
-        address: @request_user.address,
+        address: user.address,
         location: @location,
         benefit_group: {
-          name: @request_user.benefit_group.present? ? @request_user.benefit_group.name : "Sin grupo beneficiario",
+          name: user.benefit_group.present? ? user.benefit_group.name : "Sin grupo beneficiario",
           benefits: data,
         },
         products: data_products[0],
         messages: data_messages,
-        notifications: @request_user.notifications,
-        color: @request_user.get_color,
+        notifications: user.notifications,
+        color: user.get_color,
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
