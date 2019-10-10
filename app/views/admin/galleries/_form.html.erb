@@ -7,8 +7,9 @@
       <%= f.input :name, required: true %>     
     </div>
     <div class="col-md-12">
+      <% selected_value = @gallery.post_id%>
       <%= f.label :post, class: 'form-control-label string required' %><br>
-      <%= select_tag 'gallery[post_id]', options_for_select(News::Post.all.map { |post| [post.title, post.id] }), id: 'posts' %><br/>
+      <%= select_tag 'gallery[post_id]', options_for_select(News::Post.all.map { |post| [post.title, post.id] }, selected_value), id: 'posts' %><br/>
     </div>
 
     <div class="col-md-12">
