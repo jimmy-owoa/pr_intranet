@@ -33,7 +33,7 @@ module Frontend
       else
         "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
       end
-      user = @request_user
+      user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
       host = if request.referer == "https://misecurity-qa3.exa.cl/" 
