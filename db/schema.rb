@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_162035) do
+ActiveRecord::Schema.define(version: 2019_10_11_174207) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -187,9 +187,9 @@ ActiveRecord::Schema.define(version: 2019_10_04_162035) do
   create_table "general_economic_indicators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "date"
     t.integer "economic_indicator_type_id"
-    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "value"
   end
 
   create_table "general_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

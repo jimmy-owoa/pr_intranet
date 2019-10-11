@@ -18,16 +18,12 @@ class IndicatorService
     {
       dolar: @currencies['dolar']['valor'],
       euro: @currencies['euro']['valor'],
-      uf: format_data(@currencies['uf']['valor']),
+      uf: @currencies['uf']['valor'],
       utm: @currencies['utm']['valor'],
       ipc: @currencies['ipc']['valor'],
-      ipsa: format_data(@indexes['listaResult'][1]['Valor']),
-      ipsa_variation: format_data(@indexes['listaResult'][1]['Variacion'])
+      ipsa: @indexes['listaResult'][1]['Valor'],
+      ipsa_variation: @indexes['listaResult'][1]['Variacion']
     }
-  end
-
-  def format_data(data)
-    data.to_s.split('.')[0,1].join('.').to_i
   end
 
   def self.perform

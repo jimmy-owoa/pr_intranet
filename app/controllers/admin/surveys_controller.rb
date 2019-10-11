@@ -26,11 +26,11 @@ module Admin
       respond_to do |format|
         if @survey.save
           set_tags
-          format.html { redirect_to admin_surveys_path, notice: 'Encuesta creada exitosamente.'}
-          format.json { render :show, status: :created, location: @survey}
+          format.html { redirect_to admin_surveys_path, notice: "Encuesta creada exitosamente." }
+          format.json { render :show, status: :created, location: @survey }
         else
-          format.html {render :new}
-          format.json {render json: @survey.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @survey.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -39,11 +39,11 @@ module Admin
       respond_to do |format|
         if @survey.update(survey_params)
           set_tags
-          format.html { redirect_to admin_surveys_path, notice: 'Encuesta editada exitosamente.'}
+          format.html { redirect_to admin_surveys_path, notice: "Encuesta editada exitosamente." }
           format.json { render :show, status: :ok, location: @survey }
         else
-          format.html { render :edit}
-          format.json { render json: @survey.errors, status: :unprocessable_entity}
+          format.html { render :edit }
+          format.json { render json: @survey.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -51,14 +51,14 @@ module Admin
     def destroy
       @survey.destroy
       respond_to do |format|
-        format.html { redirect_to admin_surveys_path, notice: 'Encuesta eliminada exitosamente.'}
+        format.html { redirect_to admin_surveys_path, notice: "Encuesta eliminada exitosamente." }
         format.json { head :no_content }
       end
     end
 
     private
 
-    def check_object_exist object
+    def check_object_exist(object)
       Survey::Survey.last == object
     end
 
@@ -75,13 +75,14 @@ module Admin
         @survey.terms << terms
       end
     end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_survey
       @survey = Survey::Survey.find(params[:id])
     end
 
     def survey_params
-      params.require(:survey).permit(:name, :slug, :description, :show_name, :survey_type, :once_by_user, :image, :published_at, :status, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional, :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
+      params.require(:survey).permit(:name, :slug, :description, :show_name, :survey_type, :once_by_user, :image, :published_at, :status, :profile_id, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional, :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
     end
   end
 end

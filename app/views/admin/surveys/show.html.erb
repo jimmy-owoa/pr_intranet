@@ -2,13 +2,13 @@
   <h1 class='section-header'>Título: <%= @survey.name.capitalize %></h1>
   <div class='form-group row'>
     <div class='col-md-11 center card p-4'>
-      <div class='col-md-12 text-center'>  
+      <div class='col-md-12 text-center'>
         <%= image_tag @survey.image.variant(resize: '360x300>') if @survey.image.attached? %><br />
         <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://misecurity.elmejorlugarparatrabajar.cl' %><br />
-        <%= link_to 'Ver en intranet', "#{environment}/#/encuestas/#{@survey.slug}", target: '_blank', class: 'btn btn-sm btn-success' %> 
+        <%= link_to 'Ver en intranet', "#{environment}/#/encuestas/#{@survey.slug}", target: '_blank', class: 'btn btn-sm btn-success' %>
       </div>
-      <div class='col-md-12 text-center pt-4'>  
-        <%= text_field_tag 'Hola', "#{environment}/#/encuestas/#{@survey.slug}", readonly: true, size: '50', onclick: 'this.select();'%>
+      <div class='col-md-12 text-center pt-4'>
+        <%= text_field_tag '', "#{environment}/#/encuestas/#{@survey.slug}", readonly: true, size: '50', onclick: 'this.select();'%>
       </div>
       <div class='col-md-12 text-center'><br />
         <%= link_to t('.edit', :default => t('helpers.links.edit')),edit_admin_survey_path(@survey), :class => 'btn btn-primary btn-sm' %>
@@ -16,11 +16,9 @@
                                   :method => :delete,
                                   :data => { :confirm => t('.confirm', :default => t('helpers.links.confirm', :default => '¿Esta segura(o) que desea eliminar este elemento?')) },
                                   :class => 'btn btn-sm btn-danger'%>
-        
           <%= link_to t('.back', :default => t('helpers.links.back')), admin_surveys_path, :class => 'btn btn-primary btn-sm'  %>
         <div>
       </div>
-   
     </div>
   </div>
 </div>

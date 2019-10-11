@@ -17,8 +17,6 @@
       </div>
       <div class="col-md-12 col-sm-12">
         <h5 class="card-title">Perfilamiento</h5>
-      </div>
-      <div class="col-md-12">
       <% selected_value = @post.profile_id || General::Profile.find_by_name("General").id %>
         <%= f.select :profile_id, options_for_select(General::Profile.all.map{|profile| [profile.name, profile.id]}, selected_value), multiple: false, class:' form-control string optional' %>
       </div>
