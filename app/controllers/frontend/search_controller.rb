@@ -6,6 +6,7 @@ module Frontend
       data = []
       users = []
       posts = []
+      menus = []
       search = params[:term].present? ? params[:term] : nil
       if search
         # result = General::User.search search, fields: [:name], match: :word
@@ -40,8 +41,11 @@ module Frontend
             main_image: @image,
           }
         end
-        @menus = result.with_hit.map { |a| a[0] if a[1]["_index"][0...13] == "general_menus" }.compact
-        data << [users, posts, @menus]
+        menus_result = result.with_hit.map { |a| a[0] if a[1]["_index"][0...13] == "general_menus" }.compact
+        menus_result.each do |menu|
+          menus << menu if menu.link.present?
+        end
+        data << [users, posts, menus]
       end
       respond_to do |format|
         format.json { render json: data[0] }
