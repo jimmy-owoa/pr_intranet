@@ -210,20 +210,24 @@ class General::User < ApplicationRecord
   def get_messages
     messages = self.user_messages
     data = []
+    birthday_messages = []
+    welcome_messages = []
     messages.each do |um|
       case um.message.message_type.downcase
       when "birthdays"
         if um.user.is_birthday_today
-          data << um
+          birthday_messages << um
         end
       when "welcomes"
         if um.user.is_entry_today
-          data << um
+          welcome_messages << um
         end
       when "general"
         data << um
       end
     end
-    return data
+    data << birthday_messages.take(1).first
+    data << welcome_messages.take(1).first
+    return data.compact
   end
 end

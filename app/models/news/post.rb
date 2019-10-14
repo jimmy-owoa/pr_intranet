@@ -70,27 +70,9 @@ class News::Post < ApplicationRecord
 
   # TODO: optimizar
   def self.filter_posts(user, important = nil)
-    user_inclusive_tags = user.terms.inclusive_tags.map(&:name)
-    user_excluding_tags = user.terms.excluding_tags.map(&:name)
-    user_categories = user.terms.categories.map(&:name)
-    posts = []
-    profile_ids = user.user_profiles.pluck(:profile_id)
-    news = News::Post.includes(:terms).where(profile_id: profile_ids).published_posts.where.not(post_type: "Página Informativa")
-    # news = News::Post.includes(:terms).published_posts
+    news = News::Post.where(profile_id: user.profile_ids).published_posts.where.not(post_type: "Página Informativa")
     news = news.where(important: important) if important.present?
-    news.each do |post|
-      show_post = true
-      if post.terms.present?
-        if post.terms.categories.present?
-          post.terms.categories.each do |tag|
-            show_post = tag.name.in?(user_categories)
-          end
-        end
-      end
-      # TODO: AGREGAR INCLUYENTE Y EXCLUYENTE
-      posts.push(post) if show_post
-    end
-    posts
+    news
   end
 
   private
