@@ -1,5 +1,7 @@
 module Frontend
   class UserMessagesController < FrontendController
+    skip_before_action :verify_authenticity_token
+
     def index
       user_messages = @request_user.get_messages
       messages = []
@@ -11,7 +13,7 @@ module Frontend
             message_type: um.message.message_type,
             content: um.message.content,
             viewed_at: um.viewed_at,
-            image: um.message.image.attached? ? url_for(um.message.image) : '',
+            image: um.message.image.attached? ? url_for(um.message.image) : "",
           }
         end
       end

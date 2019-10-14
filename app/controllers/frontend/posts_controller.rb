@@ -189,7 +189,7 @@ module Frontend
           format.json { render json: data[0] }
           format.js
         end
-      else 
+      else
         respond_to do |format|
           format.json { render json: "No tiene acceso" }
           format.js

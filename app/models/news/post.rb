@@ -32,7 +32,7 @@ class News::Post < ApplicationRecord
   STATUS = ["Publicado", "Borrador", "Programado"]
   VISIBILITY = ["Público", "Privada"]
   FORMAT = { 0 => "Estilo normal", 1 => "Estilo rosado", 2 => "Estilo naranja" }
-  TYPE = ["Corporativas", "Miscelaneos", "Conociéndonos"]
+  TYPE = ["Corporativas", "Miscelaneos", "Conociéndonos", "Página Informativa"]
   PERMISSION = [
     "Incluyente",
     "Excluyente",
@@ -75,7 +75,7 @@ class News::Post < ApplicationRecord
     user_categories = user.terms.categories.map(&:name)
     posts = []
     profile_ids = user.user_profiles.pluck(:profile_id)
-    news = News::Post.includes(:terms).where(profile_id: profile_ids).published_posts
+    news = News::Post.includes(:terms).where(profile_id: profile_ids).published_posts.where.not(post_type: "Página Informativa")
     # news = News::Post.includes(:terms).published_posts
     news = news.where(important: important) if important.present?
     news.each do |post|

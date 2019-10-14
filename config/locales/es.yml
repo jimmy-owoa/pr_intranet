@@ -55,6 +55,8 @@ es:
         title: Título
         code: Código
         url: Link
+        currency: Variable
+        amount: Valor
         benefit_type_id: Tipo de beneficio
         is_special: Es Beneficios Vida
       general/message:    
@@ -274,6 +276,8 @@ es:
       back: Volver
       block: Bloquear
       unlock: Desbloquear
+      currency: Variable
+      amount: Valor
       show: Ver
       confirm: Confirmar
     messages:
