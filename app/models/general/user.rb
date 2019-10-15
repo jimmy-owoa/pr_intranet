@@ -226,8 +226,8 @@ class General::User < ApplicationRecord
         data << um
       end
     end
-    data << birthday_messages.take(1).first
-    data << welcome_messages.take(1).first
+    data << birthday_messages.sample
+    data << welcome_messages.sample
     return data.compact
   end
 end

@@ -67,6 +67,8 @@ es:
           image: Imagen
         edit:
           image: Imagen
+        message_type: Tipo de mensaje
+        profile: Perfilamiento
       benefit:
         new:
           image: Imagen

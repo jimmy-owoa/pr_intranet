@@ -1,7 +1,7 @@
 module Admin
   class AttachmentsController < AdminController
     # skip_before_action :authenticate_user!, :only => [:create, :upload]
-    skip_before_action :verify_authenticity_token, only: :create
+    skip_before_action :verify_authenticity_token, only: [:create, :upload]
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
     before_action :set_terms, only: [:edit, :new]
@@ -9,7 +9,7 @@ module Admin
 
     def index
       add_breadcrumb "Medios", :admin_attachments_path
-      @attachments = General::Attachment.order(created_at: 'desc').paginate(:page => params[:page], :per_page => 12)
+      @attachments = General::Attachment.order(created_at: "desc").paginate(:page => params[:page], :per_page => 12)
       respond_to do |format|
         format.html
         format.json { render json: @attachments }
@@ -24,7 +24,7 @@ module Admin
         new_attachment.save
       end
       respond_to do |format|
-      format.json { render json: { "location": url_for(new_attachment.attachment) }.to_json, status: :ok}
+        format.json { render json: { "location": url_for(new_attachment.attachment) }.to_json, status: :ok }
       end
     end
 
@@ -37,10 +37,10 @@ module Admin
       @image_list = General::Attachment.paginate(:page => params[:page], :per_page => 12)
       @attachment = General::Attachment.new
       respond_to do |format|
-      format.html
-      format.json { render json: @attachment }
-      format.js
-    end
+        format.html
+        format.json { render json: @attachment }
+        format.js
+      end
     end
 
     def edit
@@ -53,7 +53,7 @@ module Admin
       respond_to do |f|
         f.json {
           render json: {
-            attachment_id: @attachment.id
+            attachment_id: @attachment.id,
           }
         }
         f.html {
@@ -63,8 +63,8 @@ module Admin
     end
 
     def update
-      attch_name = params.dig("general_attachment","name")
-      if attch_name.blank? 
+      attch_name = params.dig("general_attachment", "name")
+      if attch_name.blank?
         name = attachment_params[:name]
         caption = attachment_params[:caption]
         attachment = attachment_params[:attachment]
@@ -83,15 +83,15 @@ module Admin
             @attachment.update(name: name, caption: caption)
             @attachment.update(attachment: attachment) if attachment.present?
             set_tags
-            format.html { redirect_to admin_attachment_path(@attachment), notice: 'Archivo fué correctamente actualizado.'}
+            format.html { redirect_to admin_attachment_path(@attachment), notice: "Archivo fué correctamente actualizado." }
             format.json { render :show, status: :ok, location: @attachment }
           elsif @attachment.update(attachment_params)
             set_tags
-            format.html { redirect_to admin_attachment_path(@attachment), notice: 'Archivo fué correctamente actualizado.'}
+            format.html { redirect_to admin_attachment_path(@attachment), notice: "Archivo fué correctamente actualizado." }
             format.json { render :show, status: :ok, location: @attachment }
           else
-            format.html { render :edit}
-            format.json { render json: @attachment.errors, status: :unprocessable_entity}
+            format.html { render :edit }
+            format.json { render json: @attachment.errors, status: :unprocessable_entity }
           end
         end
       end
@@ -102,22 +102,23 @@ module Admin
       gal_id = General::Attachment.find(att_id).gallery_ids
       if gal_id.present?
         @attachment.destroy
-          redirect_to edit_admin_gallery_path(gal_id)
+        redirect_to edit_admin_gallery_path(gal_id)
       else
         @attachment.destroy
         respond_to do |format|
-          format.html { redirect_to admin_attachments_path, notice: 'Archivo fué correctamente eliminado.'}
+          format.html { redirect_to admin_attachments_path, notice: "Archivo fué correctamente eliminado." }
           format.json { head :no_content }
         end
       end
     end
 
     def search_att
-      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map{|i| {name: i.name, val: i.id, 'data-img-src': url_for(i.thumb)}}
-      render json: {data: @search}
+      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.thumb) } }
+      render json: { data: @search }
     end
 
-  private
+    private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
       @attachment = General::Attachment.find(params[:id])
@@ -131,7 +132,7 @@ module Admin
       if current_user.has_role? :super_admin
         @categories = full_categories
         @inclusive_tags = inclusive_tags
-        @excluding_tags = excluding_tags 
+        @excluding_tags = excluding_tags
       else
         @categories = @user_categories & @full_categories
       end
@@ -150,7 +151,7 @@ module Admin
         else
           params["attachment"]["attachment"] = params["attachment"]["attachment"]
         end
-        params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment, :caption, term_ids: [] )
+        params.require(:attachment).permit(:name, :path, :dimension, :is_public, :created_at, :updated_at, :attachment, :caption, term_ids: [])
       end
     end
 
@@ -163,7 +164,7 @@ module Admin
           terms << General::Term.where(name: tag, term_type: General::TermType.tag).first_or_create
         end
         @post.terms << terms
-      end   
+      end
     end
   end
 end
