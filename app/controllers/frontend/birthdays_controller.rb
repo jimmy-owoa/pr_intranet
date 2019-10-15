@@ -8,7 +8,7 @@ module Frontend
       if date == "0"
         users = General::User.users_birthday_today.show_birthday
       else
-        users =  General::User.where('extract(month from birthday) = ?', date).show_birthday
+        users = General::User.where("extract(month from birthday) = ?", date).show_birthday
       end
       birthdays = users.order(:birthday).page(page).per(9)
       data = []
@@ -23,20 +23,20 @@ module Frontend
           company: user.company.present? ? user.company.name.titleize : "",
           birthday: l(user.birthday, format: "%d de %B").downcase,
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
-          color: user.get_color
+          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          color: user.get_color,
         }
       end
       respond_to do |format|
-        format. html
-        format.json { render json: {hits: data} }
+        format.html
+        format.json { render json: { hits: data } }
       end
     end
 
     def birthday_month
       # @users_calendar = General::User.show_birthday
       @months = I18n.t("date.month_names").drop(1).join(", ")
-      users =  General::User.where('created_at > ? and created_at < ?', 3.months.ago, -3.months.ago).where.not(birthday: nil).show_birthday
+      users = General::User.where("created_at > ? and created_at < ?", 3.months.ago, -3.months.ago).where.not(birthday: nil).show_birthday
       data = []
       users.each do |user|
         data << {
@@ -51,20 +51,19 @@ module Frontend
           birthday: user.birthday.strftime("%d/%m/%Y"),
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
           show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
+          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
           open: false,
         }
       end
       respond_to do |format|
-        format. html
+        format.html
         format.json { render json: data }
       end
     end
 
-
     def get_home_birthdays
       data = []
-      birthdays_users =General::User.where('extract(month from birthday) = ?', Date.today.month).show_birthday.order('RAND()').limit(4)
+      birthdays_users = General::User.users_birthday_today.show_birthday.sample(4)
       birthdays_users.each do |user|
         data << {
           id: user.id,
@@ -77,8 +76,8 @@ module Frontend
           birthday: user.birthday,
           created_at: user.created_at,
           company: user.company.present? ? user.company.name.titleize : "",
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
-          color: user.get_color
+          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          color: user.get_color,
         }
       end
       respond_to do |format|
@@ -92,7 +91,7 @@ module Frontend
       @users_calendar = General::User.date_birth.show_birthday
       data = []
       @users_calendar.each do |user|
-        @image = user.image.attached? ? url_for(user.image.variant(resize: '300x300>')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
+        @image = user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png")
         data << {
           id: user.id,
           name: user.name,
@@ -103,13 +102,13 @@ module Frontend
           annexed: user.annexed,
           birthday: user.birthday,
           show_birthday: user.show_birthday,
-          image: @image,       
+          image: @image,
         }
       end
       respond_to do |format|
-        format. html
+        format.html
         format.json { render json: data }
-      end      
+      end
     end
 
     private

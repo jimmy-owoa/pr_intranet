@@ -98,19 +98,19 @@
         </div>
       </div>
     </div>
-    <div class="card text-md-center p-2" >
+    <%# <div class="card text-md-center p-2" >
       <div class="form-group ">
         <div class="col-md-12 col-sm-12">
           <h5 class="card-title"> Formato </h5>
         </div>
         <div class="col-md-12">
           <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
-          <div class="tip_format">
+          <%# <div class="tip_format">
             Estilo 1: Normal - Estilo 2: Rosado - Estilo 3: Naranja
           </div>
         </div>
       </div>
-    </div>
+    </div> %> 
   </div>
 </div>
 <script>
