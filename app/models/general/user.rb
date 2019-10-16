@@ -154,7 +154,11 @@ class General::User < ApplicationRecord
   end
 
   def full_name
-    self.name + " " + self.last_name
+    if self.last_name.present?
+      self.name + " " + self.last_name
+    else
+      self.name
+    end
   end
 
   def self.what_role?(user)
