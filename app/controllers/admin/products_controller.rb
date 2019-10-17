@@ -1,10 +1,10 @@
-module Admin 
+module Admin
   class ProductsController < AdminController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
-    
+
     def index
       add_breadcrumb "Marketplace", :admin_products_path
-      @filters = [['Todos', 'all'], ['Aprobados', true], ['Sin aprobación', false]]
+      @filters = [["Todos", "all"], ["Aprobados", true], ["Sin aprobación", false]]
       is_approved = params[:approved]
       @products = Marketplace::Product.get_filtered(is_approved).paginate(:page => params[:page], :per_page => 10)
     end
@@ -42,39 +42,39 @@ module Admin
       respond_to do |format|
         if @product.save
           @product.update_attributes(user_id: current_user.id)
-          format.html { redirect_to admin_product_path(@product), notice: 'Producto fue creada con éxito.'}
-          format.json { render :show, status: :created, location: @product}
+          format.html { redirect_to admin_product_path(@product), notice: "Producto fue creada con éxito." }
+          format.json { render :show, status: :created, location: @product }
         else
-          format.html {render :new}
-          format.json {render json: @product.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @product.errors, status: :unprocessable_entity }
         end
       end
     end
 
     def update
       authorize @product
-      approved = params['approved']
+      approved = params["approved"]
       if approved.present?
         respond_to do |format|
           if approved == "true"
-            UserNotifierMailer.send_product_approved(@product.user.email, @product.user.name, @product.id).deliver 
+            UserNotifierMailer.send_product_approved(@product.user.email, @product.user.name, @product.id).deliver
           else
             UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
           end
           @product.update_attributes(approved: approved)
-          format.json { render :json => {value: "success"} and return}
+          format.json { render :json => { value: "success" } and return }
         end
-      elsif params['image_id'].present?
-        ActiveStorage::Attachment.find(params['image_id']).update_attributes(permission: 1)
+      elsif params["image_id"].present?
+        ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
       else
         respond_to do |format|
           if @product.update(product_params)
             catch_image(params[:permissions])
-            format.html { redirect_to admin_product_path(@product), notice: 'Producto fue actualizado con éxito.'}
+            format.html { redirect_to admin_product_path(@product), notice: "Producto fue actualizado con éxito." }
             format.json { render :show, status: :ok, location: @product }
           else
-            format.html { render :edit}
-            format.json { render json: @product.errors, status: :unprocessable_entity}
+            format.html { render :edit }
+            format.json { render json: @product.errors, status: :unprocessable_entity }
           end
         end
       end
@@ -83,8 +83,8 @@ module Admin
     def destroy
       @product.destroy
       respond_to do |format|
-        UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
-        format.html { redirect_to admin_products_path, notice: 'Producto fue eliminado con éxito.'}
+        # UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
+        format.html { redirect_to admin_products_path, notice: "Producto fue eliminado con éxito." }
         format.json { head :no_content }
       end
     end
@@ -98,6 +98,7 @@ module Admin
     end
 
     private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Marketplace::Product.find(params[:id])
