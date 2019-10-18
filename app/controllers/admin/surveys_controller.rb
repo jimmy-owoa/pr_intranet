@@ -11,13 +11,16 @@ module Admin
 
     def new
       @survey = Survey::Survey.new
-      @survey.terms.build
-      @survey.questions.build
+      @question = @survey.questions.build
+      @question.options.build
       @survey_types = Survey::Survey::SURVEY_TYPES
     end
 
     def edit
-      @survey.questions.build if @survey.questions.empty?
+      if @survey.questions.empty?
+        @question = @survey.questions.build
+        @question.options.build
+      end
       @survey_types = Survey::Survey::SURVEY_TYPES
     end
 

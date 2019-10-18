@@ -1,8 +1,42 @@
-$(document).ready(function() {
+$(document).on("turbolinks:load", function () {
   $(".clipboard-btn_survey").tooltip({
     trigger: "click",
     placement: "bottom"
   });
+
+  function addTip(element) {
+    var selectedVal = $(element).val();
+    var message_selection = $(element).parent().parent().children().last()
+    if (selectedVal == "Múltiple") {
+      message_selection.html("Selección Múltiple: Permite seleccionar más de una opción. Ej: ¿Qué deportes te gustan? Opciones: Tenis, Basquetbol, Futbol");
+      $(element).parent().parent().parent().siblings().removeClass("hidden");
+      if($(element).parent().parent().parent().siblings(".nested-fields").length == 0){
+        $(element).parent().parent().parent().siblings().last().children("a").click();
+      }
+    } else if (selectedVal == "Simple") {
+      message_selection.html("Seleccion Simple: Radio Button para elegir solamente una opción.");
+       if($(element).parent().parent().parent().siblings(".nested-fields").length == 0){
+        $(element).parent().parent().parent().siblings().last().children("a").click();
+      }
+    } else if (selectedVal == "Verdadero o Falso") {
+      message_selection.html("Se puede seleccionar Verdadero o Falso.");
+      $(element).parent().parent().parent().siblings().addClass("hidden");
+    } else if (selectedVal == "Texto") {
+      message_selection.html("Campo para ingresar solamente texto.  Ej: ¿En que calle vives? - Alameda.");
+      $(element).parent().parent().parent().siblings().addClass("hidden");
+    } else if (selectedVal == "Número") {
+      message_selection.html("Campo para ingresar solamente número.  Ej: ¿Cuantos años tienes? - 18");
+      $(element).parent().parent().parent().siblings().addClass("hidden");
+    } else if (selectedVal == "Selección") {
+      message_selection.html("Un campo de selección con multiples opciones.");
+       if($(element).parent().parent().parent().siblings(".nested-fields").length == 0){
+        $(element).parent().parent().parent().siblings().last().children("a").click();
+      }
+    } else if (selectedVal == "Escala lineal") {
+      message_selection.html("Escala lineal es considerada desde 0 a 10");
+      $(element).parent().parent().parent().siblings().addClass("hidden");
+    }
+  }
 
   function setTooltip(btn, message) {
     $(btn)
@@ -12,7 +46,7 @@ $(document).ready(function() {
   }
 
   function hideTooltip(btn) {
-    setTimeout(function() {
+    setTimeout(function () {
       $(btn).tooltip("hide");
     }, 1000);
   }
@@ -21,45 +55,33 @@ $(document).ready(function() {
 
   var clipboard = new Clipboard(".clipboard-btn_survey");
 
-  clipboard.on("success", function(e) {
+  clipboard.on("success", function (e) {
     setTooltip(e.trigger, "Copiado");
     hideTooltip(e.trigger);
   });
 
-  clipboard.on("error", function(e) {
+  clipboard.on("error", function (e) {
     setTooltip(e.trigger, "error!");
     hideTooltip(e.trigger);
   });
 
   $("[rel=tooltip]").tooltip({ placement: "right" });
-  $(".select-question-type").on("change", function() {
-    var selectedVal = $(this).val();
-    if (selectedVal == "Múltiple") {
-      document.getElementById("message_selection").innerHTML =
-        "Selección Múltiple: Permite seleccionar más de una opción. Ej: ¿Qué deportes te gustan? Opciones: Tenis, Basquetbol, Futbol";
-    } else if (selectedVal == "Simple") {
-      document.getElementById("message_selection").innerHTML =
-        "Seleccion Simple: Radio Button para elegir solamente una opción.";
-    } else if (selectedVal == "Verdadero o Falso") {
-      document.getElementById("message_selection").innerHTML =
-        "Se puede seleccionar Verdadero o Falso.";
-    } else if (selectedVal == "Texto") {
-      document.getElementById("message_selection").innerHTML =
-        "Campo para ingresar solamente texto.  Ej: ¿En que calle vives? - Alameda.";
-    } else if (selectedVal == "Número") {
-      document.getElementById("message_selection").innerHTML =
-        "Campo para ingresar solamente número.  Ej: ¿Cuantos años tienes? - 18";
-    } else if (selectedVal == "Selección") {
-      document.getElementById("message_selection").innerHTML =
-        "Un campo de selección con multiples opciones.";
-    } else if (selectedVal == "Escala lineal") {
-      document.getElementById("message_selection").innerHTML =
-        "Escala lineal es considerada desde 0 a 10";
-    }
+
+  $.each($(".select-question-type"),function(){
+    addTip(this);
+  });
+  $(".select-question-type").on("change", function () {
+    addTip(this);
+  });
+  $("#questions").on('cocoon:after-insert', function () {
+    $(".select-question-type").on("change", function () {
+      addTip(this);
+    });
   });
 
+
   $(document).on({
-    keydown: function(e) {
+    keydown: function (e) {
       addOptionOnKeypress(e);
     }
   });
