@@ -99,6 +99,8 @@ module Frontend
         content = content.gsub("<source src=\"", '<video src="http://localhost:3000/')
         content = content.gsub("<img src=\"../..", '<img src="http://localhost:3000')
         content = content.gsub("<img src=\"/rails/", '<img src="http://localhost:3000/rails/')
+        content = content.gsub("<a href=\"//rails/", '<a href="http://localhost:3000/rails/')
+        content = content.gsub("<a href=\"/rails/", '<a href="http://localhost:3000/rails/')
         #video
         if content.include?("<p><video style=\"float: right;\"")
           content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
@@ -124,6 +126,9 @@ module Frontend
         content = content.gsub("<source src=\"", '<video src="https://app.elmejorlugarparatrabajar.cl/')
         content = content.gsub("<img src=\"../..", '<img src="https://app.elmejorlugarparatrabajar.cl')
         content = content.gsub("<img src=\"/rails/", '<img src="https://app.elmejorlugarparatrabajar.cl/rails/')
+        content = content.gsub("<a href=\"//rails/", '<a href="https://app.elmejorlugarparatrabajar.cl/rails/')
+        content = content.gsub("<a href=\"/rails/", '<a href="https://app.elmejorlugarparatrabajar.cl/rails/')
+
         #video
         if content.include?("<p><video style=\"float: right;\"")
           content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')

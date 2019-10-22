@@ -22,7 +22,7 @@ module Frontend
             name: children.name,
             last_name: children.last_name,
             position: children.position,
-            company: children.company.present? ? children.company.name : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            company: children.company.present? ? children.company.name : "Empresa no disponible",
             color: children.get_color,
             image: children.image.attached? ?
               url_for(children.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
@@ -36,7 +36,7 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company.present? ? sibling.company.name : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            company: sibling.company.present? ? sibling.company.name : "Empresa no disponible",
             color: sibling.get_color,
             image: sibling.image.attached? ?
               url_for(sibling.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
@@ -49,7 +49,7 @@ module Frontend
           name: @user.parent.name,
           last_name: @user.parent.last_name,
           position: @user.parent.position,
-          company: @user.parent.company.present? ? @user.parent.company.name : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          company: @user.parent.company.present? ? @user.parent.company.name : "Empresa no disponible",
           color: @user.get_color,
           image: @user.parent.image.attached? ?
             url_for(@user.parent.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
@@ -64,8 +64,8 @@ module Frontend
         email: @user.email,
         annexed: @user.annexed,
         position: @user.position,
-        company: @user.company.present? ? @user.company.name : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-        birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m") : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+        company: @user.company.present? ? @user.company.name : "Empresa no disponible",
+        birthday: @user.birthday.present? && @user.show_birthday ? @user.birthday.strftime("%d/%m") : "Información oculta",
         is_birthday: @user.is_birthday_today,
         address: @user.address,
         location: @location,
@@ -77,6 +77,7 @@ module Frontend
         childrens: data_childrens,
         siblings: data_siblings,
         father: data_father,
+        benefits: "",
         breadcrumbs: [
           { link: "/", name: "Inicio" },
           { link: "#", name: "Buscar" },
@@ -102,7 +103,7 @@ module Frontend
             name: children.name,
             last_name: children.last_name,
             position: children.position,
-            company: children.company.present? ? children.company.name.titleize : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            company: children.company.present? ? children.company.name.titleize : "Empresa no disponible",
             color: children.get_color,
             image: children.image.attached? ?
               url_for(children.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
@@ -116,7 +117,7 @@ module Frontend
             name: sibling.name,
             last_name: sibling.last_name,
             position: sibling.position,
-            company: sibling.company.present? ? sibling.company.name.titleize : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            company: sibling.company.present? ? sibling.company.name.titleize : "Empresa no disponible",
             color: sibling.get_color,
             image: sibling.image.attached? ?
               url_for(sibling.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
@@ -129,7 +130,7 @@ module Frontend
           name: user.parent.name,
           last_name: user.parent.last_name,
           position: user.parent.position,
-          company: user.parent.company.present? ? user.parent.company.name.titleize : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          company: user.parent.company.present? ? user.parent.company.name.titleize : "Empresa no disponible",
           color: user.parent.get_color,
           image: user.parent.image.attached? ?
             url_for(user.parent.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
@@ -227,8 +228,8 @@ module Frontend
         full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
         nickname: @nickname,
         role: General::User.what_role?(user),
-        company: user.company.present? ? user.company.name : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-        birthday: user.birthday.present? ? user.birthday.strftime("%d/%m") : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+        company: user.company.present? ? user.company.name : "Empresa no disponible",
+        birthday: user.birthday.present? && user.show_birthday ? user.birthday.strftime("%d/%m") : "Información oculta",
         is_birthday: user.is_birthday_today,
         position: user.position,
         date_entry: user.date_entry,
@@ -393,7 +394,7 @@ module Frontend
         including_tags: @user.terms.inclusive_tags.map { |a| a.name },
         excluding_tags: @user.terms.excluding_tags.map { |a| a.name },
         email: @user.email,
-        birthday: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%y") : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+        birthday: @user.birthday.present? && @user.show_birthday ? @user.birthday.strftime("%d/%m") : "Información oculta",
         is_birthday: @user.is_birthday_today,
         annexed: @user.annexed,
         breadcrumbs: [

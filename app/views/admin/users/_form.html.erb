@@ -26,6 +26,7 @@
           <%= f.input :password_confirmation,required: true,input_html: { autocomplete: "new-password" } %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <%= f.label "Fecha de nacimiento"%>
           <div class="input-group date" id="birthday" data-target-input="nearest">
             <% if @user.try(:birthday).present? %>
               <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', value: custom_date_no_hour(@user.birthday), id: 'birthday' %>
@@ -34,6 +35,19 @@
             <% end %>
             <div class="input-group-append" data-target="#birthday" data-toggle="datetimepicker">
               <div class="input-group-text"><i class="fas fa-birthday-cake"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+          <%= f.label "Fecha de ingreso"%>
+          <div class="input-group date" id="date_entry" data-target-input="nearest">
+            <% if @user.try(:date_entry).present? %>
+              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', 'data-target' => '#date_entry', value: custom_date_no_hour(@user.date_entry), id: 'date_entry' %>
+            <% else %>
+              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', value: @user.try(:date_entry), 'data-target' => '#date_entry', id: 'date_entry' %>
+            <% end %>
+            <div class="input-group-append" data-target="#date_entry" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="far fa-handshake"></i></div>
             </div>
           </div>
         </div>
@@ -47,18 +61,6 @@
           <% selected_value = @user.company_id || "" %>
           <%= f.label "Empresa" %>
           <%= f.select :company_id, options_for_select(@companies.map{|company| [company.name, company.id]}, selected_value), {}, class:' form-control string' %>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <div class="input-group date" id="date_entry" data-target-input="nearest">
-            <% if @user.try(:date_entry).present? %>
-              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', 'data-target' => '#date_entry', value: custom_date_no_hour(@user.date_entry), id: 'date_entry' %>
-            <% else %>
-              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', value: @user.try(:date_entry), 'data-target' => '#date_entry', id: 'date_entry' %>
-            <% end %>
-            <div class="input-group-append" data-target="#date_entry" data-toggle="datetimepicker">
-              <div class="input-group-text"><i class="far fa-handshake"></i></div>
-            </div>
-          </div>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.label :tags %>
