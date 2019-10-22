@@ -9,11 +9,6 @@ module Admin
     def show
     end
 
-    def new
-      @benefit = General::Benefit.new
-      @benefit.terms.build
-    end
-
     def edit
     end
 
@@ -22,11 +17,11 @@ module Admin
       respond_to do |format|
         if @benefit.save
           set_benefit_group
-          format.html { redirect_to admin_benefit_path(@benefit), notice: 'Beneficio fue creado con éxito.'}
-          format.json { render :show, status: :created, location: @benefit}
+          format.html { redirect_to admin_benefit_path(@benefit), notice: "Beneficio fue creado con éxito." }
+          format.json { render :show, status: :created, location: @benefit }
         else
-          format.html {render :new}
-          format.json {render json: @benefit.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @benefit.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -35,11 +30,11 @@ module Admin
       respond_to do |format|
         if @benefit.update(benefit_params)
           set_benefit_group
-          format.html { redirect_to admin_benefits_path, notice: 'Beneficio fue actualizado con éxito.'}
+          format.html { redirect_to admin_benefits_path, notice: "Beneficio fue actualizado con éxito." }
           format.json { render :show, status: :ok, location: @benefit }
         else
-          format.html { render :edit}
-          format.json { render json: @benefit.errors, status: :unprocessable_entity}
+          format.html { render :edit }
+          format.json { render json: @benefit.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -47,12 +42,13 @@ module Admin
     def destroy
       @benefit.destroy
       respond_to do |format|
-        format.html { redirect_to admin_benefits_path, notice: 'Beneficio fue eliminado con éxito.'}
+        format.html { redirect_to admin_benefits_path, notice: "Beneficio fue eliminado con éxito." }
         format.json { head :no_content }
       end
     end
 
     private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_benefit
       @benefit = General::Benefit.find(params[:id])
@@ -68,8 +64,8 @@ module Admin
           groups << General::BenefitGroup.find_or_create_by(name: bg) unless @benefit.benefit_groups.pluck(:name).include?(bg)
         end
         @benefit.benefit_groups << groups
-      end   
-    end    
+      end
+    end
 
     def benefit_params
       params.require(:benefit).permit(:title, :content, :url, :code, :alias, :image, :benefit_type_id, :is_special, benefit_groups_ids: [])

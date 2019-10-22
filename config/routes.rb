@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
     resources :surveys
     resources :files
-    resources :benefits
+    resources :benefits, only: [:show, :edit, :update, :index]
     resources :benefit_groups
     resources :answers do
       get :report, on: :member

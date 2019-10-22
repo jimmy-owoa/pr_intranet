@@ -6,13 +6,13 @@
         <%= f.input :title, required: true, autofocus: true %>
       </div>
       <div class="col-md-3">
-        <%= f.input :alias %>
-      </div>
-      <div class="col-md-3">
         <div class="custom-control custom-checkbox pt-4">
           <%= f.check_box :is_special, class:'custom-control-input' %>
           <%= f.label 'Es Beneficios Vida', class: 'custom-control-label', for: 'benefit_is_special'%>
         </div>
+      </div>
+      <div class="col-md-12">
+        <%= f.input :alias %>
       </div>
       <div class="col-md-6">
         <%= f.input :code %>
@@ -21,10 +21,15 @@
         <%= f.input :url %>
       </div>
       <div class="col-md-12">
-        <%= f.label 'Grupo beneficiario' %>
-        <%= select_tag :benefit_groups, options_for_select(General::BenefitGroup.all.map{|i| [i.name]}, f.object.benefit_groups.map(&:name)), 
-        multiple: true, class:' form-control string optional', id: 'benefit_groups' %>
-      </div>
+        <%= f.label 'Pertenece a los siguientes grupos beneficiarios:' %>
+        <ul>
+          <% @benefit.benefit_groups.each do |b| %>
+            <li>
+              <%= b.name %>
+            </li>
+          <% end %>
+        </div>
+      </ul>
       <br />
       <div class="col-md-12">
         <%= f.text_area :content, :class => "tinymce" %>
