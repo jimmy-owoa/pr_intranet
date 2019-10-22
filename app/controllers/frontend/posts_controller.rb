@@ -95,10 +95,10 @@ module Frontend
     def fix_content(content)
       content = content.gsub("video controls=\"controls\"", "source")
       if Rails.env.development?
-        content = content.gsub("<source src=\"../..", '<video src="http://192.168.1.70:3000')
-        content = content.gsub("<source src=\"", '<video src="http://192.168.1.70:3000/')
-        content = content.gsub("<img src=\"../..", '<img src="http://192.168.1.70:3000')
-        content = content.gsub("<img src=\"rails/", '<img src="http://192.168.1.70:3000/')
+        content = content.gsub("<source src=\"../..", '<video src="http://localhost:3000')
+        content = content.gsub("<source src=\"", '<video src="http://localhost:3000/')
+        content = content.gsub("<img src=\"../..", '<img src="http://localhost:3000')
+        content = content.gsub("<img src=\"/rails/", '<img src="http://localhost:3000/rails/')
         #video
         if content.include?("<p><video style=\"float: right;\"")
           content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
@@ -111,19 +111,19 @@ module Frontend
         end
         #image
         if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://192.168.1.70:3000')
+          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://localhost:3000')
         end
         if content.include?("<p><img style=\"float: right;\"")
-          content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://192.168.1.70:3000')
+          content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://localhost:3000')
         end
         if content.include?("<p><img style=\"float: left;\"")
-          content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://192.168.1.70:3000')
+          content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://localhost:3000')
         end
       else
-        content = content.gsub("<source src=\"../..", '<video src="https://admin.elmejorlugarparatrabajar.cl')
-        content = content.gsub("<source src=\"", '<video src="https://admin.elmejorlugarparatrabajar.cl/')
-        content = content.gsub("<img src=\"../..", '<img src="https://admin.elmejorlugarparatrabajar.cl')
-        content = content.gsub("<img src=\"/rails/", '<img src="https://admin.elmejorlugarparatrabajar.cl/rails/')
+        content = content.gsub("<source src=\"../..", '<video src="https://app.elmejorlugarparatrabajar.cl')
+        content = content.gsub("<source src=\"", '<video src="https://app.elmejorlugarparatrabajar.cl/')
+        content = content.gsub("<img src=\"../..", '<img src="https://app.elmejorlugarparatrabajar.cl')
+        content = content.gsub("<img src=\"/rails/", '<img src="https://app.elmejorlugarparatrabajar.cl/rails/')
         #video
         if content.include?("<p><video style=\"float: right;\"")
           content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
@@ -136,13 +136,13 @@ module Frontend
         end
         #image
         if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://admin.elmejorlugarparatrabajar.cl')
+          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://app.elmejorlugarparatrabajar.cl')
         end
         if content.include?("<p><img style=\"float: right;\"")
-          content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="https://admin.elmejorlugarparatrabajar.cl')
+          content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="https://app.elmejorlugarparatrabajar.cl')
         end
         if content.include?("<p><img style=\"float: left;\"")
-          content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="https://admin.elmejorlugarparatrabajar.cl')
+          content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="https://app.elmejorlugarparatrabajar.cl')
         end
       end
       content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
