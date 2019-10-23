@@ -67,9 +67,10 @@ class Frontend::FrontendController < ApplicationController
 
   def current_user_azure
     user = get_current_user_jwt
+    referrer = params[:referrer] || "/"
     respond_to do |format|
       if user.present?
-        format.json { render json: { message: "OK", token: http_auth_header } }
+        format.json { render json: { message: "OK", token: http_auth_header, referrer: referrer } }
       else
         format.json { render json: { error: "No hay user" } }
       end
@@ -103,6 +104,6 @@ class Frontend::FrontendController < ApplicationController
     @request_user = get_current_user_jwt if http_auth_header.present?
     if params[:view_as].present? && params[:view_as] != "null"
       @request_user = General::User.get_user_by_ln(params[:view_as])
-    end 
+    end
   end
 end

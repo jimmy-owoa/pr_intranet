@@ -1,21 +1,22 @@
 class ApplicationController < ActionController::Base
-
   include Pundit
   before_action :set_ip
   # protect_from_forgery
   before_action :set_locale
 
-  def index 
+  def index
   end
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def set_ip
     @ip = Rails.env.production? ? Rails.application.credentials.production : Rails.application.credentials.develop # Develop ip
   end
 
   def after_sign_in_path_for(resource)
-    if request.env.present? && request.env['omniauth.origin'].present?
+    if request.env.present? && request.env["omniauth.origin"].present?
       user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
-      request.env['omniauth.origin'] + "?t=#{user_jwt}"
+      request.env["omniauth.origin"] + "?t=#{user_jwt}"
     else
       admin_root_path
     end
