@@ -1,7 +1,7 @@
 module Frontend
   class ProductsController < FrontendController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
-
+    skip_before_action :verify_authenticity_token, only: [:create]
     #callbacks
     after_action :set_tracking, only: [:index, :show, :new]
 
@@ -13,7 +13,7 @@ module Frontend
       else
         products = Marketplace::Product.where(product_type: category).show_product
       end
-      products = products.order(:published_date).page(page).per(6)
+      products = products.order(published_date: :desc).page(page).per(6)
       data = []
       items = []
       products.each do |product|
@@ -117,7 +117,7 @@ module Frontend
       images = params[:images]
       product_type = params[:product_type]
       @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone,
-                                          description: description, location: location, user_id: user_id, approved: false, expiration: 30)
+                                          description: description, location: location, user_id: user_id, product_type: product_type, approved: false, expiration: 30)
 
       if images.present?
         images.each do |image|

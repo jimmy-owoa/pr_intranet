@@ -7,6 +7,7 @@ module Frontend
     layout "admin"
     before_action :set_birth, only: [:show, :destroy]
     after_action :set_tracking, only: [:index, :show, :new, :list]
+    skip_before_action :verify_authenticity_token, only: [:create]
 
     def index
       page = params[:page]
@@ -111,7 +112,7 @@ module Frontend
       images = params[:images]
       user_id = params[:user_id]
       @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname,
-                                   child_lastname2: child_lastname2, user_id: user_id, full_name_mother: full_name_mother,
+                                   child_lastname2: child_lastname2, user_id: user_id,
                                    approved: approved, gender: gender, birthday: birthday, is_public: is_public, user_id: user_id)
       if images.present?
         images.each do |image|
