@@ -28,8 +28,16 @@
               <%= b.name %>
             </li>
           <% end %>
-        </div>
-      </ul>
+        </ul>
+      </div>
+      <div class="col-md-12">
+        <ul><%= "Shortcodes disponibles:"%>
+          <li><%= "Variable: *|VAR|*"%></li>
+          <li><%= "Valor: *|VAL|*"%></li>
+          <br/>
+          <em style="color: gray;">Ejemplo: Solicita este beneficio y obtén *|VAR|* *|VAL|* para ti.</em>
+        </ul>
+      </div>
       <br />
       <div class="col-md-12">
         <%= f.text_area :content, :class => "tinymce" %>

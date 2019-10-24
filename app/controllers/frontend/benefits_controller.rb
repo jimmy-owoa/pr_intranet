@@ -36,7 +36,7 @@ module Frontend
           id: benefit.id,
           title: benefit.title,
           url: root_url + "admin/benefit_groups/" + "#{benefit.id}" + "/edit",
-          content: benefit.content,
+          content: formatted_content(benefit, benefit.benefit_group_relationships.first),
           image: @image,
           link: benefit.url,
           benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : "",
@@ -59,6 +59,20 @@ module Frontend
     end
 
     private
+
+    def formatted_content(benefit, benefit_group_relationship)
+      replace_variables = {
+        "TIPO": benefit_group_relationship.currency,
+        "VALOR": benefit_group_relationship.amount,
+      }
+      content = benefit.content
+      if (content.include?("*|TIPO|*") && content.include?("*|VALOR|*"))
+        replace_variables.each do |key, value|
+          content = content.gsub!("*|#{key}|*", value)
+        end
+      end
+      content
+    end
 
     def set_tracking
       ahoy.track "Benefit Model", params
