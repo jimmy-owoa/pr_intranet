@@ -1,7 +1,6 @@
 <%- model_class = General::BenefitGroup -%>
   <section class="section">
     <h1 class="section-header"><%= "Beneficios de Grupo" %></h1>
-    <%= link_to 'Nuevo', new_admin_benefit_group_path, :class => 'btn btn-primary btn-sm' %>
     <div class="card">
       <% if current_user.has_role? :super_admin %>
         <div class="table-responsive-md">

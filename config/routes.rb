@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get "products/approved_index", to: "products#approved_index"
     get "menus/testing", to: "menus#testing"
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
-    resources :benefit_groups
+    resources :benefit_groups, only: [:show, :index]
     resources :term_relationships
     resources :comments
     resources :links
@@ -29,7 +29,6 @@ Rails.application.routes.draw do
     resources :surveys
     resources :files
     resources :benefits, only: [:show, :edit, :update, :index]
-    resources :benefit_groups
     resources :answers do
       get :report, on: :member
     end
