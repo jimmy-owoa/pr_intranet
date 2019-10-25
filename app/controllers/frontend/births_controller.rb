@@ -60,7 +60,7 @@ module Frontend
           gender: birth.gender ? "Masculino" : "Femenino",
           birthday: birth.birthday,
           father: birth.user.present? ? birth.user.full_name : "",
-          color: birth.user.present? ? birth.user.get_color : "",
+          color: birth.user.present? ? birth.user.get_color : "black",
           email: birth.user.present? ? birth.user.email : "",
         }
       end
