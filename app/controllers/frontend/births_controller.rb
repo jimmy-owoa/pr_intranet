@@ -111,9 +111,8 @@ module Frontend
       birthday = params[:birthday]
       images = params[:images]
       user_id = params[:user_id]
-      @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname,
-                                   child_lastname2: child_lastname2, user_id: user_id,
-                                   approved: approved, gender: gender, birthday: birthday, is_public: is_public, user_id: user_id)
+      @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, child_lastname2: child_lastname2, user_id: user_id,
+                                   approved: approved, gender: gender, birthday: birthday, is_public: is_public)
       if images.present?
         images.each do |image|
           base64_image = image[1].sub(/^data:.*,/, "")

@@ -1,6 +1,6 @@
-module Admin 
+module Admin
   class MenusController < AdminController
-    before_action :set_menu, only:[:show, :edit, :update, :destroy]
+    before_action :set_menu, only: [:show, :edit, :update, :destroy]
 
     def index
       @menus = General::Menu.paginate(:page => params[:page], :per_page => 10)
@@ -15,12 +15,12 @@ module Admin
       respond_to do |format|
         if @menu.save
           set_categories
-          format.html { redirect_to admin_menu_path(@menu), notice: 'menu creado con éxito.'}
-          format.json { render :show, status: :created, location: @menu}
+          format.html { redirect_to admin_menu_path(@menu), notice: "menu creado con éxito." }
+          format.json { render :show, status: :created, location: @menu }
           format.js
         else
-          format.html {render :new}
-          format.json {render json: @menu.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @menu.errors, status: :unprocessable_entity }
           format.js
         end
       end
@@ -36,31 +36,31 @@ module Admin
       respond_to do |format|
         if @menu.update(menu_params)
           set_categories
-          format.html { redirect_to admin_menu_path(@menu), notice: 'menu fue actualizado con éxito.'}
+          format.html { redirect_to admin_menu_path(@menu), notice: "menu fue actualizado con éxito." }
           format.json { render :show, status: :ok, location: @menu }
         else
-          format.html { render :edit}
-          format.json { render json: @menu.errors, status: :unprocessable_entity}
+          format.html { render :edit }
+          format.json { render json: @menu.errors, status: :unprocessable_entity }
         end
-      end    
+      end
     end
 
     def destroy
       @menu.destroy
       respond_to do |format|
-        format.html { redirect_to admin_menus_path, notice: 'menu fue destruido con éxito.'}
+        format.html { redirect_to admin_menus_path, notice: "menu fue destruido con éxito." }
         format.json { head :no_content }
-      end    
+      end
     end
 
     private
 
     def set_menu
-      @menu =  General::Menu.find(params[:id])
+      @menu = General::Menu.find(params[:id])
     end
 
     def menu_params
-      params.require(:menu).permit(:title, :description, :css_class, :code, :priority, :parent_id, :link, :integration_code, term_ids: [])
+      params.require(:menu).permit(:title, :description, :css_class, :code, :priority, :parent_id, :link, :integration_code, :profile_id, term_ids: [])
     end
 
     def set_categories
@@ -75,6 +75,6 @@ module Admin
         end
       end
       @menu.terms << terms
-    end    
+    end
   end
 end
