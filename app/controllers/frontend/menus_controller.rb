@@ -1,5 +1,6 @@
-require 'uri'
-require 'net/http'
+require "uri"
+require "net/http"
+
 module Frontend
   class MenusController < FrontendController
     # protect_from_forgery except: :api_menu
@@ -29,23 +30,30 @@ module Frontend
     def api_menu_vue
       base_api_url = root_url
       base_search_url = if Rails.env.dev?
-        "http://localhost:8080/#/resultados/"
-      else
-        "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
-      end
+                          "http://localhost:8080/#/resultados/"
+                        else
+                          "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
+                        end
       user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
-      menus = General::Menu.all
-      host = if request.referer == "https://misecurity-qa3.exa.cl/" 
-              "https://misecurity.elmejorlugarparatrabajar.cl/" 
-            elsif request.referer == "https://misecurity.elmejorlugarparatrabajar.cl/" 
-              request.referer
-            elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
-              request.referer
-            else
-              "http://localhost:8080/" 
-            end
-      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id) 
+      menus = []
+      General::Menu.all.each do |menu|
+        if menu.profile_id.present?
+          menus << menu if menu.profile_id.in?(user.profile_ids)
+        else
+          menus << menu
+        end
+      end
+      host = if request.referer == "https://misecurity-qa3.exa.cl/"
+               "https://misecurity.elmejorlugarparatrabajar.cl/"
+             elsif request.referer == "https://misecurity.elmejorlugarparatrabajar.cl/"
+               request.referer
+             elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
+               request.referer
+             else
+               "http://localhost:8080/"
+             end
+      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id)
       uv_index = weather.last.get_uv
       location = General::Location.find(location_id)
       santoral = General::Santoral.current
@@ -68,7 +76,7 @@ module Frontend
           LATEST_UF: indicator.indicator_type(3),
           LATEST_IPC: indicator.indicator_type(5),
           LATEST_UTM: indicator.indicator_type(4),
-          LATEST_IPSA: indicator.indicator_type(6)
+          LATEST_IPSA: indicator.indicator_type(6),
         }
       else
         data_indicators << {
@@ -84,7 +92,7 @@ module Frontend
           LATEST_UF: indicator.indicator_type(3),
           LATEST_IPC: indicator.indicator_type(5),
           LATEST_UTM: indicator.indicator_type(4),
-          LATEST_iPSA: indicator.indicator_type(6)
+          LATEST_iPSA: indicator.indicator_type(6),
         }
       end
       if user.legal_number.present?
@@ -99,7 +107,8 @@ module Frontend
         menus: menus,
         host: host,
         user: user,
-        user_image: url_for(user.image.variant(combine_options: {resize: 'x42', gravity: 'Center'})),
+        user_profile_ids: user.profile_ids,
+        user_image: url_for(user.image.variant(combine_options: { resize: "x42", gravity: "Center" })),
         weather: weather,
         uv_index: uv_index,
         santoral: santoral.last,
@@ -112,9 +121,9 @@ module Frontend
         beauty_date: l(today, format: "%d de %B, %Y"),
         base_api_url: base_api_url,
         base_search_url: base_search_url,
-        benefits: benefits
+        benefits: benefits,
       }
-      menu_json = render_to_string(partial: 'api_client/menu.html.erb', layout: false, locals: data).to_json
+      menu_json = render_to_string(partial: "api_client/menu.html.erb", layout: false, locals: data).to_json
       respond_to do |format|
         format.json { render json: menu_json.encode("UTF-8") }
       end
@@ -123,16 +132,16 @@ module Frontend
     def api_menu
       base_api_url = root_url
       base_search_url = if Rails.env.dev?
-        "http://localhost:8080/#/resultados/"
-      else
-        "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
-      end
-      rut= params[:user_id]
-      user = @request_user      
+                          "http://localhost:8080/#/resultados/"
+                        else
+                          "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
+                        end
+      rut = params[:user_id]
+      user = @request_user
       location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
       menus = General::Menu.all
       weather = General::WeatherInformation.current(location_id)
-      location = General::Location.find(location_id) 
+      location = General::Location.find(location_id)
       santoral = General::Santoral.current
       today = Date.today
       indicator = General::EconomicIndicator
@@ -152,7 +161,7 @@ module Frontend
           LATEST_UF: indicator.indicator_type(3),
           LATEST_IPC: indicator.indicator_type(5),
           LATEST_UTM: indicator.indicator_type(4),
-          LATEST_IPSA: indicator.indicator_type(6)
+          LATEST_IPSA: indicator.indicator_type(6),
         }
       else
         data_indicators << {
@@ -168,7 +177,7 @@ module Frontend
           LATEST_UF: indicator.indicator_type(3),
           LATEST_IPC: indicator.indicator_type(5),
           LATEST_UTM: indicator.indicator_type(4),
-          LATEST_iPSA: indicator.indicator_type(6)
+          LATEST_iPSA: indicator.indicator_type(6),
         }
       end
       if user.legal_number.present?
@@ -182,7 +191,7 @@ module Frontend
       data = {
         menus: menus,
         user: user,
-        user_image: url_for(user.image.variant(combine_options: {resize: 'x42', gravity: 'Center'})),
+        user_image: url_for(user.image.variant(combine_options: { resize: "x42", gravity: "Center" })),
         weather: weather.present? ? weather : General::WeatherInformation.last(location_id),
         santoral: santoral[0],
         location_name: location.name,
@@ -192,13 +201,13 @@ module Frontend
         today: today,
         base_api_url: base_api_url,
         base_search_url: base_search_url,
-        benefits: benefits
+        benefits: benefits,
       }
       menu_json = {
-        menu: render_to_string(partial: 'api_client/menu.html.erb', layout: false, locals: data).encode("UTF-8")
+        menu: render_to_string(partial: "api_client/menu.html.erb", layout: false, locals: data).encode("UTF-8"),
       }
       respond_to do |format|
-        format.json { render json: menu_json, callback: 'api_menu' }
+        format.json { render json: menu_json, callback: "api_menu" }
       end
     end
   end

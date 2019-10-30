@@ -3,6 +3,7 @@ class General::Menu < ApplicationRecord
 
   # validates_presence_of :title
   belongs_to :post, class_name: "News::Post", foreign_key: "post_id", optional: true
+  belongs_to :profile, class_name: "General::Profile", inverse_of: :menus, optional: true
 
   has_many :menu_term_relationships, -> { where(object_type: "General::Menu") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :menu
   has_many :terms, through: :menu_term_relationships
@@ -28,13 +29,21 @@ class General::Menu < ApplicationRecord
     end
   end
 
-  def children(integration_menu = nil)
+  def children(profile_ids = nil, integration_menu = nil)
     menus = []
     if integration_menu.present? && integration_menu.key?(self.integration_code) && integration_menu[self.integration_code]["drop_down"].present?
       temp = get_dropdowns(integration_menu[self.integration_code]["drop_down"], menus)
       menus << temp if temp.is_a?(Hash)
     else
-      data = General::Menu.where(parent_id: self.id)
+      parents = General::Menu.where(parent_id: self.id)
+      data = []
+      parents.each do |menu|
+        if menu.profile_id.present?
+          data << menu if menu.profile_id.in?(profile_ids)
+        else
+          data << menu
+        end
+      end
       data.each do |menu|
         menus << {
           title: menu.title,

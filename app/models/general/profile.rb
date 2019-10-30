@@ -19,6 +19,7 @@ class General::Profile < ApplicationRecord
 
   has_many :posts, class_name: "News::Post", foreign_key: :profile_id, inverse_of: :profile
   has_many :messages, class_name: "General::Message", foreign_key: :profile_id, inverse_of: :profile
+  has_many :menus, class_name: "General::Menu", foreign_key: :profile_id, inverse_of: :profile
   has_many :surveys, class_name: "Survey::Survey", foreign_key: :profile_id, inverse_of: :profile
 
   def set_users

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_174207) do
+ActiveRecord::Schema.define(version: 2019_10_30_140521) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -250,6 +250,8 @@ ActiveRecord::Schema.define(version: 2019_10_11_174207) do
     t.datetime "updated_at", null: false
     t.string "integration_code"
     t.integer "post_id"
+    t.bigint "profile_id"
+    t.index ["profile_id"], name: "index_general_menus_on_profile_id"
   end
 
   create_table "general_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

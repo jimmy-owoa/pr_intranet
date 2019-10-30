@@ -1257,7 +1257,7 @@
                 <% else %>
                   <h4 class="head_section"><%= menu_parent_object.title %></h4>
                 <% end %>
-                <% submenus = menu_parent_object.children(exa_menu) %>
+                <% submenus = menu_parent_object.children(user_profile_ids, exa_menu) %>
                 <% if submenus.length > 3 %>
                   <% submenus.first(3).each do |link| %>
                     <% benefit_count = 0 %>
