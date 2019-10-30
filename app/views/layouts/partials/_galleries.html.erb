@@ -1,0 +1,25 @@
+<section class="section">
+  <h5 class="section-header">Galerías</h5>
+    <div class="card">
+      <table class='table'>
+        <thead>
+          <tr>
+           <th>Nombre</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @galleries.each do |gallery| %>
+            <tr>
+              <td><%= gallery.name %></td>
+              <td><%= link_to t('.show', :default => t("helpers.links.show")),
+            admin_gallery_path(gallery), :class => 'btn btn-primary btn-sm' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12 center">
+      <%= will_paginate @galleries, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>
+</section>

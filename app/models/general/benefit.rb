@@ -1,4 +1,6 @@
 class General::Benefit < ApplicationRecord
+  searchkick match: :word, searchable: [:title]
+
   has_one_attached :image
   has_many :benefit_term_relationships, -> { where(object_type: "General::Benefit") },
            class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :benefit
