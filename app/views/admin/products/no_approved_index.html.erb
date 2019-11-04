@@ -25,7 +25,6 @@
                           id: product.id
                         }, class: "approved" %>
                 <%= link_to "Aprobar", admin_product_path(product, product: {approved: true}) , method: :put, :class => 'btn btn-primary btn-sm', data: { confirm: "¿Estás seguro?"} %>
-
               </td>
               <td>
                 <%= link_to t('.show', :default => t("helpers.links.show")), edit_admin_product_path(product), :class => 'btn btn-success btn-sm' %>
@@ -44,13 +43,12 @@
     </div>
   </div>
 </section>
-
 <script>
-$(function() {
-    $('.filter').change(function() {
-        this.form.submit();
-    });
-});
+  $(function() {
+      $('.filter').change(function() {
+          this.form.submit();
+      });
+  });
 </script>
 <% @products.each do |product| %>
   <div class="modal fade bd-example-modal-lg" id="modalShowProduct_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,16 +57,17 @@ $(function() {
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </div>
-        <div class="modal-body">
-          <div class="container card">
-            <% if product.unpermitted_images.present? %>
-              <div class="row">
-                <div class="col-sm-12 pull-left">
-                  imágenes por aprobar
+            <span aria-hidden="true">&times;</span>
+          </div>
+          <div class="modal-body">
+            <div class="container card">
+              <% if product.unpermitted_images.present? %>
+                <div class="row">
+                  <div class="col-sm-12 pull-left">
+                    imágenes por aprobar
+                  </div>
                 </div>
-              </div></br>
+              </br>
               <div class="row text-center" >
                 <% product.unpermitted_images.each do |image| %>
                   <div class="col-md-4">
@@ -94,13 +93,14 @@ $(function() {
                 <% product.permitted_images.each do |image| %>
                   <div class="col-md-4">
                     <figure>
-                        <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
                   </div>
                 <% end %>
               </div>
             <% end %>
-          </div><br>
+          </div>
+          <br>
         </div>
       </div>
     </div>

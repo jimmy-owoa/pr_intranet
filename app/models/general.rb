@@ -1,5 +1,5 @@
 module General
   def self.table_name_prefix
-    'general_'
+    "general_"
   end
 end

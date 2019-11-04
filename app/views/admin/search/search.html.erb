@@ -6,11 +6,11 @@
     <%= render partial: '/layouts/partials/benefits', locals: { menu: @benefits } if @benefits.present? %>
     <%= render partial: '/layouts/partials/galleries', locals: { menu: @galleries } if @galleries.present? %>
     <%= render partial: '/layouts/partials/surveys', locals: { menu: @surveys } if @surveys.present? %>
-    </br></br>
-    <% if ( @users.blank? && @posts.blank? && @menus.blank? && @benefits.blank? ) %>
-      <div class="alert alert-danger" role="alert">
-        <strong>Estimad@,</strong> no se han encontrado resultados en su busqueda.
-      </div>      
-    <% end %>
+  <br><br>
+  <% if ( @users.blank? && @posts.blank? && @menus.blank? && @benefits.blank? ) %>
+    <div class="alert alert-danger" role="alert">
+      <strong>Estimad@,</strong> no se han encontrado resultados en su busqueda.
+    </div>
+  <% end %>
   </div>
 </div>

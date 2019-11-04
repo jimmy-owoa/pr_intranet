@@ -2,5 +2,5 @@
   <h1 class="section-header">Nuevo anuncio</h1>
   <%= simple_form_for @product, as: 'product', url: {action: :create}, :html => { :class => "form" } do |f| %>
     <%= render :partial => 'form', locals: {f: f} %>
-    <% end %>
+  <% end %>
 </section>

@@ -1,5 +1,5 @@
 module Survey
   def self.table_name_prefix
-    'survey_'
+    "survey_"
   end
 end

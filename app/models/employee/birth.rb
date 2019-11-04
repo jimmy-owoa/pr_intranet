@@ -4,23 +4,23 @@ class Employee::Birth < ApplicationRecord
   enum permission: %i[No Si]
   has_many_attached :images
 
-  belongs_to :user, class_name: 'General::User', optional: true
+  belongs_to :user, class_name: "General::User", optional: true
 
-  scope :show_birth , -> {where( approved: true, is_public: true)}
-  scope :births_between, lambda {|start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date )}
+  scope :show_birth, -> { where(approved: true, is_public: true) }
+  scope :births_between, lambda { |start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date) }
 
-  PERMISSION = {'todos' => 'Todos', true => 'Aprobados', false => 'No aprobados'}
+  PERMISSION = { "todos" => "Todos", true => "Aprobados", false => "No aprobados" }
 
   def child_fullname
     if self.child_name.present? && self.child_lastname.present? && self.child_lastname2.present?
-      return self.child_name.capitalize + ' ' + self.child_lastname.capitalize + ' ' + self.child_lastname2.capitalize
+      return self.child_name.capitalize + " " + self.child_lastname.capitalize + " " + self.child_lastname2.capitalize
     else
-      return 'Sin nombre'
+      return "Sin nombre"
     end
   end
 
-  def thumb img
-    img.variant(resize: '60x60>').processed
+  def thumb(img)
+    img.variant(resize: "60x60>").processed
   end
 
   def self.approved_filter(data)
@@ -40,9 +40,9 @@ class Employee::Birth < ApplicationRecord
   def get_gender
     case self.gender
     when true
-      return 'Masculino'
+      return "Masculino"
     when false
-      return 'Femenino'
+      return "Femenino"
     end
   end
 
@@ -53,5 +53,4 @@ class Employee::Birth < ApplicationRecord
   def unpermitted_images
     images.attachments.where(permission: 0)
   end
-
 end

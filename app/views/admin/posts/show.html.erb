@@ -35,7 +35,8 @@
           <b>Perfilamiento para: <%= @post.profile.name %></b><br>
         </div>
       </div>
-    </div><br />
+    </div>
+    <br />
     <div class="row">
       <div class="col-sm-12">
         <div class="card post_card">
@@ -55,30 +56,30 @@
       <%= link_to "Ver en intranet", "#{environment}/#/noticias/#{@post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
     </div>
   </div>
-
   <div class="col-md-12">
     <div class="modal fade gallery-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="row text-center scrollDivPostImage" >
-          <% if @gallery.present? %>
-            <p class='col-md-12 text-center'>
-              <b>Nombre galería:</b>  <%= @gallery.name %>
-            </p><br />
-            <% @gallery.attachments.each do |image| %>
-                  <div class="col-md-6">
+            <% if @gallery.present? %>
+              <p class='col-md-12 text-center'>
+                <b>Nombre galería:</b>  <%= @gallery.name %>
+              </p>
+              <br />
+              <% @gallery.attachments.each do |image| %>
+                <div class="col-md-6">
+                  <figure>
+                    <%= image_tag(image.attachment.attachment.variant(resize: '300x255>'), class: 'img-thumbnail post_attachment') %>
                     <figure>
-                      <%= image_tag(image.attachment.attachment.variant(resize: '300x255>'), class: 'img-thumbnail post_attachment') %>
-                    <figure>
-                    <figcaption>
-                      <%= image.name %>
-                    </figcaption>
-                  </div>
-            <% end %>
-          <% end %>
+                      <figcaption>
+                        <%= image.name %>
+                      </figcaption>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>

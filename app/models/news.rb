@@ -1,5 +1,5 @@
 module News
   def self.table_name_prefix
-    'news_'
+    "news_"
   end
 end

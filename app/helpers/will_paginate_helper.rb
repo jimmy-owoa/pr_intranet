@@ -2,11 +2,12 @@ module WillPaginateHelper
   class WillPaginateJSLinkRenderer < WillPaginate::ActionView::LinkRenderer
     def prepare(collection, options, template)
       options[:params] ||= {}
-      options[:params]['_'] = nil
+      options[:params]["_"] = nil
       super(collection, options, template)
     end
 
     protected
+
     def link(text, target, attributes = {})
       if target.is_a? Fixnum
         attributes[:rel] = rel_value(target)

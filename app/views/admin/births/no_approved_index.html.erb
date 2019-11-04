@@ -1,55 +1,55 @@
 <%- model_class = Employee::Birth -%>
-  <section class="section">
-    <h1 class="section-header"><%= "Nacimientos por aprobar" %></h1> 
-    <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary mb-1' %>
-    <div class="card">
-      <div class="table-responsive-sd table-sm">
-        <table class="table table-hover">
-          <thead class="thead">
-            <tr>
-              <th></th></th>
-              <th><%= "Sexo" %></th>
-              <th><%= "Nombre" %></th>
-              <th><%= "Padre" %></th>
-              <th><%= "Madre" %></th>
-              <th><%= "Día de Nacimiento" %></th>
-              <th><%= "Aprobado" %></th>
-              <th><%= "Aprobar" %></th>
-              <th><%= "Acciones" %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @births.each do |birth| %>
-              <tr>
-                <td data-toggle="modal" data-target="#modalShowBirth_<%= birth.id %>"><%= image_tag birth.thumb(birth.images.first), :class=> 'img-thumbnail' unless birth.images.first.nil? %></td>
-                <td><%= get_gender_icon(birth) %></td>
-                <td><%= birth.child_fullname %></td>
-                <td><%= birth.full_name_father %></td>
-                <td><%= birth.full_name_mother %></td>
-                <td><%= custom_date_no_hour(birth.birthday) %></td>
-                <td><%= is_approved(birth) %></td>
-                <td>
-                  <%= check_box_tag 'birth[approved]', nil, birth.approved?,
+<section class="section">
+  <h1 class="section-header"><%= "Nacimientos por aprobar" %></h1>
+  <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary mb-1' %>
+  <div class="card">
+    <div class="table-responsive-sd table-sm">
+      <table class="table table-hover">
+        <thead class="thead">
+          <tr>
+            <th></th>
+          </th>
+          <th><%= "Sexo" %></th>
+          <th><%= "Nombre" %></th>
+          <th><%= "Padre" %></th>
+          <th><%= "Madre" %></th>
+          <th><%= "Día de Nacimiento" %></th>
+          <th><%= "Aprobado" %></th>
+          <th><%= "Aprobar" %></th>
+          <th><%= "Acciones" %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @births.each do |birth| %>
+          <tr>
+            <td data-toggle="modal" data-target="#modalShowBirth_<%= birth.id %>"><%= image_tag birth.thumb(birth.images.first), :class=> 'img-thumbnail' unless birth.images.first.nil? %></td>
+            <td><%= get_gender_icon(birth) %></td>
+            <td><%= birth.child_fullname %></td>
+            <td><%= birth.full_name_father %></td>
+            <td><%= birth.full_name_mother %></td>
+            <td><%= custom_date_no_hour(birth.birthday) %></td>
+            <td><%= is_approved(birth) %></td>
+            <td>
+              <%= check_box_tag 'birth[approved]', nil, birth.approved?,
                           data: {
                             id: birth.id
                           }, class: "approved_birth" %>
-                </td>
-                <td>
-                  <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-success btn-sm' %>
-                  <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_birth_path(birth), :class => 'btn btn-primary btn-sm' %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class="row justify-content-center">
-          <%= will_paginate @births, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-        </div>
-      </div>
+            </td>
+            <td>
+              <%= link_to t('.show', :default => t("helpers.links.show")),admin_birth_path(birth), :class => 'btn btn-success btn-sm' %>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),edit_admin_birth_path(birth), :class => 'btn btn-primary btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="row justify-content-center">
+      <%= will_paginate @births, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
     </div>
-  </section>
+  </div>
+</div>
+</section>
 <%= will_paginate @births, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-
 <script>
   function birth_filter_action() {
     document.getElementById("birth_filter").click()
@@ -63,8 +63,8 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
           <div class="container card">
@@ -73,41 +73,43 @@
                 <div class="col-sm-12 pull-left">
                   imágenes por aprobar
                 </div>
-              </div></br>
-              <div class="row text-center" >
-                <% birth.unpermitted_images.each do |image| %>
-                  <div class="col-md-4 attach_birth">
-                    <figure>
-                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                    </figure>
-                    <figcaption>
-                      <%= check_box_tag 'attachment', nil, image.permission?,
+              </div>
+            </br>
+            <div class="row text-center" >
+              <% birth.unpermitted_images.each do |image| %>
+                <div class="col-md-4 attach_birth">
+                  <figure>
+                    <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                  </figure>
+                  <figcaption>
+                    <%= check_box_tag 'attachment', nil, image.permission?,
                                                 data: {
                                                   id: birth.id,
                                                   image: image.id
                                                 }, class: "approved_birth_attachment" %>
-                    </figcaption>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-          <div class="container card">
-            <% if birth.permitted_images.present? %>
-              <p>Imágenes Aprobadas</p>
-              <div class="row text-center" >
-                <% birth.permitted_images.each do |image| %>
-                  <div class="col-md-4">
-                    <figure>
-                        <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                    </figure>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          </div><br>
+                  </figcaption>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
         </div>
+        <div class="container card">
+          <% if birth.permitted_images.present? %>
+            <p>Imágenes Aprobadas</p>
+            <div class="row text-center" >
+              <% birth.permitted_images.each do |image| %>
+                <div class="col-md-4">
+                  <figure>
+                    <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                  </figure>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <br>
       </div>
     </div>
   </div>
+</div>
 <% end %>

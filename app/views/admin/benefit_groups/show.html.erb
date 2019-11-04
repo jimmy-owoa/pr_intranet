@@ -1,5 +1,4 @@
 <p id="notice"><%= notice %></p>
-
 <section class="section">
   <h1 class="section-header">Grupo Beneficiario: <%= @benefit_group.id %></h1>
   <div class="container card">
@@ -10,9 +9,9 @@
       <h5></h5>
     </div>
   </div>
-  <br><br>
+  <br>
+  <br>
 </section>
-
-  <div align="center">
-    <%= link_to t('.back', :default => t("helpers.links.back")), admin_benefit_groups_path, :class => 'btn btn-primary'  %>
-  </div>
+<div align="center">
+  <%= link_to t('.back', :default => t("helpers.links.back")), admin_benefit_groups_path, :class => 'btn btn-primary'  %>
+</div>

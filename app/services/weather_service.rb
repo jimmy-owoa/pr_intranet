@@ -28,21 +28,20 @@ class WeatherService
     @cities = []
     @response = []
     @json_parse = []
-    @cities << URI.parse(@api+"-23.6464,-70.398"+"?units=si")
-    @cities << URI.parse(@api+"-33.4378,-70.6504"+"?units=si")
-    @cities << URI.parse(@api+"-27.3665,-70.3323"+"?units=si") 
-    @cities << URI.parse(@api+"-29.9027,-71.252"+"?units=si")
-    @cities << URI.parse(@api+"-33.0245,-71.5518"+"?units=si")
-    @cities << URI.parse(@api+"-34.1702,-70.7407"+"?units=si")
-    @cities << URI.parse(@api+"-35.4266,-71.6661"+"?units=si")
-    @cities << URI.parse(@api+"-36.827,-73.0503"+"?units=si")
-    @cities << URI.parse(@api+"-38.7362,-72.5906"+"?units=si")
-    @cities << URI.parse(@api+"-41.4718,-72.9396"+"?units=si")
-    
+    @cities << URI.parse(@api + "-23.6464,-70.398" + "?units=si")
+    @cities << URI.parse(@api + "-33.4378,-70.6504" + "?units=si")
+    @cities << URI.parse(@api + "-27.3665,-70.3323" + "?units=si")
+    @cities << URI.parse(@api + "-29.9027,-71.252" + "?units=si")
+    @cities << URI.parse(@api + "-33.0245,-71.5518" + "?units=si")
+    @cities << URI.parse(@api + "-34.1702,-70.7407" + "?units=si")
+    @cities << URI.parse(@api + "-35.4266,-71.6661" + "?units=si")
+    @cities << URI.parse(@api + "-36.827,-73.0503" + "?units=si")
+    @cities << URI.parse(@api + "-38.7362,-72.5906" + "?units=si")
+    @cities << URI.parse(@api + "-41.4718,-72.9396" + "?units=si")
+
     @cities.each_with_index do |city, index|
       @response << Net::HTTP.get_response(city)
       @json_parse << JSON.parse(@response[index].body)
     end
   end
-
 end

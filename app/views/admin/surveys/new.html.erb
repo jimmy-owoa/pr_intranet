@@ -1,6 +1,6 @@
 <section class="section">
   <h1 class="section-header">Nueva Encuesta</h1>
   <%= simple_form_for @survey, as: 'survey', url: {action: :create}, :html => { :class => "form" } do |f| %>
-      <%= render :partial => 'form', locals: {f: f} %>
+    <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
 </section>

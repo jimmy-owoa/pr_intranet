@@ -8,122 +8,122 @@
       <div class="col-12">
         Regiones:
         <ul>
-        <% @regions.each do |region| %>
-        <li><%= region.name %></li>
-        <% end %>
+          <% @regions.each do |region| %>
+            <li><%= region.name %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Empresas:
         <ul>
-        <% @companies.each do |company| %>
-        <li><%= company.name %></li>
-        <% end %>
+          <% @companies.each do |company| %>
+            <li><%= company.name %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Grupos Beneficiarios:
         <ul>
-        <% @benefit_groups.each do |bg| %>
-        <li><%= bg.name %></li>
-        <% end %>
+          <% @benefit_groups.each do |bg| %>
+            <li><%= bg.name %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Gerencias:
         <ul>
-        <% @managements.each do |management| %>
-        <li><%= management.name %></li>
-        <% end %>
+          <% @managements.each do |management| %>
+            <li><%= management.name %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Sexos:
         <ul>
-        <% @genders.each do |gender| %>
-        <li><%= gender %></li>
-        <% end %>
+          <% @genders.each do |gender| %>
+            <li><%= gender %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Es jefe:
         <ul>
-        <% @is_boss.each do |boss| %>
-        <li><%= boss %></li>
-        <% end %>
+          <% @is_boss.each do |boss| %>
+            <li><%= boss %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Clasificación de empleado :
         <ul>
-        <% @employee_classifications.each do |ec| %>
-        <li><%= ec %></li>
-        <% end %>
+          <% @employee_classifications.each do |ec| %>
+            <li><%= ec %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Centros de costo:
         <ul>
-        <% @cost_centers.each do |cc| %>
-        <li><%= cc.name %></li>
-        <% end %>
+          <% @cost_centers.each do |cc| %>
+            <li><%= cc.name %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Clasificaciones de puesto:
         <ul>
-        <% @position_classifications.each do |pc| %>
-        <li><%= pc %></li>
-        <% end %>
+          <% @position_classifications.each do |pc| %>
+            <li><%= pc %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Miembro de sindicato:
         <ul>
-        <% @syndicate_members.each do |sm| %>
-        <li><%= sm %></li>
-        <% end %>
+          <% @syndicate_members.each do |sm| %>
+            <li><%= sm %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Tipo de contrato:
         <ul>
-        <% @contract_types.each do |ct| %>
-        <li><%= ct %></li>
-        <% end %>
+          <% @contract_types.each do |ct| %>
+            <li><%= ct %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Miembro de sindicato:
         <ul>
-        <% @roles.each do |rol| %>
-        <li><%= rol %></li>
-        <% end %>
+          <% @roles.each do |rol| %>
+            <li><%= rol %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Horario:
         <ul>
-        <% @schedules.each do |s| %>
-        <li><%= s %></li>
-        <% end %>
+          <% @schedules.each do |s| %>
+            <li><%= s %></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-12">
         Tiene hijo:
         <ul>
-        <% @has_children.each do |hc| %>
-        <li><%= hc %></li>
-        <% end %>
+          <% @has_children.each do |hc| %>
+            <li><%= hc %></li>
+          <% end %>
         </ul>
       </div>
       <div>
-      <%= link_to 'Descargar listado de usuarios', users_list_admin_profile_path(@profile, format: 'xlsx'), method: 'get'%>
+        <%= link_to 'Descargar listado de usuarios', users_list_admin_profile_path(@profile, format: 'xlsx'), method: 'get'%>
       </div>
     </div>
   </div>
   <div>
     <%= link_to t('.back', :default => t("helpers.links.back")), admin_profiles_path, :class => 'btn btn-primary'  %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_profile_path(@profile), :class => 'btn btn-primary' %>
-  </div>  
+  </div>
 </section>

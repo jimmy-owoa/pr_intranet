@@ -46,7 +46,8 @@
               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
           </div>
-        </div><br>
+        </div>
+        <br>
         <div class="col-md-12">
           <%= f.label "Mostrar Nombre" %><br />
           <% if f.object.new_record? %>
@@ -74,5 +75,5 @@
     <%= f.submit action_name == 'edit' ? 'Guardar encuesta' : 'Crear encuesta', class: 'btn btn-primary'%>
     <%= link_to_add_association 'Agregar pregunta', f, :questions, class: 'btn btn-success buttons_group', data: {
     association_insertion_node: '#questions', association_insertion_method: :append } %>
-  <div>
-</div>
+    <div>
+    </div>

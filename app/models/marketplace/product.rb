@@ -1,21 +1,20 @@
 class Marketplace::Product < ApplicationRecord
   include ActiveModel::Dirty
   has_many_attached :images
-  has_many :product_term_relationships, -> {where(object_type: 'Marketplace::Product')},
-  class_name: 'General::TermRelationship', foreign_key: :object_id, inverse_of: :product
+  has_many :product_term_relationships, -> { where(object_type: "Marketplace::Product") },
+           class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :product
   has_many :terms, through: :product_term_relationships
-  belongs_to :user, class_name: 'General::User', optional: true
+  belongs_to :user, class_name: "General::User", optional: true
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   before_save :update_published_date
 
-  scope :show_product , -> {where(approved: true)}
+  scope :show_product, -> { where(approved: true) }
   scope :approved_and_not_expired, -> { where(approved: true).where(is_expired: false) }
 
-  PRODUCT_TYPE = ['Autos','Propiedades', 'Servicios', 'Varios']
-  CURRENCY = ['$','UF']
-
+  PRODUCT_TYPE = ["Autos", "Propiedades", "Servicios", "Varios"]
+  CURRENCY = ["$", "UF"]
 
   def self.no_approved
     where(approved: false)
@@ -25,8 +24,8 @@ class Marketplace::Product < ApplicationRecord
     where(approved: true)
   end
 
-  def thumb img
-    img.variant(resize: '60x60>').processed
+  def thumb(img)
+    img.variant(resize: "60x60>").processed
   end
 
   def update_published_date
@@ -35,7 +34,7 @@ class Marketplace::Product < ApplicationRecord
     end
   end
 
-  def self.get_filtered is_approved
+  def self.get_filtered(is_approved)
     if is_approved == "true"
       Marketplace::Product.where(approved: true)
     elsif is_approved == "false"
@@ -52,5 +51,4 @@ class Marketplace::Product < ApplicationRecord
   def unpermitted_images
     images.attachments.where(permission: 0)
   end
-  
 end

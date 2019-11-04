@@ -5,8 +5,8 @@ class InternalAuth
   def initialize
   end
 
-  def self.decrypt data, cipher_key = nil
-    cipher = OpenSSL::Cipher.new 'aes-256-cbc'
+  def self.decrypt(data, cipher_key = nil)
+    cipher = OpenSSL::Cipher.new "aes-256-cbc"
     cipher.decrypt
     cipher.key = cipher_key || Rails.application.secrets.cipher_key
     unescaped = CGI.unescape(data) # Se le quita el urlencode

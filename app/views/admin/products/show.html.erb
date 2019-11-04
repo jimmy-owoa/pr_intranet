@@ -6,7 +6,6 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
-
           <div class="row">
             <div class="col-md-4">
               <h4>Anuncio:  <%= @product.name %></h4>
@@ -17,7 +16,6 @@
               <b><%= General::User.find(@product.user_id).full_name %></b>
             </div>
           </div>
-
           <p><strong> Precio: </strong> <%= @product.price %></p>
           <p><strong> Dirección/Oficina: </strong> <%= @product.location %></p>
           <p class="card-text">

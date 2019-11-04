@@ -5,7 +5,7 @@
       <div class="col-sm-12">
         <% if @product.user_id? %>
           <h4> Publicado por: <%= @product.user.full_name %> </h4>
-          <% end %>
+        <% end %>
       </div>
       <div class="col-sm-4">
         <%= f.input :name, required: true, autofocus: true  %>
@@ -55,48 +55,48 @@
         <%= f.input :images, as: :file, input_html: { multiple: true, accept:'image/*' } %>
       </div>
     </div>
-</div>
-
-<% if @product.unpermitted_images.present? %>
-  <div class="container card">
-        <h3 class="text-center">Imágenes por aprobar</h3>
+  </div>
+  <% if @product.unpermitted_images.present? %>
+    <div class="container card">
+      <h3 class="text-center">Imágenes por aprobar</h3>
       <div class="row">
         <div class="col-sm-2 pull-right">
           <button type="button" class="btn btn-primary btn-sm" id='check_all'>Seleccionar todas</button>
         </div>
-      </div><br />
-    <div class="row text-center" >
-      <% @product.unpermitted_images.each do |image| %>
-        <div class="col-md-2 approved">
-          <figure>
-            <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-            <figcaption>
-              <%= check_box_tag "permissions[]", image.id -%>
-            </figcaption>
-          </figure>
-        </div>
-      <% end %>
+      </div>
+      <br />
+      <div class="row text-center" >
+        <% @product.unpermitted_images.each do |image| %>
+          <div class="col-md-2 approved">
+            <figure>
+              <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+              <figcaption>
+                <%= check_box_tag "permissions[]", image.id -%>
+              </figcaption>
+            </figure>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-<% end %>
-<% if @product.permitted_images.present? %>
-  <div class="container card">
-    <p>Imágenes Aprobadas</p>
-    <div class="row text-center" >
-      <% @product.permitted_images.each do |image| %>
-        <div class="col-md-2">
-          <figure>
-            <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-            <figcaption>
-              <%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: '¿Esta segura(o) que desea eliminar este elemento?' }, :class => 'btn btn-sm btn-danger'%>
-            </figcaption>
-          </figure>
-        </div>
-      <% end %>
+  <% end %>
+  <% if @product.permitted_images.present? %>
+    <div class="container card">
+      <p>Imágenes Aprobadas</p>
+      <div class="row text-center" >
+        <% @product.permitted_images.each do |image| %>
+          <div class="col-md-2">
+            <figure>
+              <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+              <figcaption>
+                <%= link_to 'Borrar', delete_image_admin_product_path(image), method: :delete, data: { confirm: '¿Esta segura(o) que desea eliminar este elemento?' }, :class => 'btn btn-sm btn-danger'%>
+              </figcaption>
+            </figure>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div><br>
-<% end %>
-
+    <br>
+  <% end %>
   <div class="container col-md-12 text-center">
     <%= link_to 'Volver', :back, class:'btn btn-primary' %>
     <% if @product.id.present? %>

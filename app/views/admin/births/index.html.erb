@@ -1,15 +1,15 @@
 <%- model_class = Employee::Birth -%>
-  <section class="section">
-    <h1 class="section-header"><%= "Nuevos Nacimientos" %></h1>
-    <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary btn-sm mb-1' %>
-    <div class="card">
-      <%= form_tag('', method: 'get') do %>
-        <div class="large-12 columns">
-          <div class="row">
-            <div class="row" style='margin-left: 10px;padding: 15px;'>
-              <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Seleccionar', class: 'custom-select', id: 'select_birth', :onchange => 'birth_filter_action()') %>
-              <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'birth_filter', style: 'display: none' %>
-            </div>
+<section class="section">
+  <h1 class="section-header"><%= "Nuevos Nacimientos" %></h1>
+  <%= link_to "Nuevo", new_admin_birth_path, :class => 'btn btn-primary btn-sm mb-1' %>
+  <div class="card">
+    <%= form_tag('', method: 'get') do %>
+      <div class="large-12 columns">
+        <div class="row">
+          <div class="row" style='margin-left: 10px;padding: 15px;'>
+            <%= select_tag(:approved, options_for_select(Employee::Birth::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Seleccionar', class: 'custom-select', id: 'select_birth', :onchange => 'birth_filter_action()') %>
+            <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'birth_filter', style: 'display: none' %>
+          </div>
         </div>
       <% end %>
     </div>
@@ -56,32 +56,31 @@
       </div>
     </div>
   </section>
-
-<script>
-  function birth_filter_action() {
-    document.getElementById("birth_filter").click()
-  }
-</script>
-
-<!-- Modal -->
-<% @births.each do |birth| %>
-  <div class="modal fade bd-example-modal-lg" id="modalShowBirth_<%= birth.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-          <div class="container card">
-            <% if birth.unpermitted_images.present? %>
-              <div class="row">
-                <div class="col-sm-12 pull-left">
-                  imágenes por aprobar
+  <script>
+    function birth_filter_action() {
+      document.getElementById("birth_filter").click()
+    }
+  </script>
+  <!-- Modal -->
+  <% @births.each do |birth| %>
+    <div class="modal fade bd-example-modal-lg" id="modalShowBirth_<%= birth.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Imágenes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container card">
+              <% if birth.unpermitted_images.present? %>
+                <div class="row">
+                  <div class="col-sm-12 pull-left">
+                    imágenes por aprobar
+                  </div>
                 </div>
-              </div></br>
+              </br>
               <div class="row text-center" >
                 <% birth.unpermitted_images.each do |image| %>
                   <div class="col-md-4 attach_birth">
@@ -107,13 +106,14 @@
                 <% birth.permitted_images.each do |image| %>
                   <div class="col-md-4">
                     <figure>
-                        <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
                   </div>
                 <% end %>
               </div>
             <% end %>
-          </div><br>
+          </div>
+          <br>
         </div>
       </div>
     </div>

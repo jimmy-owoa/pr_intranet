@@ -1,5 +1,5 @@
 module Employee
   def self.table_name_prefix
-    'employee_'
+    "employee_"
   end
 end
