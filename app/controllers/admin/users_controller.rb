@@ -13,9 +13,9 @@ module Admin
       add_breadcrumb "Usuarios", :admin_users_path
       if params[:approved] == "true" || params[:approved] == "false"
         aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
-        @users = General::User.active_filter(aprov).paginate(:page => params[:page], :per_page => 10)
+        @users = General::User.active_filter(aprov).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       else
-        @users = General::User.paginate(:page => params[:page], :per_page => 10)
+        @users = General::User.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       end
     end
 

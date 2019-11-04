@@ -6,7 +6,7 @@ module Admin
     before_action :set_attachments, only: [:edit, :new]
 
     def index
-      @posts = News::Post.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
+      @posts = News::Post.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       respond_to do |format|
         format.html
         format.json { render json: @posts }

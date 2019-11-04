@@ -3,7 +3,7 @@ module Admin
     before_action :set_menu, only: [:show, :edit, :update, :destroy]
 
     def index
-      @menus = General::Menu.paginate(:page => params[:page], :per_page => 10)
+      @menus = General::Menu.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
     end
 
     def new

@@ -3,7 +3,7 @@ module Admin
     before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
     def index
-      @profiles = General::Profile.all
+      @profiles = General::Profile.order(created_at: :desc)
     end
 
     def show

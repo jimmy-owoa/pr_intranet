@@ -3,7 +3,7 @@ module Admin
     before_action :set_message, only: [:show, :edit, :update, :destroy]
 
     def index
-      @messages = General::Message.order(id: :desc).all
+      @messages = General::Message.order(created_at: :desc)
     end
 
     def show

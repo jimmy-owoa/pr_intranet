@@ -9,7 +9,7 @@ module Admin
 
     def index
       add_breadcrumb "Medios", :admin_attachments_path
-      @attachments = General::Attachment.order(created_at: "desc").paginate(:page => params[:page], :per_page => 12)
+      @attachments = General::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
       respond_to do |format|
         format.html
         format.json { render json: @attachments }

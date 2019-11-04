@@ -6,15 +6,15 @@ module Admin
       add_breadcrumb "Marketplace", :admin_products_path
       @filters = [["Todos", "all"], ["Aprobados", true], ["Sin aprobación", false]]
       is_approved = params[:approved]
-      @products = Marketplace::Product.get_filtered(is_approved).paginate(:page => params[:page], :per_page => 10)
+      @products = Marketplace::Product.get_filtered(is_approved).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
     end
 
     def no_approved_index
-      @products = Marketplace::Product.no_approved.paginate(:page => params[:page], :per_page => 10)
+      @products = Marketplace::Product.no_approved.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
     end
 
     def approved_index
-      @products = Marketplace::Product.approved.paginate(:page => params[:page], :per_page => 10)
+      @products = Marketplace::Product.approved.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
     end
 
     def show

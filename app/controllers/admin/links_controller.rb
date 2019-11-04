@@ -3,13 +3,13 @@ module Admin
     before_action :set_link, only: [:show, :edit, :update, :destroy]
 
     def index
-      @links = General::Link.last(8)
+      @links = General::Link.order(created_at: :desc)
     end
 
     def show
       add_breadcrumb "Links", :admin_links_path
     end
-    
+
     def new
       add_breadcrumb "Links", :admin_links_path
       @link = General::Link.new
@@ -23,12 +23,12 @@ module Admin
       @link = General::Link.new(link_params)
       respond_to do |format|
         if @link.save
-          format.html { redirect_to admin_link_path(@link), notice: 'Link fue creada con éxito.'}
-          format.json { render :show, status: :created, location: @link}
+          format.html { redirect_to admin_link_path(@link), notice: "Link fue creada con éxito." }
+          format.json { render :show, status: :created, location: @link }
           format.js
         else
-          format.html {render :new}
-          format.json {render json: @link.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @link.errors, status: :unprocessable_entity }
           format.js
         end
       end
@@ -37,11 +37,11 @@ module Admin
     def update
       respond_to do |format|
         if @link.update(link_params)
-          format.html { redirect_to admin_link_path(@link), notice: 'Link fue actualizada con éxito.'}
+          format.html { redirect_to admin_link_path(@link), notice: "Link fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @link }
         else
-          format.html { render :edit}
-          format.json { render json: @link.errors, status: :unprocessable_entity}
+          format.html { render :edit }
+          format.json { render json: @link.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -49,7 +49,7 @@ module Admin
     def destroy
       @link.destroy
       respond_to do |format|
-        format.html { redirect_to admin_links_path, notice: 'Link fue eliminada con éxito.'}
+        format.html { redirect_to admin_links_path, notice: "Link fue eliminada con éxito." }
         format.json { head :no_content }
       end
     end

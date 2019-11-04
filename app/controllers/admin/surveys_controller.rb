@@ -3,7 +3,7 @@ module Admin
     before_action :set_survey, only: [:show, :destroy, :edit, :update]
 
     def index
-      @surveys = Survey::Survey.order(id: :desc).all
+      @surveys = Survey::Survey.order(created_at: :desc).all
     end
 
     def show

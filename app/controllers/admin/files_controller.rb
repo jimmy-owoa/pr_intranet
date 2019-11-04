@@ -3,7 +3,7 @@ module Admin
     before_action :set_file, only: [:show, :edit, :update, :destroy]
 
     def index
-      @files = General::File.order(id: :desc).all
+      @files = General::File.order(created_at: :desc)
     end
 
     def show
@@ -20,12 +20,12 @@ module Admin
       @file = General::File.new(file_params)
       respond_to do |format|
         if @file.save
-          format.html { redirect_to admin_file_path(@file), notice: 'Archivo fue creado con éxito.'}
-          format.json { render :show, status: :created, location: @file}
+          format.html { redirect_to admin_file_path(@file), notice: "Archivo fue creado con éxito." }
+          format.json { render :show, status: :created, location: @file }
           format.js
         else
-          format.html {render :new }
-          format.json {render json: @file.errors, status: :unprocessable_entity }
+          format.html { render :new }
+          format.json { render json: @file.errors, status: :unprocessable_entity }
           format.js
         end
       end
@@ -34,7 +34,7 @@ module Admin
     def update
       respond_to do |format|
         if @file.update(file_params)
-          format.html { redirect_to admin_file_path(@file), notice: 'Archivo fue actualizado con éxito.'}
+          format.html { redirect_to admin_file_path(@file), notice: "Archivo fue actualizado con éxito." }
           format.json { render :show, status: :ok, location: @file }
         else
           format.html { render :edit }
@@ -46,10 +46,11 @@ module Admin
     def destroy
       @file.destroy
       respond_to do |format|
-        format.html { redirect_to admin_files_path, notice: 'Archivo fue eliminado con éxito.'}
+        format.html { redirect_to admin_files_path, notice: "Archivo fue eliminado con éxito." }
         format.json { head :no_content }
       end
     end
+
     private
 
     def set_file

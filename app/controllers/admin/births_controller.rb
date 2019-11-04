@@ -13,7 +13,7 @@ module Admin
     end
 
     def no_approved_index
-      @births = Employee::Birth.no_approved.paginate(:page => params[:page], :per_page => 10)
+      @births = Employee::Birth.no_approved.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
     end
 
     def show
