@@ -4,10 +4,10 @@
     <div class="wrapper col-md-9">
       <div class="form-group card">
         <div class="col-md-12">
-          <%= f.input :name, autofocus: true %>
+          <%= f.input :name, autofocus: true, input_html: { class: "border border-dark" } %>
         </div>
         <div class="col-md-12">
-          <%= f.input :slug %>
+        <%= f.input :slug, input_html: { class: "border border-dark" } %>
         </div>
         <div class="col-md-6">
           <% selected_value = @survey.profile_id || General::Profile.find_by_name("General").id %>
@@ -15,7 +15,7 @@
           <%= f.select :profile_id, options_for_select(General::Profile.all.map{|profile| [profile.name, profile.id]}, selected_value), class:' form-control string optional' %>
         </div>
         <div class="col-md-12">
-          <%= f.input :description, label: 'Descripción' %>
+          <%= f.input :description, label: 'Descripción', input_html: { class: "border border-dark" } %>
         </div>
       </div>
       <div class="col-md-12">
