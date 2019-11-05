@@ -30,7 +30,8 @@
         </div>
         <div class="col-12 col-sm-10">
           <%= f.label 'Padre' %>
-          <%= f.select :parent_id,  General::Menu.where(parent_id: nil).map{ |m| [m.title, m.id] }, include_blank: true%>
+          <%= f.select :parent_id, @grouped_options, include_blank: true%>
+          <%# <%= f.select :parent_id, grouped_options_for_select(@grouped_options, nil, divider: '----------')%>
         </div>
         <div class="col-12 col-sm-10"></br>
         <%= f.input :link %>

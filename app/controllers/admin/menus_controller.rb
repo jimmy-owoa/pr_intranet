@@ -8,6 +8,7 @@ module Admin
 
     def new
       @menu = General::Menu.new
+      get_parents
     end
 
     def create
@@ -27,6 +28,7 @@ module Admin
     end
 
     def edit
+      get_parents
     end
 
     def show
@@ -61,6 +63,18 @@ module Admin
 
     def menu_params
       params.require(:menu).permit(:title, :description, :css_class, :code, :priority, :parent_id, :link, :integration_code, :profile_id, term_ids: [])
+    end
+
+    def get_parents
+      parents = General::Menu.pluck(:parent_id).uniq.compact
+      @grouped_options = []
+      parents.each do |parent_id|
+        menu = General::Menu.find(parent_id)
+        @grouped_options << [menu.title, menu.id]
+        # sub_menus = []
+        # sub_menus << General::Menu.where(parent_id: parent_id).pluck(:title, :id)
+        # @grouped_options << sub_menus.flatten.uniq
+      end
     end
 
     def set_categories
