@@ -66,6 +66,7 @@
   </div>
   <div class="col-md-4">
     <div class="card p-2">
+      <h5 class="text-center">Foto Aprobada</h5>
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
           <% if @birth.images.attachments.nil? || !@birth.permitted_images.present? %>
@@ -86,7 +87,7 @@
     <div class="container card">
       <div class="row">
         <div class="col-sm-10 pull-left">
-          Foto por aprobar
+          Foto(s) por aprobar
         </div>
         <div class="col-sm-2 pull-right">
           <button type="button" class="btn btn-primary btn-sm" id='check_all_birth'>Selecciona todo</button>
