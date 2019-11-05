@@ -124,11 +124,11 @@
     <% if @birth.id.present? %>
       <div class="col-md-4">
         <%= f.submit 'Aprobar', :class => 'btn btn-success' %>
-        <%= link_to 'Desaprobar',
+        <%= link_to 'Rechazar',
             admin_birth_path(@birth),
-            :method => :delete,
-            :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
-            :class => 'btn btn-danger' %>
+            method: :delete,
+            data: { title: '¿Esta segura(o) que desea rechazar este elemento?', confirm: 'Confirmar' },
+            class: 'btn btn-danger' %>
       </div>
     <% else %>
       <%= f.submit nil, class: 'btn btn-success btn-block' %>
