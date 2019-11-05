@@ -4,7 +4,7 @@ class News::Post < ApplicationRecord
 
   validates_presence_of :title
 
-  has_one :gallery, class_name: "General::Gallery"
+  has_one :gallery, class_name: "General::Gallery", foreign_key: :post_id
 
   has_many :comments, class_name: "News::Comment"
   has_many :post_term_relationships, -> { where(object_type: "News::Post") },
@@ -21,6 +21,7 @@ class News::Post < ApplicationRecord
 
   accepts_nested_attributes_for :terms
   accepts_nested_attributes_for :main_image
+  accepts_nested_attributes_for :gallery
 
   after_initialize :set_status
 
