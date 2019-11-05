@@ -10,14 +10,16 @@ class ExaBenefitsService
     @data["beneficiary_groups"].each do |bg|
       benefit_group = General::BenefitGroup.where(name: bg["name"], code: bg["code"]).first_or_create
       bg["benefits"].each do |benefit|
-        if /^(\s)*bono/.match(benefit["name"].downcase)
-          benefit_type = 1
-        elsif /^(\s)*crédito/.match(benefit["name"].downcase)
-          benefit_type = 2
-        elsif /^(\s)*seguro/.match(benefit["name"].downcase)
-          benefit_type = 3
-        elsif /^(\s)*permiso/.match(benefit["name"].downcase)
-          benefit_type = 4
+        if benefit["name"].present?
+          if /^(\s)*bono/.match(benefit["name"].downcase)
+            benefit_type = 1
+          elsif /^(\s)*crédito/.match(benefit["name"].downcase)
+            benefit_type = 2
+          elsif /^(\s)*seguro/.match(benefit["name"].downcase)
+            benefit_type = 3
+          elsif /^(\s)*permiso/.match(benefit["name"].downcase)
+            benefit_type = 4
+          end
         end
         record = General::Benefit.where(title: benefit["name"], code: benefit["code"], benefit_type_id: benefit_type).first_or_create
         if benefit["variables"].present?
