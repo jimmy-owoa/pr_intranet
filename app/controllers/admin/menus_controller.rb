@@ -68,12 +68,14 @@ module Admin
     def get_parents
       parents = General::Menu.pluck(:parent_id).uniq.compact
       @grouped_options = []
+      without_parents = General::Menu.where(parent_id: nil).pluck(:id)
       parents.each do |parent_id|
         menu = General::Menu.find(parent_id)
         @grouped_options << [menu.title, menu.id]
-        # sub_menus = []
-        # sub_menus << General::Menu.where(parent_id: parent_id).pluck(:title, :id)
-        # @grouped_options << sub_menus.flatten.uniq
+      end
+      without_parents.each do |wp|
+        menu = General::Menu.find(wp)
+        @grouped_options << [menu.title, menu.id]
       end
     end
 
