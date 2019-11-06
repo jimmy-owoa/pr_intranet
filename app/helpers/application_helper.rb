@@ -224,6 +224,8 @@ module ApplicationHelper
       return "10 UF"
     when benefit_type = "SEGUROS"
       return "1 Hora"
+    when benefit_type = "CRÉDITOS Y SUBSIDIOS"
+      return "1 Hora"
     end
   end
 end
