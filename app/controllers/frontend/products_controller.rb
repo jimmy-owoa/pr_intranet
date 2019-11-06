@@ -52,6 +52,54 @@ module Frontend
       end
     end
 
+    def user_products
+      page = params[:page]
+      category = params[:category]
+      if category == "todos"
+        products = @request_user.products
+      else
+        products = @request_user.products.where(product_type: category)
+      end
+      products = products.order(published_date: :desc).page(page).per(6)
+      data = []
+      items = []
+      products.each do |product|
+        product.images.each do |image|
+          if image.present?
+            items << {
+              src: url_for(image),
+              thumbnail: url_for(image.variant(resize: "100x100")),
+            }
+          end
+        end
+        data << {
+          id: product.id,
+          name: product.name.capitalize,
+          approved: product.approved,
+          product_type: product.product_type,
+          user_id: product.user_id,
+          url: root_url + "admin/products/" + "#{product.id}" + "/edit",
+          currency: product.currency,
+          price: product.price,
+          published_date: l(product.published_date, format: "%d de %B, %Y").downcase,
+          is_expired: product.is_expired,
+          expiration: product.expiration,
+          description: product.description,
+          main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+          items: product.images.present? ? items : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+          breadcrumbs: [
+            { link: "/", name: "Inicio" },
+            { link: "/avisos", name: "Avisos Clasificados" },
+            { link: "#", name: product.name.truncate(30) },
+          ],
+        }
+      end
+      respond_to do |format|
+        format.json { render json: { hits: data } }
+        format.js
+      end
+    end
+
     def product
       id = params[:id].present? ? params[:id] : nil
       product = Marketplace::Product.where(id: id).first
