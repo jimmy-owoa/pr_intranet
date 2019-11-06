@@ -81,7 +81,7 @@ module Frontend
           url: root_url + "admin/products/" + "#{product.id}" + "/edit",
           currency: product.currency,
           price: product.price,
-          published_date: l(product.published_date, format: "%d de %B, %Y").downcase,
+          published_date: product.published_date.present? ? l(product.published_date, format: "%d de %B, %Y").downcase : nil,
           is_expired: product.is_expired,
           expiration: product.expiration,
           description: product.description,
