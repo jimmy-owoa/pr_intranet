@@ -221,7 +221,7 @@ module ApplicationHelper
     when benefit_type = "PERMISOS"
       return "5 Días"
     when benefit_type = "BONOS"
-      return "10 UF"
+      return "$20.000"
     when benefit_type = "SEGUROS"
       return "1 Hora"
     when benefit_type = "CRÉDITOS Y SUBSIDIOS"
