@@ -36,7 +36,8 @@
           <li><%= "Valor: *|VALOR|*"%></li>
           <br/>
           <em style="color: gray;">Ejemplo: Solicita este beneficio y obtén *|Tipo|* *|VALOR|* para ti.</em>
-          <em style="color: gray;">Resultado para el usuario: Solicita este beneficio y obtén *|Tipo|* *|VALOR|* para ti.</em>
+          <br/>
+          <em style="color: gray;">Resultado para el usuario: Solicita este beneficio y obtén <%= result_benefit_for_user(@benefit.benefit_type.name) %> para ti.</em>
         </ul>
       </div>
       <br />
