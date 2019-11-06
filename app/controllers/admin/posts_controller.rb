@@ -39,7 +39,7 @@ module Admin
       @post = News::Post.new(post_params)
       respond_to do |format|
         if @post.save
-          set_tags
+          set_gallery
           set_files
           format.html { redirect_to admin_post_path(@post), notice: "Noticia fue creada con éxito." }
           format.json { render :show, status: :created, location: @post }
@@ -54,7 +54,7 @@ module Admin
       params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       respond_to do |format|
         if @post.update(post_params)
-          set_tags
+          set_gallery
           set_files
           format.html { redirect_to admin_post_path(@post), notice: "Noticia fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @post }
@@ -102,8 +102,13 @@ module Admin
       params.require(:post).permit(:title, :slug, :content, :status,
                                    :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order,
                                    :published_at, :user_id, :post_type, :format, :permission, :important, :extract, :profile_id,
-                                   gallery_ids: [], term_ids: [], terms_names: [], file_ids: [],
-                                   main_image_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
+                                   file_ids: [], main_image_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
+    end
+
+    def set_gallery
+      @gallery = General::Gallery.find(params[:gallery_id])
+      @post.gallery = @gallery
+      @post.save
     end
 
     # SEGUIR CON SUBIR ARCHIVOS DESDE EL FORMULARIO DEL POST
