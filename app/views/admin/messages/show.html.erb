@@ -11,7 +11,7 @@
         <div class="col-sm-7">
           <div class="card post_card">
             <b>Título: <%= @message.title %></b><br>
-            <b>Mensaje disponible para perfil: <%= @message.profile.name %></b><br>
+            <b>Mensaje disponible para perfil: <%= @message.profile.present? ? @message.profile.name : "General" %></b><br>
             <b>Tipo de mensaje: <%= message_type(@message.message_type) %></b><br>
           </div>
         </div>

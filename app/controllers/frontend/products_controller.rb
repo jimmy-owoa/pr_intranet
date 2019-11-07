@@ -1,7 +1,7 @@
 module Frontend
   class ProductsController < FrontendController
     before_action :set_product, only: [:show, :destroy, :edit, :update]
-    skip_before_action :verify_authenticity_token, only: [:create]
+    skip_before_action :verify_authenticity_token, only: [:create, :update_expiration, :destroy]
     #callbacks
     after_action :set_tracking, only: [:index, :show, :new]
 
@@ -123,13 +123,13 @@ module Frontend
         published_date: product.published_date.present? ? product.published_date.strftime("%d/%m/%Y") : "",
         email: product.email,
         phone: product.phone,
-        tags: product.terms.tags,
         location: product.location,
         approved: product.approved,
         user_id: product.user_id,
         user_company: product.user.company.present? ? product.user.company.name : "",
         user_full_name: General::User.find(product.user_id).full_name,
         is_expired: product.is_expired,
+        admin_url: root_url + admin_product_path(product.id),
         items: product.images.present? ? items :
           [{
           src: root_url + ActionController::Base.helpers.asset_url("noimage.png"),
@@ -190,6 +190,13 @@ module Frontend
     def update_expiration
       product = Marketplace::Product.find(params[:id])
       product.update(published_date: Date.today, is_expired: false)
+    end
+
+    def destroy
+      Marketplace::Product.find(params[:id]).destroy
+      respond_to do |format|
+        format.json { head :no_content }
+      end
     end
 
     def update
