@@ -228,4 +228,15 @@ module ApplicationHelper
       return "1 Hora"
     end
   end
+
+  def currency_is_english?(currency)
+    case currency
+    when "days"
+      "Días"
+    when "hours"
+      "Horas"
+    else
+      currency
+    end
+  end
 end
