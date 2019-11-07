@@ -10,7 +10,11 @@
       </div>
       <div>
         <p><%= @link.title %></p>
-        <h4>URL: <a href='<%= @link.url %>'><%= @link.url %></a></h4>
+        <h4>URL: 
+          <a href='<%= @link.url %>' target="<%= is_target_blank?(@link.is_blank)%>">
+            <%= @link.url %>
+          </a>
+        </h4>
       </div>
     </div>
   </div>

@@ -7,7 +7,14 @@
     <div class="col-12">
       <%= f.input :url %>
     </div>
-  </div>
+    <div class="col-12">
+      <div class="form-group form-check">
+        <%= f.check_box :is_blank, class: 'form-check-input' %>
+        <%= f.label 'Abrir en una nueva pestaña'%>
+      </div>
+    </div>
+  </div><!-- /.col-7 -->
+  
   <div class="col-5" >
     <div class="card border-secondary mb-2">
       <div class="card-body text-secondary border border-primary rounded">

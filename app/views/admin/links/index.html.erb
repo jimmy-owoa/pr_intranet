@@ -9,6 +9,7 @@
           <tr>
             <th><%= 'Título' %></th>
             <th><%= 'Fecha Creación' %></th>
+            <th><%= '¿Enlace abre en nueva pestaña?' %></th>
             <th><%= 'Acciones' %></th>
           </tr>
         </thead>
@@ -17,6 +18,7 @@
             <tr>
               <td><%= link.title %></td>
               <td><%= custom_date_no_hour(link.created_at) %></td>
+              <td><%= link.is_blank ? "Si" : "No" %></td>
               <td>
                 <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_link_path(link), :class => 'btn btn-success btn-sm' %>

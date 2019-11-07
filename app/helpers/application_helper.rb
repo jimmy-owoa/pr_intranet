@@ -239,4 +239,12 @@ module ApplicationHelper
       currency
     end
   end
+
+  def is_target_blank?(value)
+    if value == true
+      "_blank"
+    else
+      "_self"
+    end
+  end
 end

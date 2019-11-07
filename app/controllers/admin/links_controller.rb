@@ -61,7 +61,7 @@ module Admin
     end
 
     def link_params
-      params.require(:link).permit(:title, :url, :image)
+      params.require(:link).permit(:title, :url, :image, :is_blank)
     end
   end
 end
