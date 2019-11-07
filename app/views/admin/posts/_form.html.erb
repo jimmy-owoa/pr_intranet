@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-12">
         <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
-        <%= f.label :gallery, class: 'form-control-label string required' %><br>
+        <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
         <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }, selected_value) %><br/>
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">

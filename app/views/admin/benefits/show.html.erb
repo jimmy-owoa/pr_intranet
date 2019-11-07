@@ -25,7 +25,7 @@
               <% @benefit.benefit_group_relationships.order(:benefit_group_id).each do |bgr| %> 
                 <tr>
                   <td><%= bgr.benefit_group.name %> :</td>
-                  <td><%= bgr.currency %></td>
+                  <td><%= currency_is_english?(bgr.currency) %></td>
                   <td><%= bgr.amount %></td>
                   <td><%= link_to bgr.url, bgr.url %></td>
                 </tr>
