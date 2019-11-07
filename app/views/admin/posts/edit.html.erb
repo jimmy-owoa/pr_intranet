@@ -1,6 +1,6 @@
 <%- model_class = News::Post -%>
 <section class="section">
-  <h1 class="section-header">Editar Noticia <%= @post.title %></h1>
+  <h1 class="section-header">Editar Noticia: <%= @post.title %></h1>
   <%= simple_form_for @post, as: 'post', url: {action: :update}, :html => { :class => "form" } do |f| %>
     <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
