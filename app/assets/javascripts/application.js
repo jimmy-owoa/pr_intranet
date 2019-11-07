@@ -52,3 +52,10 @@ dataConfirmModal.setDefaults({
   commit: "Aceptar",
   cancel: "Cancelar"
 });
+
+// Tinymce presentaba problemas de carga o refresco, por lo que al editar a veces no aparecía el texto
+// ni dejaba editar. Lo mismo al crear o editar una noticia. Con este extracto de código de solucionó.
+$(document).on("turbolinks:load", function() {
+  tinymce.remove();
+  tinymce.init({selector:'.tinymce'});
+});

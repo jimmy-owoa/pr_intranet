@@ -215,4 +215,17 @@ module ApplicationHelper
       return "Sin Tipo"
     end
   end
+
+  def result_benefit_for_user(benefit_type)
+    case benefit_type
+    when benefit_type = "PERMISOS"
+      return "5 Días"
+    when benefit_type = "BONOS"
+      return "$20.000"
+    when benefit_type = "SEGUROS"
+      return "1 Hora"
+    when benefit_type = "CRÉDITOS Y SUBSIDIOS"
+      return "1 Hora"
+    end
+  end
 end

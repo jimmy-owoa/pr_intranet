@@ -1,5 +1,5 @@
 <section class="section">
-  <h1 class="section-header">Editar <%= @message.title %></h1>
+  <h1 class="section-header">Editar: <%= @message.title %></h1>
   <%= simple_form_for @message, as: 'message', url: {action: :update}, :html => { :class => "form" } do |f| %>
     <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
