@@ -141,4 +141,12 @@
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+  // Solución para cerrar "datetimepicker" al hacer click fuera.
+  $(document).on('mouseup touchstart', function (e) {
+  var container = $(".bootstrap-datetimepicker-widget");
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      container.hide();
+    }
+  });
 </script>
