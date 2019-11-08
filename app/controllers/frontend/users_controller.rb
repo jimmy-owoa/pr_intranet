@@ -154,30 +154,6 @@ module Frontend
       data_benefits = []
       data_products = []
       data_messages = []
-      if user.benefit_group.present?
-        data = { benefit_types: [] }
-        @benefit_types = General::BenefitType.all
-        @benefit_types.each do |benefit_type|
-          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(user.benefit_group.try(:id))
-          if allowed_benefits.present?
-            benefit_type_hash = {
-              name: benefit_type.name,
-              benefits: [],
-            }
-            allowed_benefits.each do |benefit|
-              benefit_type_hash[:benefits] << {
-                id: benefit.id,
-                name: benefit.title,
-                content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
-                url: "admin/benefits/" + "#{benefit.id}" + "/edit",
-                link: benefit.url,
-              }
-            end
-            data[:benefit_types] << benefit_type_hash
-          end
-        end
-      end
       if user.products.present?
         user.products.each do |product|
           data_products << {
@@ -246,10 +222,6 @@ module Frontend
         ],
         address: user.address,
         location: @location,
-        benefit_group: {
-          name: user.benefit_group.present? ? user.benefit_group.name : "Sin grupo beneficiario",
-          benefits: data,
-        },
         products: data_products[0],
         messages: data_messages,
         notifications: user.notifications,
