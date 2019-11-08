@@ -56,14 +56,24 @@ class General::Menu < ApplicationRecord
     menus
   end
 
-  def get_dropdowns(dropdown, menus)
+  def get_dropdowns(dropdown, menus, skip_codes = [])
     dropdown.each do |key, value|
       if value.is_a?(Hash) && value.key?("drop_down")
-        menus << {
+        if value["drop_down"].present?
+          value["drop_down"].each do |ddm|
+            menus << {
+              title: ddm[1]["nombre"],
+              link: "https://misecurity-qa3.exa.cl#{ddm[1]["link"]}",
+              menu_id: -1,
+            }
+          end
+        else
+        menu = {
           title: value["nombre"],
           link: "",
           menu_id: -1,
         }
+        end
         get_dropdowns(value, menus)
       elsif value["nombre"].present?
         menus << {
@@ -74,5 +84,14 @@ class General::Menu < ApplicationRecord
       end
     end
     menus
+  end
+
+  # TODO: Hay que hacerlo a la buena
+  def self.get_main_menus integration_menu, dynamic_codes
+    main_menus = []
+    dynamic_codes.each do |code|
+      if integration_menu.present? && integration_menu.key?(code) && integration_menu[code]["drop_down"].present?
+      end
+    end
   end
 end

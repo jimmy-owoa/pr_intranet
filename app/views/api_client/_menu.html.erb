@@ -1241,9 +1241,8 @@
   </div>
   <!-- MENU START -->
   <nav fixed style="background-color: #211651;">
-    <% main_menus = General::Menu.where(parent_id: nil) %>
     <ul id="ul_menu" style="margin-bottom: 0px;">
-      <% main_menus.each do |main_menu| %>
+      <% @main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
           <a class="head_menu" style="padding-right: 100px; letter-spacing: 1px;" href="#">
             <%= main_menu.title.upcase %>
