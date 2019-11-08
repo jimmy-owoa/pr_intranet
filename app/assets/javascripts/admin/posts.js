@@ -9,6 +9,12 @@ $(document).on("turbolinks:load", function() {
     width: "100%"
   });
 
+  $("#gallery_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Gallería",
+    width: "100%"
+  });
+
   $('#publisehd_at').on('mousedown',function(event){ event.preventDefault(); })
 
   $("#published_at").datetimepicker({
