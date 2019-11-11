@@ -2,16 +2,11 @@
 <div class="">
   <div class="form-group row">
     <div class="col-12">
-      <h4 style="
-        font-size: 16px;
-        margin-top: 17px;
-        font-weight: 700;
-        font-style: italic;">
+      <h4 style="font-size: 16px; margin-top: 17px; font-weight: 700; font-style: italic;">
         Seleccione los filtros con los cuales desea crear el grupo.</h4>
     </div>
     <div class="col-12">
-      <%= f.label 'Nombre' %>
-      <%= f.text_field :name, class: 'form-control', required: true %>
+      <%= f.input :name, required: true, autofocus: true %>
     </div>
     <div class="col-4">
       <%= f.label 'Sexo' %>
