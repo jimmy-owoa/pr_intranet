@@ -12,6 +12,7 @@ class Survey::Survey < ApplicationRecord
   accepts_nested_attributes_for :terms
 
   validates :name, presence: :true
+  validates :allowed_answers, numericality: { only_integer: true, greater_than: 0, message: "debe ser mayor a 0" }
 
   after_initialize :set_status
   before_save :unique_slug, :set_survey_type
