@@ -8,16 +8,34 @@ $(document).on("turbolinks:load", function() {
     placeholder: "Seleccionar Perfil",
     width: "100%"
   });
+
+  $("#gallery_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Gallería",
+    width: "100%"
+  });
+
+  $('#publisehd_at').on('mousedown',function(event){ event.preventDefault(); })
+
   $("#published_at").datetimepicker({
-    sideBySide: true,
-    icons: {
-      up: "fa fa-chevron-circle-up",
-      down: "fa fa-chevron-circle-down",
-      next: "fa fa-chevron-circle-right",
-      previous: "fa fa-chevron-circle-left"
+    icons: { 
+      time: 'fas fa-clock',
+      date: 'fas fa-calendar',
+      up: 'fas fa-arrow-up',
+      down: 'fas fa-arrow-down',
+      previous: 'fas fa-arrow-circle-left',
+      next: 'fas fa-arrow-circle-right',
+      today: 'far fa-calendar-check-o',
+      clear: 'fas fa-trash',
+      close: 'fas fa-times' 
     },
-    format: "DD/MM/YYYY HH:mm"
-    });
+      format: "DD/MM/YYYY HH:mm",
+      buttons: {showClose: true },
+      sideBySide: true,
+      autoClose: true,
+      keepOpen: true
+  });
+
 
   $(".owl-carousel").owlCarousel({
     items: 2,
