@@ -17,6 +17,11 @@
         <div class="col-md-12">
           <%= f.input :description, label: 'Descripción', input_html: { class: "border border-dark" } %>
         </div>
+        
+        <div class="col-md-4">
+          <%= f.input :allowed_answers, label: 'Cantidad de respuestas permitidas', input_html: { class: "border border-dark" } %>
+        
+        </div>
       </div>
       <div class="col-md-12">
         <h2 class="text-center">Listado de preguntas</h2>
@@ -29,9 +34,6 @@
     </div>
     <div class="col-md-3 pl-4">
       <div class="card p-2 wrapper form-group row">
-        <div class="col-md-12">
-          <%= f.input :survey_type, collection: @survey_types, selected: @survey.survey_type %>
-        </div>
         <div class="col-md-12">
           <%= f.input :status, collection: Survey::Survey::STATUS, prompt: :translate %>
         </div>
