@@ -65,6 +65,7 @@ es:
         title: Título
       survey/survey:
         name: Nombre
+        allowed_answers: Respuestas permitidas
     models:
       marketplace/product: Anuncio
       post:
