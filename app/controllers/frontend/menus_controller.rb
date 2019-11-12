@@ -7,6 +7,7 @@ module Frontend
     def menus
       data = []
       menus = General::Menu.all
+
       menus.each do |menu|
         data << {
           id: menu.id,
@@ -21,47 +22,36 @@ module Frontend
           companies: menu.cached_categories,
         }
       end
+
       respond_to do |format|
         format.json { render json: data }
         format.js
       end
     end
 
-    def api_menu_vue
-      base_api_url = root_url
-      base_search_url = if Rails.env.dev?
-                          "http://localhost:8080/#/resultados/"
-                        else
-                          "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
-                        end
-      user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
-      location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
-      menus = []
-      General::Menu.all.each do |menu|
-        if menu.profile_id.present?
-          menus << menu if menu.profile_id.in?(user.profile_ids)
-        else
-          menus << menu
-        end
+    def get_rails_env
+      if Rails.env.dev?
+        "http://localhost:8080/#/resultados/"
+      else
+        "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
       end
-      host = if request.referer == "https://misecurity-qa3.exa.cl/"
-               "https://misecurity.elmejorlugarparatrabajar.cl/"
-             elsif request.referer == "https://misecurity.elmejorlugarparatrabajar.cl/"
-               request.referer
-             elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
-               request.referer
-             else
-               "http://localhost:8080/"
-             end
-      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id)
-      uv_index = weather.last.get_uv
-      location = General::Location.find(location_id)
-      santoral = General::Santoral.current
-      santoral_next = General::Santoral.next
-      today = Date.today
-      indicator = General::EconomicIndicator
-      indicators = indicator.where(date: today)
+    end
+
+    def get_request_referer
+      if request.referer == "https://misecurity-qa3.exa.cl/"
+        "https://misecurity.elmejorlugarparatrabajar.cl/"
+      elsif request.referer == "https://misecurity.elmejorlugarparatrabajar.cl/"
+        request.referer
+      elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
+        request.referer
+      else
+        "http://localhost:8080/"
+      end
+    end
+
+    def get_data_indicators(indicator, today)
       data_indicators = []
+
       if indicator.where(date: today).present?
         data_indicators << {
           DOLAR: indicator.indicator_type(1).last(2),
@@ -95,6 +85,40 @@ module Frontend
           LATEST_iPSA: indicator.indicator_type(6),
         }
       end
+
+      data_indicators
+    end
+
+    def api_menu_vue
+      base_api_url = root_url
+      base_search_url = get_rails_env
+      
+      user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
+      location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
+
+      menus = []
+      General::Menu.all.each do |menu|
+        if menu.profile_id.present?
+          menus << menu if menu.profile_id.in?(user.profile_ids)
+        else
+          menus << menu
+        end
+      end
+
+      host = get_request_referer
+
+      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id)
+      uv_index = weather.last.get_uv
+      location = General::Location.find(location_id)
+      santoral = General::Santoral.current
+      santoral_next = General::Santoral.next
+      today = Date.today
+      indicator = General::EconomicIndicator
+      indicators = indicator.where(date: today)
+      data_indicators = []
+
+      data_indicators = get_data_indicators(indicator, today)
+
       if user.legal_number.present?
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
         exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{user.legal_number}#{user.legal_number_verification}")
@@ -108,6 +132,7 @@ module Frontend
       else
         exa_menu = ""
       end
+
       data = {
         menus: menus,
         host: host,
@@ -131,88 +156,6 @@ module Frontend
       menu_json = render_to_string(partial: "api_client/menu.html.erb", layout: false, locals: data).to_json
       respond_to do |format|
         format.json { render json: menu_json.encode("UTF-8") }
-      end
-    end
-
-    def api_menu
-      base_api_url = root_url
-      base_search_url = if Rails.env.dev?
-                          "http://localhost:8080/#/resultados/"
-                        else
-                          "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
-                        end
-      rut = params[:user_id]
-      user = @request_user
-      location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
-      menus = General::Menu.all
-      weather = General::WeatherInformation.current(location_id)
-      location = General::Location.find(location_id)
-      santoral = General::Santoral.current
-      today = Date.today
-      indicator = General::EconomicIndicator
-      indicators = indicator.where(date: today)
-      data_indicators = []
-      if indicator.where(date: today).present?
-        data_indicators << {
-          DOLAR: indicator.indicator_type(1).last,
-          EURO: indicator.indicator_type(2).last,
-          UF: indicator.indicator_type(3).last,
-          UTM: indicator.indicator_type(4).last,
-          IPC: indicator.indicator_type(5).last,
-          IPSA: indicator.indicator_type(6).last,
-          IPSA_VARIATION: indicator.indicator_type(7).last,
-          LATEST_DOLAR: indicator.indicator_type(1),
-          LATEST_EURO: indicator.indicator_type(2),
-          LATEST_UF: indicator.indicator_type(3),
-          LATEST_IPC: indicator.indicator_type(5),
-          LATEST_UTM: indicator.indicator_type(4),
-          LATEST_IPSA: indicator.indicator_type(6),
-        }
-      else
-        data_indicators << {
-          DOLAR: indicator.where(economic_indicator_type_id: 1).last.value,
-          EURO: indicator.where(economic_indicator_type_id: 2).last.value,
-          UF: indicator.where(economic_indicator_type_id: 3).last.value,
-          UTM: indicator.where(economic_indicator_type_id: 4).last.value,
-          IPC: indicator.where(economic_indicator_type_id: 5).last.value,
-          IPSA: indicator.where(economic_indicator_type_id: 6).last.value,
-          IPSA_VARIATION: indicator.where(economic_indicator_type_id: 7).last.value,
-          LATEST_DOLAR: indicator.indicator_type(1),
-          LATEST_EURO: indicator.indicator_type(2),
-          LATEST_UF: indicator.indicator_type(3),
-          LATEST_IPC: indicator.indicator_type(5),
-          LATEST_UTM: indicator.indicator_type(4),
-          LATEST_iPSA: indicator.indicator_type(6),
-        }
-      end
-      if user.legal_number.present?
-        benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
-        exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{user.legal_number}#{user.legal_number_verification}")
-        exa_menu_response = Net::HTTP.get_response exa_menu_url
-        exa_menu = JSON.parse(exa_menu_response.body)
-      else
-        exa_menu = ""
-      end
-      data = {
-        menus: menus,
-        user: user,
-        user_image: url_for(user.image.variant(combine_options: { resize: "x42", gravity: "Center" })),
-        weather: weather.present? ? weather : General::WeatherInformation.last(location_id),
-        santoral: santoral[0],
-        location_name: location.name,
-        exa_menu: exa_menu,
-        gospel: Religion::Gospel.where(date: Date.today).first,
-        indicators: data_indicators[0],
-        today: today,
-        base_api_url: base_api_url,
-        base_search_url: base_search_url,
-        benefits: benefits,
-      }
-      menu_json = {
-        menu: render_to_string(partial: "api_client/menu.html.erb", layout: false, locals: data).encode("UTF-8"),
-      }
-      respond_to do |format|
-        format.json { render json: menu_json, callback: "api_menu" }
       end
     end
   end

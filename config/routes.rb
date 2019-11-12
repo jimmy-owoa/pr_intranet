@@ -65,7 +65,6 @@ Rails.application.routes.draw do
     get "autocomplete_user", to: "users#autocomplete_user"
     get "indicators", to: "frontend#indicators"
     get "births/calendar_births", to: "births#calendar_births"
-    get "menus/api_menu", to: "menus#api_menu"
     get "menus/api_menu_vue(/:ln_user)", to: "menus#api_menu_vue"
     get "sso_auth/:token", to: "users#set_user"
     get "sso_user_auth", to: "users#sso_user_auth"
