@@ -95,12 +95,7 @@
     position: fixed;
     top: -100%;
     z-index: 11;
-    -webkit-transform: translate(0, -500%);
-    -ms-transform: translate(0, -500%);
     transform: translate(0, -500%);
-    -webkit-transition: -webkit-transform 0.5s ease-out;
-    -moz-transition: -moz-transform 0.5s ease-out;
-    -o-transition: -o-transform 0.5s ease-out;
     transition: transform 0.5s ease-out;
     max-width: 1300px !important;
     min-width: 960px;
@@ -1250,7 +1245,7 @@
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
-              <ul>
+              <ul style="display: inline;">
                 <% if menu_parent_object.link.present? %>
                   <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
                 <% else %>
