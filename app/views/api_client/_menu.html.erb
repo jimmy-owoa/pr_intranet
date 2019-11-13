@@ -528,7 +528,7 @@
     flex-wrap: wrap;
     top: -9999px;
     padding: 20px 10px 0;
-    background: #fff !important;
+    background: linear-gradient(to right, #211651 -40%, #789c4a 120%) !important;
     text-align: left;
     max-width: 1340px;
     /* border-top: 5px solid green; */
@@ -613,7 +613,8 @@
   .head_section {
     font-family: "Titillium Web", sans-serif;
     font-size: 12px;
-    color: #638d37 !important;
+    /* color: #638d37 !important;*/
+    color: #fff !important;
     line-height: 12px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -1256,24 +1257,25 @@
                   <% submenus.first(3).each do |link| %>
                     <% benefit_count = 0 %>
                     <% if link[:link].downcase[0..3] == 'http'%>
-                      <%= link_to link[:title], link[:link] %>
+                      <%= link_to link[:title], link[:link], class:'white--text' %>
                     <% elsif link[:post_slug].present? %>
-                      <%= link_to link[:title], host + '#/noticias/' + link[:post_slug]%>
+                      <%= link_to link[:title], host + '#/noticias/' + link[:post_slug], class:'white--text'%>
                     <% elsif main_menu.title == "Mis beneficios" %>
                       <% if benefits.present? %>
                         <% benefit = benefits.find_by_title(link[:title]) %>
                       <% end %>
                       <% if benefit.present? %>
                         <% benefit_count += 1 %>
-                        <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s %>
+                        <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s, class:'white--text' %>
                         <% if benefit_count > 2 %>
-                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;' %>
+                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text' %>
                         <% end %>
                       <% end %>
                     <% else %>
-                      <%= link_to link[:title], host + '#/' + link[:link] %>
+                      <%= link_to link[:title], host + '#/' + link[:link], class:'white--text' %>
                     <% end %>
                   <% end %>
+
                   <!-- MENU MODAL START -->
                   <div class="modalDialog" id='menu_<%= menu_parent_object.title.downcase %>'>
                     <div class="text-md-center">
@@ -1294,17 +1296,18 @@
                     </div>
                   </div>
                   <!-- MENU MODAL END -->
+                  
                   <% if main_menu.title != "Mis beneficios" %>
-                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;' %>
+                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text' %>
                   <% end %>
                 <% else %>
                   <% submenus.each do |link| %>
                     <% if link[:link].downcase[0..3] == 'http'%>
-                      <%= link_to link[:title], link[:link] %>
+                      <%= link_to link[:title], link[:link], class:'white--text' %>
                     <% elsif link[:post_slug].present? %>
-                      <%= link_to link[:title], host +  '#/noticias/' + link[:post_slug]%>
+                      <%= link_to link[:title], host +  '#/noticias/' + link[:post_slug], class:'white--text'%>
                     <% else %>
-                      <%= link_to link[:title], host + '#/' + link[:link] %>
+                      <%= link_to link[:title], host + '#/' + link[:link], class:'white--text' %>
                     <% end %>
                   <% end %>
                 <% end %>
