@@ -13,33 +13,24 @@ module Frontend
 
     def create
       @answer = Survey::Answer.new(answer_params)
-      find_answer = Survey::Answer.where(question_id: params[:question_id], user_id: @request_user.id, option_id: params[:option_id]).try(:first)
-      if find_answer.present?
-        find_answer.destroy
-      else
-        respond_to do |format|
-          if @answer.save
-            format.json
-          else
-            format.html { render :new }
-            format.json { render json: @answer.errors, status: :unprocessable_entity }
-          end
+      respond_to do |format|
+        if @answer.save
+          format.json
+        else
+          format.html { render :new }
+          format.json { render json: @answer.errors, status: :unprocessable_entity }
         end
       end
     end
 
     def answers_options_save_from_vue
-      answer = Survey::Answer.where(user_id: @request_user.id, question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: @request_user.id, question_id: params[:question_id])
-      if answer.present?
-        answer.update(option_id: params[:option_id])
-      else
-        respond_to do |format|
-          if answer.save
-            format.json
-          else
-            format.html { render :new }
-            format.json { render json: answer.errors, status: :unprocessable_entity }
-          end
+      answer = Survey::Answer.new(user_id: @request_user.id, question_id: params[:question_id])
+      respond_to do |format|
+        if answer.save
+          format.json
+        else
+          format.html { render :new }
+          format.json { render json: answer.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -62,7 +53,7 @@ module Frontend
     end
 
     def answers_save_from_vue
-      answer = Survey::Answer.where(user_id: @request_user.id, question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: @request_user.id, question_id: params[:question_id])
+      answer = Survey::Answer.new(user_id: @request_user.id, question_id: params[:question_id])
       answer.answer_variable = params[:answer_variable]
       respond_to do |format|
         if answer.save

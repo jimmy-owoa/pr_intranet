@@ -13,7 +13,7 @@ module Frontend
               id: option.id,
               title: option.title,
               default: option.default,
-              placeholder: option.placeholder
+              placeholder: option.placeholder,
             }
           end
           data_questions << {
@@ -21,22 +21,22 @@ module Frontend
             title: question.title,
             question_type: question.question_type,
             optional: question.optional? ? false : true,
-            options: data_options
+            options: data_options,
           }
         end
         data_surveys << {
           id: survey.id,
           name: survey.name,
           once_by_user: survey.once_by_user,
-          url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
+          url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ?
-          url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
-          created_at: survey.created_at.strftime('%d-%m-%Y'),
+            url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+          created_at: survey.created_at.strftime("%d-%m-%Y"),
           questions: data_questions,
           survey_type: survey.survey_type,
-          slug: survey.slug
+          slug: survey.slug,
         }
       end
 
@@ -52,7 +52,7 @@ module Frontend
       if @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
         respond_to do |format|
           format.html
-          format.json { render json: Survey::Survey.all}
+          format.json { render json: Survey::Survey.all }
           format.js
         end
         return
@@ -70,7 +70,7 @@ module Frontend
               id: option.id,
               title: option.title,
               default: option.default,
-              placeholder: option.placeholder
+              placeholder: option.placeholder,
             }
           end
           data_questions << {
@@ -78,25 +78,25 @@ module Frontend
             title: question.title,
             question_type: question.question_type,
             optional: question.optional? ? false : true,
-            options: data_options
+            options: data_options,
           }
         end
         data_surveys << {
           id: survey.id,
           name: survey.name,
           once_by_user: survey.once_by_user,
-          url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
+          url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ?
-          url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
-          created_at: survey.created_at.strftime('%d-%m-%Y'),
+            url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+          created_at: survey.created_at.strftime("%d-%m-%Y"),
           questions: data_questions,
           survey_type: survey.survey_type,
           slug: survey.slug,
           inclusive_tags: survey.terms.inclusive_tags.map(&:name),
           excluding_tags: survey.terms.excluding_tags.map(&:name),
-          categories: survey.terms.categories.map(&:name)
+          categories: survey.terms.categories.map(&:name),
         }
       end
       #model method
@@ -112,11 +112,11 @@ module Frontend
       @answer = Survey::Answer.new(answer_params)
       respond_to do |format|
         if @answer.save
-          format.html { redirect_to frontend_surveys_path, notice: 'Answer was successfully created.'}
-          format.json { render :show, status: :created, location: @answer}
+          format.html { redirect_to frontend_surveys_path, notice: "Answer was successfully created." }
+          format.json { render :show, status: :created, location: @answer }
         else
-          format.html {render :new}
-          format.json {render json: @answer.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @answer.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -147,7 +147,7 @@ module Frontend
                 id: option.id,
                 title: option.title,
                 default: option.default,
-                placeholder: option.placeholder
+                placeholder: option.placeholder,
               }
             end
             data_questions << {
@@ -155,22 +155,22 @@ module Frontend
               title: question.title,
               question_type: question.question_type,
               optional: question.optional? ? false : true,
-              options: data_options
+              options: data_options,
             }
           end
           data_survey << {
             id: survey.id,
             name: survey.name,
             once_by_user: survey.once_by_user,
-            url: root_url + 'admin/surveys/' + "#{survey.id}" + '/edit',
+            url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
             show_name: survey.show_name,
             description: survey.description,
             image: survey.image.attached? ?
-            url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url('survey.png'),
-            created_at: survey.created_at.strftime('%d-%m-%Y'),
+              url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+            created_at: survey.created_at.strftime("%d-%m-%Y"),
             questions: data_questions,
             survey_type: survey.survey_type,
-            slug: survey.slug
+            slug: survey.slug,
           }
         else
           data_survey = ["Encuesta ya fué respondida por el usuario"]
@@ -188,17 +188,17 @@ module Frontend
         end
       end
     end
-      
+
     def survey_count
       data_user = []
       association = Survey::Question.includes(:answers)
       #si hay alguna pregunta sin ninguna respuesta, alerta
-      if association.map{|a| a.answers.blank? }.include?(true)
-        data_user << {alert: 1}
-      elsif association.map{|a| a.answers.map(&:ln_user).include?(@request_user.id) }.include?(false)
-        data_user << {alert: 1}
+      if association.map { |a| a.answers.blank? }.include?(true)
+        data_user << { alert: 1 }
+      elsif association.map { |a| a.answers.map(&:ln_user).include?(@request_user.id) }.include?(false)
+        data_user << { alert: 1 }
       else
-        data_user << {alert: 0}
+        data_user << { alert: 0 }
       end
       respond_to do |format|
         format.json { render json: data_user[0] }
