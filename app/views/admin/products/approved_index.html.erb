@@ -9,6 +9,7 @@
             <th><%= 'Imagen principal'%></th>
             <th><%= "Nombre" %></th>
             <th><%= "Precio" %></th>
+            <th><%= "Rechazar" %></th>
             <th><%= "Acciones" %></th>
           </tr>
         </thead>
@@ -19,6 +20,9 @@
               <td><%= product.name %></td>
               <td>$ <%= product.price %></td>
               <td>
+                <%= link_to "Rechazar", admin_product_path(product, product: {approved: false}) , method: :put, :class => 'btn btn-primary btn-sm', data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea rechazar este elemento?'} %>
+              </td>
+              <td>
                 <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://misecurity.elmejorlugarparatrabajar.cl' %>
                 
                 <%= link_to "Ver en intranet", "#{environment}/#/avisos/#{product.id}", target: "_blank", class: 'btn btn-success btn-sm' %>
@@ -26,7 +30,7 @@
                 <%= link_to t('.show', :default => t("helpers.links.show")), admin_product_path(product), :class => 'btn btn-success btn-sm' %>
                 <% if policy(product).edit?  %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(product), :class => 'btn btn-primary btn-sm' %>
-                  <%= link_to 'Eliminar', admin_product_path(product), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => '¿Esta segura(o) que desea eliminar este elemento?')) },:class => 'btn btn-sm btn-danger' %>
+                  <%= link_to 'Eliminar', admin_product_path(product), method: :delete, data: { confirm: 'Confirmar', title: '¿Está seguro(a) que desea eliminar este elemento?' },:class => 'btn btn-sm btn-danger' %>
                 <% end %>
               </td>
             </tr>
