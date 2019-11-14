@@ -30,8 +30,8 @@
                 <%= link_to t('.show', :default => t("helpers.links.show")), edit_admin_product_path(product), :class => 'btn btn-success btn-sm' %>
                 <% if policy(product).edit?  %>
                   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(product), :class => 'btn btn-primary btn-sm' %>
-                  <%= link_to 'Rechazar', admin_product_path(product), :method => :delete, 
-                  :data => { :confirm => 'Confirmar', :title => '¿Está seguro(a) que desea rechazar este elemento?' },
+                  <%= link_to 'Eliminar', admin_product_path(product), :method => :delete, 
+                  :data => { :confirm => 'Confirmar', :title => '¿Está seguro(a) que desea eliminar este elemento?' },
                   :class => 'btn btn-sm btn-danger' %>
                 <% end %>
               </td>
