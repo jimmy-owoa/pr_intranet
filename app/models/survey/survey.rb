@@ -75,7 +75,7 @@ class Survey::Survey < ApplicationRecord
   end
 
   def get_answer_count
-    Survey::Answer.joins(:question).where(survey_questions: { survey_id: id }).count
+    Survey::Answer.joins(:question).where(survey_questions: { survey_id: id }).pluck(:user_id).uniq.count
   end
 
   private
