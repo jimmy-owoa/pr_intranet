@@ -1,6 +1,6 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Reporte encuesta") do |sheet|
-  sheet.add_row ['id Pregunta', 'Pregunta', 'Tipo de pregunta', 'Respuesta', 'Usuario', 'Rut', 'Fecha de respuesta']
+  sheet.add_row ['id Pregunta', 'Pregunta', 'Tipo de pregunta', 'Respuesta', 'Usuario', 'Rut']
   @survey.questions.each do |question|
     question.answers.each do |answer|
       user =  General::User.find(answer.user_id)
@@ -9,7 +9,7 @@ wb.add_worksheet(name: "Reporte encuesta") do |sheet|
         answer.answer_variable
       else
         answer.option.title
-      end, user.full_name, user.legal_number + user.legal_number_verification, answer.created_at]
+      end, user.full_name, user.legal_number + user.legal_number_verification]
     end
   end
 end
