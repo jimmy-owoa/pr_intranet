@@ -1,7 +1,7 @@
 class WeatherService
   def initialize
     # @api = "http://api.apixu.com/v1/forecast.json?key=19e45f0a4bdd4d929df131644191001&q="
-    @api = "https://api.darksky.net/forecast/1c7661eca9e3d51aa6911c335c5c9a1e/"
+    @api = "https://api.darksky.net/forecast/823d1b0355811c423649837dd9be5cab/"
   end
 
   def perform
