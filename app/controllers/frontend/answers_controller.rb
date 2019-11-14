@@ -13,30 +13,41 @@ module Frontend
 
     def create
       @answer = Survey::Answer.new(answer_params)
-      respond_to do |format|
-        if @answer.save
-          format.json
-        else
-          format.html { render :new }
-          format.json { render json: @answer.errors, status: :unprocessable_entity }
+      find_answer = Survey::Answer.where(question_id: params[:question_id], user_id: params[:user_id], option_id: params[:option_id]).try(:first)
+      if !find_answer.present?
+        respond_to do |format|
+          if @answer.save
+            format.json { render json: @answer, status: :ok }
+          else
+            format.json { render json: @answer.errors, status: :unprocessable_entity }
+          end
+        end
+      else
+        find_answer.delete
+        respond_to do |format|
+          format.json { render status: :ok }
         end
       end
     end
 
     def answers_options_save_from_vue
-      answer = Survey::Answer.new(user_id: @request_user.id, question_id: params[:question_id])
-      respond_to do |format|
-        if answer.save
-          format.json
-        else
-          format.html { render :new }
-          format.json { render json: answer.errors, status: :unprocessable_entity }
+      answer = Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id], option_id: params[:option_id])
+      if answer.present?
+        answer.update(option_id: params[:option_id])
+      else
+        respond_to do |format|
+          if answer.save
+            format.json
+          else
+            format.html { render :new }
+            format.json { render json: answer.errors, status: :unprocessable_entity }
+          end
         end
       end
     end
 
     def answers_options_multiple_save_from_vue
-      answer = Survey::Answer.where(user_id: @request_user.id, question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: @request_user.id, question_id: params[:question_id])
+      answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
       if answer.present?
         id_option = Survey::Option.find_by_title(params.dig("answer", "option", "option")).id
         answer.update(option_id: id_option)
@@ -53,7 +64,7 @@ module Frontend
     end
 
     def answers_save_from_vue
-      answer = Survey::Answer.new(user_id: @request_user.id, question_id: params[:question_id])
+      answer = Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
       answer.answer_variable = params[:answer_variable]
       respond_to do |format|
         if answer.save
