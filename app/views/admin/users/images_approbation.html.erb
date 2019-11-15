@@ -1,0 +1,35 @@
+<section class="section">
+  <h1 class="section-header"><%= "Aprobación de fotos de perfil" %></h1>
+  <div class="card">
+    <div class="table-responsive-md">
+      <table class="table table-hover">
+        <thead class="thead">
+          <tr>
+            <th>Foto por aprobar</th>
+            <th>Nombre</th>
+            <th colspan="3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <% if user.new_image.attachment.present? %>
+                  <%= image_tag(user.new_image.attachment.variant(resize: '50x50!').processed, class: 'rounded-circle border border-secondary') %>
+                <% end %>
+              </td>
+              <td><%= user.full_name %></td>
+              <td>
+                <% if current_user.has_role? :super_admin %>
+                  <%= link_to "Aprobar", admin_user_path(user, user: {approve_image: true}) , method: :put, :class => 'btn btn-primary btn-sm', data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea aprobar esta imagen?'} %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="row justify-content-center">
+      </div>
+    </div>
+  </div>
+</section>

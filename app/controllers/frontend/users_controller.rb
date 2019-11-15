@@ -1,6 +1,7 @@
 module Frontend
   class UsersController < FrontendController
     include Rails.application.routes.url_helpers
+    skip_before_action :verify_authenticity_token, only: :upload
 
     def nickname(name)
       name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present? ? name : name.split.first
@@ -437,25 +438,6 @@ module Frontend
       end
     end
 
-    # def sso_user_auth
-    #   if params['data'].present?
-    #     json = JSON.parse(params['data'])
-    #     data = json['data']
-    #   else
-    #     respond_to do |format|
-    #       format.json { render json: "" }
-    #     end
-    #     return
-    #   end
-    #   cipher_key = "EB5932580C920015B65B4B308FF7F352"
-    #   nt_user = InternalAuth.decrypt(data, cipher_key)
-    #   user = General::User.find_by_nt_user(nt_user)
-    #   rut = user.legal_number + user.legal_number_verification
-    #   respond_to do |format|
-    #     format.json { render json: rut }
-    #   end
-    # end
-
     def sso_user_auth
       if params["data"].present?
         json = JSON.parse(params["data"])
@@ -531,7 +513,7 @@ module Frontend
     def upload
       user = General::User.find(params[:user_id])
       image = params[:file]
-      user.image.attach(image)
+      user.new_image.attach(image)
       user.base_64_exa(image)
     end
   end

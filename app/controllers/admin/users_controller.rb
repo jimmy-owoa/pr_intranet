@@ -19,6 +19,10 @@ module Admin
       end
     end
 
+    def images_approbation
+      @users = General::User.joins(:new_image_attachment)
+    end
+
     def new
       add_breadcrumb "Usuarios", :admin_users_path
       @user = General::User.new
@@ -47,6 +51,10 @@ module Admin
           @user.update_attributes(active: params[:approved])
           format.json { render :json => { value: "success" } and return }
         end
+      elsif params[:user][:approve_image].present?
+        @user.image.attach(@user.new_image.blob)
+        @user.new_image.purge()
+        redirect_to admin_users_images_approbation_path
       else
         if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
           params[:user].delete(:password)

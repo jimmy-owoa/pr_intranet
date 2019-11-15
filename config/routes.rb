@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, class_name: "General::User", controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   namespace :admin do
     post "upload", to: "attachments#upload"
+    get "users/images_approbation", to: "users#images_approbation"
     get "analytics", to: "analytics#index"
     get "search", to: "search#search"
     get "searchatt", to: "attachments#search_att"

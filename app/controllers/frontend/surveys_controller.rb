@@ -99,8 +99,6 @@ module Frontend
           categories: survey.terms.categories.map(&:name),
         }
       end
-      #model method
-      data = Survey::Survey.filter_surveys(@request_user.id, data_surveys)
       respond_to do |format|
         format.html
         format.json { render json: data_surveys }

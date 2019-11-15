@@ -1,70 +1,69 @@
 <section class="section">
   <h1 class="section-header"><%= "Usuarios" %></h1>
-    <%= link_to "Nuevo", new_admin_user_path, :class => 'btn btn-primary btn-sm mb-1' %>
-    <div class="card">
-      <%= form_tag('', method: 'get') do %>
-        <div class="large-12 columns">
-          <div class="row">
-            <div class="row" style='margin-left: 10px;padding: 15px;'>
-              <%= select_tag(:approved, options_for_select(General::User::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Seleccionar', class: 'custom-select', id: 'select_user', :onchange => 'user_filter_action()') %>
-              <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'user_filter', style: 'display: none' %>
-            </div>
+  <%= link_to "Nuevo", new_admin_user_path, :class => 'btn btn-primary btn-sm mb-1' %>
+  <div class="card">
+    <%= form_tag('', method: 'get') do %>
+      <div class="large-12 columns">
+        <div class="row">
+          <div class="row" style='margin-left: 10px;padding: 15px;'>
+            <%= select_tag(:approved, options_for_select(General::User::PERMISSION.map{ |a| [a[1], a[0]] } ), include_blank: 'Seleccionar', class: 'custom-select', id: 'select_user', :onchange => 'user_filter_action()') %>
+            <%= button_tag "Buscar", class: "btn btn-primary btn-sm btn_type", id: 'user_filter', style: 'display: none' %>
+          </div>
         </div>
       <% end %>
     </div>
-  <div class="card">
-    <div class="table-responsive-md">
-      <table class="table table-hover">
-        <thead class="thead">
-          <tr>
-            <th>Foto de perfil</th>
-            <th>Nombre(s)</th>
-            <th>Apellido(s)</th>
-            <th>Email</th>
-            <th>Anexo</th>
-            <th>Activo</th>
-            <th>Aprobar Foto</th>
-            <th colspan="3">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @users.each do |user| %>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
             <tr>
-              <td>
-                <% if user.image.attachment.present? %>
-                  <%= image_tag(user.image.attachment.variant(resize: '40x40!').processed, class: 'rounded-circle border border-secondary') %>
-                <% end %>
-              </td>
-              <td><%= user.name %></td>
-              <td><%= user.last_name %></td>
-              <td><%= mail_to(user.email) %></td>
-              <td><%= user.annexed %></td>
-              <td><%= user.active? ? 'Si' : 'No' %></td>
-              <td>
-                <%= check_box_tag 'user[approved]', nil, user.active?,
+              <th>Foto de perfil</th>
+              <th>Nombre(s)</th>
+              <th>Apellido(s)</th>
+              <th>Email</th>
+              <th>Anexo</th>
+              <th>Activo</th>
+              <th>Aprobar Foto</th>
+              <th colspan="3">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td>
+                  <% if user.image.attachment.present? %>
+                    <%= image_tag(user.image.attachment.variant(resize: '40x40!').processed, class: 'rounded-circle border border-secondary') %>
+                  <% end %>
+                </td>
+                <td><%= user.name %></td>
+                <td><%= user.last_name %></td>
+                <td><%= mail_to(user.email) %></td>
+                <td><%= user.annexed %></td>
+                <td><%= user.active? ? 'Si' : 'No' %></td>
+                <td>
+                  <%= check_box_tag 'user[approved]', nil, user.active?,
                         data: {
                           id: user.id
                         }, class: "active_user" %>
-              </td>
-              <td>
-                <%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user), :class => 'btn btn-success btn-sm'  %>
-                <% if current_user.has_role? :super_admin %>
-                  <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_user_path(user), :class => 'btn btn-primary btn-sm' %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <div class="row justify-content-center">
-        <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+                </td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.links.show")), admin_user_path(user), :class => 'btn btn-success btn-sm'  %>
+                  <% if current_user.has_role? :super_admin %>
+                    <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_user_path(user), :class => 'btn btn-primary btn-sm' %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+          <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-<script>
-  function user_filter_action() {
-    document.getElementById("user_filter").click()
-  }
-</script>
+  </section>
+  <script>
+    function user_filter_action() {
+      document.getElementById("user_filter").click()
+    }
+  </script>
