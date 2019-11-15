@@ -59,7 +59,7 @@ module Frontend
       end
       #model method
       no_once_by_user_surveys = Survey::Survey.where(once_by_user: false)
-      surveys = Survey::Survey.survey_data(user.id)
+      surveys = Survey::Survey.survey_data(@request_user.id)
       surveys << no_once_by_user_surveys
       surveys.flatten.each do |survey|
         data_questions = []
@@ -100,7 +100,7 @@ module Frontend
         }
       end
       #model method
-      data = Survey::Survey.filter_surveys(user.id, data_surveys)
+      data = Survey::Survey.filter_surveys(@request_user.id, data_surveys)
       respond_to do |format|
         format.html
         format.json { render json: data_surveys }

@@ -47,11 +47,9 @@ module Frontend
     end
 
     def answers_options_multiple_save_from_vue
-      answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id]).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id])
+      option_id = Survey::Question.find(params[:question_id]).options.find_by_title(params[:option_id])
+      answer = Survey::Answer.where(user_id: params[:user_id], question_id: params[:question_id], option_id: option_id).try(:first) || Survey::Answer.new(user_id: params[:user_id], question_id: params[:question_id], option_id: option_id)
       if answer.present?
-        id_option = Survey::Option.find_by_title(params.dig("answer", "option", "option")).id
-        answer.update(option_id: id_option)
-      else
         respond_to do |format|
           if answer.save
             format.json
