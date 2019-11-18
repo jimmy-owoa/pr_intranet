@@ -12,7 +12,7 @@ class Survey::Survey < ApplicationRecord
   accepts_nested_attributes_for :terms
 
   validates :name, presence: :true
-  validates :allowed_answers, numericality: { only_integer: true, greater_than: 0, message: "debe ser mayor a 0" }
+  validates :allowed_answers, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: "debe ser mayor o igual a 0" }
 
   after_initialize :set_status
   before_save :unique_slug, :set_survey_type
@@ -30,12 +30,16 @@ class Survey::Survey < ApplicationRecord
     @data_surveys = []
     include_survey = self.includes(questions: [options: :answers])
     include_survey.where(once_by_user: true).published_surveys.each do |survey|
-      survey.questions.where(optional: true).each do |question|
-        @data_surveys << survey if question.answers.blank?
-        question.answers.each do |answer|
-          #sumamos surveys si tiene respuesta pero ninguna con el id del usuario
-          if !user_id.in?(question.answers.pluck(:user_id))
-            @data_surveys << survey
+      if survey.allowed_answers.present?
+        if survey.get_answer_count < survey.allowed_answers || survey.allowed_answers == 0
+          survey.questions.where(optional: true).each do |question|
+            @data_surveys << survey if question.answers.blank?
+            question.answers.each do |answer|
+              #sumamos surveys si tiene respuesta pero ninguna con el id del usuario
+              if !user_id.in?(question.answers.pluck(:user_id))
+                @data_surveys << survey
+              end
+            end
           end
         end
       end
