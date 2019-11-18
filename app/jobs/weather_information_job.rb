@@ -4,253 +4,281 @@ class WeatherInformationJob < ApplicationJob
   def perform(*args)
     @today = Date.today.strftime("%d/%m/%Y")
     @tomorrow = (Date.today + 1.days).strftime("%A")
-    @antofagasta = WeatherService.perform[:antofagasta]
-    @santiago = WeatherService.perform[:santiago]
-    @copiapo = WeatherService.perform[:copiapo]
-    @la_serena = WeatherService.perform[:la_serena]
-    @vina_del_mar = WeatherService.perform[:vina_del_mar]
-    @rancagua = WeatherService.perform[:rancagua]
-    @talca = WeatherService.perform[:talca]
-    @concepcion = WeatherService.perform[:concepcion]
-    @temuco = WeatherService.perform[:temuco]
-    @puerto_montt = WeatherService.perform[:puerto_montt]
+    puts "Getting weather information from DARKSKY API...".green
+    if @weather = WeatherService.perform
+      puts "Data passed succefully from DARKSKY API.".green
+    else
+      puts "Error!!!!".red
+    end
     set_weather
   end
 
   def set_weather
-    if @santiago["error"].present?
-      puts "Error en el llamado a la api darksky.net: " + @santiago["error"]
+    if @weather[:santiago]["error"].present?
+      puts "Error en el llamado a la api darksky.net: " + @weather[:santiago]["error"]
     end
     #save data
+    location = General::Location.antofagasta
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.antofagasta.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @antofagasta["currently"]["temperature"],
-      condition: @antofagasta["currently"]["summary"],
-      icon: @antofagasta["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @antofagasta["daily"]["data"][0]["temperatureMax"],
-      min_temp: @antofagasta["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @antofagasta["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @antofagasta["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @antofagasta["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @antofagasta["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @antofagasta["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @antofagasta["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @antofagasta["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @antofagasta["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @antofagasta["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @antofagasta["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @antofagasta["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @antofagasta["daily"]["data"][4]["icon"],
+      current_temp: @weather[:antofagasta]["currently"]["temperature"],
+      condition: @weather[:antofagasta]["currently"]["summary"],
+      icon: @weather[:antofagasta]["currently"]["icon"],
+      uv_index: @weather[:antofagasta]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:antofagasta]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:antofagasta]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:antofagasta]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:antofagasta]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:antofagasta]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:antofagasta]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:antofagasta]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:antofagasta]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:antofagasta]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:antofagasta]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:antofagasta]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:antofagasta]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:antofagasta]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:antofagasta]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.santiago
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.santiago.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @santiago["currently"]["temperature"].to_i,
-      condition: @santiago["currently"]["summary"],
-      icon: @santiago["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @santiago["daily"]["data"][0]["temperatureMax"].to_i,
-      min_temp: @santiago["daily"]["data"][0]["temperatureMin"].to_i,
-      #######################
-      tomorrow_max: @santiago["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @santiago["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @santiago["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @santiago["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @santiago["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @santiago["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @santiago["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @santiago["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @santiago["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @santiago["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @santiago["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @santiago["daily"]["data"][4]["icon"],
+      current_temp: @weather[:santiago]["currently"]["temperature"].to_i,
+      condition: @weather[:santiago]["currently"]["summary"],
+      icon: @weather[:santiago]["currently"]["icon"],
+      uv_index: @weather[:santiago]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:santiago]["daily"]["data"][0]["temperatureMax"].to_i,
+      min_temp: @weather[:santiago]["daily"]["data"][0]["temperatureMin"].to_i,
+      tomorrow_max: @weather[:santiago]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:santiago]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:santiago]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:santiago]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:santiago]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:santiago]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:santiago]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:santiago]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:santiago]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:santiago]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:santiago]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:santiago]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.copiapo
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.copiapo.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @copiapo["currently"]["temperature"],
-      condition: @copiapo["currently"]["summary"],
-      icon: @copiapo["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @copiapo["daily"]["data"][0]["temperatureMax"],
-      min_temp: @copiapo["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @copiapo["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @copiapo["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @copiapo["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @copiapo["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @copiapo["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @copiapo["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @copiapo["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @copiapo["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @copiapo["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @copiapo["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @copiapo["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @copiapo["daily"]["data"][4]["icon"],
+      current_temp: @weather[:copiapo]["currently"]["temperature"],
+      condition: @weather[:copiapo]["currently"]["summary"],
+      icon: @weather[:copiapo]["currently"]["icon"],
+      uv_index: @weather[:copiapo]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:copiapo]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:copiapo]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:copiapo]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:copiapo]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:copiapo]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:copiapo]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:copiapo]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:copiapo]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:copiapo]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:copiapo]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:copiapo]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:copiapo]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:copiapo]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:copiapo]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.la_serena
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.la_serena.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @la_serena["currently"]["temperature"],
-      condition: @la_serena["currently"]["summary"],
-      icon: @la_serena["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @la_serena["daily"]["data"][0]["temperatureMax"],
-      min_temp: @la_serena["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @la_serena["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @la_serena["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @la_serena["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @la_serena["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @la_serena["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @la_serena["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @la_serena["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @la_serena["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @la_serena["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @la_serena["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @la_serena["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @la_serena["daily"]["data"][4]["icon"],
+      current_temp: @weather[:la_serena]["currently"]["temperature"],
+      condition: @weather[:la_serena]["currently"]["summary"],
+      icon: @weather[:la_serena]["currently"]["icon"],
+      uv_index: @weather[:la_serena]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:la_serena]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:la_serena]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:la_serena]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:la_serena]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:la_serena]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:la_serena]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:la_serena]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:la_serena]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:la_serena]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:la_serena]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:la_serena]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:la_serena]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:la_serena]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:la_serena]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.vina_del_mar
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.vina_del_mar.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @vina_del_mar["currently"]["temperature"],
-      condition: @vina_del_mar["currently"]["summary"],
-      icon: @vina_del_mar["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @vina_del_mar["daily"]["data"][0]["temperatureMax"],
-      min_temp: @vina_del_mar["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @vina_del_mar["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @vina_del_mar["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @vina_del_mar["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @vina_del_mar["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @vina_del_mar["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @vina_del_mar["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @vina_del_mar["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @vina_del_mar["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @vina_del_mar["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @vina_del_mar["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @vina_del_mar["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @vina_del_mar["daily"]["data"][4]["icon"],
+      current_temp: @weather[:vina_del_mar]["currently"]["temperature"],
+      condition: @weather[:vina_del_mar]["currently"]["summary"],
+      icon: @weather[:vina_del_mar]["currently"]["icon"],
+      uv_index: @weather[:vina_del_mar]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:vina_del_mar]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:vina_del_mar]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:vina_del_mar]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:vina_del_mar]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:vina_del_mar]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:vina_del_mar]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:vina_del_mar]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:vina_del_mar]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:vina_del_mar]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:vina_del_mar]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:vina_del_mar]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:vina_del_mar]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:vina_del_mar]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:vina_del_mar]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.rancagua
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.rancagua.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @rancagua["currently"]["temperature"],
-      condition: @rancagua["currently"]["summary"],
-      icon: @rancagua["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @rancagua["daily"]["data"][0]["temperatureMax"],
-      min_temp: @rancagua["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @rancagua["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @rancagua["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @rancagua["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @rancagua["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @rancagua["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @rancagua["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @rancagua["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @rancagua["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @rancagua["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @rancagua["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @rancagua["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @rancagua["daily"]["data"][4]["icon"],
+      current_temp: @weather[:rancagua]["currently"]["temperature"],
+      condition: @weather[:rancagua]["currently"]["summary"],
+      icon: @weather[:rancagua]["currently"]["icon"],
+      uv_index: @weather[:rancagua]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:rancagua]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:rancagua]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:rancagua]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:rancagua]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:rancagua]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:rancagua]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:rancagua]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:rancagua]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:rancagua]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:rancagua]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:rancagua]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:rancagua]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:rancagua]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:rancagua]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.talca
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.talca.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @talca["currently"]["temperature"],
-      condition: @talca["currently"]["summary"],
-      icon: @talca["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @talca["daily"]["data"][0]["temperatureMax"],
-      min_temp: @talca["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @talca["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @talca["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @talca["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @talca["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @talca["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @talca["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @talca["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @talca["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @talca["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @talca["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @talca["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @talca["daily"]["data"][4]["icon"],
+      current_temp: @weather[:talca]["currently"]["temperature"],
+      condition: @weather[:talca]["currently"]["summary"],
+      icon: @weather[:talca]["currently"]["icon"],
+      uv_index: @weather[:talca]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:talca]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:talca]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:talca]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:talca]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:talca]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:talca]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:talca]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:talca]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:talca]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:talca]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:talca]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:talca]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:talca]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:talca]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.concepcion
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.concepcion.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @concepcion["currently"]["temperature"],
-      condition: @concepcion["currently"]["summary"],
-      icon: @concepcion["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @concepcion["daily"]["data"][0]["temperatureMax"],
-      min_temp: @concepcion["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @concepcion["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @concepcion["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @concepcion["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @concepcion["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @concepcion["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @concepcion["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @concepcion["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @concepcion["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @concepcion["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @concepcion["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @concepcion["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @concepcion["daily"]["data"][4]["icon"],
+      current_temp: @weather[:concepcion]["currently"]["temperature"],
+      condition: @weather[:concepcion]["currently"]["summary"],
+      icon: @weather[:concepcion]["currently"]["icon"],
+      uv_index: @weather[:concepcion]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:concepcion]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:concepcion]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:concepcion]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:concepcion]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:concepcion]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:concepcion]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:concepcion]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:concepcion]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:concepcion]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:concepcion]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:concepcion]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:concepcion]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:concepcion]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:concepcion]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.temuco
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.temuco.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @temuco["currently"]["temperature"],
-      condition: @temuco["currently"]["summary"],
-      icon: @temuco["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @temuco["daily"]["data"][0]["temperatureMax"],
-      min_temp: @temuco["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @temuco["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @temuco["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @temuco["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @temuco["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @temuco["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @temuco["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @temuco["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @temuco["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @temuco["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @temuco["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @temuco["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @temuco["daily"]["data"][4]["icon"],
+      current_temp: @weather[:temuco]["currently"]["temperature"],
+      condition: @weather[:temuco]["currently"]["summary"],
+      icon: @weather[:temuco]["currently"]["icon"],
+      uv_index: @weather[:temuco]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:temuco]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:temuco]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:temuco]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:temuco]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:temuco]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:temuco]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:temuco]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:temuco]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:temuco]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:temuco]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:temuco]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:temuco]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:temuco]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:temuco]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+    location = General::Location.puerto_montt
+    puts "Saving data information for #{location.name}..."
     General::WeatherInformation.create(
-      location_id: General::Location.puerto_montt.id,
+      location_id: location.id,
       date: @today,
-      current_temp: @puerto_montt["currently"]["temperature"],
-      condition: @puerto_montt["currently"]["summary"],
-      icon: @puerto_montt["currently"]["icon"],
-      uv_index: @santiago["currently"]["uvIndex"].to_i,
-      max_temp: @puerto_montt["daily"]["data"][0]["temperatureMax"],
-      min_temp: @puerto_montt["daily"]["data"][0]["temperatureMin"],
-      #######################
-      tomorrow_max: @puerto_montt["daily"]["data"][1]["temperatureMax"].to_i,
-      tomorrow_min: @puerto_montt["daily"]["data"][1]["temperatureMin"].to_i,
-      tomorrow_icon: @puerto_montt["daily"]["data"][1]["icon"],
-      after_tomorrow_max: @puerto_montt["daily"]["data"][2]["temperatureMax"].to_i,
-      after_tomorrow_min: @puerto_montt["daily"]["data"][2]["temperatureMin"].to_i,
-      after_tomorrow_icon: @puerto_montt["daily"]["data"][2]["icon"],
-      aa_tomorrow_max: @puerto_montt["daily"]["data"][3]["temperatureMax"].to_i,
-      aa_tomorrow_min: @puerto_montt["daily"]["data"][3]["temperatureMin"].to_i,
-      aa_tomorrow_icon: @puerto_montt["daily"]["data"][3]["icon"],
-      aaa_tomorrow_max: @puerto_montt["daily"]["data"][4]["temperatureMax"].to_i,
-      aaa_tomorrow_min: @puerto_montt["daily"]["data"][4]["temperatureMin"].to_i,
-      aaa_tomorrow_icon: @puerto_montt["daily"]["data"][4]["icon"],
+      current_temp: @weather[:puerto_montt]["currently"]["temperature"],
+      condition: @weather[:puerto_montt]["currently"]["summary"],
+      icon: @weather[:puerto_montt]["currently"]["icon"],
+      uv_index: @weather[:puerto_montt]["currently"]["uvIndex"].to_i,
+      max_temp: @weather[:puerto_montt]["daily"]["data"][0]["temperatureMax"],
+      min_temp: @weather[:puerto_montt]["daily"]["data"][0]["temperatureMin"],
+      tomorrow_max: @weather[:puerto_montt]["daily"]["data"][1]["temperatureMax"].to_i,
+      tomorrow_min: @weather[:puerto_montt]["daily"]["data"][1]["temperatureMin"].to_i,
+      tomorrow_icon: @weather[:puerto_montt]["daily"]["data"][1]["icon"],
+      after_tomorrow_max: @weather[:puerto_montt]["daily"]["data"][2]["temperatureMax"].to_i,
+      after_tomorrow_min: @weather[:puerto_montt]["daily"]["data"][2]["temperatureMin"].to_i,
+      after_tomorrow_icon: @weather[:puerto_montt]["daily"]["data"][2]["icon"],
+      aa_tomorrow_max: @weather[:puerto_montt]["daily"]["data"][3]["temperatureMax"].to_i,
+      aa_tomorrow_min: @weather[:puerto_montt]["daily"]["data"][3]["temperatureMin"].to_i,
+      aa_tomorrow_icon: @weather[:puerto_montt]["daily"]["data"][3]["icon"],
+      aaa_tomorrow_max: @weather[:puerto_montt]["daily"]["data"][4]["temperatureMax"].to_i,
+      aaa_tomorrow_min: @weather[:puerto_montt]["daily"]["data"][4]["temperatureMin"].to_i,
+      aaa_tomorrow_icon: @weather[:puerto_montt]["daily"]["data"][4]["icon"],
     )
+    puts "New record saved. Location: #{location.name} at #{Time.now}".green
+  end
+
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+
+  def red
+    colorize(31)
+  end
+
+  def green
+    colorize(32)
   end
 end

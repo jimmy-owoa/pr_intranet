@@ -1,7 +1,7 @@
 class WeatherService
   def initialize
     # @api = "http://api.apixu.com/v1/forecast.json?key=19e45f0a4bdd4d929df131644191001&q="
-    @api = "https://api.darksky.net/forecast/823d1b0355811c423649837dd9be5cab/"
+    @api = "https://api.darksky.net/forecast/788d80bdb9365cde982f48cedba50f0a/"
   end
 
   def perform
@@ -38,7 +38,6 @@ class WeatherService
     @cities << URI.parse(@api + "-36.827,-73.0503" + "?units=si")
     @cities << URI.parse(@api + "-38.7362,-72.5906" + "?units=si")
     @cities << URI.parse(@api + "-41.4718,-72.9396" + "?units=si")
-
     @cities.each_with_index do |city, index|
       @response << Net::HTTP.get_response(city)
       @json_parse << JSON.parse(@response[index].body)
