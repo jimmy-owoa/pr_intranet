@@ -13,7 +13,7 @@
       <%= select_tag :genders, options_for_select(@genders, @selected_genders), multiple: true, class:' form-control string optional' %>
     </div>
     <div class="col-4">
-      <%= f.label 'Cargo jefe' %>
+      <%= f.label 'Tiene gente a cargo' %>
       <%= select_tag :is_boss, options_for_select(@is_boss, @selected_boss), multiple: true, class:' form-control string optional' %>
     </div>
     <div class="col-4">
