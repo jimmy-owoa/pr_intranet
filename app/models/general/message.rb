@@ -10,6 +10,7 @@ class General::Message < ApplicationRecord
   belongs_to :profile, class_name: "General::Profile", inverse_of: :messages, optional: true
 
   validates_presence_of :title
+  validates_presence_of :image
 
   MESSAGE_TYPES = [["Cumpleaños", "birthdays"], ["Bienvenidos", "welcomes"], ["General", "general"]]
 

@@ -19,7 +19,7 @@
       <div class="col-md-12">
         <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
         <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
-        <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value) %><br/>
+        <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.label "Contenido" %>
