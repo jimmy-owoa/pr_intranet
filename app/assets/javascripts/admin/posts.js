@@ -11,8 +11,9 @@ $(document).on("turbolinks:load", function() {
 
   $("#gallery_id").select2({
     tags: false,
-    placeholder: "Seleccionar Gallería",
-    width: "100%"
+    placeholder: "Seleccionar Galería",
+    width: "100%",
+    allowClear: true
   });
 
   $('#publisehd_at').on('mousedown',function(event){ event.preventDefault(); })

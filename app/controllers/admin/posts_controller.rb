@@ -106,7 +106,7 @@ module Admin
     end
 
     def set_gallery
-      @gallery = General::Gallery.find(params[:gallery_id])
+      @gallery = General::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
       @post.gallery = @gallery
       @post.save
     end
