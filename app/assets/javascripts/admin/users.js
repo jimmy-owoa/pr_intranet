@@ -54,4 +54,10 @@ $(document).on("turbolinks:load", function() {
       alert("Estado del usuario cambiado");
     });
   });
+
+  $("#user_profile_ids").select2({
+    tags: false,
+    placeholder: "Seleccionar Perfil",
+    width: "100%"
+  });
 });
