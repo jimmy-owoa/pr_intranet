@@ -12,13 +12,13 @@
         <%= f.input :child_lastname2, required: true %>
       </div>
       <div class="col-md-6">
-        <%= f.input :full_name_father, required: true  %>
-      </div>
-      <div class="col-md-6">
-        <%= f.input :full_name_mother, required: true  %>
-      </div>
-      <div class="col-md-6">
-        <%= f.input :user_id  %>
+        <% user = General::User.find(@birth.user_id) || nil %> 
+        <% if user.present? %>
+          <%= f.label "Padre/Madre" %> <br>
+          <%= user.full_name %>
+        <% else %>
+          <%= f.input :user_id  %>
+        <% end %>
       </div>
       <div class="col-md-4 col-sm-4">
         <div class="input-group date" id="birthday" data-target-input="nearest">
@@ -78,7 +78,7 @@
       </div>
       <div class=" col-md-12">
         <div class="col-md-12">
-          <%= f.file_field :images, required: true, multiple: true, input_html: { accept:'image/*' } %>
+          <%= f.file_field :images, input_html: { accept:'image/*' } %>
         </div>
       </div>
     </div>
