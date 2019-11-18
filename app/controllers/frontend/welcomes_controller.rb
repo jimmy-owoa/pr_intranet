@@ -1,29 +1,5 @@
 module Frontend
   class WelcomesController < FrontendController
-
-    def welcomes_calendar
-      users = General::User.users_welcome
-      data= []
-      users.each do |user|
-        image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
-        data << {
-          id: user.id,
-          email: user.email,
-          full_name: user.full_name,
-          active: user.active,
-          annexed: user.annexed,
-          birthday: user.birthday,
-          company: user.company,
-          date: user.date_entry.strftime("%Y-%m-%d"),
-          image: image
-        }
-      end
-      respond_to do |format|
-        format.json {render json: data}
-        format.js
-      end
-    end
-
     def get_home_welcome
       new_users = General::User.users_welcome.limit(4)
       data = []
@@ -32,7 +8,7 @@ module Frontend
           id: user.id,
           email: user.email,
           created_at: user.created_at,
-          name: user.name.capitalize,
+          name: user.favorite_name.present? ? user.favorite_name : user.name,
           last_name: user.last_name.titleize,
           active: user.active,
           annexed: user.annexed,
@@ -40,12 +16,12 @@ module Frontend
           company: user.company.present? ? user.company.name.titleize : nil,
           date: user.date_entry.present? ? user.date_entry.strftime("%Y-%m-%d") : user.date_entry,
           show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png'),
-          color: user.get_color
+          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          color: user.get_color,
         }
       end
       respond_to do |format|
-        format.json {render json: data}
+        format.json { render json: data }
         format.js
       end
     end
@@ -56,13 +32,13 @@ module Frontend
       if date == "0"
         new_users = General::User.where(date_entry: Date.today)
       else
-        first_day_selected_month = Time.new(Time.now.year,date,1,0,0,0).to_date
+        first_day_selected_month = Time.new(Time.now.year, date, 1, 0, 0, 0).to_date
         new_users = General::User.where(date_entry: first_day_selected_month..first_day_selected_month.end_of_month)
       end
       users = new_users.order(:date_entry).page(page).per(9)
-      data= []
+      data = []
       users.each do |user|
-        image = user.image.attached? ? url_for(user.image.variant(resize: '300x300')) : root_url + ActionController::Base.helpers.asset_url('default_avatar.png')
+        image = user.image.attached? ? url_for(user.image.variant(resize: "300x300")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png")
         data << {
           id: user.id,
           email: user.email,
@@ -70,16 +46,16 @@ module Frontend
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,
-          company: user.company.present? ? user.company.name : 'Sin información',
+          company: user.company.present? ? user.company.name : "Sin información",
           date_entry: l(user.date_entry, format: "%d de %B").downcase,
           image: image,
-          color: user.get_color
-          }
+          color: user.get_color,
+        }
       end
       respond_to do |format|
-        format.json { render json: {hits: data} }
+        format.json { render json: { hits: data } }
         format.js
-      end    
+      end
     end
-  end 
-end 
+  end
+end

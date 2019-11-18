@@ -51,7 +51,6 @@ module Admin
     end
 
     def update
-      params[:post][:published_at] = Time.parse(params[:post][:published_at]) if params[:post][:published_at].present?
       respond_to do |format|
         if @post.update(post_params)
           set_gallery

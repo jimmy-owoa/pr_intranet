@@ -59,7 +59,7 @@ module Frontend
           images: images,
           gender: birth.gender ? "Masculino" : "Femenino",
           birthday: birth.birthday,
-          father: birth.user.present? ? birth.user.full_name : "",
+          father: birth.user.present? ? birth.user.favorite_name : "",
           color: birth.user.present? ? birth.user.get_color : "black",
           email: birth.user.present? ? birth.user.email : "",
         }
@@ -67,27 +67,6 @@ module Frontend
       respond_to do |format|
         format.html
         format.json { render json: data }
-        format.js
-      end
-    end
-
-    def calendar_births
-      births = Employee::Birth.show_birth.births_between(1.year.ago, Time.now)
-      data = []
-      births.each do |birth|
-        data << {
-          id: birth.id,
-          child_full_name: birth.child_name + " " + birth.child_lastname + " " + birth.child_lastname2,
-          photo: birth.images.attachments.present? ? url_for(birth.images.attachments.first.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
-          gender: birth.gender ? "Masculino" : "Femenino",
-          date: birth.birthday,
-          father: birth.full_name_father,
-          mother: birth.full_name_mother,
-        }
-      end
-      respond_to do |format|
-        format.html
-        format.json { render json: data.flatten }
         format.js
       end
     end

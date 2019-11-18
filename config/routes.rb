@@ -59,13 +59,11 @@ Rails.application.routes.draw do
     get "menus/menus"
     get "santorals/santorals"
     get "welcome", to: "welcomes#index"
-    get "welcome/welcomes_calendar", to: "welcomes#welcomes_calendar"
     get "welcome/get_home_welcome", to: "welcomes#get_home_welcome"
     get "searchv", to: "search#search_vue"
     get "searchm", to: "search#search_menu"
     get "autocomplete_user", to: "users#autocomplete_user"
     get "indicators", to: "frontend#indicators"
-    get "births/calendar_births", to: "births#calendar_births"
     get "menus/api_menu_vue(/:ln_user)", to: "menus#api_menu_vue"
     get "sso_auth/:token", to: "users#set_user"
     get "sso_user_auth", to: "users#sso_user_auth"
@@ -102,9 +100,7 @@ Rails.application.routes.draw do
     end
     resources :birthdays do
       get :users_birthday, on: :collection
-      get :birthday_month, on: :collection
       get :get_home_birthdays, on: :collection
-      get :calendar, on: :collection
     end
     resources :products do
       get :product, on: :collection
