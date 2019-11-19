@@ -26,9 +26,16 @@
     </div>
     <div class="col-sm-12">
       <div class="card">
-        <div class="card-body">
-          <% @product.images.each do |image| %>
-            <%= image_tag image.variant(resize: '200x200'),class: 'image_attach' %>
+        <div class="card-body"> 
+          <% if @product.permitted_images.present? %>
+            <h5>Imágenes Aprobadas</h5>
+            <div class="row" >
+              <% @product.permitted_images.each do |image| %> 
+                <figure>
+                  <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+                </figure>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>
