@@ -3,13 +3,11 @@ class ProductsExpirationJob < ApplicationJob
 
   def perform(*args)
     # Do something later
-    Marketplace::Product.all.each do |x|
-      if x.published_date == nil || x.published_date < x.expiration.days.ago
-        x.is_expired = true
-        x.save
+    Marketplace::Product.all.each do |product|
+      if !product.published_date.present? || product.published_date < product.expiration.days.ago
+        product.update(is_expired: true)
       else
-        x.is_expired = false
-        x.save
+        product.update(is_expired: false)
       end
     end
   end

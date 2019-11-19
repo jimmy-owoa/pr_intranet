@@ -4,26 +4,20 @@
     <title>Intranet</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   </head>
-
   <body>
-
     <% if notice.present? %>
       <div class="alert alert-info" role="alert">
         <%= notice %>
       </div>
     <% end %>
-
     <% if alert.present? %>
       <div class="alert alert-danger" role="alert">
         <%= alert %>
       </div>
     <% end %>
-  
     <%= yield %>
   </body>
 </html>
