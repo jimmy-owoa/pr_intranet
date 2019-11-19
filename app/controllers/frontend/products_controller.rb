@@ -9,9 +9,9 @@ module Frontend
       page = params[:page]
       category = params[:category]
       if category == "todos"
-        products = Marketplace::Product.show_product
+        products = Marketplace::Product.approved_and_not_expired
       else
-        products = Marketplace::Product.where(product_type: category).show_product
+        products = Marketplace::Product.where(product_type: category).approved_and_not_expired
       end
       products = products.order(published_date: :desc).page(page).per(6)
       data = []
