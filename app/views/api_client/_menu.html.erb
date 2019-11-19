@@ -777,6 +777,26 @@
     text-decoration: underline;
     text-underline-position: under;
   }
+
+  /* ------------------ Modal Ver Más ------------------------------ */
+  .modal:target .modal-dialog-2 {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    top: 20%;
+  }
+  .modal-dialog-2 {
+    background: #fefefe;
+    position: fixed;
+    top: -100%;
+    z-index: 11;
+    transform: translate(0, -500%);
+    transition: transform 0.5s ease-out;
+    max-width: 1300px !important;
+    min-width: 960px;
+  }
+  /* ----------------------------------------------------------------*/
+
   /* ################################################################## */
   @media (min-width: 600px) {
     .modal-dialog {
@@ -793,8 +813,27 @@
       transition: transform 0.5s ease-out;
       max-width: 1300px !important;
       width: 80%;
+    }
+
+    /* -- Modal ver más -- */
+    .modal-dialog-2 {
+      background: #fefefe;
+      position: fixed;
+      top: -100%;
+      z-index: 11;
+      -webkit-transform: translate(0, -500%);
+      -ms-transform: translate(0, -500%);
+      transform: translate(0, -500%);
+      -webkit-transition: -webkit-transform 0.5s ease-out;
+      -moz-transition: -moz-transform 0.5s ease-out;
+      -o-transition: -o-transform 0.5s ease-out;
+      transition: transform 0.5s ease-out;
+      max-width: 1300px !important;
+      width: 80%;
       left: 10%;
     }
+    /* ------------------*/
+
     nav {
       font-size: 16px;
     }
@@ -824,8 +863,27 @@
       transition: transform 0.5s ease-out;
       max-width: 1300px !important;
       width: 80%;
+    }
+
+    /* -- Modal ver más -- */
+    .modal-dialog-2 {
+      background: #fefefe;
+      position: fixed;
+      top: -100%;
+      z-index: 11;
+      -webkit-transform: translate(0, -500%);
+      -ms-transform: translate(0, -500%);
+      transform: translate(0, -500%);
+      -webkit-transition: -webkit-transform 0.5s ease-out;
+      -moz-transition: -moz-transform 0.5s ease-out;
+      -o-transition: -o-transform 0.5s ease-out;
+      transition: transform 0.5s ease-out;
+      max-width: 1300px !important;
+      width: 80%;
       left: 10%;
     }
+    /* ------------------*/
+    
     .search_position {
       right: 0px;
     }
@@ -1301,7 +1359,7 @@
 
                   <!-- MODAL VER MAS START -->
                   <div class="modal" id="menu_<%= menu_parent_object.title.downcase %>" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog-2">
                       <div class="flex sm12" style="overflow-y: auto; max-height: 400px;">
                         <div class="layout" style="margin-bottom: -17px;">
                           <a href="#" class="btn-close" aria-hidden="true">×</a>
