@@ -37,7 +37,7 @@ module Frontend
           is_expired: product.is_expired,
           expiration: product.expiration,
           description: product.description,
-          main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+          main_image: product.permitted_images.present? ? url_for(product.permitted_images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
           items: product.images.present? ? items : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
           breadcrumbs: [
             { link: "/", name: "Inicio" },
@@ -105,7 +105,10 @@ module Frontend
       product = Marketplace::Product.where(id: id).first
       data = []
       items = []
-      product.images.each do |image|
+
+      product_images = params[:myProduct] == "true" ? product.images : product.permitted_images
+      
+      product_images.each do |image|
         if image.present?
           items << {
             src: url_for(image.variant(combine_options: { resize: "600x400>", gravity: "Center" })),
@@ -113,6 +116,7 @@ module Frontend
           }
         end
       end
+   
       data << {
         id: product.id,
         name: product.name,
