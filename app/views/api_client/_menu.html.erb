@@ -4,7 +4,7 @@
   #menu_section {
     font-family: "Titillium Web", sans-serif !important;
   }
-  nav>ul>li>ul.megamenu::before {
+  .navbar-menu>ul>li>ul.megamenu::before {
     content: normal;
   }
   .theme--dark.v-sheet {
@@ -490,14 +490,14 @@
     padding-bottom: 26px;
     max-width: 1346px !important;
   }
-  nav {
+  .navbar-menu {
     position: inherit;
     width: 100%;
     background: #f2f2f2;
     font-size: 14px;
   }
   /* first stage */
-  nav > ul {
+  .navbar-menu > ul {
     position: relative;
     display: flex;
     justify-content: center;
@@ -507,30 +507,30 @@
     height: 50px;
     z-index: 9;
   }
-  nav a {
+  .navbar-menu a {
     display: block;
     color: black;
     text-decoration: none;
   }
-  nav ul li {
+  .navbar-menu ul li {
     color: #fff;
     list-style: none;
     transition: 0.15s;
   }
-  nav > ul > li > a {
+  .navbar-menu > ul > li > a {
     padding: 15px 25px;
   }
-  nav ul > li.submenu:hover > a:after {
+  .navbar-menu ul > li.submenu:hover > a:after {
     margin-top: 2px;
     border-top: 5px solid transparent;
     /* border-bottom: 5px solid green; */
   }
-  nav > ul > li:hover {
+  .navbar-menu > ul > li:hover {
     /* background: red; */
     /* border-bottom: 5px solid green; */
   }
   /* second stage (the mega-menu) */
-  nav ul.megamenu {
+  .navbar-menu ul.megamenu {
     position: absolute;
     display: flex;
     flex-wrap: wrap;
@@ -548,11 +548,11 @@
     margin-right: -50%;
     transform: translate(-50%, 0%);
   }
-  nav ul li:hover ul.megamenu {
+  .navbar-menu ul li:hover ul.megamenu {
     top: 100%;
   }
   /* third stage (child-menus in the mega-menu) */
-  nav ul.megamenu ul {
+  .navbar-menu ul.megamenu ul {
     width: 20%;
     margin-bottom: 10px;
     background: transparent;
@@ -560,7 +560,7 @@
     color: #000;
     box-shadow: none;
   }
-  nav ul.megamenu h4 {
+  .navbar-menu ul.megamenu h4 {
     margin-bottom: 5px;
     text-transform: uppercase;
   }
@@ -568,19 +568,19 @@
     line-height: 25px;
     padding: 0;
   }
-  nav ul.megamenu ul li {
+  .navbar-menu ul.megamenu ul li {
     display: block;
     padding-top: 5px;
   }
-  nav ul.megamenu ul li {
+  .navbar-menu ul.megamenu ul li {
     display: block;
   }
-  nav ul.megamenu ul li a {
+  .navbar-menu ul.megamenu ul li a {
     margin-top: 10px;
     transition: 0.2s;
     color: #000;
   }
-  nav ul.megamenu ul li a:hover {
+  .navbar-menu ul.megamenu ul li a:hover {
     color: #4096ee;
   }
   .menu_for_xl {
@@ -780,7 +780,7 @@
     color: #fff !important;
     caret-color: #fff !important;
   }
-  nav > ul > li:hover {
+  .navbar-menu > ul > li:hover {
     /* background: red; */
     text-decoration: underline;
     text-underline-position: under;
@@ -910,40 +910,40 @@
       display: block;
     }
     /* first stage */
-    nav > ul {
+    .navbar-menu > ul {
       height: 50px;
       margin-bottom: 5px;
     }
-    nav > ul > li > a {
+    .navbar-menu > ul > li > a {
       padding: 15px 25px;
     }
-    nav ul > li.submenu:hover > a:after {
+    .navbar-menu ul > li.submenu:hover > a:after {
       margin-top: 2px;
       border-top: 5px solid transparent;
       /* border-bottom: 5px solid green; */
     }
-    nav > ul > li:hover {
+    .navbar-menu > ul > li:hover {
       /* border-bottom: 5px solid green; */
     }
     /* second stage (the mega-menu) */
-    nav ul.megamenu {
+    .navbar-menu ul.megamenu {
       width: 100%;
       top: -9999px;
       padding: 20px 10px 0;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
-    nav ul li:hover ul.megamenu {
+    .navbar-menu ul li:hover ul.megamenu {
       top: 100%;
     }
     /* third stage (child-menus in the mega-menu) */
-    nav ul.megamenu ul {
+    .navbar-menu ul.megamenu ul {
       width: 20%;
       margin-bottom: 10px;
     }
-    nav ul.megamenu h4 {
+    .navbar-menu ul.megamenu h4 {
       margin-bottom: 5px;
     }
-    nav ul.megamenu ul li a {
+    .navbar-menu ul.megamenu ul li a {
       margin-top: 10px;
     }
     .menu_for_xl {
@@ -1025,46 +1025,47 @@
       font-size: 14px;
       display: block;
     }
-    nav a {
+    
+    .links-ver-mas {
       font-weight: 500;
       color: #333 !important;
     }
     /* first stage */
-    nav > ul {
+    .navbar-menu > ul {
       height: 50px;
       margin-bottom: 5px;
     }
-    nav > ul > li > a {
+    .navbar-menu > ul > li > a {
       padding: 15px 25px;
     }
-    nav ul > li.submenu:hover > a:after {
+    .navbar-menu ul > li.submenu:hover > a:after {
       margin-top: 2px;
       border-top: 5px solid transparent;
       /* border-bottom: 5px solid green; */
     }
-    nav > ul > li:hover {
+    .navbar-menu > ul > li:hover {
       /* border-bottom: 5px solid green; */
     }
     /* second stage (the mega-menu) csc*/
-    nav ul.megamenu {
+    .navbar-menu ul.megamenu {
       flex: 1 1 100%;
       margin: auto;
       top: -9999px;
       padding: 20px 10px 0;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
-    nav ul li:hover ul.megamenu {
+    .navbar-menu ul li:hover ul.megamenu {
       top: 100%;
     }
     /* third stage (child-menus in the mega-menu) */
-    nav ul.megamenu ul {
+    .navbar-menu ul.megamenu ul {
       width: 20%;
       margin-bottom: 10px;
     }
-    nav ul.megamenu h4 {
+    .navbar-menu ul.megamenu h4 {
       margin-bottom: 5px;
     }
-    nav ul.megamenu ul li a {
+    .navbar-menu ul.megamenu ul li a {
       margin-top: 10px;
     }
     .menu_for_xl {
@@ -1304,7 +1305,7 @@
     </div>
   </div>
   <!-- MENU START -->
-  <nav fixed style="background-color: #211651;">
+  <nav class="navbar-menu" fixed style="background-color: #211651;">
     <ul id="ul_menu" style="margin-bottom: 0px;">
       <% @main_menus.each do |main_menu| %>
         <li class="submenu" id="submenu1">
@@ -1365,7 +1366,7 @@
                   </div>
                   <!-- MENU MODAL END -->
 
-                  <!-- MODAL VER MAS START -->
+                  <!-- MODAL VER MÁS START -->
                   <div class="modal" id="menu_<%= menu_parent_object.title.downcase %>" aria-hidden="true">
                     <div class="modal-dialog-2">
                       <div class="flex sm12" style="overflow-y: auto; max-height: 400px;">
@@ -1374,11 +1375,11 @@
                           <div class="flex sm12" style="padding: 15px 45px 5px 45px; background-color: #f3f3f3;">
                             <% submenus.each do |link| %>
                               <% if link[:link].downcase[0..3] == 'http'%>
-                                <%= link_to link[:title], link[:link] %>
+                                <%= link_to link[:title], link[:link], class: 'links-ver-mas' %>
                               <% elsif link[:post_slug].present? %>
-                                <%= link_to link[:title], host + '#/noticias/' + link[:post_slug]%>
+                                <%= link_to link[:title], host + '#/noticias/' + link[:post_slug], class: 'links-ver-mas'%>
                               <% else %>
-                                <%= link_to link[:title], host + '#/' + link[:link] %>
+                                <%= link_to link[:title], host + '#/' + link[:link], class: 'links-ver-mas' %>
                               <% end %>
                             <% end %>
                           </div>
