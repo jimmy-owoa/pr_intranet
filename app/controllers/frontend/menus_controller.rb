@@ -92,10 +92,7 @@ module Frontend
     def api_menu_vue
       base_api_url = root_url
       base_search_url = get_rails_env
-
-      user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
-      location_id = params[:location_id] || 2 # TODO: Cambiar al correcto
-
+      user = @request_user
       menus = []
       General::Menu.all.each do |menu|
         if menu.profile_id.present?
@@ -104,27 +101,22 @@ module Frontend
           menus << menu
         end
       end
-
       host = get_request_referer
-
-      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id)
+      weather = General::WeatherInformation.current(user.location_id).present? ? General::WeatherInformation.current(user.location_id) : General::WeatherInformation.last(user.location_id)
       uv_index = weather.last.get_uv
-      location = General::Location.find(location_id)
+      location = General::Location.find(user.location_id)
       santoral = General::Santoral.current
       santoral_next = General::Santoral.next
       today = Date.today
       indicator = General::EconomicIndicator
       indicators = indicator.where(date: today)
       data_indicators = []
-
       data_indicators = get_data_indicators(indicator, today)
-
       if user.legal_number.present?
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
         exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{user.legal_number}#{user.legal_number_verification}")
         exa_menu_response = Net::HTTP.get_response exa_menu_url
         exa_menu = JSON.parse(exa_menu_response.body)
-
         @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
         if exa_menu["manage"].present?
           @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
