@@ -630,7 +630,6 @@
     text-transform: uppercase;
     font-weight: 700;
     padding-bottom: 3px;
-    border-bottom: 1px solid #fff;
   }
   .link-format {
     font-size: 14px;
@@ -1100,19 +1099,18 @@
       margin-top: 18px;
     }
     .head_section {
+      padding: 0 !important;
+      border-bottom: 1px solid #fff !important;
       font-size: 12px;
       line-height: 12px;
       letter-spacing: 0.05em;
     }
+
     .link-format {
       font-size: 12px;
     }
 
-    nav ul li a {
-      padding: 0;
-    }
-
-    img {
+    .image-correction {
       vertical-align: 0;
     }
 
@@ -1151,7 +1149,7 @@
       border-color: #fff;
     }
 
-    ul, ol {
+    .padding-megamenu {
       padding-left: 24px !important;;
     }
 
@@ -1163,7 +1161,7 @@
 
 <div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>"></div>
 
-<img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="height: 8px; width: 100%"/>
+<img class="hidden-sm-and-down image-correction" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="height: 8px; width: 100%"/>
 
 <div style="padding-top: 20px;" id="menu_section"> 
   <div class="container-menu">
@@ -1191,7 +1189,7 @@
                 </div>
               </div>
             </div>
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;" class="image-correction">
           </div>
         </div>
       </div>
@@ -1243,7 +1241,7 @@
                 </div>
               </div>
             </div>
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;" class="image-correction">
           </div>
         </div>
       </div>
@@ -1304,7 +1302,7 @@
                 </div>
               </div>
             </div>
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;" class="image-correction">
           </div>
         </div>
       </div>
@@ -1313,7 +1311,7 @@
           <div class="layout align-end fill-height">
             <div class="flex text-md-left inline sm2">
               <a href="https://misecurity.elmejorlugarparatrabajar.cl/" style="padding-left: 15%">
-                <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;"/>
+                <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;" class="image-correction"/>
               </a>
             </div>
             <div class="flex sm2 subheading top-info text-md-right">
@@ -1368,7 +1366,7 @@
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
-              <ul style="display: inline;">
+              <ul style="display: inline;" class="padding-megamenu">
                 <% if menu_parent_object.link.present? %>
                   <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
                 <% else %>
