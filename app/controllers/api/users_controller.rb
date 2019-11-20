@@ -8,7 +8,6 @@ module Api
 
     def create
       @user = General::User.new(user_params)
-      binding.pry
       if @user.save
         render json: @user, status: :created
       else
