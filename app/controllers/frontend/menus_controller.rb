@@ -92,12 +92,8 @@ module Frontend
     def api_menu_vue
       base_api_url = root_url
       base_search_url = get_rails_env
-      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      Rails.logger.info "%%%%%%ln_user%%%%%#{params[:ln_user]}%%%%%%%%%%%%%%%%%"
       user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
-      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      Rails.logger.info "%%%%%%%user%%%%%%%%#{user}%%%%%%%%%%%%%%%%%%%%%%%%"
-      location_id = @request_user.location_id || 2
+      location_id = user.location_id || 2
       menus = []
       General::Menu.all.each do |menu|
         if menu.profile_id.present?
