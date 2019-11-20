@@ -1,5 +1,7 @@
 <style media="screen" type="text/css">
   @import url("https://fonts.googleapis.com/css?family=Titillium+Web&display=swap");
+  @import url("https://fonts.googleapis.com/css?family=Material+Icons");
+  @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 
   #menu_section {
     font-family: "Titillium Web", sans-serif !important;
@@ -628,7 +630,6 @@
     text-transform: uppercase;
     font-weight: 700;
     padding-bottom: 3px;
-    border-bottom: 1px solid #fff;
   }
   .link-format {
     font-size: 14px;
@@ -1098,19 +1099,69 @@
       margin-top: 18px;
     }
     .head_section {
+      padding: 0 !important;
+      border-bottom: 1px solid #fff !important;
       font-size: 12px;
       line-height: 12px;
       letter-spacing: 0.05em;
     }
+
     .link-format {
       font-size: 12px;
+    }
+
+    .image-correction {
+      vertical-align: 0;
+    }
+
+    .theme--dark.v-input input::placeholder, .theme--dark.v-input textarea::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .theme--dark.v-icon {
+      color: #fff;
+    }
+
+    .theme--dark.v-input:not(.v-input--is-disabled) input, .theme--dark.v-input:not(.v-input--is-disabled) textarea {
+      color: white;
+    }
+
+    .v-text-field > .v-input__control > .v-input__slot::before, .v-text-field > .v-input__control > .v-input__slot::after {
+      bottom: -1px;
+      content: '';
+      left: 0;
+      position: absolute;
+      -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+      transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+      width: 100%;
+    }
+
+    .theme--dark.v-text-field > .v-input__control > .v-input__slot::before {
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .v-text-field > .v-input__control > .v-input__slot::before {
+      border-style: solid;
+      border-width: thin 0 0 0;
+    }
+
+    .theme--dark.v-text-field:not(.v-input--has-state) > .v-input__control > .v-input__slot:hover::before {
+      border-color: #fff;
+    }
+
+    .padding-megamenu {
+      padding-left: 24px !important;;
+    }
+
+    .decoration-ver-mas {
+      text-decoration: underline !important;
     }
   }
 </style>
 
 <div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>"></div>
 
-<img class="hidden-sm-and-down" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="height: 8px; width: 100%"/>
+<img class="hidden-sm-and-down image-correction" src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="height: 8px; width: 100%"/>
 
 <div style="padding-top: 20px;" id="menu_section"> 
   <div class="container-menu">
@@ -1138,7 +1189,7 @@
                 </div>
               </div>
             </div>
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;" class="image-correction">
           </div>
         </div>
       </div>
@@ -1190,7 +1241,7 @@
                 </div>
               </div>
             </div>
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;" class="image-correction">
           </div>
         </div>
       </div>
@@ -1251,7 +1302,7 @@
                 </div>
               </div>
             </div>
-            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;">
+            <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/barra.jpg" style="width: 100%; height: 6px; margin-bottom: -6px;" class="image-correction">
           </div>
         </div>
       </div>
@@ -1259,8 +1310,8 @@
         <div class="flex sm12">
           <div class="layout align-end fill-height">
             <div class="flex text-md-left inline sm2">
-              <a href="/#/" style="padding-left: 15%">
-                <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;"/>
+              <a href="https://misecurity.elmejorlugarparatrabajar.cl/" style="padding-left: 15%">
+                <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;" class="image-correction"/>
               </a>
             </div>
             <div class="flex sm2 subheading top-info text-md-right">
@@ -1315,7 +1366,7 @@
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
-              <ul style="display: inline;">
+              <ul style="display: inline;" class="padding-megamenu">
                 <% if menu_parent_object.link.present? %>
                   <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
                 <% else %>
@@ -1337,7 +1388,7 @@
                         <% benefit_count += 1 %>
                         <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s, class:'white--text' %>
                         <% if benefit_count > 2 %>
-                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text' %>
+                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
                         <% end %>
                       <% end %>
                     <% else %>
@@ -1390,7 +1441,7 @@
                   <!-- MODAL VER MAS END -->
 
                   <% if main_menu.title != "Mis beneficios" %>
-                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text' %>
+                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
                   <% end %>
                 <% else %>
                   <% submenus.each do |link| %>
