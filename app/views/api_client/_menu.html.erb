@@ -1,5 +1,7 @@
 <style media="screen" type="text/css">
   @import url("https://fonts.googleapis.com/css?family=Titillium+Web&display=swap");
+  @import url("https://fonts.googleapis.com/css?family=Material+Icons");
+  @import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 
   #menu_section {
     font-family: "Titillium Web", sans-serif !important;
@@ -1105,6 +1107,57 @@
     .link-format {
       font-size: 12px;
     }
+
+    nav ul li a {
+      padding: 0;
+    }
+
+    img {
+      vertical-align: 0;
+    }
+
+    .theme--dark.v-input input::placeholder, .theme--dark.v-input textarea::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .theme--dark.v-icon {
+      color: #fff;
+    }
+
+    .theme--dark.v-input:not(.v-input--is-disabled) input, .theme--dark.v-input:not(.v-input--is-disabled) textarea {
+      color: white;
+    }
+
+    .v-text-field > .v-input__control > .v-input__slot::before, .v-text-field > .v-input__control > .v-input__slot::after {
+      bottom: -1px;
+      content: '';
+      left: 0;
+      position: absolute;
+      -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+      transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+      width: 100%;
+    }
+
+    .theme--dark.v-text-field > .v-input__control > .v-input__slot::before {
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .v-text-field > .v-input__control > .v-input__slot::before {
+      border-style: solid;
+      border-width: thin 0 0 0;
+    }
+
+    .theme--dark.v-text-field:not(.v-input--has-state) > .v-input__control > .v-input__slot:hover::before {
+      border-color: #fff;
+    }
+
+    ul, ol {
+      padding-left: 24px !important;;
+    }
+
+    .decoration-ver-mas {
+      text-decoration: underline !important;
+    }
   }
 </style>
 
@@ -1259,7 +1312,7 @@
         <div class="flex sm12">
           <div class="layout align-end fill-height">
             <div class="flex text-md-left inline sm2">
-              <a href="/#/" style="padding-left: 15%">
+              <a href="https://misecurity.elmejorlugarparatrabajar.cl/" style="padding-left: 15%">
                 <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;"/>
               </a>
             </div>
@@ -1337,7 +1390,7 @@
                         <% benefit_count += 1 %>
                         <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s, class:'white--text' %>
                         <% if benefit_count > 2 %>
-                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text' %>
+                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
                         <% end %>
                       <% end %>
                     <% else %>
@@ -1390,7 +1443,7 @@
                   <!-- MODAL VER MAS END -->
 
                   <% if main_menu.title != "Mis beneficios" %>
-                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text' %>
+                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
                   <% end %>
                 <% else %>
                   <% submenus.each do |link| %>
