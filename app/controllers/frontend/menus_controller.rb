@@ -92,7 +92,12 @@ module Frontend
     def api_menu_vue
       base_api_url = root_url
       base_search_url = get_rails_env
-      user = @request_user
+      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      Rails.logger.info "%%%%%%ln_user%%%%%#{params[:ln_user]}%%%%%%%%%%%%%%%%%"
+      user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
+      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      Rails.logger.info "%%%%%%%user%%%%%%%%#{user}%%%%%%%%%%%%%%%%%%%%%%%%"
+      location_id = @request_user.location_id || 2
       menus = []
       General::Menu.all.each do |menu|
         if menu.profile_id.present?
@@ -102,9 +107,9 @@ module Frontend
         end
       end
       host = get_request_referer
-      weather = General::WeatherInformation.current(user.location_id).present? ? General::WeatherInformation.current(user.location_id) : General::WeatherInformation.last(user.location_id)
+      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id)
       uv_index = weather.last.get_uv
-      location = General::Location.find(user.location_id)
+      location = General::Location.find(location_id)
       santoral = General::Santoral.current
       santoral_next = General::Santoral.next
       today = Date.today
