@@ -1,3 +1,5 @@
+include ActionView::Helpers::NumberHelper
+
 module Frontend
   class BenefitsController < FrontendController
     after_action :set_tracking, only: [:index, :show]
@@ -84,7 +86,7 @@ module Frontend
     def formatted_content(benefit, benefit_group_relationship)
       replace_variables = {
         "TIPO": benefit_group_relationship.currency,
-        "VALOR": benefit_group_relationship.amount,
+        "VALOR": number_to_currency(benefit_group_relationship.amount, unit:"", delimiter:".", precision:0),
       }
       content = benefit.content
       if (content.present? && content.include?("*|TIPO|*") && content.include?("*|VALOR|*"))
