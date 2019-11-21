@@ -142,7 +142,7 @@ module Frontend
         gospel: Religion::Gospel.where(date: Date.today).present? ? Religion::Gospel.where(date: Date.today).last : Religion::Gospel.last,
         indicators: data_indicators[0],
         today: today,
-        beauty_date: l(today, format: "%d de %B, %Y"),
+        beauty_date: l(today, format: "%d de %B de %Y"),
         base_api_url: base_api_url,
         base_search_url: base_search_url,
         benefits: benefits,
