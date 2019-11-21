@@ -85,7 +85,7 @@ module Frontend
 
     def formatted_content(benefit, benefit_group_relationship)
       replace_variables = {
-        "TIPO": benefit_group_relationship.currency,
+        "TIPO": currency_type_format(benefit_group_relationship.currency),
         "VALOR": number_to_currency(benefit_group_relationship.amount, unit:"", delimiter:".", precision:0),
       }
       content = benefit.content
@@ -95,6 +95,17 @@ module Frontend
         end
       end
       content
+    end
+
+    def currency_type_format(currency)
+      case currency
+      when "days"
+        "días"
+      when "hours"
+        "horas"
+      else
+        currency
+      end
     end
 
     def set_tracking
