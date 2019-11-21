@@ -116,11 +116,11 @@ module Frontend
       if user.legal_number.present?
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
         timestamp = Base64.strict_encode64(user.legal_number + user.legal_number_verification + Time.now.utc.to_i.to_s)
-        exa_menu_url = URI.parse("https://misecurity-qa.exa.cl/json_menus/show/#{Base64.strict_encode64(user.legal_number + user.legal_number_verification + Time.now.utc.to_i.to_s)}")
+        exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{timestamp}")
         exa_menu_response = Net::HTTP.get_response exa_menu_url
         exa_menu = JSON.parse(exa_menu_response.body)
         @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
-        if exa_menu["manage"].present?
+        if exa_menu.present? && exa_menu["manage"].present?
           @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
         end
       else
