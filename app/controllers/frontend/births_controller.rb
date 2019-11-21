@@ -19,6 +19,7 @@ module Frontend
         if birth.user.present?
           email = birth.user.email
           color = birth.user.get_color
+          company_name = birth.user.company.name
         else
           email = "sin email"
           color = "black"
@@ -29,6 +30,7 @@ module Frontend
           id: birth.id,
           name: birth.child_name,
           last_names: birth.child_lastname + " " + birth.child_lastname2,
+          company: company_name,
           photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
           images: images,
           gender: birth.gender,
