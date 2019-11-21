@@ -24,7 +24,7 @@ class ExaBenefitsService
         record = General::Benefit.where(title: benefit["name"], code: benefit["code"], benefit_type_id: benefit_type).first_or_create
         if benefit["variables"].present?
           benefit["variables"].each do |variable|
-            var = General::BenefitGroupRelationship.where(amount: variable["amount"], currency: variable["currency"], url: benefit["url"], benefit_group: benefit_group).first_or_create
+            var = General::BenefitGroupRelationship.where(amount: variable["amount"].to_i, currency: variable["currency"], url: benefit["url"], benefit_group: benefit_group).first_or_create
             record.benefit_group_relationships << var unless record.benefit_group_relationships.include?(var)
           end
         end
