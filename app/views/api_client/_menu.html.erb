@@ -54,6 +54,7 @@
   .show-date {
     font-family: "Titillium Web", sans-serif !important;
     font-size: 16px;
+    cursor: default !important;
     text-decoration: none !important;
     color: #9d9d9c !important;
   }
@@ -899,7 +900,7 @@
     .head_menu {
       font-family: "Titillium Web", sans-serif;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 16px;
       line-height: 18px;
       color: white !important;
     }
@@ -1254,15 +1255,15 @@
               <a href="#" class="btn-close" aria-hidden="true">×</a>
               <div class="flex sm4 text-md-center" style="background: linear-gradient(to right, #211651 -40%, #789c4a 120%); height: 420px; padding-top: 46px">
                 <div class="modal-subheading font-weight-bold white--text" style="text-decoration: underline;">Dólar</div>
-                <div class="modal-subheading font-weight-bold white--text" style="padding-top: 56px;">Hoy <%= l(today, format: "%d de %B").downcase %></div>
+                <div class="modal-subheading font-weight-bold white--text" style="padding-top: 56px;">Hoy, <%= l(today, format: "%d de %B").downcase %></div>
                 <div class="modal-title font-weight-bold white--text">$ <%= number_to_currency(indicators[:DOLAR].last, locale: :es, precision: 2, unit: "") %></div>
                 <hr style="width: 47%;margin-top: 12px;margin-left: 28%;margin-bottom: 12px;">
-                <div class="modal-subheading font-weight-bold white--text">Ayer <%= l(today - 1.days, format: "%d de %B").downcase %></div>
+                <div class="modal-subheading font-weight-bold white--text">Ayer, <%= l(today - 1.days, format: "%d de %B").downcase %></div>
                 <div class="modal-title font-weight-bold white--text">$<%= number_to_currency(indicators[:DOLAR].first, locale: :es, precision: 2, unit: "") %></div>
                 <div class="pt-4">
                   <a class="v-btn-indicators" href="https://mercadosenlinea.inversionessecurity.cl/www/resumen.html" target="_blank">
                     <%= image_tag(asset_url("indicadores-economicos.svg"), style: "height: 13px; padding-right: 5px;")%>
-                    <div>Ver inversiones</div>
+                    <div>Inversiones Security</div>
                   </a>
                 </div>
               </div>
@@ -1271,33 +1272,33 @@
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">Euro</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;">Hoy</div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= number_to_currency(indicators[:EURO].last, locale: :es, precision: 2, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:EURO].last, locale: :es, precision: 2, unit: "") %></div>
                     <div class="primary--text modal-regular" style="margin-top: 43px;">Ayer</div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= number_to_currency(indicators[:EURO].first, locale: :es, precision: 2, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:EURO].first, locale: :es, precision: 2, unit: "") %></div>
                   </div>
                   <hr style="border: 1px solid white; height: 300px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">UF</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;">Hoy</div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$ <%= number_to_currency(indicators[:UF].last, locale: :es, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$ <%= number_to_currency(indicators[:UF].last, locale: :es, unit: "") %></div>
                     <div class="primary--text modal-regular" style="margin-top: 43px;"><%= l(today - 1.months, format: "%B") %></div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= number_to_currency(indicators[:UF].first, locale: :es, precision: 2, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:UF].first, locale: :es, precision: 2, unit: "") %></div>
                   </div>
                   <hr style="border: 1px solid white; height: 300px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">IPC</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;"><%= l(today - 1.months, format: "%B") %></div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPC].last, locale: :es, precision: 1, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPC].last, locale: :es, precision: 1, unit: "") %></div>
                     <div class="primary--text modal-regular" style="margin-top: 43px;"><%= l(today - 2.months, format: "%B") %></div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPC].first, locale: :es, precision: 1, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPC].first, locale: :es, precision: 1, unit: "") %></div>
                   </div>
                   <hr style="border: 1px solid white; height: 300px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">IPSA</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;">Hoy</div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPSA].last, locale: :es, precision: 2, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPSA].last, locale: :es, precision: 2, unit: "") %></div>
                     <div class="primary--text modal-regular" style="margin-top: 43px;">Ayer</div>
-                    <div class="primary--text font-weight-bold" style="font-size: 34px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPSA].first, locale: :es, precision: 2, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPSA].first, locale: :es, precision: 2, unit: "") %></div>
                   </div>                                  
                 </div>
               </div>
@@ -1310,7 +1311,7 @@
         <div class="flex sm12">
           <div class="layout align-end fill-height">
             <div class="flex text-md-left inline sm2">
-              <a href="https://misecurity.elmejorlugarparatrabajar.cl/" style="padding-left: 15%">
+              <a href="<%= host %>" style="padding-left: 15%">
                 <img src="https://s3.us-east-2.amazonaws.com/intranet-security-assets/Mi-security-logo.png" style="height: 35px; cursor: pointer; margin-top: 8px;" class="image-correction"/>
               </a>
             </div>
@@ -1420,7 +1421,7 @@
                   <!-- MODAL VER MÁS START -->
                   <div class="modal" id="menu_<%= menu_parent_object.title.downcase %>" aria-hidden="true">
                     <div class="modal-dialog-2">
-                      <div class="flex sm12" style="overflow-y: auto; max-height: 400px;">
+                      <div class="flex sm12" style="overflow-y: auto; max-height: 400px; min-height: 200px">
                         <div class="layout" style="margin-bottom: -17px;">
                           <a href="#" class="btn-close" aria-hidden="true">×</a>
                           <div class="flex sm12" style="padding: 15px 45px 5px 45px; background-color: #f3f3f3;">
