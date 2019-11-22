@@ -39,8 +39,8 @@
         </div>
         <div class="col-md-12 col-sm-12"><br>
           <div class="input-group date" id="survey_published_at" data-target-input="nearest">
-            <% if @post.try(:published_at).present? %>
-              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#survey_published_at', class:'survey_published_at'%>
+            <% if @survey.try(:published_at).present? %>
+              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @survey.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#survey_published_at', class:'survey_published_at'%>
             <% else %>
               <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#survey_published_at', placeholder: "Fecha de publicación", label: false, class:'survey_published_at' %>
             <% end %>
@@ -67,8 +67,12 @@
           <% end %>
         </div>
         <div class="col-md-12">
-          <%= image_tag @survey.image.variant(resize: '150x150>') if @survey.image.attached? %>
-          <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+          <% if @survey.image.attached? %>
+            <%= image_tag @survey.image.variant(resize: '150x150>') %>
+            <%= f.input :image, input_html: { accept:'image/*' } %>
+          <% else %>
+            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+          <% end %>
         </div>
       </div>
     </div>
