@@ -21,5 +21,17 @@ class InternalAuth
     timestamp = decrypted[-10..(decrypted.length - 1)].to_i
     return decrypted[0..(decrypted.length - 11)]
   end
+
+  def self.encrypt(raw_user_cod)
+    timestamp = Time.now.utc.to_i
+    secret = "EB5932580C920015B65B4B308FF7F352"
+    cipher = OpenSSL::Cipher.new "aes-256-cbc"
+    iv = cipher.random_iv
+    cipher.encrypt
+    cipher.key = secret
+    enctryped_data = cipher.update(raw_user_cod + timestamp.to_s)
+    enctryped_data << cipher.final
+    return CGI.escape(Base64.strict_encode64(iv.to_s + enctryped_data))
+  end
   # en rails hay que llamar al otro servicio
 end
