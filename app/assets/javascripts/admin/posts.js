@@ -34,7 +34,6 @@ $(document).on("turbolinks:load", function() {
       buttons: {showClose: true },
       sideBySide: true,
       autoClose: true,
-      keepOpen: true
   });
 
 

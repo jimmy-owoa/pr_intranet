@@ -128,6 +128,7 @@ $(document).on("turbolinks:load", function () {
       previous: "fa fa-chevron-circle-left"
     },
     format: "DD/MM/YYYY HH:mm",
+    buttons: {showClose: true },
     autoclose: true
   });
 });
