@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_124204) do
+ActiveRecord::Schema.define(version: 2019_11_25_192951) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -469,6 +469,18 @@ ActiveRecord::Schema.define(version: 2019_11_18_124204) do
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
     t.integer "uv_index"
+  end
+
+  create_table "library_books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.integer "edition"
+    t.string "translation"
+    t.date "edition_date"
+    t.string "edition_place"
+    t.integer "publication_year"
+    t.string "isbn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "location_cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
