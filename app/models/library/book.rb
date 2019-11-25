@@ -1,3 +1,3 @@
 class Library::Book < ApplicationRecord
-    belongs_to :editorial
+    belongs_to :author
 end
