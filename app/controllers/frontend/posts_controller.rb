@@ -163,7 +163,7 @@ module Frontend
             id: post.id,
             title: post.title.length > 36 ? post.title.slice(0..36) + "..." : post.title,
             slug: post.slug,
-            extract: post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
+            extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
             main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
           }
