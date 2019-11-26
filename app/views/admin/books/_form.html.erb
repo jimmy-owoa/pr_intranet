@@ -1,0 +1,54 @@
+<%= f.error_notification %>
+<div class="col-md-12 row pb-4 pt-4" style="background-color: #FbFbFb; border-radius: 25px">
+  <div class="wrapper col-md-9">
+    <div class="form-group row">
+      <div class="col-md-12">
+        <%= f.input :title, required: true, autofocus: true, placeholder: 'Ingrese el título aquí', input_html: { class: "border border-dark" } %>
+      </div>
+
+			<div class="col-md-4 col-sm-4 pb-4">
+				<% selected_value = @book.author.present? ? @book.author.id : nil %>
+				<%= f.label "Autor" %>
+				<%= f.select :author_id, options_for_select(Library::Author.all.map{|author| [author.name, author.id]}.sort, selected_value), multiple: false, class:' form-control string optional' %>
+			</div>
+
+			<div class="col-md-4 col-sm-4 pb-4">
+        <% selected_value = @book.editorial.present? ? @book.editorial.id : nil %>
+        <%= f.label "Editorial" %>
+        <%= f.select :editorial_id, options_for_select(Library::Editorial.all.map{|editorial| [editorial.name, editorial.id]}.sort, selected_value), multiple: false, class:' form-control string optional' %>
+      </div>
+
+      <div class="col-md-4">
+        <%= f.input :category, placeholder: 'Ingrese categoría', input_html: { class: "border border-dark" } %>
+      </div>
+
+			<div class="col-md-3">
+				<%= f.input :edition, placeholder: 'Ingrese el número de edición aquí', input_html: { class: "border border-dark" } %>
+			</div>
+			
+			<div class="col-md-3">
+				<%= f.input :publication_year, placeholder: 'Ingrese el año de publicación aquí', input_html: { class: "border border-dark" } %>
+      </div>
+      
+      <div class="col-md-3">
+        <%= f.input :stock, placeholder: 'Ingrese unidades disponibles', input_html: { class: "border border-dark" } %>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-md-center p-2 wrapper">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <%= image_tag @book.image.variant(resize: '150x150>') if @book.image.attached? %>
+          <%= f.input :image, input_html: { accept:'image/*' } %>
+        </div>
+        <div class="col-md-12">
+          <br>
+          <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get "products/approved_index", to: "products#approved_index"
     get "menus/testing", to: "menus#testing"
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
+    resources :books
     resources :benefit_groups, only: [:show, :index]
     resources :term_relationships
     resources :comments
@@ -49,7 +50,6 @@ Rails.application.routes.draw do
     end
     resources :term_types
     resources :users
-    resources :books
 
     root to: "posts#index"
   end
