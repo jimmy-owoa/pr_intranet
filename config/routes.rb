@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     end
     resources :term_types
     resources :users
+    resources :books
+
     root to: "posts#index"
   end
   namespace :frontend, :defaults => { :format => "json" } do
