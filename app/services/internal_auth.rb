@@ -8,7 +8,7 @@ class InternalAuth
   def self.decrypt(data, cipher_key = nil)
     cipher = OpenSSL::Cipher.new "aes-256-cbc"
     cipher.decrypt
-    cipher.key = cipher_key || Rails.application.secrets.cipher_key
+    cipher.key = cipher_key || "EB5932580C920015B65B4B308FF7F352"
     unescaped = CGI.unescape(data) # Se le quita el urlencode
     # se encuentran los datos el IV y del dato encriptado separados por &
     base64_data = unescaped.split("&")
@@ -22,16 +22,18 @@ class InternalAuth
     return decrypted[0..(decrypted.length - 11)]
   end
 
-  def self.encrypt(raw_user_cod)
+  def self.encrypt(raw_user_cod, cipher_key = nil)
     timestamp = Time.now.utc.to_i
-    secret = "EB5932580C920015B65B4B308FF7F352"
-    cipher = OpenSSL::Cipher.new "aes-256-cbc"
+    secret = cipher_key || "EB5932580C920015B65B4B308FF7F352"
+    cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
     iv = cipher.random_iv
     cipher.encrypt
     cipher.key = secret
-    enctryped_data = cipher.update(raw_user_cod + timestamp.to_s)
-    enctryped_data << cipher.final
-    return CGI.escape(Base64.strict_encode64(iv.to_s + enctryped_data))
+    encrypted_data = cipher.update(raw_user_cod + timestamp.to_s)
+    encrypted_data << cipher.final
+    return CGI.escape(Base64.strict_encode64(iv.to_s) + "&" + Base64.strict_encode64(encrypted_data)) # Se retorna agregando '&' para separar iv con la data en el decrypt
   end
   # en rails hay que llamar al otro servicio
 end
+
+# return CGI.escape(Base64.strict_encode64(iv.to_s) + "&" + Base64.strict_encode64(enctryped_data))
