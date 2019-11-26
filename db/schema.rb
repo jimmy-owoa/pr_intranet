@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_203052) do
+ActiveRecord::Schema.define(version: 2019_11_26_124522) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -477,6 +477,13 @@ ActiveRecord::Schema.define(version: 2019_11_25_203052) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "library_book_editorial_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "editorial_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "library_books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
     t.integer "edition"
@@ -489,11 +496,6 @@ ActiveRecord::Schema.define(version: 2019_11_25_203052) do
     t.datetime "updated_at", null: false
     t.bigint "author_id"
     t.index ["author_id"], name: "index_library_books_on_author_id"
-  end
-
-  create_table "library_books_editorials", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "library_book_id", null: false
-    t.bigint "library_editorial_id", null: false
   end
 
   create_table "library_editorials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
