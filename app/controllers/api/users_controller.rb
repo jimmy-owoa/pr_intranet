@@ -28,7 +28,7 @@ module Api
     private
 
     def set_user_data
-      office_address = params[:office_address].gsub(";", ",")
+      office_address = params[:office_address].gsub(";", ",") if params[:office_address].present?
       office_commune = params[:office_commune]
       office_city = params[:office_city]
       office_region = params[:office_region]
@@ -40,7 +40,7 @@ module Api
       commune = Location::Commune.where(name: office_commune, city_id: city.id).first_or_create
       office = Company::Office.where(address: office_address, commune_id: commune.id).first_or_create
 
-      parent = General::User.where(legal_number: params[:parent_legal_number][0...-1], legal_number_verification: params[:parent_legal_number][-1]).first
+      parent = General::User.where(legal_number: params[:parent_legal_number][0...-1], legal_number_verification: params[:parent_legal_number][-1]).first if params[:parent_legal_number].present?
       benefit_group_id = General::BenefitGroup.find_by_name(params[:benefit_group_name]).try(:id)
       cost_center = Company::CostCenter.where(name: params[:cost_center]).first_or_create
       management = Company::Management.where(name: params[:management]).first_or_create

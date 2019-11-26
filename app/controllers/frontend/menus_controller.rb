@@ -114,11 +114,16 @@ module Frontend
       data_indicators = []
       data_indicators = get_data_indicators(indicator, today)
       if user.legal_number.present?
-        benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
+        uri = URI.parse("https://misecurity-qa.exa.cl/json_menus/show")
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+
         encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
-        exa_menu_url = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show/#{encrypted_user}")
-        exa_menu_response = Net::HTTP.get_response exa_menu_url
-        exa_menu = JSON.parse(exa_menu_response.body) if exa_menu_response.code.to_i < 400
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+        binding.pry
+        benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
+
         @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
         if exa_menu.present? && exa_menu["manage"].present?
           @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
