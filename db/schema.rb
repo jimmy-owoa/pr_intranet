@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_124204) do
+ActiveRecord::Schema.define(version: 2019_11_27_192104) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -353,6 +353,14 @@ ActiveRecord::Schema.define(version: 2019_11_18_124204) do
     t.index ["term_type_id"], name: "index_general_terms_on_term_type_id"
   end
 
+  create_table "general_user_attributes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "attribute_name"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_user_employees", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -431,6 +439,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_124204) do
     t.integer "company_id", default: 0
     t.string "auth_token"
     t.string "favorite_name", default: ""
+    t.string "referrer"
     t.index ["cost_center_id"], name: "index_general_users_on_cost_center_id"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["management_id"], name: "index_general_users_on_management_id"
@@ -469,6 +478,41 @@ ActiveRecord::Schema.define(version: 2019_11_18_124204) do
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
     t.integer "uv_index"
+  end
+
+  create_table "library_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "library_book_editorial_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "editorial_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "library_books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.string "category"
+    t.integer "edition"
+    t.integer "publication_year"
+    t.integer "stock"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "author_id"
+    t.bigint "editorial_id"
+    t.index ["author_id"], name: "index_library_books_on_author_id"
+    t.index ["editorial_id"], name: "index_library_books_on_editorial_id"
+  end
+
+  create_table "library_editorials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "location_cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

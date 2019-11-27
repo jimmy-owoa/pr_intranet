@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     get "azure_auth", to: "frontend#azure_auth"
     get "current_user_azure", to: "frontend#current_user_azure"
     get "products/user_products", to: "products#user_products"
+    resources :library
     resources :galleries
     resources :weather
     resources :users, only: [:update, :show] do

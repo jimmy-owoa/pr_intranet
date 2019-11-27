@@ -20,7 +20,7 @@
       <%= f.label 'Clasificación Empleado' %>
       <%= select_tag :employee_classifications, options_for_select(@employee_classifications, @selected_employee_classifications), multiple: true, class:' form-control string optional' %>
     </div>
-    <!--
+    
     <div class="col-4">
       <%= f.label 'Región' %>
       <%= select_tag :regions, options_for_select(@regions.collect {|region| [region[1], region[0]]}, @selected_regions), multiple: true, class:' form-control string', id: 'regions' %>
@@ -40,7 +40,7 @@
     <div class="col-4">
       <%= f.label 'Centro de Costos' %>
       <%= select_tag :cost_centers, options_for_select(@cost_centers.collect {|cost_center| [cost_center[1], cost_center[0]]}, @selected_cost_centers), multiple: true, class:' form-control string', id: 'cost_centers' %>
-    </div> -->
+    </div>
     <div class="col-4">
       <%= f.label 'Clasificaciones de puesto' %>
       <%= select_tag :position_classifications, options_for_select(@position_classifications, @selected_position_classifications), multiple: true, class:' form-control string'%>

@@ -25,6 +25,7 @@ class General::User < ApplicationRecord
   has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :user_id, inverse_of: :user
   has_many :user_messages, class_name: "General::UserMessage", foreign_key: :user_id, inverse_of: :user
   has_many :profiles, through: :user_profiles
+  has_many :user_attributes, class_name: "General::UserAttribute", foreign_key: :user_id, inverse_of: :user
 
   belongs_to :location, class_name: "General::Location", inverse_of: :users, optional: true
   belongs_to :benefit_group, optional: true, class_name: "General::BenefitGroup"
