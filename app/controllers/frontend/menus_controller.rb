@@ -121,7 +121,6 @@ module Frontend
         encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
         exa_menu = JSON.parse(response.body) if response.code.to_i < 400
-        binding.pry
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
 
         @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
