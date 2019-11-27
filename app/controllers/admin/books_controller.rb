@@ -12,12 +12,12 @@ module Admin
 
 		def new
 			@book = Library::Book.new
-			select_author_editorial
 		end
 
 		def create
 			@book = Library::Book.new(book_params)
-      respond_to do |format|
+			
+			respond_to do |format|
 				if @book.save
           format.html { redirect_to admin_book_path(@book), notice: "Libro fue creado con éxito." }
           format.json { render :show, status: :created, location: @book }
@@ -29,7 +29,6 @@ module Admin
 		end
 
 		def edit
-			select_author_editorial
 		end
 
 		def update
