@@ -41,8 +41,12 @@
     <div class="card text-md-center p-2 wrapper">
       <div class="form-group row">
         <div class="col-md-12">
-          <%= image_tag @book.image.variant(resize: '150x150>') if @book.image.attached? %>
-          <%= f.input :image, input_html: { accept:'image/*' } %>
+          <% if @book.image.attached? %>
+            <%= image_tag @book.image.variant(resize: '150x150>') %>
+            <%= f.input :image, input_html: { accept:'image/*' } %>
+          <% else %>
+            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+          <% end %>
         </div>
         <div class="col-md-12">
           <br>
