@@ -17,6 +17,12 @@ module Frontend
         data << {
           id: book.id,
           title: book.title,
+          edition: book.edition,
+          publication_year: book.publication_year
+          stock: book.stock,
+          rating: book.rating,
+          author: book.author.name,
+          editorial: book.editorial.name,
           category: book.category,
           url: root_url + "admin/books/" + "#{book.id}" + "/edit",
           description: book.description,
@@ -41,6 +47,12 @@ module Frontend
       data << {
         id: book.id,
         title: book.title,
+        edition: book.edition,
+        publication_year: book.publication_year
+        stock: book.stock,
+        rating: book.rating,
+        author: book.author.name,
+        editorial: book.editorial.name,
         category: book.category,
         url: root_url + "admin/books/" + "#{book.id}" + "/edit",
         description: book.description,
