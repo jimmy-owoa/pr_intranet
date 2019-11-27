@@ -20,7 +20,8 @@ class Survey::Survey < ApplicationRecord
   SURVEY_TYPES = [["Encuesta", "survey"], ["Formulario", "form"]]
   STATUS = ["Publicado", "Borrador", "Programado"]
 
-  scope :published_surveys, -> { where(status: "Publicado").order(published_at: :desc) }
+  # scope :published_surveys, -> { where(status: "Publicado").order(published_at: :desc) }
+  scope :published_surveys, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   def set_status
     self.status ||= "Publicado"
