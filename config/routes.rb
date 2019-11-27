@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     get "menus/testing", to: "menus#testing"
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
     resources :books
+    resources :authors
+    resources :editorials
     resources :benefit_groups, only: [:show, :index]
     resources :term_relationships
     resources :comments

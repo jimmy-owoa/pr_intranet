@@ -1,0 +1,7 @@
+<%- model_class = Library::Author -%>
+<section class="section">
+  <h1 class="section-header">Editar Libro: <%= @author.name %></h1>
+  <%= simple_form_for @author, as: 'author', url: {action: :update}, :html => { :class => "form" } do |f| %>
+    <%= render :partial => 'form', locals: {f: f} %>
+  <% end %>
+</section>
