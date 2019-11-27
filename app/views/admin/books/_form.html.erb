@@ -9,13 +9,13 @@
 			<div class="col-md-4 col-sm-4 pb-4">
 				<% selected_value = @book.author.present? ? @book.author.id : nil %>
 				<%= f.label "Autor" %>
-				<%= f.select :author_id, options_for_select(Library::Author.all.map{|author| [author.name, author.id]}.sort, selected_value), multiple: false, class:' form-control string optional' %>
+				<%= f.select :author_id, options_for_select(@select_author.sort, selected_value), include_blank: true, multiple: false, class:' form-control string optional' %>
 			</div>
 
 			<div class="col-md-4 col-sm-4 pb-4">
         <% selected_value = @book.editorial.present? ? @book.editorial.id : nil %>
         <%= f.label "Editorial" %>
-        <%= f.select :editorial_id, options_for_select(Library::Editorial.all.map{|editorial| [editorial.name, editorial.id]}.sort, selected_value), multiple: false, class:' form-control string optional' %>
+        <%= f.select :editorial_id, options_for_select(@select_editorial.sort, selected_value), include_blank: true, multiple: false, class:' form-control string optional' %>
       </div>
 
       <div class="col-md-4">

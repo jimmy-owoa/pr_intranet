@@ -12,6 +12,7 @@ module Admin
 
 		def new
 			@book = Library::Book.new
+			select_author_editorial
 		end
 
 		def create
@@ -28,6 +29,7 @@ module Admin
 		end
 
 		def edit
+			select_author_editorial
 		end
 
 		def update
@@ -48,6 +50,11 @@ module Admin
         format.html { redirect_to admin_books_path, notice: "Libro fue eliminado con éxito." }
         format.json { head :no_content }
       end
+		end
+
+		def select_author_editorial
+			@select_editorial = Library::Editorial.all.map{|editorial| [editorial.name, editorial.id]}
+			@select_author = Library::Author.all.map{|author| [author.name, author.id]}
 		end
 
 		private
