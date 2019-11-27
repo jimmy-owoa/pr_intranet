@@ -34,6 +34,11 @@
         <%= f.input :stock, placeholder: 'Ingrese unidades disponibles', input_html: { class: "border border-dark" } %>
       </div>
 
+      <div class="col-md-12" style="margin-bottom: 20px;">
+        <%= f.label "Descripción" %>
+        <%= f.text_area :description, class: 'tinymce' %>
+        <%= tinymce height: "300", :relative_urls => false  %>
+      </div>
 
     </div>
   </div>

@@ -18,6 +18,13 @@
 			</div>
 		</div>
 		<br />
+		<div class="row">
+		  <div class="col-sm-12">
+			<div class="card post_card">
+			  <%= raw @book.description %>
+			</div>
+		  </div>
+		</div>
 
 		<div class="text-center">
 			<%= link_to t('.back', :default => t("helpers.links.back")), admin_books_path, :class => 'btn btn-primary btn-sm'  %>

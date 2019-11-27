@@ -3,7 +3,8 @@ module Admin
 		before_action :set_book, only: [:show, :edit, :update, :destroy]
 
 		def index
-			@books = Library::Book.all
+			page = params[:page]
+			@books = Library::Book.all.page(page).per(10)
 		end
 
 		def show
@@ -56,7 +57,7 @@ module Admin
 		end
 		
 		def book_params
-			params.require(:book).permit(:title, :edition, :image, :stock, :rating, :category, :edition_date, :publication_year, :author_id, :editorial_id)
+			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category, :edition_date, :publication_year, :author_id, :editorial_id)
 		end
 	end
 end

@@ -33,7 +33,10 @@
             </tr>
           <% end %>
         </tbody>
-			</table>
+      </table>
+      <div class="row justify-content-center">
+        <%= will_paginate @books, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
     </div>
   </div>
 </section>
