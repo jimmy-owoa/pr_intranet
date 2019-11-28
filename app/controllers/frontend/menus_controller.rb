@@ -114,19 +114,14 @@ module Frontend
       data_indicators = []
       data_indicators = get_data_indicators(indicator, today)
       if user.legal_number.present?
-        uri = URI.parse("https://misecurity-qa2.exa.cl/json_menus/show")
+        uri = URI.parse("https://misecurity-qa.exa.cl/json_menus/show")
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
+
         encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
         exa_menu = JSON.parse(response.body) if response.code.to_i < 400
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
-
-        Rails.logger.info "%%%%%%%%%%% response de menus %%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%% #{exa_menu} %%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%% #{encrypted_user} %%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%% #{response} %%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%% #{uri} %%%%%%%%%%%%%"
 
         @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
         if exa_menu.present? && exa_menu["manage"].present?

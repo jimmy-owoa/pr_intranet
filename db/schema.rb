@@ -441,6 +441,7 @@ ActiveRecord::Schema.define(version: 2019_11_28_141823) do
     t.integer "company_id", default: 0
     t.string "auth_token"
     t.string "favorite_name", default: ""
+    t.string "referrer"
     t.index ["cost_center_id"], name: "index_general_users_on_cost_center_id"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["management_id"], name: "index_general_users_on_management_id"

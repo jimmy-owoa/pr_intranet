@@ -122,6 +122,7 @@ Rails.application.routes.draw do
   end
   namespace :api, :defaults => { :format => "json" } do
     post "v1/users/create", to: "users#create"
+    post "v1/users/update", to: "users#update"
     post "v1/benefits/create", to: "benefits#create"
     get "v1/users/show", to: "users#show", param: :_rut
     get "v1/users", to: "users#index"

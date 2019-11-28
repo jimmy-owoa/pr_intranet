@@ -128,6 +128,15 @@ $(document).on("turbolinks:load", function () {
       previous: "fa fa-chevron-circle-left"
     },
     format: "DD/MM/YYYY HH:mm",
+    buttons: {showClose: true },
     autoclose: true
+  });
+
+  // script que realiza el cierre de datetimepicker cuando se selecciona un campo exterior
+  $(document).on('mouseup touchstart', function (e) {
+    var container = $(".bootstrap-datetimepicker-widget");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        container.hide();
+      }
   });
 });
