@@ -107,7 +107,7 @@ module Frontend
       items = []
 
       product_images = params[:myProduct] == "true" ? product.images : product.permitted_images
-      
+
       product_images.each do |image|
         if image.present?
           items << {
@@ -116,7 +116,7 @@ module Frontend
           }
         end
       end
-   
+
       data << {
         id: product.id,
         name: product.name,

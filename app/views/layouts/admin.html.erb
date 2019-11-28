@@ -68,9 +68,16 @@
             </div>
             <ul class="sidebar-menu">
               <li class="menu-header">Administrador</li>
-              <li><a href="https://misecurity.elmejorlugarparatrabajar.cl/#/" target="_blank"><i class="fas fa-eye"></i>Ver Intranet</a></li>
+              <li>
+                <a href="https://misecurity.elmejorlugarparatrabajar.cl/#/" target="_blank">
+                  <i class="fas fa-eye"></i>Ver Intranet
+                </a>
+              </li>
+
+              <!-- MODULOS -->
               <li class="menu-header">Módulos</li>
               <% if current_user.has_role? :super_admin or current_user.has_role? :post_admin %>
+                <!-- Noticias -->
                 <li>
                   <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i><span>Noticias <b>↓</b></span></a>
                   <ul class="menu-dropdown">
@@ -78,8 +85,11 @@
                     <li><a href="<%= new_admin_post_path %>"><i class="fas fa-file"></i>Crear nueva</a></li>
                   </ul>
                 </li>
+                <!-- /Noticias -->
               <% end %>
+
               <% if current_user.has_role? :super_admin %>
+                <!-- Medios -->
                 <li>
                   <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios <b>↓</b></span></a>
                   <ul class="menu-dropdown">
@@ -89,6 +99,8 @@
                     <li><a href="<%= admin_files_path %>"><i class="fas fa-folder"></i>Archivos</a></li>
                   </ul>
                 </li>
+                <!-- /Medios-->
+                <!-- Formularios -->
                 <li>
                   <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span style="font-size: 12px;">Formularios <b style="font-size: 14px;">↓</b></span></a>
                   <ul class="menu-dropdown">
@@ -97,6 +109,19 @@
                     <li><a href="<%= new_admin_survey_path %>"><i class="fas fa-plus-circle"></i>Crear nueva</a></li>
                   </ul>
                 </li>
+                <!-- /Formularios-->
+                <!-- Biblioteca -->
+                <li>
+                  <a href="#" class="has-dropdown"><i class="fas fa-book"></i><span style="font-size: 12px;">Biblioteca <b style="font-size: 14px;">↓</b></span></a>
+                  <ul class="menu-dropdown">
+                    <li><a href="<%= admin_books_path %>"><i class="fas fa-list"></i>Listado de Libros</a></li>
+                    <li><a href="<%= admin_authors_path %>"><i class="fas fa-list"></i>Autores</a></li>
+                    <li><a href="<%= admin_editorials_path %>"><i class="fas fa-list"></i>Editoriales</a></li>
+                    <li><a href="<%= new_admin_book_path %>"><i class="fas fa-plus-circle"></i>Crear nuevo Libro</a></li>
+                  </ul>
+                </li>
+                <!-- /Biblioteca -->
+                <!-- Edición Home -->
                 <li class="dropdown">
                   <a href="#" class="nav-link has-dropdown"><i class="fas fa-home"></i><span>Edición Home <b>↓</b></span></a>
                   <ul class="menu-dropdown">
@@ -104,19 +129,32 @@
                     <li><a href="<%= admin_sections_path %>"><i class="fas fa-puzzle-piece"></i>Secciones</a></li>
                   </ul>
                 </li>
+                <!-- /Edición Home -->
+                <!-- Mensajes -->
                 <li>
-                  <a href="<%= admin_messages_path %>"><i class="far fa-comment-alt"></i>Mensajes</a></li>
-              </li>
-              <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Grupos</a></li>
+                  <a href="<%= admin_messages_path %>">
+                    <i class="far fa-comment-alt"></i>Mensajes
+                  </a>
+                </li>
+                <!-- /Mensajes -->
+                <!-- Grupos -->
+                <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Grupos</a></li>
+                <!-- /Grupos -->
+
               <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
                 <li class="menu-header">Beneficios</li>
+                <!-- Beneficios-->
                 <li>
-                  <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a></li>
-              </li>
-              <li>
-                <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a></li>
-            </li>
-          <% end %>
+                  <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a>
+                </li>
+                <!-- /Beneficios-->
+                <!-- Grupos Beneficiarios -->
+                <li>
+                  <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a>
+                </li>
+                <!-- /Grupos Beneficiarios -->
+              <% end %>
+
           <li class="menu-header">Marketplace</li>
           <li class="dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios <b>↓</b></span></a>
@@ -158,6 +196,7 @@
 <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
+
 <style>
   .fade:not(.show) {
     opacity: 1 !important;

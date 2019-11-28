@@ -11,6 +11,9 @@ Rails.application.routes.draw do
     get "products/approved_index", to: "products#approved_index"
     get "menus/testing", to: "menus#testing"
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
+    resources :books
+    resources :authors
+    resources :editorials
     resources :benefit_groups, only: [:show, :index]
     resources :term_relationships
     resources :comments
@@ -49,6 +52,7 @@ Rails.application.routes.draw do
     end
     resources :term_types
     resources :users
+
     root to: "posts#index"
   end
   namespace :frontend, :defaults => { :format => "json" } do
@@ -73,6 +77,8 @@ Rails.application.routes.draw do
     get "azure_auth", to: "frontend#azure_auth"
     get "current_user_azure", to: "frontend#current_user_azure"
     get "products/user_products", to: "products#user_products"
+    resources :library
+    post "library/create_request_book", to: "library#create_request_book"
     resources :galleries
     resources :weather
     resources :users, only: [:update, :show] do

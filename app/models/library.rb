@@ -1,5 +1,5 @@
-module General
+module Library
   def self.table_name_prefix
-    'general_'
+    'library_'
   end
 end

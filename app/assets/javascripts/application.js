@@ -40,6 +40,7 @@
 //= require admin/terms
 //= require admin/surveys
 //= require admin/benefit_groups
+//= require admin/books
 //= require owl.carousel
 //= require clipboard
 //= require jquery.minicolors

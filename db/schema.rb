@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_192104) do
+ActiveRecord::Schema.define(version: 2019_11_28_141823) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -353,10 +353,12 @@ ActiveRecord::Schema.define(version: 2019_11_27_192104) do
     t.index ["term_type_id"], name: "index_general_terms_on_term_type_id"
   end
 
-  create_table "general_user_attributes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "general_user_book_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
-    t.string "attribute_name"
-    t.string "value"
+    t.integer "book_id"
+    t.integer "expiration"
+    t.boolean "is_expired", default: false
+    t.date "request_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -482,13 +484,6 @@ ActiveRecord::Schema.define(version: 2019_11_27_192104) do
 
   create_table "library_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "library_book_editorial_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "book_id"
-    t.integer "editorial_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
