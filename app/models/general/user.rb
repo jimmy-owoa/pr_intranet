@@ -37,6 +37,10 @@ class General::User < ApplicationRecord
   has_many :language_levels, through: :user_languages
   has_many :languages, through: :user_languages
 
+  has_many :user_educations, class_name: "PersonalData::UserEducation", foreign_key: :user_id
+  has_many :education_institutions, through: :user_educations
+  has_many :users, through: :user_educations
+
   accepts_nested_attributes_for :terms
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, omniauth_providers: [:azure_oauth2]

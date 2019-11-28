@@ -1,4 +1,5 @@
 class PersonalData::EducationState < ApplicationRecord
-  belongs_to :education_institution, class_name: "PersonalData::EducationInstitution", foreign_key: :education_institution_id
-  belongs_to :user, class_name: "General::User", foreign_key: :user_id
+  has_many :user_educations, class_name: "PersonalData::UserEducation", foreign_key: :education_state_id
+  has_many :education_institutions, through: :user_educations
+  has_many :users, through: :user_educations
 end
