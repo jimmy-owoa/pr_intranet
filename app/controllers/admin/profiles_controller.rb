@@ -79,13 +79,13 @@ module Admin
 
     def set_profile_attributes
       set_class_name_value(params[:regions], "location_region")
-      set_class_name_value(params[:benefit_groups], "general_benefit_group")
-      set_class_name_value(params[:companies], "company")
-      set_class_name_value(params[:managements], "company_management")
+      set_class_name_value(params[:benefit_groups], "general_benefit_group", "benefit_group_id")
+      set_class_name_value(params[:companies], "company", "company_id")
+      set_class_name_value(params[:managements], "company_management", "management_id")
       set_class_name_value(params[:genders], "gender")
       set_class_name_value(params[:is_boss], "is_boss")
       set_class_name_value(params[:employee_classifications], "employee_classification")
-      set_class_name_value(params[:cost_centers], "company_cost_center")
+      set_class_name_value(params[:cost_centers], "company_cost_center", "cost_center_id")
       set_class_name_value(params[:position_classifications], "position_classification")
       set_class_name_value(params[:syndicate_members], "syndicate_member")
       set_class_name_value(params[:contract_types], "contract_type")
@@ -130,17 +130,29 @@ module Admin
       @selected_has_children = @profile.profile_attributes.where(class_name: "has_children").pluck(:value)
     end
 
-    def set_class_name_value(values, class_name)
+    def set_class_name_value(values, class_name, model_id = nil)
       if values
         #Update
         values.each do |value|
           General::ProfileAttribute.where(class_name: class_name, profile_id: @profile.id).where.not(value: value).each do |del|
             del.delete
+            if model_id.present?
+              General::User.where.not("#{model_id}": value).each do |user|
+                General::UserAttribute.where(attribute_name: class_name, user_id: user.id).where.not(value: value).each do |ua_del|
+                  ua_del.delete
+                end
+              end
+            end
           end
         end
         #Create
         values.each do |value|
           General::ProfileAttribute.where(class_name: class_name, value: value, profile_id: @profile.id).first_or_create
+          if model_id.present?
+            General::User.where("#{model_id}": value).each do |user|
+              General::UserAttribute.where(attribute_name: class_name, value: value, user_id: user.id).first_or_create
+            end
+          end
         end
       end
     end
