@@ -1,5 +1,5 @@
 class DropTables < ActiveRecord::Migration[5.2]
-  def up
+  def change
     drop_table :personal_data_education_institutions
     drop_table :personal_data_education_states
     drop_table :personal_data_family_members
