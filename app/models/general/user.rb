@@ -41,6 +41,8 @@ class General::User < ApplicationRecord
   has_many :education_institutions, through: :user_educations
   has_many :users, through: :user_educations
 
+  has_many :family_members, class_name: "PersonalData::FamilyMember"
+
   accepts_nested_attributes_for :terms
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, omniauth_providers: [:azure_oauth2]
