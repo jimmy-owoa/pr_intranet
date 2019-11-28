@@ -1,11 +1,9 @@
 module Frontend
-  class BooksController < FrontendController
-    before_action :set_book, only: [:show, :destroy, :edit, :update]
-
+  class LibraryController < FrontendController
     def index
       page = params[:page]
       category = params[:category]
-      if category == "todos"
+      if !category.present?
         books = Library::Book.all
       else
         books = Library::Book.where(category: category)
@@ -18,11 +16,11 @@ module Frontend
           id: book.id,
           title: book.title,
           edition: book.edition,
-          publication_year: book.publication_year
+          publication_year: book.publication_year,
           stock: book.stock,
           rating: book.rating,
           author: book.author.name,
-          editorial: book.editorial.name,
+          editorial: book.editorial,
           category: book.category,
           url: root_url + "admin/books/" + "#{book.id}" + "/edit",
           description: book.description,
@@ -40,7 +38,7 @@ module Frontend
       end
     end
 
-    def book
+    def show
       id = params[:id].present? ? params[:id] : nil
       book = Library::Book.find(id)
       data = []
@@ -48,11 +46,11 @@ module Frontend
         id: book.id,
         title: book.title,
         edition: book.edition,
-        publication_year: book.publication_year
+        publication_year: book.publication_year,
         stock: book.stock,
         rating: book.rating,
         author: book.author.name,
-        editorial: book.editorial.name,
+        editorial: book.editorial,
         category: book.category,
         url: root_url + "admin/books/" + "#{book.id}" + "/edit",
         description: book.description,
@@ -64,7 +62,7 @@ module Frontend
         ],
       }
       respond_to do |format|
-        format.json { render json: data }
+        format.json { render json: data[0] }
         format.js
       end
     end
