@@ -33,6 +33,9 @@ class General::User < ApplicationRecord
   belongs_to :management, class_name: "Company::Management", inverse_of: :users, optional: true
   belongs_to :company, class_name: "Company::Company", inverse_of: :users, optional: true
 
+  has_many :user_book_relationships, class_name: "General::UserBookRelationship", foreign_key: :user_id
+  has_many :books, -> { distinct }, through: :user_book_relationships
+
   accepts_nested_attributes_for :terms
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, omniauth_providers: [:azure_oauth2]

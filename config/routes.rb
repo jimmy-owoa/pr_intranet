@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     get "current_user_azure", to: "frontend#current_user_azure"
     get "products/user_products", to: "products#user_products"
     resources :library
+    post "library/create_request_book", to: "library#create_request_book"
     resources :galleries
     resources :weather
     resources :users, only: [:update, :show] do

@@ -1,5 +1,7 @@
 module Frontend
   class LibraryController < FrontendController
+    skip_before_action :verify_authenticity_token, only: [:create_request_book]
+
     def index
       page = params[:page]
       category = params[:category]
@@ -66,6 +68,19 @@ module Frontend
         format.js
       end
     end
+
+    def create_request_book
+      user_id = @request_user.id
+      book_id = params[:book_id]
+
+      @request_book = General::UserBookRelationship.new(user_id: user_id, book_id: book_id, request_date: Date.today, expiration: 30)
+
+      if @request_book.save
+        render json: @request_book, status: 200
+      else
+        render json: @request_book.errors, status: :unprocessable_entity
+      end
+    end  
 
     private
 

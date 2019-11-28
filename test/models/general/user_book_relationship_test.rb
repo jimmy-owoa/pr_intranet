@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Library::BookEditorialRelationshipTest < ActiveSupport::TestCase
+class General::UserBookRelationshipTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
