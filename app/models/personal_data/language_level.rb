@@ -1,4 +1,5 @@
 class PersonalData::LanguageLevel < ApplicationRecord
-  belongs_to :user, class_name: "General::User", foreign_key: :user_id
-  belongs_to :language, class_name: "PersonalData::Language", foreign_key: :language_id
+  has_many :user_languages, class_name: "PersonalData::UserLanguage", foreign_key: :language_level_id
+  has_many :languages, through: :user_languages
+  has_many :users, through: :user_languages
 end
