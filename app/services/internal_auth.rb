@@ -37,8 +37,9 @@ class InternalAuth
 
     encrypted_data = cipher.update(raw_user_cod + timestamp.to_s)
     encrypted_data << cipher.final
-
-    return CGI.escape(Base64.strict_encode64(iv.to_s + encrypted_data))
+    data = CGI.escape(Base64.strict_encode64(iv.to_s + encrypted_data))
+    return encrypt(raw_user_cod) if "%2B".in?(data)
+    data
   end
   # en rails hay que llamar al otro servicio
 end
