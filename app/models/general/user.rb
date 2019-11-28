@@ -35,6 +35,15 @@ class General::User < ApplicationRecord
 
   has_many :user_book_relationships, class_name: "General::UserBookRelationship", foreign_key: :user_id
   has_many :books, -> { distinct }, through: :user_book_relationships
+  has_many :user_languages, class_name: "PersonalData::UserLanguage", foreign_key: :user_id
+  has_many :language_levels, through: :user_languages
+  has_many :languages, through: :user_languages
+
+  has_many :user_educations, class_name: "PersonalData::UserEducation", foreign_key: :user_id
+  has_many :education_institutions, through: :user_educations
+  has_many :users, through: :user_educations
+
+  has_many :family_members, class_name: "PersonalData::FamilyMember"
 
   accepts_nested_attributes_for :terms
 

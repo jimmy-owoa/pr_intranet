@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_28_141823) do
-
+ActiveRecord::Schema.define(version: 2019_11_28_202640) do
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -622,21 +621,16 @@ ActiveRecord::Schema.define(version: 2019_11_28_141823) do
   end
 
   create_table "personal_data_education_states", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "state"
-    t.bigint "education_institution_id"
-    t.bigint "user_id"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_institution_id"], name: "index_personal_data_education_states_on_education_institution_id"
-    t.index ["user_id"], name: "index_personal_data_education_states_on_user_id"
   end
 
   create_table "personal_data_family_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.string "lastname"
     t.string "relation"
-    t.date "birthday"
     t.string "gender"
+    t.date "birthdate"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -652,19 +646,38 @@ ActiveRecord::Schema.define(version: 2019_11_28_141823) do
   end
 
   create_table "personal_data_language_levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "language_id"
-    t.string "level"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["language_id"], name: "index_personal_data_language_levels_on_language_id"
-    t.index ["user_id"], name: "index_personal_data_language_levels_on_user_id"
   end
 
   create_table "personal_data_languages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "personal_data_user_educations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "education_state_id"
+    t.bigint "education_institution_id"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_institution_id"], name: "index_personal_data_user_educations_on_education_institution_id"
+    t.index ["education_state_id"], name: "index_personal_data_user_educations_on_education_state_id"
+    t.index ["user_id"], name: "index_personal_data_user_educations_on_user_id"
+  end
+
+  create_table "personal_data_user_languages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "language_id"
+    t.bigint "language_level_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_personal_data_user_languages_on_language_id"
+    t.index ["language_level_id"], name: "index_personal_data_user_languages_on_language_level_id"
+    t.index ["user_id"], name: "index_personal_data_user_languages_on_user_id"
   end
 
   create_table "religion_gospels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
