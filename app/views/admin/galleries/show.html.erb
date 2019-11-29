@@ -20,6 +20,9 @@
                   <figcaption>
                     <%= gal.name %>
                   </figcaption>
+
+                  <%= link_to t('.edit', :default => t("helpers.messages.edit")),
+                  edit_admin_attachment_path(gal), :class => 'btn btn-primary btn-xs' %>
                 </figure>
               </div>
             <% end %> 
