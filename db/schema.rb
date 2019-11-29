@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2019_11_28_202640) do
+
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -352,6 +353,14 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
     t.index ["term_type_id"], name: "index_general_terms_on_term_type_id"
   end
 
+  create_table "general_user_attributes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "attribute_name"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "general_user_book_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_id"
@@ -483,6 +492,13 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
 
   create_table "library_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "library_book_editorial_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "editorial_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
