@@ -66,13 +66,6 @@ class General::User < ApplicationRecord
     "Puerto Montt",
   ]
 
-  def set_user_attributes
-    General::UserAttribute.where(user_id: self.id, attribute_name: "company", value: self.company_id).first_or_create if self.company_id.present?
-    General::UserAttribute.where(user_id: self.id, attribute_name: "benefit_group", value: self.benefit_group_id).first_or_create if self.benefit_group_id.present?
-    General::UserAttribute.where(user_id: self.id, attribute_name: "management", value: self.management_id).first_or_create if self.management_id.present?
-    General::UserAttribute.where(user_id: self.id, attribute_name: "cost_center", value: self.cost_center_id).first_or_create if self.cost_center_id.present?
-  end
-
   def search_data
     {
       full_name: "#{name} #{last_name}",
@@ -244,5 +237,25 @@ class General::User < ApplicationRecord
     data << birthday_messages.sample
     data << welcome_messages.sample
     return data.compact
+  end
+
+  private
+
+  def set_user_attributes
+    [
+      ["company", self.company_id],
+      ["benefit_group", self.benefit_group_id],
+      ["management", self.management_id],
+      ["cost_center", self.cost_center_id],
+      ["gender", self.gender],
+      ["schedule", self.schedule],
+    ].each do |attr|
+      set_data_attributes(attr[0], attr[1])
+    end
+  end
+
+  def set_data_attributes(attr_name, attr_value)
+    _deleted = General::UserAttribute.where(user_id: self.id, attribute_name: attr_name).where.not(value: attr_value).delete_all
+    return General::UserAttribute.where(user_id: self.id, attribute_name: attr_name, value: attr_value).first_or_create
   end
 end
