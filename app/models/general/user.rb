@@ -43,6 +43,8 @@ class General::User < ApplicationRecord
   before_update :image_resize
   before_create :only_admin?
 
+  after_save :set_user_attributes
+
   #scopes
   scope :show_birthday, -> { where(show_birthday: true) }
   scope :date_birth, -> { where("MONTH(birthday) = ?", Date.today.month) }
@@ -63,6 +65,13 @@ class General::User < ApplicationRecord
     "Temuco",
     "Puerto Montt",
   ]
+
+  def set_user_attributes
+    General::UserAttribute.where(user_id: self.id, attribute_name: "company", value: self.company_id).first_or_create if self.company_id.present?
+    General::UserAttribute.where(user_id: self.id, attribute_name: "benefit_group", value: self.benefit_group_id).first_or_create if self.benefit_group_id.present?
+    General::UserAttribute.where(user_id: self.id, attribute_name: "management", value: self.management_id).first_or_create if self.management_id.present?
+    General::UserAttribute.where(user_id: self.id, attribute_name: "cost_center", value: self.cost_center_id).first_or_create if self.cost_center_id.present?
+  end
 
   def search_data
     {
