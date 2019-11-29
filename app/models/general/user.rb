@@ -248,7 +248,12 @@ class General::User < ApplicationRecord
       ["management", self.management_id],
       ["cost_center", self.cost_center_id],
       ["gender", self.gender],
-      ["schedule", self.schedule],
+      ["position_classification", self.position_classification],
+      ["employee_classification", self.employee_classification],
+      ["is_boss", self.is_boss],
+      ["office_city", self.office.commune.city_id],
+      ["office_region", self.office.commune.city.region_id],
+      ["office_country", self.office.commune.city.region.country_id],
     ].each do |attr|
       set_data_attributes(attr[0], attr[1])
     end

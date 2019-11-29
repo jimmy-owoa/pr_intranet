@@ -1,15 +1,17 @@
 class General::Profile < ApplicationRecord
   class Classes
     ALL = [
-      "company",
-      "gender",
+      "benefit_group",
+      "office_city",
+      "is_boss",
       "cost_center",
       "management",
+      "company",
       "position_classification",
-      "is_boss",
-      "benefit_group",
       "employee_classification",
-      "",
+      "office_region",
+      "gender",
+      "office_country",
     ]
   end
 
@@ -56,19 +58,11 @@ class General::Profile < ApplicationRecord
     class_name = nil
     users_ids = General::User.all.pluck(:id)
     Classes::ALL.each do |class_name|
-      values = self.profile_attributes.where(class_name: class_name).pluck(:value)
-      users_ids = General::UserAttribute.where(user_id: users_ids).where(attribute_name: class_name, value: values).pluck(:user_id).uniq
+      if self.profile_attributes.where(class_name: class_name).present?
+        values = self.profile_attributes.where(class_name: class_name).pluck(:value)
+        users_ids = General::UserAttribute.where(user_id: users_ids).where(attribute_name: class_name, value: values).pluck(:user_id).uniq
+      end
     end
-
-    # self.profile_attributes.order(:class_name).each do |profile_attribute|
-    #   if profile_attribute.class_name != class_name && class_name.present?
-    #     query = set_query(class_name, query)
-    #   end
-    #   class_name = profile_attribute.class_name
-    # end
-
-    # # SOLO PARA EL ÚLTIMO CLASS NAME
-    # query = set_query(class_name, query)
 
     query_profile_users = General::User.where(id: users_ids)
     if query_profile_users.present?
