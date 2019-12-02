@@ -3,13 +3,13 @@
   <div class="form-group card p-4 col-md-8">
     <div class="row" >
       <div class="col-md-4">
-        <%= f.input :child_name, required: true, autofocus: true  %>
+        <%= f.input :child_name, label: "Nombre del recién nacido", required: true, autofocus: true  %>
       </div>
       <div class="col-md-4">
-        <%= f.input :child_lastname, required: true %>
+        <%= f.input :child_lastname, label: "Apellido Paterno", required: true %>
       </div>
       <div class="col-md-4">
-        <%= f.input :child_lastname2, required: true %>
+        <%= f.input :child_lastname2, label: "Apellido Materno", required: true %>
       </div>
       <div class="col-md-6">
         <% user = General::User.find(@birth.user_id) || nil %> 
@@ -17,7 +17,7 @@
           <%= f.label "Padre/Madre" %> <br>
           <%= user.full_name %>
         <% else %>
-          <%= f.input :user_id  %>
+          <%= f.input :user_id %>
         <% end %>
       </div>
       <div class="col-md-4 col-sm-4">
