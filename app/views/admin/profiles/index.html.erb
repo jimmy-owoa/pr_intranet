@@ -18,7 +18,7 @@
             <tr>
               <td><%= profile.id %></td>
               <td><%= profile.name %></td>
-              <td><%= profile.users.count %></td>
+              <td><%= General::UserProfile.where(profile_id: profile.id).count %></td>
               <td><%= custom_date_no_hour(profile.created_at) %></td>
               <td>
                 <%= link_to t('.show', :default => t("helpers.profiles.show")),

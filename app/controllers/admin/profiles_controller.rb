@@ -21,6 +21,9 @@ module Admin
       @roles = General::ProfileAttribute.where(profile: @profile, class_name: "rol").pluck(:value)
       @schedules = General::ProfileAttribute.where(profile: @profile, class_name: "schedule").pluck(:value)
       @has_children = General::ProfileAttribute.where(profile: @profile, class_name: "has_children").pluck(:value)
+      @office_countries = General::ProfileAttribute.where(profile: @profile, class_name: "office_country").pluck(:value)
+      @office_cities = General::ProfileAttribute.where(profile: @profile, class_name: "office_city").pluck(:value)
+      @office_regions = General::ProfileAttribute.where(profile: @profile, class_name: "office_region").pluck(:value)
     end
 
     def users_list
@@ -43,6 +46,7 @@ module Admin
       respond_to do |format|
         if @profile.save
           set_profile_attributes
+          @profile.set_users
           format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue creada con éxito." }
           format.json { render :show, status: :created, location: @profile }
           format.js
@@ -58,6 +62,7 @@ module Admin
       respond_to do |format|
         if @profile.update(profile_params)
           set_profile_attributes
+          @profile.set_users
           format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @profile }
         else
@@ -78,21 +83,23 @@ module Admin
     private
 
     def set_profile_attributes
-      set_class_name_value(params[:regions], "location_region")
-      set_class_name_value(params[:benefit_groups], "general_benefit_group")
+      set_class_name_value(params[:regions], "region")
+      set_class_name_value(params[:benefit_groups], "benefit_group")
       set_class_name_value(params[:companies], "company")
-      set_class_name_value(params[:managements], "company_management")
+      set_class_name_value(params[:managements], "management")
       set_class_name_value(params[:genders], "gender")
       set_class_name_value(params[:is_boss], "is_boss")
       set_class_name_value(params[:employee_classifications], "employee_classification")
-      set_class_name_value(params[:cost_centers], "company_cost_center")
+      set_class_name_value(params[:cost_centers], "cost_center")
       set_class_name_value(params[:position_classifications], "position_classification")
       set_class_name_value(params[:syndicate_members], "syndicate_member")
       set_class_name_value(params[:contract_types], "contract_type")
       set_class_name_value(params[:roles], "rol")
       set_class_name_value(params[:schedules], "schedule")
       set_class_name_value(params[:has_children], "has_children")
-      @profile.set_users
+      set_class_name_value(params[:office_countries], "office_country")
+      set_class_name_value(params[:office_cities], "office_city")
+      set_class_name_value(params[:office_regions], "office_region")
     end
 
     def get_data
@@ -111,6 +118,9 @@ module Admin
       @roles = users.pluck(:rol).uniq.reject(&:blank?).sort
       @schedules = users.pluck(:schedule).uniq.reject(&:blank?).sort
       @has_children = ["Si", "No"]
+      @office_countries = Location::Country.pluck(:name).uniq.reject(&:blank?).sort
+      @office_cities = Location::City.pluck(:name).uniq.reject(&:blank?).sort
+      @office_regions = Location::Region.pluck(:name).uniq.reject(&:blank?).sort
     end
 
     def get_selected
@@ -119,15 +129,18 @@ module Admin
       @selected_employee_classifications = @profile.profile_attributes.where(class_name: "employee_classification").pluck(:value)
       @selected_companies = @profile.profile_attributes.where(class_name: "company").pluck(:value)
       @selected_regions = @profile.profile_attributes.where(class_name: "location_region").pluck(:value)
-      @selected_benefit_groups = @profile.profile_attributes.where(class_name: "general_benefit_group").pluck(:value)
-      @selected_managements = @profile.profile_attributes.where(class_name: "company_management").pluck(:value)
-      @selected_cost_centers = @profile.profile_attributes.where(class_name: "company_cost_center").pluck(:value)
+      @selected_benefit_groups = @profile.profile_attributes.where(class_name: "benefit_group").pluck(:value)
+      @selected_managements = @profile.profile_attributes.where(class_name: "management").pluck(:value)
+      @selected_cost_centers = @profile.profile_attributes.where(class_name: "cost_center").pluck(:value)
       @selected_position_classifications = @profile.profile_attributes.where(class_name: "position_classification").pluck(:value)
       @selected_syndicate_members = @profile.profile_attributes.where(class_name: "syndicate_member").pluck(:value)
       @selected_contract_types = @profile.profile_attributes.where(class_name: "contract_type").pluck(:value)
       @selected_roles = @profile.profile_attributes.where(class_name: "rol").pluck(:value)
       @selected_schedules = @profile.profile_attributes.where(class_name: "schedule").pluck(:value)
       @selected_has_children = @profile.profile_attributes.where(class_name: "has_children").pluck(:value)
+      @selected_office_countries = @profile.profile_attributes.where(class_name: "office_country").pluck(:value)
+      @selected_office_cities = @profile.profile_attributes.where(class_name: "office_city").pluck(:value)
+      @selected_office_regions = @profile.profile_attributes.where(class_name: "office_region").pluck(:value)
     end
 
     def set_class_name_value(values, class_name)
@@ -153,7 +166,7 @@ module Admin
       params.require(:profile).permit(:name, regions: [], benefit_groups: [], companies: [], managements: [], genders: [], is_boss: [],
                                              employee_classifications: [], cost_centers: [], position_classifications: [],
                                              syndicate_members: [], contract_types: [], roles: [], schedules: [], has_childrens: [],
-                                             entry_dates: [])
+                                             entry_dates: [], office_cities: [], office_countries: [], office_regions: [])
     end
   end
 end

@@ -65,9 +65,9 @@ module Api
 
       user_language_ids = []
       JSON.parse(params[:languages]).each do |lang|
-        level = PersonalData::LanguageLevel.where(level: lang[1]["Nivel"]).first_or_create
-        language = PersonalData::Language.where(name: lang[1]["Idioma"], level_id: level.id).first_or_create
-        user_language_ids << PersonalData::UserLanguage.where(user_id: @user.id, language_id: language.id, level_id: level.id).first_or_create.id
+        level = PersonalData::LanguageLevel.where(name: lang[1]["Nivel"]).first_or_create
+        language = PersonalData::Language.where(name: lang[1]["Idioma"]).first_or_create
+        user_language_ids << PersonalData::UserLanguage.where(user_id: @user.id, language_id: language.id, language_level_id: level.id).first_or_create.id
       end
       @user.user_language_ids = user_language_ids
 

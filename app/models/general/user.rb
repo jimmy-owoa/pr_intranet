@@ -25,6 +25,7 @@ class General::User < ApplicationRecord
   has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :user_id, inverse_of: :user
   has_many :user_messages, class_name: "General::UserMessage", foreign_key: :user_id, inverse_of: :user
   has_many :profiles, through: :user_profiles
+  has_many :user_attributes, class_name: "General::UserAttribute", foreign_key: :user_id, inverse_of: :user
 
   belongs_to :location, class_name: "General::Location", inverse_of: :users, optional: true
   belongs_to :benefit_group, optional: true, class_name: "General::BenefitGroup"
@@ -53,6 +54,8 @@ class General::User < ApplicationRecord
   after_create :assign_default_role, :image_resize
   before_update :image_resize
   before_create :only_admin?
+
+  after_save :set_user_attributes
 
   #scopes
   scope :show_birthday, -> { where(show_birthday: true) }
@@ -246,5 +249,30 @@ class General::User < ApplicationRecord
     data << birthday_messages.sample
     data << welcome_messages.sample
     return data.compact
+  end
+
+  private
+
+  def set_user_attributes
+    [
+      ["company", self.company_id],
+      ["benefit_group", self.benefit_group_id],
+      ["management", self.management_id],
+      ["cost_center", self.cost_center_id],
+      ["gender", self.gender],
+      ["position_classification", self.position_classification],
+      ["employee_classification", self.employee_classification],
+      ["is_boss", self.is_boss],
+      ["office_city", self.office.commune.city_id],
+      ["office_region", self.office.commune.city.region_id],
+      ["office_country", self.office.commune.city.region.country_id],
+    ].each do |attr|
+      set_data_attributes(attr[0], attr[1])
+    end
+  end
+
+  def set_data_attributes(attr_name, attr_value)
+    _deleted = General::UserAttribute.where(user_id: self.id, attribute_name: attr_name).where.not(value: attr_value).delete_all
+    return General::UserAttribute.where(user_id: self.id, attribute_name: attr_name, value: attr_value).first_or_create
   end
 end
