@@ -105,7 +105,7 @@ module Admin
     def get_data
       users = General::User.all
       @genders = ["Masculino", "Femenino"]
-      @is_boss = ["Si", "No"]
+      @is_boss = { "Si": 1, "No": 0 }
       @employee_classifications = users.pluck(:employee_classification).uniq.reject(&:blank?).sort
       @regions = Location::Region.pluck(:id, :name).uniq.reject(&:blank?).sort
       @benefit_groups = General::BenefitGroup.pluck(:id, :name).sort
@@ -117,10 +117,10 @@ module Admin
       @contract_types = users.pluck(:contract_type).uniq.reject(&:blank?).sort
       @roles = users.pluck(:rol).uniq.reject(&:blank?).sort
       @schedules = users.pluck(:schedule).uniq.reject(&:blank?).sort
-      @has_children = ["Si", "No"]
-      @office_countries = Location::Country.pluck(:name).uniq.reject(&:blank?).sort
-      @office_cities = Location::City.pluck(:name).uniq.reject(&:blank?).sort
-      @office_regions = Location::Region.pluck(:name).uniq.reject(&:blank?).sort
+      @has_children = { "Si": 1, "No": 0 }
+      @office_countries = Location::Country.where.not(name: "").order(:name).map { |country| [country.name, country.id] }
+      @office_cities = Location::City.where.not(name: "").order(:name).map { |city| [city.name, city.id] }
+      @office_regions = Location::Region.where.not(name: "").order(:name).map { |region| [region.name, region.id] }
     end
 
     def get_selected

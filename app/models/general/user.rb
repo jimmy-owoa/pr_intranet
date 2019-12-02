@@ -263,6 +263,7 @@ class General::User < ApplicationRecord
       ["position_classification", self.position_classification],
       ["employee_classification", self.employee_classification],
       ["is_boss", self.is_boss],
+      ["has_children", self.has_children],
     ]
     if self.office.present?
       attributes << ["office_city", self.office.commune.city_id]
