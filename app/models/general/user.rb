@@ -254,7 +254,7 @@ class General::User < ApplicationRecord
   private
 
   def set_user_attributes
-    [
+    attributes = [
       ["company", self.company_id],
       ["benefit_group", self.benefit_group_id],
       ["management", self.management_id],
@@ -263,10 +263,13 @@ class General::User < ApplicationRecord
       ["position_classification", self.position_classification],
       ["employee_classification", self.employee_classification],
       ["is_boss", self.is_boss],
-      ["office_city", self.office.commune.city_id],
-      ["office_region", self.office.commune.city.region_id],
-      ["office_country", self.office.commune.city.region.country_id],
-    ].each do |attr|
+    ]
+    if self.office.present?
+      attributes << ["office_city", self.office.commune.city_id]
+      attributes << ["office_region", self.office.commune.city.region_id]
+      attributes << ["office_country", self.office.commune.city.region.country_id]
+    end
+    attributes.each do |attr|
       set_data_attributes(attr[0], attr[1])
     end
   end
