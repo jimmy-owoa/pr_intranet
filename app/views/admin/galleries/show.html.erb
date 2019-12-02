@@ -18,19 +18,21 @@
                 <figure>                    
                   <%= image_tag gal.attachment.variant(resize: '250x250>'), class: 'image_attach' %>
                   <figcaption>
-                    <%= gal.name %>
+                    <%= best_in_place gal, :name, url: admin_attachment_path(gal), :data => { :attach_name => gal.name }%>
                   </figcaption>
-
-                  <%= link_to t('.edit', :default => t("helpers.messages.edit")),
-                  edit_admin_attachment_path(gal), :class => 'btn btn-primary btn-xs' %>
                 </figure>
               </div>
             <% end %> 
           <% end %> 
         </div>
       </div>
-
-      <%= link_to 'Editar', edit_admin_gallery_path(@gallery), class: 'btn btn-primary'%>
     </div>
   </div>
 </section>
+
+<script>
+  $(document).ready(function() {
+    $('.best_in_place').best_in_place()
+    $('.best_in_place').bind("ajax:success", function(){ alert('Se cambió el nombre de '+$(this).data('attachName')); });
+  });
+</script>

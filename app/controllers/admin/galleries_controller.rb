@@ -15,6 +15,11 @@ module Admin
 
     def show
       add_breadcrumb "Galerías", :admin_galleries_path
+      
+      respond_to do |format|
+        format.html
+        format.js
+      end  
     end
 
     def new
