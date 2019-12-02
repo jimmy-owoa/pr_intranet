@@ -11,6 +11,11 @@
           <%= f.label 'Es Beneficios Vida', class: 'custom-control-label', for: 'benefit_is_special'%>
         </div>
       </div>
+      <div class="col-md-6">
+        <% selected_value = @benefit.benefit_type.present? ? @benefit.benefit_type.id : nil %>
+        <%= f.label "Categoría" %>
+        <%= f.select :benefit_type_id, options_for_select(General::BenefitType.all.map{|benefitType| [benefitType.name, benefitType.id]}.sort, selected_value), multiple: false, class:' form-control string optional' %>
+      </div>
       <div class="col-md-12">
         <%= f.input :alias %>
       </div>
