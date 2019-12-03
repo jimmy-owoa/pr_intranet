@@ -2,6 +2,7 @@ module Frontend
   class LibraryController < FrontendController
     skip_before_action :verify_authenticity_token, only: [:create_request_book]
 
+
     def index
       page = params[:page]
       category = params[:category]
@@ -82,6 +83,12 @@ module Frontend
       else
         render json: @request_book.errors, status: :unprocessable_entity
       end
+    end
+
+    def get_categories
+      data = ["Todos"] + Library::CategoryBook.pluck(:name)
+
+      render json: data, status: 200
     end  
 
     private

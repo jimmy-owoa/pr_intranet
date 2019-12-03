@@ -78,7 +78,9 @@ Rails.application.routes.draw do
     get "azure_auth", to: "frontend#azure_auth"
     get "current_user_azure", to: "frontend#current_user_azure"
     get "products/user_products", to: "products#user_products"
-    resources :library
+    resources :library do
+      get :get_categories, on: :collection
+    end  
     post "library/create_request_book", to: "library#create_request_book"
     resources :galleries
     resources :weather
