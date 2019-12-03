@@ -3,7 +3,7 @@ module Frontend
     after_action :set_tracking, only: [:index, :show, :new]
 
     def index
-      user_posts = News::Post.filter_posts(@request_user)
+      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.filter_posts(@request_user)
       page = params[:page]
       params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select { |post| post.post_type == params[:category] }).page(page).per(4) :
         posts = Kaminari.paginate_array(user_posts).page(page).per(4)
@@ -62,7 +62,7 @@ module Frontend
     end
 
     def important_posts
-      posts = News::Post.filter_posts(@request_user, true).first(5)
+      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.filter_posts(@request_user, true).first(5)
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
@@ -155,8 +155,10 @@ module Frontend
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-      if post.profile_id.in?(@request_user.profile_ids)
-        relationed_posts = News::Post.where(post_type: post.post_type).filter_posts(@request_user).last(5) - [post]
+      if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
+        posts = News::Post.where(post_type: post.post_type)
+        relationed_posts = @request_user.has_role?(:admin) ? posts.last(5) - [post] : posts.filter_posts(@request_user).last(5) - [post]
+        
         data_relationed_posts = []
         relationed_posts.each do |post|
           data_relationed_posts << {
