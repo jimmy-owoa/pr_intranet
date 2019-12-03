@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :books
     resources :authors
     resources :editorials
+    resources :user_book_relationships, only: [:index, :show, :destroy]
     resources :benefit_groups, only: [:show, :index]
     resources :term_relationships
     resources :comments
