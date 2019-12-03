@@ -120,14 +120,15 @@ Rails.application.routes.draw do
       get :get_home_births, on: :collection
     end
   end
-  namespace :api, :defaults => { :format => "json" } do
-    post "v1/users/create", to: "users#create"
-    post "v1/users/update", to: "users#update"
-    post "v1/benefits/create", to: "benefits#create"
-    get "v1/users/show", to: "users#show", param: :_rut
-    get "v1/users", to: "users#index"
-    get "v1/benefits/show", to: "benefits#show", param: :_title
-    get "v1/benefits", to: "benefits#index"
+  scope module: "api", path: "api/v1", :defaults => { :format => "json" } do
+    post "users/create", to: "users#create"
+    put "users/update", to: "users#update"
+    post "benefits/create", to: "benefits#create"
+    delete "users/delete", to: "users#destroy"
+    get "users/show", to: "users#show", param: :_rut
+    get "users", to: "users#index"
+    get "benefits/show", to: "benefits#show", param: :_title
+    get "benefits", to: "benefits#index"
   end
   root to: "application#index"
 end

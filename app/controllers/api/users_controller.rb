@@ -27,6 +27,11 @@ module Api
       end
     end
 
+    def destroy
+      @user.destroy
+      render json: "User deleted", status: :ok
+    end
+
     private
 
     def set_user_data
@@ -92,11 +97,12 @@ module Api
       if params[:user_code_crypted_base64].present?
         legal_number = InternalAuth.decrypt(params[:user_code_crypted_base64])
         @user = General::User.get_user_by_ln(legal_number)
+        if !@user.present?
+          render json: { errors: "User not found" }, status: :not_found
+        end
       else
         render json: { errors: "User code crypted not present" }, status: :error
       end
-    rescue ActiveRecord::RecordNotFound
-      render json: { errors: "User not found" }, status: :not_found
     end
 
     def user_params
