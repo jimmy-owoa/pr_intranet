@@ -9,6 +9,7 @@
             <th><%= 'Fecha' %></th>
             <th><%= 'Título' %></th>
             <th><%= 'Autor' %></th>
+            <th><%= 'Categoría' %></th>
             <th><%= 'Unidades' %></th>
             <th><%= 'Solicitado por' %></th>
             <th><%= 'Acciones' %></th>
@@ -20,6 +21,7 @@
               <td><%= custom_date_no_hour(request_book.created_at)  %></td>
               <td><%= link_to request_book.book.title.truncate(45), admin_book_path(request_book.book), title: request_book.book.title %></td>
               <td><%= request_book.book.author.name %></td>
+              <td><%= request_book.book.category_book.name %></td>
               <td><%= request_book.book.stock %></td>
               <td><%= request_book.user.name %> <%= request_book.user.last_name %></td>
               <td>				

@@ -12,7 +12,7 @@
 					<b>Autor: <%= @book.author.name %></b>
 					<b>Editorial: <%= @book.editorial.name %></b>
 					<b>Año de publicación: <%= @book.publication_year %></b>
-					<b>Categoría: <%= @book.category %></b>
+					<b>Categoría: <%= @book.category_book.name %></b>
 					<b>Unidades disponibles: <%= @book.stock %></b>
 					<b>Estado: <%= @book.available ? "Disponible" : "No Disponible" %></b>
 				</div>

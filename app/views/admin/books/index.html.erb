@@ -9,8 +9,8 @@
           <tr>
             <th><%= 'Título' %></th>
             <th><%= 'Autor' %></th>
-            <th><%= 'Edición' %></th>
-            <th><%= 'Año publicación' %></th>
+            <th><%= 'Año Publicación' %></th>
+            <th><%= 'Categoría' %></th>
             <th><%= 'Unidades' %></th>
             <th><%= 'Acciones' %></th>
           </tr>
@@ -20,8 +20,8 @@
             <tr>
               <td><%= link_to book.title.truncate(35), admin_book_path(book), title: book.title %></td>
               <td><%= book.author.name %></td>
-							<td><%= book.edition %></td>
               <td><%= book.publication_year %></td>
+							<td><%= book.category_book.name %></td>
               <td><%= book.stock %></td>
               <td>				
 								<%= link_to t('.show', :default => t("helpers.links.show")),

@@ -51,11 +51,6 @@ module Admin
       end
 		end
 
-		def select_author_editorial
-			@select_editorial = Library::Editorial.all.map{|editorial| [editorial.name, editorial.id]}
-			@select_author = Library::Author.all.map{|author| [author.name, author.id]}
-		end
-
 		private
 
 		def set_book
@@ -63,7 +58,7 @@ module Admin
 		end
 		
 		def book_params
-			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category, :edition_date, :publication_year, :author_id, :editorial_id, :available)
+			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category_book_id, :edition_date, :publication_year, :author_id, :editorial_id, :available)
 		end
 	end
 end

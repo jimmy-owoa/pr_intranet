@@ -18,8 +18,10 @@
         <%= f.select :editorial_id, options_for_select(Library::Editorial.all.map{|editorial| [editorial.name, editorial.id]}, selected_value), include_blank: true, multiple: false, required: true, class:' form-control string optional' %>
       </div>
 
-      <div class="col-md-4">
-        <%= f.input :category, label: 'Categoría', placeholder: 'Ingrese categoría', input_html: { class: "border border-dark" } %>
+      <div class="col-md-4 col-sm-4 pb-4">
+        <% selected_value = @book.category_book.present? ? @book.category_book.id : nil %>
+        <%= f.label "Categoría" %>
+        <%= f.select :category_book_id, options_for_select(Library::CategoryBook.all.map{|category| [category.name, category.id]}, selected_value), include_blank: true, multiple: false, required: true, class:' form-control string optional' %>
       </div>
 
 			<div class="col-md-3">
