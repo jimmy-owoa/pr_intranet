@@ -5,11 +5,13 @@ module Frontend
     def index
       page = params[:page]
       category = params[:category]
+
       if !category.present?
-        books = Library::Book.all
+        books = Library::Book.all.where(available: true)
       else
         books = Library::Book.where(category: category)
       end
+
       books = books.page(page).per(6)
       data = []
       items = []

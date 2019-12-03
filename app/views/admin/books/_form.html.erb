@@ -53,6 +53,16 @@
             <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
           <% end %>
         </div>
+
+        <div class="col-md-12">
+          <%= f.label "Disponible" %>
+          <% if f.object.new_record? %>
+            <%= f.check_box :available, class: 'post_type', checked: true %>
+          <% else %>
+            <%= f.check_box :available, class: 'post_type'%>
+          <% end %>
+        </div>
+
         <div class="col-md-12">
           <br>
           <%= f.submit nil, :class => 'btn btn-primary btn-block' %>

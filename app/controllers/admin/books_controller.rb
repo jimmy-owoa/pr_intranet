@@ -63,7 +63,7 @@ module Admin
 		end
 		
 		def book_params
-			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category, :edition_date, :publication_year, :author_id, :editorial_id)
+			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category, :edition_date, :publication_year, :author_id, :editorial_id, :available)
 		end
 	end
 end
