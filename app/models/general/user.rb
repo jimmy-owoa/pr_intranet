@@ -5,7 +5,7 @@ class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
   searchkick
-  validates_presence_of :name, :email
+  validates_presence_of :name, :email, :legal_number, :legal_number_verification
   #relationships
   has_one_attached :image
   has_one_attached :new_image
@@ -86,7 +86,7 @@ class General::User < ApplicationRecord
   end
 
   def self.get_user_by_ln(ln_user)
-    General::User.where(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1]).first
+    General::User.where(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1]).last
   end
 
   def self.from_omniauth(auth)

@@ -9,6 +9,7 @@ module Api
     def update
       set_user_data
       if @user.update(user_params)
+        add_relations
         render json: @user, status: :ok
       else
         render json: "User not found", status: :ok
@@ -29,7 +30,7 @@ module Api
     private
 
     def set_user_data
-      office_address = params[:office_address].gsub(";", ",") if params[:office_address].present?
+      office_address = params[:office_address]
       office_commune = params[:office_commune]
       office_city = params[:office_city]
       office_region = params[:office_region]
@@ -53,6 +54,9 @@ module Api
       @user.benefit_group_id = benefit_group_id if benefit_group_id.present?
       @user.parent = parent if parent.present?
       @user.location_id = @user.try(:office).try(:commune).try(:city_id)
+      legal_number = InternalAuth.decrypt(params[:user_code_crypted_base64])
+      @user.legal_number = legal_number[0...-1]
+      @user.legal_number_verification = legal_number[-1]
     end
 
     def add_relations
@@ -73,7 +77,7 @@ module Api
 
       family_member_ids = []
       JSON.parse(params[:family_group]).each do |member|
-        family_member_ids << PersonalData::FamilyMember.where(user_id: @user.id, relation: member[1]["Relación"], birthdate: member[1]["Fecha nacimiento de familiar"], gender: member[1]["Sexo de familiar"]).first_or_create.id
+        family_member_ids << PersonalData::FamilyMember.where(user_id: @user.id, relation: member[1]["Relación"], birthdate: member[1]["Fecha nacimiento de familiar"], gender: member[1]["Sexo de familiar"], name: member[1]["Nombre de familiar"]).first_or_create.id
       end
       @user.family_member_ids = family_member_ids
     end
@@ -87,7 +91,7 @@ module Api
     def find_user
       if params[:user_code_crypted_base64].present?
         legal_number = InternalAuth.decrypt(params[:user_code_crypted_base64])
-        @user = General::User.find_by_legal_number!(legal_number[0...-1])
+        @user = General::User.get_user_by_ln(legal_number)
       else
         render json: { errors: "User code crypted not present" }, status: :error
       end
