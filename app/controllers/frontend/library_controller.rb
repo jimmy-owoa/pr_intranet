@@ -7,10 +7,10 @@ module Frontend
       page = params[:page]
       category = params[:category]
 
-      if !category.present?
-        books = Library::Book.all.where(available: true)
+      if category.present? && category != "Todos"
+        books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", category)
       else
-        books = Library::Book.where(category: category)
+        books = Library::Book.available_books
       end
 
       books = books.page(page).per(6)
