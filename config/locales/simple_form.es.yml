@@ -81,6 +81,11 @@ es:
         fields:
           name: Etiqueta
           value: Contenido
+      book:
+        new:
+          image: Imagen
+        edit:
+          image: Imagen
       defaults:
         indefinite: NN
         attachment: Archivo

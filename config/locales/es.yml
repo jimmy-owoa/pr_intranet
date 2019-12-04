@@ -66,6 +66,19 @@ es:
       survey/survey:
         name: Nombre
         allowed_answers: Respuestas permitidas
+      library/book:
+        title: Título
+        book: Libro
+        image: Imagen
+        author_id: Autor
+        editorial_id: Editorial
+        category_book_id: Categoría
+      library/author:
+        name: Nombre
+      library/editorial:
+        name: Nombre
+      library/category_book:
+        name: Nombre
     models:
       marketplace/product: Anuncio
       post:
@@ -92,6 +105,10 @@ es:
       news/post: Noticia
       general/section: Sección
       employee/birth: Nacimiento
+      library/book: Libro
+      library/author: Autor
+      library/editorial: Editorial
+      library/category_book: Categoría
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
