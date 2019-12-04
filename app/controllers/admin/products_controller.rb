@@ -33,8 +33,13 @@ module Admin
 
     def delete_image
       @image = ActiveStorage::Attachment.find(params[:id])
-      @image.purge
-      redirect_back(fallback_location: root_path)
+      
+      respond_to do |format|
+        if @image.purge
+          format.js
+          format.html { redirect_back(fallback_location: root_path) }
+        end
+      end
     end
 
     def create
