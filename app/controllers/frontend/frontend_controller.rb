@@ -66,12 +66,12 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def current_user_azure
-    referrer = params[:referrer] || "/"
+    referrer = params[:referrer].gsub("#/", "/").insert(1, "#/") || "/"
     user = get_current_user_jwt
     respond_to do |format|
       if user.present?
         user.update(referrer: referrer)
-        format.json { render json: { message: "OK", token: http_auth_header } }
+        format.json { render json: { message: "OK", token: http_auth_header, referrer: referrer } }
       else
         format.json { render json: { error: "No hay user" } }
       end
