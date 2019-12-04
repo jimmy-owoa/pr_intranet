@@ -35,33 +35,22 @@ module Api
     private
 
     def set_user_data
-      office_address = params[:office_address]
-      office_commune = params[:office_commune]
-      office_city = params[:office_city]
-      office_region = params[:office_region]
-      office_country = params[:office_country]
-
-      country = Location::Country.where(name: office_country).first_or_create
-      region = Location::Region.where(name: office_region, country_id: country.id).first_or_create
-      city = Location::City.where(name: office_city, region_id: region.id).first_or_create
-      commune = Location::Commune.where(name: office_commune, city_id: city.id).first_or_create
-      office = Company::Office.where(address: office_address, commune_id: commune.id).first_or_create
-
-      parent = General::User.where(legal_number: params[:parent_legal_number][0...-1], legal_number_verification: params[:parent_legal_number][-1]).first if params[:parent_legal_number].present?
-      benefit_group_id = General::BenefitGroup.find_by_name(params[:benefit_group_name]).try(:id)
-      cost_center = Company::CostCenter.where(name: params[:cost_center_name]).first_or_create
-      management = Company::Management.where(name: params[:management_name]).first_or_create
-      company = Company::Company.where(name: params[:company_name]).first_or_create
-      @user.company = company
-      @user.management = management
-      @user.office = office
-      @user.cost_center = cost_center
-      @user.benefit_group_id = benefit_group_id if benefit_group_id.present?
-      @user.parent = parent if parent.present?
-      @user.location_id = @user.try(:office).try(:commune).try(:city_id)
       legal_number = InternalAuth.decrypt(params[:user_code_crypted_base64])
       @user.legal_number = legal_number[0...-1]
       @user.legal_number_verification = legal_number[-1]
+
+      country = Location::Country.where(name: params[:office_country]).first_or_create
+      region = Location::Region.where(name: params[:office_region], country_id: country.id).first_or_create
+      city = Location::City.where(name: params[:office_city], region_id: region.id).first_or_create
+      commune = Location::Commune.where(name: params[:office_commune], city_id: city.id).first_or_create
+      @user.office = Company::Office.where(address: params[:office_address], commune_id: commune.id).first_or_create
+
+      @user.parent = General::User.where(legal_number: params[:parent_legal_number][0...-1], legal_number_verification: params[:parent_legal_number][-1]).first if params[:parent_legal_number].present?
+      @user.benefit_group_id = General::BenefitGroup.find_by_name(params[:benefit_group_name]).try(:id)
+      @user.cost_center = Company::CostCenter.where(name: params[:cost_center_name]).first_or_create
+      @user.management = Company::Management.where(name: params[:management_name]).first_or_create
+      @user.company = Company::Company.where(name: params[:company_name]).first_or_create
+      @user.location_id = @user.try(:office).try(:commune).try(:city_id)
     end
 
     def add_relations
@@ -86,12 +75,6 @@ module Api
       end
       @user.family_member_ids = family_member_ids
     end
-
-    # def find_user
-    #   @user = General::User.find_by_legal_number!(params[:legal_number])
-    # rescue ActiveRecord::RecordNotFound
-    #   render json: { errors: "User not found" }, status: :not_found
-    # end
 
     def find_user
       if params[:user_code_crypted_base64].present?
