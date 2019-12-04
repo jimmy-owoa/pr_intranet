@@ -121,14 +121,16 @@ Rails.application.routes.draw do
     end
   end
   scope module: "api", path: "api/v1", :defaults => { :format => "json" } do
+    get "users", to: "users#index"
+    get "users/show", to: "users#show", param: :_rut
     post "users/create", to: "users#create"
     put "users/update", to: "users#update"
-    post "benefits/create", to: "benefits#create"
     delete "users/delete", to: "users#destroy"
-    get "users/show", to: "users#show", param: :_rut
-    get "users", to: "users#index"
-    get "benefits/show", to: "benefits#show", param: :_title
-    get "benefits", to: "benefits#index"
+
+    get "beneficiary_groups", to: "benefits#index"
+    post "beneficiary_groups/create", to: "benefits#create"
+    delete "beneficiary_groups/delete", to: "benefits#destroy"
+    get "beneficiary_groups/show", to: "benefits#show", param: :_title
   end
   root to: "application#index"
 end

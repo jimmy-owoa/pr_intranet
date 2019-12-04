@@ -1,18 +1,22 @@
 module Api
   class BenefitsController < ApiController
-    before_action :find_benefit, except: %i[create index]
+    before_action :find_beneficiary_group, except: %i[create index]
+    before_action :validate
 
     def index
-      @benefits = General::Benefit.all
+      @benefits = General::BenefitGroup.all
       render json: @benefits, status: :ok
     end
 
     def show
-      render json: @benefit, status: :ok
+      data = { beneficiary_group: { name: @beneficiary_group.name, code: @beneficiary_group.code, benefits: [] } }
+      @beneficiary_group.benefits.each { |benefit| data[:beneficiary_group][:benefits] << benefit }
+      render json: data, status: :ok
     end
 
     def destroy
       General::BenefitGroup.where(name: params["name"], code: params["code"]).last.delete
+      render json: "Beneficiary group deleted", status: :ok
     end
 
     def create
@@ -44,10 +48,14 @@ module Api
 
     private
 
-    def find_benefit
-      @benefit = General::Benefit.find_by_title!(params[:title])
+    def validate
+      render json: "Unauthorized", status: 200 if InternalAuth.decrypt(request.headers["Authorization"]) != "exa"
+    end
+
+    def find_beneficiary_group
+      @beneficiary_group = General::BenefitGroup.where(name: params[:name], code: params[:code]).last
     rescue ActiveRecord::RecordNotFound
-      render json: { errors: "Benefit not found" }, status: :not_found
+      render json: { errors: "Beneficiary group not found" }, status: :not_found
     end
 
     def benefit_params
