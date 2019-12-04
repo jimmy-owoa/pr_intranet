@@ -11,8 +11,11 @@ module Api
       render json: @benefit, status: :ok
     end
 
+    def destroy
+      General::BenefitGroup.where(name: params["name"], code: params["code"]).last.delete
+    end
+
     def create
-      # benefit_groups_ids = General::BenefitGroup.where(name: params[:benefit_groups].values).pluck(:id)
       benefit_group = General::BenefitGroup.where(name: params["name"], code: params["code"]).first_or_create
       data = { beneficiary_group: benefit_group, benefits: [] }
       params["benefits"].each do |benefit|
@@ -37,7 +40,6 @@ module Api
         data[:benefits] << record
       end
       render json: data, status: :ok
-      # @benefit = General::Benefit.new(benefit_params)
     end
 
     private

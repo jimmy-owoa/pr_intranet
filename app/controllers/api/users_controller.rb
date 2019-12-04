@@ -1,6 +1,6 @@
 module Api
   class UsersController < ApiController
-    before_action :find_user, except: %i[create index]
+    before_action :find_user, except: %i[create]
 
     def show
       render json: @user, status: :ok
