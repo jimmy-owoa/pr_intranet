@@ -55,8 +55,6 @@ class General::User < ApplicationRecord
   before_update :image_resize
   before_create :only_admin?
 
-  after_save :set_user_attributes
-
   #scopes
   scope :show_birthday, -> { where(show_birthday: true) }
   scope :date_birth, -> { where("MONTH(birthday) = ?", Date.today.month) }

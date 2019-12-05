@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if request.env.present? && request.env["omniauth.origin"].present?
       user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
-      request.env["omniauth.origin"] + "&r=#{current_user.referrer}" # Agregar referrer guardado en session[:referrer]
+      request.env["omniauth.origin"] + "?t=#{user_jwt}" + "&r=#{current_user.referrer}" # Agregar referrer guardado en session[:referrer]
     else
       admin_root_path
     end

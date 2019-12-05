@@ -10,6 +10,7 @@ module Frontend
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
+        extract = post.extract.slice(0..104) rescue post.extract
         data << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
@@ -19,7 +20,7 @@ module Frontend
           important: post.important,
           tags: post.cached_tags,
           slug: post.slug,
-          extract: post.extract.length > 104 ? post.extract.slice(0..104) + "..." : post.extract,
+          extract: extract,
           breadcrumbs: [
             { link: "/", name: "Inicio" },
             { link: "/noticias", name: "Noticias" },
@@ -158,7 +159,7 @@ module Frontend
       if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
         posts = News::Post.where(post_type: post.post_type)
         relationed_posts = @request_user.has_role?(:admin) ? posts.last(5) - [post] : posts.filter_posts(@request_user).last(5) - [post]
-        
+
         data_relationed_posts = []
         relationed_posts.each do |post|
           data_relationed_posts << {

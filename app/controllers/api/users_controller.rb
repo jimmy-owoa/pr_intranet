@@ -10,6 +10,7 @@ module Api
       set_user_data
       if @user.update(user_params)
         add_relations
+        @user.set_user_attributes
         render json: "User #{@user.email} updated", status: :ok
       else
         render json: "Error", status: :ok
@@ -21,6 +22,7 @@ module Api
       set_user_data
       if @user.save
         add_relations
+        @user.set_user_attributes
         render json: "User #{@user.email} created", status: :ok
       else
         render json: @user.errors, status: :unprocessable_entity
