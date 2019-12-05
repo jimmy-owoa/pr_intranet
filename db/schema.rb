@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_28_202640) do
+ActiveRecord::Schema.define(version: 2019_12_03_165859) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -159,7 +159,6 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "benefit_group_id"
     t.bigint "benefit_type_id"
     t.string "code"
     t.string "url"
@@ -466,7 +465,6 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
@@ -487,6 +485,7 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
+    t.integer "location_id"
     t.integer "uv_index"
   end
 
@@ -496,17 +495,9 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "library_book_editorial_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "book_id"
-    t.integer "editorial_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "library_books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.string "category"
     t.integer "edition"
     t.integer "publication_year"
     t.integer "stock"
@@ -515,8 +506,17 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
     t.datetime "updated_at", null: false
     t.bigint "author_id"
     t.bigint "editorial_id"
+    t.boolean "available", default: false
+    t.bigint "category_book_id"
     t.index ["author_id"], name: "index_library_books_on_author_id"
+    t.index ["category_book_id"], name: "index_library_books_on_category_book_id"
     t.index ["editorial_id"], name: "index_library_books_on_editorial_id"
+  end
+
+  create_table "library_category_books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "library_editorials", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -761,7 +761,7 @@ ActiveRecord::Schema.define(version: 2019_11_28_202640) do
     t.string "status"
     t.integer "xoops_survey_id"
     t.bigint "profile_id"
-    t.integer "allowed_answers"
+    t.integer "allowed_answers", default: 0
     t.index ["profile_id"], name: "index_survey_surveys_on_profile_id"
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
   end

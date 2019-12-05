@@ -1,0 +1,48 @@
+<div class="container">
+  <section class="section">
+    <h2 class="section-header">Detalle de solicitud</h2>
+    <!-- <h2 class="section-header"><%= @user_book.book.title %></h2> -->
+    <div class="card post_card">
+      <h5>Fecha Solicitud: <%= custom_date_no_hour(@user_book.created_at)  %></h5>
+    </div>
+  </section>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+        <%= image_tag @user_book.book.image.variant(resize: '360x300>') if @user_book.book.image.attached? %><br />
+      </div>
+      <div class="col-sm-7">
+        <h5>Libro solicitado: </h5>
+        <div class="card post_card">
+          <b>Libro: <%= @user_book.book.title %></h2></b>
+          <b>Autor: <%= @user_book.book.author.name %></b>
+          <b>Editorial: <%= @user_book.book.editorial.name %></b>
+          <b>Año de publicación: <%= @user_book.book.publication_year %></b>
+          <b>Categoría: <%= @user_book.book.category_book.name %></b>
+          <b>Unidades disponibles: <%= @user_book.book.stock %></b>
+        </div>
+
+        <h5>Solicitado por:</h5>
+        <div class="card post_card">
+          <b>Nombre: <%= @user_book.user.name %> <%= @user_book.user.last_name %></b>
+          <b>Empresa: <%= @user_book.user.company.name %></b>
+          <b>Anexo: <%= @user_book.user.annexed %></b>
+          <b>Correo electrónico: <%= @user_book.user.email %></b>
+          <b>Dirección sucursal: <%= @user_book.user.address %></b>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-sm-12">
+      <div class="card post_card">
+        <%= raw @user_book.book.description %>
+      </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+
+    </div>
+  </div>
+</div>

@@ -2,14 +2,17 @@ module Frontend
   class LibraryController < FrontendController
     skip_before_action :verify_authenticity_token, only: [:create_request_book]
 
+
     def index
       page = params[:page]
       category = params[:category]
-      if !category.present?
-        books = Library::Book.all
+
+      if category.present? && category != "Todos"
+        books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", category)
       else
-        books = Library::Book.where(category: category)
+        books = Library::Book.available_books
       end
+
       books = books.page(page).per(6)
       data = []
       items = []
@@ -23,7 +26,7 @@ module Frontend
           rating: book.rating,
           author: book.author.name,
           editorial: book.editorial,
-          category: book.category,
+          category: book.category_book.name,
           url: root_url + "admin/books/" + "#{book.id}" + "/edit",
           description: book.description,
           image: url_for(book.image),
@@ -53,7 +56,7 @@ module Frontend
         rating: book.rating,
         author: book.author.name,
         editorial: book.editorial,
-        category: book.category,
+        category: book.category_book.name,
         url: root_url + "admin/books/" + "#{book.id}" + "/edit",
         description: book.description,
         image: url_for(book.image),
@@ -80,6 +83,12 @@ module Frontend
       else
         render json: @request_book.errors, status: :unprocessable_entity
       end
+    end
+
+    def get_categories
+      data = ["Todos"] + Library::CategoryBook.pluck(:name)
+
+      render json: data, status: 200
     end  
 
     private

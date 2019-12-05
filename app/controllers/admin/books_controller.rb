@@ -16,7 +16,8 @@ module Admin
 
 		def create
 			@book = Library::Book.new(book_params)
-			
+			set_category_new
+					
 			respond_to do |format|
 				if @book.save
           format.html { redirect_to admin_book_path(@book), notice: "Libro fue creado con éxito." }
@@ -51,19 +52,24 @@ module Admin
       end
 		end
 
-		def select_author_editorial
-			@select_editorial = Library::Editorial.all.map{|editorial| [editorial.name, editorial.id]}
-			@select_author = Library::Author.all.map{|author| [author.name, author.id]}
-		end
-
 		private
 
 		def set_book
 			@book = Library::Book.find(params[:id])
 		end
-		
+
+		def set_category_new
+			category_selected = params[:book][:category_book_id]
+			category = Library::CategoryBook.where(id: category_selected)
+			
+			if category.empty?
+				@category = Library::CategoryBook.create(name: category_selected)
+				@book.category_book_id = @category.id
+			end
+		end
+
 		def book_params
-			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category, :edition_date, :publication_year, :author_id, :editorial_id)
+			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category_book_id, :edition_date, :publication_year, :author_id, :editorial_id, :available)
 		end
 	end
 end

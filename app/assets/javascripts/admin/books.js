@@ -12,4 +12,11 @@ $(document).on('turbolinks:load', function () {
       width: "100%",
       allowClear: true
     });
+
+    $("#book_category_book_id").select2({
+      tags: true,
+      placeholder: "Seleccionar Categoría",
+      width: "100%",
+      allowClear: true
+    });
 });
