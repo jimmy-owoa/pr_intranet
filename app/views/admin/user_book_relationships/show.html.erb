@@ -25,7 +25,10 @@
         <h5>Solicitado por:</h5>
         <div class="card post_card">
           <b>Nombre: <%= @user_book.user.name %> <%= @user_book.user.last_name %></b>
+          <b>Empresa: <%= @user_book.user.company.name %></b>
+          <b>Anexo: <%= @user_book.user.annexed %></b>
           <b>Correo electrónico: <%= @user_book.user.email %></b>
+          <b>Dirección sucursal: <%= @user_book.user.address %></b>
         </div>
       </div>
     </div>
