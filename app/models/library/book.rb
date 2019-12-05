@@ -11,6 +11,7 @@ class Library::Book < ApplicationRecord
     validates :editorial, presence: true
     validates :category_book, presence: true
     validates :stock, presence: true
+    validates :image, presence: true
 
     scope :available_books, -> { where(available: true) }
 end

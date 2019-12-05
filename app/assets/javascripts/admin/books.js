@@ -14,7 +14,7 @@ $(document).on('turbolinks:load', function () {
     });
 
     $("#book_category_book_id").select2({
-      tags: false,
+      tags: true,
       placeholder: "Seleccionar Categoría",
       width: "100%",
       allowClear: true
