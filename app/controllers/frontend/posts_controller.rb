@@ -120,6 +120,9 @@ module Frontend
         if content.include?("<p><img style=\"float: left;\"")
           content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", '<p align="left"><img src="http://localhost:3000/rails/')
         end
+        if content.include?("<p style=\"text-align: center;\"><img style=\"float: left;\"")
+          content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", '<p style="text-align: center;"><img style="float: left;" src="http://localhost:3000/rails/')
+        end
       else
         content = content.gsub("<source src=\"../..", '<video src="https://app.elmejorlugarparatrabajar.cl')
         content = content.gsub("<source src=\"", '<video src="https://app.elmejorlugarparatrabajar.cl/')
@@ -147,6 +150,9 @@ module Frontend
         end
         if content.include?("<p><img style=\"float: left;\"")
           content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", '<p align="left"><img src="https://app.elmejorlugarparatrabajar.cl/rails/')
+        end
+        if content.include?("<p style=\"text-align: center;\"><img style=\"float: left;\"")
+          content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", '<p style="text-align: center;"><img style="float: left;" src="https://app.elmejorlugarparatrabajar.cl/rails/')
         end
       end
       content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
