@@ -29,7 +29,10 @@
             <div class="col-md-3">
               <figure>                    
                 <%= image_tag image.attachment.variant(resize: '250x250>'), class: 'image_attach' %>
-                <%= link_to 'Eliminar', admin_attachment_path(image, @gallery.id),  :method => :delete, class:'btn btn-danger'%>
+                <%= link_to 'Eliminar', admin_attachment_path(image, @gallery.id),  
+                method: :delete,
+                data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea eliminar esta foto?'},
+                class:'btn btn-danger'%>
                 <figcaption>
                   <%= image.name %>
                 </figcaption>
