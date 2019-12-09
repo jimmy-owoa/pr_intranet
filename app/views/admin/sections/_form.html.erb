@@ -6,7 +6,7 @@
         <%= f.input :title, required: true, autofocus: true %>
       </div>
       <div class="col-12 col-sm-12">
-        <%= f.input :url, required: true %>
+        <%= f.input :url, required: true, input_html: { type: "text"} %>
       </div>
       <div class="col-12 col-sm-12">
         <%= f.input :position, required: true %>
@@ -22,12 +22,15 @@
         <div class="card-body text-secondary border border-primary rounded">
           <% if @section.image.attachment.present? %>
             <%= image_tag(@section.image.variant(resize: '300x300>'), class: 'left') %>
+            <div class="left">
+              <%= f.input :image, required: false, input_html: { accept:'image/*' } %>
+            </div>
           <% else %>
             <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
+            <div class="left">
+              <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+            </div>
           <% end %>
-          <div class="left">
-            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
-          </div>
         </div>
       </div>
     </div>

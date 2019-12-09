@@ -16,7 +16,9 @@ module Admin
 
 		def create
 			@book = Library::Book.new(book_params)
-			set_category_new
+			set_new_category
+			set_new_author
+			set_new_editorial
 					
 			respond_to do |format|
 				if @book.save
@@ -58,13 +60,33 @@ module Admin
 			@book = Library::Book.find(params[:id])
 		end
 
-		def set_category_new
+		def set_new_category
 			category_selected = params[:book][:category_book_id]
 			category = Library::CategoryBook.where(id: category_selected)
 			
 			if category.empty?
 				@category = Library::CategoryBook.create(name: category_selected)
 				@book.category_book_id = @category.id
+			end
+		end
+
+		def set_new_author
+			author_selected = params[:book][:author_id]
+			author = Library::Author.where(id: author_selected)
+			
+			if author.empty?
+				@author = Library::Author.create(name: author_selected)
+				@book.author_id = @author.id
+			end
+		end
+
+		def set_new_editorial
+			editorial_selected = params[:book][:editorial_id]
+			editorial = Library::Editorial.where(id: editorial_selected)
+			
+			if editorial.empty?
+				@editorial = Library::Editorial.create(name: editorial_selected)
+				@book.editorial_id = @editorial.id
 			end
 		end
 
