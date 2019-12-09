@@ -112,13 +112,13 @@ module Frontend
         end
         #image
         if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"../..", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://localhost:3000')
+          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"/rails/", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://localhost:3000/rails/')
         end
         if content.include?("<p><img style=\"float: right;\"")
-          content = content.gsub("<p><img style=\"float: right;\" src=\"../..", '<p align="right"><img src="http://localhost:3000')
+          content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", '<p align="right"><img src="http://localhost:3000/rails/')
         end
         if content.include?("<p><img style=\"float: left;\"")
-          content = content.gsub("<p><img style=\"float: left;\" src=\"../..", '<p align="left"><img src="http://localhost:3000')
+          content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", '<p align="left"><img src="http://localhost:3000/rails/')
         end
       else
         content = content.gsub("<source src=\"../..", '<video src="https://app.elmejorlugarparatrabajar.cl')
