@@ -249,8 +249,6 @@ class General::User < ApplicationRecord
     return data.compact
   end
 
-  private
-
   def set_user_attributes
     attributes = [
       ["company", self.company_id],
@@ -272,6 +270,8 @@ class General::User < ApplicationRecord
       set_data_attributes(attr[0], attr[1])
     end
   end
+
+  private
 
   def set_data_attributes(attr_name, attr_value)
     _deleted = General::UserAttribute.where(user_id: self.id, attribute_name: attr_name).where.not(value: attr_value).delete_all
