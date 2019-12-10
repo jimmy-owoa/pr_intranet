@@ -103,7 +103,7 @@ $(document).on("turbolinks:load", function() {
       ajaxSettings: {
         method: "POST"
       },
-      browseLabel: "Subir Fotos",
+      browseLabel: "Buscar Archivos",
       dropZoneTitle: "Arrastrar y Soltar archivos aquí",
       removeLabel: "Eliminar archivos",
       previewTemplates: {},
