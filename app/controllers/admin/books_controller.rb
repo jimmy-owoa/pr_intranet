@@ -16,10 +16,8 @@ module Admin
 
 		def create
 			@book = Library::Book.new(book_params)
-			set_new_category
-			set_new_author
-			set_new_editorial
-					
+			set_book_atributes
+
 			respond_to do |format|
 				if @book.save
           format.html { redirect_to admin_book_path(@book), notice: "Libro fue creado con éxito." }
@@ -35,8 +33,9 @@ module Admin
 		end
 
 		def update
-      respond_to do |format|
-        if @book.update(book_params)
+			respond_to do |format|
+				if @book.update(book_params)
+					set_book_atributes
           format.html { redirect_to admin_book_path(@book), notice: "Libro fue actualizado con éxito." }
           format.json { render :show, status: :ok, location: @book }
         else
@@ -60,20 +59,15 @@ module Admin
 			@book = Library::Book.find(params[:id])
 		end
 
-		def set_new_category
-			@book.category_book_id = Library::CategoryBook.where(name: book_params[:category_book_id]).first_or_create.id
-		end
-
-		def set_new_author
-			@book.author_id = Library::Author.where(name: book_params[:author_id]).first_or_create.id
-		end
-
-		def set_new_editorial
-			@book.editorial_id = Library::Editorial.where(name: book_params[:editorial_id]).first_or_create.id
+		def set_book_atributes
+			category = Library::CategoryBook.where(name: params[:book][:category_book_id]).first_or_create.id
+			author = Library::Author.where(name: params[:book][:author_id]).first_or_create.id
+			editorial = Library::Editorial.where(name: params[:book][:editorial_id]).first_or_create.id
+			@book.update(category_book_id: category, author_id: author, editorial_id: editorial)
 		end
 
 		def book_params
-			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :category_book_id, :edition_date, :publication_year, :author_id, :editorial_id, :available)
+			params.require(:book).permit(:title, :edition, :image, :description, :stock, :rating, :edition_date, :publication_year, :available)
 		end
 	end
 end
