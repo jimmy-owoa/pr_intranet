@@ -17,23 +17,25 @@
         </thead>
         <tbody>
           <% @requested_books.each do |request_book| %>
-            <tr>
-              <td><%= custom_date_no_hour(request_book.created_at)  %></td>
-              <td><%= link_to request_book.book.title.truncate(45), admin_book_path(request_book.book), title: request_book.book.title %></td>
-              <td><%= request_book.book.author.name %></td>
-              <td><%= request_book.book.category_book.name %></td>
-              <td><%= request_book.book.stock %></td>
-              <td><%= request_book.user.name %> <%= request_book.user.last_name %></td>
-              <td>				
-                  <%= link_to t('.show', :default => t("helpers.links.show")),
-                  admin_user_book_relationship_path(request_book), :class => 'btn btn-success btn-sm' %>
-                  <%= link_to 'Eliminar',
-                  admin_user_book_relationship_path(request_book),
-                  :method => :delete,
-                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
-                  :class => 'btn btn-sm btn-danger'%>
-              </td>
-            </tr>
+            <% if request_book.book.present? %>
+              <tr>
+                <td><%= custom_date_no_hour(request_book.created_at)  %></td>
+                <td><%= link_to request_book.book.title.truncate(45), admin_book_path(request_book.book), title: request_book.book.title %></td>
+                <td><%= request_book.book.author.name %></td>
+                <td><%= request_book.book.category_book.name %></td>
+                <td><%= request_book.book.stock %></td>
+                <td><%= request_book.user.name %> <%= request_book.user.last_name %></td>
+                <td>				
+                    <%= link_to t('.show', :default => t("helpers.links.show")),
+                    admin_user_book_relationship_path(request_book), :class => 'btn btn-success btn-sm' %>
+                    <%= link_to 'Eliminar',
+                    admin_user_book_relationship_path(request_book),
+                    :method => :delete,
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Estás seguro?')) },
+                    :class => 'btn btn-sm btn-danger'%>
+                </td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
       </table>
