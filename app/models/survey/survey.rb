@@ -15,7 +15,7 @@ class Survey::Survey < ApplicationRecord
   validates :allowed_answers, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: "debe ser mayor o igual a 0" }
 
   after_initialize :set_status
-  before_save :unique_slug, :set_survey_type
+  before_save :unique_slug, :set_survey_type, :set_published_at
 
   SURVEY_TYPES = [["Encuesta", "survey"], ["Formulario", "form"]]
   STATUS = ["Publicado", "Borrador", "Programado"]
@@ -88,6 +88,10 @@ class Survey::Survey < ApplicationRecord
 
   def set_survey_type
     self.survey_type = self.survey_type ||= "survey"
+  end
+
+  def set_published_at
+    self.published_at = self.published_at || DateTime.now
   end
 
   def unique_slug

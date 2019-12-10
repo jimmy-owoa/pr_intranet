@@ -124,18 +124,9 @@ module Frontend
       slug = params[:slug].present? ? params[:slug] : nil
       survey = Survey::Survey.find_by_slug(slug)
       if survey.profile_id.in?(@request_user.profile_ids) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
-        count = 0
-        required = survey.questions.where(optional: true)
-        if survey.once_by_user?
-          required.each do |question|
-            question.answers.each do |answer|
-              if answer.user_id == 3
-                count += 1
-              end
-            end
-          end
-        end
-        if count != required.count || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
+        options_user_ids = []
+        survey.questions.each { |question| options_user_ids << question.answers.pluck(:user_id) }
+        if (!@request_user.id.in?(options_user_ids) || !survey.once_by_user) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
           data_survey = []
           data_questions = []
           survey.questions.each do |question|

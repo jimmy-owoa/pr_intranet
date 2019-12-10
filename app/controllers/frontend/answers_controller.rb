@@ -12,22 +12,34 @@ module Frontend
     end
 
     def create
-      @answer = Survey::Answer.new(answer_params)
-      find_answer = Survey::Answer.where(question_id: params[:question_id], user_id: params[:user_id], option_id: params[:option_id]).try(:first)
-      if !find_answer.present?
-        respond_to do |format|
-          if @answer.save
-            format.json { render json: @answer, status: :ok }
-          else
-            format.json { render json: @answer.errors, status: :unprocessable_entity }
-          end
-        end
-      else
-        find_answer.delete
-        respond_to do |format|
-          format.json { render status: :ok }
+      params[:_json].each do |answer|
+        options = Survey::Option.where(question_id: answer[:questionId])
+        if options.present?
+          option_id = options.find_by_title(answer[:option]).id
+          Survey::Answer.create(question_id: answer[:questionId], option_id: option_id, user_id: @request_user.id)
+        else
+          Survey::Answer.create(question_id: answer[:questionId], answer_variable: answer[:option], user_id: @request_user.id)
         end
       end
+      respond_to do |format|
+        format.json { render status: :ok }
+      end
+      # @answer = Survey::Answer.new(answer_params)
+      # find_answer = Survey::Answer.where(question_id: params[:question_id], user_id: params[:user_id], option_id: params[:option_id]).try(:first)
+      # if !find_answer.present?
+      #   respond_to do |format|
+      #     if @answer.save
+      #       format.json { render json: @answer, status: :ok }
+      #     else
+      #       format.json { render json: @answer.errors, status: :unprocessable_entity }
+      #     end
+      #   end
+      # else
+      #   find_answer.delete
+      #   respond_to do |format|
+      #     format.json { render status: :ok }
+      #   end
+      # end
     end
 
     def answers_options_save_from_vue
