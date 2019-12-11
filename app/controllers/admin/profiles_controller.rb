@@ -83,6 +83,7 @@ module Admin
     private
 
     def set_profile_attributes
+      # Para agregar un nuevo filtro, hay que también agregarlo en el array "ALL" dentro del modelo profile.
       set_class_name_value(params[:regions], "region")
       set_class_name_value(params[:benefit_groups], "benefit_group")
       set_class_name_value(params[:companies], "company")
@@ -100,6 +101,7 @@ module Admin
       set_class_name_value(params[:office_countries], "office_country")
       set_class_name_value(params[:office_cities], "office_city")
       set_class_name_value(params[:office_regions], "office_region")
+      set_class_name_value(params[:has_childrens], "has_children")
     end
 
     def get_data

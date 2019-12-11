@@ -12,6 +12,7 @@ class General::Profile < ApplicationRecord
       "office_region",
       "gender",
       "office_country",
+      "has_children",
     ]
   end
 

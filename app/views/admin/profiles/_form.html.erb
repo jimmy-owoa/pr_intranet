@@ -72,10 +72,10 @@
       <%# <%= f.label 'Horario' %>
       <%# <%= select_tag :schedules, options_for_select(@schedules, @selected_schedules), multiple: true, class:' form-control string'%>
     <%# </div> %>
-    <%# <div class="col-4"> %>
-      <%# <%= f.label 'Tiene hijos' %>
-      <%# <%= select_tag :has_children, options_for_select(@has_children, @selected_has_children), multiple: true, class:' form-control string'%>
-    <%# </div> %>
+    <div class="col-4">
+      <%= f.label 'Tiene hijos' %>
+      <%= select_tag :has_children, options_for_select(@has_children, @selected_has_children), multiple: true, class:' form-control string' %>
+    </div>
      <%# <div class="col-4"> %>
       <%# <%= f.label 'Región' %>
       <%# <%= select_tag :regions, options_for_select(@regions.collect {|region| [region[1], region[0]]}, @selected_regions), multiple: true, class:' form-control string', id: 'regions' %>
