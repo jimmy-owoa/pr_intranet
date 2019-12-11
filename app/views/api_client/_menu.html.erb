@@ -1169,7 +1169,7 @@
   <div class="container-menu">
     <div class="hidden-sm-and-down">
       <!-- GOSPEL MODAL START -->
-      <div class="modal" id="gospel_modal" aria-hidden="true">
+      <div class="modal" id="tff_gospel_modal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="flex sm12">
             <div class="layout" style="margin-bottom: -17px;">
@@ -1197,7 +1197,7 @@
       </div>
       <!-- GOSPEL MODAL END -->
       <!-- WEATHER MODAL START -->
-      <div class="modal" id="weather_modal" aria-hidden="true">
+      <div class="modal" id="tff_weather_modal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="flex sm12">
             <div class="layout" style="margin-bottom: -17px;">
@@ -1249,7 +1249,7 @@
       </div>
       <!-- WEATHER MODAL END -->
       <!-- INDICATORS MODAL START -->
-      <div class="modal" id="indicators_modal" aria-hidden="true">
+      <div class="modal" id="tff_indicators_modal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="flex sm12">
             <div class="layout" style="margin-bottom: -17px;">
@@ -1317,21 +1317,21 @@
               </a>
             </div>
             <div class="flex sm2 subheading top-info text-md-right">
-              <a href="#gospel_modal" class="modal-hover" title="<%= santoral.name%>">
+              <a href="#tff_gospel_modal" class="modal-hover" title="<%= santoral.name%>">
                 <%= 'Santoral: ' + santoral.name[0...12] %>
               </a>
             </div>
             <div class="flex sm2 top-info">
-              <div href="#weather_modal">
+              <div href="#tff_weather_modal">
                 <div class="text-md-center subheading">
                   <%= image_tag(asset_url("weather/#{weather[0].icon}.svg"), style: "height: 25px; cursor: pointer; padding-right: 4px; vertical-align: middle; padding-bottom: 4px")%>
-                  <%=link_to location_name  + " " + weather[0].current_temp.to_i.to_s + "°" , "#weather_modal", class: "modal-hover" %>
+                  <%=link_to location_name  + " " + weather[0].current_temp.to_i.to_s + "°" , "#tff_weather_modal", class: "modal-hover" %>
                 </div>
               </div>
             </div>
             <div class="flex sm2 subheading pointer text-md-center top-info">
               <%= image_tag(asset_url("indicadores-economicos.svg"), style: "height: 16px;")%>
-              <a href="#indicators_modal" class="modal-hover">
+              <a href="#tff_indicators_modal" class="modal-hover">
                 Indicadores Económicos
               </a>
             </div>

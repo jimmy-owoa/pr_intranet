@@ -61,11 +61,11 @@ module Admin
       approved = params["approved"]
       if approved.present?
         respond_to do |format|
-          if approved == "true"
-            UserNotifierMailer.send_product_approved(@product.user.email, @product.user.name, @product.id).deliver
-          else
-            UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
-          end
+          # if approved == "true"
+          #   UserNotifierMailer.send_product_approved(@product.user.email, @product.user.name, @product.id).deliver
+          # else
+          #   UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
+          # end
           @product.update_attributes(approved: approved)
           format.json { render :json => { value: "success" } and return }
         end
