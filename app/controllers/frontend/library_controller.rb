@@ -86,7 +86,13 @@ module Frontend
     end
 
     def get_categories
-      data = ["Todos"] + Library::CategoryBook.pluck(:name)
+      categories = Library::CategoryBook.all
+      data = ["Todos"]
+      categories.each do |category|
+        if category.books.present?
+          data << category.name
+        end 
+      end
 
       render json: data, status: 200
     end  
