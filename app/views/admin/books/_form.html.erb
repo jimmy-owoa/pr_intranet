@@ -1,4 +1,4 @@
-<%= f.error_notification %>
+<%= f.error_notification message: f.object.errors[:author].to_sentence %>
 <div class="col-md-12 row pb-4 pt-4" style="background-color: #FbFbFb; border-radius: 25px">
   <div class="wrapper col-md-9">
     <div class="form-group row">
@@ -47,12 +47,12 @@
   <div class="col-md-3">
     <div class="card text-md-center p-2 wrapper">
       <div class="form-group row">
-        <div class="col-md-12">
+        <div class="col-md-12 mb-2">
           <% if @book.image.attached? %>
             <%= image_tag @book.image.variant(resize: '150x150>') %>
-            <%= f.input :image, required: false,input_html: { accept:'image/*' } %>
+            <%= f.file_field :image, required: false,input_html: { accept:'image/*' }, class: 'form-control-file' %>
           <% else %>
-            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+            <%= f.file_field :image, required: true, input_html: { accept:'image/*' }, class: 'form-control-file' %>
           <% end %>
         </div>
 
