@@ -124,12 +124,12 @@ module Frontend
           content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", '<p style="text-align: center;"><img style="float: left;" src="http://localhost:3000/rails/')
         end
       else
-        content = content.gsub("<source src=\"../..", '<video src="https://app.elmejorlugarparatrabajar.cl')
-        content = content.gsub("<source src=\"", '<video src="https://app.elmejorlugarparatrabajar.cl/')
-        content = content.gsub("<img src=\"../..", '<img src="https://app.elmejorlugarparatrabajar.cl')
-        content = content.gsub("<img src=\"/rails/", '<img src="https://app.elmejorlugarparatrabajar.cl/rails/')
-        content = content.gsub("<a href=\"//rails/", '<a href="https://app.elmejorlugarparatrabajar.cl/rails/')
-        content = content.gsub("<a href=\"/rails/", '<a href="https://app.elmejorlugarparatrabajar.cl/rails/')
+        content = content.gsub("<source src=\"../..", '<video src="https://intranet.exaconsultores.cl')
+        content = content.gsub("<source src=\"", '<video src="https://intranet.exaconsultores.cl/')
+        content = content.gsub("<img src=\"../..", '<img src="https://intranet.exaconsultores.cl')
+        content = content.gsub("<img src=\"/rails/", '<img src="https://intranet.exaconsultores.cl/rails/')
+        content = content.gsub("<a href=\"//rails/", '<a href="https://intranet.exaconsultores.cl/rails/')
+        content = content.gsub("<a href=\"/rails/", '<a href="https://intranet.exaconsultores.cl/rails/')
 
         #video
         if content.include?("<p><video style=\"float: right;\"")
@@ -143,16 +143,16 @@ module Frontend
         end
         #image
         if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"/rails/", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://app.elmejorlugarparatrabajar.cl/rails/')
+          content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"/rails/", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://intranet.exaconsultores.cl/rails/')
         end
         if content.include?("<p><img style=\"float: right;\"")
-          content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", '<p align="right"><img src="https://app.elmejorlugarparatrabajar.cl/rails/')
+          content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", '<p align="right"><img src="https://intranet.exaconsultores.cl/rails/')
         end
         if content.include?("<p><img style=\"float: left;\"")
-          content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", '<p align="left"><img src="https://app.elmejorlugarparatrabajar.cl/rails/')
+          content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", '<p align="left"><img src="https://intranet.exaconsultores.cl/rails/')
         end
         if content.include?("<p style=\"text-align: center;\"><img style=\"float: left;\"")
-          content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", '<p style="text-align: center;"><img style="float: left;" src="https://app.elmejorlugarparatrabajar.cl/rails/')
+          content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", '<p style="text-align: center;"><img style="float: left;" src="https://intranet.exaconsultores.cl/rails/')
         end
       end
       content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
