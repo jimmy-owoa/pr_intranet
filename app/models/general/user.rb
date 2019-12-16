@@ -175,21 +175,6 @@ class General::User < ApplicationRecord
     end
   end
 
-  def self.what_role?(user)
-    if user.has_role?("user")
-      return "user"
-    elsif user.has_role?("post_admin")
-      return "post_admin"
-    elsif user.has_role?("super_admin")
-      return "super_admin"
-    elsif user.has_role?("message_admin")
-      return "message_admin"
-    else
-      user.add_role(:user)
-      return "user" if user.has_role?("user")
-    end
-  end
-
   def assign_default_role
     add_role(:user) if roles.blank?
   end

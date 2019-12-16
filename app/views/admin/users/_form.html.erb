@@ -75,6 +75,7 @@
         </div>
         <div class="col-4 col-sm-6">
           <%= f.label 'Jerarquía' %>
+          <!-- TODO: ARREGLAR ESTO! -->
           <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
         </div>
         <div class="col-4 col-sm-3">
