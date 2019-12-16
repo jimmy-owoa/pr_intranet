@@ -81,6 +81,8 @@ gem "simple_calendar", "~> 2.0"
 gem "awesome_nested_set"
 #scheduled jobs
 gem "whenever", require: false
+# active storage validations
+gem 'active_storage_validations'
 #metrics
 gem "ahoy_matey"
 #geocoding need for ahoy

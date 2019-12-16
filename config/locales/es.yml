@@ -224,6 +224,7 @@ es:
       confirmation: no coincide
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
+      content_type_invalid: "Tiene un tipo de contenido no válido: %{content_type}"
       even: debe ser par
       exclusion: está reservado
       greater_than: debe ser mayor que %{count}

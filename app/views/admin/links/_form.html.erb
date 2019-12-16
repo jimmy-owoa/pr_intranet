@@ -20,13 +20,13 @@
       <div class="card-body text-secondary border border-primary rounded">
         <% if @link.image.attachment.present? %>
           <%= image_tag(@link.image.variant(resize: '300x300>'), class: 'left') %>
-          <div class="left">
-            <%= f.input :image, required: false, input_html: { accept:'image/*' } %>
+          <div class="left mt-2">
+            <%= f.file_field :image, required: false, input_html: { accept:'image/*' } %>
           </div>
         <% else %>
           <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
-          <div class="left">
-            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+          <div class="left mt-2">
+            <%= f.file_field :image, input_html: { accept:'image/*' } %>
           </div>
         <% end %>
       </div>

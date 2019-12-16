@@ -1,7 +1,6 @@
 module Frontend
   class ProductsController < FrontendController
-    before_action :set_product, only: [:show, :destroy, :edit, :update]
-    skip_before_action :verify_authenticity_token, only: [:create, :update_expiration, :destroy]
+    skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
     #callbacks
     after_action :set_tracking, only: [:index, :show, :new]
 
@@ -155,7 +154,39 @@ module Frontend
       @product = Marketplace::Product.new
     end
 
-    def edit
+    def update
+      name = params[:name]
+      email = params[:email]
+      price = params[:price]
+      phone = params[:phone]
+      description = params[:description]
+      location = params[:location]
+      user_id = params[:user_id]
+      id = params[:id] || nil
+      images = params[:images]
+      product_type = params[:product_type]
+      @product = Marketplace::Product.find(id)
+      
+      @product.update(name: name, email: email, price: price, phone: phone,
+                                          description: description, location: location, user_id: user_id, product_type: product_type, approved: false, expiration: 30)
+      # @product.images.purge
+
+      if images.present?
+        images.each do |image|
+          base64_image = image[1].sub(/^data:.*,/, "")
+          decoded_image = Base64.decode64(base64_image)
+          image_io = StringIO.new(decoded_image)
+          @product_image = { io: image_io, filename: name }
+          @product.images.attach(@product_image)
+        end
+      end
+      respond_to do |format|
+        if @product
+          format.json { render json: "OK", status: 200 }
+        else
+          format.json { render json: "ERROR", status: 403 }
+        end
+      end
     end
 
     def create
@@ -166,6 +197,7 @@ module Frontend
       description = params[:description]
       location = params[:location]
       user_id = params[:user_id]
+      # id = params[:id] || nil
       images = params[:images]
       product_type = params[:product_type]
       @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone,
@@ -182,11 +214,9 @@ module Frontend
       end
       respond_to do |format|
         if @product.save
-          format.html { redirect_to frontend_product_path(@product), notice: "Product was successfully created." }
-          format.json { render :show, status: :created, location: @product }
+          format.json { render json: "OK", status: 200 }
         else
-          format.html { render :new }
-          format.json { render json: @product.errors, status: :unprocessable_entity }
+          format.json { render json: "ERROR", status: 403 }
         end
       end
     end
@@ -200,18 +230,6 @@ module Frontend
       Marketplace::Product.find(params[:id]).destroy
       respond_to do |format|
         format.json { head :no_content }
-      end
-    end
-
-    def update
-      respond_to do |format|
-        if @product.update(product_params)
-          format.html { redirect_to frontend_product_path(@product), notice: "Birth was successfully updated." }
-          format.json { render :show, status: :ok, location: @product }
-        else
-          format.html { render :edit }
-          format.json { render json: @product.errors, status: :unprocessable_entity }
-        end
       end
     end
 
