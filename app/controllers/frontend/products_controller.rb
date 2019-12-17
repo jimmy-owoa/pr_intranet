@@ -155,31 +155,12 @@ module Frontend
     end
 
     def update
-      name = params[:name]
-      email = params[:email]
-      price = params[:price]
-      phone = params[:phone]
-      description = params[:description]
-      location = params[:location]
-      user_id = params[:user_id]
       id = params[:id] || nil
-      images = params[:images]
-      product_type = params[:product_type]
       @product = Marketplace::Product.find(id)
-      
-      @product.update(name: name, email: email, price: price, phone: phone,
-                                          description: description, location: location, user_id: user_id, product_type: product_type, approved: false, expiration: 30)
-      # @product.images.purge
-
-      if images.present?
-        images.each do |image|
-          base64_image = image[1].sub(/^data:.*,/, "")
-          decoded_image = Base64.decode64(base64_image)
-          image_io = StringIO.new(decoded_image)
-          @product_image = { io: image_io, filename: name }
-          @product.images.attach(@product_image)
-        end
-      end
+      set_params
+      @product.update(name: @name, email: @email, price: @price, phone: @phone,
+                      description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30)                          
+      set_images true
       respond_to do |format|
         if @product
           format.json { render json: "OK", status: 200 }
@@ -190,28 +171,10 @@ module Frontend
     end
 
     def create
-      name = params[:name]
-      email = params[:email]
-      price = params[:price]
-      phone = params[:phone]
-      description = params[:description]
-      location = params[:location]
-      user_id = params[:user_id]
-      # id = params[:id] || nil
-      images = params[:images]
-      product_type = params[:product_type]
-      @product = Marketplace::Product.new(name: name, email: email, price: price, phone: phone,
-                                          description: description, location: location, user_id: user_id, product_type: product_type, approved: false, expiration: 30)
-
-      if images.present?
-        images.each do |image|
-          base64_image = image[1].sub(/^data:.*,/, "")
-          decoded_image = Base64.decode64(base64_image)
-          image_io = StringIO.new(decoded_image)
-          @product_image = { io: image_io, filename: name }
-          @product.images.attach(@product_image)
-        end
-      end
+      set_params
+      @product = Marketplace::Product.new(name: @name, email: @email, price: @price, phone: @phone,
+                                          description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30)
+      set_images
       respond_to do |format|
         if @product.save
           format.json { render json: "OK", status: 200 }
@@ -234,6 +197,31 @@ module Frontend
     end
 
     private
+
+    def set_params
+      @name = params[:name]
+      @email = params[:email]
+      @price = params[:price]
+      @phone = params[:phone]
+      @description = params[:description]
+      @location = params[:location]
+      @user_id = @request_user.id
+      @images = params[:images]
+      @product_type = params[:product_type]
+    end
+
+    def set_images purge = nil
+      if @images.present?
+        @product.images.purge if purge.present?
+        @images.each do |image|
+          base64_image = image[1].sub(/^data:.*,/, "")
+          decoded_image = Base64.decode64(base64_image)
+          image_io = StringIO.new(decoded_image)
+          @product_image = { io: image_io, filename: @name }
+          @product.images.attach(@product_image)
+        end
+      end
+    end
 
     def set_tracking
       ahoy.track "Product Model", params

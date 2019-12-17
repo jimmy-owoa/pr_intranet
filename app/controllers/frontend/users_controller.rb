@@ -204,7 +204,7 @@ module Frontend
         full_name: user.full_name.titleize,
         full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
         nickname: @nickname,
-        role: General::User.what_role?(user),
+        role: user.roles.pluck(:name),
         company: user.company.present? ? user.company.name : "Empresa no disponible",
         birthday: user.birthday.present? && user.show_birthday ? user.birthday.strftime("%d/%m") : "Información oculta",
         is_birthday: user.is_birthday_today,
