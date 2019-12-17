@@ -33,21 +33,21 @@ module Frontend
       if Rails.env.dev?
         "http://localhost:8080/#/resultados/"
       else
-        "https://misecurity.elmejorlugarparatrabajar.cl/#/resultados/"
+        "https://miintranet.exaconsultores.cl/#/resultados/"
       end
     end
 
     def get_request_referer
       if request.referer == "https://misecurity-qa3.exa.cl/"
-        "https://misecurity.elmejorlugarparatrabajar.cl/"
-      elsif request.referer == "https://misecurity.elmejorlugarparatrabajar.cl/"
+        "https://miintranet.exaconsultores.cl/"
+      elsif request.referer == "https://miintranet.exaconsultores.cl/"
         request.referer
       elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
         request.referer
       elsif request.referer == "http://localhost:8080/"
         request.referer
       else
-        "https://misecurity.elmejorlugarparatrabajar.cl/"
+        "https://miintranet.exaconsultores.cl/"
       end
     end
 
