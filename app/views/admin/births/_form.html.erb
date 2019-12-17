@@ -84,13 +84,10 @@
     </div>
   </div>
   <% if @birth.unpermitted_images.present? %>
-    <div class="container card">
+    <div class="card p-3">
       <div class="row">
         <div class="col-sm-10 pull-left">
-          Foto(s) por aprobar
-        </div>
-        <div class="col-sm-2 pull-right">
-          <button type="button" class="btn btn-primary btn-sm" id='check_all_birth'>Selecciona todo</button>
+          Foto por aprobar
         </div>
       </div>
       <br />
@@ -98,7 +95,7 @@
         <% @birth.unpermitted_images.each do |image| %>
           <div class="col-md-2 approved">
             <figure>
-              <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
+              <a data-toggle="modal" data-target="#modalShow"><%= image_tag image.variant(resize: '350x200>'), class: 'image_attach' %></a>
               <figcaption>
                 <%= check_box_tag "permissions[]", image.id -%>
               </figcaption>
@@ -135,3 +132,4 @@
       <%= f.submit nil, class: 'btn btn-success btn-block' %>
     <% end %>
   </div>
+</div>

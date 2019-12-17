@@ -42,4 +42,8 @@ $(document).on("turbolinks:load", function() {
   $(".close").on("click", function() {
     $(".modal").modal("hide");
   });
+
+  $('#btnClose').click( function () {
+    $('#modalShow').modal('hide')
+  });
 });
