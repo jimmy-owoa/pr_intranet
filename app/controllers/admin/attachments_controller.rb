@@ -17,6 +17,26 @@ module Admin
       end
     end
 
+    def index_images
+      @attachments = General::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @attachments }
+        format.js
+      end
+    end
+    
+    def index_videos
+      @attachments = General::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @attachments }
+        format.js
+      end
+    end 
+
     def upload
       if params[:file].present?
         new_attachment = General::Attachment.new

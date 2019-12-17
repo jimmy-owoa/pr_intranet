@@ -110,6 +110,8 @@ module ApplicationHelper
        file.attachment.content_type == png
       return true
     end
+
+    return false
   end
 
   def supported_video(file)
@@ -125,6 +127,8 @@ module ApplicationHelper
        file.attachment.content_type == web
       return true
     end
+
+    return false
   end
 
   def show_media(file)
