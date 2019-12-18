@@ -1,11 +1,13 @@
 module Admin
   class AttachmentsController < AdminController
     # skip_before_action :authenticate_user!, :only => [:create, :upload]
+    require 'will_paginate/array'
     skip_before_action :verify_authenticity_token, only: [:create, :upload]
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
     before_action :set_terms, only: [:edit, :new]
     respond_to :json, :html
+
 
     def index
       add_breadcrumb "Medios", :admin_attachments_path
@@ -18,7 +20,8 @@ module Admin
     end
 
     def index_images
-      @attachments = General::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
+      attachments = General::Attachment.all.select { |file| file.attachment.image? }
+      @images = attachments.sort { |e, i| i[:created_at] <=> e[:created_at] }.paginate(:page => params[:page], :per_page => 12)
 
       respond_to do |format|
         format.html
@@ -28,14 +31,15 @@ module Admin
     end
     
     def index_videos
-      @attachments = General::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
+      attachments = General::Attachment.all.select { |file| file.attachment.video? }
+      @videos = attachments.sort { |e, i| i[:created_at] <=> e[:created_at] }.paginate(:page => params[:page], :per_page => 12)
 
       respond_to do |format|
         format.html
         format.json { render json: @attachments }
         format.js
       end
-    end 
+    end
 
     def upload
       if params[:file].present?

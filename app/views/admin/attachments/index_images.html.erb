@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @attachments.each do |at| %>
+          <% @images.each do |at| %>
             <% if supported_img(at) %>
             <tr>
               <td><%= show_media_index(at.attachment) %></td>
@@ -36,7 +36,7 @@
       </table>
       <div class='row'>
           <div class="col-md-10">
-            <%= will_paginate @attachments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+            <%= will_paginate @images, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
         </div>
       </div>
     </div>

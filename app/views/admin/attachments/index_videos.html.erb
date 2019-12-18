@@ -7,16 +7,15 @@
       <table class="table table-hover">
         <thead class="thead">
           <tr>
-      
+            <th><%= 'Miniatura' %></th>
             <th><%= 'Nombre' %></th>
             <th><%= 'Acciones' %></th>
           </tr>
         </thead>
         <tbody>
-          <% @attachments.each do |at| %>
-            <% if supported_video(at) %>
+          <% @videos.each do |at| %>
             <tr>
-              
+              <td><%= show_media_index(at.attachment) %></td>
               <td><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}%></td>
               <td>
                 <%= link_to t('.show', :default => t("helpers.messages.show")),
@@ -30,13 +29,12 @@
                             :class => 'btn btn-danger' %>
               </td>
             </tr>
-            <% end %>
           <% end %>
         </tbody>
       </table>
       <div class='row'>
           <div class="col-md-10">
-            <%= will_paginate @attachments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+            <%= will_paginate @videos, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
         </div>
       </div>
     </div>
