@@ -105,6 +105,7 @@ module Frontend
       end
       respond_to do |format|
         if @birth.save
+        # UserNotifierMailer.send_birth_created(@birth.user.email).deliver
           format.html { redirect_to frontend_birth_path(@birth), notice: "Birth was successfully created." }
           format.json { render json: @birth, status: 200 }
         else

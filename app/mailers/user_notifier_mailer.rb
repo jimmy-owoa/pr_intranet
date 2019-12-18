@@ -17,6 +17,10 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email, subject: "Nacimiento aprobado")
   end
 
+  def send_birth_created(email)
+    mail(to: email, subject: "Nacimiento creado")
+  end  
+
   def send_birth_not_approved(email)
     mail(to: email, subject: "Nacimiento rechazado")
   end
@@ -27,7 +31,28 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email, subject: "Aviso aprobado")
   end
 
+  def send_product_edit(email)
+    mail(to: email, subject: "Aviso Editado")
+  end
+
+  def send_product_created(email)
+    mail(to: email, subject: "Aviso en proceso de aprobación")
+  end
+  
   def send_product_not_approved(email)
     mail(to: email, subject: "Aviso rechazado")
+  end
+
+  def send_image_profile_changed(email)
+    mail(to: email, subject: "Foto de perfil cambiada")
+  end
+
+  def send_survey_answered(email)
+    mail(to: email, subject: "Encuesta respondida")
+  end
+
+  def send_survey_created(email, survey_id)
+    @survey_id = survey_id
+    mail(to: email, subject: "Encuesta Asignada")
   end
 end
