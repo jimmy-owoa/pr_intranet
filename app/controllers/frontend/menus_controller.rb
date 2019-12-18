@@ -94,7 +94,7 @@ module Frontend
     def api_menu_vue
       base_api_url = root_url
       base_search_url = get_rails_env
-      user = params[:ln_user].present? ? General::User.get_user_by_ln(params[:ln_user]) : @request_user
+      user = params[:user_code_crypted_base64].present? ? General::User.get_user_by_ln(InternalAuth.decrypt(params[:user_code_crypted_base64])) : @request_user
       location_id = user.location_id || 2
       menus = []
       General::Menu.all.each do |menu|
