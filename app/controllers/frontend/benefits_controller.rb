@@ -2,8 +2,6 @@ include ActionView::Helpers::NumberHelper
 
 module Frontend
   class BenefitsController < FrontendController
-    after_action :set_tracking, only: [:index, :show]
-
     def index
       data = []
       user = @request_user
@@ -73,6 +71,7 @@ module Frontend
         format.json { render json: types }
       end
     end
+
     def show
       respond_to do |format|
         format.html
@@ -86,7 +85,7 @@ module Frontend
     def formatted_content(benefit, benefit_group_relationship)
       replace_variables = {
         "TIPO": currency_type_format(benefit_group_relationship.currency),
-        "VALOR": number_to_currency(benefit_group_relationship.amount, unit:"", delimiter:".", precision:0),
+        "VALOR": number_to_currency(benefit_group_relationship.amount, unit: "", delimiter: ".", precision: 0),
       }
       content = benefit.content
       if (content.present? && content.include?("*|TIPO|*") && content.include?("*|VALOR|*"))
@@ -106,10 +105,6 @@ module Frontend
       else
         currency
       end
-    end
-
-    def set_tracking
-      ahoy.track "Benefit Model", params
     end
 
     # Use callbacks to share common setup or constraints between actions.

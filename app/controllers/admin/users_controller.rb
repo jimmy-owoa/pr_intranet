@@ -6,8 +6,6 @@ module Admin
     #callbacks
     before_action :user_registered?
     before_action :set_user, only: [:show, :edit, :update, :destroy]
-    after_action :set_tracking, only: [:index, :show, :new]
-    after_action :set_tracking_action, only: [:create]
 
     def index
       add_breadcrumb "Usuarios", :admin_users_path
@@ -84,14 +82,6 @@ module Admin
     end
 
     private
-
-    def set_tracking
-      ahoy.track "User Model", params
-    end
-
-    def set_tracking_action
-      ahoy.track "User Model / Actions", controller: params[:controller], action: params[:action], user: params[:user][:email]
-    end
 
     def set_tags
       term_names = params[:term_names]

@@ -1,7 +1,5 @@
 module Frontend
   class BirthdaysController < FrontendController
-    after_action :set_tracking, only: [:index, :list, :modal]
-
     def index
       page = params[:page]
       date = params[:date]
@@ -81,12 +79,6 @@ module Frontend
         format.html
         format.json { render json: data }
       end
-    end
-
-    private
-
-    def set_tracking
-      ahoy.track "Birthday Model", params
     end
   end
 end

@@ -1,8 +1,6 @@
 module Frontend
   class ProductsController < FrontendController
     skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
-    #callbacks
-    after_action :set_tracking, only: [:index, :show, :new]
 
     def index
       page = params[:page]
@@ -159,7 +157,7 @@ module Frontend
       @product = Marketplace::Product.find(id)
       set_params
       @product.update(name: @name, email: @email, price: @price, phone: @phone,
-                      description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30)                          
+                      description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30)
       set_images true
       respond_to do |format|
         if @product
@@ -178,7 +176,7 @@ module Frontend
       set_images
       respond_to do |format|
         if @product.save
-        # UserNotifierMailer.send_product_created(@product.user.email).deliver
+          # UserNotifierMailer.send_product_created(@product.user.email).deliver
           format.json { render json: "OK", status: 200 }
         else
           format.json { render json: "ERROR", status: 403 }
@@ -212,7 +210,7 @@ module Frontend
       @product_type = params[:product_type]
     end
 
-    def set_images purge = nil
+    def set_images(purge = nil)
       if @images.present?
         @product.images.purge if purge.present?
         @images.each do |image|
@@ -223,14 +221,6 @@ module Frontend
           @product.images.attach(@product_image)
         end
       end
-    end
-
-    def set_tracking
-      ahoy.track "Product Model", params
-    end
-
-    def set_tracking_action
-      ahoy.track "Product Model / Actions", controller: params[:controller], action: params[:action], product: params[:product][:name]
     end
 
     def set_product_types

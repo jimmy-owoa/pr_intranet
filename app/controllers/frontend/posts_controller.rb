@@ -1,7 +1,5 @@
 module Frontend
   class PostsController < FrontendController
-    after_action :set_tracking, only: [:index, :show, :new]
-
     def index
       user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.filter_posts(@request_user)
       page = params[:page]
@@ -211,10 +209,6 @@ module Frontend
     end
 
     private
-
-    def set_tracking
-      ahoy.track "Post Model", params
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_post

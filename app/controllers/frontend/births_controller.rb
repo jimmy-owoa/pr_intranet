@@ -6,7 +6,6 @@ module Frontend
     #callbacks
     layout "admin"
     before_action :set_birth, only: [:show, :destroy]
-    after_action :set_tracking, only: [:index, :show, :new, :list]
     skip_before_action :verify_authenticity_token, only: [:create]
 
     def index
@@ -105,7 +104,7 @@ module Frontend
       end
       respond_to do |format|
         if @birth.save
-        # UserNotifierMailer.send_birth_created(@birth.user.email).deliver
+          # UserNotifierMailer.send_birth_created(@birth.user.email).deliver
           format.html { redirect_to frontend_birth_path(@birth), notice: "Birth was successfully created." }
           format.json { render json: @birth, status: 200 }
         else
@@ -124,14 +123,6 @@ module Frontend
     end
 
     private
-
-    def set_tracking
-      ahoy.track "Birth Model", params
-    end
-
-    def set_tracking_action
-      ahoy.track "Birth Model / Actions", controller: params[:controller], action: params[:action], user: params[:user][:email]
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_birth

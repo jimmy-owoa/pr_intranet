@@ -83,10 +83,6 @@ gem "awesome_nested_set"
 gem "whenever", require: false
 # active storage validations
 gem 'active_storage_validations'
-#metrics
-gem "ahoy_matey"
-#geocoding need for ahoy
-gem "maxminddb"
 # paginate for API
 gem "kaminari"
 # Reduces boot times through caching; required in config/boot.rb
