@@ -4,3 +4,22 @@
     <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
 </section>
+
+<!-- Modal -->
+<div class="modal fade text-center" id="modalShow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <% @birth.unpermitted_images.each do |image| %>
+              <%= image_tag image, class: 'img-fluid' %>
+            <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
