@@ -12,16 +12,21 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <% @birth.unpermitted_images.each do |image| %>
-              <%= image_tag image, class: 'img-fluid' %>
+            <% if @birth.unpermitted_images.present? %>
+              <% @birth.unpermitted_images.each do |image| %>
+                <%= image_tag image, class: 'img-fluid' %>
+              <% end %>
             <% end %>
-            <% @birth.permitted_images.each do |image| %>
-              <%= image_tag image, class: 'img-fluid' %>
+            <% if @birth.permitted_images.present? %>
+              <% @birth.permitted_images.each do |image| %>
+                <%= image_tag image, class: 'img-fluid' %>
+              <% end %>
             <% end %>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Cerrar</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>
