@@ -15,6 +15,9 @@
             <% @birth.unpermitted_images.each do |image| %>
               <%= image_tag image, class: 'img-fluid' %>
             <% end %>
+            <% @birth.permitted_images.each do |image| %>
+              <%= image_tag image, class: 'img-fluid' %>
+            <% end %>
         </div>
       </div>
       <div class="modal-footer">
