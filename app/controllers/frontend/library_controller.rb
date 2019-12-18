@@ -2,7 +2,6 @@ module Frontend
   class LibraryController < FrontendController
     skip_before_action :verify_authenticity_token, only: [:create_request_book]
 
-
     def index
       page = params[:page]
       category = params[:category]
@@ -89,13 +88,13 @@ module Frontend
       categories = Library::CategoryBook.all
       data = ["Todos"]
       categories.each do |category|
-        if category.books.present?
+        if category.books.available_books.present?
           data << category.name
-        end 
+        end
       end
 
       render json: data, status: 200
-    end  
+    end
 
     private
 
