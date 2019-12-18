@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get "products/approved_index", to: "products#approved_index"
     get "menus/testing", to: "menus#testing"
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
+    get "attachments/images", to: "attachments#index_images"
+    get "attachments/videos", to: "attachments#index_videos"
     resources :books
     resources :authors
     resources :editorials

@@ -42,6 +42,10 @@ $(document).on("turbolinks:load", function() {
     tags: false,
     tokenSeparators: [",", " "]
   });
+
+  $('.best_in_place').best_in_place()
+  $('.best_in_place').bind("ajax:success", function(){ alert('Se cambió el nombre de '+$(this).data('attachName')); });
+
   var uploader = $("#fileinputuploader");
 
   uploader
