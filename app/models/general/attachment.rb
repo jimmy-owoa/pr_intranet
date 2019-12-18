@@ -8,8 +8,10 @@ class General::Attachment < ApplicationRecord
 
   has_one_attached :attachment
 
-  after_create :path
   before_save :default_name
+
+  scope :videos, -> { where("attachment.content_type LIKE ? ", "%video%") }
+  scope :images, -> { where("attachment.content_type LIKE ? ", "%image%") }
 
   def default_name
     if self.attachment.attached?
@@ -41,5 +43,15 @@ class General::Attachment < ApplicationRecord
     rescue
       return nil
     end
+  end
+
+  def self.images
+    attachments = General::Attachment.all.select { |file| file.attachment.image? }
+    attachments.sort_by { |e| e[:created_at] }.reverse
+  end
+
+  def self.videos
+    attachments = General::Attachment.all.select { |file| file.attachment.video? }
+    attachments.sort_by { |e| e[:created_at] }.reverse
   end
 end

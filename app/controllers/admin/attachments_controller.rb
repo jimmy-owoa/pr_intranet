@@ -1,44 +1,22 @@
 module Admin
   class AttachmentsController < AdminController
     # skip_before_action :authenticate_user!, :only => [:create, :upload]
-    require 'will_paginate/array'
+    require "will_paginate/array"
     skip_before_action :verify_authenticity_token, only: [:create, :upload]
     before_action :set_attachment, only: [:show, :edit, :update, :destroy]
     before_action :set_post, only: [:create, :new]
-    before_action :set_terms, only: [:edit, :new]
     respond_to :json, :html
 
-
     def index
-      add_breadcrumb "Medios", :admin_attachments_path
       @attachments = General::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
-      respond_to do |format|
-        format.html
-        format.json { render json: @attachments }
-        format.js
-      end
     end
 
     def index_images
-      attachments = General::Attachment.all.select { |file| file.attachment.image? }
-      @images = attachments.sort { |e, i| i[:created_at] <=> e[:created_at] }.paginate(:page => params[:page], :per_page => 12)
-
-      respond_to do |format|
-        format.html
-        format.json { render json: @attachments }
-        format.js
-      end
+      @images = General::Attachment.images.paginate(:page => params[:page], :per_page => 12)
     end
-    
-    def index_videos
-      attachments = General::Attachment.all.select { |file| file.attachment.video? }
-      @videos = attachments.sort { |e, i| i[:created_at] <=> e[:created_at] }.paginate(:page => params[:page], :per_page => 12)
 
-      respond_to do |format|
-        format.html
-        format.json { render json: @attachments }
-        format.js
-      end
+    def index_videos
+      @videos = General::Attachment.videos.paginate(:page => params[:page], :per_page => 12)
     end
 
     def upload
@@ -146,20 +124,6 @@ module Admin
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
       @attachment = General::Attachment.find(params[:id])
-    end
-
-    def set_terms
-      full_categories = General::Term.categories
-      inclusive_tags = General::Term.tags.inclusive_tags
-      excluding_tags = General::Term.tags.excluding_tags
-      user_categories = current_user.terms.categories
-      if current_user.has_role? :super_admin
-        @categories = full_categories
-        @inclusive_tags = inclusive_tags
-        @excluding_tags = excluding_tags
-      else
-        @categories = @user_categories & @full_categories
-      end
     end
 
     def set_post
