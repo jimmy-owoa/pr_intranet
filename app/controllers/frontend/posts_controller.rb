@@ -1,7 +1,7 @@
 module Frontend
   class PostsController < FrontendController
     def index
-      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.filter_posts(@request_user)
+      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.filter_posts(@request_user).normal_posts
       page = params[:page]
       params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select { |post| post.post_type == params[:category] }).page(page).per(4) :
         posts = Kaminari.paginate_array(user_posts).page(page).per(4)
@@ -161,8 +161,7 @@ module Frontend
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
       if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
-        posts = News::Post.where(post_type: post.post_type)
-        relationed_posts = @request_user.has_role?(:admin) ? posts.last(5) - [post] : posts.filter_posts(@request_user).last(5) - [post]
+        relationed_posts = post.get_relationed_posts(@request_user)
 
         data_relationed_posts = []
         relationed_posts.each do |post|
@@ -194,7 +193,7 @@ module Frontend
             { link: "/noticias", name: "Noticias" },
             { link: "#", name: post.title.truncate(30) },
           ],
-          relationed_posts: data_relationed_posts,
+          relationed_posts: data_relationed_posts
         }
         respond_to do |format|
           format.json { render json: data[0] }

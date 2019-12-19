@@ -30,6 +30,9 @@ class News::Post < ApplicationRecord
   scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5) }
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
+  scope :informative_posts, -> { where(post_type: "Página Informativa") }
+  scope :normal_posts, -> { where.not(post_type: "Página Informativa") }
+
   STATUS = ["Publicado", "Borrador", "Programado"]
   VISIBILITY = ["Público", "Privada"]
   FORMAT = { 0 => "Estilo normal", 1 => "Estilo rosado", 2 => "Estilo naranja" }
@@ -53,12 +56,6 @@ class News::Post < ApplicationRecord
     end
   end
 
-  def cached_tags
-    Rails.cache.fetch :tags, :expires_in => 1.days do
-      self.terms.tags
-    end
-  end
-
   def self.check_image(post)
     if post.main_image_id.present?
       # post.main_image.attachment
@@ -69,9 +66,19 @@ class News::Post < ApplicationRecord
     end
   end
 
+  def get_relationed_posts(user)
+    posts = News::Post.where(post_type: post_type)
+
+    if post_type == "Página Informativa"
+      relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).informative_posts.last(5) - [self]
+    else
+      relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).normal_posts.last(5) - [self]
+    end 
+  end  
+
   # TODO: optimizar
   def self.filter_posts(user, important = nil)
-    news = News::Post.where(profile_id: user.profile_ids).published_posts.where.not(post_type: "Página Informativa")
+    news = News::Post.where(profile_id: user.profile_ids).published_posts
     news = news.where(important: important) if important.present?
     news
   end
