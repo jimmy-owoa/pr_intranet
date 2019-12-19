@@ -16,7 +16,6 @@ module Frontend
           published_at: post.created_at.strftime("%d/%m/%Y"),
           post_type: post.post_type.present? ? post.post_type.upcase : "",
           important: post.important,
-          tags: post.cached_tags,
           slug: post.slug,
           extract: extract,
           breadcrumbs: [
