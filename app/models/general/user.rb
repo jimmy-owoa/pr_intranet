@@ -258,7 +258,7 @@ class General::User < ApplicationRecord
   private
 
   def set_data_attributes(attr_name, attr_value)
-    _deleted = General::UserAttribute.where(user_id: self.id, attribute_name: attr_name).where.not(value: attr_value).delete_all
+    _deleted = General::UserAttribute.where(user_id: self.id, attribute_name: attr_name).where.not(value: attr_value).destroy_all
     return General::UserAttribute.where(user_id: self.id, attribute_name: attr_name, value: attr_value).first_or_create
   end
 end
