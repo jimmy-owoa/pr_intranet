@@ -155,6 +155,15 @@ module Frontend
       data_benefits = []
       data_products = []
       data_messages = []
+      data_family_member = []
+      if user.family_members.present?
+        user.family_members.each do |member|
+          data_family_member << {
+            id: member.id,
+            title: member.name
+          }
+        end
+      end
       if user.products.present?
         user.products.each do |product|
           data_products << {
@@ -227,6 +236,7 @@ module Frontend
         messages: data_messages,
         notifications: user.notifications,
         color: user.get_color,
+        family_members: data_family_member
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
