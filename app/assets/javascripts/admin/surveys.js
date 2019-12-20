@@ -35,6 +35,12 @@ $(document).on("turbolinks:load", function () {
     } else if (selectedVal == "Escala lineal") {
       message_selection.html("Escala lineal es considerada desde 0 a 10");
       $(element).parent().parent().parent().siblings().addClass("hidden");
+    } else if (selectedVal == "Cargas Múltiple") {
+      message_selection.html("Campo que muestra las cargas del usuario y permite seleccionar una o más.");
+      $(element).parent().parent().parent().siblings().addClass("hidden");
+    } else if (selectedVal == "Cargas Simple") {
+      message_selection.html("Campo que muestra las cargas del usuario y permite seleccionar sólo una.");
+      $(element).parent().parent().parent().siblings().addClass("hidden");
     }
   }
 

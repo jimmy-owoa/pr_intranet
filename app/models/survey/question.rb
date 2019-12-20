@@ -7,7 +7,7 @@ class Survey::Question < ApplicationRecord
 
   accepts_nested_attributes_for :options, allow_destroy: true, reject_if: proc { |att| att["title"].blank? }
 
-  QUESTION_TYPE = ["Múltiple", "Simple", "Verdadero o Falso", "Texto", "Número", "Selección", "Escala lineal"]
+  QUESTION_TYPE = ["Múltiple", "Simple", "Verdadero o Falso", "Texto", "Número", "Selección", "Escala lineal", "Cargas Múltiple", "Cargas Simple"]
 
   def create_option
     if question_type == "Verdadero o Falso"
