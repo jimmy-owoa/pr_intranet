@@ -34,7 +34,7 @@
                 data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea eliminar esta foto?'},
                 class:'btn btn-danger'%>
                 <figcaption>
-                  <%= image.name %>
+                  <%= best_in_place image, :name, url: admin_attachment_path(image), :data => { :attach_name => image.name }%>
                 </figcaption>
               </figure>
             </div>
