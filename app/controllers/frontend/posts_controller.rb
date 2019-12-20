@@ -1,7 +1,7 @@
 module Frontend
   class PostsController < FrontendController
     def index
-      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.filter_posts(@request_user).normal_posts
+      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.normal_posts.filter_posts(@request_user)
       page = params[:page]
       params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select { |post| post.post_type == params[:category] }).page(page).per(4) :
         posts = Kaminari.paginate_array(user_posts).page(page).per(4)
@@ -60,7 +60,7 @@ module Frontend
     end
 
     def important_posts
-      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.filter_posts(@request_user, true).first(5)
+      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.normal_posts.filter_posts(@request_user, true).first(5)
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
