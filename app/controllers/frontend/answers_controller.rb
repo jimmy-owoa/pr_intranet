@@ -13,7 +13,7 @@ module Frontend
         end
       end
       respond_to do |format|
-        format.json { render status: :ok }
+        format.json { render json: "OK", status: 200 }
       end
     end
 
