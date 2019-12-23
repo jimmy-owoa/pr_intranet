@@ -72,6 +72,8 @@ Rails.application.routes.draw do
     get "autocomplete_user", to: "users#autocomplete_user"
     get "indicators", to: "frontend#indicators"
     get "menus/api_menu_vue(/:ln_user)", to: "menus#api_menu_vue"
+    get "menus/get_gospel_menu/:days", to: "menus#get_gospel_menu"
+    post "menus/post_gospel_menu", to: "menus#post_gospel_menu"
     get "sso_auth/:token", to: "users#set_user"
     get "sso_user_auth", to: "users#sso_user_auth"
     get "test_sso", to: "users#test_sso"

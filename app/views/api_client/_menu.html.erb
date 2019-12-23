@@ -1197,14 +1197,14 @@
                 <div id="gspl-today-date" class="modal-subheading font-weight-bold white--text" style="padding-top: 77px;">Hoy,  <%= l(today, format: "%d de %B").downcase %></div>
                 <div id="gspl-santoral-name" class="modal-heading font-weight-bold white--text" title="<%= santoral.name%>"><%= santoral.name[0...10] %></div>
                 <hr style="width: 52%; margin-left: 25%">
-                <div class="modal-subheading font-weight-bold white--text pt-2">Mañana, <%= l(today + 1.days, format: "%d de %B").downcase %></div>
-                <div class="modal-regular white--text" title="<%= santoral_next.name%>"><%= santoral_next.name[0...21] %></div>
+                <div id="gspl-tomorrow-date" class="modal-subheading font-weight-bold white--text pt-2">Mañana, <%= l(today + 1.days, format: "%d de %B").downcase %></div>
+                <div id="gspl-santoral-next" class="modal-regular white--text" title="<%= santoral_next.name%>"><%= santoral_next.name[0...21] %></div>
               </div>
               <div class="flex sm8" style="padding: 45px 45px 0 45px; background-color: #f3f3f3;">
-                <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">
+                <div id="gspl-title" class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">
                   <%=raw gospel.title %>
                 </div>
-                <div class="modal-regular" style="padding-top: 35px; color: #525252; overflow-y: auto; max-height: 330px;">
+                <div id="gspl-content" class="modal-regular" style="padding-top: 35px; color: #525252; overflow-y: auto; max-height: 330px;">
                   <%=raw gospel.content.chomp "Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>"%>
                 </div>
               </div>

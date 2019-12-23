@@ -4,6 +4,7 @@ require "net/http"
 module Frontend
   class MenusController < FrontendController
     # protect_from_forgery except: :api_menu
+    skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
     def menus
       data = []
       menus = General::Menu.all
@@ -145,7 +146,7 @@ module Frontend
         santoral_next: santoral_next.last,
         location_name: location.name,
         exa_menu: exa_menu,
-        gospel: Religion::Gospel.where(date: Date.today).present? ? Religion::Gospel.where(date: Date.today).last : Religion::Gospel.last,
+        gospel: Religion::Gospel.gospel_today,
         indicators: data_indicators[0],
         today: today,
         beauty_date: l(today, format: "%d de %B de %Y"),
@@ -158,5 +159,60 @@ module Frontend
         format.json { render json: menu_json.encode("UTF-8") }
       end
     end
+
+    def get_gospel_menu
+      
+      day = params[:days].to_i if params[:days].present?
+      if day.present? 
+        gospel = Religion::Gospel.get_gospel(day)
+        selected_today = Date.today == gospel.date ? "Hoy, " : ""
+        selected_tomorrow = Date.today + 1.days == gospel.date ? "Mañana, " : ""
+        data = {
+          id: gospel.id,
+          select_day: l(gospel.date, format: "%A"),
+          date_today: selected_today + l(gospel.date, format: "%d de %B").downcase,
+          date_tomorrow: selected_tomorrow + l(gospel.date + 1.days, format: "%d de %B").downcase,
+          title: gospel.title,
+          content: gospel.content,
+          santoral_name: General::Santoral.get_santoral(gospel.date).name[0...10],
+          santoral_next: General::Santoral.where(santoral_day: (gospel.date + 1.days).strftime('%m-%d')).last.name[0...10]
+        }
+      else
+        gospel = Religion::Gospel.where(date: Date.today)
+        data = gospel
+      end
+
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    end  
+
+    def post_gospel_menu
+      data = []
+      day = params[:day].to_i if params[:day].present?
+      if day.present? 
+        gospel = Religion::Gospel.where(date: Date.today + (day.days))
+
+        gospel.each do |item|
+          data = {
+            id: item.id,
+            select_day: l(item.date, format: "%A"),
+            date_today: "Hoy, #{l(item.date, format: "%d de %B").downcase }",
+            date_tomorrow: "Mañana, #{l(item.date + 1.days, format: "%d de %B").downcase}",
+            title: item.title,
+            content: item.content,
+            santoral_name: General::Santoral.where(santoral_day: item.date.strftime('%m-%d')).pluck(:name).join("")[0...10],
+            santoral_next: General::Santoral.where(santoral_day: (item.date + 1.days).strftime('%m-%d')).pluck(:name).join("")[0...10]
+          }
+        end
+      else
+        gospel = Religion::Gospel.where(date: Date.today)
+        data << gospel
+      end
+
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    end  
   end
 end

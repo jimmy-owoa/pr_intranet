@@ -5,11 +5,11 @@ class Religion::Gospel < ApplicationRecord
 
   def self.get_gospel(number)
     if number.positive?
-      gospels = Religion::Gospel.where(date: Date.today + number.days).last
+      gospel = Religion::Gospel.where(date: Date.today + (number.days)).last
     elsif number.negative?
-      gospels = Religion::Gospel.where(date: Date.today - number.days).last
+      gospel = Religion::Gospel.where(date: Date.today - (number.days)).last
     else
-      gospels = "Sin Datos"
+      gospel = Religion::Gospel.gospel_today
     end 
   end
 end
