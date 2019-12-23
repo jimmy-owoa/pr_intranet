@@ -1249,7 +1249,7 @@
       </div>
       <!-- WEATHER MODAL END -->
       <!-- INDICATORS MODAL START -->
-      <div class="modal" id="tff_indicators_modal" aria-hidden="true">
+      <div class="modal" id="tff_indicators_modal" aria-hidden="true" data-toggle="modal" role="dialog">
         <div class="modal-dialog">
           <div class="flex sm12">
             <div class="layout" style="margin-bottom: -17px;">
@@ -1331,7 +1331,7 @@
             </div>
             <div class="flex sm2 subheading pointer text-md-center top-info">
               <%= image_tag(asset_url("indicadores-economicos.svg"), style: "height: 16px;")%>
-              <a href="#tff_indicators_modal" class="modal-hover">
+              <a href="#tff_indicators_modal" class="modal-hover" data-target="#tff_indicators_modal">
                 Indicadores Económicos
               </a>
             </div>
