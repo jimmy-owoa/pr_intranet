@@ -70,17 +70,18 @@
     vertical-align: middle;
   }
   /* MODAL ClASS */
-  .btn-close {
+  .tff-btn-close {
     color: #72933f;
     font-size: 50px;
-    text-decoration: none;
+    text-decoration: none !important;
     position: absolute;
     right: 13px;
     top: -20px;
   }
-  .btn-close:hover {
+  .tff-btn-close:hover {
     color: #919191;
   }
+  
   .btn-previus {
     color: white;
     font-size: 50px;
@@ -97,7 +98,7 @@
     left: 384px;
     bottom: 180px;
   }
-  .modal:before {
+  .tff-modal:before {
     content: "";
     display: none;
     background: rgba(0, 0, 0, 0.6);
@@ -108,16 +109,16 @@
     bottom: 0;
     z-index: 10;
   }
-  .modal:target:before {
+  .tff-modal:target:before {
     display: block;
   }
-  .modal:target .modal-dialog {
+  .tff-modal:target .tff-modal-dialog {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     transform: translate(0, 0);
     top: 20%;
   }
-  .modal-dialog {
+  .tff-modal-dialog {
     background: #fefefe;
     position: fixed;
     top: -100%;
@@ -155,7 +156,7 @@
   .modal-regular {
     font-size: 17px;
   }
-  .modal-title {
+  .tff-modal-title {
     font-size: 36px;
   }
   /* MODAL CLASS END */
@@ -806,13 +807,13 @@
   }
 
   /* ------------------ Modal Ver Más ------------------------------ */
-  .modal:target .modal-dialog-2 {
+  .tff-modal:target .tff-modal-dialog-2 {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     transform: translate(0, 0);
     top: 20%;
   }
-  .modal-dialog-2 {
+  .tff-modal-dialog-2 {
     background: #fefefe;
     position: fixed;
     top: -100%;
@@ -826,7 +827,7 @@
 
   /* ################################################################## */
   @media (min-width: 600px) {
-    .modal-dialog {
+    .tff-modal-dialog {
       background: #fefefe;
       position: fixed;
       top: -100%;
@@ -843,7 +844,7 @@
     }
 
     /* -- Modal ver más -- */
-    .modal-dialog-2 {
+    .tff-modal-dialog-2 {
       background: #fefefe;
       position: fixed;
       top: -100%;
@@ -876,7 +877,7 @@
     }
   }
   @media (min-width: 960px) {
-    .modal-dialog {
+    .tff-modal-dialog {
       background: #fefefe;
       position: fixed;
       top: -100%;
@@ -893,7 +894,7 @@
     }
 
     /* -- Modal ver más -- */
-    .modal-dialog-2 {
+    .tff-modal-dialog-2 {
       background: #fefefe;
       position: fixed;
       top: -100%;
@@ -1175,6 +1176,15 @@
       text-decoration: underline !important;
     }
   }
+
+  hr {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: block;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+  }
 </style>
 
 <div id="menu_config" data-base-api-url="<%= base_api_url %>" data-base-search-url="<%= base_search_url %>"></div>
@@ -1185,17 +1195,17 @@
   <div class="container-menu">
     <div class="hidden-sm-and-down">
       <!-- GOSPEL MODAL START -->
-      <div class="modal" id="tff_gospel_modal" aria-hidden="true">
-        <div class="modal-dialog">
+      <div class="tff-modal" id="tff_gospel_modal" aria-hidden="true">
+        <div class="tff-modal-dialog">
           <div class="flex sm12">
             <div class="layout" style="margin-bottom: -17px;">
-              <a id="gspl-close-modal" href="#" class="btn-close" aria-hidden="true">×</a>
+              <a id="gspl-close-modal" href="#" class="tff-btn-close" aria-hidden="true">×</a>
               <div class="flex sm4 text-md-center" style="background: linear-gradient(to right, #211651 -40%, #789c4a 120%); min-height: 420px; padding-top: 46px">            
                 <a href="#" id="gspl-btn-previus" class="btn-previus" aria-hidden="true"><</a>
                 <a href="#" id="gspl-btn-next" class="btn-next" aria-hidden="true">></a>
                 <div id="gspl-today-day" class="modal-subheading font-weight-bold white--text" style="text-decoration: underline;"><%= l(today, format: "%A")%></div>
                 <div id="gspl-today-date" class="modal-subheading font-weight-bold white--text" style="padding-top: 77px;">Hoy,  <%= l(today, format: "%d de %B").downcase %></div>
-                <div id="gspl-santoral-name" class="modal-heading font-weight-bold white--text" title="<%= santoral.name%>"><%= santoral.name[0...10] %></div>
+                <div id="gspl-santoral-name" class="modal-heading font-weight-bold white--text" title="<%= santoral.name%>"><%= santoral.name[0...10] %></div>   
                 <hr style="width: 52%; margin-left: 25%">
                 <div id="gspl-tomorrow-date" class="modal-subheading font-weight-bold white--text pt-2">Mañana, <%= l(today + 1.days, format: "%d de %B").downcase %></div>
                 <div id="gspl-santoral-next" class="modal-regular white--text" title="<%= santoral_next.name%>"><%= santoral_next.name[0...21] %></div>
@@ -1215,15 +1225,15 @@
       </div>
       <!-- GOSPEL MODAL END -->
       <!-- WEATHER MODAL START -->
-      <div class="modal" id="tff_weather_modal" aria-hidden="true">
-        <div class="modal-dialog">
+      <div class="tff-modal" id="tff_weather_modal" aria-hidden="true">
+        <div class="tff-modal-dialog">
           <div class="flex sm12">
             <div class="layout" style="margin-bottom: -17px;">
-              <a href="#" class="btn-close" aria-hidden="true">×</a>
+              <a href="#" class="tff-btn-close" aria-hidden="true">×</a>
               <div class="flex sm4 text-md-center" style="background: linear-gradient(to right, #211651 -40%, #789c4a 120%); height: 420px; padding-top: 46px">
                 <div class="modal-subheading font-weight-bold white--text" style="text-decoration: underline;"><%= l(today, format: "%A")%></div>
                 <%= image_tag(asset_url("weather/#{weather.last.icon}-white.svg"), style:"height: 116px; padding-top: 29px")%>
-                <div class="modal-title font-weight-bold white--text"><%= weather.last.current_temp.to_i %>°C</div>
+                <div class="tff-modal-title font-weight-bold white--text"><%= weather.last.current_temp.to_i %>°C</div>
                 <div class="modal-regular white--text" style="margin-top: -4px;">Mín: <%= weather.last.min_temp.to_i %>°c / Máx: <%= weather.last.max_temp.to_i %>°c</div>
                 <hr style="width: 47%;margin-top: 12px;margin-left: 28%;margin-bottom: 12px;">
                 <div class="modal-subheading font-weight-bold white--text">Índice UV:</div>
@@ -1267,18 +1277,18 @@
       </div>
       <!-- WEATHER MODAL END -->
       <!-- INDICATORS MODAL START -->
-      <div class="modal" id="tff_indicators_modal" aria-hidden="true" data-toggle="modal" role="dialog">
-        <div class="modal-dialog">
+      <div class="tff-modal" id="tff_indicators_modal" aria-hidden="true" data-toggle="modal" role="dialog">
+        <div class="tff-modal-dialog">
           <div class="flex sm12">
             <div class="layout" style="margin-bottom: -17px;">
-              <a href="#" class="btn-close" aria-hidden="true">×</a>
+              <a href="#" class="tff-btn-close" aria-hidden="true">×</a>
               <div class="flex sm4 text-md-center" style="background: linear-gradient(to right, #211651 -40%, #789c4a 120%); height: 420px; padding-top: 46px">
                 <div class="modal-subheading font-weight-bold white--text" style="text-decoration: underline;">Dólar</div>
                 <div class="modal-subheading font-weight-bold white--text" style="padding-top: 56px;">Hoy, <%= l(today, format: "%d de %B").downcase %></div>
-                <div class="modal-title font-weight-bold white--text">$ <%= number_to_currency(indicators[:DOLAR].last, locale: :es, precision: 2, unit: "") %></div>
+                <div class="tff-modal-title font-weight-bold white--text">$ <%= number_to_currency(indicators[:DOLAR].last, locale: :es, precision: 2, unit: "") %></div>
                 <hr style="width: 47%;margin-top: 12px;margin-left: 28%;margin-bottom: 12px;">
                 <div class="modal-subheading font-weight-bold white--text">Ayer, <%= l(today - 1.days, format: "%d de %B").downcase %></div>
-                <div class="modal-title font-weight-bold white--text">$<%= number_to_currency(indicators[:DOLAR].first, locale: :es, precision: 2, unit: "") %></div>
+                <div class="tff-modal-title font-weight-bold white--text">$<%= number_to_currency(indicators[:DOLAR].first, locale: :es, precision: 2, unit: "") %></div>
                 <div class="pt-4">
                   <a class="v-btn-indicators" href="https://mercadosenlinea.inversionessecurity.cl/www/resumen.html" target="_blank">
                     <%= image_tag(asset_url("indicadores-economicos.svg"), style: "height: 13px; padding-right: 5px;")%>
@@ -1438,11 +1448,11 @@
                   <!-- MENU MODAL END -->
 
                   <!-- MODAL VER MÁS START -->
-                  <div class="modal" id="menu_<%= menu_parent_object.title.downcase %>" aria-hidden="true">
-                    <div class="modal-dialog-2">
+                  <div class="tff-modal" id="menu_<%= menu_parent_object.title.downcase %>" aria-hidden="true">
+                    <div class="tff-modal-dialog-2">
                       <div class="flex sm12" style="overflow-y: auto; max-height: 400px; min-height: 200px">
                         <div class="layout" style="margin-bottom: -17px;">
-                          <a href="#" class="btn-close" aria-hidden="true">×</a>
+                          <a href="#" class="tff-btn-close" aria-hidden="true">×</a>
                           <div class="flex sm12" style="padding: 15px 45px 5px 45px; background-color: #f3f3f3;">
                             <% submenus.each do |link| %>
                               <% if link[:link].downcase[0..3] == 'http'%>
