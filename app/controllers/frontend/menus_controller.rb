@@ -174,7 +174,7 @@ module Frontend
           title: gospel.title,
           content: gospel.content,
           santoral_name: General::Santoral.get_santoral(gospel.date).name[0...10],
-          santoral_next: General::Santoral.get_santoral_next(gospel.date).name[0...10]
+          santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name[0...10]
         }
       else
         data = Religion::Gospel.last
