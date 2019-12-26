@@ -4,7 +4,7 @@ class GospelService
 
   def initialize
     puts "******** Gospel service starts ********"
-    @api = "http://feed.evangelizo.org/v2/reader.php"
+    @api = "https://feed.evangelizo.org/v2/reader.php"
     @type = "reading"
     @type_title = "reading_lt"
     @lang = "SP"
@@ -13,7 +13,7 @@ class GospelService
 
   def perform
     count = 0
-    7.times do
+    30.times do
       date = (Date.today + count.day).strftime("%Y%m%d")
       request_content = URI.parse(@api + "?date=" + date + "&type=" + @type + "&lang=" + @lang + "&content=" + @content)
       request_title = URI.parse(@api + "?date=" + date + "&type=" + @type_title + "&lang=" + @lang + "&content=" + @content)
