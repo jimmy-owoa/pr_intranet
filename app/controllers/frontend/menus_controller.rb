@@ -161,12 +161,11 @@ module Frontend
     end
 
     def get_gospel_menu
-      
       day = params[:days].to_i if params[:days].present?
       if day.present? 
         gospel = Religion::Gospel.get_gospel(day)
         selected_today = Date.today == gospel.date ? "Hoy, " : ""
-        selected_tomorrow = Date.today + 1.days == gospel.date ? "Mañana, " : ""
+        selected_tomorrow = Date.today == gospel.date ? "Mañana, " : ""
         data = {
           id: gospel.id,
           select_day: l(gospel.date, format: "%A"),
@@ -178,41 +177,12 @@ module Frontend
           santoral_next: General::Santoral.where(santoral_day: (gospel.date + 1.days).strftime('%m-%d')).last.name[0...10]
         }
       else
-        gospel = Religion::Gospel.where(date: Date.today)
-        data = gospel
+        data = Religion::Gospel.last
       end
 
       respond_to do |format|
         format.json { render json: data }
       end
-    end  
-
-    def post_gospel_menu
-      data = []
-      day = params[:day].to_i if params[:day].present?
-      if day.present? 
-        gospel = Religion::Gospel.where(date: Date.today + (day.days))
-
-        gospel.each do |item|
-          data = {
-            id: item.id,
-            select_day: l(item.date, format: "%A"),
-            date_today: "Hoy, #{l(item.date, format: "%d de %B").downcase }",
-            date_tomorrow: "Mañana, #{l(item.date + 1.days, format: "%d de %B").downcase}",
-            title: item.title,
-            content: item.content,
-            santoral_name: General::Santoral.where(santoral_day: item.date.strftime('%m-%d')).pluck(:name).join("")[0...10],
-            santoral_next: General::Santoral.where(santoral_day: (item.date + 1.days).strftime('%m-%d')).pluck(:name).join("")[0...10]
-          }
-        end
-      else
-        gospel = Religion::Gospel.where(date: Date.today)
-        data << gospel
-      end
-
-      respond_to do |format|
-        format.json { render json: data }
-      end
-    end  
+    end
   end
 end
