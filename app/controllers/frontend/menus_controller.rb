@@ -4,6 +4,7 @@ require "net/http"
 module Frontend
   class MenusController < FrontendController
     # protect_from_forgery except: :api_menu
+    skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
     def menus
       data = []
       menus = General::Menu.all
@@ -145,7 +146,7 @@ module Frontend
         santoral_next: santoral_next.last,
         location_name: location.name,
         exa_menu: exa_menu,
-        gospel: Religion::Gospel.where(date: Date.today).present? ? Religion::Gospel.where(date: Date.today).last : Religion::Gospel.last,
+        gospel: Religion::Gospel.gospel_today,
         indicators: data_indicators[0],
         today: today,
         beauty_date: l(today, format: "%d de %B de %Y"),
@@ -156,6 +157,31 @@ module Frontend
       menu_json = render_to_string(partial: "api_client/menu.html.erb", layout: false, locals: data).to_json
       respond_to do |format|
         format.json { render json: menu_json.encode("UTF-8") }
+      end
+    end
+
+    def get_gospel_menu
+      day = params[:days].to_i if params[:days].present?
+      if day.present? 
+        gospel = Religion::Gospel.get_gospel(day)
+        selected_today = Date.today == gospel.date ? "Hoy, " : ""
+        selected_tomorrow = Date.today == gospel.date ? "Mañana, " : ""
+        data = {
+          id: gospel.id,
+          select_day: l(gospel.date, format: "%A"),
+          date_today: selected_today + l(gospel.date, format: "%d de %B").downcase,
+          date_tomorrow: selected_tomorrow + l(gospel.date + 1.days, format: "%d de %B").downcase,
+          title: gospel.title,
+          content: gospel.content,
+          santoral_name: General::Santoral.get_santoral(gospel.date).name[0...10],
+          santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name[0...10]
+        }
+      else
+        data = Religion::Gospel.last
+      end
+
+      respond_to do |format|
+        format.json { render json: data }
       end
     end
   end
