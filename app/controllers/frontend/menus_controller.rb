@@ -5,6 +5,7 @@ module Frontend
   class MenusController < FrontendController
     # protect_from_forgery except: :api_menu
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
+
     def menus
       data = []
       menus = General::Menu.all
@@ -34,21 +35,21 @@ module Frontend
       if Rails.env.dev?
         "http://localhost:8080/#/resultados/"
       else
-        "https://miintranet.exaconsultores.cl/#/resultados/"
+        "https://mi.security.cl/#/resultados/"
       end
     end
 
     def get_request_referer
       if request.referer == "https://misecurity-qa3.exa.cl/"
-        "https://miintranet.exaconsultores.cl/"
-      elsif request.referer == "https://miintranet.exaconsultores.cl/"
+        "https://mi.security.cl/"
+      elsif request.referer == "https://mi.security.cl/"
         request.referer
       elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
         request.referer
       elsif request.referer == "http://localhost:8080/"
         request.referer
       else
-        "https://miintranet.exaconsultores.cl/"
+        "https://mi.security.cl/"
       end
     end
 
@@ -162,7 +163,7 @@ module Frontend
 
     def get_gospel_menu
       day = params[:days].to_i if params[:days].present?
-      if day.present? 
+      if day.present?
         gospel = Religion::Gospel.get_gospel(day)
         selected_today = Date.today == gospel.date ? "Hoy, " : ""
         selected_tomorrow = Date.today == gospel.date ? "Mañana, " : ""
@@ -174,7 +175,7 @@ module Frontend
           title: gospel.title,
           content: gospel.content,
           santoral_name: General::Santoral.get_santoral(gospel.date).name[0...10],
-          santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name[0...10]
+          santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name[0...10],
         }
       else
         data = Religion::Gospel.last
