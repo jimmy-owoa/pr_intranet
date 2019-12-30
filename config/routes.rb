@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
     get "attachments/images", to: "attachments#index_images"
     get "attachments/videos", to: "attachments#index_videos"
+    post "galleries/create_gallery", to: "galleries#create_gallery_post"
     resources :books
     resources :authors
     resources :editorials

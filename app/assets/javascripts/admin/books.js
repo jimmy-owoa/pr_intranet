@@ -21,7 +21,7 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Colocar atributo required en select2
-    document.getElementById("book_author_id").required = true;
-    document.getElementById("book_editorial_id").required = true;
-    document.getElementById("book_category_book_id").required = true;
+    // document.getElementById("book_author_id").required = true;
+    // document.getElementById("book_editorial_id").required = true;
+    // document.getElementById("book_category_book_id").required = true;
 });

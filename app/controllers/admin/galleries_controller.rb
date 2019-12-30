@@ -60,6 +60,25 @@ module Admin
       end
     end
 
+    def create_gallery_post
+      @gallery = General::Gallery.new(gallery_params)
+      attachments_attributes = params[:attachments_attributes]
+      images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
+      if @gallery.save
+        if images.present?
+          images.each do |image|
+            @gallery.attachments << General::Attachment.find(image)
+          end
+        end
+        @galleries_list = General::Gallery.all.map { |a| [a.id, a.name] }
+        respond_to do |format|
+          format.js
+        else
+          format.js
+        end
+      end
+    end  
+
     def update
       attachments_attributes = params[:attachments_attributes]
       images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []

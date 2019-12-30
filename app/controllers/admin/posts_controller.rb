@@ -24,6 +24,7 @@ module Admin
 
     def new
       @post = News::Post.new
+      @gallery = General::Gallery.new
       @attachment = General::Attachment.new
       @files = General::File.all
       @post.build_main_image
