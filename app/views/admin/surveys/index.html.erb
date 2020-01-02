@@ -27,7 +27,7 @@
                 <% else %>
                   <%= link_to "Ver respuestas", "#", class: 'btn btn-info btn-sm disabled' %>
                 <% end %>
-                <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://miintranet.exaconsultores.cl' %>
+                <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://mi.security.cl' %>
                 <%= link_to "Ver en intranet", "#{environment}/#/encuestas/#{survey.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
                 <%= link_to "Ver", admin_survey_path(survey), class: 'btn btn-success btn-sm' %>
                 <%= link_to "Editar", edit_admin_survey_path(survey), class: 'btn btn-primary btn-sm' %>

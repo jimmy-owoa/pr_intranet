@@ -37,7 +37,7 @@
                         }, class: "approved" %>
               </td>
               <td>
-                <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://miintranet.exaconsultores.cl' %>
+                <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://mi.security.cl' %>
                 <%= link_to "Ver en intranet", "#{environment}/#/avisos-clasificados/#{product.id}", target: "_blank", class: 'btn btn-success btn-sm' %>
                 <%= link_to t('.show', :default => t("helpers.links.show")), admin_product_path(product), :class => 'btn btn-success btn-sm' %>
                 <% if policy(product).edit?  %>
