@@ -313,7 +313,7 @@ module ApplicationHelper
     when "production"
       "https://mi.security.cl/#"
     when "staging"
-      "https://intranet.exaconsultores.cl/#"
+      "https://miintranet.exaconsultores.cl/#"
     else
       "http://localhost:8080/#"
     end

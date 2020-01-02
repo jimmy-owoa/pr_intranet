@@ -32,16 +32,14 @@ module Frontend
     end
 
     def get_request_referer
-      if request.referer == "https://misecurity-qa3.exa.cl/"
+      exa_urls = ["https://misecurity-qa3.exa.cl/",
+                  "https://misecurity-qa2.exa.cl/",
+                  "https://misecurity-qa.exa.cl/",
+                  "https://misecurity.exa.cl/"]
+      if request.referer.in?(exa_urls)
         "https://mi.security.cl/"
-      elsif request.referer == "https://mi.security.cl/"
-        request.referer
-      elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
-        request.referer
-      elsif request.referer == "http://localhost:8080/"
-        request.referer
       else
-        "https://mi.security.cl/"
+        request.referer
       end
     end
 
