@@ -50,8 +50,7 @@
       <% if @post.gallery.present? %>
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".gallery-modal-lg" id='show_gallery'>Ver Galería</button>
       <% end %>
-      <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://mi.security.cl' %>
-      <%= link_to "Ver en intranet", "#{environment}/#/noticias/#{@post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
+      <%= link_to "Ver en intranet", "#{get_frontend_url}/noticias/#{@post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
     </div>
   </div>
   <div class="col-md-12">

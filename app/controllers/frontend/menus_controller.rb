@@ -3,7 +3,7 @@ require "net/http"
 
 module Frontend
   class MenusController < FrontendController
-    # protect_from_forgery except: :api_menu
+    include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
 
     def menus
@@ -28,14 +28,6 @@ module Frontend
       respond_to do |format|
         format.json { render json: data }
         format.js
-      end
-    end
-
-    def get_rails_env
-      if Rails.env.dev?
-        "http://localhost:8080/#/resultados/"
-      else
-        "https://mi.security.cl/#/resultados/"
       end
     end
 
@@ -95,7 +87,7 @@ module Frontend
 
     def api_menu_vue
       base_api_url = root_url
-      base_search_url = get_rails_env
+      base_search_url = get_frontend_url + "/resultados/"
       user = params[:user_code_crypted_base64].present? ? General::User.get_user_by_ln(InternalAuth.decrypt(params[:user_code_crypted_base64])) : @request_user
       location_id = user.location_id || 2
       menus = []
