@@ -160,7 +160,8 @@ module Frontend
         user.family_members.each do |member|
           data_family_member << {
             id: member.id,
-            title: member.name
+            title: member.name,
+            relation: member.relation
           }
         end
       end
