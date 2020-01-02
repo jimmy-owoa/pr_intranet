@@ -1,5 +1,6 @@
 module Frontend
   class UserMessagesController < FrontendController
+    include ApplicationHelper
     skip_before_action :verify_authenticity_token
 
     def index
@@ -7,11 +8,12 @@ module Frontend
       messages = []
       user_messages.each do |um|
         if !um.viewed_at
+          content = fix_content(um.message.content)
           messages << {
             id: um.id,
             title: um.message.title,
             message_type: um.message.message_type,
-            content: um.message.content,
+            content: content,
             viewed_at: um.viewed_at,
             image: um.message.image.attached? ? url_for(um.message.image) : "",
           }
