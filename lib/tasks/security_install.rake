@@ -9,14 +9,6 @@ namespace :security do
     puts("******* Creando Usuario Id 3 para pruebas Vue *******")
     General::User.create(name: "Nombre test", last_name: "Apellido test", birthday: Date.today, email: "test1@test.com", password: "exaConsultores", password_confirmation: "exaConsultores", location_id: 2, legal_number: "1", legal_number_verification: "7")
     General::User.create(name: "Test", last_name: "test", birthday: Date.today, email: "test@test.com", password: "exaConsultores", password_confirmation: "exaConsultores", location_id: 2, legal_number: "16207227", legal_number_verification: "7")
-    puts("******* Creando Empresas (Categorías) *******")
-    General::Term.find_or_create_by(name: "Banco", term_type_id: 1)
-    General::Term.find_or_create_by(name: "Factoring", term_type_id: 1)
-    General::Term.find_or_create_by(name: "Inversiones", term_type_id: 1)
-    General::Term.find_or_create_by(name: "Vida", term_type_id: 1)
-    General::Term.find_or_create_by(name: "Corredora de Seguros", term_type_id: 1)
-    General::Term.find_or_create_by(name: "Travel", term_type_id: 1)
-    General::Term.find_or_create_by(name: "Inmobiliaria", term_type_id: 1)
     puts("******* Creando EconomicIndicatorTypes *******")
     General::EconomicIndicatorType.where(name: "dolar", symbol: "US$").first_or_create #1
     General::EconomicIndicatorType.where(name: "euro", symbol: "€").first_or_create #2

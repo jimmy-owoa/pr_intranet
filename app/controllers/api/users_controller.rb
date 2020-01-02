@@ -11,7 +11,7 @@ module Api
       if @user.update(user_params)
         add_relations
         @user.set_user_attributes
-        render json: "User #{@user.email} updated", status: :ok
+        render json: { message: "User updated" }, status: :ok
       else
         render json: "Error", status: :ok
       end
@@ -23,7 +23,7 @@ module Api
       if @user.save
         add_relations
         @user.set_user_attributes
-        render json: "User #{@user.email} created", status: :ok
+        render json: { message: "User created" }, status: :ok
       else
         render json: @user.errors, status: :unprocessable_entity
       end
@@ -31,7 +31,7 @@ module Api
 
     def destroy
       @user.destroy
-      render json: "User deleted", status: :ok
+      render json: { message: "User deleted" }, status: :ok
     end
 
     private
@@ -56,26 +56,32 @@ module Api
     end
 
     def add_relations
-      user_education_ids = []
-      JSON.parse(params[:education]).each do |institution|
-        education_state = PersonalData::EducationState.where(name: institution[1]["Estado"]).first_or_create
-        education_institution = PersonalData::EducationState.where(name: institution[1]["Estado"]).first_or_create
-        user_education_ids << PersonalData::UserEducation.where(user_id: @user.id, education_institution_id: education_institution.id, education_state_id: education_state.id).first_or_create.id
+      if params[:education].length > 2
+        user_education_ids = []
+        params[:education].each do |institution|
+          education_state = PersonalData::EducationState.where(name: institution[1]["Estado"]).first_or_create
+          education_institution = PersonalData::EducationState.where(name: institution[1]["Estado"]).first_or_create
+          user_education_ids << PersonalData::UserEducation.where(user_id: @user.id, education_institution_id: education_institution.id, education_state_id: education_state.id).first_or_create.id
+        end
       end
 
-      user_language_ids = []
-      JSON.parse(params[:languages]).each do |lang|
-        level = PersonalData::LanguageLevel.where(name: lang[1]["Nivel"]).first_or_create
-        language = PersonalData::Language.where(name: lang[1]["Idioma"]).first_or_create
-        user_language_ids << PersonalData::UserLanguage.where(user_id: @user.id, language_id: language.id, language_level_id: level.id).first_or_create.id
+      if params[:languages].length > 2
+        user_language_ids = []
+        params[:languages].each do |lang|
+          level = PersonalData::LanguageLevel.where(name: lang[1]["Nivel"]).first_or_create
+          language = PersonalData::Language.where(name: lang[1]["Idioma"]).first_or_create
+          user_language_ids << PersonalData::UserLanguage.where(user_id: @user.id, language_id: language.id, language_level_id: level.id).first_or_create.id
+        end
+        @user.user_language_ids = user_language_ids
       end
-      @user.user_language_ids = user_language_ids
 
-      family_member_ids = []
-      JSON.parse(params[:family_group]).each do |member|
-        family_member_ids << PersonalData::FamilyMember.where(user_id: @user.id, relation: member[1]["Relación"], birthdate: member[1]["Fecha nacimiento de familiar"], gender: member[1]["Sexo de familiar"], name: member[1]["Nombre de familiar"]).first_or_create.id
+      if params[:family_group].length > 2
+        family_member_ids = []
+        params[:family_group].each do |member|
+          family_member_ids << PersonalData::FamilyMember.where(user_id: @user.id, relation: member[1]["Relación"], birthdate: member[1]["Fecha nacimiento de familiar"], gender: member[1]["Sexo de familiar"], name: member[1]["Nombre de familiar"]).first_or_create.id
+        end
+        @user.family_member_ids = family_member_ids
       end
-      @user.family_member_ids = family_member_ids
     end
 
     def find_user
