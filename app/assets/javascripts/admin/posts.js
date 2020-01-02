@@ -16,7 +16,7 @@ $(document).on("turbolinks:load", function() {
     allowClear: true
   });
 
-  $('#publisehd_at').on('mousedown',function(event){ event.preventDefault(); })
+  $('#published_at').on('mousedown',function(event){ event.preventDefault(); })
 
   $("#published_at").datetimepicker({
     icons: { 

@@ -34,6 +34,7 @@ module Admin
 
     def edit
       @files = General::File.all
+      @gallery = General::Gallery.new
     end
 
     def create

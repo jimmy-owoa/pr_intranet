@@ -1,16 +1,16 @@
 <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="tabbable">
           <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item active">
+              <li class="nav-item">
                   <a class="nav-link active" href="#gallery_create" data-toggle="tab">Crear Galería</a>
               </li>
-              <li>
+              <li class="nav-item">
                   <a class="nav-link" href="#gallery_select" data-toggle="tab">Seleccionar Gallería</a>
               </li>
-              <li>
+              <li class="nav-item">
                   <a class="nav-link" href="#CCC" data-toggle="tab">CCC</a>
               </li>
           </ul>
@@ -23,44 +23,27 @@
 
       <div class="modal-body">
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane fade in active" id="gallery_create">
+          <div role="tabpanel" class="tab-pane fade show active" id="gallery_create">
             <%= simple_form_for(@gallery, as: 'gallery', url: admin_galleries_create_gallery_path, method: :post, remote: true) do |f| %>
-              <div class="card p-4">
+              <div>
                 <div class="row ">
                   <div class="col-md-12">
                     <%= f.input :name, required: true %>     
                   </div>
                   <div class="col-md-12">
                     <%= f.label :description %>
-                    <%= f.text_area :description, :class => "tinymce", :rows => 2 %>
+                    <%= f.text_area :description, :class => "tinymce" %>
                     <%= tinymce %>
                   </div>
                 </div>
-                <div class="col-md-12 pt-4" >
-                  <%= file_field_tag 'attachment[attachment][]', id: "fileinputuploader2", class: 'file-loading', multiple: true %>
-                </div>
-                <% if @gallery.id != nil %>
-                  <div class="pt-4">
+                <div class="row">
+                  <div class="col-md-12 pt-4" >
                     <div class="container col-md-12 card scrollDiv">
-                      <div class="row text-center" >
-                        <% @gallery.attachments.each do |image| %>
-                          <div class="col-md-3">
-                            <figure>                    
-                              <%= image_tag image.attachment.variant(resize: '250x250>'), class: 'image_attach' %>
-                              <%= link_to 'Eliminar', admin_attachment_path(image, @gallery.id),  
-                              method: :delete,
-                              data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea eliminar esta foto?'},
-                              class:'btn btn-danger'%>
-                              <figcaption>
-                                <%= best_in_place image, :name, url: admin_attachment_path(image), :data => { :attach_name => image.name }%>
-                              </figcaption>
-                            </figure>
-                          </div>
-                        <% end %>
-                      </div>
+                    <%= file_field_tag 'attachment[attachment][]', id: "fileinputuploader2", multiple: true %>
                     </div>
                   </div>
-                <% end %>  
+                </div>
+                
                 <div class="form-actions col-12">
                   <%= f.button :submit, class: 'btn btn-success center'%>
                 </div>
@@ -83,3 +66,15 @@
     </div>
   </div>
 </div>
+
+<script>
+$(document).on('turbolinks:load', function () {
+
+});
+</script>
+
+<style>
+#gallery_description_ifr{
+  height: 100px !important;
+}
+</style>
