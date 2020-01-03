@@ -15,11 +15,10 @@ module Admin
 
     def show
       add_breadcrumb "Galerías", :admin_galleries_path
-      
       respond_to do |format|
         format.html
         format.js
-      end  
+      end
     end
 
     def new
@@ -77,7 +76,7 @@ module Admin
           format.js
         end
       end
-    end  
+    end
 
     def update
       attachments_attributes = params[:attachments_attributes]
