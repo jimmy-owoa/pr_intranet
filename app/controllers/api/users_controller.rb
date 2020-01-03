@@ -56,7 +56,8 @@ module Api
     end
 
     def add_relations
-      if params[:education].length > 2
+      if params[:education].present?
+        Rails.logger.info "%%%%%%%% EDUCATION PARAMS => #{params[:education]}"
         user_education_ids = []
         params[:education].each do |institution|
           education_state = PersonalData::EducationState.where(name: institution[1]["Estado"]).first_or_create
@@ -65,7 +66,8 @@ module Api
         end
       end
 
-      if params[:languages].length > 2
+      if params[:languages].present?
+        Rails.logger.info "%%%%%%%% languages PARAMS => #{params[:languages]}"
         user_language_ids = []
         params[:languages].each do |lang|
           level = PersonalData::LanguageLevel.where(name: lang[1]["Nivel"]).first_or_create
@@ -75,7 +77,8 @@ module Api
         @user.user_language_ids = user_language_ids
       end
 
-      if params[:family_group].length > 2
+      if params[:family_group].present?
+        Rails.logger.info "%%%%%%%% family_group PARAMS => #{params[:family_group]}"
         family_member_ids = []
         params[:family_group].each do |member|
           family_member_ids << PersonalData::FamilyMember.where(user_id: @user.id, relation: member[1]["Relación"], birthdate: member[1]["Fecha nacimiento de familiar"], gender: member[1]["Sexo de familiar"], name: member[1]["Nombre de familiar"]).first_or_create.id
