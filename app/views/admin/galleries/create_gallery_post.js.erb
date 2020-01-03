@@ -1,6 +1,6 @@
 alert('Galería creada correctamente!');
 
-$('#exampleModalCenter').modal('hide');
+$("#gallery_modal").modal('hide');
 
 $('#gallery_id').append(new Option("<%= General::Gallery.last.name %>", <%= General::Gallery.last.id %>));
 $('#gallery_id').val(<%= General::Gallery.last.id %>)

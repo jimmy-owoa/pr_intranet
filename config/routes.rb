@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "analytics", to: "analytics#index"
     get "search", to: "search#search"
     get "searchatt", to: "attachments#search_att"
+    get "searchgall", to: "galleries#search_galleries"
     get "births/no_approved_index", to: "births#no_approved_index"
     get "products/no_approved_index", to: "products#no_approved_index"
     get "products/approved_index", to: "products#approved_index"

@@ -1,29 +1,64 @@
-$("#gallery_modal").html("<%= j render(partial: 'modal_form') %>");
-$('.image-picker').imagepicker();
-$('#gallery_modal').modal('show');
+$(document).ready(function(){
+  $("#gallery_modal").html("<%= j render(partial: 'modal_form') %>");
+  $('.image-picker').imagepicker();
+  $('#gallery_modal').modal('show');
 
-$("select.image-picker").imagepicker({
-  hide_select: true,
-  show_label: true,
-  selected: function (option) {
-    var values = this.val();
-    $('#selection-galleries').click(function () {
-      if (this.id == 'selection-galleries') {
-        $('#gallery_modal').modal('toggle');
-        $('#post_gallery_ids').val(values);
-        if (values >= 1) {
-          $('#gallery1, #gallery2').text(`Galerías seleccionadas: ${values}`)
+  $("select.image-picker").imagepicker({
+    hide_select: true,
+    show_label: true,
+    selected: function (option) {
+      var values = this.val();
+      $('#selection-galleries').click(function () {
+        if (this.id == 'selection-galleries') {
+          $('#gallery_modal').modal('toggle');
+          $('#gallery_id').val(values);
+          $('#show-gallery').append(values);
+          $('#gallery_modal').modal('hide');
         }
-        $('#gallery_modal').modal('hide');
-      }
-    });
+      });
+    }
+  });
 
-  }
-});
-
-$('#attachments_ids').change(
-  function(){
+  $('#attachments_ids').change(function(){
     if ($(this).val()) {
       $('input:submit').attr('disabled',false);
     }
   });
+
+  $("#btn_search" ).click(function() {
+    var query = $('#search_galleries').val();
+    $.ajax({
+      type: "GET",
+      url: "/admin/searchgall",
+      data: {
+        search: query
+      },
+      success: function (result) {
+        var imgpicker = $(".image-picker");
+        imgpicker.html('');
+        $(result['data']).each(function() {
+          imgpicker.append($("<option>").attr('value',this.val).attr('data-img-label', this.name).attr('data-img-src', this['data-img-src']));
+          imgpicker.append(`<p>${this.name}</p>`)
+        });
+        imgpicker.data('picker').destroy();
+        imgpicker.imagepicker();
+        $("select.image-picker").imagepicker({
+          hide_select: true,
+          show_label: true,
+          selected: function(option) {
+            var values = this.val();
+            $("#selection-galleries").click(function() {
+              if (this.id == 'selection-galleries') {
+                $('#gallery_modal').modal('toggle');
+                $('#gallery_id').append(Option(values));
+                $('#gallery_id').val(values);
+                $('#show-gallery').append(values);
+                $('#gallery_modal').modal('hide');
+              }
+            })
+          }
+        });
+      }
+    })
+  });
+});

@@ -22,7 +22,10 @@
         <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
       </div>
       <div class="col-md-4">
-        <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="mt4- btn btn-primary btn-sm">Crear Galería</a>
+        <%= link_to 'Crear Galería', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal', id: 'galleries_modal', remote: true, class: 'btn btn-primary'%><br/>
+      </div>
+      <div class="col-md-4" id="show-gallery">
+
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.label "Contenido" %>

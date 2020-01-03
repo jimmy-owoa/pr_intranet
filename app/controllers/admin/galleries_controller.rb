@@ -25,11 +25,17 @@ module Admin
       add_breadcrumb "Galerías", :admin_galleries_path
       @gallery = General::Gallery.new
       @attachments = @gallery.attachments.build
+      @galleries = General::Gallery.paginate(:page => params[:page], :per_page => 5)
       respond_to do |format|
         format.html
         format.json { render json: @gallery }
         format.js
       end
+    end
+
+    def search_galleries
+      @search = General::Gallery.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachments.first.thumb) } }
+      render json: { data: @search }
     end
 
     def edit
