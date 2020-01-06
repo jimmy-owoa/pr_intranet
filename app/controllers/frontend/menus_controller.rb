@@ -6,22 +6,58 @@ module Frontend
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
 
-    def menus
-      data = []
-      menus = General::Menu.all
+    def request_exa_url
+      "https://misecurity-qa.exa.cl/json_menus/show"
+    end
 
+    def index
+      main_menus = General::Menu.where(title: params[:title])
+      data = { title: main_menus.first.title, menus: [], menus_dropdown: [] }
+      parent_menu = General::Menu.find(main_menus.first.parent_id)
+      integration_code = main_menus.pluck(:integration_code).reject(&:blank?).first
+      menus = General::Menu.where(parent_id: main_menus.first.id)
+      if @request_user.legal_number.present?
+        uri = URI.parse(request_exa_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+        menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code }
+        drop_downs = menus_filtered[integration_code]["drop_down"]
+        if drop_downs.present?
+          if drop_downs.values.first["drop_down"].present?
+            drop_downs.values.each do |dropdown|
+              if dropdown["drop_down"].present?
+                m = { title: dropdown["nombre"], submenus: [] }
+                dropdown["drop_down"].values.each do |menu|
+                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+                end
+                data[:menus_dropdown] << m
+              else
+                m = { title: dropdown["nombre"], submenus: [] }
+                drop_downs.values.first["drop_down"].values.each do |menu|
+                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+                end
+                data[:menus_dropdown] << m
+              end
+            end
+          else
+            drop_downs.values.each do |menu|
+              data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+            end
+          end
+        else
+          menus_filtered.values.each do |menu|
+            data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          end
+        end
+        # data[:menus] << exa_menu
+      end
       menus.each do |menu|
-        data << {
-          id: menu.id,
+        data[:menus] << {
           title: menu.title,
-          description: menu.description,
-          css_class: menu.css_class,
-          code: menu.code,
-          priority: menu.priority,
-          parent_id: menu.parent_id,
           link: menu.link,
-          tags: menu.cached_tags,
-          companies: menu.cached_categories,
         }
       end
 
@@ -35,11 +71,12 @@ module Frontend
       exa_urls = ["https://misecurity-qa3.exa.cl/",
                   "https://misecurity-qa2.exa.cl/",
                   "https://misecurity-qa.exa.cl/",
-                  "https://misecurity.exa.cl/"]
+                  "https://misecurity.exa.cl/",
+                  "https://mi.security.cl/"]
       if request.referer.in?(exa_urls)
         "https://mi.security.cl/"
       else
-        request.referer
+        "https://miintranet.exaconsultores.cl/"
       end
     end
 
@@ -108,7 +145,7 @@ module Frontend
       data_indicators = []
       data_indicators = get_data_indicators(indicator, today)
       if user.legal_number.present?
-        uri = URI.parse("https://misecurity-qa.exa.cl/json_menus/show")
+        uri = URI.parse(request_exa_url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
 
@@ -156,14 +193,14 @@ module Frontend
       if day.present?
         gospel = Religion::Gospel.get_gospel(day)
         selected_today = Date.today == gospel.date ? "Hoy, " : ""
-        selected_tomorrow = Date.today == gospel.date ? "Mañana, " : ""
+        selected_tomorrow = Date.today == gospel.date ? "Ma��ana, " : ""
         data = {
           id: gospel.id,
           select_day: l(gospel.date, format: "%A"),
           date_today: selected_today + l(gospel.date, format: "%d de %B").downcase,
           date_tomorrow: selected_tomorrow + l(gospel.date + 1.days, format: "%d de %B").downcase,
           title: gospel.title,
-          content: gospel.content,
+          content: gospel.content.chomp("Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>"),
           santoral_name: General::Santoral.get_santoral(gospel.date).name[0...10],
           santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name[0...10],
         }
