@@ -14,12 +14,11 @@
       </tr>
       </thead>
       <tbody>
-        <% environment = Rails.env.development? ? 'http://localhost:8080' : 'https://mi.security.cl' %>
         <% @posts.each do |post| %>
           <tr>
             <td><%= post.title %></td>
             <%# <td><%= post.slug %></td>
-            <td><%= link_to "#{post.slug}", "#{environment}/#/noticias/#{post.slug}", target: "_blank" %></td>
+            <td><%= link_to "#{post.slug}", "#{get_frontend_url}/noticias/#{post.slug}", target: "_blank" %></td>
             <td><%= post.status %></td>
             <td><%= post.post_type %></td>
             <td><%= post.important.present? ? 'Si' : 'No' %></td>

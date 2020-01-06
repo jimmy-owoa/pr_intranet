@@ -3,7 +3,7 @@ require "net/http"
 
 module Frontend
   class MenusController < FrontendController
-    # protect_from_forgery except: :api_menu
+    include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
 
     def menus
@@ -31,25 +31,15 @@ module Frontend
       end
     end
 
-    def get_rails_env
-      if Rails.env.dev?
-        "http://localhost:8080/#/resultados/"
-      else
-        "https://mi.security.cl/#/resultados/"
-      end
-    end
-
     def get_request_referer
-      if request.referer == "https://misecurity-qa3.exa.cl/"
+      exa_urls = ["https://misecurity-qa3.exa.cl/",
+                  "https://misecurity-qa2.exa.cl/",
+                  "https://misecurity-qa.exa.cl/",
+                  "https://misecurity.exa.cl/"]
+      if request.referer.in?(exa_urls)
         "https://mi.security.cl/"
-      elsif request.referer == "https://mi.security.cl/"
-        request.referer
-      elsif request.referer == "http://intranet-security-qa-v1.s3-website.us-east-2.amazonaws.com/"
-        request.referer
-      elsif request.referer == "http://localhost:8080/"
-        request.referer
       else
-        "https://mi.security.cl/"
+        request.referer
       end
     end
 
@@ -95,7 +85,7 @@ module Frontend
 
     def api_menu_vue
       base_api_url = root_url
-      base_search_url = get_rails_env
+      base_search_url = get_frontend_url + "/resultados/"
       user = params[:user_code_crypted_base64].present? ? General::User.get_user_by_ln(InternalAuth.decrypt(params[:user_code_crypted_base64])) : @request_user
       location_id = user.location_id || 2
       menus = []
