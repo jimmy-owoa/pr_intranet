@@ -8,6 +8,7 @@
         <thead class="thead">
           <tr>
             <th><%= 'Título' %></th>
+            <th><%= 'Tipo de Noticia' %></th>
             <th><%= 'Estado' %></th>
             <th><%= 'Fecha Publicación' %></th>
             <th><%= 'Fecha Creación' %></th>
@@ -18,6 +19,7 @@
           <% @posts.each do |post| %>
             <tr>
               <td><%= link_to post.title.truncate(35), admin_post_path(post), title: post.title %></td>
+              <td><%= post.post_type %></td>
               <td><%= post.status%></td>
               <td><%= custom_date_no_hour(post.published_at) %></td>
               <td><%= custom_date_no_hour(post.created_at)  %></td>

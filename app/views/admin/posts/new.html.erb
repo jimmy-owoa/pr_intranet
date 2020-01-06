@@ -4,3 +4,22 @@
     <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
 </section>
+
+<script>
+$(document).on("turbolinks:load", function() {
+  let post_type = document.getElementById('post_post_type');
+  let div_video = document.getElementById('post-input-video');
+  let div_gallery = document.getElementById('post-input-gallery');
+  div_video.style.display = "none";
+
+  post_type.onchange = function (event) {
+    if (post_type.value == "Video") {
+      div_video.style.display = "block";
+      div_gallery.style.display = "none";
+    } else {
+      div_video.style.display = "none";
+      div_gallery.style.display = "block";
+    }
+  }
+});
+</script>

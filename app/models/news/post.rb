@@ -36,7 +36,7 @@ class News::Post < ApplicationRecord
   STATUS = ["Publicado", "Borrador", "Programado"]
   VISIBILITY = ["Público", "Privada"]
   FORMAT = { 0 => "Estilo normal", 1 => "Estilo rosado", 2 => "Estilo naranja" }
-  TYPE = ["Corporativas", "Miscelaneos", "Conociéndonos", "Página Informativa"]
+  TYPE = ["Corporativas", "Miscelaneos", "Conociéndonos", "Página Informativa", "Video"]
   PERMISSION = [
     "Incluyente",
     "Excluyente",

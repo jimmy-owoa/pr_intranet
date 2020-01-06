@@ -69,7 +69,8 @@
         </div>
       </div>
     </div>
-    <div class="card text-md-center pt-1" >
+    <!-- Galería -->
+    <div id="post-input-gallery" class="card text-md-center pt-1" >
       <div class="form-group">
         <div class="col-md-12 col-sm-12">
           <h5 class="card-title">Galería</h5>
@@ -89,6 +90,24 @@
         </div>
       </div>
     </div>
+    <!-- /Galería-->
+    <!-- Video -->
+    <div id="post-input-video" class="card text-md-center pt-1">
+      <div class="form-group">
+        <div class="col-md-12 col-sm-12">
+          <h5 class="card-title">Video</h5>
+          <% if @post.id.nil? %>
+            <%= image_tag((asset_url('news_video_image.jpg')), id:'gallery_preview', :size => '180x120', :crop => :fill ) %>
+            <div class="card-body">
+              <%= link_to 'Biblioteca de videos', "#", class: 'card-link'%>
+            </div>
+          <% else %>
+ 
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- /Video -->
     <div class="card text-md-center p-2 wrapper">
       <div class="form-group row">
         <div class="col-md-12">
