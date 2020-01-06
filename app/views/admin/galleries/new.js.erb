@@ -10,9 +10,13 @@ $(document).ready(function(){
       var values = this.val();
       $('#selection-galleries').click(function () {
         if (this.id == 'selection-galleries') {
+          if (values >= 1) {
+            $("#gallery_image, #gallery_image_nil").text("Galería seleccionada: " + option.option[0].text);
+            var image_src = option.option[0].dataset.imgSrc;
+            $("#gallery_preview").attr("src", image_src);
+          }
           $('#gallery_modal').modal('toggle');
           $('#gallery_id').val(values);
-          $('#show-gallery').append(values);
           $('#gallery_modal').modal('hide');
         }
       });
@@ -49,10 +53,13 @@ $(document).ready(function(){
             var values = this.val();
             $("#selection-galleries").click(function() {
               if (this.id == 'selection-galleries') {
+                if (values >= 1) {
+                  $("#gallery_image, #gallery_image_nil").text("Galería seleccionada: " + option.option[0].dataset.imgLabel);
+                  var image_src = option.option[0].dataset.imgSrc;
+                  $("#gallery_preview").attr("src", image_src);
+                }
                 $('#gallery_modal').modal('toggle');
-                $('#gallery_id').append(Option(values));
                 $('#gallery_id').val(values);
-                $('#show-gallery').append(values);
                 $('#gallery_modal').modal('hide');
               }
             })
