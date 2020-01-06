@@ -11,11 +11,12 @@ module Frontend
     end
 
     def index
-      main_menus = General::Menu.where(title: params[:title])
+      user_menus = General::Menu.profiled_menus(@request_user)
+      main_menus = user_menus.where(title: params[:title])
       data = { title: main_menus.first.title, menus: [], menus_dropdown: [] }
-      parent_menu = General::Menu.find(main_menus.first.parent_id)
+      parent_menu = user_menus.find(main_menus.first.parent_id)
       integration_code = main_menus.pluck(:integration_code).reject(&:blank?).first
-      menus = General::Menu.where(parent_id: main_menus.first.id)
+      menus = user_menus.where(parent_id: main_menus.first.id)
       if @request_user.legal_number.present?
         uri = URI.parse(request_exa_url)
         http = Net::HTTP.new(uri.host, uri.port)
@@ -24,8 +25,8 @@ module Frontend
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
         exa_menu = JSON.parse(response.body) if response.code.to_i < 400
         menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code }
-        drop_downs = menus_filtered[integration_code]["drop_down"]
-        if drop_downs.present?
+        if menus_filtered.present?
+          drop_downs = menus_filtered[integration_code]["drop_down"]
           if drop_downs.values.first["drop_down"].present?
             drop_downs.values.each do |dropdown|
               if dropdown["drop_down"].present?
