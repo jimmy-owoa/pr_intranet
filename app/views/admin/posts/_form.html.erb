@@ -107,9 +107,11 @@
               <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%><br/>
             </div>
             <b><p>Subir Video</p></b>
-            <div class="">
-              <%= f.file_field :file_video %>
-            </div>
+            <%= f.fields_for :file_video do |aa| %>
+              <div class="">
+                <%= aa.file_field :attachment, class:'card-link', onchange:"readURLVideo(this);" %>
+              </div>
+            <% end %>
           <% else %>
             <div class="card-body">
               <% if @post.file_video.present? %>
@@ -194,6 +196,21 @@
           .width(180)
           .height(120);
         $("#image_preview")[0].style.objectFit = "cover";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function readURLVideo(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#video_image, #video_image_nil").text("Video seleccionado");
+        $("#video_preview")
+          .attr("src", "<%= image_path "news_video_image.jpg" %>")
+          .width(180)
+          .height(120);
+        $("#video_preview")[0].style.objectFit = "cover";
       };
       reader.readAsDataURL(input.files[0]);
     }

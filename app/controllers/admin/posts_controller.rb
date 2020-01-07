@@ -28,6 +28,7 @@ module Admin
       @attachment = General::Attachment.new
       @files = General::File.all
       @post.build_main_image
+      @post.build_file_video
       @post.terms.build
       # @post.files.build
     end

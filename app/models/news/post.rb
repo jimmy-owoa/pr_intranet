@@ -24,7 +24,6 @@ class News::Post < ApplicationRecord
   accepts_nested_attributes_for :main_image
   accepts_nested_attributes_for :file_video
   accepts_nested_attributes_for :gallery
-
   after_initialize :set_status
 
   before_save :unique_slug, :manage_time

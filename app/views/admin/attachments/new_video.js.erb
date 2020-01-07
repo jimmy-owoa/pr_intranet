@@ -11,6 +11,8 @@ $("select#image-picker-video").imagepicker({
       if (this.id == 'selection-video') {
         if (values >= 1) {
           $("#video_image, #video_image_nil").text("Video seleccionado: " + option.option[0].text);
+          var image_src = option.option[0].dataset.imgSrc;
+          $("#video_preview").attr("src", image_src);
         }
         $('#video_modal').modal('toggle');
         $("#post_file_video_id").val(values);
