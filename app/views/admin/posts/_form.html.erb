@@ -71,7 +71,7 @@
       </div>
     </div>
     <!-- Galería -->
-    <div id="post-input-gallery" class="card text-md-center pt-1" >
+    <div id="post_input_gallery" class="card text-md-center pt-1" >
       <div class="form-group">
         <div class="col-md-12 col-sm-12">
           <h5 class="card-title">Galería</h5>
@@ -97,7 +97,7 @@
     </div>
     <!-- /Galería-->
     <!-- Video -->
-    <div id="post-input-video" class="card text-md-center pt-1">
+    <div id="post_input_video" class="card text-md-center pt-1">
       <div class="form-group">
         <div class="col-md-12 col-sm-12">
           <h5 class="card-title">Video</h5>
@@ -207,7 +207,7 @@
       reader.onload = function(e) {
         $("#video_image, #video_image_nil").text("Video seleccionado");
         $("#video_preview")
-          .attr("src", "<%= image_path "news_video_image.jpg" %>")
+          .attr("src", "<%= image_path 'news_video_image.jpg' %>")
           .width(180)
           .height(120);
         $("#video_preview")[0].style.objectFit = "cover";

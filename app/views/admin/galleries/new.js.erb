@@ -1,22 +1,24 @@
 $(document).ready(function(){
+  // Carga de modal 'modal_form.html.erb'
   $("#gallery_modal").html("<%= j render(partial: 'modal_form') %>");
   $('.image-picker').imagepicker();
   $('#gallery_modal').modal('show');
 
+  // Inicializa librería Image Picker y muestra las galerías en modal de Noticias (formulario)
   $("select.image-picker").imagepicker({
     hide_select: true,
     show_label: true,
     selected: function (option) {
-      var values = this.val();
-      $('#selection-galleries').click(function () {
-        if (this.id == 'selection-galleries') {
-          if (values >= 1) {
+      var value = this.val();
+      $('#selection_galleries').click(function () {
+        if (this.id == 'selection_galleries') {
+          if (value >= 1) {
             $("#gallery_image, #gallery_image_nil").text("Galería seleccionada: " + option.option[0].text);
             var image_src = option.option[0].dataset.imgSrc;
             $("#gallery_preview").attr("src", image_src);
           }
           $('#gallery_modal').modal('toggle');
-          $('#gallery_id').val(values);
+          $('#gallery_id').val(value);
           $('#gallery_modal').modal('hide');
         }
       });
@@ -29,6 +31,7 @@ $(document).ready(function(){
     }
   });
 
+  // Realiza búsqueda de galerías en el modal de Noticias (formulario)
   $("#btn_search" ).click(function() {
     var query = $('#search_galleries').val();
     $.ajax({
@@ -50,16 +53,16 @@ $(document).ready(function(){
           hide_select: true,
           show_label: true,
           selected: function(option) {
-            var values = this.val();
-            $("#selection-galleries").click(function() {
-              if (this.id == 'selection-galleries') {
-                if (values >= 1) {
+            var value = this.val();
+            $("#selection_galleries").click(function() {
+              if (this.id == 'selection_galleries') {
+                if (value >= 1) {
                   $("#gallery_image, #gallery_image_nil").text("Galería seleccionada: " + option.option[0].dataset.imgLabel);
                   var image_src = option.option[0].dataset.imgSrc;
                   $("#gallery_preview").attr("src", image_src);
                 }
                 $('#gallery_modal').modal('toggle');
-                $('#gallery_id').val(values);
+                $('#gallery_id').val(value);
                 $('#gallery_modal').modal('hide');
               }
             })

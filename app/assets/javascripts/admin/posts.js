@@ -78,4 +78,28 @@ $(document).on("turbolinks:load", function() {
     var checkboxes = $('.categories input[type="checkbox"]');
     checkboxes.prop("checked", $(this).is(":checked"));
   });
+
+  //
+  let post_type = document.getElementById('post_post_type');
+  let div_video = document.getElementById('post_input_video');
+  let div_gallery = document.getElementById('post_input_gallery');
+  if (div_video && post_type.value != "Video") {
+    div_video.style.display = "none";
+  }
+  if (div_video && post_type.value == "Video") {
+    div_video.style.display = "show";
+    div_gallery.style.display = "none";
+  }
+
+  if (post_type) {
+    post_type.onchange = function (event) {
+      if (post_type.value == "Video") {
+        div_video.style.display = "block";
+        div_gallery.style.display = "none";
+      } else {
+        div_video.style.display = "none";
+        div_gallery.style.display = "block";
+      }
+    }
+  }
 });

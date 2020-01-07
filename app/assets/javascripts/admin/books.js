@@ -20,8 +20,13 @@ $(document).on('turbolinks:load', function () {
       allowClear: true
     });
 
-    // Colocar atributo required en select2
-    // document.getElementById("book_author_id").required = true;
-    // document.getElementById("book_editorial_id").required = true;
-    // document.getElementById("book_category_book_id").required = true;
-});
+    // Colocar atributo "required = true" en campos de select2
+    let select_author = document.getElementById("book_author_id");
+    let select_editorial = document.getElementById("book_editorial_id");
+    let select_category = document.getElementById("book_category_book_id");
+    if (select_author && select_editorial && select_category) {
+      select_author.required = true;
+      select_editorial.required = true;
+      select_category.required = true;
+    }
+  });

@@ -1,21 +1,21 @@
 $("#video_modal").html("<%= j render(partial: 'video_modal_form') %>");
-$("#image-picker-video").imagepicker();
+$("#image_picker_video").imagepicker();
 $("#video_modal").modal("show");
 
-$("select#image-picker-video").imagepicker({
+$("select#image_picker_video").imagepicker({
   hide_select: true,
   show_label: true,
   selected: function (option) {
-    var values = this.val();
-    $('#selection-video').click(function () {
-      if (this.id == 'selection-video') {
-        if (values >= 1) {
+    var value = this.val();
+    $('#selection_video').click(function () {
+      if (this.id == 'selection_video') {
+        if (value >= 1) {
           $("#video_image, #video_image_nil").text("Video seleccionado: " + option.option[0].text);
           var image_src = option.option[0].dataset.imgSrc;
           $("#video_preview").attr("src", image_src);
         }
         $('#video_modal').modal('toggle');
-        $("#post_file_video_id").val(values);
+        $("#post_file_video_id").val(value);
         $('#video_modal').modal('hide');
       }
     });
