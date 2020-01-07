@@ -18,9 +18,11 @@ class News::Post < ApplicationRecord
   belongs_to :post_parent, class_name: "News::Post", optional: true
   belongs_to :user, class_name: "General::User", optional: true, touch: true
   belongs_to :main_image, class_name: "General::Attachment", optional: true
+  belongs_to :file_video, class_name: "General::Attachment", optional: true
 
   accepts_nested_attributes_for :terms
   accepts_nested_attributes_for :main_image
+  accepts_nested_attributes_for :file_video
   accepts_nested_attributes_for :gallery
 
   after_initialize :set_status
