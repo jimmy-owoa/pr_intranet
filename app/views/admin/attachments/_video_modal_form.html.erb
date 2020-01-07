@@ -13,7 +13,7 @@
             <div class="tab-pane active" id="select_image">
               <div class="row justify-content-center">
                 <div class="col-12">
-                  <%= select_tag :attachment, options_for_select(@video_list.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.attachment)}]}), class: 'show-html', id: 'image-picker-video' %>
+                  <%= select_tag :attachment, options_for_select(@video_list.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.attachment.preview(resize: "x50"))}]}), class: 'show-html', id: 'image-picker-video' %>
                 </div>
               </div>
               <%= js_will_paginate @video_list %>
