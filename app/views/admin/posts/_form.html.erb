@@ -29,6 +29,7 @@
       <%= f.hidden_field :user_id, value: current_user.id %>
       <div class="col-md-4 hidden">
         <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
+        <%= f.association :file_video, collecion: @attachments, class: 'hidden'%>
       </div>
     </div>
   </div>
@@ -81,10 +82,14 @@
             </div>
           <% else %>
             <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
-            <%= image_tag url_for(@post.gallery.attachments.first.thumb) if @post.main_image.present? %>
+            <%= image_tag url_for(@post.gallery.attachments.first.thumb) if @post.gallery.present? %>
             <br />
             <div class="card-body">
-              <%= link_to "Galería seleccionada: #{@post.gallery.name}", new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%><br/>
+              <% if @post.gallery.present? %>
+                <%= link_to "Galería seleccionada: #{@post.gallery.name}", new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%>
+              <% else %>
+                <%= link_to 'Biblioteca de Galerías', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%><br/>
+              <% end %>
             </div>
           <% end %>
         </div>
@@ -97,12 +102,22 @@
         <div class="col-md-12 col-sm-12">
           <h5 class="card-title">Video</h5>
           <% if @post.id.nil? %>
-            <%= image_tag((asset_url('news_video_image.jpg')), id:'gallery_preview', :size => '180x120', :crop => :fill ) %>
+            <%= image_tag((asset_url('news_video_image.jpg')), id:'video_preview', :size => '180x120', :crop => :fill ) %>
             <div class="card-body">
-              <%= link_to 'Biblioteca de videos', "#", class: 'card-link'%>
+              <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%><br/>
+            </div>
+            <b><p>Subir Video</p></b>
+            <div class="">
+              <%= f.file_field :file_video %>
             </div>
           <% else %>
- 
+            <div class="card-body">
+              <% if @post.file_video.present? %>
+                <%= link_to "Video seleccionado: #{@post.file_video.name}", admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image', remote: true, class: 'card-link'%>
+              <% else %>
+                <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%>
+              <% end %>
+            </div>
           <% end %>
         </div>
       </div>

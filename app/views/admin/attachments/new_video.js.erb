@@ -1,0 +1,21 @@
+$("#video_modal").html("<%= j render(partial: 'video_modal_form') %>");
+$("#image-picker-video").imagepicker();
+$("#video_modal").modal("show");
+
+$("select#image-picker-video").imagepicker({
+  hide_select: true,
+  show_label: true,
+  selected: function (option) {
+    var values = this.val();
+    $('#selection-video').click(function () {
+      if (this.id == 'selection-video') {
+        if (values >= 1) {
+          $("#video_image, #video_image_nil").text("Video seleccionado: " + option.option[0].text);
+        }
+        $('#video_modal').modal('toggle');
+        $("#post_file_video_id").val(values);
+        $('#video_modal').modal('hide');
+      }
+    });
+  }
+});

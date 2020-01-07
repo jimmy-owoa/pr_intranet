@@ -45,6 +45,15 @@ module Admin
       end
     end
 
+    def new_video
+      @video_list = General::Attachment.videos.paginate(:page => params[:page], :per_page => 5)
+      @video = General::Attachment.new
+      respond_to do |format|
+        format.json { render json: @video }
+        format.js
+      end
+    end  
+
     def edit
       add_breadcrumb "Medios", :admin_attachments_path
     end
