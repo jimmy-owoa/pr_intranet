@@ -9,6 +9,7 @@ module Frontend
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
+        @video = post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
         data << {
           id: post.id,
@@ -25,6 +26,7 @@ module Frontend
             { link: "#", name: post.title.truncate(30) },
           ],
           main_image: @image,
+          file_video: @video,
           format: post.format,
         }
       end
