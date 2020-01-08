@@ -84,6 +84,8 @@ Rails.application.routes.draw do
     get "azure_auth", to: "frontend#azure_auth"
     get "current_user_azure", to: "frontend#current_user_azure"
     get "products/user_products", to: "products#user_products"
+    get "posts_video", to: "posts#index_video"
+    get "posts_video/post", to: "posts#post_video"
     resources :library do
       get :get_categories, on: :collection
     end  

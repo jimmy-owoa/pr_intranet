@@ -32,7 +32,8 @@ class News::Post < ApplicationRecord
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
-  scope :normal_posts, -> { where.not(post_type: "Página Informativa") }
+  scope :normal_posts, -> { where.not(post_type: "Página Informativa").where.not(post_type: "Video") }
+  scope :video_posts, -> { where(post_type: "Video") }
 
   STATUS = ["Publicado", "Borrador", "Programado"]
   VISIBILITY = ["Público", "Privada"]
@@ -72,10 +73,12 @@ class News::Post < ApplicationRecord
 
     if post_type == "Página Informativa"
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).informative_posts.last(5) - [self]
+    elsif post_type == "Video"
+      relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).video_posts.last(5) - [self]
     else
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).normal_posts.last(5) - [self]
     end 
-  end  
+  end
 
   # TODO: optimizar
   def self.filter_posts(user, important = nil)
