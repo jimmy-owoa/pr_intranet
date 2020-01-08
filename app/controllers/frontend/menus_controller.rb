@@ -121,6 +121,49 @@ module Frontend
       data_indicators
     end
 
+    def api_menu_mobile
+      user_menus = General::Menu.profiled_menus(@request_user)
+      uri = URI.parse(request_exa_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+
+      encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
+      response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+      exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+      benefits = @request_user.benefit_group.present? ? @request_user.benefit_group.benefits : nil
+
+      @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
+      data = []
+      if exa_menu.present? && exa_menu["manage"].present?
+        @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
+      end
+
+      @main_menus.each do |main_menu|
+        main_menus_data = []
+        menu_parents_data = []
+        main_menus_data << { title: main_menu.title, cod: main_menu.integration_code }
+        main_menu.children.each do |menu_parent|
+          submenus_data = []
+          menu_parent_object = General::Menu.find(menu_parent[:menu_id])
+          # binding.pry if menu_parent_object.integration_code != nil
+          submenus = menu_parent_object.children(@request_user.profile_ids, exa_menu)
+          submenus.first(3).each do |submenu|
+            submenus_data << { title: submenu[:title], cod: submenu[:integration_code], link: submenu[:link] }
+          end
+          menu_parents_data << { title: menu_parent_object.title, cod: menu_parent_object.integration_code, link: menu_parent_object.link, submenus: submenus_data }
+        end
+        data << {
+          main_menu: main_menus_data,
+          menu_parents: menu_parents_data,
+        }
+      end
+
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
     def api_menu_vue
       base_api_url = root_url
       base_search_url = get_frontend_url + "/resultados/"
