@@ -1,7 +1,8 @@
+// Carga de modal 'modal_form.html.erb' para selección de video en colección de videos
 $("#video_modal").html("<%= j render(partial: 'video_modal_form') %>");
 $("#image_picker_video").imagepicker();
 $("#video_modal").modal("show");
-
+// Inicializa librería Image Picker. Muestra colección de videos en modal de Noticias (formulario)
 $("select#image_picker_video").imagepicker({
   hide_select: true,
   show_label: true,

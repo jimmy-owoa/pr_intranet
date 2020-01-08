@@ -34,6 +34,7 @@
     </div>
   </div>
   <div class="col-md-3">
+    <!-- Imagen Principal -->
     <div class="card text-md-center p-2" >
       <div class="form-group">
         <div class="col-md-12 col-sm-12">
@@ -70,6 +71,7 @@
         </div>
       </div>
     </div>
+    <!-- /Imagen Principal -->
     <!-- Galería -->
     <div id="post_input_gallery" class="card text-md-center pt-1" >
       <div class="form-group">
@@ -81,7 +83,7 @@
               <%= link_to 'Biblioteca de Galerías', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%><br/>
             </div>
           <% else %>
-            <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
+            <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'gallery_preview', :size => '180x120', :crop => :fill) if @post.gallery.blank? %>
             <%= image_tag url_for(@post.gallery.attachments.first.thumb) if @post.gallery.present? %>
             <br />
             <div class="card-body">
@@ -108,11 +110,13 @@
             </div>
             <b><p>Subir Video</p></b>
             <%= f.fields_for :file_video do |aa| %>
-              <div class="">
+              <div>
                 <%= aa.file_field :attachment, class:'card-link', onchange:"readURLVideo(this);" %>
               </div>
             <% end %>
           <% else %>
+            <%= image_tag((root_url + '/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) if @post.file_video.blank? %>
+            <%= image_tag url_for(@post.file_video.attachment.preview(resize: "x100")) if @post.file_video.present? %>
             <div class="card-body">
               <% if @post.file_video.present? %>
                 <%= link_to "Video seleccionado: #{@post.file_video.name}", admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image', remote: true, class: 'card-link'%>

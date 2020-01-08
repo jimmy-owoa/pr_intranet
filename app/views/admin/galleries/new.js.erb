@@ -1,9 +1,8 @@
 $(document).ready(function(){
-  // Carga de modal 'modal_form.html.erb'
+  // Carga de modal 'modal_form.html.erb' para selección de galería en colección de galerías
   $("#gallery_modal").html("<%= j render(partial: 'modal_form') %>");
   $('.image-picker').imagepicker();
   $('#gallery_modal').modal('show');
-
   // Inicializa librería Image Picker y muestra las galerías en modal de Noticias (formulario)
   $("select.image-picker").imagepicker({
     hide_select: true,
@@ -24,13 +23,11 @@ $(document).ready(function(){
       });
     }
   });
-
   $('#attachments_ids').change(function(){
     if ($(this).val()) {
       $('input:submit').attr('disabled',false);
     }
   });
-
   // Realiza búsqueda de galerías en el modal de Noticias (formulario)
   $("#btn_search" ).click(function() {
     var query = $('#search_galleries').val();
