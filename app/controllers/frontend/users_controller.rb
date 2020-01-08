@@ -152,6 +152,7 @@ module Frontend
       data_user = []
       user = @request_user
       @nickname = nickname(user.name)
+      @location = user.location.present? ? General::Location.find(user.location_id).name : "No definido"
       data_benefits = []
       data_products = []
       data_messages = []
@@ -161,7 +162,7 @@ module Frontend
           data_family_member << {
             id: member.id,
             title: member.name,
-            relation: member.relation
+            relation: member.relation,
           }
         end
       end
@@ -237,7 +238,7 @@ module Frontend
         messages: data_messages,
         notifications: user.notifications,
         color: user.get_color,
-        family_members: data_family_member
+        family_members: data_family_member,
       }
       respond_to do |format|
         format.json { render json: data_user[0] }
