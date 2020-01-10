@@ -64,6 +64,7 @@ Rails.application.routes.draw do
     post "answers_options_multiple_save_from_vue", to: "answers#answers_options_multiple_save_from_vue"
     post "check_data", to: "answers#check_data"
     get "menus", to: "menus#index"
+    get "api_menu_mobile", to: "menus#api_menu_mobile"
     get "santorals/santorals"
     get "welcome", to: "welcomes#index"
     get "welcome/get_home_welcome", to: "welcomes#get_home_welcome"

@@ -10,9 +10,53 @@ module Frontend
       "https://misecurity-qa.exa.cl/json_menus/show"
     end
 
+    def get_merged_menus(title, user_menus, exa_menu)
+      menu = user_menus.where(title: title).first
+      data = { title: menu.title, submenus: [] }
+      integration_code = menu.integration_code
+      menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code }
+      if menus_filtered.present? && integration_code.present? && menus_filtered[integration_code]["drop_down"].present?
+        drop_downs = menus_filtered[integration_code]["drop_down"]
+        if drop_downs.values.first["drop_down"].present?
+          drop_downs.values.each do |dropdown|
+            if dropdown["drop_down"].present?
+              m = { title: dropdown["nombre"], submenus: [] }
+              dropdown["drop_down"].values.each do |menu|
+                m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+              end
+              data[:submenus] << m
+            else
+              m = { title: dropdown["nombre"], submenus: [] }
+              drop_downs.values.first["drop_down"].values.each do |menu|
+                m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+              end
+              data[:submenus] << m
+            end
+          end
+        else
+          drop_downs.values.each do |menu|
+            data[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          end
+        end
+      end
+      # data[:submenus] << exa_menu
+      menus = user_menus.where(parent_id: menu.id)
+      menus.each do |menu|
+        data[:submenus] << {
+          title: menu.title,
+          link: menu.link,
+        }
+      end
+      data
+    end
+
     def index
       user_menus = General::Menu.profiled_menus(@request_user)
       main_menus = user_menus.where(title: params[:title])
+      if !main_menus.present?
+        render json: { message: "Menú no encontrado en la base de datos." }, status: :error
+        return
+      end
       data = { title: main_menus.first.title, menus: [], menus_dropdown: [] }
       parent_menu = user_menus.find(main_menus.first.parent_id)
       integration_code = main_menus.pluck(:integration_code).reject(&:blank?).first
@@ -122,6 +166,35 @@ module Frontend
     end
 
     def api_menu_mobile
+      main_menus = General::Menu.where(parent_id: nil, code: nil)
+      menus = General::Menu.all.uniq.reject(&:blank?) - main_menus
+      user_menus = General::Menu.profiled_menus(@request_user)
+      data = []
+      if @request_user.legal_number.present?
+        uri = URI.parse(request_exa_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+      end
+
+      all_menus = General::Menu.where(id: menus)
+      menu_hash = {}
+      main_menus.each do |main_menu|
+        menu_hash[main_menu.id] = { title: main_menu.title, menus: [] }
+        all_menus.where(parent_id: main_menu.id).each do |menu|
+          menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
+        end
+        data << menu_hash[main_menu.id]
+      end
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
+    def api_menu_mobile_backup
       user_menus = General::Menu.profiled_menus(@request_user)
       uri = URI.parse(request_exa_url)
       http = Net::HTTP.new(uri.host, uri.port)
@@ -133,18 +206,53 @@ module Frontend
       benefits = @request_user.benefit_group.present? ? @request_user.benefit_group.benefits : nil
 
       @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
-      data = []
+      done = []
+
       if exa_menu.present? && exa_menu["manage"].present?
         @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
       end
 
       @main_menus.each do |main_menu|
+        data = { title: main_menu.title, menus: [], menus_dropdown: [] }
         main_menus_data = []
         menu_parents_data = []
         main_menus_data << { title: main_menu.title, cod: main_menu.integration_code }
         main_menu.children.each do |menu_parent|
           submenus_data = []
           menu_parent_object = General::Menu.find(menu_parent[:menu_id])
+          # INICIO SUMA EXA MENU
+          # menus_filtered = exa_menu.select { |key, value| value["cod"] == menu_parent_object.integration_code }
+          # if menus_filtered.present?
+          #   drop_downs = menus_filtered[menu_parent_object.integration_code]["drop_down"]
+          #   if drop_downs.present?
+          #     if drop_downs.values.first["drop_down"].present?
+          #       drop_downs.values.each do |dropdown|
+          #         if dropdown["drop_down"].present?
+          #           m = { title: dropdown["nombre"], submenus: [] }
+          #           dropdown["drop_down"].values.each do |menu|
+          #             m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          #           end
+          #           data[:menus_dropdown] << m
+          #         else
+          #           m = { title: dropdown["nombre"], submenus: [] }
+          #           drop_downs.values.first["drop_down"].values.each do |menu|
+          #             m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          #           end
+          #           data[:menus_dropdown] << m
+          #         end
+          #       end
+          #     else
+          #       drop_downs.values.each do |menu|
+          #         data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          #       end
+          #     end
+          #   end
+          # else
+          #   menus_filtered.values.each do |menu|
+          #     data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          #   end
+          # end
+          # # FIN SUMA EXA MENU
           # binding.pry if menu_parent_object.integration_code != nil
           submenus = menu_parent_object.children(@request_user.profile_ids, exa_menu)
           submenus.first(3).each do |submenu|
@@ -152,14 +260,15 @@ module Frontend
           end
           menu_parents_data << { title: menu_parent_object.title, cod: menu_parent_object.integration_code, link: menu_parent_object.link, submenus: submenus_data }
         end
-        data << {
+        done << {
           main_menu: main_menus_data,
           menu_parents: menu_parents_data,
+          data: data,
         }
       end
 
       respond_to do |format|
-        format.json { render json: data }
+        format.json { render json: done }
         format.js
       end
     end
