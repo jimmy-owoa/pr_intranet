@@ -37,25 +37,8 @@ module Frontend
     def index_video
       user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.normal_posts.filter_posts(@request_user)
       page = params[:page]
-
-      if params[:category].present?
-        if params[:category] == "Videos"
-          posts = Kaminari.paginate_array(user_posts.select { |post| post.post_type == "Video" }).page(page).per(4)
-        elsif params[:category] == "Fotos"
-          posts = Kaminari.paginate_array(user_posts.select { |post| post.gallery.present? }).page(page).per(4)
-        else
-          posts_video = user_posts.select { |post| post.post_type == "Video" }
-          posts_gallery = user_posts.select { |post| post.gallery.present? }
-          posts = posts_video+posts_gallery
-          posts = Kaminari.paginate_array(posts.sort_by{ |e| e[:created_at] }.reverse).page(page).per(4) 
-        end
-      else
-        posts_video = user_posts.select { |post| post.post_type == "Video" }
-        posts_gallery = user_posts.select { |post| post.gallery.present? }
-        posts = posts_video+posts_gallery
-        posts = Kaminari.paginate_array(posts.sort_by{ |e| e[:created_at] }.reverse).page(page).per(4)  
-      end
-      
+      posts = user_posts.select_category(params[:category]) if params[:category].present?
+      posts = Kaminari.paginate_array(posts).page(page).per(4)
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
@@ -66,6 +49,7 @@ module Frontend
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           full_title: post.title,
           published_at: post.created_at.strftime("%d/%m/%Y"),
+          post_type: post.post_type.present? ? post.post_type.upcase : "",
           slug: post.slug,
           extract: extract,
           breadcrumbs: [
@@ -111,8 +95,6 @@ module Frontend
           published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
           content: content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
-          important: post.important,
-          tags: post.terms.tags,
           main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
           format: post.format,
           extract: post.extract.present? ? post.extract : "",

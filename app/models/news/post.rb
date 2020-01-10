@@ -123,4 +123,17 @@ class News::Post < ApplicationRecord
       val
     end
   end
+
+  def self.select_category(category)
+    if category == "Videos"
+      posts = self.select { |post| post.post_type == "Video" }
+    elsif category == "Fotos"
+      posts = self.select { |post| post.gallery.present? }
+    else
+      posts_video = self.select { |post| post.post_type == "Video" }
+      posts_gallery = self.select { |post| post.gallery.present? }
+      posts = posts_video+posts_gallery
+      posts = posts.sort_by{ |e| e[:created_at] }.reverse
+    end
+  end  
 end
