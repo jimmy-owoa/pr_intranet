@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get "analytics", to: "analytics#index"
     get "search", to: "search#search"
     get "searchatt", to: "attachments#search_att"
+    get "searchvideo", to: "attachments#search_video"
+    get "searchgall", to: "galleries#search_galleries"
     get "births/no_approved_index", to: "births#no_approved_index"
     get "products/no_approved_index", to: "products#no_approved_index"
     get "products/approved_index", to: "products#approved_index"
@@ -13,6 +15,8 @@ Rails.application.routes.draw do
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
     get "attachments/images", to: "attachments#index_images"
     get "attachments/videos", to: "attachments#index_videos"
+    post "galleries/create_gallery", to: "galleries#create_gallery_post"
+    get "new_video_post", to: "attachments#new_video"
     resources :books
     resources :authors
     resources :editorials
@@ -63,7 +67,8 @@ Rails.application.routes.draw do
     post "answers_options_save_from_vue", to: "answers#answers_options_save_from_vue"
     post "answers_options_multiple_save_from_vue", to: "answers#answers_options_multiple_save_from_vue"
     post "check_data", to: "answers#check_data"
-    get "menus/menus"
+    get "menus", to: "menus#index"
+    get "api_menu_mobile", to: "menus#api_menu_mobile"
     get "santorals/santorals"
     get "welcome", to: "welcomes#index"
     get "welcome/get_home_welcome", to: "welcomes#get_home_welcome"
@@ -81,9 +86,11 @@ Rails.application.routes.draw do
     get "azure_auth", to: "frontend#azure_auth"
     get "current_user_azure", to: "frontend#current_user_azure"
     get "products/user_products", to: "products#user_products"
+    get "posts_video", to: "posts#index_video"
+    get "posts_video/post", to: "posts#post_video"
     resources :library do
       get :get_categories, on: :collection
-    end  
+    end
     post "library/create_request_book", to: "library#create_request_book"
     resources :galleries
     resources :weather

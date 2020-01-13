@@ -18,11 +18,12 @@ class News::Post < ApplicationRecord
   belongs_to :post_parent, class_name: "News::Post", optional: true
   belongs_to :user, class_name: "General::User", optional: true, touch: true
   belongs_to :main_image, class_name: "General::Attachment", optional: true
+  belongs_to :file_video, class_name: "General::Attachment", optional: true
 
   accepts_nested_attributes_for :terms
   accepts_nested_attributes_for :main_image
+  accepts_nested_attributes_for :file_video
   accepts_nested_attributes_for :gallery
-
   after_initialize :set_status
 
   before_save :unique_slug, :manage_time
@@ -31,12 +32,14 @@ class News::Post < ApplicationRecord
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
-  scope :normal_posts, -> { where.not(post_type: "Página Informativa") }
+  scope :normal_posts, -> { where.not(post_type: "Página Informativa").where.not(post_type: "Video") }
+  scope :video_gallery_posts, -> { where.not(post_type: "Página Informativa") }
+  scope :video_posts, -> { where(post_type: "Video") }
 
   STATUS = ["Publicado", "Borrador", "Programado"]
   VISIBILITY = ["Público", "Privada"]
   FORMAT = { 0 => "Estilo normal", 1 => "Estilo rosado", 2 => "Estilo naranja" }
-  TYPE = ["Corporativas", "Miscelaneos", "Conociéndonos", "Página Informativa"]
+  TYPE = ["Corporativas", "Miscelaneos", "Conociéndonos", "Página Informativa", "Video"]
   PERMISSION = [
     "Incluyente",
     "Excluyente",
@@ -71,10 +74,12 @@ class News::Post < ApplicationRecord
 
     if post_type == "Página Informativa"
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).informative_posts.last(5) - [self]
+    elsif post_type == "Video"
+      relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).video_posts.last(5) - [self]
     else
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).normal_posts.last(5) - [self]
-    end 
-  end  
+    end
+  end
 
   # TODO: optimizar
   def self.filter_posts(user, important = nil)
@@ -116,6 +121,19 @@ class News::Post < ApplicationRecord
       end
     else
       val
+    end
+  end
+
+  def self.select_category(category)
+    if category == "Videos"
+      posts = self.select { |post| post.post_type == "Video" }
+    elsif category == "Fotos"
+      posts = self.select { |post| post.gallery.present? }
+    else
+      posts_video = self.select { |post| post.post_type == "Video" }
+      posts_gallery = self.select { |post| post.gallery.present? }
+      posts = posts_video + posts_gallery
+      posts = posts.sort_by { |e| e[:created_at] }.reverse
     end
   end
 end

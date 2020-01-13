@@ -1553,7 +1553,7 @@
                   <!-- MODAL VER MAS END -->
 
                   <% if main_menu.title != "Mis beneficios" %>
-                    <%= link_to 'Ver más', host + '#menu_' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
+                    <%= link_to 'Ver más', host + '#/menus/' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
                   <% end %>
                 <% else %>
                   <% submenus.each do |link| %>

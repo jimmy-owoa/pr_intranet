@@ -1,5 +1,5 @@
 <div class="" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Imágenes</h5>
@@ -9,18 +9,20 @@
       </div>
       <div class="modal-body">
         <div class="tab-v2">
-          <ul class="nav nav-tabs" id="myTab">
-            <li class="nav-item pill-tabs"><a href="#select_image" data-toggle="tab" id="image_picker">Seleccionar desde Biblioteca</a></li>
+          <ul class="nav nav-pills" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a href="#select_image" data-toggle="tab" id="image_picker" class="nav-link active" aria-selected="true">Seleccionar desde Biblioteca</a>
+            </li>
             <%# <li class="nav-item pill-tabs"><a href="#upload_image" data-toggle="tab" id="image_upload">Subir nueva imagen</a></li> %>
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade in" id="upload_image">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <%= file_field_tag :main_image_select%>
+                <%= file_field_tag :main_image_select %>
                 <button type="button" class="btn btn-primary" id="btn_select">Seleccionar imagen</button>
               </div>
             </div>
-            <div class="tab-pane fade in" id="select_image">
+            <div class="tab-pane active" id="select_image">
                 <div class="row justify-content-center">
               <div class="col-12">
                 <%= text_field_tag :search, params[:search], id: 'search_att', placeholder: 'Buscar imagen' %>
@@ -28,6 +30,7 @@
                 <%= select_tag :attachment, options_for_select(@image_list.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.thumb)}]}), class: 'show-html', id: 'image-picker_att' %>
               </div>
             </div>
+              <%= js_will_paginate @image_list %>
               <button type="button" id="selection-image" class="btn btn-primary" style="float:right">Seleccionar</button>
             </div>
           </div>

@@ -17,6 +17,14 @@ class General::Menu < ApplicationRecord
     Rails.cache.fetch("General::Menu.all", expires_in: 30.minute) { all.to_a }
   end
 
+  def self.profiled_menus(user)
+    if user.has_role?(:super_admin)
+      General::Menu.all
+    else
+      General::Menu.where(profile_id: user.profile_ids)
+    end
+  end
+
   def cached_categories
     Rails.cache.fetch([:terms, object_id, :name], expires_in: 30.minutes) do
       terms.categories.map(&:name)
@@ -38,7 +46,7 @@ class General::Menu < ApplicationRecord
       parents = General::Menu.where(parent_id: self.id)
       data = []
       parents.each do |menu|
-        if menu.profile_id.present?
+        if profile_ids.present? && menu.profile_id.present?
           data << menu if menu.profile_id.in?(profile_ids)
         else
           data << menu
@@ -68,11 +76,11 @@ class General::Menu < ApplicationRecord
             }
           end
         else
-        menu = {
-          title: value["nombre"],
-          link: "",
-          menu_id: -1,
-        }
+          menu = {
+            title: value["nombre"],
+            link: "",
+            menu_id: -1,
+          }
         end
         get_dropdowns(value, menus)
       elsif value["nombre"].present?
@@ -87,7 +95,7 @@ class General::Menu < ApplicationRecord
   end
 
   # TODO: Hay que hacerlo a la buena
-  def self.get_main_menus integration_menu, dynamic_codes
+  def self.get_main_menus(integration_menu, dynamic_codes)
     main_menus = []
     dynamic_codes.each do |code|
       if integration_menu.present? && integration_menu.key?(code) && integration_menu[code]["drop_down"].present?
