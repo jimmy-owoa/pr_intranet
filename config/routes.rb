@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get "analytics", to: "analytics#index"
     get "search", to: "search#search"
     get "searchatt", to: "attachments#search_att"
+    get "searchvideo", to: "attachments#search_video"
+    get "searchgall", to: "galleries#search_galleries"
     get "births/no_approved_index", to: "births#no_approved_index"
     get "products/no_approved_index", to: "products#no_approved_index"
     get "products/approved_index", to: "products#approved_index"
@@ -13,6 +15,8 @@ Rails.application.routes.draw do
     get "menus/html", to: "menus#html", :defaults => { :format => "json" }
     get "attachments/images", to: "attachments#index_images"
     get "attachments/videos", to: "attachments#index_videos"
+    post "galleries/create_gallery", to: "galleries#create_gallery_post"
+    get "new_video_post", to: "attachments#new_video"
     resources :books
     resources :authors
     resources :editorials
@@ -82,6 +86,8 @@ Rails.application.routes.draw do
     get "azure_auth", to: "frontend#azure_auth"
     get "current_user_azure", to: "frontend#current_user_azure"
     get "products/user_products", to: "products#user_products"
+    get "posts_video", to: "posts#index_video"
+    get "posts_video/post", to: "posts#post_video"
     resources :library do
       get :get_categories, on: :collection
     end

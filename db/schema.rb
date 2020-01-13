@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_18_190815) do
+ActiveRecord::Schema.define(version: 2020_01_07_025546) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 2019_12_18_190815) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "benefit_group_id"
     t.bigint "benefit_type_id"
     t.string "code"
     t.string "url"
@@ -430,7 +429,6 @@ ActiveRecord::Schema.define(version: 2019_12_18_190815) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
@@ -451,18 +449,12 @@ ActiveRecord::Schema.define(version: 2019_12_18_190815) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
+    t.integer "location_id"
     t.integer "uv_index"
   end
 
   create_table "library_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "library_book_editorial_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "book_id"
-    t.integer "editorial_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -595,7 +587,9 @@ ActiveRecord::Schema.define(version: 2019_12_18_190815) do
     t.string "migrated_image_filename"
     t.integer "xoops_topic_id"
     t.bigint "profile_id"
+    t.bigint "file_video_id"
     t.index ["deleted_at"], name: "index_news_posts_on_deleted_at"
+    t.index ["file_video_id"], name: "index_news_posts_on_file_video_id"
     t.index ["main_image_id"], name: "index_news_posts_on_main_image_id"
     t.index ["post_parent_id"], name: "index_news_posts_on_post_parent_id"
     t.index ["profile_id"], name: "index_news_posts_on_profile_id"
@@ -733,7 +727,7 @@ ActiveRecord::Schema.define(version: 2019_12_18_190815) do
     t.string "status"
     t.integer "xoops_survey_id"
     t.bigint "profile_id"
-    t.integer "allowed_answers"
+    t.integer "allowed_answers", default: 0
     t.index ["profile_id"], name: "index_survey_surveys_on_profile_id"
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
   end
@@ -741,6 +735,7 @@ ActiveRecord::Schema.define(version: 2019_12_18_190815) do
   add_foreign_key "general_term_relationships", "general_terms", column: "term_id"
   add_foreign_key "general_terms", "general_term_types", column: "term_type_id"
   add_foreign_key "news_comments", "news_posts", column: "post_id"
+  add_foreign_key "news_posts", "general_attachments", column: "file_video_id"
   add_foreign_key "news_posts", "general_attachments", column: "main_image_id"
   add_foreign_key "news_posts", "general_terms", column: "term_id"
 end

@@ -15,22 +15,27 @@ module Admin
 
     def show
       add_breadcrumb "Galerías", :admin_galleries_path
-      
       respond_to do |format|
         format.html
         format.js
-      end  
+      end
     end
 
     def new
       add_breadcrumb "Galerías", :admin_galleries_path
       @gallery = General::Gallery.new
       @attachments = @gallery.attachments.build
+      @galleries = General::Gallery.paginate(:page => params[:page], :per_page => 10)
       respond_to do |format|
         format.html
         format.json { render json: @gallery }
         format.js
       end
+    end
+
+    def search_galleries
+      @search = General::Gallery.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachments.first.thumb) } }
+      render json: { data: @search }
     end
 
     def edit
@@ -55,6 +60,25 @@ module Admin
         else
           format.html { render :new }
           format.json { render json: @gallery.errors, status: :unprocessable_entity }
+          format.js
+        end
+      end
+    end
+
+    def create_gallery_post
+      @gallery = General::Gallery.new(gallery_params)
+      attachments_attributes = params[:attachments_attributes]
+      images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
+      if @gallery.save
+        if images.present?
+          images.each do |image|
+            @gallery.attachments << General::Attachment.find(image)
+          end
+        end
+        @galleries_list = General::Gallery.all.map { |a| [a.id, a.name] }
+        respond_to do |format|
+          format.js
+        else
           format.js
         end
       end

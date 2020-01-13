@@ -24,15 +24,18 @@ module Admin
 
     def new
       @post = News::Post.new
+      @gallery = General::Gallery.new
       @attachment = General::Attachment.new
       @files = General::File.all
       @post.build_main_image
+      @post.build_file_video
       @post.terms.build
       # @post.files.build
     end
 
     def edit
       @files = General::File.all
+      @gallery = General::Gallery.new
     end
 
     def create
@@ -99,9 +102,9 @@ module Admin
 
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
-                                   :main_image_id, :main_image, :terms, :post_parent_id, :visibility, :post_class, :post_order,
+                                   :main_image_id, :main_image, :file_video, :file_video_id, :terms, :post_parent_id, :visibility, :post_class, :post_order,
                                    :published_at, :user_id, :post_type, :format, :permission, :important, :extract, :profile_id,
-                                   file_ids: [], main_image_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
+                                   file_ids: [], main_image_attributes: [:attachment], file_video_attributes: [:attachment],general_attachment_attributes: [:general_attachment])
     end
 
     def set_gallery

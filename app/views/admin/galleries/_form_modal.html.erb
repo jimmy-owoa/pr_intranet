@@ -1,32 +1,22 @@
 <%= f.error_notification %>
 <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-<div class="row justify-content-center">
+  
+<div class="row ">
   <div class="col-md-12">
-    <%= f.input :name %>
+    <%= f.input :name, required: true %>     
   </div>
   <div class="col-md-12">
     <%= f.input :description %>
   </div>
-  <div class="col-md-12">
-    <% if General::Attachment.first.present? %>
-      <%= f.label "Imágenes" %>
-      <%= select_tag :attachments_ids, options_for_select(map_attachments), class: 'image-picker show-labels show-html', multiple: true%>
-    <% end %>
+</div>
+<div class="row">
+  <div class="col-md-12 pt-4" >
+    <div class="container col-md-12 card">
+    <%= file_field_tag 'attachment[attachment][]', id: "fileinputuploader2", multiple: true, class: 'btn btn-primary' %>
+    </div>
   </div>
 </div>
 
-<div class="form-actions">
-  <%= f.button :submit, class: 'btn btn-primary', id: 'create_gallery', disabled: true %>
+<div class="form-actions col-12">
+  <%= f.button :submit, class: 'btn btn-success center'%>
 </div>
-
-<script>
-$('#attachments_ids').change(
-    function(){
-        if ($(this).val()) {
-            $('input:submit').attr('disabled',false);
-            // or, as has been pointed out elsewhere:
-            // $('input:submit').removeAttr('disabled');
-        }
-    });
-</script>
