@@ -1289,7 +1289,7 @@
                 <div class="modal-subheading font-weight-bold white--text" style="text-decoration: underline;"><%= l(today, format: "%A")%></div>
                 <%= image_tag(asset_url("weather/#{weather.last.icon}-white.svg"), style:"height: 116px; padding-top: 29px")%>
                 <div class="tff-modal-title font-weight-bold white--text"><%= weather.last.current_temp.to_i %>°C</div>
-                <div class="modal-regular white--text" style="margin-top: -4px;">Mínima: <%= weather.last.min_temp.to_i %>°c / Máxima: <%= weather.last.max_temp.to_i %>°c</div>
+                <div class="modal-regular white--text" style="margin-top: -4px;">máxima: <%= weather.last.max_temp.to_i %>°c / mínima: <%= weather.last.min_temp.to_i %>°c</div>
                 <hr style="width: 50%;margin-top: 12px;margin-left: 25%;margin-bottom: 12px;">
                 <div class="modal-subheading font-weight-bold white--text">Índice UV:</div>
                 <div class="modal-regular white--text"><%= uv_index.capitalize %></div>
