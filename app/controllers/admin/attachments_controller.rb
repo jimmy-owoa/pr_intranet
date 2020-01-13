@@ -46,7 +46,7 @@ module Admin
     end
 
     def new_video
-      @video_list = General::Attachment.videos.paginate(:page => params[:page], :per_page => 5)
+      @video_list = General::Attachment.videos.paginate(:page => params[:page], :per_page => 10)
       @video = General::Attachment.new
       respond_to do |format|
         format.json { render json: @video }
@@ -125,6 +125,12 @@ module Admin
 
     def search_att
       @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.thumb) } }
+      render json: { data: @search }
+    end
+
+    def search_video
+      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").select{ |e| e.attachment.video? }
+      @search = @search.map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachment.preview(resize: "x50")) } }
       render json: { data: @search }
     end
 

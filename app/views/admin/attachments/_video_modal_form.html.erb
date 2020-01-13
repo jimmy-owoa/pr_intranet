@@ -13,6 +13,8 @@
             <div class="tab-pane active" id="select_image">
               <div class="row justify-content-center">
                 <div class="col-12">
+                  <%= text_field_tag :search, params[:search], id: 'search_video', placeholder: 'Buscar Video' %>
+                  <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
                   <%= select_tag :attachment, options_for_select(@video_list.map{|i| [i.name, i.id, {'data-img-src'=> url_for(i.attachment.preview(resize: "x50"))}]}), class: 'show-html', id: 'image_picker_video' %>
                 </div>
               </div>

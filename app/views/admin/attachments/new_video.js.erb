@@ -22,3 +22,43 @@ $("select#image_picker_video").imagepicker({
     });
   }
 });
+
+// Realiza búsqueda de videos en el modal de Noticias (formulario)
+$( "#btn_search" ).click(function() {
+  var query = $('#search_video').val();
+  $.ajax({
+    type: "GET",
+    url: "/admin/searchvideo",
+    data: {
+      search: query
+    },
+    success: function (result) {
+      var imgpicker = $("#image_picker_video");
+      imgpicker.html('');
+      $(result['data']).each(function() {
+        imgpicker.append($("<option>").attr('value',this.val).attr('data-img-label', this.name).attr('data-img-src', this['data-img-src']));
+      })
+      imgpicker.data('picker').destroy();
+      imgpicker.imagepicker();
+      $("select#image_picker_video").imagepicker({
+        hide_select: true,
+        show_label: true,
+        selected: function(option) {
+          var value = this.val();
+          $("#selection_video").click(function() {
+            if (this.id == "selection_video") {
+              if (value >= 1) {
+                $("#video_image, #video_image_nil").text("Video seleccionado: " + option.option[0].dataset.imgLabel);
+                var image_src = option.option[0].dataset.imgSrc;
+                $("#video_preview").attr("src", image_src);
+              }
+              $('#video_modal').modal('toggle');
+              $("#post_file_video_id").val(value);
+              $('#video_modal').modal('hide');
+            }
+          })
+        }
+      });
+    }
+  })
+});
