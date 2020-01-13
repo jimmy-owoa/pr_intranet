@@ -1,6 +1,7 @@
 module Frontend
   class SearchController < FrontendController
     include Rails.application.routes.url_helpers
+    skip_before_action :get_user, only: [:search_menu]
 
     def search_vue
       data = []
@@ -8,7 +9,7 @@ module Frontend
       posts = []
       menus = []
       search = params[:term].present? ? params[:term] : nil
-      if search
+      if search && search.length > 2
         # result = General::User.search search, fields: [:name], match: :word
         result = Searchkick.search(search, index_name: [General::User, General::Menu, News::Post], operator: "and", order: { _score: :desc })
         result.with_hit.map { |a| a[0] if a[1]["_index"][0...13] == "general_users" }.compact.each do |user|
@@ -59,7 +60,7 @@ module Frontend
       search = params[:term].present? ? params[:term] : nil
       if search.present?
         result = General::Menu.search search, fields: [:title, :link], match: :word
-        result.with_hit.map { |a| a[0] if a[0].parent_id != nil && a[1]["_type"] == "general/menu" }.compact.each do |m|
+        result.with_hit.map { |a| a[0] if a[1]["_index"].include?("general_menus") }.compact.each do |m|
           items <<
             {
               name: m.title,

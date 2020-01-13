@@ -36,7 +36,12 @@
     </div>
     <br />
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12">    
+        <% if @post.post_type == "Video" %>
+          <div class="card post_card">
+            <%= video_tag(url_for(@post.file_video.attachment), controls: "", width: "700px") %>
+          </div>
+        <% end %>
         <div class="card post_card">
           <p><%= @post.extract %></p>
           <%= raw @post.content %>

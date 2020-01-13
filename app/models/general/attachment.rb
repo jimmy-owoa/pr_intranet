@@ -5,6 +5,7 @@ class General::Attachment < ApplicationRecord
   has_many :gallery_relations, class_name: "General::GalleryRelation"
   has_many :galleries, through: :gallery_relations
   belongs_to :attachable, polymorphic: true, optional: true
+  has_many :posts_video, class_name: "News::Post", foreign_key: :file_video_id
 
   has_one_attached :attachment
 

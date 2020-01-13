@@ -1,36 +1,46 @@
 <div class="bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Galerías</h5>
+        <div class="tabbable">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#gallery_select" data-toggle="tab">Seleccionar Gallería</a>
+            </li>
+              <li class="nav-item">
+                  <a class="nav-link " href="#gallery_create" data-toggle="tab">Crear Galería</a>
+              </li>
+          </ul>
+        </div>
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
-        <div class="tab-v2">
-          <ul class="nav nav-tabs" id="tabGalleries">
-            <li class="nav-item pill-tabs"><a href="#select_galleries" data-toggle="tab" id="seleccionar_galeria">Seleccionar Galería</a></li>
-            <li class="nav-item pill-tabs"><a href="#create_gallery" data-toggle="tab" id="crear_galeria">Crear Galería</a></li>
-          </ul>
-            <div class="tab-pane fade in" id="select_galleries">
-              <div class="row justify-content-center">
-                <div class="col-12">
-                  <%= select_tag :galleries, options_for_select(map_galleries), class: 'image-picker show-html', multiple: true %>
-                </div>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane fade show active" id="gallery_select">
+            <div class="row justify-content-center">
+              <div class="col-12">
+                <%= text_field_tag :search, params[:search], id: 'search_galleries', placeholder: 'Buscar Galería' %>
+                <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
+                <%= select_tag :galleries, options_for_select(@galleries.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb) }] if g.attachments.present? }), class: 'image-picker show-html', multiple: false, include_blank: true %>
+                  
+                <%= js_will_paginate @galleries %>
+                <button type="button" id="selection_galleries" class="btn btn-primary" style="float:right">Seleccionar</button>
               </div>
-              <button type="button" id="selection-galleries" class="btn btn-primary" style="float:right">Seleccionar galerías</button>
             </div>
-             <div class="tab-content">
-             <div class="tab-pane fade in " id="create_gallery">
-               <br>
-               <%= simple_form_for [@post, @gallery], as: 'gallery', url: {action: :create}, :html => { :class => "form" }, remote: true do |f| %>
-                 <%= render :partial => 'form', locals: {f: f} %>
-               <% end %>
-             </div>
           </div>
-        </div>
-      </div>
+
+          <div role="tabpanel" class="tab-pane fade" id="gallery_create">
+              <%= simple_form_for @gallery, as: 'gallery', url: admin_galleries_create_gallery_path, method: :post, :html => { :class => "form" }, remote: true do |f| %>
+                <%= render :partial => 'form_modal', locals: {f: f} %>
+              <% end %>
+          </div>
+        </div> <!-- /.tab-content -->
+      </div> <!-- /.modal-body -->
+
     </div>
   </div>
 </div>
