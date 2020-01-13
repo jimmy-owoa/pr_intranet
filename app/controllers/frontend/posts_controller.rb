@@ -35,7 +35,7 @@ module Frontend
     end
 
     def index_video
-      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.normal_posts.filter_posts(@request_user)
+      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.video_gallery_posts.filter_posts(@request_user)
       page = params[:page]
       posts = user_posts.select_category(params[:category]) if params[:category].present?
       posts = Kaminari.paginate_array(posts).page(page).per(4)

@@ -32,8 +32,8 @@ class News::Post < ApplicationRecord
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
-  # scope :normal_posts, -> { where.not(post_type: "Página Informativa").where.not(post_type: "Video") }
-  scope :normal_posts, -> { where.not(post_type: "Página Informativa") }
+  scope :normal_posts, -> { where.not(post_type: "Página Informativa").where.not(post_type: "Video") }
+  scope :video_gallery_posts, -> { where.not(post_type: "Página Informativa") }
   scope :video_posts, -> { where(post_type: "Video") }
 
   STATUS = ["Publicado", "Borrador", "Programado"]
