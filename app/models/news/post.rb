@@ -73,8 +73,8 @@ class News::Post < ApplicationRecord
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).informative_posts.last(5) - [self]
     else
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).normal_posts.last(5) - [self]
-    end 
-  end  
+    end
+  end
 
   # TODO: optimizar
   def self.filter_posts(user, important = nil)
