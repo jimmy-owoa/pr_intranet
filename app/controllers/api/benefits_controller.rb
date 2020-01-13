@@ -3,11 +3,6 @@ module Api
     before_action :find_beneficiary_group, except: %i[create index]
     before_action :validate
 
-    def index
-      @benefits = General::BenefitGroup.all
-      render json: @benefits, status: :ok
-    end
-
     def show
       data = { beneficiary_group: { name: @beneficiary_group.name, code: @beneficiary_group.code, benefits: [] } }
       @beneficiary_group.benefits.each { |benefit| data[:beneficiary_group][:benefits] << benefit }

@@ -103,8 +103,11 @@ class Frontend::FrontendController < ApplicationController
 
   def get_user
     @request_user = get_current_user_jwt if http_auth_header.present?
-    if params[:view_as].present? && params[:view_as] != "null"
+    if @request_user.present? && @request_user.has_role?(:super_admin) && params[:view_as].present? && params[:view_as] != "null"
       @request_user = General::User.get_user_by_ln(params[:view_as])
+    end
+    if !@request_user.present?
+      redirect_to user_azure_oauth2_omniauth_authorize_path
     end
   end
 end

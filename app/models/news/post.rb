@@ -78,7 +78,7 @@ class News::Post < ApplicationRecord
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).video_posts.last(5) - [self]
     else
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).normal_posts.last(5) - [self]
-    end 
+    end
   end
 
   # TODO: optimizar
@@ -132,8 +132,8 @@ class News::Post < ApplicationRecord
     else
       posts_video = self.select { |post| post.post_type == "Video" }
       posts_gallery = self.select { |post| post.gallery.present? }
-      posts = posts_video+posts_gallery
-      posts = posts.sort_by{ |e| e[:created_at] }.reverse
+      posts = posts_video + posts_gallery
+      posts = posts.sort_by { |e| e[:created_at] }.reverse
     end
-  end  
+  end
 end

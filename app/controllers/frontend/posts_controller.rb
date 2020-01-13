@@ -1,6 +1,7 @@
 module Frontend
   class PostsController < FrontendController
     include ApplicationHelper
+
     def index
       user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.normal_posts.filter_posts(@request_user)
       page = params[:page]
@@ -210,7 +211,7 @@ module Frontend
             { link: "/noticias", name: "Noticias" },
             { link: "#", name: post.title.truncate(30) },
           ],
-          relationed_posts: data_relationed_posts
+          relationed_posts: data_relationed_posts,
         }
         respond_to do |format|
           format.json { render json: data[0] }
