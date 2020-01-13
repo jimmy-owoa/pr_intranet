@@ -73,8 +73,7 @@ module Frontend
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
       if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
-        relationed_posts = post.get_relationed_posts(@request_user)
-
+        relationed_posts = post.get_moments_relationed_posts(@request_user)
         data_relationed_posts = []
         relationed_posts.each do |post|
           data_relationed_posts << {
