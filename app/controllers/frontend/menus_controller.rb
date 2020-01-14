@@ -179,14 +179,17 @@ module Frontend
         exa_menu = JSON.parse(response.body) if response.code.to_i < 400
       end
 
-      all_menus = General::Menu.where(id: menus)
+      all_menus = user_menus.where(id: menus)
       menu_hash = {}
       main_menus.each do |main_menu|
         menu_hash[main_menu.id] = { title: main_menu.title, menus: [] }
-        all_menus.where(parent_id: main_menu.id).each do |menu|
+        x = all_menus.where(parent_id: main_menu.id)
+        if x.present?
+        x.each do |menu|
           menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
         end
         data << menu_hash[main_menu.id]
+        end
       end
       respond_to do |format|
         format.json { render json: data }
