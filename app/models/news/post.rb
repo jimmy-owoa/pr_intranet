@@ -34,7 +34,6 @@ class News::Post < ApplicationRecord
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
   scope :normal_posts, -> { where.not(post_type: "Página Informativa").where.not(post_type: "Video") }
   scope :video_gallery_posts, -> { where.not(post_type: "Página Informativa") }
-  scope :video_posts, -> { where(post_type: "Video") }
 
   STATUS = ["Publicado", "Borrador", "Programado"]
   VISIBILITY = ["Público", "Privada"]
@@ -74,11 +73,15 @@ class News::Post < ApplicationRecord
 
     if post_type == "Página Informativa"
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).informative_posts.last(5) - [self]
-    elsif post_type == "Video"
-      relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).video_posts.last(5) - [self]
     else
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).normal_posts.last(5) - [self]
     end
+  end
+
+  def get_moments_relationed_posts(user)
+    posts = user.has_role?(:admin) ? News::Post.video_gallery_posts : News::Post.video_gallery_posts.filter_posts(user)
+    posts = posts.select { |post| post.post_type == "Video" } + posts.select { |post| post.gallery.present? }
+    relationed_posts = posts.sort_by{ |e| e[:published_at] }.reverse.last(5) - [self]
   end
 
   # TODO: optimizar
@@ -87,6 +90,19 @@ class News::Post < ApplicationRecord
     news = news.where(important: important) if important.present?
     news
   end
+
+  def self.select_category(category)
+    if category == "Videos"
+      posts = self.select { |post| post.post_type == "Video" }
+    elsif category == "Fotos"
+      posts = self.select { |post| post.gallery.present? }
+    else
+      posts_video = self.select { |post| post.post_type == "Video" }
+      posts_gallery = self.select { |post| post.gallery.present? }
+      posts = posts_video+posts_gallery
+      posts = posts.sort_by{ |e| e[:created_at] }.reverse
+    end
+  end 
 
   private
 
@@ -122,18 +138,5 @@ class News::Post < ApplicationRecord
     else
       val
     end
-  end
-
-  def self.select_category(category)
-    if category == "Videos"
-      posts = self.select { |post| post.post_type == "Video" }
-    elsif category == "Fotos"
-      posts = self.select { |post| post.gallery.present? }
-    else
-      posts_video = self.select { |post| post.post_type == "Video" }
-      posts_gallery = self.select { |post| post.gallery.present? }
-      posts = posts_video + posts_gallery
-      posts = posts.sort_by { |e| e[:created_at] }.reverse
-    end
-  end
+  end 
 end

@@ -881,7 +881,7 @@
   }
 
   /* ################################################################## */
-  @media (min-width: 600px) {
+  @media (min-width: 600px) and (max-width: 1365px) {
     .tff-modal-dialog {
       background: #fefefe;
       position: fixed;
@@ -896,8 +896,51 @@
       transition: transform 0.5s ease-out;
       max-width: 1300px !important;
       width: 80%;
+      margin-left: 1%;
+      margin-right: 1%;
     }
+  }
 
+  @media(min-width: 1366px) and (max-width: 1439px){
+    .tff-modal-dialog {
+      background: #fefefe;
+      position: fixed;
+      top: -100%;
+      z-index: 11;
+      -webkit-transform: translate(0, -500%);
+      -ms-transform: translate(0, -500%);
+      transform: translate(0, -500%);
+      -webkit-transition: -webkit-transform 0.5s ease-out;
+      -moz-transition: -moz-transform 0.5s ease-out;
+      -o-transition: -o-transform 0.5s ease-out;
+      transition: transform 0.5s ease-out;
+      max-width: 1300px !important;
+      width: 80%;
+      margin-left: 8%;
+    }
+  }
+
+  @media (min-width: 1440px) and (max-width: 1500px) {
+    .tff-modal-dialog {
+      background: #fefefe;
+      position: fixed;
+      top: -100%;
+      z-index: 11;
+      -webkit-transform: translate(0, -500%);
+      -ms-transform: translate(0, -500%);
+      transform: translate(0, -500%);
+      -webkit-transition: -webkit-transform 0.5s ease-out;
+      -moz-transition: -moz-transform 0.5s ease-out;
+      -o-transition: -o-transform 0.5s ease-out;
+      transition: transform 0.5s ease-out;
+      max-width: 1300px !important;
+      width: 80%;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+  }  
+
+  @media (min-width: 600px) {
     /* -- Modal ver más -- */
     .tff-modal-dialog-2 {
       background: #fefefe;
@@ -932,22 +975,6 @@
     }
   }
   @media (min-width: 960px) {
-    .tff-modal-dialog {
-      background: #fefefe;
-      position: fixed;
-      top: -100%;
-      z-index: 11;
-      -webkit-transform: translate(0, -500%);
-      -ms-transform: translate(0, -500%);
-      transform: translate(0, -500%);
-      -webkit-transition: -webkit-transform 0.5s ease-out;
-      -moz-transition: -moz-transform 0.5s ease-out;
-      -o-transition: -o-transform 0.5s ease-out;
-      transition: transform 0.5s ease-out;
-      max-width: 1300px !important;
-      width: 80%;
-    }
-
     /* -- Modal ver más -- */
     .tff-modal-dialog-2 {
       background: #fefefe;
@@ -1289,8 +1316,8 @@
                 <div class="modal-subheading font-weight-bold white--text" style="text-decoration: underline;"><%= l(today, format: "%A")%></div>
                 <%= image_tag(asset_url("weather/#{weather.last.icon}-white.svg"), style:"height: 116px; padding-top: 29px")%>
                 <div class="tff-modal-title font-weight-bold white--text"><%= weather.last.current_temp.to_i %>°C</div>
-                <div class="modal-regular white--text" style="margin-top: -4px;">Mín: <%= weather.last.min_temp.to_i %>°c / Máx: <%= weather.last.max_temp.to_i %>°c</div>
-                <hr style="width: 47%;margin-top: 12px;margin-left: 28%;margin-bottom: 12px;">
+                <div class="modal-regular white--text" style="margin-top: -4px;">máxima: <%= weather.last.max_temp.to_i %>°c / mínima: <%= weather.last.min_temp.to_i %>°c</div>
+                <hr style="width: 50%;margin-top: 12px;margin-left: 25%;margin-bottom: 12px;">
                 <div class="modal-subheading font-weight-bold white--text">Índice UV:</div>
                 <div class="modal-regular white--text"><%= uv_index.capitalize %></div>
               </div>
@@ -1298,30 +1325,38 @@
                 <div class="layout">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 1.days, format: "%A")%></div>
-                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 72px;") %>
-                    <div class="primary--text font-weight-bold" style="padding-top: 17px; font-size: 34px"><%= weather.last.tomorrow_max.to_i %> °C </div>
-                    <div class="modal-regular primary--text" style="margin-top: -6px;"><%= weather.last.tomorrow_min.to_i %> °C</div>
+                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 30px;") %>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">máxima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px"><%= weather.last.tomorrow_max.to_i %> °C </div>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">mínima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px;"><%= weather.last.tomorrow_min.to_i %> °C</div>
                   </div>
                   <hr style="border: 1px solid white; height: 270px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 2.days, format: "%A")%></div>
-                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 72px;") %>
-                    <div class="primary--text font-weight-bold" style="padding-top: 17px; font-size: 34px"><%= weather.last.after_tomorrow_max.to_i %> °C </div>
-                    <div class="modal-regular primary--text" style="margin-top: -6px;"><%= weather.last.after_tomorrow_min.to_i %> °C</div>
+                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 30px;") %>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">máxima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px"><%= weather.last.after_tomorrow_max.to_i %> °C </div>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">mínima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px;"><%= weather.last.after_tomorrow_min.to_i %> °C</div>
                   </div>
                   <hr style="border: 1px solid white; height: 270px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 3.days, format: "%A")%></div>
-                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 72px;") %>
-                    <div class="primary--text font-weight-bold" style="padding-top: 17px; font-size: 34px"><%= weather.last.aa_tomorrow_max.to_i %> °C </div>
-                    <div class="modal-regular primary--text" style="margin-top: -6px;"><%= weather.last.aa_tomorrow_min.to_i %> °C</div>
+                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 30px;") %>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">máxima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px"><%= weather.last.aa_tomorrow_max.to_i %> °C </div>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">mínima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px;"><%= weather.last.aa_tomorrow_min.to_i %> °C</div>
                   </div>
                   <hr style="border: 1px solid white; height: 270px;">
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;"><%= l(today + 4.days, format: "%A")%></div>
-                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 72px;") %>
-                    <div class="primary--text font-weight-bold" style="padding-top: 17px; font-size: 34px"><%= weather.last.aaa_tomorrow_max.to_i %> °C </div>
-                    <div class="modal-regular primary--text" style="margin-top: -6px;"><%= weather.last.aaa_tomorrow_min.to_i %> °C</div>
+                    <%= image_tag(asset_url("weather/#{weather.last.tomorrow_icon}.svg"), style:"height: 45px; margin-top: 30px;") %>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">máxima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px"><%= weather.last.aaa_tomorrow_max.to_i %> °C </div>
+                    <div class="primary--text modal-regular" style="padding-top: 17px; font-size: 20px">mínima</div>
+                    <div class="primary--text font-weight-bold" style="font-size: 35px"><%= weather.last.aaa_tomorrow_min.to_i %> °C</div>
                   </div>
                 </div>
               </div>
