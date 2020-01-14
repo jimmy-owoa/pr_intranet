@@ -6,22 +6,103 @@ module Frontend
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
 
-    def menus
-      data = []
-      menus = General::Menu.all
+    def request_exa_url
+      "https://misecurity-qa.exa.cl/json_menus/show"
+    end
 
+    def get_merged_menus(title, user_menus, exa_menu)
+      menu = user_menus.where(title: title).first
+      data = { title: menu.title, submenus: [] }
+      integration_code = menu.integration_code
+      menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code }
+      if menus_filtered.present? && integration_code.present? && menus_filtered[integration_code]["drop_down"].present?
+        drop_downs = menus_filtered[integration_code]["drop_down"]
+        if drop_downs.values.first["drop_down"].present?
+          drop_downs.values.each do |dropdown|
+            if dropdown["drop_down"].present?
+              m = { title: dropdown["nombre"], submenus: [] }
+              dropdown["drop_down"].values.each do |menu|
+                m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+              end
+              data[:submenus] << m
+            else
+              m = { title: dropdown["nombre"], submenus: [] }
+              drop_downs.values.first["drop_down"].values.each do |menu|
+                m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+              end
+              data[:submenus] << m
+            end
+          end
+        else
+          drop_downs.values.each do |menu|
+            data[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          end
+        end
+      end
+      # data[:submenus] << exa_menu
+      menus = user_menus.where(parent_id: menu.id)
       menus.each do |menu|
-        data << {
-          id: menu.id,
+        data[:submenus] << {
           title: menu.title,
-          description: menu.description,
-          css_class: menu.css_class,
-          code: menu.code,
-          priority: menu.priority,
-          parent_id: menu.parent_id,
           link: menu.link,
-          tags: menu.cached_tags,
-          companies: menu.cached_categories,
+        }
+      end
+      data
+    end
+
+    def index
+      user_menus = General::Menu.profiled_menus(@request_user)
+      main_menus = user_menus.where(title: params[:title])
+      if !main_menus.present?
+        render json: { message: "Menú no encontrado en la base de datos." }, status: :error
+        return
+      end
+      data = { title: main_menus.first.title, menus: [], menus_dropdown: [] }
+      parent_menu = user_menus.find(main_menus.first.parent_id)
+      integration_code = main_menus.pluck(:integration_code).reject(&:blank?).first
+      menus = user_menus.where(parent_id: main_menus.first.id)
+      if @request_user.legal_number.present?
+        uri = URI.parse(request_exa_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+        menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code }
+        if menus_filtered.present?
+          drop_downs = menus_filtered[integration_code]["drop_down"]
+          if drop_downs.values.first["drop_down"].present?
+            drop_downs.values.each do |dropdown|
+              if dropdown["drop_down"].present?
+                m = { title: dropdown["nombre"], submenus: [] }
+                dropdown["drop_down"].values.each do |menu|
+                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+                end
+                data[:menus_dropdown] << m
+              else
+                m = { title: dropdown["nombre"], submenus: [] }
+                drop_downs.values.first["drop_down"].values.each do |menu|
+                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+                end
+                data[:menus_dropdown] << m
+              end
+            end
+          else
+            drop_downs.values.each do |menu|
+              data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+            end
+          end
+        else
+          menus_filtered.values.each do |menu|
+            data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+          end
+        end
+        # data[:menus] << exa_menu
+      end
+      menus.each do |menu|
+        data[:menus] << {
+          title: menu.title,
+          link: menu.link,
         }
       end
 
@@ -35,11 +116,12 @@ module Frontend
       exa_urls = ["https://misecurity-qa3.exa.cl/",
                   "https://misecurity-qa2.exa.cl/",
                   "https://misecurity-qa.exa.cl/",
-                  "https://misecurity.exa.cl/"]
+                  "https://misecurity.exa.cl/",
+                  "https://mi.security.cl/"]
       if request.referer.in?(exa_urls)
         "https://mi.security.cl/"
       else
-        request.referer
+        "https://miintranet.exaconsultores.cl/"
       end
     end
 
@@ -83,6 +165,35 @@ module Frontend
       data_indicators
     end
 
+    def api_menu_mobile
+      main_menus = General::Menu.where(parent_id: nil, code: nil)
+      menus = General::Menu.all.uniq.reject(&:blank?) - main_menus
+      user_menus = General::Menu.profiled_menus(@request_user)
+      data = []
+      if @request_user.legal_number.present?
+        uri = URI.parse(request_exa_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+      end
+
+      all_menus = General::Menu.where(id: menus)
+      menu_hash = {}
+      main_menus.each do |main_menu|
+        menu_hash[main_menu.id] = { title: main_menu.title, menus: [] }
+        all_menus.where(parent_id: main_menu.id).each do |menu|
+          menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
+        end
+        data << menu_hash[main_menu.id]
+      end
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
     def api_menu_vue
       base_api_url = root_url
       base_search_url = get_frontend_url + "/resultados/"
@@ -108,7 +219,7 @@ module Frontend
       data_indicators = []
       data_indicators = get_data_indicators(indicator, today)
       if user.legal_number.present?
-        uri = URI.parse("https://misecurity-qa.exa.cl/json_menus/show")
+        uri = URI.parse(request_exa_url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
 
@@ -156,14 +267,14 @@ module Frontend
       if day.present?
         gospel = Religion::Gospel.get_gospel(day)
         selected_today = Date.today == gospel.date ? "Hoy, " : ""
-        selected_tomorrow = Date.today == gospel.date ? "Mañana, " : ""
+        selected_tomorrow = Date.today == gospel.date ? "Ma��ana, " : ""
         data = {
           id: gospel.id,
           select_day: l(gospel.date, format: "%A"),
           date_today: selected_today + l(gospel.date, format: "%d de %B").downcase,
           date_tomorrow: selected_tomorrow + l(gospel.date + 1.days, format: "%d de %B").downcase,
           title: gospel.title,
-          content: gospel.content,
+          content: gospel.content.chomp("Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>"),
           santoral_name: General::Santoral.get_santoral(gospel.date).name[0...10],
           santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name[0...10],
         }

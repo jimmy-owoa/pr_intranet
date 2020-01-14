@@ -67,7 +67,8 @@ Rails.application.routes.draw do
     post "answers_options_save_from_vue", to: "answers#answers_options_save_from_vue"
     post "answers_options_multiple_save_from_vue", to: "answers#answers_options_multiple_save_from_vue"
     post "check_data", to: "answers#check_data"
-    get "menus/menus"
+    get "menus", to: "menus#index"
+    get "api_menu_mobile", to: "menus#api_menu_mobile"
     get "santorals/santorals"
     get "welcome", to: "welcomes#index"
     get "welcome/get_home_welcome", to: "welcomes#get_home_welcome"
@@ -89,7 +90,7 @@ Rails.application.routes.draw do
     get "posts_video/post", to: "posts#post_video"
     resources :library do
       get :get_categories, on: :collection
-    end  
+    end
     post "library/create_request_book", to: "library#create_request_book"
     resources :galleries
     resources :weather
