@@ -5,6 +5,7 @@ module Frontend
   class MenusController < FrontendController
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
+    skip_before_action :get_user, only: [:api_menu_vue, :api_menu_mobile]
 
     def request_exa_url
       "https://misecurity-qa.exa.cl/json_menus/show"
@@ -187,10 +188,10 @@ module Frontend
         menu_hash[main_menu.id] = { title: main_menu.title, menus: [] }
         x = all_menus.where(parent_id: main_menu.id)
         if x.present?
-        x.each do |menu|
-          menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
-        end
-        data << menu_hash[main_menu.id]
+          x.each do |menu|
+            menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
+          end
+          data << menu_hash[main_menu.id]
         end
       end
       respond_to do |format|
