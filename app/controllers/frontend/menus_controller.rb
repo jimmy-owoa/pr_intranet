@@ -5,7 +5,7 @@ module Frontend
   class MenusController < FrontendController
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
-    skip_before_action :get_user, only: [:api_menu_vue, :api_menu_mobile]
+    skip_before_action :get_user, only: [:api_menu_mobile, :api_menu_vue]
 
     def request_exa_url
       "https://misecurity-qa.exa.cl/json_menus/show"
@@ -197,6 +197,106 @@ module Frontend
       respond_to do |format|
         format.json { render json: data }
         format.js
+      end
+    end
+
+    def api_menu_mobile_chile
+      main_menus = General::Menu.where(parent_id: nil, code: nil)
+      menus = General::Menu.all.uniq.reject(&:blank?) - main_menus
+      user_menus = General::Menu.profiled_menus(@request_user)
+      data = []
+      if @request_user.legal_number.present?
+        uri = URI.parse(request_exa_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+      end
+
+      all_menus = user_menus.where(id: menus)
+      menu_hash = {}
+      main_menus.each do |main_menu|
+        menu_hash[main_menu.id] = { title: main_menu.title, menus: [] }
+        x = all_menus.where(parent_id: main_menu.id)
+        if x.present?
+          x.each do |menu|
+            menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
+          end
+          data << menu_hash[main_menu.id]
+        end
+      end
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
+    def api_menu_vue_chile
+      base_api_url = root_url
+      base_search_url = get_frontend_url + "/resultados/"
+      user = params[:user_code_crypted_base64].present? ? General::User.get_user_by_ln(InternalAuth.decrypt(params[:user_code_crypted_base64])) : @request_user
+      location_id = user.location_id || 2
+      menus = []
+      General::Menu.all.each do |menu|
+        if menu.profile_id.present?
+          menus << menu if menu.profile_id.in?(user.profile_ids)
+        else
+          menus << menu
+        end
+      end
+      host = get_request_referer
+      weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id)
+      uv_index = weather.last.get_uv
+      location = General::Location.find(location_id)
+      santoral = General::Santoral.current
+      santoral_next = General::Santoral.next
+      today = Date.today
+      indicator = General::EconomicIndicator
+      indicators = indicator.where(date: today)
+      data_indicators = []
+      data_indicators = get_data_indicators(indicator, today)
+      if user.legal_number.present?
+        uri = URI.parse(request_exa_url)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+
+        encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+        benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
+
+        @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
+        if exa_menu.present? && exa_menu["manage"].present?
+          @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
+        end
+      else
+        exa_menu = ""
+      end
+
+      data = {
+        menus: menus,
+        host: host,
+        user: user,
+        user_profile_ids: user.profile_ids,
+        user_image: user.image.attached? ? url_for(user.image.variant(combine_options: { resize: "x42", gravity: "Center" })) : "",
+        weather: weather,
+        uv_index: uv_index,
+        santoral: santoral.last,
+        santoral_next: santoral_next.last,
+        location_name: location.name,
+        exa_menu: exa_menu,
+        gospel: Religion::Gospel.gospel_today,
+        indicators: data_indicators[0],
+        today: today,
+        beauty_date: l(today, format: "%d de %B de %Y"),
+        base_api_url: base_api_url,
+        base_search_url: base_search_url,
+        benefits: benefits,
+      }
+      menu_json = render_to_string(partial: "api_client/menu.html.erb", layout: false, locals: data).to_json
+      respond_to do |format|
+        format.json { render json: menu_json.encode("UTF-8") }
       end
     end
 
