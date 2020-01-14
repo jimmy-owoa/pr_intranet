@@ -120,6 +120,8 @@ module Frontend
                   "https://mi.security.cl/"]
       if request.referer.in?(exa_urls)
         "https://mi.security.cl/"
+      elsif request.referer == "http://localhost:8080/"
+        "http://localhost:8080/"
       else
         "https://miintranet.exaconsultores.cl/"
       end

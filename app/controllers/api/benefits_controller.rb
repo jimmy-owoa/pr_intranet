@@ -17,7 +17,7 @@ module Api
     def create
       benefit_group = General::BenefitGroup.where(name: params["name"], code: params["code"]).first_or_create
       data = { beneficiary_group: benefit_group, benefits: [] }
-      params["benefits"].each do |benefit|
+      JSON.parse(params["benefits"]).each do |benefit|
         if benefit["name"].present?
           if /^(\s)*bono/.match(benefit["name"].downcase)
             benefit_type = 1
