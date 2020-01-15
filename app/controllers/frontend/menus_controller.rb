@@ -5,7 +5,7 @@ module Frontend
   class MenusController < FrontendController
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]
-    # skip_before_action :get_user, only: [:api_menu_mobile, :api_menu_vue]
+    skip_before_action :get_user, only: [:get_gospel_menu]
 
     def request_exa_url
       "https://misecurity-qa.exa.cl/json_menus/show"
