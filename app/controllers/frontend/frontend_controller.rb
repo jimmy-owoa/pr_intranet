@@ -1,6 +1,7 @@
 class Frontend::FrontendController < ApplicationController
   before_action :get_user, except: [:azure_auth, :current_user_azure]
   include JsonWebToken
+  include ApplicationHelper
 
   def index
   end
@@ -102,12 +103,14 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def get_user
-    @request_user = get_current_user_jwt if http_auth_header.present?
-    if @request_user.present? && @request_user.has_role?(:super_admin) && params[:view_as].present? && params[:view_as] != "null"
-      @request_user = General::User.get_user_by_ln(params[:view_as])
-    end
-    if !@request_user.present?
-      redirect_to user_azure_oauth2_omniauth_authorize_path
+    if !request.referer.in?(get_exa_request)
+      @request_user = get_current_user_jwt if http_auth_header.present?
+      if @request_user.present? && @request_user.has_role?(:super_admin) && params[:view_as].present? && params[:view_as] != "null"
+        @request_user = General::User.get_user_by_ln(params[:view_as])
+      end
+      if !@request_user.present?
+        redirect_to user_azure_oauth2_omniauth_authorize_path
+      end
     end
   end
 end
