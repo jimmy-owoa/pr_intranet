@@ -258,7 +258,7 @@ module Frontend
       if day.present?
         gospel = Religion::Gospel.get_gospel(day)
         selected_today = Date.today == gospel.date ? "Hoy, " : ""
-        selected_tomorrow = Date.today == gospel.date ? "Ma��ana, " : ""
+        selected_tomorrow = Date.today == gospel.date ? "Mañana, " : ""
         data = {
           id: gospel.id,
           select_day: l(gospel.date, format: "%A"),
