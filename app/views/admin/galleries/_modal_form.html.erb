@@ -25,7 +25,7 @@
               <div class="col-12">
                 <%= text_field_tag :search, params[:search], id: 'search_galleries', placeholder: 'Buscar Galería' %>
                 <%= submit_tag "Buscar", :name => nil, id: 'btn_search', class: 'btn btn-primary btn-sm' %><br /><br />
-                <%= select_tag :galleries, options_for_select(@galleries.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb) }] if g.attachments.present? }), class: 'image-picker show-html', multiple: false, include_blank: true %>
+                <%= select_tag :galleries, options_for_select(@galleries.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb), 'data-img-label' => g.name[0..10]+"...", 'data-img-alt' => g.name }] if g.attachments.present? }), class: 'image-picker show-html', multiple: false, include_blank: true %>
                   
                 <%= js_will_paginate @galleries %>
                 <button type="button" id="selection_galleries" class="btn btn-primary" style="float:right">Seleccionar</button>
