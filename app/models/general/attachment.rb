@@ -47,12 +47,10 @@ class General::Attachment < ApplicationRecord
   end
 
   def self.images
-    attachments = General::Attachment.all.select { |file| file.attachment.image? }
-    attachments.sort_by { |e| e[:created_at] }.reverse
+    General::Attachment.joins(:attachment_blob).where("content_type LIKE ?", "%image%")
   end
 
   def self.videos
-    attachments = General::Attachment.all.select { |file| file.attachment.video? }
-    attachments.sort_by { |e| e[:created_at] }.reverse
+    General::Attachment.joins(:attachment_blob).where("content_type LIKE ?", "%video%")
   end
 end
