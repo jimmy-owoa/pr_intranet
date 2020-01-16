@@ -3,10 +3,9 @@ module Frontend
     include ApplicationHelper
 
     def index
-      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.normal_posts.filter_posts(@request_user)
-      page = params[:page]
-      params[:category].present? ? posts = Kaminari.paginate_array(user_posts.select { |post| post.post_type == params[:category] }).page(page).per(4) :
-        posts = Kaminari.paginate_array(user_posts).page(page).per(4)
+      user_posts = News::Post.filter_posts(@request_user)
+      posts = params[:category].present? ? user_posts.where(post_type: params[:category]) : user_posts
+      posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
@@ -36,14 +35,12 @@ module Frontend
     end
 
     def index_video
-      user_posts = @request_user.has_role?(:admin) ? News::Post.all.order(published_at: :desc) : News::Post.video_gallery_posts.filter_posts(@request_user)
-      page = params[:page]
-      posts = user_posts.select_category(params[:category]) if params[:category].present?
-      posts = Kaminari.paginate_array(posts).page(page).per(4)
+      posts = News::Post.filter_posts(@request_user).get_by_category(params[:category]) if params[:category].present?
+      posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
-        @video = post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news.jpg"
+        @video = post.file_video.present? ? url_for(post.file_video.attachment) : @image
         extract = post.extract.slice(0..104) rescue post.extract
         data << {
           id: post.id,
@@ -100,11 +97,11 @@ module Frontend
           extract: post.extract.present? ? post.extract : "",
           breadcrumbs: [
             { link: "/", name: "Inicio" },
-            { link: "/momentos-security", name: "Momentos" },
+            { link: "/momentos-security", name: "Momentos security" },
             { link: "#", name: post.title.truncate(30) },
           ],
           file_video: post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news_video_image.jpg",
-          relationed_posts: data_relationed_posts
+          relationed_posts: data_relationed_posts,
         }
         respond_to do |format|
           format.json { render json: data[0] }

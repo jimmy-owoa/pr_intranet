@@ -70,7 +70,6 @@ class News::Post < ApplicationRecord
 
   def get_relationed_posts(user)
     posts = News::Post.where(post_type: post_type)
-
     if post_type == "Página Informativa"
       relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).informative_posts.last(5) - [self]
     else
@@ -79,30 +78,27 @@ class News::Post < ApplicationRecord
   end
 
   def get_moments_relationed_posts(user)
-    posts = user.has_role?(:admin) ? News::Post.video_gallery_posts : News::Post.video_gallery_posts.filter_posts(user)
-    posts = posts.select { |post| post.post_type == "Video" } + posts.select { |post| post.gallery.present? }
-    relationed_posts = posts.sort_by{ |e| e[:published_at] }.reverse.last(5) - [self]
+    News::Post.get_by_category().where.not(id: self.id).last(5)
   end
 
   # TODO: optimizar
   def self.filter_posts(user, important = nil)
-    news = News::Post.where(profile_id: user.profile_ids).published_posts
+    news = user.has_role?(:super_admin) ? News::Post.published_posts : News::Post.where(profile_id: user.profile_ids).published_posts
     news = news.where(important: important) if important.present?
     news
   end
 
-  def self.select_category(category)
+  def self.get_by_category(category = nil)
     if category == "Videos"
-      posts = self.select { |post| post.post_type == "Video" }
+      self.where(post_type: "Video")
     elsif category == "Fotos"
-      posts = self.select { |post| post.gallery.present? }
+      self.joins(:gallery)
     else
-      posts_video = self.select { |post| post.post_type == "Video" }
-      posts_gallery = self.select { |post| post.gallery.present? }
-      posts = posts_video+posts_gallery
-      posts = posts.sort_by{ |e| e[:created_at] }.reverse
+      videos = self.where(post_type: "Video").pluck(:id)
+      galleries = self.joins(:gallery).pluck(:id)
+      self.where(id: videos + galleries)
     end
-  end 
+  end
 
   private
 
@@ -138,5 +134,5 @@ class News::Post < ApplicationRecord
     else
       val
     end
-  end 
+  end
 end
