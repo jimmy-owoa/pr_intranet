@@ -1,6 +1,7 @@
 alert('Galería creada correctamente!');
 
 $("#gallery_modal").modal('hide');
-
 $('#gallery_id').append(new Option("<%= General::Gallery.last.name %>", <%= General::Gallery.last.id %>));
 $('#gallery_id').val(<%= General::Gallery.last.id %>)
+$("#gallery_image, #gallery_image_nil").text("Galería seleccionada: " + "<%= General::Gallery.last.name %>");
+$("#gallery_preview").attr("src", "<%= General::Gallery.last.attachments.first.thumb %>");
