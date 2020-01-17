@@ -34,7 +34,7 @@ module Admin
     end
 
     def search_galleries
-      @search = General::Gallery.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachments.first.thumb) } }
+      @search = General::Gallery.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachments.first.thumb) } }.paginate(:page => params[:page], :per_page => 15)
       render json: { data: @search }
     end
 

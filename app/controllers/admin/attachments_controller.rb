@@ -52,7 +52,7 @@ module Admin
         format.json { render json: @video }
         format.js
       end
-    end  
+    end
 
     def edit
       add_breadcrumb "Medios", :admin_attachments_path
@@ -124,13 +124,13 @@ module Admin
     end
 
     def search_att
-      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.thumb) } }
+      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': i } }.paginate(:page => params[:page], :per_page => 15)
       render json: { data: @search }
     end
 
     def search_video
-      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").select{ |e| e.attachment.video? }
-      @search = @search.map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachment.preview(resize: "x50")) } }
+      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").select { |e| e.attachment.video? }
+      @search = @search.map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachment.preview(resize: "x50")) } }.paginate(:page => params[:page], :per_page => 15)
       render json: { data: @search }
     end
 
