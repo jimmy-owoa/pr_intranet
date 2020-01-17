@@ -22,6 +22,7 @@
               <td>
                 <% if current_user.has_role? :super_admin %>
                   <%= link_to "Aprobar", admin_user_path(user, user: {approve_image: true}) , method: :put, :class => 'btn btn-primary btn-sm', data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea aprobar esta imagen?'} %>
+                  <%= link_to "Rechazar", admin_user_path(user, user: {approve_image: false}) , method: :put, :class => 'btn btn-primary btn-sm', data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea rechazar esta imagen?'} %>
                 <% end %>
               </td>
             </tr>

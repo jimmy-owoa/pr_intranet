@@ -44,13 +44,14 @@ module Admin
     end
 
     def update
+      aprove_new_image = params[:user][:approve_image]
       if params["approved"].present?
         respond_to do |format|
           @user.update_attributes(active: params[:approved])
           format.json { render :json => { value: "success" } and return }
         end
-      elsif params[:user][:approve_image].present?
-        @user.image.attach(@user.new_image.blob)
+      elsif aprove_new_image.present?
+        @user.image.attach(@user.new_image.blob) if aprove_new_image == "true"
         @user.new_image.purge()
         redirect_to admin_users_images_approbation_path
       else
