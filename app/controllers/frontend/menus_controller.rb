@@ -8,7 +8,7 @@ module Frontend
     skip_before_action :get_user, only: [:get_gospel_menu]
 
     def request_exa_url
-      "https://misecurity-qa.exa.cl/json_menus/show"
+      "https://misecurity-qa3.exa.cl/json_menus/show"
     end
 
     def get_merged_menus(title, user_menus, exa_menu)
@@ -169,6 +169,7 @@ module Frontend
 
       all_menus = user_menus.where(id: menus)
       menu_hash = {}
+
       main_menus.each do |main_menu|
         menu_hash[main_menu.id] = { title: main_menu.title, menus: [] }
         x = all_menus.where(parent_id: main_menu.id)

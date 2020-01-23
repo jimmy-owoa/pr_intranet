@@ -21,7 +21,9 @@ class General::Menu < ApplicationRecord
     if user.has_role?(:super_admin)
       General::Menu.all
     else
-      General::Menu.where(profile_id: user.profile_ids)
+      nil_profile_menus = General::Menu.where(profile_id: nil).pluck(:id)
+      user_menu_profiles = General::Menu.where(profile_id: user.profile_ids).pluck(:id)
+      General::Menu.where(id: nil_profile_menus + user_menu_profiles)
     end
   end
 
