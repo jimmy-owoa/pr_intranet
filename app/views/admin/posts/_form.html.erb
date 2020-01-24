@@ -83,16 +83,18 @@
               <%= link_to 'Biblioteca de Galerías', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%><br/>
             </div>
           <% else %>
-            <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'gallery_preview', :size => '180x120', :crop => :fill) if @post.gallery.blank? %>
-            <%= image_tag url_for(@post.gallery.attachments.first.thumb) if @post.gallery.present? %>
-            <br />
-            <div class="card-body">
-              <% if @post.gallery.present? %>
+            <% if @post.gallery.present? %>
+              <%= image_tag url_for(@post.gallery.attachments.first.thumb), id:'gallery_preview', :size => '180x120' %>
+              <div class="card-body">
                 <%= link_to "Galería seleccionada: #{@post.gallery.name}", new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%>
-              <% else %>
+              </div>
+            <% else %>
+              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'gallery_preview', :size => '180x120', :crop => :fill) %>
+              <div class="card-body">
                 <%= link_to 'Biblioteca de Galerías', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%><br/>
-              <% end %>
-            </div>
+              </div>
+            <% end %>    
+            <br />
           <% end %>
         </div>
       </div>
@@ -110,20 +112,20 @@
             </div>
             <b><p>Subir Video</p></b>
             <%= f.fields_for :file_video do |aa| %>
-              <div>
-                <%= aa.file_field :attachment, class:'card-link', onchange:"readURLVideo(this);" %>
-              </div>
+              <div><%= aa.file_field :attachment, class:'card-link', onchange:"readURLVideo(this);" %></div>
             <% end %>
           <% else %>
-            <%= image_tag((root_url + '/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) if @post.file_video.blank? %>
-            <%= image_tag url_for(@post.file_video.attachment.preview(resize: "x100")) if @post.file_video.present? %>
-            <div class="card-body">
-              <% if @post.file_video.present? %>
+            <% if @post.file_video.present? %>
+              <%= image_tag url_for(@post.file_video.attachment.preview(resize: "x100")), id:'video_preview', size: '180x120' %>
+              <div class="card-body">
                 <%= link_to "Video seleccionado: #{@post.file_video.name}", admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image', remote: true, class: 'card-link'%>
-              <% else %>
-                <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%>
-              <% end %>
-            </div>
+              </div>
+            <% else %>
+              <%= image_tag((root_url + '/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) %>
+              <div class="card-body">
+                  <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>

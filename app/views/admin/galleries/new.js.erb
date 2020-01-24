@@ -23,11 +23,6 @@ $(document).ready(function(){
       });
     }
   });
-  $('#attachments_ids').change(function(){
-    if ($(this).val()) {
-      $('input:submit').attr('disabled',false);
-    }
-  });
   // Realiza búsqueda de galerías en el modal de Noticias (formulario)
   $("#btn_search" ).click(function() {
     var query = $('#search_galleries').val();
