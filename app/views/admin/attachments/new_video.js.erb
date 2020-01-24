@@ -14,6 +14,7 @@ $("select#image_picker_video").imagepicker({
           $("#video_image, #video_image_nil").text("Video seleccionado: " + option.option[0].text);
           var image_src = option.option[0].dataset.imgSrc;
           $("#video_preview").attr("src", image_src);
+          // Al seleccionar un video, el atributo 'required' del campo Video queda en false
           let select_video = document.getElementById("post_file_video_attributes_attachment");
           if(select_video) {
             select_video.required = false;
