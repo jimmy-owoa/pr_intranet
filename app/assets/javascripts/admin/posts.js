@@ -96,6 +96,8 @@ $(document).on("turbolinks:load", function() {
       if (post_type.value == "Video") {
         div_video.style.display = "block";
         div_gallery.style.display = "none";
+        document.getElementById("post_file_video_attributes_attachment").required = true;
+        document.getElementById("gallery_id").value = "";
       } else {
         div_video.style.display = "none";
         div_gallery.style.display = "block";
