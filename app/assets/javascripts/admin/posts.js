@@ -96,6 +96,10 @@ $(document).on("turbolinks:load", function() {
       if (post_type.value == "Video") {
         div_video.style.display = "block";
         div_gallery.style.display = "none";
+        // Al seleccionar una noticia de tipo Video, el campo de Video queda con el atributo Required = true
+        document.getElementById("post_file_video_attributes_attachment").required = true;
+        // Deja la galería en blanco para evitar que se suba un galería en una noticia tipo Video
+        document.getElementById("gallery_id").value = "";
       } else {
         div_video.style.display = "none";
         div_gallery.style.display = "block";

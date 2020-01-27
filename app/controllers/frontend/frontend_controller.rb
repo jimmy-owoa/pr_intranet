@@ -1,7 +1,7 @@
 class Frontend::FrontendController < ApplicationController
   before_action :get_user, except: [:azure_auth, :current_user_azure]
   include JsonWebToken
-  include ApplicationHelper
+  include Frontend::FrontendHelper
 
   def index
   end

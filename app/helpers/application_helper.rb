@@ -15,10 +15,10 @@ module ApplicationHelper
     nil
   end
 
-  def days_in_month(month, year = Time.now.year)
-    return 29 if month == 2 && Date.gregorian_leap?(year)
-    COMMON_YEAR_DAYS_IN_MONTH[month]
-  end
+  # def days_in_month(month, year = Time.now.year)
+  #   return 29 if month == 2 && Date.gregorian_leap?(year)
+  #   COMMON_YEAR_DAYS_IN_MONTH[month]
+  # end
 
   def get_gender_icon(birth)
     case birth.get_gender
@@ -57,25 +57,25 @@ module ApplicationHelper
     d.strftime("%d/%m/%Y") if d.present?
   end
 
-  def load_options_multiple(question)
-    question.options.each do |option|
-    end
-  end
+  # def load_options_multiple(question)
+  #   question.options.each do |option|
+  #   end
+  # end
 
-  def load_option(question)
-    case question.question_type
-    when "Texto"
-      '<input type="text" class="form-control" name="question.title">'.html_safe
-    when "Número"
-      '<input type="number" class="form-control numeric integer required" name="question.title">'.html_safe
-    when "Verdadero o Falso"
-      '
-      <div>
-        <input type="radio" class="" name="tof" value="true"> Verdadero
-        <input type="radio" class="" name="tof" value="false"> Falso 
-      </div>'.html_safe
-    end
-  end
+  # def load_option(question)
+  #   case question.question_type
+  #   when "Texto"
+  #     '<input type="text" class="form-control" name="question.title">'.html_safe
+  #   when "Número"
+  #     '<input type="number" class="form-control numeric integer required" name="question.title">'.html_safe
+  #   when "Verdadero o Falso"
+  #     '
+  #     <div>
+  #       <input type="radio" class="" name="tof" value="true"> Verdadero
+  #       <input type="radio" class="" name="tof" value="false"> Falso
+  #     </div>'.html_safe
+  #   end
+  # end
 
   def user_avatar(user_id)
     user = General::User.find(user_id)
@@ -143,13 +143,13 @@ module ApplicationHelper
     end
   end
 
-  def map_attachments
-    General::Attachment.all.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.thumb) }] if supported_img(i) && i.present? }
-  end
+  # def map_attachments
+  #   General::Attachment.all.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.thumb) }] if supported_img(i) && i.present? }
+  # end
 
-  def map_product_images(product_id)
-    Marketplace::Product.find(product_id).images.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.variant(resize: "120x120>").processed) }] }
-  end
+  # def map_product_images(product_id)
+  #   Marketplace::Product.find(product_id).images.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.variant(resize: "120x120>").processed) }] }
+  # end
 
   def map_galleries
     General::Gallery.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb) }] if g.attachments.present? }
