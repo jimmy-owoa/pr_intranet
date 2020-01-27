@@ -15,7 +15,7 @@ module Frontend
       menu = user_menus.where(title: title).first
       data = { title: menu.title, submenus: [] }
       integration_code = menu.integration_code
-      menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code }
+      menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code } if exa_menu.present?
       if menus_filtered.present? && integration_code.present? && menus_filtered[integration_code]["drop_down"].present?
         drop_downs = menus_filtered[integration_code]["drop_down"]
         if drop_downs.values.first["drop_down"].present?
@@ -68,8 +68,8 @@ module Frontend
         http.use_ssl = true
         encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
-        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
-        menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code }
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400 && !"\n".in?(response.body)
+        menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code } if exa_menu.present?
         if menus_filtered.present?
           drop_downs = menus_filtered[integration_code]["drop_down"]
           if drop_downs.values.first["drop_down"].present?
@@ -164,7 +164,7 @@ module Frontend
         http.use_ssl = true
         encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
-        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400 && !"\n".in?(response.body)
       end
 
       all_menus = user_menus.where(id: menus)
@@ -217,7 +217,7 @@ module Frontend
 
         encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
-        exa_menu = JSON.parse(response.body) if response.code.to_i < 400
+        exa_menu = JSON.parse(response.body) if response.code.to_i < 400 && !"\n".in?(response.body)
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
 
         @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.

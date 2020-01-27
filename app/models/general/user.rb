@@ -118,7 +118,7 @@ class General::User < ApplicationRecord
     https.use_ssl = true
     req = Net::HTTP::Post.new(uri.path)
     req["Content-Type"] = "application/json"
-    req.body = { "photo": base64, "user_code_crypted_base64": InternalAuth.encrypt(self.legal_number + self.legal_number_verification) }.to_json
+    req.body = { "photo": "data:image/jpeg;base64,#{base64}", "user_code_crypted_base64": InternalAuth.encrypt(self.legal_number + self.legal_number_verification) }.to_json
     res = https.request(req)
     # http.post(uri, base64)
   end
