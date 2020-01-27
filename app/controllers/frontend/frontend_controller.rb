@@ -102,8 +102,19 @@ class Frontend::FrontendController < ApplicationController
     nil
   end
 
+  def is_exa(referer)
+    exa_urls = ["https://misecurity-qa3.exa.cl/",
+                "https://misecurity-qa2.exa.cl/",
+                "https://misecurity-qa.exa.cl/",
+                "https://misecurity.exa.cl/"]
+    exa_urls.each do |url|
+      return true if url.in?(referer)
+    end
+    false
+  end
+
   def get_user
-    if !request.referer.in?(get_exa_request)
+    if !is_exa(request.referer)
       @request_user = get_current_user_jwt if http_auth_header.present?
       if @request_user.present? && @request_user.has_role?(:super_admin) && params[:view_as].present? && params[:view_as] != "null"
         @request_user = General::User.get_user_by_ln(params[:view_as])

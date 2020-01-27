@@ -113,7 +113,7 @@ class General::User < ApplicationRecord
 
   def profile_image_to_exa
     uri = URI("https://misecurity-qa3.exa.cl/user_sync_photo/update_photo")
-    base64 = Base64.strict_encode64(self.new_image.download)
+    base64 = Base64.strict_encode64(self.image.download)
     https = Net::HTTP.new(uri.host, uri.port)
     https.use_ssl = true
     req = Net::HTTP::Post.new(uri.path)

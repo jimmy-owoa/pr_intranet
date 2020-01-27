@@ -321,9 +321,9 @@ module ApplicationHelper
 
   def get_exa_request
     exa_urls = ["https://misecurity-qa3.exa.cl/",
-      "https://misecurity-qa2.exa.cl/",
-      "https://misecurity-qa.exa.cl/",
-      "https://misecurity.exa.cl/"]
+                "https://misecurity-qa2.exa.cl/",
+                "https://misecurity-qa.exa.cl/",
+                "https://misecurity.exa.cl/"]
   end
 
   def get_request_referer
