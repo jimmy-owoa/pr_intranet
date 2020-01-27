@@ -111,10 +111,15 @@ class General::User < ApplicationRecord
     return false
   end
 
-  def base_64_exa(file)
-    uri = URI("https://misecurity-qa.exa.cl/user_sync_photo/update_photo")
-    base64 = Base64.strict_encode64(open(file).to_a.join)
-    http = Net::HTTP.new(uri.host, uri.port)
+  def profile_image_to_exa
+    uri = URI("https://misecurity-qa3.exa.cl/user_sync_photo/update_photo")
+    base64 = Base64.strict_encode64(self.new_image.download)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    req = Net::HTTP::Post.new(uri.path)
+    req["Content-Type"] = "application/json"
+    req.body = { "photo": base64, "user_code_crypted_base64": InternalAuth.encrypt(self.legal_number + self.legal_number_verification) }.to_json
+    res = https.request(req)
     # http.post(uri, base64)
   end
 

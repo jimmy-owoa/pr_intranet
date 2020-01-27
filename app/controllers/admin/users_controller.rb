@@ -51,7 +51,10 @@ module Admin
           format.json { render :json => { value: "success" } and return }
         end
       elsif aprove_new_image.present?
-        @user.image.attach(@user.new_image.blob) if aprove_new_image == "true"
+        if aprove_new_image == "true"
+          @user.image.attach(@user.new_image.blob)
+          @user.profile_image_to_exa
+        end
         @user.new_image.purge()
         redirect_to admin_users_images_approbation_path
       else
