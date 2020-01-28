@@ -51,68 +51,6 @@ module Frontend
       data
     end
 
-    def index
-      user_menus = General::Menu.profiled_menus(@request_user)
-      main_menus = user_menus.where(title: params[:title])
-      if !main_menus.present?
-        render json: { message: "Menú no encontrado en la base de datos." }, status: :error
-        return
-      end
-      data = { title: main_menus.first.title, menus: [], menus_dropdown: [] }
-      parent_menu = user_menus.find(main_menus.first.parent_id)
-      integration_code = main_menus.pluck(:integration_code).reject(&:blank?).first
-      menus = user_menus.where(parent_id: main_menus.first.id)
-      if @request_user.legal_number.present?
-        uri = URI.parse(request_exa_url)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
-        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
-        exa_menu = JSON.parse(response.body) if response.code.to_i < 400 && !"\n".in?(response.body)
-        menus_filtered = exa_menu.select { |key, value| value["cod"] == integration_code } if exa_menu.present?
-        if menus_filtered.present?
-          drop_downs = menus_filtered[integration_code]["drop_down"]
-          if drop_downs.values.first["drop_down"].present?
-            drop_downs.values.each do |dropdown|
-              if dropdown["drop_down"].present?
-                m = { title: dropdown["nombre"], submenus: [] }
-                dropdown["drop_down"].values.each do |menu|
-                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
-                end
-                data[:menus_dropdown] << m
-              else
-                m = { title: dropdown["nombre"], submenus: [] }
-                drop_downs.values.first["drop_down"].values.each do |menu|
-                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
-                end
-                data[:menus_dropdown] << m
-              end
-            end
-          else
-            drop_downs.values.each do |menu|
-              data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
-            end
-          end
-        else
-          menus_filtered.values.each do |menu|
-            data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
-          end
-        end
-        # data[:menus] << exa_menu
-      end
-      menus.each do |menu|
-        data[:menus] << {
-          title: menu.title,
-          link: menu.link,
-        }
-      end
-
-      respond_to do |format|
-        format.json { render json: data }
-        format.js
-      end
-    end
-
     def get_data_indicators(indicator, today)
       data_indicators = []
 
@@ -159,12 +97,7 @@ module Frontend
       user_menus = General::Menu.profiled_menus(@request_user)
       data = []
       if @request_user.legal_number.present?
-        uri = URI.parse(request_exa_url)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        encrypted_user = InternalAuth.encrypt(@request_user.legal_number + @request_user.legal_number_verification)
-        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
-        exa_menu = JSON.parse(response.body) if response.code.to_i < 400 && !"\n".in?(response.body)
+        exa_menu = do_request(@request_user)
       end
 
       all_menus = user_menus.where(id: menus)
@@ -211,15 +144,8 @@ module Frontend
       data_indicators = []
       data_indicators = get_data_indicators(indicator, today)
       if user.legal_number.present?
-        uri = URI.parse(request_exa_url)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-
-        encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
-        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
-        exa_menu = JSON.parse(response.body) if response.code.to_i < 400 && !"\n".in?(response.body)
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
-
+        exa_menu = do_request(user)
         @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
         if exa_menu.present? && exa_menu["manage"].present?
           @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
@@ -276,6 +202,25 @@ module Frontend
 
       respond_to do |format|
         format.json { render json: data }
+      end
+    end
+
+    private
+
+    def do_request(user)
+      uri = URI.parse(request_exa_url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 3
+      http.open_timeout = 3
+      http.use_ssl = true
+
+      encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
+      begin
+        response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
+        exa_menu = JSON.parse(response.body) if response.is_a?(Net::HTTPSuccess) && !"\n".in?(response.body)
+        exa_menu
+      rescue => exception
+        ""
       end
     end
   end
