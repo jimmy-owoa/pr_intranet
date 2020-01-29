@@ -1486,95 +1486,52 @@
           <ul class="megamenu" id="megamenu1">
             <% main_menu.children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
-              <ul style="display: inline;" class="padding-megamenu">
-                <% if menu_parent_object.link.present? %>
-                  <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
-                <% else %>
-                  <h4 class="head_section"><%= menu_parent_object.title %></h4>
-                <% end %>
-                <% submenus = menu_parent_object.children(user_profile_ids, exa_menu) %>
-                <% if submenus.length > 3 %>
-                  <% submenus.first(3).each do |link| %>
-                    <% benefit_count = 0 %>
-                    <% if link[:link].downcase[0..3] == 'http'%>
-                      <%= link_to link[:title], link[:link], class:'white--text' %>
-                    <% elsif link[:post_slug].present? %>
-                      <%= link_to link[:title], host + '#/noticias/' + link[:post_slug], class:'white--text'%>
-                    <% elsif main_menu.title == "Mis beneficios" %>
-                      <% if benefits.present? %>
-                        <% benefit = benefits.find_by_title(link[:title]) %>
-                      <% end %>
-                      <% if benefit.present? %>
-                        <% benefit_count += 1 %>
-                        <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s, class:'white--text' %>
-                        <% if benefit_count > 2 %>
-                          <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
-                        <% end %>
-                      <% end %>
-                    <% else %>
-                      <%= link_to link[:title], host + '#/' + link[:link], class:'white--text' %>
-                    <% end %>
+              <% submenus = menu_parent_object.children(user_profile_ids, exa_menu) %>
+              <% if submenus.present? %>
+                <ul style="display: inline;" class="padding-megamenu">
+                  <% if menu_parent_object.link.present? %>
+                    <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
+                  <% else %>
+                    <h4 class="head_section"><%= menu_parent_object.title %></h4>
                   <% end %>
-
-                  <!-- MENU MODAL START -->
-                  <div class="modalDialog" id=''>
-                    <div class="text-md-center">
-                      <a href="#" title="Close" class="close">X</a>
-                      <div class="">
-                        <% submenus.each do |link| %>
-                        <div>
-                          <% if link[:link].downcase[0..3] == 'http'%>
-                            <%= link_to link[:title], link[:link] %><br>
-                          <% elsif link[:post_slug].present? %>
-                            <%= link_to link[:title], host + '#/noticias/' + link[:post_slug]%>
-                          <% else %>
-                            <%= link_to link[:title], host + '#/' + link[:link] %>
-                          <% end %>
-                        </div>
-                        <% end %>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- MENU MODAL END -->
-
-                  <!-- MODAL VER MÁS START -->
-                  <div class="tff-modal" id="menu_<%= menu_parent_object.title.downcase %>" aria-hidden="true">
-                    <div class="tff-modal-dialog-2">
-                      <div class="flex sm12" style="overflow-y: auto; max-height: 400px; min-height: 200px">
-                        <div class="layout" style="margin-bottom: -17px;">
-                          <a href="#" class="tff-btn-close" aria-hidden="true">×</a>
-                          <div class="flex sm12" style="padding: 15px 45px 5px 45px; background-color: #f3f3f3;">
-                            <% submenus.each do |link| %>
-                              <% if link[:link].downcase[0..3] == 'http'%>
-                                <%= link_to link[:title], link[:link], class: 'links-ver-mas' %>
-                              <% elsif link[:post_slug].present? %>
-                                <%= link_to link[:title], host + '#/noticias/' + link[:post_slug], class: 'links-ver-mas'%>
-                              <% else %>
-                                <%= link_to link[:title], host + '#/' + link[:link], class: 'links-ver-mas' %>
-                              <% end %>
+                  <% if submenus.length > 3 %>
+                    <% submenus.first(3).each do |link| %>
+                      <% benefit_count = 0 %>
+                      <% if link[:link].downcase[0..3] == 'http'%>
+                        <%= link_to link[:title], link[:link], class:'white--text' %>
+                      <% elsif link[:post_slug].present? %>
+                        <%= link_to link[:title], host + '#/noticias/' + link[:post_slug], class:'white--text'%>
+                      <% elsif main_menu.title == "Mis beneficios" %>
+                        <% if benefits.present? %>
+                          <% benefit = benefits.find_by_title(link[:title]) %>
+                          <% if benefit.present? %>
+                            <% benefit_count += 1 %>
+                            <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s, class:'white--text' %>
+                            <% if benefit_count > 2 %>
+                              <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
                             <% end %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- MODAL VER MAS END -->
-
-                  <% if main_menu.title != "Mis beneficios" %>
-                    <%= link_to 'Ver más', host + '#/menus/' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
-                  <% end %>
-                <% else %>
-                  <% submenus.each do |link| %>
-                    <% if link[:link].downcase[0..3] == 'http'%>
-                      <%= link_to link[:title], link[:link], class:'white--text' %>
-                    <% elsif link[:post_slug].present? %>
-                      <%= link_to link[:title], host +  '#/noticias/' + link[:post_slug], class:'white--text'%>
-                    <% else %>
-                      <%= link_to link[:title], host + '#/' + link[:link], class:'white--text' %>
+                          <% end %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to link[:title], host + '#/beneficios' , class:'white--text' %>
+                      <% end %>
+                    <% end %>
+                    <% if main_menu.title != "Mis beneficios" %>
+                      <%= link_to 'Ver más', host + '#/menus/' + menu_parent_object.title.downcase, style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
+                    <% end %>
+                  <% else %>
+                    <% submenus.each do |link| %>
+                      <% if link[:link].downcase[0..3] == 'http'%>
+                        <%= link_to link[:title], link[:link], class:'white--text' %>
+                      <% elsif link[:post_slug].present? %>
+                        <%= link_to link[:title], host +  '#/noticias/' + link[:post_slug], class:'white--text'%>
+                      <% else %>
+                        <%= link_to link[:title], host + '#/' + link[:link], class:'white--text' %>
+                      <% end %>
                     <% end %>
                   <% end %>
-                <% end %>
-              </ul>
+                </ul>
+              <% end %>
             <% end %>
           </ul>
         </li>
