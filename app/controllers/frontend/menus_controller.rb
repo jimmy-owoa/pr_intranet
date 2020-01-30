@@ -146,7 +146,7 @@ module Frontend
     end
 
     def api_menu_mobile
-      main_menus = General::Menu.where(parent_id: nil, code: nil)
+      main_menus = @request_user.has_role?(:super_admin) ? General::Menu.where(parent_id: nil, code: nil) : General::Menu.where(parent_id: nil, code: nil).where.not(title: "Gestionar")
       menus = General::Menu.all.uniq.reject(&:blank?) - main_menus
       user_menus = General::Menu.profiled_menus(@request_user)
       data = []
