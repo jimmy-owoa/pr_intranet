@@ -271,7 +271,15 @@ module Frontend
       encrypted_user = InternalAuth.encrypt(user.legal_number + user.legal_number_verification)
       begin
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
-        exa_menu = JSON.parse(response.body) if response.is_a?(Net::HTTPSuccess) && !"\n".in?(response.body)
+        if response.is_a?(Net::HTTPSuccess) && !"\n".in?(response.body)
+          Rails.logger.info "$$$$$$$$$$$$$$$$$$$ response.body: #{response.body}"
+          if user.menu_exa.present? 
+            user.menu_exa.update(body: response.body)
+          else
+            user.create_exa_menu(body: response.body)
+          end
+        end
+        exa_menu = JSON.parse(user.exa_menu.body)
         exa_menu
       rescue => exception
         ""

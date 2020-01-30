@@ -45,6 +45,8 @@ class General::User < ApplicationRecord
 
   has_many :family_members, class_name: "PersonalData::FamilyMember"
 
+  has_one :menu_exa, class_name: "Menu::Exa", foreign_key: :user_id
+
   accepts_nested_attributes_for :terms
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, omniauth_providers: [:azure_oauth2]
