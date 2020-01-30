@@ -200,8 +200,8 @@ module Frontend
       if user.legal_number.present?
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
         exa_menu = do_request(user)
-        @main_menus = General::Menu.where(parent_id: nil, code: nil) #TODO: ESTO ESTÁ HORRIBLE.
-        if exa_menu.present? && exa_menu["manage"].present?
+        @main_menus = user.has_role?(:super_admin) ? General::Menu.where(parent_id: nil, code: nil) : General::Menu.where(parent_id: nil, code: nil).where.not(title: "Gestionar") #TODO: ESTO ESTÁ HORRIBLE.
+        if exa_menu.present? && exa_menu["manage"].present? && user.has_role?(:super_admin)
           @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
         end
       else

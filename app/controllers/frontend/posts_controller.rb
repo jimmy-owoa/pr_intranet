@@ -14,7 +14,7 @@ module Frontend
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           full_title: post.title,
-          published_at: post.created_at.strftime("%d/%m/%Y"),
+          published_at: post.published_at.strftime("%d/%m/%Y"),
           post_type: post.post_type.present? ? post.post_type.upcase : "",
           important: post.important,
           slug: post.slug,

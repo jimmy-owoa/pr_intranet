@@ -1479,12 +1479,14 @@
   <nav class="navbar-menu" fixed style="background-color: #211651;">
     <ul id="ul_menu" style="margin-bottom: 0px;">
       <% @main_menus.each do |main_menu| %>
+      <% main_menus_children = main_menu.children %>
+      <% if main_menus_children.present? %>
         <li class="submenu" id="submenu1">
           <a class="head_menu" style="padding-right: 100px; letter-spacing: 1px;" href="#">
             <%= main_menu.title.upcase %>
           </a>
           <ul class="megamenu" id="megamenu1">
-            <% main_menu.children.each do |menu_parent| %>
+            <% main_menus_children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
               <% submenus = menu_parent_object.children(user_profile_ids, exa_menu) %>
               <% if submenus.present? %>
@@ -1535,6 +1537,7 @@
             <% end %>
           </ul>
         </li>
+        <% end %>
       <% end %>
             <%# <i class="v-icon v-icon--link material-icons theme--dark">search</i> %>
         <div class="">
