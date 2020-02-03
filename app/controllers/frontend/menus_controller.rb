@@ -201,7 +201,7 @@ module Frontend
         benefits = user.benefit_group.present? ? user.benefit_group.benefits : nil
         exa_menu = do_request(user)
         @main_menus = user.has_role?(:super_admin) ? General::Menu.where(parent_id: nil, code: nil) : General::Menu.where(parent_id: nil, code: nil).where.not(title: "Gestionar") #TODO: ESTO ESTÁ HORRIBLE.
-        if exa_menu.present? && exa_menu["manage"].present? && user.has_role?(:super_admin)
+        if exa_menu.present? && exa_menu["manage"].present?
           @main_menus << General::Menu.where(code: "manage").first if General::Menu.where(code: "manage").present?
         end
       else
@@ -273,7 +273,7 @@ module Frontend
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
         if response.is_a?(Net::HTTPSuccess) && !"\n".in?(response.body)
           Rails.logger.info "$$$$$$$$$$$$$$$$$$$ response.body: #{response.body}"
-          if user.menu_exa.present? 
+          if user.menu_exa.present?
             user.menu_exa.update(body: response.body)
           else
             user.create_exa_menu(body: response.body)

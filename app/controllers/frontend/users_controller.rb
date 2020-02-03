@@ -67,7 +67,7 @@ module Frontend
         position: @user.position,
         company: @user.company.present? ? @user.company.name : "Empresa no disponible",
         birthday: @user.birthday.present? && @user.show_birthday ? @user.birthday.strftime("%d/%m") : "Información oculta",
-        is_birthday: @user.is_birthday_today,
+        is_birthday: @user.is_birthday_today && @user.show_birthday ? true : false,
         address: @user.office.try(:address),
         location: @location,
         full_legal_number: @user.legal_number.present? ? @user.legal_number + @user.legal_number_verification : "sin rut",
