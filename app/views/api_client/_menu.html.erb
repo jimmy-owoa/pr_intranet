@@ -1399,7 +1399,7 @@
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">UF</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;">Hoy</div>
-                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$ <%= number_to_currency(indicators[:UF].last, locale: :es, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:UF].last, locale: :es, unit: "") %></div>
                     <div class="primary--text modal-regular" style="margin-top: 43px;"><%= l(today - 1.months, format: "%B") %></div>
                     <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:UF].first, locale: :es, precision: 2, unit: "") %></div>
                   </div>
@@ -1407,9 +1407,9 @@
                   <div class="flex sm3 text-md-center">
                     <div class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">IPC</div>
                     <div class="primary--text modal-regular" style="margin-top: 72px;"><%= l(today - 1.months, format: "%B") %></div>
-                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPC].last, locale: :es, precision: 1, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">%<%= number_to_currency(indicators[:IPC].last, locale: :es, precision: 1, unit: "") %></div>
                     <div class="primary--text modal-regular" style="margin-top: 43px;"><%= l(today - 2.months, format: "%B") %></div>
-                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">$<%= number_to_currency(indicators[:IPC].first, locale: :es, precision: 1, unit: "") %></div>
+                    <div class="primary--text font-weight-bold" style="font-size: 27px; margin-top: -4px;">%<%= number_to_currency(indicators[:IPC].first, locale: :es, precision: 1, unit: "") %></div>
                   </div>
                   <hr style="border: 1px solid white; height: 300px;">
                   <div class="flex sm3 text-md-center">
@@ -1460,7 +1460,11 @@
             </div>
             <div class="flex sm3 text-md-right">
               <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: #211651;">
-                <%= user.name.titleize + " " + user.last_name.titleize %>
+                <% if user.favorite_name.present? %>
+                  <%= user.favorite_name.titleize + " " + user.last_name.titleize %>  
+                <% else %>
+                  <%= user.name.titleize + " " + user.last_name.titleize %>
+                <% end %>
                 <div class="v-avatar" style="height: 42px; width: 42px;">
                   <div aria-label="Avatar" class="inline v-image">
                     <% if user.image.attached? %> 
@@ -1499,21 +1503,21 @@
                   <% if submenus.length > 3 %>
                     <% submenus.first(3).each do |link| %>
                       <% benefit_count = 0 %>
-                      <% if link[:link].downcase[0..3] == 'http'%>
-                        <%= link_to link[:title], link[:link], class:'white--text' %>
-                      <% elsif link[:post_slug].present? %>
-                        <%= link_to link[:title], host + '#/noticias/' + link[:post_slug], class:'white--text'%>
-                      <% elsif main_menu.title == "Mis beneficios" %>
+                      <% if main_menu.title.downcase == "mis beneficios" %>
                         <% if benefits.present? %>
                           <% benefit = benefits.find_by_title(link[:title]) %>
-                          <% if benefit.present? %>
-                            <% benefit_count += 1 %>
-                            <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s, class:'white--text' %>
-                            <% if benefit_count > 2 %>
-                              <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
-                            <% end %>
+                        <% if benefit.present? %>
+                          <% benefit_count += 1 %>
+                          <%= link_to link[:title], host + '#/beneficios/' + benefit.id.to_s, class:'white--text' %>
+                          <% if benefit_count > 2 %>
+                            <%= link_to 'Ver más', host + '#/beneficios', style: 'text-decoration: underline;', class:'white--text decoration-ver-mas' %>
                           <% end %>
                         <% end %>
+                      <% end %>
+                      <% elsif link[:post_slug].present? %>
+                        <%= link_to link[:title], host + '#/noticias/' + link[:post_slug], class:'white--text'%>
+                      <% elsif link[:link].downcase[0..3] == 'http'%>
+                        <%= link_to link[:title], link[:link], class:'white--text' %>
                       <% else %>
                         <%= link_to link[:title], host + '#/beneficios' , class:'white--text' %>
                       <% end %>
