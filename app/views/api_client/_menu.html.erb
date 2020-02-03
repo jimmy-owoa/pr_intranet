@@ -1460,7 +1460,11 @@
             </div>
             <div class="flex sm3 text-md-right">
               <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: #211651;">
-                <%= user.name.titleize + " " + user.last_name.titleize %>
+                <% if user.favorite_name.present? %>
+                  <%= user.favorite_name.titleize + " " + user.last_name.titleize %>  
+                <% else %>
+                  <%= user.name.titleize + " " + user.last_name.titleize %>
+                <% end %>
                 <div class="v-avatar" style="height: 42px; width: 42px;">
                   <div aria-label="Avatar" class="inline v-image">
                     <% if user.image.attached? %> 
