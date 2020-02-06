@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_025546) do
+ActiveRecord::Schema.define(version: 2020_01_30_181914) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_025546) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "benefit_group_id"
     t.bigint "benefit_type_id"
     t.string "code"
     t.string "url"
@@ -429,6 +430,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_025546) do
   end
 
   create_table "general_weather_informations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "location_id"
     t.date "date"
     t.string "max_temp"
     t.string "min_temp"
@@ -449,7 +451,6 @@ ActiveRecord::Schema.define(version: 2020_01_07_025546) do
     t.string "aaa_tomorrow_icon"
     t.string "aaa_tomorrow_max"
     t.string "aaa_tomorrow_min"
-    t.integer "location_id"
     t.integer "uv_index"
   end
 
@@ -540,6 +541,14 @@ ActiveRecord::Schema.define(version: 2020_01_07_025546) do
     t.date "published_date"
     t.string "currency"
     t.integer "xoops_product_id"
+  end
+
+  create_table "menu_exas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "body"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_menu_exas_on_user_id"
   end
 
   create_table "news_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -727,7 +736,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_025546) do
     t.string "status"
     t.integer "xoops_survey_id"
     t.bigint "profile_id"
-    t.integer "allowed_answers", default: 0
+    t.integer "allowed_answers"
     t.index ["profile_id"], name: "index_survey_surveys_on_profile_id"
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
   end

@@ -569,9 +569,12 @@
     margin-right: -50%;
     transform: translate(-50%, 0%);
   }
-  .navbar-menu ul li:hover ul.megamenu {
+  
+  /* ESTA CLASE SE ELIMINÓ CUANDO SE PASÓ A JAVASCRIPT EL MOSTRAR Y CERRAR MENU */
+  /* .navbar-menu ul li:hover ul.megamenu {
     top: 100%;
-  }
+  } */
+
   /* third stage (child-menus in the mega-menu) */
   .navbar-menu ul.megamenu ul {
     width: 20%;
@@ -1034,9 +1037,6 @@
       padding: 20px 10px 0;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
-    .navbar-menu ul li:hover ul.megamenu {
-      top: 100%;
-    }
     /* third stage (child-menus in the mega-menu) */
     .navbar-menu ul.megamenu ul {
       width: 20%;
@@ -1155,9 +1155,6 @@
       top: -9999px;
       padding: 20px 10px 0;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-    }
-    .navbar-menu ul li:hover ul.megamenu {
-      top: 100%;
     }
     /* third stage (child-menus in the mega-menu) */
     .navbar-menu ul.megamenu ul {
@@ -1482,19 +1479,23 @@
   <!-- MENU START -->
   <nav class="navbar-menu" fixed style="background-color: #211651;">
     <ul id="ul_menu" style="margin-bottom: 0px;">
+      <% submenu_counter = 0 %>
+      <% megamenu_counter = 0 %>
       <% @main_menus.each do |main_menu| %>
       <% main_menus_children = main_menu.children %>
       <% if main_menus_children.present? %>
-        <li class="submenu" id="submenu1">
+        <!-- Se agrega la función onmouseover y onmouseout para cerrar el menú, es importante que en las lineas de más abajo se envía 
+        this.parentElement.id, algo que está algo mal debido a que si se agrega algo antes, muere el cerrar menú al hacer click. Ojo con eso -->
+        <li class="submenu" id='<%= "submenu_#{submenu_counter += 1}"%>' onmouseover="showMenu(this.id)" onmouseout="closeMenu(this.id)">
           <a class="head_menu" style="padding-right: 100px; letter-spacing: 1px;" href="#">
             <%= main_menu.title.upcase %>
           </a>
-          <ul class="megamenu" id="megamenu1">
+          <ul class="megamenu" id='<%= "megamenu_#{megamenu_counter += 1}"%>'>
             <% main_menus_children.each do |menu_parent| %>
               <% menu_parent_object = General::Menu.find(menu_parent[:menu_id]) %>
               <% submenus = menu_parent_object.children(user_profile_ids, exa_menu) %>
               <% if submenus.present? %>
-                <ul style="display: inline;" class="padding-megamenu">
+                <ul style="display: inline;" class="padding-megamenu" onclick="closeMenu(this.parentElement.id)">
                   <% if menu_parent_object.link.present? %>
                     <h4><%= link_to menu_parent_object.title, menu_parent_object.link, class:"head_section" %></h4>
                   <% else %>
@@ -1519,7 +1520,7 @@
                       <% elsif link[:link].downcase[0..3] == 'http'%>
                         <%= link_to link[:title], link[:link], class:'white--text' %>
                       <% else %>
-                        <%= link_to link[:title], host + '#/beneficios' , class:'white--text' %>
+                        <%= link_to link[:title], host + '#/' + link[:link], class:'white--text' %>
                       <% end %>
                     <% end %>
                     <% if main_menu.title != "Mis beneficios" %>

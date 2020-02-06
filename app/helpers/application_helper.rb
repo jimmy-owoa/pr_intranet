@@ -333,7 +333,7 @@ module ApplicationHelper
     elsif request.referer == "http://localhost:8080/"
       "http://localhost:8080/"
     else
-      "https://miintranet.exaconsultores.cl/"
+      "https://mi.security.cl/"
     end
   end
 end
