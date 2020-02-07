@@ -15,30 +15,27 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
+  if Rails.root.join("tmp", "caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
     config.cache_store = :memory_store
     config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
+      "Cache-Control" => "public, max-age=#{2.days.to_i}",
     }
   else
     config.action_controller.perform_caching = true
 
     config.cache_store = :mem_cache_store, "localhost"
-
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
 
   #devise
-  config.action_mailer.default_url_options = { host: 'localhost' , port: 3000 }
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
   config.active_storage.service = :local
-  config.default_url_options = { host: 'localhost' , port: 3000 }
-  config.action_controller.default_url_options = { host: 'localhost' , port: 3000 }
-
-
+  config.default_url_options = { host: "localhost", port: 3000 }
+  config.action_controller.default_url_options = { host: "localhost", port: 3000 }
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

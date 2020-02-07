@@ -11,8 +11,8 @@ module Frontend
           content: message.content,
           is_const: message.is_const,
           kind: message.message_type,
-          created_at: l(message.created_at, format: '%A %d %B %Y'),
-          image: image
+          created_at: l(message.created_at, format: "%A %d %B %Y"),
+          image: image,
         }
       end
       respond_to do |format|

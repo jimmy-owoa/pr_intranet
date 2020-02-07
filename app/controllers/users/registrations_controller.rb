@@ -3,7 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include Devise::Controllers::Helpers
   #user logged can create users
-  prepend_before_action  :require_no_authentication, only: [:cancel ]
+  prepend_before_action :require_no_authentication, only: [:cancel]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   before_action :user_registered?
