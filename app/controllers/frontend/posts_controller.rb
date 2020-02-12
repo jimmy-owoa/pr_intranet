@@ -35,7 +35,7 @@ module Frontend
     end
 
     def index_video
-      posts = News::Post.filter_posts(@request_user).get_by_category(params[:category]) if params[:category].present?
+      posts = News::Post.filter_posts(@request_user).get_by_category(params[:category])
       posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
       posts.each do |post|
@@ -81,6 +81,7 @@ module Frontend
             extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
             main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+            post_type: post.post_type
           }
         end
         content = fix_content(post.content)

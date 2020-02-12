@@ -49,9 +49,9 @@
               <p>Subir Imagen</p>
             </b>
             <%= f.fields_for :main_image do |aa| %>
-              <div class="">
-                <%= aa.file_field :attachment, class:'card-link', onchange:"readURL(this);" %>
-              </div>
+            <div class="form-group">
+              <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
+            </div>
             <% end %>
           <% else %>
             <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
@@ -63,8 +63,8 @@
               <p>Adjuntar imagen</p>
             </b>
             <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
-              <div class="">
-                <%= aa.file_field :attachment, onchange:"readURL(this);" %>
+              <div class="form-group">
+                <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
               </div>
             <% end %>
           <% end %>
@@ -112,7 +112,9 @@
             </div>
             <b><p>Subir Video</p></b>
             <%= f.fields_for :file_video do |aa| %>
-              <div><%= aa.file_field :attachment, class:'card-link', onchange:"readURLVideo(this);" %></div>
+            <div class="form-group">
+              <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURLVideo(this);" %>
+            </div>
             <% end %>
           <% else %>
             <% if @post.file_video.present? %>
