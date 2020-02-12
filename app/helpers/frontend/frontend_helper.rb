@@ -23,6 +23,8 @@ module Frontend::FrontendHelper
       "https://mi.security.cl/"
     elsif request.referer == "http://localhost:8080/"
       "http://localhost:8080/"
+    elsif request.referer == "http://miintranet.exaconsultores.cl/"
+      "http://miintranet.exaconsultores.cl/"
     else
       "https://mi.security.cl/"
     end
