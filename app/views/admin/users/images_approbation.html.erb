@@ -15,7 +15,7 @@
             <tr>
               <td>
                 <% if user.new_image.attachment.present? %>
-                  <%= image_tag(user.new_image.attachment.variant(resize: '50x50!').processed, class: 'rounded-circle border border-secondary') %>
+                  <%= link_to image_tag(user.new_image.attachment.variant(resize: '50x50!').processed, class: 'rounded-circle border border-secondary'), admin_show_image_user_path(user_name: user.name, user_id: user.id), remote: true, data: {toggle: "modal", target: "#exampleModal"} %>
                 <% end %>
               </td>
               <td><%= user.full_name %></td>

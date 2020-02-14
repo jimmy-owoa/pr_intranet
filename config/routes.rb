@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get "attachments/videos", to: "attachments#index_videos"
     post "galleries/create_gallery", to: "galleries#create_gallery_post"
     get "new_video_post", to: "attachments#new_video"
+    get "show_image_user", to: "users#show_image_user"
     resources :books
     resources :authors
     resources :editorials
