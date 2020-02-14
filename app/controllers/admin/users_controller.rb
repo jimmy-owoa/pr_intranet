@@ -88,6 +88,7 @@ module Admin
     def show_image_user
       @name = params[:user_name]
       @image = General::User.find(params[:user_id]).new_image.attachment.variant(resize: '700x500!').processed
+      @user_id = params[:user_id]
       respond_to do |format|
         format.js
       end
