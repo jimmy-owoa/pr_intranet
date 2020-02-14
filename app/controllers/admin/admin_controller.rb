@@ -9,5 +9,4 @@ class Admin::AdminController < ApplicationController
   def auth_user
     redirect_to user_azure_oauth2_omniauth_authorize_path if !current_user
   end
-
 end
