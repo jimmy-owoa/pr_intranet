@@ -1,7 +1,6 @@
 class IndicatorService
   require "uri"
   require "net/http"
-
   def initialize
     currencies_url = URI.parse("https://mindicador.cl/api")
     currencies_response = Net::HTTP.get_response currencies_url
@@ -14,7 +13,6 @@ class IndicatorService
     @currencies = JSON.parse(currencies_response.body)
     @indexes = JSON.parse(indexes_response.read_body)
   end
-
   def perform
     {
       dolar: @currencies["dolar"]["valor"],
@@ -26,7 +24,6 @@ class IndicatorService
       ipsa_variation: @indexes["listaResult"][1]["Variacion"],
     }
   end
-
   def self.perform
     new.perform
   end
