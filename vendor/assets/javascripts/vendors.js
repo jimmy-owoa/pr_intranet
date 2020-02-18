@@ -6,6 +6,8 @@
 //= require scroll-up-bar.min
 //= require stisla/sa-functions
 //= require stisla/scripts
+//= require stisla/custom
+//= require stisla/stisla
 //= require image-picker
 //= require plugins/piexif.min
 //= require plugins/purify.min
