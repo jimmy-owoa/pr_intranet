@@ -1,4 +1,4 @@
-<%- model_class = General::Attachment -%>
+<%- model_class = Media::Attachment -%>
 <section class="section">
   <h1 class="section-header"><%= "Videos" %></h1>
   <%= link_to "Nuevo", new_admin_attachment_path, :class => 'btn btn-primary btn-sm mb-1' %>
@@ -33,8 +33,8 @@
         </tbody>
       </table>
       <div class='row'>
-          <div class="col-md-10">
-            <%= will_paginate @videos, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        <div class="col-md-10">
+          <%= will_paginate @videos, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
         </div>
       </div>
     </div>

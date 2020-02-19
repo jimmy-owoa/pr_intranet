@@ -81,7 +81,7 @@ module Frontend
             extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
             main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
-            post_type: post.post_type
+            post_type: post.post_type,
           }
         end
         content = fix_content(post.content)
@@ -123,7 +123,7 @@ module Frontend
       gallery = { items: [] }
       items = []
       if post.gallery.present?
-        attachments = General::Gallery.where(post_id: post.id).last.attachments
+        attachments = Media::Gallery.where(post_id: post.id).last.attachments
         attachments.each do |image| # Por ahora está mostrando sólo la primera galería
           items << {
             id: image.id,

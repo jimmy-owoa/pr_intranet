@@ -144,7 +144,7 @@ module ApplicationHelper
   end
 
   # def map_attachments
-  #   General::Attachment.all.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.thumb) }] if supported_img(i) && i.present? }
+  #   Media::Attachment.all.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.thumb) }] if supported_img(i) && i.present? }
   # end
 
   # def map_product_images(product_id)
@@ -152,7 +152,7 @@ module ApplicationHelper
   # end
 
   def map_galleries
-    General::Gallery.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb) }] if g.attachments.present? }
+    Media::Gallery.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb) }] if g.attachments.present? }
   end
 
   def gender(val)

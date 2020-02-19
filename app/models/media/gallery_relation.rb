@@ -1,4 +1,4 @@
-class General::GalleryRelation < ApplicationRecord
+class Media::GalleryRelation < ApplicationRecord
   belongs_to :gallery, optional: true
   belongs_to :attachment, optional: true
 end

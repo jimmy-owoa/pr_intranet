@@ -15,7 +15,7 @@ module Admin
     end
 
     def show
-      @gallery = General::Gallery.where(post_id: @post.id).last
+      @gallery = Media::Gallery.where(post_id: @post.id).last
     end
 
     def deleted
@@ -24,8 +24,8 @@ module Admin
 
     def new
       @post = News::Post.new
-      @gallery = General::Gallery.new
-      @attachment = General::Attachment.new
+      @gallery = Media::Gallery.new
+      @attachment = Media::Attachment.new
       @files = General::File.all
       @post.build_main_image
       @post.build_file_video
@@ -35,7 +35,7 @@ module Admin
 
     def edit
       @files = General::File.all
-      @gallery = General::Gallery.new
+      @gallery = Media::Gallery.new
     end
 
     def create
@@ -93,22 +93,22 @@ module Admin
     end
 
     def set_galleries
-      @galleries = General::Gallery
+      @galleries = Media::Gallery
     end
 
     def set_attachments
-      @attachments = General::Attachment
+      @attachments = Media::Attachment
     end
 
     def post_params
       params.require(:post).permit(:title, :slug, :content, :status,
                                    :main_image_id, :main_image, :file_video, :file_video_id, :terms, :post_parent_id, :visibility, :post_class, :post_order,
                                    :published_at, :user_id, :post_type, :format, :permission, :important, :extract, :profile_id,
-                                   file_ids: [], main_image_attributes: [:attachment], file_video_attributes: [:attachment],general_attachment_attributes: [:general_attachment])
+                                   file_ids: [], main_image_attributes: [:attachment], file_video_attributes: [:attachment], general_attachment_attributes: [:general_attachment])
     end
 
     def set_gallery
-      @gallery = General::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
+      @gallery = Media::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
       @post.gallery = @gallery
       @post.save
     end
