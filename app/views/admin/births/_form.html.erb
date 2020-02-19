@@ -12,10 +12,9 @@
         <%= f.input :child_lastname2, label: "Apellido Materno", required: true %>
       </div>
       <div class="col-md-6">
-        <% user = General::User.find(@birth.user_id) || nil %> 
-        <% if user.present? %>
+        <% if @user.present? %>
           <%= f.label "Padre/Madre" %> <br>
-          <%= user.full_name %>
+          <%= @user.full_name %>
         <% else %>
           <%= f.input :user_id %>
         <% end %>

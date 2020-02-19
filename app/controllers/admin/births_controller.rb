@@ -24,8 +24,9 @@ module Admin
       add_breadcrumb "Nacimientos", :admin_births_path
       @birth = Employee::Birth.new
     end
-
+    
     def edit
+      @user = General::User.find(@birth.user_id) || nil
       add_breadcrumb "Nacimientos", :admin_births_path
     end
 
