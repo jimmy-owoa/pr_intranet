@@ -12,7 +12,7 @@ class News::Post < ApplicationRecord
   has_many :terms, through: :post_term_relationships
   has_many :menus, class_name: "General::Menu"
   has_many :attachments, as: :attachable
-  has_many :files, class_name: "General::File"
+  has_many :files, class_name: "Media::File"
 
   belongs_to :profile, class_name: "General::Profile", optional: true
   belongs_to :post_parent, class_name: "News::Post", optional: true

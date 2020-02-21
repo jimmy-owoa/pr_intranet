@@ -26,7 +26,7 @@ module Admin
       @post = News::Post.new
       @gallery = Media::Gallery.new
       @attachment = Media::Attachment.new
-      @files = General::File.all
+      @files = Media::File.all
       @post.build_main_image
       @post.build_file_video
       @post.terms.build
@@ -34,7 +34,7 @@ module Admin
     end
 
     def edit
-      @files = General::File.all
+      @files = Media::File.all
       @gallery = Media::Gallery.new
     end
 
