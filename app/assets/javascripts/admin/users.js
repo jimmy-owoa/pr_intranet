@@ -60,4 +60,17 @@ $(document).on("turbolinks:load", function() {
     placeholder: "Seleccionar Perfil",
     width: "100%"
   });
+
+
+  // Select 2 para seleccionar usuario en Formulario de nacimientos.
+  $("#user_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Usuario",
+    width: "100%",
+    allowClear: true
+  });
+
+  // Validación de select de usuario. Debe ser requerido.
+  let select_user_id = document.getElementById("user_id");
+  select_user_id ? select_user_id.required = true : '';
 });

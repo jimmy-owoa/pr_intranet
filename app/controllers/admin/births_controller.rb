@@ -3,7 +3,7 @@ module Admin
     before_action :set_birth, only: [:show, :destroy, :edit, :update]
 
     def index
-      add_breadcrumb "Nacimientos", :admin_births_path
+      
       if params[:approved] == "true" || params[:approved] == "false"
         aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
         @births = Employee::Birth.order(created_at: :desc).approved_filter(aprov).paginate(:page => params[:page], :per_page => 10)
@@ -17,22 +17,21 @@ module Admin
     end
 
     def show
-      add_breadcrumb "Nacimientos", :admin_births_path
     end
 
     def new
-      add_breadcrumb "Nacimientos", :admin_births_path
       @birth = Employee::Birth.new
+      @users = General::User.all.map { |u| [u.full_name, u.id] }
     end
     
     def edit
       @user = General::User.find(@birth.user_id) || nil
-      add_breadcrumb "Nacimientos", :admin_births_path
     end
 
     def create
       params[:birth][:gender] = params[:birth][:gender].to_i
       @birth = Employee::Birth.new(birth_params)
+      @birth.user_id = params[:user_id]
       respond_to do |format|
         if @birth.save
           format.html { redirect_to admin_birth_path(@birth), notice: "Nacimiento fue creado con éxito." }

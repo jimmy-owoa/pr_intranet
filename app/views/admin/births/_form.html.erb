@@ -16,7 +16,9 @@
           <%= f.label "Padre/Madre" %> <br>
           <%= @user.full_name %>
         <% else %>
-          <%= f.input :user_id %>
+          <% selected_value = nil %>
+          <%= f.label :user, "Usuario", class: 'form-control-label string required' %><br>
+          <%= select_tag :user_id, options_for_select(@users.sort, selected_value), include_blank: true, multiple: false %><br/>
         <% end %>
       </div>
       <div class="col-md-4 col-sm-4">
@@ -24,7 +26,7 @@
           <% if @birth.try(:birthday).present? %>
             <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @birth.try(:birthday).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#birthday'%>
           <% else %>
-            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', placeholder: "Día de nacimiento", label: false %>
+            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', placeholder: "Día de nacimiento", label: false, required: true %>
           <% end %>
           <div class="input-group-append" data-target="#birthday" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
