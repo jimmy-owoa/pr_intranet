@@ -30,13 +30,13 @@
           <b>Estilo: <%= format_post(@post.format) %></b><br>
           <% if @post.profile.present? %>
             <b>Perfilamiento para: <%= @post.profile.name %></b><br>
-          <% end %>    
+          <% end %>
         </div>
       </div>
     </div>
     <br />
     <div class="row">
-      <div class="col-sm-12">    
+      <div class="col-sm-12">
         <% if @post.post_type == "Video" %>
           <div class="card post_card">
             <%= video_tag(url_for(@post.file_video.attachment), controls: "", width: "700px") if @post.file_video.present? %>
@@ -69,19 +69,21 @@
               </p>
               <br />
               <% @gallery.attachments.each do |image| %>
-                <div class="col-md-6">
-                  <figure>
-                    <%= image_tag(image.attachment.attachment.variant(resize: '300x255>'), class: 'img-thumbnail post_attachment') %>
+                <% if image.attachment.attached? %>
+                  <div class="col-md-6">
                     <figure>
-                      <figcaption>
-                        <%= image.name %>
-                      </figcaption>
-                    </div>
-                  <% end %>
+                      <%= image_tag(image.attachment.attachment.variant(resize: '300x255>'), class: 'img-thumbnail post_attachment') %>
+                    </figure>
+                    <figcaption>
+                      <%= image.name %>
+                    </figcaption>
+                  </div>
                 <% end %>
-              </div>
-            </div>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
