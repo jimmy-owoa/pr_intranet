@@ -19,11 +19,13 @@ class Media::Attachment < ApplicationRecord
   end
 
   def thumb
-    begin
-      return self.attachment.variant(resize: "120x120>").processed
-    rescue
-      if self.attachment.content_type == "text/plain"
-        return nil
+    if self.attachment.attached?
+      begin
+        return self.attachment.variant(resize: "120x120>").processed
+      rescue
+        if self.attachment.content_type == "text/plain"
+          return nil
+        end
       end
     end
   end
