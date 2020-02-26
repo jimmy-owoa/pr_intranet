@@ -81,7 +81,7 @@ module Frontend
             extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
             main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
-            post_type: post.post_type
+            post_type: post.post_type,
           }
         end
         content = fix_content(post.content)
@@ -125,14 +125,16 @@ module Frontend
       if post.gallery.present?
         attachments = General::Gallery.where(post_id: post.id).last.attachments
         attachments.each do |image| # Por ahora está mostrando sólo la primera galería
-          items << {
-            id: image.id,
-            src: url_for(image.attachment),
-            w: image.attachment.blob.metadata[:width],
-            h: image.attachment.blob.metadata[:height],
-            title: image.name,
-            placeolder: url_for(image.attachment.variant(resize: "80x>")),
-          }
+          if image.attachment.attached?
+            items << {
+              id: image.id,
+              src: url_for(image.attachment),
+              w: image.attachment.blob.metadata[:width],
+              h: image.attachment.blob.metadata[:height],
+              title: image.name,
+              placeolder: url_for(image.attachment.variant(resize: "80x>")),
+            }
+          end
         end
         gallery[:items] << items
       end
