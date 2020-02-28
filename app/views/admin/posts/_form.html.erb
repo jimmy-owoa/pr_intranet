@@ -72,47 +72,20 @@
       </div>
     </div>
     <!-- /Imagen Principal -->
-    <!-- Galería 
+    <!-- Galería -->
     <div id="post_input_gallery" class="card text-md-center pt-1" >
       <div class="form-group">
         <div class="col-md-12 col-sm-12">
           <h5 class="card-title">Galería</h5>
-          <% if @post.id.nil? %>
-            <%= image_tag((asset_url('post_news_mini.png')), id:'gallery_preview', :size => '180x120', :crop => :fill ) %>
-          <% else %>
-          <%= image_tag url_for(@post.gallery.attachments.first.thumb), id:'gallery_preview', :size => '180x120' %>
-          <% end %>
           <div class="card-body">
             <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
             <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
             <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
           </div>
-
-          <!-- <% if @post.id.nil? %>
-            <%= image_tag((asset_url('post_news_mini.png')), id:'gallery_preview', :size => '180x120', :crop => :fill ) %>
-            <div class="card-body">
-              <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
-              <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
-              <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
-            </div>
-          <% else %>
-            <% if @post.gallery.present? %>
-              <%= image_tag url_for(@post.gallery.attachments.first.thumb), id:'gallery_preview', :size => '180x120' %>
-              <div class="card-body">
-
-              </div>
-            <% else %>
-              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'gallery_preview', :size => '180x120', :crop => :fill) %>
-              <div class="card-body">
-                <%= link_to 'Biblioteca de Galerías', new_admin_gallery_path(), 'data-toggle' => 'modal', 'data-target' => '#gallery_post_modal',id: 'gallery_image_nil', remote: true, class: 'card-link'%><br/>
-              </div>
-            <% end %>    
-            <br />
-          <% end %> -->
         </div>
       </div>
     </div>
-     /Galería-->
+    <!--/Galería-->
     <!-- Video -->
     <div id="post_input_video" class="card text-md-center pt-1">
       <div class="form-group">
