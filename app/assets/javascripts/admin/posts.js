@@ -1,3 +1,9 @@
+document.addEventListener('turbolinks:before-cache', function () {
+  $('#gallery_id').select2('destroy');
+  $("#post_post_type").select2('destroy');
+  $("#post_status").select2('destroy');
+});
+
 $(document).on("turbolinks:load", function() {
   $("#terms_names").select2({
     tags: true,
