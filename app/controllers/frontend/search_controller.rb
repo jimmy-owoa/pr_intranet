@@ -24,7 +24,7 @@ module Frontend
               url_for(user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
           }
         end
-        result.with_hit.map { |a| a[0] if a[1]["_index"][0...10] == "news_posts" }.compact.each do |post|
+        result.with_hit.map { |a| a[0] if a[1]["_index"][0...10] == "news_posts" }.compact.sort_by{ |post| post[:published_at] }.reverse.each do |post|
           @image = post.main_image.present? ? url_for(post.main_image.path) : nil
           posts << {
             id: post.id,
