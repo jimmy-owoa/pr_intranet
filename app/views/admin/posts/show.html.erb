@@ -66,6 +66,7 @@
             <% if @gallery.present? %>
               <p class='col-md-12 text-center'>
                 <b>Nombre galería:</b>  <%= @gallery.name %>
+                <%= link_to 'Editar', edit_admin_gallery_path(@gallery.id) %>
               </p>
               <br />
               <% @gallery.attachments.each do |image| %>
