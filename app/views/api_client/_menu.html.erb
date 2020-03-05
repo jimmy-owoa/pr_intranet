@@ -1287,7 +1287,7 @@
                 <div id="gspl-santoral-name" class="modal-heading font-weight-bold white--text" title="<%= santoral.name%>"><%= santoral.name[0...10] %></div>   
                 <hr style="width: 52%; margin-left: 25%">
                 <div id="gspl-tomorrow-date" class="modal-subheading font-weight-bold white--text pt-2">Mañana, <%= l(today + 1.days, format: "%d de %B").downcase %></div>
-                <div id="gspl-santoral-next" class="modal-regular white--text" title="<%= santoral_next.name%>"><%= santoral_next.name[0...21] %></div>
+                <div id="gspl-santoral-next" class="modal-regular white--text" title="<%= santoral_next.try(:name)%>"><%= santoral_next.try(:name)[0...21] %></div>
               </div>
               <div class="flex sm8" style="padding: 45px 45px 0 45px; background-color: #f3f3f3;">
                 <div id="gspl-title" class="modal-subheading font-weight-bold primary--text" style="text-decoration: underline;">
@@ -1432,28 +1432,28 @@
               </a>
             </div>
             <div class="flex sm2 subheading top-info text-md-right">
-              <a onclick="gospelModal()" id="gspl-modal" href="#tff_gospel_modal" class="modal-hover" title="<%= santoral.name%>">
+              <!-- <a onclick="gospelModal()" id="gspl-modal" href="#tff_gospel_modal" class="modal-hover" title="<%= santoral.name%>">
                 <%= 'Santoral: ' + santoral.name[0...12] %>
-              </a>
+              </a> -->
             </div>
             <div class="flex sm2 top-info">
               <div href="#tff_weather_modal">
                 <div class="text-md-center subheading">
-                  <%= image_tag(asset_url("weather/#{weather.last.icon}.svg"), style: "height: 25px; cursor: pointer; padding-right: 4px; vertical-align: middle; padding-bottom: 4px")%>
-                  <%=link_to location_name  + " " + weather.last.current_temp.to_i.to_s + "°" , "#tff_weather_modal", class: "modal-hover" %>
+                  <!-- <%= image_tag(asset_url("weather/#{weather.last.icon}.svg"), style: "height: 25px; cursor: pointer; padding-right: 4px; vertical-align: middle; padding-bottom: 4px")%>
+                  <%=link_to location_name  + " " + weather.last.current_temp.to_i.to_s + "°" , "#tff_weather_modal", class: "modal-hover" %> -->
                 </div>
               </div>
             </div>
             <div class="flex sm2 subheading pointer text-md-center top-info">
-              <%= image_tag(asset_url("indicadores-economicos.svg"), style: "height: 16px;")%>
+              <!-- <%= image_tag(asset_url("indicadores-economicos.svg"), style: "height: 16px;")%>
               <a href="#tff_indicators_modal" class="modal-hover" data-target="#tff_indicators_modal">
                 Indicadores Económicos
-              </a>
+              </a> -->
             </div>
             <div class="flex sm2 subheading top-info text-md-center pl-1">
-              <a class="show-date">
+              <!-- <a class="show-date">
                 <%= beauty_date.downcase %>
-              </a>
+              </a> -->
             </div>
             <div class="flex sm3 text-md-right">
               <a href="/#/perfil" style="font-family: 'Titillium Web', sans-serif !important; font-size: 20px; text-decoration: none; color: #211651;">
