@@ -312,8 +312,8 @@ module ApplicationHelper
   def get_request_fix_content
     if request.referer == "http://localhost:8080/"
       "http://localhost:3000"
-    elsif request.referer == "https://miintranet.exaconsultores.cl/"
-      "https://miintranet.exaconsultores.cl"
+    elsif request.referer == "https://intranet.exaconsultores.cl/"
+      "https://intranet.exaconsultores.cl"
     elsif request.referer == "https://mi.security.cl/"
       "https://miapp.security.cl"
     end
