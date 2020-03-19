@@ -128,7 +128,7 @@ module Frontend
           if image.attachment.attached?
             items << {
               id: image.id,
-              src: url_for(image.attachment),
+              src: url_for(image.attachment.variant(resize: "900x>")),
               w: 900,
               h: 600,
               # w: image.attachment.blob.metadata[:width],
