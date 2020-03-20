@@ -6,7 +6,7 @@ module Frontend
       if date == "0"
         users = General::User.users_birthday_today.show_birthday
       else
-        users = General::User.where("extract(month from birthday) = ?", date).show_birthday
+        users = General::User.where("extract(month from birthday) = ?", date).order("DAY(birthday)").show_birthday
       end
       birthdays = users.order(:birthday).page(page).per(9)
       data = []
