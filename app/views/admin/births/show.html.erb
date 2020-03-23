@@ -18,13 +18,10 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
-          <%# <% if @birth.images.attachments.present?%>
-          <% if @birth.permitted_images.present? %>
-            <% @birth.permitted_images.each do |image| %>
-              <%= image_tag image.variant(resize: '250x200>'), class: 'image_attach'%>
+          <% if @birth.photo.attachment.present? %>
+            <% if @birth.permitted_image %>
+              <%= image_tag @birth.photo.attachment.variant(resize: '250x200>'), class: 'image_attach'%>
             <% end %>
-          <% else %>
-            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
           <% end %>
         </div>
       </div>

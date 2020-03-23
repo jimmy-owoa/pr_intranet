@@ -24,13 +24,19 @@ module Frontend
           color = "black"
         end
         images = []
-        birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
+
+        if birth.photo.attachment          
+          if birth.permitted_image
+            images << url_for(birth.photo.variant(resize: "500x500>"))
+          end
+        end
+        # birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
         data << {
           id: birth.id,
           name: birth.child_name,
           last_names: birth.child_lastname + " " + birth.child_lastname2,
           company: company_name,
-          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
+          photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
           images: images,
           gender: birth.gender,
           birthday: l(birth.birthday, format: "%d de %B").downcase,
@@ -52,11 +58,17 @@ module Frontend
       births = Employee::Birth.show_birth.order(birthday: :asc).last(4)
       births.each do |birth|
         images = []
-        birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
+
+      if birth.photo.attachment
+        if birth.permitted_image
+          images << url_for(birth.photo.variant(resize: "500x500>"))
+        end        
+      end
+
         data << {
           id: birth.id,
           child_full_name: birth.child_name + " " + birth.child_lastname + " " + birth.child_lastname2,
-          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
+          photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
           images: images,
           gender: birth.gender ? "Masculino" : "Femenino",
           birthday: birth.birthday,
@@ -99,7 +111,7 @@ module Frontend
           decoded_image = Base64.decode64(base64_image)
           image_io = StringIO.new(decoded_image)
           @birth_image = { io: image_io, filename: child_name }
-          @birth.images.attach(@birth_image)
+          @birth.photo.attach(@birth_image)
         end
       end
       respond_to do |format|

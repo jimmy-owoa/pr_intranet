@@ -30,7 +30,7 @@
           <tbody>
             <% @births.each do |birth| %>
               <tr>
-                <td data-toggle="modal" data-target="#modalShowBirth_<%= birth.id %>"><%= image_tag birth.thumb(birth.images.first), :class=> 'img-thumbnail' unless birth.images.first.nil? %></td>
+                <td data-toggle="modal" data-target="#modalShowBirth_<%= birth.id %>"><%= image_tag birth.thumb(birth.photo), :class=> 'img-thumbnail' unless birth.photo.attachment.nil? %></td>
                 <td><%= get_gender_icon(birth) %></td>
                 <td><%= birth.child_fullname %></td>
                 <td><%= custom_date_no_hour(birth.birthday) %></td>
@@ -74,42 +74,38 @@
           </div>
           <div class="modal-body">
             <div class="container card">
-              <% if birth.unpermitted_images.present? %>
+              <% if !birth.permitted_image %>
                 <div class="row">
                   <div class="col-sm-12 pull-left">
-                    imágenes por aprobar
+                    imagen por aprobar
                   </div>
                 </div>
               </br>
               <div class="row text-center" >
-                <% birth.unpermitted_images.each do |image| %>
-                  <div class="col-md-4 attach_birth">
-                    <figure>
-                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                    </figure>
-                    <figcaption>
-                      <%= check_box_tag 'attachment', nil, image.permission?,
-                                                data: {
-                                                  id: birth.id,
-                                                  image: image.id
-                                                }, class: "approved_birth_attachment" %>
-                    </figcaption>
-                  </div>
-                <% end %>
+                <div class="col-md-4 attach_birth">
+                  <figure>
+                    <%= image_tag birth.photo.variant(resize: '150x100>'), class: 'image_attach' %>
+                  </figure>
+                  <figcaption>
+                    <%= check_box_tag 'attachment', nil, birth.photo.permission?,
+                                              data: {
+                                                id: birth.id,
+                                                image: birth.photo.id
+                                              }, class: "approved_birth_attachment" %>
+                  </figcaption>
+                </div>
               </div>
             <% end %>
           </div>
           <div class="container card">
-            <% if birth.permitted_images.present? %>
+            <% if birth.permitted_image %>
               <p>Imágenes Aprobadas</p>
               <div class="row text-center" >
-                <% birth.permitted_images.each do |image| %>
-                  <div class="col-md-4">
-                    <figure>
-                      <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
-                    </figure>
-                  </div>
-                <% end %>
+                <div class="col-md-4">
+                  <figure>
+                    <%= image_tag birth.photo.variant(resize: '150x100>'), class: 'image_attach' %>
+                  </figure>
+                </div>
               </div>
             <% end %>
           </div>

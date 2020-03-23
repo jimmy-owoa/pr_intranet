@@ -32,8 +32,12 @@ module Admin
       params[:birth][:gender] = params[:birth][:gender].to_i
       @birth = Employee::Birth.new(birth_params)
       @birth.user_id = params[:user_id]
+
       respond_to do |format|
         if @birth.save
+          if @birth.approved 
+            @birth.photo.attachment.update(permission: 1)
+          end
           format.html { redirect_to admin_birth_path(@birth), notice: "Nacimiento fue creado con éxito." }
           format.json { render :show, status: :created, location: @birth }
         else
@@ -103,7 +107,7 @@ module Admin
 
     def birth_params
       params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :is_public, :child_lastname,
-                                    :child_lastname2, :birthday, :approved, :gender, :user_id, images: [])
+                                    :child_lastname2, :birthday, :approved, :gender, :user_id, :photo)
     end
   end
 end
