@@ -16,7 +16,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if request.env.present? && request.env["omniauth.origin"].present?
       user_jwt = JsonWebToken.encode(user_id: current_user.id) if current_user
-      request.env["omniauth.origin"] + "?t=#{user_jwt}" + "&r=#{current_user.referrer}" # Agregar referrer guardado en session[:referrer]
+      # Crear token con user_id solamente
+      payload = { user_id: current_user.id, exp: 24.hours.from_now.to_i }
+      cod = JWT.encode(payload, Rails.application.credentials.secret_key_base)
+      request.env["omniauth.origin"] + "?t=#{user_jwt}" + "&cod=#{cod}" + "&r=#{current_user.referrer}" # Agregar referrer guardado en session[:referrer]
     else
       admin_root_path
     end
