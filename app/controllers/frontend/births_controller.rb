@@ -36,7 +36,7 @@ module Frontend
           name: birth.child_name,
           last_names: birth.child_lastname + " " + birth.child_lastname2,
           company: company_name,
-          photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
+          photo: birth.photo.attachment ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
           images: images,
           gender: birth.gender,
           birthday: l(birth.birthday, format: "%d de %B").downcase,
