@@ -1,7 +1,7 @@
 require "resolv-replace"
 
 class Frontend::FrontendController < ApplicationController
-  before_action :get_user, except: [:azure_auth, :current_user_azure]
+  before_action :get_user, except: [:azure_auth, :current_user_azure, :referrer_update]
   include JsonWebToken
   include Frontend::FrontendHelper
 
