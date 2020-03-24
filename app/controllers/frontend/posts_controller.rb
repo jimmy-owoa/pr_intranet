@@ -90,7 +90,7 @@ module Frontend
           title: post.title,
           url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
           user_id: post.user_id,
-          published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
+          published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d-%m-%Y"),
           content: content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
           main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
@@ -194,6 +194,7 @@ module Frontend
           }
         end
         content = fix_content(post.content)
+
         data << {
           id: post.id,
           title: post.title,
