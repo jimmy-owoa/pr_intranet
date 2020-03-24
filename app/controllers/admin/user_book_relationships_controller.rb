@@ -16,13 +16,12 @@ module Admin
         format.html { redirect_to admin_user_book_relationships_path, notice: "Solicitud fue eliminada con éxito." }
         format.json { head :no_content }
       end
-		end
+    end
 
     private
 
     def set_user_book
-			@user_book = General::UserBookRelationship.find(params[:id])
-		end
-
+      @user_book = General::UserBookRelationship.find(params[:id])
+    end
   end
 end
