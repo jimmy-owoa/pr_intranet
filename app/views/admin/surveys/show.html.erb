@@ -7,7 +7,7 @@
         <%= link_to 'Ver en intranet', "#{get_frontend_url}/encuestas/#{@survey.slug}", target: '_blank', class: 'btn btn-sm btn-success' %>
       </div>
       <div class='col-md-12 text-center pt-4'>
-        <%= text_field_tag '', "#{environment}/#/encuestas/#{@survey.slug}", readonly: true, size: '50', onclick: 'this.select();'%>
+        <%= text_field_tag '', "#{get_frontend_url}/encuestas/#{@survey.slug}", readonly: true, size: '50', onclick: 'this.select();'%>
       </div>
       <div class='col-md-12 text-center'><br />
         <%= link_to t('.edit', :default => t('helpers.links.edit')),edit_admin_survey_path(@survey), :class => 'btn btn-primary btn-sm' %>
