@@ -24,7 +24,7 @@ module Frontend
           color = "black"
         end
         images = []
-
+        # CORREGIR TODO NACIMIENTOS.
         if birth.photo.attachment          
           if birth.permitted_image
             images << url_for(birth.photo.variant(resize: "500x500>"))
