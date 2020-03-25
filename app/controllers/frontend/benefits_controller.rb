@@ -83,9 +83,10 @@ module Frontend
     private
 
     def formatted_content(benefit, benefit_group_relationship)
+      val = benefit_group_relationship.amount.present? ? number_to_currency(benefit_group_relationship.amount, unit: "", delimiter: ".", precision: 0) : ""
       replace_variables = {
         "TIPO": currency_type_format(benefit_group_relationship.currency),
-        "VALOR": number_to_currency(benefit_group_relationship.amount, unit: "", delimiter: ".", precision: 0),
+        "VALOR": val,
       }
       content = benefit.content
       if (content.present? && content.include?("*|TIPO|*") && content.include?("*|VALOR|*"))
