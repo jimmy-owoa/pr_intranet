@@ -3,7 +3,7 @@ module Frontend
     include ApplicationHelper
 
     def index
-      user_posts = News::Post.filter_posts(@request_user)
+      user_posts = News::Post.filter_posts(@request_user).normal_posts
       posts = params[:category].present? ? user_posts.where(post_type: params[:category]) : user_posts
       posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
@@ -147,7 +147,8 @@ module Frontend
     end
 
     def important_posts
-      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.normal_posts.filter_posts(@request_user, true).first(5)
+      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.filter_posts(@request_user, true).normal_posts.first(5)
+
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
