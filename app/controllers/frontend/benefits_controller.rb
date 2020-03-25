@@ -50,7 +50,7 @@ module Frontend
             benefit_parents << parent
           end
         end
-        @image = @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + ActionController::Base.helpers.asset_url("news.jpg")
+        @image = benefit.image.attached? ? url_for(benefit.image.attachment) : root_url + ActionController::Base.helpers.asset_url("benefit.jpg")
         data << {
           id: benefit.id,
           title: benefit.title,
