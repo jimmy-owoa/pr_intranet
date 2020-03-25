@@ -28,7 +28,7 @@ class News::Post < ApplicationRecord
 
   before_save :unique_slug, :manage_time
 
-  scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5) }
+  scope :important, -> { where(important: true).where.not(published_at: nil).where.not(post_type: "Video").order(published_at: :desc).first(5) }
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
