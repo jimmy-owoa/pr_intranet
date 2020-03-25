@@ -20,7 +20,7 @@ module Frontend
                 id: benefit.id,
                 name: benefit.title,
                 content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url("benefit.jpg"),
                 url: "admin/benefits/" + "#{benefit.id}" + "/edit",
                 link: benefit.url,
               }
@@ -89,9 +89,10 @@ module Frontend
     private
 
     def formatted_content(benefit, benefit_group_relationship)
+      key = benefit_group_relationship.currency.present? ? currency_type_format(benefit_group_relationship.currency) : ""
       val = benefit_group_relationship.amount.present? ? number_to_currency(benefit_group_relationship.amount, unit: "", delimiter: ".", precision: 0) : ""
       replace_variables = {
-        "TIPO": currency_type_format(benefit_group_relationship.currency),
+        "TIPO": key,
         "VALOR": val,
       }
       content = benefit.content

@@ -3,7 +3,7 @@ module Frontend
     def index
       data_surveys = []
       surveys_all = []
-      surveys = Survey::Survey.includes(questions: :options).where(profile_id: @request_user.profile_id)
+      surveys = Survey::Survey.includes(questions: :options).where(profile_id: @request_user.profile_ids)
       surveys.each do |survey|
         data_questions = []
         survey.questions.each do |question|
