@@ -52,7 +52,7 @@ module Frontend
       if @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
         respond_to do |format|
           format.html
-          format.json { render json: Survey::Survey.all }
+          format.json { render json: Survey::Survey.published_surveys }
           format.js
         end
         return
