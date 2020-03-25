@@ -44,7 +44,13 @@ module Frontend
         benefit_index = benefit_ids.index(benefit.id)
         types = General::BenefitType.where(id: @request_user.benefit_group.benefits.pluck(:benefit_type_id))
         parents = General::Benefit.where(benefit_type_id: benefit.benefit_type_id)
-        @image = @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + ActionController::Base.helpers.asset_url("news.jpg")
+        benefit_parents = []
+        parents.each do |parent|
+          if benefit_group.benefits.include?(parent)
+            benefit_parents << parent
+          end
+        end
+        @image = benefit.image.attached? ? url_for(benefit.image.attachment) : root_url + ActionController::Base.helpers.asset_url("benefit.jpg")
         data << {
           id: benefit.id,
           title: benefit.title,
@@ -52,7 +58,7 @@ module Frontend
           content: formatted_content(benefit, benefit.benefit_group_relationships.first),
           image: @image,
           types: types,
-          parents: parents,
+          parents: benefit_parents,
           link: benefit.url,
           benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : "",
           prev_id: benefit_ids[benefit_index - 1].present? ? benefit_ids[benefit_index - 1] : benefit_ids.first,
@@ -83,9 +89,10 @@ module Frontend
     private
 
     def formatted_content(benefit, benefit_group_relationship)
+      val = benefit_group_relationship.amount.present? ? number_to_currency(benefit_group_relationship.amount, unit: "", delimiter: ".", precision: 0) : ""
       replace_variables = {
         "TIPO": currency_type_format(benefit_group_relationship.currency),
-        "VALOR": number_to_currency(benefit_group_relationship.amount, unit: "", delimiter: ".", precision: 0),
+        "VALOR": val,
       }
       content = benefit.content
       if (content.present? && content.include?("*|TIPO|*") && content.include?("*|VALOR|*"))
