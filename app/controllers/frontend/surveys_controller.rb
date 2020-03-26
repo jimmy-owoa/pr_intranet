@@ -161,6 +161,7 @@ module Frontend
             questions: data_questions,
             survey_type: survey.survey_type,
             slug: survey.slug,
+            status: survey.status,
           }
         else
           data_survey = ["Encuesta ya fué respondida por el usuario"]
