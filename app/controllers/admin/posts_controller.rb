@@ -15,7 +15,7 @@ module Admin
     end
 
     def show
-      @gallery = General::Gallery.where(post_id: @post.id).last
+      @gallery = @post.gallery
     end
 
     def deleted
@@ -36,6 +36,7 @@ module Admin
     def edit
       @files = General::File.all
       @gallery = General::Gallery.new
+      # @gallery = General::Gallery.where(post_id: @post.id).last.id
     end
 
     def create
@@ -110,6 +111,7 @@ module Admin
     def set_gallery
       @gallery = General::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
       @post.gallery = @gallery
+      @post.reload.gallery
       @post.save
     end
 

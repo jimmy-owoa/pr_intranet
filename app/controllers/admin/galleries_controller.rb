@@ -48,6 +48,7 @@ module Admin
       images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
       respond_to do |format|
         if @gallery.save
+          update_gallery
           if images.present?
             images.each do |image|
               @gallery.attachments << General::Attachment.find(image)
@@ -89,6 +90,7 @@ module Admin
       images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
       respond_to do |format|
         if @gallery.update(gallery_params)
+          update_gallery
           if images.present?
             images.each do |image|
               @gallery.attachments << General::Attachment.find(image)
@@ -108,6 +110,14 @@ module Admin
       respond_to do |format|
         format.html { redirect_to admin_galleries_path, notice: "Galería fue eliminada con éxito." }
         format.json { head :no_content }
+      end
+    end
+
+    def update_gallery
+      if gallery_params[:post_id].present?
+        @post = News::Post.find params[:gallery][:post_id]
+        @post.gallery = @gallery
+        @post.reload.gallery
       end
     end
 
