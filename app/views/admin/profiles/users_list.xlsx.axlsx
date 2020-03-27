@@ -2,6 +2,8 @@ wb = xlsx_package.workbook
 wb.add_worksheet(name: "Lista de usuarios") do |sheet|
   sheet.add_row ['Nombre', 'Rut', 'email']
   General::UserProfile.where(profile_id: @profile.id).each do |profile|
-    sheet.add_row [profile.user.full_name, "#{profile.user.legal_number}-#{profile.user.legal_number_verification}", profile.user.email]
+    if profile.user.present? 
+      sheet.add_row [profile.user.full_name, "#{profile.user.legal_number}-#{profile.user.legal_number_verification}", profile.user.email]
+    end
   end
 end
