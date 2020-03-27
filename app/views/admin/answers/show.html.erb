@@ -9,6 +9,7 @@
     }
   }
 } %>
+
 <div class="container">
   <div class="row title_form">
     <div class="col-sm-12">
@@ -20,7 +21,8 @@
         </div>
         <div class="card-body">
           <% @total = survey_data.map{|a| a[:total_count]}.inject(:+) %>
-          <h4>Total de respuestas: <%= @total %> </h4>
+          <% @total_2 = survey_data.first[:total_count] %>
+          <h4>Total de respuestas: <%= @total_2 %> </h4>
           <div class="card-text">
             <div class="table-responsive">
               <table class="table">

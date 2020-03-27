@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag    'application', media: 'all'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <% if current_user.has_role? :super_admin or current_user.has_role? :admin %>
   <body>
     <div class="modal" id="gallery_modal"></div>
     <div class="modal" id="main_image_modal"></div>
@@ -202,6 +203,11 @@
 <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
 <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
 </body>
+
+<% else %>
+  <body>
+  </body>
+<% end %>
 </html>
 
 <style>

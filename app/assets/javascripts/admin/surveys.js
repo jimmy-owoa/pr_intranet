@@ -15,6 +15,7 @@ $(document).on("turbolinks:load", function () {
       }
     } else if (selectedVal == "Simple") {
       message_selection.html("Seleccion Simple: Radio Button para elegir solamente una opción.");
+      $(element).parent().parent().parent().siblings().removeClass("hidden");
        if($(element).parent().parent().parent().siblings(".nested-fields").length == 0){
         $(element).parent().parent().parent().siblings().last().children("a").click();
       }
@@ -29,6 +30,7 @@ $(document).on("turbolinks:load", function () {
       $(element).parent().parent().parent().siblings().addClass("hidden");
     } else if (selectedVal == "Selección") {
       message_selection.html("Un campo de selección con multiples opciones.");
+      $(element).parent().parent().parent().siblings().removeClass("hidden");
        if($(element).parent().parent().parent().siblings(".nested-fields").length == 0){
         $(element).parent().parent().parent().siblings().last().children("a").click();
       }
