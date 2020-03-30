@@ -2,6 +2,7 @@ require "uri"
 require "net/http"
 
 class General::User < ApplicationRecord
+  acts_as_paranoid
   acts_as_nested_set
   rolify
   searchkick
