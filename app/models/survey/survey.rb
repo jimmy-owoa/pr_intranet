@@ -1,4 +1,5 @@
 class Survey::Survey < ApplicationRecord
+  acts_as_paranoid
   searchkick match: :word, searchable: [:name]
 
   has_many :questions, dependent: :destroy
