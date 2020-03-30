@@ -24,7 +24,8 @@
       <div class="col-md-4 col-sm-4">
         <div class="input-group date" id="birthday" data-target-input="nearest">
           <% if @birth.try(:birthday).present? %>
-            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @birth.try(:birthday).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#birthday'%>
+            <label style="position: absolute; top: 9px;">Día de nacimiento</label>
+            <%= f.text_field :birthday, label: 'Hola', class: 'form-control datetimepicker-input', value: @birth.try(:birthday).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#birthday'%>
           <% else %>
             <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', placeholder: "Día de nacimiento", label: false, required: true %>
           <% end %>
@@ -145,3 +146,4 @@
   <% end %>
   </div>
 </div>
+
