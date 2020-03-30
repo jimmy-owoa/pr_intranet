@@ -172,7 +172,7 @@ module Frontend
     def create
       set_params
       @product = Marketplace::Product.new(name: @name, email: @email, price: @price, phone: @phone,
-                                          description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30)
+                                          description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30, currency: @currency)
       set_images
       respond_to do |format|
         if @product.save
@@ -208,6 +208,7 @@ module Frontend
       @user_id = @request_user.id
       @images = params[:images]
       @product_type = params[:product_type]
+      @currency = params[:currency]
     end
 
     def set_images(purge = nil)

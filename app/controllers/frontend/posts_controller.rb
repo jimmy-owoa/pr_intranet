@@ -215,6 +215,7 @@ module Frontend
             { link: "#", name: post.title.truncate(30) },
           ],
           relationed_posts: data_relationed_posts,
+          status: post.status,
         }
         respond_to do |format|
           format.json { render json: data[0] }
@@ -222,7 +223,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: "No tiene acceso" }
+          format.json { render json: { status: "No tiene acceso"} }
           format.js
         end
       end
