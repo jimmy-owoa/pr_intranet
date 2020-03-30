@@ -223,7 +223,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: "No tiene acceso" }
+          format.json { render json: { status: "No tiene acceso"} }
           format.js
         end
       end
