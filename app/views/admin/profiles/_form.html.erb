@@ -56,22 +56,22 @@
     <div class="col-12 text-center">
       <h3>Filtros Avanzados</h3>
     </div>
-    <%# <div class="col-4"> %>
-      <%# <%= f.label 'Miembro Sindicato' %>
-      <%# <%= select_tag :syndicate_members, options_for_select(@syndicate_members, @selected_syndicate_members), multiple: true, class:' form-control string'%>
-    <%# </div> %>
-    <%# <div class="col-4"> %>
-      <%# <%= f.label 'Tipo de contrato' %>
-      <%# <%= select_tag :contract_types, options_for_select(@contract_types, @selected_contract_types), multiple: true, class:' form-control string'%>
-    <%# </div> %>
+    <div class="col-4">
+      <%= f.label 'Miembro Sindicato' %>
+      <%= select_tag :syndicate_members, options_for_select(@syndicate_members, @selected_syndicate_members), multiple: true, class:' form-control string'%>
+    </div>
+    <div class="col-4">
+      <%= f.label 'Tipo de contrato' %>
+      <%= select_tag :contract_types, options_for_select(@contract_types, @selected_contract_types), multiple: true, class:' form-control string'%>
+    </div>
     <%# <div class="col-4"> %>
       <%# <%= f.label 'Rol' %>
       <%# <%= select_tag :roles, options_for_select(@roles, @selected_roles), multiple: true, class:' form-control string'%>
     <%# </div> %>
-    <%# <div class="col-4"> %>
-      <%# <%= f.label 'Horario' %>
-      <%# <%= select_tag :schedules, options_for_select(@schedules, @selected_schedules), multiple: true, class:' form-control string'%>
-    <%# </div> %>
+    <div class="col-4">
+      <%= f.label 'Horario' %>
+      <%= select_tag :schedules, options_for_select(@schedules, @selected_schedules), multiple: true, class:' form-control string'%>
+    </div>
     <div class="col-4">
       <%= f.label 'Tiene hijos' %>
       <%= select_tag :has_children, options_for_select(@has_children, @selected_has_children), multiple: true, class:' form-control string' %>
