@@ -4,13 +4,12 @@ class Survey::Survey < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :survey_term_relationships, -> { where(object_type: "Survey::Survey") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :survey
-  has_many :terms, through: :survey_term_relationships
+  has_many :answered_times
   has_one_attached :image
 
   belongs_to :profile, class_name: "General::Profile", optional: true, inverse_of: :surveys
 
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: proc { |att| att["title"].blank? }
-  accepts_nested_attributes_for :terms
 
   validates :name, presence: :true
   validates :allowed_answers, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: "debe ser mayor o igual a 0" }
