@@ -81,30 +81,44 @@
           <% end %>
         </ul>
       </div>
-      <div class="col-12">
-        Miembro de sindicato:
-        <ul>
-          <% @syndicate_members.each do |sm| %>
-            <li><%= sm %></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="col-12">
-        Tipo de contrato:
-        <ul>
-          <% @contract_types.each do |ct| %>
-            <li><%= ct %></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="col-12">
-        Horario:
-        <ul>
-          <% @schedules.each do |s| %>
-            <li><%= s %></li>
-          <% end %>
-        </ul>
-      </div>
+      
+      <%# Bloque comentado %>
+      <% if false %>
+        <div class="col-12">
+          Roles
+          <ul>
+            <% @syndicate_members.each do |sm| %>
+              <li><%= sm %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-12">
+          Tipo de contrato:
+          <ul>
+            <% @contract_types.each do |ct| %>
+              <li><%= ct %></li>
+            <% end %>
+          </ul>
+        </div>
+      
+        <div class="col-12">
+          Miembro de sindicato:
+          <ul>
+            <% @roles.each do |rol| %>
+              <li><%= rol %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-12">
+          Horario:
+          <ul>
+            <% @schedules.each do |s| %>
+              <li><%= s %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%# Fin Bloque comentado %>
       <div class="col-12">
         Tiene hijo:
         <ul>
