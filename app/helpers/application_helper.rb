@@ -317,5 +317,13 @@ module ApplicationHelper
     elsif request.referer == "https://mi.security.cl/"
       "https://miapp.security.cl"
     end
-  end  
+  end
+
+  def get_full_favorite_name(user)
+    if user.favorite_name.present?
+      user.favorite_name + " " + user.last_name
+    else
+      user.full_name
+    end
+  end
 end

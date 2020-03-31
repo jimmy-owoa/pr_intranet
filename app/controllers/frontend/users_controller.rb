@@ -1,6 +1,7 @@
 module Frontend
   class UsersController < FrontendController
     include Rails.application.routes.url_helpers
+    include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: :upload
 
     def nickname(name)
@@ -61,7 +62,7 @@ module Frontend
         name: @user.name,
         nickname: @nickname,
         last_name: @user.last_name,
-        full_name: @user.full_name,
+        full_name: get_full_favorite_name(@user),
         email: @user.email,
         annexed: @user.annexed,
         position: @user.position,
@@ -212,7 +213,7 @@ module Frontend
         id: user.id,
         name: user.name,
         last_name: user.last_name,
-        full_name: user.full_name.titleize,
+        full_name: get_full_favorite_name(user).titleize,
         full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
         nickname: @nickname,
         role: user.roles.pluck(:name),

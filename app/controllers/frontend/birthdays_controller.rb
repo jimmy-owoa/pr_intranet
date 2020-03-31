@@ -1,5 +1,7 @@
 module Frontend
   class BirthdaysController < FrontendController
+    include ApplicationHelper
+
     def index
       page = params[:page]
       date = params[:date]
@@ -15,7 +17,7 @@ module Frontend
           id: user.id,
           name: user.name,
           last_name: user.last_name,
-          full_name: user.full_name,
+          full_name: get_full_favorite_name(user),
           email: user.email,
           annexed: user.annexed,
           company: user.company.present? ? user.company.name.titleize : "",
@@ -39,7 +41,7 @@ module Frontend
           id: user.id,
           name: user.favorite_name.present? ? user.favorite_name : user.name,
           last_name: user.last_name,
-          full_name: user.full_name,
+          full_name: get_full_favorite_name(user),
           email: user.email,
           active: user.active,
           annexed: user.annexed,
@@ -66,7 +68,7 @@ module Frontend
           id: user.id,
           name: user.name,
           last_name: user.last_name,
-          full_name: user.full_name,
+          full_name: get_full_favorite_name(user),
           email: user.email,
           active: user.active,
           annexed: user.annexed,
