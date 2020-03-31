@@ -24,23 +24,25 @@ module Frontend
               url_for(user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
           }
         end
-        result.with_hit.map { |a| a[0] if a[1]["_index"][0...10] == "news_posts" }.compact.sort_by{ |post| post[:published_at] }.reverse.each do |post|
+        result.with_hit.map { |a| a[0] if a[1]["_index"][0...10] == "news_posts" }.compact.sort_by { |post| post[:published_at] }.reverse.each do |post|
           @image = post.main_image.present? ? url_for(post.main_image.path) : nil
-          posts << {
-            id: post.id,
-            status: post.status,
-            title: post.title,
-            slug: post.slug,
-            content: post.content,
-            published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : "",
-            terms: post.term_id,
-            parent: post.post_parent_id,
-            visibility: post.visibility,
-            post_class: post.post_class,
-            post_order: post.post_order,
-            user: post.user_id,
-            main_image: @image,
-          }
+          if post.status != "Borrador"
+            posts << {
+              id: post.id,
+              status: post.status,
+              title: post.title,
+              slug: post.slug,
+              content: post.content,
+              published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : "",
+              terms: post.term_id,
+              parent: post.post_parent_id,
+              visibility: post.visibility,
+              post_class: post.post_class,
+              post_order: post.post_order,
+              user: post.user_id,
+              main_image: @image,
+            }
+          end
         end
         menus_result = result.with_hit.map { |a| a[0] if a[1]["_index"][0...13] == "general_menus" }.compact
         menus_result.each do |menu|
