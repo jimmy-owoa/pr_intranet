@@ -101,7 +101,7 @@ module Admin
       set_class_name_value(params[:office_countries], "office_country")
       set_class_name_value(params[:office_cities], "office_city")
       set_class_name_value(params[:office_regions], "office_region")
-      set_class_name_value(params[:has_childrens], "has_children")
+      # set_class_name_value(params[:has_childrens], "has_children")
     end
 
     def get_data
@@ -156,6 +156,10 @@ module Admin
         #Create
         values.each do |value|
           General::ProfileAttribute.where(class_name: class_name, value: value, profile_id: @profile.id).first_or_create
+        end
+      else
+        General::ProfileAttribute.where(class_name: class_name, profile_id: @profile.id).each do |del|
+          del.delete
         end
       end
     end
