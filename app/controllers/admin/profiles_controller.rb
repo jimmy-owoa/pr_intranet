@@ -9,12 +9,12 @@ module Admin
     def show
       @regions = Location::Region.find(General::ProfileAttribute.where(profile: @profile, class_name: "location_region").pluck(:value))
       @companies = Company::Company.find(General::ProfileAttribute.where(profile: @profile, class_name: "company").pluck(:value))
-      @benefit_groups = General::BenefitGroup.find(General::ProfileAttribute.where(profile: @profile, class_name: "general_benefit_group").pluck(:value))
-      @managements = Company::Management.find(General::ProfileAttribute.where(profile: @profile, class_name: "company_management").pluck(:value))
+      @benefit_groups = General::BenefitGroup.find(General::ProfileAttribute.where(profile: @profile, class_name: "benefit_group").pluck(:value))
+      @managements = Company::Management.find(General::ProfileAttribute.where(profile: @profile, class_name: "management").pluck(:value))
       @genders = General::ProfileAttribute.where(profile: @profile, class_name: "gender").pluck(:value)
       @is_boss = General::ProfileAttribute.where(profile: @profile, class_name: "is_boss").pluck(:value)
       @employee_classifications = General::ProfileAttribute.where(profile: @profile, class_name: "employee_classification").pluck(:value)
-      @cost_centers = Company::CostCenter.find(General::ProfileAttribute.where(profile: @profile, class_name: "company_cost_center").pluck(:value))
+      @cost_centers = Company::CostCenter.find(General::ProfileAttribute.where(profile: @profile, class_name: "cost_center").pluck(:value))
       @position_classifications = General::ProfileAttribute.where(profile: @profile, class_name: "position_classification").pluck(:value)
       @syndicate_members = General::ProfileAttribute.where(profile: @profile, class_name: "syndicate_member").pluck(:value)
       @contract_types = General::ProfileAttribute.where(profile: @profile, class_name: "contract_type").pluck(:value)
@@ -101,7 +101,7 @@ module Admin
       set_class_name_value(params[:office_countries], "office_country")
       set_class_name_value(params[:office_cities], "office_city")
       set_class_name_value(params[:office_regions], "office_region")
-      set_class_name_value(params[:has_childrens], "has_children")
+      # set_class_name_value(params[:has_childrens], "has_children")
     end
 
     def get_data
@@ -156,6 +156,10 @@ module Admin
         #Create
         values.each do |value|
           General::ProfileAttribute.where(class_name: class_name, value: value, profile_id: @profile.id).first_or_create
+        end
+      else
+        General::ProfileAttribute.where(class_name: class_name, profile_id: @profile.id).each do |del|
+          del.delete
         end
       end
     end
