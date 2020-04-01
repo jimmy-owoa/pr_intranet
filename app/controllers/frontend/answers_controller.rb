@@ -10,6 +10,7 @@ module Frontend
           option_id = options.find_by_title(answer[:option]).id
           answer = Survey::Answer.create(question_id: answer[:questionId], option_id: option_id, user_id: @request_user.id)
           survey = answer.question.survey
+          UserNotifierMailer.send_survey_answered(@request_user.email, survey.name).deliver
         else
           answer = Survey::Answer.create(question_id: answer[:questionId], answer_variable: answer[:option], user_id: @request_user.id)
           survey = answer.question.survey

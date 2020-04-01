@@ -54,6 +54,7 @@ module Admin
         if aprove_new_image == "true"
           @user.image.attach(@user.new_image.blob)
           @user.profile_image_to_exa
+          UserNotifierMailer.send_image_profile_changed(@user.email).deliver
         end
         @user.new_image.purge()
         redirect_to admin_users_images_approbation_path
