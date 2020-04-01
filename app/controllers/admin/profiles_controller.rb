@@ -22,8 +22,8 @@ module Admin
       @schedules = General::ProfileAttribute.where(profile: @profile, class_name: "schedule").pluck(:value)
       @has_children = General::ProfileAttribute.where(profile: @profile, class_name: "has_children").pluck(:value)
       @office_countries = General::ProfileAttribute.where(profile: @profile, class_name: "office_country").pluck(:value)
-      @office_cities = General::ProfileAttribute.where(profile: @profile, class_name: "office_city").pluck(:value)
-      @office_regions = General::ProfileAttribute.where(profile: @profile, class_name: "office_region").pluck(:value)
+      @office_cities = Location::City.find(General::ProfileAttribute.where(profile: @profile, class_name: "office_city").pluck(:value))
+      @office_regions = Location::Region.find(General::ProfileAttribute.where(profile: @profile, class_name: "office_region").pluck(:value))
     end
 
     def users_list
