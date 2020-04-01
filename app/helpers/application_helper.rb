@@ -326,4 +326,18 @@ module ApplicationHelper
       user.full_name
     end
   end
+
+  def get_phone(annexed)
+    if annexed[0] == '2' || annexed[0] == '3' || annexed[0] == '4'
+      '22584' + annexed
+    elsif annexed[0] == '5'
+      '22581' + annexed
+    elsif annexed[0] == '6'
+      '22901' + annexed
+    elsif annexed[0] == '7'
+      '224618' + annexed[1..annexed.length]
+    else
+      annexed
+    end
+  end
 end

@@ -65,6 +65,7 @@ module Frontend
         full_name: get_full_favorite_name(@user),
         email: @user.email,
         annexed: @user.annexed,
+        phone: get_phone(@user.annexed),
         position: @user.position,
         company: @user.company.present? ? @user.company.name : "Empresa no disponible",
         birthday: @user.birthday.present? && @user.show_birthday ? @user.birthday.strftime("%d/%m") : "Información oculta",
@@ -229,6 +230,7 @@ module Frontend
         excluding_tags: user.terms.excluding_tags.map { |a| a.name },
         email: user.email,
         annexed: user.annexed,
+        phone: get_phone(user.annexed),
         breadcrumbs: [
           { link: "/", name: "Inicio" },
           { link: "#", name: "Mi perfil" },
