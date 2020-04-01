@@ -70,7 +70,7 @@ module Frontend
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-      if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
+      if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
         relationed_posts = post.get_moments_relationed_posts(@request_user)
         data_relationed_posts = []
         relationed_posts.each do |post|
@@ -103,6 +103,7 @@ module Frontend
           ],
           file_video: post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news_video_image.jpg",
           relationed_posts: data_relationed_posts,
+          status: post.status,
         }
         respond_to do |format|
           format.json { render json: data[0] }
@@ -110,7 +111,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: "No tiene acceso" }
+          format.json { render json: { status: "No tiene acceso"} }
           format.js
         end
       end
@@ -180,7 +181,7 @@ module Frontend
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-      if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
+      if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
         relationed_posts = post.get_relationed_posts(@request_user)
 
         data_relationed_posts = []

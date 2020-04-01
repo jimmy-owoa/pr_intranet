@@ -3,6 +3,7 @@ require "stringio"
 
 module Frontend
   class BirthsController < FrontendController
+    include ApplicationHelper
     #callbacks
     layout "admin"
     before_action :set_birth, only: [:show, :destroy]
@@ -41,7 +42,7 @@ module Frontend
           gender: birth.gender,
           birthday: l(birth.birthday, format: "%d de %B").downcase,
           birthday_format_2: birth.birthday.strftime("%d-%m-%Y"),
-          father: birth.user.present? ? birth.user.full_name : "",
+          father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
           email: email,
           color: color,
         }

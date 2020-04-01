@@ -1,5 +1,5 @@
 class UserNotifierMailer < ApplicationMailer
-  default :from => "notificaciones@misecurity.cl"
+  default :from => "intranet@security.cl"
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def send_signup_email(user)
@@ -19,7 +19,7 @@ class UserNotifierMailer < ApplicationMailer
 
   def send_birth_created(email)
     mail(to: email, subject: "Nacimiento creado")
-  end  
+  end
 
   def send_birth_not_approved(email)
     mail(to: email, subject: "Nacimiento rechazado")
@@ -38,7 +38,7 @@ class UserNotifierMailer < ApplicationMailer
   def send_product_created(email)
     mail(to: email, subject: "Aviso en proceso de aprobación")
   end
-  
+
   def send_product_not_approved(email)
     mail(to: email, subject: "Aviso rechazado")
   end
