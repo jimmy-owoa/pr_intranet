@@ -251,6 +251,8 @@ module ApplicationHelper
     content = content.gsub("<img src=\"/rails/", "<img src=\"#{get_request_fix_content}/rails/")
     content = content.gsub("<a href=\"//rails/", "<a href=\"#{get_request_fix_content}/rails/")
     content = content.gsub("<a href=\"/rails/", "<a href=\"#{get_request_fix_content}/rails/")
+    content = content.gsub("src=\"/rails/", "src=\"#{get_request_fix_content}/rails/")
+
     #video
     if content.include?("<p><video style=\"float: right;\"")
       content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
