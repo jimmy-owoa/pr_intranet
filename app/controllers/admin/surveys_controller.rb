@@ -28,7 +28,7 @@ module Admin
       @survey = Survey::Survey.new(survey_params)
       respond_to do |format|
         if @survey.save
-          # UserNotifierMailer.send_survey_created(@survey.profile.users.pluck(:email), @survey.id).deliver
+          UserNotifierMailer.send_survey_created(@survey.profile.users.pluck(:email), @survey.id).deliver
           set_tags
           format.html { redirect_to admin_surveys_path, notice: "Encuesta creada exitosamente." }
           format.json { render :show, status: :created, location: @survey }
