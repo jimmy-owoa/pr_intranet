@@ -72,8 +72,8 @@ module Frontend
           photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
           images: images,
           gender: birth.gender ? "Masculino" : "Femenino",
-          birthday: birth.birthday,
-          father: birth.user.present? ? birth.user.favorite_name : "",
+          birthday: birth.birthday.strftime("%d/%m"),
+          father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
           color: birth.user.present? ? birth.user.get_color : "black",
           email: birth.user.present? ? birth.user.email : "",
         }
