@@ -248,7 +248,8 @@ module Frontend
           title: gospel.title,
           content: gospel.content.chomp("Para recibir cada mañana el Evangelio por correo electrónico, registrarse: <a href=\"http://evangeliodeldia.org\" target=\"_blank\">evangeliodeldia.org</a>"),
           santoral_name: General::Santoral.get_santoral(gospel.date).name[0...10],
-          santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name[0...10],
+          santoral_name_tooltip: General::Santoral.get_santoral(gospel.date).name,
+          santoral_next: General::Santoral.get_santoral(gospel.date + 1.days).name,
         }
       else
         data = Religion::Gospel.last
