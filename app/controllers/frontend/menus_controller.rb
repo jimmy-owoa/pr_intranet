@@ -272,14 +272,14 @@ module Frontend
       begin
         response = http.post(uri.path, "user_code_crypted_base64=#{encrypted_user}")
         if response.is_a?(Net::HTTPSuccess) && !"\n".in?(response.body)
-          Rails.logger.info "$$$$$$$$$$$$$$$$$$$ response.body: #{response.body}"
-          if user.menu_exa.present?
-            user.menu_exa.update(body: response.body)
+          menu = Menu::Exa.where(user_id: user.id).last
+          if menu.present?
+            menu.update(body: response.body)
           else
-            user.create_exa_menu(body: response.body)
+            Menu::Exa.create(body: response.body, user_id: user.id)
           end
         end
-        exa_menu = JSON.parse(user.exa_menu.body)
+        exa_menu = JSON.parse(user.menu_exa.body)
         exa_menu
       rescue => exception
         ""
