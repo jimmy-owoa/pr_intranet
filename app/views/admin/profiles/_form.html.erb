@@ -1,16 +1,30 @@
 <%= f.error_notification %>
-<div class="">
+<div class="form-group row">
+  <div class="col-12">
+    <h4 style="font-size: 16px; margin-top: 17px; font-weight: 700; font-style: italic;">
+      Seleccione los filtros con los cuales desea crear el perfil.</h4>
+  </div>
+  <div class="col-12">
+    <%= f.input :name, required: true, autofocus: true %>
+  </div>
+  <div class="col-12">
+    <%= f.label 'Tipo de carga' %>
+    <%= select_tag :creation_option, options_for_select([["Manual", "manual"], ["Archivo", "file"]]) %>
+  </div>
+</div>
+<div id="file" style="display: none;">
   <div class="form-group row">
     <div class="col-12">
-      <h4 style="font-size: 16px; margin-top: 17px; font-weight: 700; font-style: italic;">
-        Seleccione los filtros con los cuales desea crear el grupo.</h4>
+      <h5 style="font-size: 16px; margin-top: 17px; color: red;">
+        El archivo debe ser de tipo xlsx. Los rut's de los usuarios deben estar en la primera columna</h5>
     </div>
     <div class="col-12">
-      <%= f.input :name, required: true, autofocus: true %>
+      <%= f.file_field "file"%>
     </div>
-    <div class="col-12">
-      <%= f.file_field "file" %>
-    </div>
+  </div>
+</div>
+<div id="manual_filters">
+  <div class="form-group row">
     <div class="col-4">
       <%= f.label 'Sexo' %>
       <%= select_tag :genders, options_for_select(@genders, @selected_genders), multiple: true, class:' form-control string optional' %>
@@ -83,7 +97,7 @@
     <%# <%= select_tag :regions, options_for_select(@regions.collect {|region| [region[1], region[0]]}, @selected_regions), multiple: true, class:' form-control string', id: 'regions' %>
     <%# </div> %>
   </div>
-  <div class="col-7">
-  </div>
+</div>
+<div class="col-7">
 </div>
 <%= f.submit 'Guardar', :class => 'btn btn-primary ' %>
