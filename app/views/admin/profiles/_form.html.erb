@@ -8,6 +8,9 @@
     <div class="col-12">
       <%= f.input :name, required: true, autofocus: true %>
     </div>
+    <div class="col-12">
+      <%= f.file_field "file" %>
+    </div>
     <div class="col-4">
       <%= f.label 'Sexo' %>
       <%= select_tag :genders, options_for_select(@genders, @selected_genders), multiple: true, class:' form-control string optional' %>
@@ -44,41 +47,40 @@
       <%= f.label 'Ciudad de oficina' %>
       <%= select_tag :office_cities, options_for_select(@office_cities, @selected_office_cities), multiple: true, class:' form-control string optional' %>
     </div>
-       <div class="col-4">
+    <div class="col-4">
       <%= f.label 'Región de oficina' %>
       <%= select_tag :office_regions, options_for_select(@office_regions, @selected_office_regions), multiple: true, class:' form-control string optional' %>
     </div>
-       <div class="col-4">
+    <div class="col-4">
       <%= f.label 'País de oficina' %>
       <%= select_tag :office_countries, options_for_select(@office_countries, @selected_office_countries), multiple: true, class:' form-control string optional' %>
     </div>
-
     <div class="col-12 text-center">
       <h3>Filtros Avanzados</h3>
     </div>
     <%# <div class="col-4"> %>
-      <%# <%= f.label 'Miembro Sindicato' %>
-      <%# <%= select_tag :syndicate_members, options_for_select(@syndicate_members, @selected_syndicate_members), multiple: true, class:' form-control string'%>
+    <%# <%= f.label 'Miembro Sindicato' %>
+    <%# <%= select_tag :syndicate_members, options_for_select(@syndicate_members, @selected_syndicate_members), multiple: true, class:' form-control string'%>
     <%# </div> %>
     <%# <div class="col-4"> %>
-      <%# <%= f.label 'Tipo de contrato' %>
-      <%# <%= select_tag :contract_types, options_for_select(@contract_types, @selected_contract_types), multiple: true, class:' form-control string'%>
+    <%# <%= f.label 'Tipo de contrato' %>
+    <%# <%= select_tag :contract_types, options_for_select(@contract_types, @selected_contract_types), multiple: true, class:' form-control string'%>
     <%# </div> %>
     <%# <div class="col-4"> %>
-      <%# <%= f.label 'Rol' %>
-      <%# <%= select_tag :roles, options_for_select(@roles, @selected_roles), multiple: true, class:' form-control string'%>
+    <%# <%= f.label 'Rol' %>
+    <%# <%= select_tag :roles, options_for_select(@roles, @selected_roles), multiple: true, class:' form-control string'%>
     <%# </div> %>
     <%# <div class="col-4"> %>
-      <%# <%= f.label 'Horario' %>
-      <%# <%= select_tag :schedules, options_for_select(@schedules, @selected_schedules), multiple: true, class:' form-control string'%>
+    <%# <%= f.label 'Horario' %>
+    <%# <%= select_tag :schedules, options_for_select(@schedules, @selected_schedules), multiple: true, class:' form-control string'%>
     <%# </div> %>
     <div class="col-4">
       <%= f.label 'Tiene hijos' %>
       <%= select_tag :has_children, options_for_select(@has_children, @selected_has_children), multiple: true, class:' form-control string' %>
     </div>
-     <%# <div class="col-4"> %>
-      <%# <%= f.label 'Región' %>
-      <%# <%= select_tag :regions, options_for_select(@regions.collect {|region| [region[1], region[0]]}, @selected_regions), multiple: true, class:' form-control string', id: 'regions' %>
+    <%# <div class="col-4"> %>
+    <%# <%= f.label 'Región' %>
+    <%# <%= select_tag :regions, options_for_select(@regions.collect {|region| [region[1], region[0]]}, @selected_regions), multiple: true, class:' form-control string', id: 'regions' %>
     <%# </div> %>
   </div>
   <div class="col-7">

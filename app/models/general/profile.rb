@@ -19,7 +19,6 @@ class General::Profile < ApplicationRecord
   has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :profile_id, inverse_of: :profile, dependent: :destroy
   has_many :profile_attributes, class_name: "General::ProfileAttribute", foreign_key: :profile_id, inverse_of: :profile
   has_many :users, through: :user_profiles
-
   has_many :posts, class_name: "News::Post", foreign_key: :profile_id, inverse_of: :profile
   has_many :messages, class_name: "General::Message", foreign_key: :profile_id, inverse_of: :profile
   has_many :menus, class_name: "General::Menu", foreign_key: :profile_id, inverse_of: :profile
@@ -70,6 +69,29 @@ class General::Profile < ApplicationRecord
       new_users = query_profile_users - self.users
       remove_users = self.users - query_profile_users
     end
+
+    if new_users.present?
+      new_users.each do |user|
+        self.users << user
+      end
+    end
+
+    if remove_users.present?
+      remove_users.each do |user|
+        General::UserProfile.where(user_id: user.id, profile_id: self.id).destroy_all
+      end
+    end
+  end
+
+  def set_users_by_excel(ruts)
+    users = []
+    ruts.each do |rut|
+      user = General::User.where(legal_number: rut.to_s[0...-1], legal_number_verification: rut.to_s[-1]).last
+      users << user if user.present?
+    end
+
+    new_users = users - self.users
+    remove_users = self.users - users
 
     if new_users.present?
       new_users.each do |user|
