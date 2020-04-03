@@ -47,12 +47,9 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email, subject: "Foto de perfil cambiada")
   end
 
-  def send_image_profile_not_approved(email)
-    mail(to: email, subject: "Foto de perfil no aprobada")
-  end
-
-  def send_survey_answered(email, survey)
+  def send_survey_answered(email, survey, respuestas)
     @survey = survey
+    @respuestas = respuestas
     mail(to: email, subject: "Encuesta respondida")
   end
 

@@ -10,13 +10,16 @@ module Frontend
           option_id = options.find_by_title(answer[:option]).id
           answer = Survey::Answer.create(question_id: answer[:questionId], option_id: option_id, user_id: @request_user.id)
           survey = answer.question.survey
-          UserNotifierMailer.send_survey_answered(@request_user.email, survey.name).deliver
+          # UserNotifierMailer.send_survey_answered(@request_user.email, survey.name).deliver
         else
           answer = Survey::Answer.create(question_id: answer[:questionId], answer_variable: answer[:option], user_id: @request_user.id)
           survey = answer.question.survey
         end
       end
       survey.answered_times.create if survey.present?
+      # UserNotifierMailer.send_survey_answered(@request_user, survey).deliver if survey.present?
+      UserNotifierMailer.send_survey_answered(@request_user.email, survey, params[:_json]).deliver if survey.present?
+      
       respond_to do |format|
         format.json { render json: "OK", status: 200 }
       end
