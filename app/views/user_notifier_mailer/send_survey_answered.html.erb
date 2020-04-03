@@ -4,6 +4,20 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h3>Has respondido la encuesta <%= @survey %> satisfactoriamente.</h3>
+    <h3>Has respondido la encuesta satisfactoriamente.</h3>
+
+    <h3>Nombre encuesta: <%= @survey.name %></h3>
+
+    <% @a = [] %>
+    <% @survey.questions.each do |question| %>
+      <% @respuestas.each do |answer| %>
+        <% if question.id == answer[:questionId] %>
+          <p><%= question.title %>: <%= answer[:option] %> </p>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <p><%= @a %></p>
+
   </body>
 </html>
