@@ -47,7 +47,7 @@ module Admin
         if @profile.save
           set_profile_attributes
           @profile.set_users
-          format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue creada con éxito." }
+          format.html { redirect_to admin_profile_path(@profile), notice: "Perfil fue creado con éxito." }
           format.json { render :show, status: :created, location: @profile }
           format.js
         else
