@@ -47,9 +47,9 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email, subject: "Foto de perfil cambiada")
   end
 
-  def send_survey_answered(email, survey, respuestas)
-    @survey = survey
-    @respuestas = respuestas
+  def send_survey_answered(email, answers, survey_name)
+    @answers = answers
+    @survey_name = survey_name
     mail(to: email, subject: "Encuesta respondida")
   end
 

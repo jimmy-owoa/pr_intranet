@@ -12,7 +12,6 @@ module Frontend
           answer = Survey::Answer.create(question_id: answer[:questionId], option_id: option_id, user_id: @request_user.id)
           for_email = add_email_show(for_email, Survey::Question.find(answer.question_id).title, Survey::Option.find(option_id).title)
           survey = answer.question.survey
-          # UserNotifierMailer.send_survey_answered(@request_user.email, survey.name).deliver
         else
           answer = Survey::Answer.create(question_id: answer[:questionId], answer_variable: answer[:option], user_id: @request_user.id)
           for_email = add_email_show(for_email, Survey::Question.find(answer.question_id).title, answer.answer_variable)
@@ -20,8 +19,7 @@ module Frontend
         end
       end
       survey.answered_times.create if survey.present?
-      # UserNotifierMailer.send_survey_answered(@request_user, survey).deliver if survey.present?
-      UserNotifierMailer.send_survey_answered(@request_user.email, for_email).deliver if survey.present?
+      UserNotifierMailer.send_survey_answered(@request_user.email, for_email, survey.name).deliver if survey.present?
 
       respond_to do |format|
         format.json { render json: "OK", status: 200 }
