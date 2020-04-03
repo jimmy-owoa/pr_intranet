@@ -45,9 +45,8 @@ module Admin
       @profile = General::Profile.new(profile_params)
       respond_to do |format|
         if @profile.save
-          set_profile_attributes
-          @profile.set_users
-          format.html { redirect_to admin_profile_path(@profile), notice: "Perfil fue creado con éxito." }
+          assign_users
+          format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue creada con éxito." }
           format.json { render :show, status: :created, location: @profile }
           format.js
         else
@@ -61,8 +60,7 @@ module Admin
     def update
       respond_to do |format|
         if @profile.update(profile_params)
-          set_profile_attributes
-          @profile.set_users
+          assign_users
           format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @profile }
         else
@@ -81,6 +79,26 @@ module Admin
     end
 
     private
+
+    def assign_users
+      ruts = read_xlsx
+      if ruts.present?
+        @profile.set_users_by_excel ruts
+      else
+        set_profile_attributes
+        @profile.set_users
+      end
+    end
+
+    def read_xlsx
+      data = nil
+      file = params[:profile][:file]
+      if file.present?
+        xlsx = Roo::Spreadsheet.open(file.path)
+        data = xlsx.sheet(0).column(1)
+      end
+      data
+    end
 
     def set_profile_attributes
       # Para agregar un nuevo filtro, hay que también agregarlo en el array "ALL" dentro del modelo profile.
