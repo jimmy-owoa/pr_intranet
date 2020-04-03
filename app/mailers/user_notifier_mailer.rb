@@ -14,37 +14,29 @@ class UserNotifierMailer < ApplicationMailer
   end
 
   def send_birth_approved(email)
-    mail(to: email, subject: "Nacimiento aprobado")
-  end
-
-  def send_birth_created(email)
-    mail(to: email, subject: "Nacimiento creado")
+    mail(to: email, subject: "Tu nacimiento ha sido aprobado")
   end
 
   def send_birth_not_approved(email)
-    mail(to: email, subject: "Nacimiento rechazado")
+    mail(to: email, subject: "Tu nacimiento ha sido rechazado”.")
   end
 
   def send_product_approved(email, name, product_id)
     @name = name
     @product_id = product_id
-    mail(to: email, subject: "Aviso aprobado")
-  end
-
-  def send_product_edit(email)
-    mail(to: email, subject: "Aviso Editado")
-  end
-
-  def send_product_created(email)
-    mail(to: email, subject: "Aviso en proceso de aprobación")
+    mail(to: email, subject: "Tu aviso clasificado ha sido aprobado")
   end
 
   def send_product_not_approved(email)
-    mail(to: email, subject: "Aviso rechazado")
+    mail(to: email, subject: "Tu aviso clasificado ha sido rechazado")
   end
 
   def send_image_profile_changed(email)
-    mail(to: email, subject: "Foto de perfil cambiada")
+    mail(to: email, subject: "Tu foto de perfil ha sido aprobada")
+  end
+
+  def send_avatar_not_approved(email)
+    mail(to: email, subject: "Tu foto de perfil ha sido rechazada")
   end
 
   def send_survey_answered(email, answers, survey_name)

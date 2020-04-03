@@ -3,7 +3,6 @@ class Employee::Birth < ApplicationRecord
   has_one_attached :photo
   enum permission: %i[No Si]
 
-
   belongs_to :user, class_name: "General::User", optional: true
 
   scope :show_birth, -> { where(approved: true, is_public: true) }
@@ -50,9 +49,9 @@ class Employee::Birth < ApplicationRecord
   #   images.attachments.where(permission: 1)
   # end
 
-  # def unpermitted_images
-  #   images.attachments.where(permission: 0)
-  # end
+  def unpermitted_image
+    photo
+  end
 
   def permitted_image
     if photo.attachment.permission == 1

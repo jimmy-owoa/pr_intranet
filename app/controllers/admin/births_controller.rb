@@ -3,7 +3,6 @@ module Admin
     before_action :set_birth, only: [:show, :destroy, :edit, :update]
 
     def index
-      
       if params[:approved] == "true" || params[:approved] == "false"
         aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
         @births = Employee::Birth.order(created_at: :desc).approved_filter(aprov).paginate(:page => params[:page], :per_page => 10)
@@ -23,7 +22,7 @@ module Admin
       @birth = Employee::Birth.new
       @users = General::User.all.map { |u| [u.full_name, u.id] }
     end
-    
+
     def edit
       @user = General::User.find(@birth.user_id) || nil
     end
@@ -35,7 +34,7 @@ module Admin
 
       respond_to do |format|
         if @birth.save
-          if @birth.approved 
+          if @birth.approved
             @birth.photo.attachment.update(permission: 1)
           end
           format.html { redirect_to admin_birth_path(@birth), notice: "Nacimiento fue creado con éxito." }
@@ -48,7 +47,7 @@ module Admin
     end
 
     def update
-      approved = params["approved"]
+      approved = birth_params["approved"]
       if approved.present?
         respond_to do |format|
           if approved == "true"
@@ -57,7 +56,7 @@ module Admin
             UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
           end
           @birth.update_attributes(approved: approved)
-          format.json { render :json => { value: "success" } and return }
+          format.html { redirect_to admin_births_path }
         end
       elsif params["image_id"].present?
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)

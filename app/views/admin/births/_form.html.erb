@@ -72,7 +72,7 @@
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
           <% if @birth.photo.attachment.nil? || !@birth.permitted_image %>
-          <%= image_tag("birth.png", height: "150px", style: "object-fit: cover;") %>
+            <%= image_tag("birth.png", height: "150px", style: "object-fit: cover;") %>
           <% else %>
             <%= image_tag(@birth.photo, class: 'center') %>
           <% end %>
@@ -95,37 +95,35 @@
         </div>
         <br />
         <div class="row text-center" >
-
-            <div class="col-md-2 approved">
-              <figure>
-                <a data-toggle="modal" data-target="#modalShow"><%= image_tag @birth.photo.variant(resize: '350x200>'), class: 'image_attach' %></a>
-                <figcaption>
-                  <%= check_box_tag "permissions[]", @birth.photo.id -%>
-                </figcaption>
-              </figure>
-            </div>
-
+          <div class="col-md-2 approved">
+            <figure>
+              <a data-toggle="modal" data-target="#modalShow"><%= image_tag @birth.photo.variant(resize: '350x200>'), class: 'image_attach' %></a>
+              <figcaption>
+                <%= check_box_tag "permissions[]", @birth.photo.id -%>
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     <% end %>
     <div class="">
       <% if @birth.permitted_image %>
-      <div class="card pl-3">
-        <div class="row">
-          <div class="col-sm-10">
-            Foto Aprobada
+        <div class="card pl-3">
+          <div class="row">
+            <div class="col-sm-10">
+              Foto Aprobada
+            </div>
+          </div>
+          <br />
+          <div class="row" >
+            <div class="col-md-2">
+              <figure>
+                <a data-toggle="modal" data-target="#modalShow"><%= image_tag @birth.photo.variant(resize: '350x200>'), class: 'image_attach' %></a>
+                <figcaption><%= link_to 'Borrar', delete_image_admin_birth_path(@birth.photo.id), method: :delete, data: { confirm: '¿Esta segura(o) que desea eliminar este elemento?' },:class => 'btn btn-sm btn-danger'%></figcaption>
+              </figure>
+            </div>
           </div>
         </div>
-        <br />
-        <div class="row" >
-          <div class="col-md-2">
-            <figure>
-              <a data-toggle="modal" data-target="#modalShow"><%= image_tag @birth.photo.variant(resize: '350x200>'), class: 'image_attach' %></a>
-              <figcaption><%= link_to 'Borrar', delete_image_admin_birth_path(@birth.photo.id), method: :delete, data: { confirm: '¿Esta segura(o) que desea eliminar este elemento?' },:class => 'btn btn-sm btn-danger'%></figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
       <% end %>
     </div>
   <% end %>
@@ -133,17 +131,16 @@
 <div class="row">
   <div class="col-md-12 mb-5">
     <% if @birth.id.present? %>
-    <div class="col-md-4">
-      <%= f.submit 'Aprobar', :class => 'btn btn-success' %>
-      <%= link_to 'Rechazar',
-          admin_birth_path(@birth),
+      <div class="col-md-4">
+        <%= link_to "Aprobar", admin_birth_path(@birth, birth: {approved: true}) , method: :put, :class => 'btn btn-primary'%>
+        <%= link_to 'Rechazar',
+          admin_birth_path(@birth, birth: {approved: false}), method: :put,
           method: :delete,
           data: { title: '¿Esta segura(o) que desea rechazar este elemento?', confirm: 'Confirmar' },
           class: 'btn btn-danger' %>
-    </div>
-  <% else %>
-    <%= f.submit nil, class: 'btn btn-success btn-block' %>
-  <% end %>
+      </div>
+    <% else %>
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+    <% end %>
   </div>
 </div>
-

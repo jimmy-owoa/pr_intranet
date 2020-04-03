@@ -33,7 +33,7 @@ module Admin
 
     def delete_image
       @image = ActiveStorage::Attachment.find(params[:id])
-      
+
       respond_to do |format|
         if @image.purge
           format.js
@@ -58,7 +58,7 @@ module Admin
 
     def update
       authorize @product
-      approved = params["approved"]
+      approved = product_params[:approved]
       if approved.present?
         respond_to do |format|
           if approved == "true"
@@ -67,7 +67,7 @@ module Admin
             UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
           end
           @product.update_attributes(approved: approved)
-          format.json { render :json => { value: "success" } and return }
+          format.html { redirect_to admin_products_path }
         end
       elsif params["image_id"].present?
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)

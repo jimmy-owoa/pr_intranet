@@ -161,7 +161,6 @@ module Frontend
       set_images true
       respond_to do |format|
         if @product
-          UserNotifierMailer.send_product_edit(@product.user.email).deliver
           format.json { render json: "OK", status: 200 }
         else
           format.json { render json: "ERROR", status: 403 }
@@ -176,7 +175,6 @@ module Frontend
       set_images
       respond_to do |format|
         if @product.save
-          UserNotifierMailer.send_product_created(@product.user.email).deliver
           format.json { render json: "OK", status: 200 }
         else
           format.json { render json: "ERROR", status: 403 }

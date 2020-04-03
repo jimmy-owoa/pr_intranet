@@ -100,10 +100,8 @@
   <div class="container col-md-12 text-center">
     <%= link_to 'Volver', :back, class:'btn btn-primary' %>
     <% if @product.id.present? %>
-      <%= f.submit 'Aprobar', class: 'btn btn-success' %> 
-
+      <%= link_to "Aprobar", admin_product_path(@product, product: {approved: true}) , method: :put, :class => 'btn btn-primary'%>
       <%= link_to "Rechazar", admin_product_path(@product, product: {approved: false}) , method: :put, :class => 'btn btn-primary', data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea rechazar este elemento?'} %>
-      
       <%= link_to 'Eliminar',
           admin_product_path(@product),
           :method => :delete,

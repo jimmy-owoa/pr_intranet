@@ -26,7 +26,7 @@ module Frontend
         end
         images = []
         # CORREGIR TODO NACIMIENTOS.
-        if birth.photo.attachment          
+        if birth.photo.attachment
           if birth.permitted_image
             images << url_for(birth.photo.variant(resize: "500x500>"))
           end
@@ -60,11 +60,11 @@ module Frontend
       births.each do |birth|
         images = []
 
-      if birth.photo.attachment
-        if birth.permitted_image
-          images << url_for(birth.photo.variant(resize: "500x500>"))
-        end        
-      end
+        if birth.photo.attachment
+          if birth.permitted_image
+            images << url_for(birth.photo.variant(resize: "500x500>"))
+          end
+        end
 
         data << {
           id: birth.id,
@@ -117,7 +117,6 @@ module Frontend
       end
       respond_to do |format|
         if @birth.save
-          # UserNotifierMailer.send_birth_created(@birth.user.email).deliver
           format.html { redirect_to frontend_birth_path(@birth), notice: "Birth was successfully created." }
           format.json { render json: @birth, status: 200 }
         else
