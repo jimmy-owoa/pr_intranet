@@ -95,9 +95,6 @@ module Frontend
           questions: data_questions,
           survey_type: survey.survey_type,
           slug: survey.slug,
-          inclusive_tags: survey.terms.inclusive_tags.map(&:name),
-          excluding_tags: survey.terms.excluding_tags.map(&:name),
-          categories: survey.terms.categories.map(&:name),
         }
       end
       respond_to do |format|
