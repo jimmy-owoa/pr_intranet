@@ -42,6 +42,7 @@ module Admin
     end
 
     def create
+      params[:profile][:file].present? ? params[:attached] = true : params[:attached] = false
       @profile = General::Profile.new(profile_params)
       respond_to do |format|
         if @profile.save
@@ -60,7 +61,7 @@ module Admin
     def update
       respond_to do |format|
         if @profile.update(profile_params)
-          assign_users
+          assign_users if !@profile.attached
           format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @profile }
         else
@@ -187,10 +188,10 @@ module Admin
     end
 
     def profile_params
-      params.require(:profile).permit(:name, regions: [], benefit_groups: [], companies: [], managements: [], genders: [], is_boss: [],
-                                             employee_classifications: [], cost_centers: [], position_classifications: [],
-                                             syndicate_members: [], contract_types: [], roles: [], schedules: [], has_childrens: [],
-                                             entry_dates: [], office_cities: [], office_countries: [], office_regions: [])
+      params.require(:profile).permit(:name, :attached, regions: [], benefit_groups: [], companies: [], managements: [], genders: [], is_boss: [],
+                                                        employee_classifications: [], cost_centers: [], position_classifications: [],
+                                                        syndicate_members: [], contract_types: [], roles: [], schedules: [], has_childrens: [],
+                                                        entry_dates: [], office_cities: [], office_countries: [], office_regions: [])
     end
   end
 end
