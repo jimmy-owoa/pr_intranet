@@ -9,7 +9,8 @@
   </div>
   <div class="col-12">
     <%= f.label 'Tipo de carga' %>
-    <%= select_tag :creation_option, options_for_select([["Manual", "manual"], ["Archivo", "file"]]) %>
+    <% selected_option = @profile.attached? ? "file" : "manual"%>
+    <%= select_tag :creation_option, options_for_select([["Manual", "manual"], ["Archivo", "file"]], selected_option) %>
   </div>
 </div>
 <div id="file" style="display: none;">
