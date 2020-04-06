@@ -5,13 +5,16 @@ $(document).on('turbolinks:load', function () {
   // if (creationOption.value == "manual"){
   //   fileSelector.style.display = "none"
   // }
-  creationOption.onchange = function (event) {    
-    if (creationOption.value == "file"){
-      fileSelector.style.display = "block"
-      manualFilters.style.display = "none"
-    }else{
-      fileSelector.style.display = "none"
-      manualFilters.style.display = "block"
+
+  if (creationOption) {    
+    creationOption.onchange = function (event) {    
+      if (creationOption.value == "file"){
+        fileSelector.style.display = "block"
+        manualFilters.style.display = "none"
+      }else{
+        fileSelector.style.display = "none"
+        manualFilters.style.display = "block"
+      }
     }
   }
 });
