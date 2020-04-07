@@ -48,9 +48,9 @@ class Survey::Survey < ApplicationRecord
     surveys << include_survey.where.not(id: @data_surveys.pluck(:id))
   end
 
-  def self.get_surveys_no_once_user
+  def self.get_surveys_no_once_user(user)
     allowed_surveys = []
-    surveys = Survey::Survey.where(once_by_user: false).published_surveys
+    surveys = Survey::Survey.where(once_by_user: false).published_surveys.where(profile_id: user.profile_ids)
     surveys.each do |survey|
       if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
         allowed_surveys << survey
