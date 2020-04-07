@@ -58,10 +58,9 @@ module Frontend
         return
       end
       #model method
-      no_once_by_user_surveys = Survey::Survey.where(once_by_user: false).published_surveys
+      no_once_by_user_surveys = Survey::Survey.get_surveys_no_once_user
       surveys = Survey::Survey.survey_data(@request_user)
       surveys << no_once_by_user_surveys
-
       surveys.flatten.each do |survey|
         data_questions = []
         survey.questions.each do |question|

@@ -29,24 +29,34 @@ class Survey::Survey < ApplicationRecord
 
   def self.survey_data(user)
     @data_surveys = []
+    surveys = []
     include_survey = Survey::Survey.includes(questions: [options: :answers]).where(once_by_user: true).published_surveys.where(profile_id: user.profile_ids)
     include_survey.each do |survey|
       if survey.allowed_answers.present?
-        if survey.get_answer_count < survey.allowed_answers || survey.allowed_answers == 0
+        if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
           survey.questions.each do |question|
-            @data_surveys << survey if question.answers.blank?
-            question.answers.each do |answer|
-              #sumamos surveys si tiene respuesta pero ninguna con el id del usuario
-              if !user.id.in?(question.answers.pluck(:user_id))
-                @data_surveys << survey
-              end
+            if user.id.in?(question.answers.pluck(:user_id))
+              @data_surveys << survey
             end
           end
+        else
+          @data_surveys << survey
         end
       end
     end
-    #sumamos surveys que se pueden responder más de una vez
-    @data_surveys.uniq
+
+    surveys << include_survey.where.not(id: @data_surveys.pluck(:id))
+  end
+
+  def self.get_surveys_no_once_user
+    allowed_surveys = []
+    surveys = Survey::Survey.where(once_by_user: false).published_surveys
+    surveys.each do |survey|
+      if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
+        allowed_surveys << survey
+      end
+    end
+    allowed_surveys
   end
 
   def self.sort_survey(data)
