@@ -70,9 +70,9 @@
         <div class="col-md-12">
           <% if @survey.image.attached? %>
             <%= image_tag @survey.image.variant(resize: '150x150>') %>
-            <%= f.input :image, input_html: { accept:'image/*' } %>
+            <%= f.file_field :image, input_html: { accept:'image/*' } %>
           <% else %>
-            <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+            <%= f.file_field :image, required: true, input_html: { accept:'image/*' } %>
           <% end %>
         </div>
       </div>

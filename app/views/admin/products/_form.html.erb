@@ -52,7 +52,7 @@
         <% end %>
       </div>
       <div class="col-md-4">
-        <%= f.input :images, as: :file, input_html: { multiple: true, accept:'image/*' } %>
+        <%= f.file_field :images, multiple: true, as: :file, input_html: { multiple: true, accept:'image/*' } %>
       </div>
     </div>
   </div>
