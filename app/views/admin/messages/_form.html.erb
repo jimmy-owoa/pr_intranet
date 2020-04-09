@@ -27,12 +27,12 @@
           <% if @message.image.attachment.present? %>
             <%= image_tag(@message.image.variant(resize: '300x300>'), class: 'left') %>
             <div class="left">
-              <%= f.input :image, required: false, input_html: { accept:'image/*' } %>
+              <%= f.file_field :image, required: false, input_html: { accept:'image/*' }, class: 'mt-2' %>
             </div
           <% else %>
             <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
             <div class="left">
-              <%= f.input :image, required: true, input_html: { accept:'image/*' } %>
+              <%= f.file_field :image, required: true, input_html: { accept:'image/*' }, class: 'mt-2' %>
             </div>
           <% end %>
         </div>
