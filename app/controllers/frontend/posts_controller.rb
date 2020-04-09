@@ -3,7 +3,7 @@ module Frontend
     include ApplicationHelper
 
     def index
-      user_posts = News::Post.filter_posts(@request_user)
+      user_posts = News::Post.filter_posts(@request_user).normal_posts
       posts = params[:category].present? ? user_posts.where(post_type: params[:category]) : user_posts
       posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
@@ -70,7 +70,7 @@ module Frontend
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-      if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
+      if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
         relationed_posts = post.get_moments_relationed_posts(@request_user)
         data_relationed_posts = []
         relationed_posts.each do |post|
@@ -90,7 +90,7 @@ module Frontend
           title: post.title,
           url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
           user_id: post.user_id,
-          published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
+          published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d-%m-%Y"),
           content: content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
           main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
@@ -103,6 +103,7 @@ module Frontend
           ],
           file_video: post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news_video_image.jpg",
           relationed_posts: data_relationed_posts,
+          status: post.status,
         }
         respond_to do |format|
           format.json { render json: data[0] }
@@ -110,7 +111,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: "No tiene acceso" }
+          format.json { render json: { status: "No tiene acceso"} }
           format.js
         end
       end
@@ -125,14 +126,18 @@ module Frontend
       if post.gallery.present?
         attachments = Media::Gallery.where(post_id: post.id).last.attachments
         attachments.each do |image| # Por ahora está mostrando sólo la primera galería
-          items << {
-            id: image.id,
-            src: url_for(image.attachment),
-            w: image.attachment.blob.metadata[:width],
-            h: image.attachment.blob.metadata[:height],
-            title: image.name,
-            placeolder: url_for(image.attachment.variant(resize: "80x>")),
-          }
+          if image.attachment.attached?
+            items << {
+              id: image.id,
+              src: url_for(image.attachment.variant(resize: "900x>")),
+              w: 900,
+              h: 600,
+              # w: image.attachment.blob.metadata[:width],
+              # h: image.attachment.blob.metadata[:height],
+              title: image.name,
+              placeolder: url_for(image.attachment.variant(resize: "80x>")),
+            }
+          end
         end
         gallery[:items] << items
       end
@@ -143,7 +148,8 @@ module Frontend
     end
 
     def important_posts
-      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.normal_posts.filter_posts(@request_user, true).first(5)
+      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.filter_posts(@request_user, true).normal_posts.first(5)
+
       data = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
@@ -175,7 +181,7 @@ module Frontend
       data = []
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-      if @request_user.has_role?(:admin) || post.profile_id.in?(@request_user.profile_ids)
+      if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
         relationed_posts = post.get_relationed_posts(@request_user)
 
         data_relationed_posts = []
@@ -190,12 +196,13 @@ module Frontend
           }
         end
         content = fix_content(post.content)
+
         data << {
           id: post.id,
           title: post.title,
           url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
           user_id: post.user_id,
-          published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
+          published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
           content: content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
           important: post.important,
@@ -209,6 +216,7 @@ module Frontend
             { link: "#", name: post.title.truncate(30) },
           ],
           relationed_posts: data_relationed_posts,
+          status: post.status,
         }
         respond_to do |format|
           format.json { render json: data[0] }
@@ -216,7 +224,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: "No tiene acceso" }
+          format.json { render json: { status: "No tiene acceso"} }
           format.js
         end
       end

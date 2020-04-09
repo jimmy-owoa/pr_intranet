@@ -1,15 +1,15 @@
 class Survey::Survey < ApplicationRecord
+  acts_as_paranoid
   searchkick match: :word, searchable: [:name]
 
   has_many :questions, dependent: :destroy
   has_many :survey_term_relationships, -> { where(object_type: "Survey::Survey") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :survey
-  has_many :terms, through: :survey_term_relationships
+  has_many :answered_times
   has_one_attached :image
 
   belongs_to :profile, class_name: "General::Profile", optional: true, inverse_of: :surveys
 
   accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: proc { |att| att["title"].blank? }
-  accepts_nested_attributes_for :terms
 
   validates :name, presence: :true
   validates :allowed_answers, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: "debe ser mayor o igual a 0" }
@@ -29,24 +29,34 @@ class Survey::Survey < ApplicationRecord
 
   def self.survey_data(user)
     @data_surveys = []
-    include_survey = self.includes(questions: [options: :answers]).where(once_by_user: true).published_surveys.where(profile_id: user.profile_ids)
+    surveys = []
+    include_survey = Survey::Survey.includes(questions: [options: :answers]).where(once_by_user: true).published_surveys.where(profile_id: user.profile_ids)
     include_survey.each do |survey|
       if survey.allowed_answers.present?
-        if survey.get_answer_count < survey.allowed_answers || survey.allowed_answers == 0
-          survey.questions.where(optional: true).each do |question|
-            @data_surveys << survey if question.answers.blank?
-            question.answers.each do |answer|
-              #sumamos surveys si tiene respuesta pero ninguna con el id del usuario
-              if !user.id.in?(question.answers.pluck(:user_id))
-                @data_surveys << survey
-              end
+        if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
+          survey.questions.each do |question|
+            if user.id.in?(question.answers.pluck(:user_id))
+              @data_surveys << survey
             end
           end
+        else
+          @data_surveys << survey
         end
       end
     end
-    #sumamos surveys que se pueden responder más de una vez
-    @data_surveys.uniq
+
+    surveys << include_survey.where.not(id: @data_surveys.pluck(:id))
+  end
+
+  def self.get_surveys_no_once_user(user)
+    allowed_surveys = []
+    surveys = Survey::Survey.where(once_by_user: false).published_surveys.where(profile_id: user.profile_ids)
+    surveys.each do |survey|
+      if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
+        allowed_surveys << survey
+      end
+    end
+    allowed_surveys
   end
 
   def self.sort_survey(data)

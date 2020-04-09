@@ -28,7 +28,7 @@ module Frontend
           category: book.category_book.name,
           url: root_url + "admin/books/" + "#{book.id}" + "/edit",
           description: book.description,
-          image: url_for(book.image),
+          image: book.image.attached? ? url_for(book.image) : "",
           breadcrumbs: [
             { link: "/", name: "Inicio" },
             { link: "/biblioteca", name: "Biblioteca" },

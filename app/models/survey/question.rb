@@ -11,8 +11,8 @@ class Survey::Question < ApplicationRecord
 
   def create_option
     if question_type == "Verdadero o Falso"
-      Survey::Option.create(title: "Verdadero", question_id: id)
-      Survey::Option.create(title: "Falso", question_id: id)
+      Survey::Option.create(title: "Si", question_id: id)
+      Survey::Option.create(title: "No", question_id: id)
     end
   end
 end

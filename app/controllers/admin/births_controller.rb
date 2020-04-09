@@ -3,7 +3,6 @@ module Admin
     before_action :set_birth, only: [:show, :destroy, :edit, :update]
 
     def index
-      add_breadcrumb "Nacimientos", :admin_births_path
       if params[:approved] == "true" || params[:approved] == "false"
         aprov = ActiveModel::Type::Boolean.new.cast(params[:approved])
         @births = Employee::Birth.order(created_at: :desc).approved_filter(aprov).paginate(:page => params[:page], :per_page => 10)
@@ -17,23 +16,27 @@ module Admin
     end
 
     def show
-      add_breadcrumb "Nacimientos", :admin_births_path
     end
 
     def new
-      add_breadcrumb "Nacimientos", :admin_births_path
       @birth = Employee::Birth.new
+      @users = General::User.all.map { |u| [u.full_name, u.id] }
     end
 
     def edit
-      add_breadcrumb "Nacimientos", :admin_births_path
+      @user = General::User.find(@birth.user_id) || nil
     end
 
     def create
       params[:birth][:gender] = params[:birth][:gender].to_i
       @birth = Employee::Birth.new(birth_params)
+      @birth.user_id = params[:user_id]
+
       respond_to do |format|
         if @birth.save
+          if @birth.approved
+            @birth.photo.attachment.update(permission: 1)
+          end
           format.html { redirect_to admin_birth_path(@birth), notice: "Nacimiento fue creado con éxito." }
           format.json { render :show, status: :created, location: @birth }
         else
@@ -44,16 +47,16 @@ module Admin
     end
 
     def update
-      approved = params["approved"]
+      approved = birth_params["approved"]
       if approved.present?
         respond_to do |format|
           if approved == "true"
-            # UserNotifierMailer.send_birth_approved(@birth.user.email).deliver
+            UserNotifierMailer.send_birth_approved(@birth.user.email).deliver
           else
-            # UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
+            UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
           end
           @birth.update_attributes(approved: approved)
-          format.json { render :json => { value: "success" } and return }
+          format.html { redirect_to admin_births_path }
         end
       elsif params["image_id"].present?
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
@@ -87,7 +90,7 @@ module Admin
 
     def destroy
       @birth.destroy
-      # UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
+      UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
       respond_to do |format|
         format.html { redirect_to admin_births_path, notice: "Nacimiento fue eliminado con éxito." }
         format.json { head :no_content }
@@ -103,7 +106,7 @@ module Admin
 
     def birth_params
       params.require(:birth).permit(:full_name_mother, :full_name_father, :child_name, :is_public, :child_lastname,
-                                    :child_lastname2, :birthday, :approved, :gender, :user_id, images: [])
+                                    :child_lastname2, :birthday, :approved, :gender, :user_id, :photo)
     end
   end
 end

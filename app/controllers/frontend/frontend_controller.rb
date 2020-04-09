@@ -1,7 +1,7 @@
 require "resolv-replace"
 
 class Frontend::FrontendController < ApplicationController
-  before_action :get_user, except: [:azure_auth, :current_user_azure]
+  before_action :get_user, except: [:azure_auth, :current_user_azure, :referrer_update]
   include JsonWebToken
   include Frontend::FrontendHelper
 
@@ -73,12 +73,19 @@ class Frontend::FrontendController < ApplicationController
     user = get_current_user_jwt
     respond_to do |format|
       if user.present?
-        user.update(referrer: referrer)
-        format.json { render json: { message: "OK", token: http_auth_header, referrer: referrer } }
+        format.json { render json: { message: "OK", token: http_auth_header, cod: params[:cod], referrer: user.referrer } }
       else
         format.json { render json: { error: "No hay user" } }
       end
     end
+  end
+
+  def referrer_update(token, referrer)
+    decoded = JsonWebToken.decode(token)
+    if decoded.present? && referrer != "/"
+      General::User.find(decoded[:user_id]).update(referrer: "/##{referrer}")
+    end
+    referrer
   end
 
   def azure_auth
@@ -89,6 +96,9 @@ class Frontend::FrontendController < ApplicationController
   private
 
   def get_current_user_jwt
+    if params[:cod].present? && params[:url].present? && !params[:view_as].present? || params[:view_as] == "null"
+      referrer_update(params[:cod], params[:url])
+    end
     @request_user ||= General::User.find(decoded_auth_token[:user_id]) if decoded_auth_token
     @request_user || nil
   end
@@ -104,19 +114,20 @@ class Frontend::FrontendController < ApplicationController
     nil
   end
 
-  def is_exa(referer)
+  def is_exa(referrer)
     exa_urls = ["https://misecurity-qa3.exa.cl/",
                 "https://misecurity-qa2.exa.cl/",
                 "https://misecurity-qa.exa.cl/",
                 "https://misecurity.exa.cl/"]
     exa_urls.each do |url|
-      return true if url.in?(referer)
+      return true if url.in?(referrer)
     end
     false
   end
 
   def get_user
-    if !is_exa(request.referer)
+    # Si es que no viene el view_as y si viene el params que se llama url, y el user_id dentro de token
+    if !is_exa(request.referrer)
       @request_user = get_current_user_jwt if http_auth_header.present?
       if @request_user.present? && @request_user.has_role?(:super_admin) && params[:view_as].present? && params[:view_as] != "null"
         @request_user = General::User.get_user_by_ln(params[:view_as])

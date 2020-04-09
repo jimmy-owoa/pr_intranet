@@ -5,5 +5,9 @@
   </head>
   <body>
     <h3>Has respondido la encuesta satisfactoriamente.</h3>
+    <h3>Nombre encuesta: <%= @survey_name %></h3>
+    <% @answers.each do |answer| %>
+      <p><%= answer[:question] %>: <%= answer[:answers].join(", ") %></p>
+    <% end %>
   </body>
 </html>

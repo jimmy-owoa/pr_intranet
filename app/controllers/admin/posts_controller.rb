@@ -15,7 +15,7 @@ module Admin
     end
 
     def show
-      @gallery = Media::Gallery.where(post_id: @post.id).last
+      @gallery = @post.gallery
     end
 
     def deleted
@@ -110,6 +110,7 @@ module Admin
     def set_gallery
       @gallery = Media::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
       @post.gallery = @gallery
+      @post.reload.gallery
       @post.save
     end
 

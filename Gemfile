@@ -82,7 +82,7 @@ gem "awesome_nested_set"
 #scheduled jobs
 gem "whenever", require: false
 # active storage validations
-gem 'active_storage_validations'
+gem "active_storage_validations"
 # paginate for API
 gem "kaminari"
 # Reduces boot times through caching; required in config/boot.rb
@@ -97,6 +97,8 @@ gem "dalli"
 gem "rubyzip", ">= 1.2.1"
 gem "axlsx", git: "https://github.com/randym/axlsx.git", ref: "c8ac844"
 gem "axlsx_rails"
+# Read excel files
+gem "roo", "~> 2.8.0"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 #test carousel

@@ -54,6 +54,9 @@ module Admin
         if aprove_new_image == "true"
           @user.image.attach(@user.new_image.blob)
           @user.profile_image_to_exa
+          UserNotifierMailer.send_image_profile_changed(@user.email).deliver
+        elsif aprove_new_image == "false"
+          UserNotifierMailer.send_avatar_not_approved(@user.email).deliver
         end
         @user.new_image.purge()
         redirect_to admin_users_images_approbation_path
@@ -87,7 +90,7 @@ module Admin
 
     def show_image_user
       @name = params[:user_name]
-      @image = General::User.find(params[:user_id]).new_image.attachment.variant(resize: '700x500!').processed
+      @image = General::User.find(params[:user_id]).new_image.attachment.variant(resize: "x500").processed
       @user_id = params[:user_id]
       respond_to do |format|
         format.js

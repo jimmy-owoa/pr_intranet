@@ -8,12 +8,12 @@
         </button>
       </div>
       <div class="modal-body text-center">
-        <%= image_tag @image, class: 'img-fluid' %>
+        <%= image_tag @image%>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" class="close" data-dismiss="modal" aria-label="Close">Cancelar</button>
         <%= link_to "Aprobar", admin_user_path(@user_id, user: {approve_image: true}) , method: :put, :class => 'btn btn-success', data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea aprobar esta imagen?'} %>
         <%= link_to "Rechazar", admin_user_path(@user_id, user: {approve_image: false}) , method: :put, :class => 'btn btn-danger', data: { confirm: "Confirmar", title: '¿Está seguro(a) que desea rechazar esta imagen?'} %>
+        <button type="button" class="btn btn-secondary" class="close" data-dismiss="modal" aria-label="Close">Cancelar</button>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ module Frontend
     def index
       data_surveys = []
       surveys_all = []
-      surveys = Survey::Survey.includes(questions: :options).where(profile_id: @request_user.profile_id)
+      surveys = Survey::Survey.includes(questions: :options).where(profile_id: @request_user.profile_ids)
       surveys.each do |survey|
         data_questions = []
         survey.questions.each do |question|
@@ -52,13 +52,13 @@ module Frontend
       if @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
         respond_to do |format|
           format.html
-          format.json { render json: Survey::Survey.all }
+          format.json { render json: Survey::Survey.published_surveys }
           format.js
         end
         return
       end
       #model method
-      no_once_by_user_surveys = Survey::Survey.where(once_by_user: false)
+      no_once_by_user_surveys = Survey::Survey.get_surveys_no_once_user(@request_user)
       surveys = Survey::Survey.survey_data(@request_user)
       surveys << no_once_by_user_surveys
       surveys.flatten.each do |survey|
@@ -94,9 +94,6 @@ module Frontend
           questions: data_questions,
           survey_type: survey.survey_type,
           slug: survey.slug,
-          inclusive_tags: survey.terms.inclusive_tags.map(&:name),
-          excluding_tags: survey.terms.excluding_tags.map(&:name),
-          categories: survey.terms.categories.map(&:name),
         }
       end
       respond_to do |format|
@@ -160,6 +157,7 @@ module Frontend
             questions: data_questions,
             survey_type: survey.survey_type,
             slug: survey.slug,
+            status: survey.status,
           }
         else
           data_survey = ["Encuesta ya fué respondida por el usuario"]

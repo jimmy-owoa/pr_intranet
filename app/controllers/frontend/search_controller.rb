@@ -24,7 +24,8 @@ module Frontend
               url_for(user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
           }
         end
-        result.with_hit.map { |a| a[0] if a[1]["_index"][0...10] == "news_posts" }.compact.each do |post|
+        filtered_posts = filter_results_posts(result.with_hit.map { |a| a[0] if a[1]["_index"][0...10] == "news_posts" }.compact.sort_by { |post| post[:published_at] }.reverse)
+        filtered_posts.each do |post|
           @image = post.main_image.present? ? url_for(post.main_image.path) : nil
           posts << {
             id: post.id,
@@ -73,6 +74,13 @@ module Frontend
         format.json { render json: data }
         format.js
       end
+    end
+
+    private
+
+    def filter_results_posts(posts_array)
+      ids = posts_array.pluck(:id)
+      News::Post.where(id: ids).filter_posts(@request_user)
     end
   end
 end

@@ -2,7 +2,6 @@ class Employee::Birth < ApplicationRecord
   after_create :default_image
   has_one_attached :photo
   enum permission: %i[No Si]
-  has_many_attached :images
 
   belongs_to :user, class_name: "General::User", optional: true
 
@@ -31,11 +30,11 @@ class Employee::Birth < ApplicationRecord
     where(approved: false)
   end
 
-  def default_image
-    if self.images.first.nil?
-      self.images.attach(io: File.open("app/assets/images/birth.png"), filename: "birth.png", content_type: "image/png")
-    end
-  end
+  # def default_image
+  #   if self.images.first.nil?
+  #     self.images.attach(io: File.open("app/assets/images/birth.png"), filename: "birth.png", content_type: "image/png")
+  #   end
+  # end
 
   def get_gender
     case self.gender
@@ -46,11 +45,25 @@ class Employee::Birth < ApplicationRecord
     end
   end
 
-  def permitted_images
-    images.attachments.where(permission: 1)
+  # def permitted_images
+  #   images.attachments.where(permission: 1)
+  # end
+
+  def unpermitted_image
+    photo
   end
 
-  def unpermitted_images
-    images.attachments.where(permission: 0)
+  def permitted_image
+    if photo.attachment.permission == 1
+      return true
+    else
+      return false
+    end
+  end
+
+  def default_image
+    if !self.photo.attached?
+      self.photo.attach(io: File.open("app/assets/images/birth.png"), filename: "birth.png", content_type: "image/png")
+    end
   end
 end

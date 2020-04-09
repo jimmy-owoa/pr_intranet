@@ -99,10 +99,12 @@ module ApplicationHelper
     jpeg = "image/jpeg"
     jpg = "image/jpg"
     png = "image/png"
-    if file.attachment.content_type == jpeg ||
-       file.attachment.content_type == jpg ||
-       file.attachment.content_type == png
-      return true
+    if file.attachment.present?
+      if file.attachment.content_type == jpeg ||
+         file.attachment.content_type == jpg ||
+         file.attachment.content_type == png
+        return true
+      end
     end
 
     return false
@@ -113,11 +115,13 @@ module ApplicationHelper
     mov = "video/mov"
     ogg = "video/ogg"
     web = "video/webm"
-    if file.attachment.content_type == mp4 ||
-       file.attachment.content_type == mov ||
-       file.attachment.content_type == ogg ||
-       file.attachment.content_type == web
-      return true
+    if file.attachment.present?
+      if file.attachment.content_type == mp4 ||
+         file.attachment.content_type == mov ||
+         file.attachment.content_type == ogg ||
+         file.attachment.content_type == web
+        return true
+      end
     end
 
     return false
@@ -243,68 +247,40 @@ module ApplicationHelper
 
   def fix_content(content)
     content = content.gsub("video controls=\"controls\"", "source")
-    if Rails.env.development?
-      content = content.gsub("<source src=\"../..", '<video src="http://localhost:3000')
-      content = content.gsub("<source src=\"", '<video src="http://localhost:3000/')
-      content = content.gsub("<img src=\"../..", '<img src="http://localhost:3000')
-      content = content.gsub("<img src=\"/rails/", '<img src="http://localhost:3000/rails/')
-      content = content.gsub("<a href=\"//rails/", '<a href="http://localhost:3000/rails/')
-      content = content.gsub("<a href=\"/rails/", '<a href="http://localhost:3000/rails/')
-      #video
-      if content.include?("<p><video style=\"float: right;\"")
-        content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
-      end
-      if content.include?("<p><video style=\"float: left;\"")
-        content = content.gsub("<p><video style=\"float: left;\"", '<p align="left"><source style="float: left;"')
-      end
-      if content.include?("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"")
-        content = content.gsub("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"", '<p align="center"><source style="display: block; margin-left: auto; margin-right: auto;"')
-      end
-      #image
-      if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"/rails/", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="http://localhost:3000/rails/')
-      end
-      if content.include?("<p><img style=\"float: right;\"")
-        content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", '<p align="right"><img src="http://localhost:3000/rails/')
-      end
-      if content.include?("<p><img style=\"float: left;\"")
-        content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", '<p align="left"><img src="http://localhost:3000/rails/')
-      end
-      if content.include?("<p style=\"text-align: center;\"><img style=\"float: left;\"")
-        content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", '<p style="text-align: center;"><img style="float: left;" src="http://localhost:3000/rails/')
-      end
-    else
-      content = content.gsub("<source src=\"../..", '<video src="https://intranet.exaconsultores.cl')
-      content = content.gsub("<source src=\"", '<video src="https://intranet.exaconsultores.cl/')
-      content = content.gsub("<img src=\"../..", '<img src="https://intranet.exaconsultores.cl')
-      content = content.gsub("<img src=\"/rails/", '<img src="https://intranet.exaconsultores.cl/rails/')
-      content = content.gsub("<a href=\"//rails/", '<a href="https://intranet.exaconsultores.cl/rails/')
-      content = content.gsub("<a href=\"/rails/", '<a href="https://intranet.exaconsultores.cl/rails/')
 
-      #video
-      if content.include?("<p><video style=\"float: right;\"")
-        content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
-      end
-      if content.include?("<p><video style=\"float: left;\"")
-        content = content.gsub("<p><video style=\"float: left;\"", '<p align="left"><source style="float: left;"')
-      end
-      if content.include?("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"")
-        content = content.gsub("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"", '<p align="center"><source style="display: block; margin-left: auto; margin-right: auto;"')
-      end
-      #image
-      if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
-        content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"/rails/", '<p><img style="display: block; margin-left: auto; margin-right: auto;" src="https://intranet.exaconsultores.cl/rails/')
-      end
-      if content.include?("<p><img style=\"float: right;\"")
-        content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", '<p align="right"><img src="https://intranet.exaconsultores.cl/rails/')
-      end
-      if content.include?("<p><img style=\"float: left;\"")
-        content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", '<p align="left"><img src="https://intranet.exaconsultores.cl/rails/')
-      end
-      if content.include?("<p style=\"text-align: center;\"><img style=\"float: left;\"")
-        content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", '<p style="text-align: center;"><img style="float: left;" src="https://intranet.exaconsultores.cl/rails/')
-      end
+    get_request_fix_content
+    content = content.gsub("<source src=\"../..", "<video src=\"#{get_request_fix_content}")
+    content = content.gsub("<source src=\"", "<video src=\"#{get_request_fix_content}/")
+    content = content.gsub("<img src=\"../..", "<img src=\"#{get_request_fix_content}")
+    content = content.gsub("<img src=\"/rails/", "<img src=\"#{get_request_fix_content}/rails/")
+    content = content.gsub("<a href=\"//rails/", "<a href=\"#{get_request_fix_content}/rails/")
+    content = content.gsub("<a href=\"/rails/", "<a href=\"#{get_request_fix_content}/rails/")
+    content = content.gsub("src=\"/rails/", "src=\"#{get_request_fix_content}/rails/")
+
+    #video
+    if content.include?("<p><video style=\"float: right;\"")
+      content = content.gsub("<p><video style=\"float: right;\"", '<p align="right"><source style="float: right;"')
     end
+    if content.include?("<p><video style=\"float: left;\"")
+      content = content.gsub("<p><video style=\"float: left;\"", '<p align="left"><source style="float: left;"')
+    end
+    if content.include?("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"")
+      content = content.gsub("<p><video style=\"display: block; margin-left: auto; margin-right: auto;\"", '<p align="center"><source style="display: block; margin-left: auto; margin-right: auto;"')
+    end
+    #image
+    if content.include?("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\"")
+      content = content.gsub("<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"/rails/", "<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"#{get_request_fix_content}/rails/")
+    end
+    if content.include?("<p><img style=\"float: right;\"")
+      content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", "<p align=\"right\"><img src=\"#{get_request_fix_content}/rails/")
+    end
+    if content.include?("<p><img style=\"float: left;\"")
+      content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", "<p align=\"left\"><img src=\"#{get_request_fix_content}/rails/")
+    end
+    if content.include?("<p style=\"text-align: center;\"><img style=\"float: left;\"")
+      content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", "<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"#{get_request_fix_content}/rails/")
+    end
+
     content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
   end
 
@@ -344,6 +320,38 @@ module ApplicationHelper
 
     content_tag(:li, :class => class_name) do
       link_to link_text, link_path
+    end
+  end
+
+  def get_request_fix_content
+    if request.referer == "http://localhost:8080/"
+      "http://localhost:3000"
+    elsif request.referer == "https://miintranet.exaconsultores.cl/"
+      "https://intranet.exaconsultores.cl"
+    elsif request.referer == "https://mi.security.cl/"
+      "https://miapp.security.cl"
+    end
+  end
+
+  def get_full_favorite_name(user)
+    if user.favorite_name.present?
+      user.favorite_name + " " + user.last_name
+    else
+      user.full_name
+    end
+  end
+
+  def get_phone(annexed)
+    if annexed[0] == "2" || annexed[0] == "3" || annexed[0] == "4"
+      "22584" + annexed
+    elsif annexed[0] == "5"
+      "22581" + annexed
+    elsif annexed[0] == "6"
+      "22901" + annexed
+    elsif annexed[0] == "7"
+      "224618" + annexed[1..annexed.length]
+    else
+      annexed
     end
   end
 end

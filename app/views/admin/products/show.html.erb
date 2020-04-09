@@ -18,6 +18,9 @@
           </div>
           <p><strong> Precio: </strong> <%= @product.price %></p>
           <p><strong> Dirección/Oficina: </strong> <%= @product.location %></p>
+          <% if @product.published_date %>
+            <p><strong> Fecha de publicación: </strong> <%= @product.published_date.strftime("%d/%m/%Y") %></p>
+          <% end %>
           <p class="card-text">
             <b>Creado:</b> <%= custom_date(@product.created_at)%>
           </p>
@@ -26,11 +29,11 @@
     </div>
     <div class="col-sm-12">
       <div class="card">
-        <div class="card-body"> 
+        <div class="card-body">
           <% if @product.permitted_images.present? %>
             <h5>Imágenes Aprobadas</h5>
             <div class="row" >
-              <% @product.permitted_images.each do |image| %> 
+              <% @product.permitted_images.each do |image| %>
                 <figure>
                   <%= image_tag image.variant(resize: '150x100>'), class: 'image_attach' %>
                 </figure>

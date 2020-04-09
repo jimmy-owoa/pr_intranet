@@ -28,7 +28,7 @@ class News::Post < ApplicationRecord
 
   before_save :unique_slug, :manage_time
 
-  scope :important, -> { where(important: true).where.not(published_at: nil).order(published_at: :desc).first(5) }
+  scope :important, -> { where(important: true).where.not(published_at: nil).where.not(post_type: "Video").order(published_at: :desc).first(5) }
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
@@ -69,11 +69,11 @@ class News::Post < ApplicationRecord
   end
 
   def get_relationed_posts(user)
-    posts = News::Post.where(post_type: post_type)
+    posts = News::Post.where(post_type: post_type).order(published_at: :desc)
     if post_type == "Página Informativa"
-      relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).informative_posts.last(5) - [self]
+      relationed_posts = user.has_role?(:admin) ? posts.first(5) - [self] : posts.filter_posts(user).informative_posts.first(5) - [self]
     else
-      relationed_posts = user.has_role?(:admin) ? posts.last(5) - [self] : posts.filter_posts(user).normal_posts.last(5) - [self]
+      relationed_posts = user.has_role?(:admin) ? posts.first(5) - [self] : posts.filter_posts(user).normal_posts.first(5) - [self]
     end
   end
 

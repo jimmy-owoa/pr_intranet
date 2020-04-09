@@ -14,35 +14,35 @@
       <div class="col-sm-7">
         <h5>Libro solicitado: </h5>
         <div class="card post_card">
-          <b>Libro: <%= @user_book.book.title %></h2></b>
-          <b>Autor: <%= @user_book.book.author.name %></b>
-          <b>Editorial: <%= @user_book.book.editorial.name %></b>
-          <b>Año de publicación: <%= @user_book.book.publication_year %></b>
-          <b>Categoría: <%= @user_book.book.category_book.name %></b>
-          <b>Unidades disponibles: <%= @user_book.book.stock %></b>
-        </div>
-
-        <h5>Solicitado por:</h5>
-        <div class="card post_card">
-          <b>Nombre: <%= @user_book.user.name %> <%= @user_book.user.last_name %></b>
-          <b>Empresa: <%= @user_book.user.company.name %></b>
-          <b>Anexo: <%= @user_book.user.annexed %></b>
-          <b>Correo electrónico: <%= @user_book.user.email %></b>
-          <b>Dirección sucursal: <%= @user_book.user.address %></b>
-        </div>
+          <b>Libro: <%= @user_book.book.title %></h2>
+        </b>
+        <b>Autor: <%= @user_book.book.author.name %></b>
+        <b>Editorial: <%= @user_book.book.editorial.name %></b>
+        <b>Año de publicación: <%= @user_book.book.publication_year %></b>
+        <b>Categoría: <%= @user_book.book.category_book.name %></b>
+        <b>Unidades disponibles: <%= @user_book.book.stock %></b>
+      </div>
+      <h5>Solicitado por:</h5>
+      <div class="card post_card">
+        <b>Nombre: <%= @user_book.user.name %> <%= @user_book.user.last_name %></b>
+        <b>Empresa: <%= @user_book.user.company.name %></b>
+        <b>Anexo: <%= @user_book.user.annexed %></b>
+        <b>Correo electrónico: <%= @user_book.user.email %></b>
+        <b>Dirección sucursal: <%= @user_book.user.office.try(:address) %></b>
       </div>
     </div>
-    <br />
-    <div class="row">
-      <div class="col-sm-12">
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-sm-12">
       <div class="card post_card">
         <%= raw @user_book.book.description %>
       </div>
-      </div>
-    </div>
-
-    <div class="text-center">
-
     </div>
   </div>
+  <div class="text-center">
+    <%= link_to t('.back', :default => t("helpers.links.back")), admin_user_book_relationships_path, :class => 'btn btn-primary'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_book_path(@user_book.book), :class => 'btn btn-primary' %>
+  </div>
+</div>
 </div>

@@ -29,6 +29,7 @@
 //= require tinymce
 //= require admin/admin
 //= require admin/posts
+//= require admin/profiles
 //= require admin/attachments
 //= require admin/users
 //= require admin/births

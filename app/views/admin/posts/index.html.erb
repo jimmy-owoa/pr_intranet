@@ -24,7 +24,12 @@
               <td><%= custom_date_no_hour(post.created_at)  %></td>
               <td><%= custom_date_no_hour(post.published_at) %></td>
               <td>
-                <%= link_to "Ver en intranet", "#{get_frontend_url}/noticias/#{post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
+                <% if post.post_type == "Video" %>
+                  <%= link_to "Ver en intranet", "#{get_frontend_url}/momentos-security/#{post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
+                <% else %>
+                  <%= link_to "Ver en intranet", "#{get_frontend_url}/noticias/#{post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>
+                <% end %>
+
                 <%= link_to t('.show', :default => t("helpers.links.show")),
                               admin_post_path(post), :class => 'btn btn-success btn-sm' %>
                 <%= link_to t('.edit', :default => t("helpers.links.edit")),

@@ -7,6 +7,7 @@
       <table class="table table-hover">
         <thead class="thead">
           <tr>
+            <th><%= '' %></th>
             <th><%= 'Título' %></th>
             <th><%= 'Fecha Creación' %></th>
             <th><%= '¿Enlace abre en nueva pestaña?' %></th>
@@ -16,6 +17,7 @@
         <tbody>
           <% @links.each do |link| %>
             <tr>
+              <td><%= image_tag link.image.attachment.variant(resize: '100x50!'), :class=> 'img-thumbnail img-fluid' unless link.image.nil? %></td>
               <td><%= link.title %></td>
               <td><%= custom_date_no_hour(link.created_at) %></td>
               <td><%= link.is_blank ? "Si" : "No" %></td>

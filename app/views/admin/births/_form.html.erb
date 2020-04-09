@@ -12,20 +12,22 @@
         <%= f.input :child_lastname2, label: "Apellido Materno", required: true %>
       </div>
       <div class="col-md-6">
-        <% user = General::User.find(@birth.user_id) || nil %> 
-        <% if user.present? %>
+        <% if @user.present? %>
           <%= f.label "Padre/Madre" %> <br>
-          <%= user.full_name %>
+          <%= @user.full_name %>
         <% else %>
-          <%= f.input :user_id %>
+          <% selected_value = nil %>
+          <%= f.label :user, "Usuario", class: 'form-control-label string required' %><br>
+          <%= select_tag :user_id, options_for_select(@users.sort, selected_value), include_blank: true, multiple: false %><br/>
         <% end %>
       </div>
       <div class="col-md-4 col-sm-4">
         <div class="input-group date" id="birthday" data-target-input="nearest">
           <% if @birth.try(:birthday).present? %>
-            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @birth.try(:birthday).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#birthday'%>
+            <label style="position: absolute; top: 9px;">Día de nacimiento</label>
+            <%= f.text_field :birthday, label: 'Hola', class: 'form-control datetimepicker-input', value: @birth.try(:birthday).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#birthday'%>
           <% else %>
-            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', placeholder: "Día de nacimiento", label: false %>
+            <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', placeholder: "Día de nacimiento", label: false, required: true %>
           <% end %>
           <div class="input-group-append" data-target="#birthday" data-toggle="datetimepicker">
             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -69,78 +71,76 @@
       <h5 class="text-center">Foto Aprobada</h5>
       <div class="card border-secondary center mb-12" style="max-width: 18rem;">
         <div class="card-body text-secondary border border-primary rounded">
-          <% if @birth.images.attachments.nil? || !@birth.permitted_images.present? %>
-            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="150px" style="object-fit: cover;"  />
+          <% if @birth.photo.attachment.nil? || !@birth.permitted_image %>
+            <%= image_tag("birth.png", height: "150px", style: "object-fit: cover;") %>
           <% else %>
-            <%= image_tag(@birth.permitted_images.first, class: 'center') %>
+            <%= image_tag(@birth.photo, class: 'center') %>
           <% end %>
         </div>
       </div>
       <div class=" col-md-12">
         <div class="col-md-12">
-          <%= f.file_field :images, input_html: { accept:'image/*' } %>
+          <%= f.file_field :photo, input_html: { accept:'image/*' } %>
         </div>
       </div>
     </div>
   </div>
-  <% if @birth.unpermitted_images.present? %>
-    <div class="card p-3">
-      <div class="row">
-        <div class="col-sm-10 pull-left">
-          Foto por aprobar
+  <% if @birth.photo.attachment %>
+    <% if !@birth.permitted_image %>
+      <div class="card p-3">
+        <div class="row">
+          <div class="col-sm-10 pull-left">
+            Foto por aprobar
+          </div>
         </div>
-      </div>
-      <br />
-      <div class="row text-center" >
-        <% @birth.unpermitted_images.each do |image| %>
+        <br />
+        <div class="row text-center" >
           <div class="col-md-2 approved">
             <figure>
-              <a data-toggle="modal" data-target="#modalShow"><%= image_tag image.variant(resize: '350x200>'), class: 'image_attach' %></a>
+              <a data-toggle="modal" data-target="#modalShow"><%= image_tag @birth.photo.variant(resize: '350x200>'), class: 'image_attach' %></a>
               <figcaption>
-                <%= check_box_tag "permissions[]", image.id -%>
+                <%= check_box_tag "permissions[]", @birth.photo.id -%>
               </figcaption>
             </figure>
           </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-  <div class="">
-    <% if @birth.permitted_images.present? %>
-    <div class="card pl-3">
-      <div class="row">
-        <div class="col-sm-10">
-          Foto Aprobada
         </div>
       </div>
-      <br />
-      <div class="row" >
-        <% @birth.permitted_images.each do |image| %>
-          <div class="col-md-2">
-            <figure>
-              <a data-toggle="modal" data-target="#modalShow"><%= image_tag image.variant(resize: '350x200>'), class: 'image_attach' %></a>
-              <figcaption><%= link_to 'Borrar', delete_image_admin_birth_path(image), method: :delete, data: { confirm: '¿Esta segura(o) que desea eliminar este elemento?' },:class => 'btn btn-sm btn-danger'%></figcaption>
-            </figure>
-          </div>
-        <% end %>
-      </div>
-    </div>
     <% end %>
-  </div>
+    <div class="">
+      <% if @birth.permitted_image %>
+        <div class="card pl-3">
+          <div class="row">
+            <div class="col-sm-10">
+              Foto Aprobada
+            </div>
+          </div>
+          <br />
+          <div class="row" >
+            <div class="col-md-2">
+              <figure>
+                <a data-toggle="modal" data-target="#modalShow"><%= image_tag @birth.photo.variant(resize: '350x200>'), class: 'image_attach' %></a>
+                <figcaption><%= link_to 'Borrar', delete_image_admin_birth_path(@birth.photo.id), method: :delete, data: { confirm: '¿Esta segura(o) que desea eliminar este elemento?' },:class => 'btn btn-sm btn-danger'%></figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 <div class="row">
   <div class="col-md-12 mb-5">
     <% if @birth.id.present? %>
-    <div class="col-md-4">
-      <%= f.submit 'Aprobar', :class => 'btn btn-success' %>
-      <%= link_to 'Rechazar',
-          admin_birth_path(@birth),
+      <div class="col-md-4">
+        <%= link_to "Aprobar", admin_birth_path(@birth, birth: {approved: true}) , method: :put, :class => 'btn btn-primary'%>
+        <%= link_to 'Rechazar',
+          admin_birth_path(@birth, birth: {approved: false}), method: :put,
           method: :delete,
           data: { title: '¿Esta segura(o) que desea rechazar este elemento?', confirm: 'Confirmar' },
           class: 'btn btn-danger' %>
-    </div>
-  <% else %>
-    <%= f.submit nil, class: 'btn btn-success btn-block' %>
-  <% end %>
+      </div>
+    <% else %>
+      <%= f.submit nil, class: 'btn btn-success btn-block' %>
+    <% end %>
   </div>
 </div>

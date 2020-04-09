@@ -20,7 +20,7 @@
         </div>
         <div class="card-body">
           <% @total = survey_data.map{|a| a[:total_count]}.inject(:+) %>
-          <h4>Total de respuestas: <%= @total %> </h4>
+          <h4>Total de respuestas: <%= @survey.answered_times.count %> </h4>
           <div class="card-text">
             <div class="table-responsive">
               <table class="table">
@@ -33,8 +33,8 @@
                     <th scope="col">Opciones </th>
                   </tr>
                 </thead>
-                <tbody>       
-                  <% survey_data.each do |survey| %>       
+                <tbody>
+                  <% survey_data.each do |survey| %>
                     <tr>
                       <td><%= survey[:question_name] %><%=  %></td>
                       <td><%= survey[:question_type] %><%=  %></td>
@@ -43,14 +43,14 @@
                         <%=  percentage_survey(survey[:total_count], @total) %> %
                       </td>
                       <td><%= survey[:option].map{|option| [option[:option_name], option[:count] ].join(': ')}.join(' , ') %></td>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>  
-              </table>
-            </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
           </div>
-          <%= link_to 'Descargar reporte', report_admin_answer_path(@survey, format: 'xlsx'), method: 'get'%>
+        </div>
+        <%= link_to 'Descargar reporte', report_admin_answer_path(@survey, format: 'xlsx'), method: 'get'%>
       </div>
     </div>
   </div>

@@ -161,7 +161,6 @@ module Frontend
       set_images true
       respond_to do |format|
         if @product
-          # UserNotifierMailer.send_product_edit(@product.user.email).deliver
           format.json { render json: "OK", status: 200 }
         else
           format.json { render json: "ERROR", status: 403 }
@@ -172,11 +171,10 @@ module Frontend
     def create
       set_params
       @product = Marketplace::Product.new(name: @name, email: @email, price: @price, phone: @phone,
-                                          description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30)
+                                          description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30, currency: @currency)
       set_images
       respond_to do |format|
         if @product.save
-          # UserNotifierMailer.send_product_created(@product.user.email).deliver
           format.json { render json: "OK", status: 200 }
         else
           format.json { render json: "ERROR", status: 403 }
@@ -208,6 +206,7 @@ module Frontend
       @user_id = @request_user.id
       @images = params[:images]
       @product_type = params[:product_type]
+      @currency = params[:currency]
     end
 
     def set_images(purge = nil)

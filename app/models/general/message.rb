@@ -20,6 +20,9 @@ class General::Message < ApplicationRecord
 
   def set_users
     user_messages = General::User.includes(:profiles).where(general_profiles: { id: self.profile_id })
+    users = self.user_messages
+    users_del = users - user_messages
+    self.user_messages.where(user_id: users_del.pluck(:user_id)).delete_all if users_del.present?
     user_messages.each do |user|
       General::UserMessage.where(user_id: user.id, message_id: self.id).first_or_create
     end

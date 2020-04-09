@@ -2,205 +2,208 @@
 <html>
   <head>
     <title>Intranet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= stylesheet_link_tag    'application', media: 'all'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
-    <div class="modal" id="gallery_modal"></div>
-    <div class="modal" id="main_image_modal"></div>
-    <div class="modal" id="video_modal"></div>
-    <div class="modal" id="img_user_modal"></div>
-    <div id="app">
-      <div class="main-wrapper">
-        <div class="navbar-bg"></div>
-        <nav class="navbar navbar-expand-lg main-navbar">
-          <form class="form-inline mr-auto">
-            <ul class="navbar-nav mr-3">
-              <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-              <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
-            </ul>
-          </form>
-          <ul class="navbar-nav navbar-right">
-            <li class="dropdown dropdown-list-toggle">
-              <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep">
-                <i class="fas fa-bell"></i>
-              </a>
-              <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                <div class="dropdown-header">
-                  Notificaciones
-                  <div class="float-right"><a href="#">Ver todas</a></div>
-                </div>
-                <div class="dropdown-list-content">
-                  <a href="#" class="dropdown-item dropdown-item-unread">
-                    <div class="dropdown-item-desc">
-                      <b>Nicolás Duhart está de cumpleaños hoy</b>
-                      <div class="time">05-10-2018</div>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </li>
-            <li class="dropdown">
-              <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
-                <i class="ion ion-android-person d-lg-none"></i>
-                <div class="d-sm-none d-lg-inline-block">Hola <%= current_user.name %></div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i><%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
-              </div>
-            </li>
-          </ul>
-        </nav>
-        <div class="main-sidebar">
-          <aside id="sidebar-wrapper">
-            <div class="sidebar-brand">
-              <a href="index.html">ADMINISTRACIÓN</a>
-            </div>
-            <div class="sidebar-brand sidebar-brand-sm">
-              <a href="index.html">St</a>
-            </div>
-            <ul class="sidebar-menu">
-              <li class="menu-header">Dashboard</li>
-              <li class="nav-item">
-                <a href="https://google.com" class="nav-link"><i class="fas fa-fire"></i><span>Sitio usuario</span></a>
-              </li>
-              <li class="menu-header">Módulos</li>
-              <!-- Noticias -->
-              <li class="nav-item dropdown <%= 'active' if "/admin/posts".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Lista de noticias", admin_posts_path %></li>
-                  <li><%= nav_link "Nueva noticia", new_admin_post_path %></li>
-                </ul>
-              </li>
-              <!-- /Noticias -->
-              <!-- Medios -->
-              <li class="nav-item dropdown <%= 'active' if "/admin/attachments".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-turbolinks="false"><i class="far fa-image"></i> <span>Medios</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Lista de medios", admin_attachments_path %></li>
-                  <li><%= nav_link "Lista de Imágenes", admin_attachments_images_path %></li>
-                  <li><%= nav_link "Lista de Videos", admin_attachments_videos_path %></li>
-                  <li><%= nav_link "Galerías", admin_galleries_path %></li>
-                  <li><%= nav_link "Añadir medios", new_admin_attachment_path %></li>
-                  <li><%= nav_link "Archivos", admin_files_path %></li>
-                </ul>
-              </li>
-              <!-- /Medios -->
-              <!-- Formularios -->
-              <li class="nav-item dropdown <%= 'active' if "/admin/surveys".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-poll-h"></i> <span>Formularios</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Lista de formularios", admin_surveys_path %></li>
-                  <li><%= nav_link "Lista de respuestas", admin_answers_path %></li>
-                  <li><%= nav_link "Nuevo formulario", new_admin_survey_path %></li>
-                </ul>
-              </li>
-              <!-- /Formularios -->
-              <!-- Biblioteca -->
-              <li class="nav-item dropdown <%= 'active' if "/admin/books".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-book"></i> <span>Biblioteca</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Lista de libros", admin_books_path %></li>
-                  <li><%= nav_link "Lista de autores", admin_authors_path %></li>
-                  <li><%= nav_link "Lista de editoriales", admin_editorials_path %></li>
-                  <li><%= nav_link "Lista de solicitudes", admin_user_book_relationships_path %></li>
-                  <li><%= nav_link "Nuevo libro", new_admin_book_path %></li>
-                </ul>
-              </li>
-              <!-- /Biblioteca -->
-              <!-- Edición Home -->
-              <li class="nav-item dropdown <%= 'active' if "/admin/links".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-home"></i> <span>Edición Home</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Links", admin_links_path %></li>
-                  <li><%= nav_link "Secciones", admin_sections_path %></li>
-                </ul>
-              </li>
-              <!-- /Edición Home -->
-              <!-- Mensajes -->
-              <li class="nav-item">
-                <a href="<%= admin_messages_path %>">
-                  <i class="far fa-comment-alt"></i>Mensajes
+  <% if current_user.has_role? :super_admin or current_user.has_role? :admin %>
+    <body>
+      <div class="modal" id="gallery_modal"></div>
+      <div class="modal" id="main_image_modal"></div>
+      <div class="modal" id="video_modal"></div>
+      <div class="modal" id="img_user_modal"></div>
+      <div id="app">
+        <div class="main-wrapper">
+          <div class="navbar-bg"></div>
+          <nav class="navbar navbar-expand-lg main-navbar">
+            <form class="form-inline mr-auto">
+              <ul class="navbar-nav mr-3">
+                <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+              </ul>
+            </form>
+            <ul class="navbar-nav navbar-right">
+              <li class="dropdown dropdown-list-toggle">
+                <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep">
+                  <i class="fas fa-bell"></i>
                 </a>
+                <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                  <div class="dropdown-header">
+                    Notificaciones
+                    <div class="float-right"><a href="#">Ver todas</a></div>
+                  </div>
+                  <div class="dropdown-list-content">
+                    <a href="#" class="dropdown-item dropdown-item-unread">
+                      <div class="dropdown-item-desc">
+                        <b>Nicolás Duhart está de cumpleaños hoy</b>
+                        <div class="time">05-10-2018</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </li>
-              <!-- /Mensajes -->
-              <!-- Grupos -->
-              <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Grupos</a></li>
-              <!-- /Grupos -->
-              <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
-                <li class="menu-header">Beneficios</li>
-                <!-- Beneficios-->
-                <li>
-                  <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a>
-                </li>
-                <!-- /Beneficios-->
-                <!-- Grupos Beneficiarios -->
-                <li>
-                  <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a>
-                </li>
-                <!-- /Grupos Beneficiarios -->
-              <% end %>
-              <!-- Marketplace -->
-              <li class="menu-header">Marketplace</li>
-              <li class="nav-item dropdown <%= 'active' if "/admin/products".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-shopping-cart"></i> <span>Anuncios</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Lista de anuncios", admin_products_path %></li>
-                  <li><%= nav_link "Pendientes de aprobación", admin_products_no_approved_index_path %></li>
-                  <li><%= nav_link "Aprobados", admin_products_approved_index_path %></li>
-                </ul>
+              <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+                  <i class="ion ion-android-person d-lg-none"></i>
+                  <div class="d-sm-none d-lg-inline-block">Hola <%= current_user.name %></div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i><%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
+                </div>
               </li>
-              <!-- /Marketplace -->
-              <!-- Eventos -->
-              <li class="menu-header">Eventos</li>
-              <!-- Nacimientos -->
-              <li class="nav-item dropdown <%= 'active' if "/admin/births".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-dove"></i> <span>Nacimientos</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Lista de nacimientos", admin_births_path %></li>
-                  <li><%= nav_link "Pendientes aprobación", admin_births_no_approved_index_path %></li>
-                </ul>
-              </li>
-              <!-- /Nacimientos -->
-              <!-- /Eventos -->
-              <li class="menu-header">Configuración</li>
-              <li class="nav-item dropdown <%= 'active' if "/admin/users".in?(request.path)%>">
-                <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-users"></i> <span>Usuarios</span></a>
-                <ul class="dropdown-menu">
-                  <li><%= nav_link "Lista de usuarios", admin_users_path %></li>
-                  <li><%= nav_link "Aprobación de fotos", admin_users_images_approbation_path %></li>
-                </ul>
-              </li>
-              <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
             </ul>
-            <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-              <a href="#" class="btn btn-danger btn-lg btn-block btn-icon-split">
-                <i class="fas fa-close"></i> Cerrar sesión
-              </a>
-            </div>
-          </aside>
-        </div>
-        <div class="main-content">
-          <%= render partial: 'layouts/partials/search' %>
-          <%= flash_messages %>
-          <%= yield%>
-        </div>
-        <div class="pt-4">
-          <div class="card" style="margin-bottom: 0; cursor: none;">
-            <footer class="text-right p-2 ">Desarrollado por REDEX</footer>
+          </nav>
+          <div class="main-sidebar">
+            <aside id="sidebar-wrapper">
+              <div class="sidebar-brand">
+                <a href="index.html">ADMINISTRACIÓN</a>
+              </div>
+              <div class="sidebar-brand sidebar-brand-sm">
+                <a href="index.html">St</a>
+              </div>
+              <ul class="sidebar-menu">
+                <li class="menu-header">Dashboard</li>
+                <li class="nav-item">
+                  <a href="https://google.com" class="nav-link"><i class="fas fa-fire"></i><span>Sitio usuario</span></a>
+                </li>
+                <li class="menu-header">Módulos</li>
+                <!-- Noticias -->
+                <li class="nav-item dropdown <%= 'active' if "/admin/posts".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Lista de noticias", admin_posts_path %></li>
+                    <li><%= nav_link "Nueva noticia", new_admin_post_path %></li>
+                  </ul>
+                </li>
+                <!-- /Noticias -->
+                <!-- Medios -->
+                <li class="nav-item dropdown <%= 'active' if "/admin/attachments".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="far fa-image"></i> <span>Medios</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Lista de medios", admin_attachments_path %></li>
+                    <li><%= nav_link "Lista de Imágenes", admin_attachments_images_path %></li>
+                    <li><%= nav_link "Lista de Videos", admin_attachments_videos_path %></li>
+                    <li><%= nav_link "Galerías", admin_galleries_path %></li>
+                    <li><%= nav_link "Añadir medios", new_admin_attachment_path %></li>
+                    <li><%= nav_link "Archivos", admin_files_path %></li>
+                  </ul>
+                </li>
+                <!-- /Medios -->
+                <!-- Formularios -->
+                <li class="nav-item dropdown <%= 'active' if "/admin/surveys".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-poll-h"></i> <span>Formularios</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Lista de formularios", admin_surveys_path %></li>
+                    <li><%= nav_link "Lista de respuestas", admin_answers_path %></li>
+                    <li><%= nav_link "Nuevo formulario", new_admin_survey_path %></li>
+                  </ul>
+                </li>
+                <!-- /Formularios -->
+                <!-- Biblioteca -->
+                <li class="nav-item dropdown <%= 'active' if "/admin/books".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-book"></i> <span>Biblioteca</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Lista de libros", admin_books_path %></li>
+                    <li><%= nav_link "Lista de autores", admin_authors_path %></li>
+                    <li><%= nav_link "Lista de editoriales", admin_editorials_path %></li>
+                    <li><%= nav_link "Lista de solicitudes", admin_user_book_relationships_path %></li>
+                    <li><%= nav_link "Nuevo libro", new_admin_book_path %></li>
+                  </ul>
+                </li>
+                <!-- /Biblioteca -->
+                <!-- Edición Home -->
+                <li class="nav-item dropdown <%= 'active' if "/admin/links".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-home"></i> <span>Edición Home</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Links", admin_links_path %></li>
+                    <li><%= nav_link "Secciones", admin_sections_path %></li>
+                  </ul>
+                </li>
+                <!-- /Edición Home -->
+                <!-- Mensajes -->
+                <li class="nav-item">
+                  <a href="<%= admin_messages_path %>">
+                    <i class="far fa-comment-alt"></i>Mensajes
+                  </a>
+                </li>
+                <!-- /Mensajes -->
+                <!-- Grupos -->
+                <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Grupos</a></li>
+                <!-- /Grupos -->
+                <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
+                  <li class="menu-header">Beneficios</li>
+                  <!-- Beneficios-->
+                  <li>
+                    <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a>
+                  </li>
+                  <!-- /Beneficios-->
+                  <!-- Grupos Beneficiarios -->
+                  <li>
+                    <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a>
+                  </li>
+                  <!-- /Grupos Beneficiarios -->
+                <% end %>
+                <!-- Marketplace -->
+                <li class="menu-header">Marketplace</li>
+                <li class="nav-item dropdown <%= 'active' if "/admin/products".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-shopping-cart"></i> <span>Anuncios</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Lista de anuncios", admin_products_path %></li>
+                    <li><%= nav_link "Pendientes de aprobación", admin_products_no_approved_index_path %></li>
+                    <li><%= nav_link "Aprobados", admin_products_approved_index_path %></li>
+                  </ul>
+                </li>
+                <!-- /Marketplace -->
+                <!-- Eventos -->
+                <li class="menu-header">Eventos</li>
+                <!-- Nacimientos -->
+                <li class="nav-item dropdown <%= 'active' if "/admin/births".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-dove"></i> <span>Nacimientos</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Lista de nacimientos", admin_births_path %></li>
+                    <li><%= nav_link "Pendientes aprobación", admin_births_no_approved_index_path %></li>
+                  </ul>
+                </li>
+                <!-- /Nacimientos -->
+                <!-- /Eventos -->
+                <li class="menu-header">Configuración</li>
+                <li class="nav-item dropdown <%= 'active' if "/admin/users".in?(request.path)%>">
+                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-users"></i> <span>Usuarios</span></a>
+                  <ul class="dropdown-menu">
+                    <li><%= nav_link "Lista de usuarios", admin_users_path %></li>
+                    <li><%= nav_link "Aprobación de fotos", admin_users_images_approbation_path %></li>
+                  </ul>
+                </li>
+                <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
+              </ul>
+              <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+                <a href="#" class="btn btn-danger btn-lg btn-block btn-icon-split">
+                  <i class="fas fa-close"></i> Cerrar sesión
+                </a>
+              </div>
+            </aside>
           </div>
-        </div>
-        <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
-        <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
-        <!-- General JS Scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-        <!-- JS Libraies -->
-        <!-- Template JS File -->
-      </body>
+          <div class="main-content">
+            <%= render partial: 'layouts/partials/search' %>
+            <%= flash_messages %>
+            <%= yield %>
+          </div>
+          <div class="pt-4">
+            <div class="card" style="margin-bottom: 0; cursor: none;">
+              <footer class="text-right p-2 ">Desarrollado por REDEX</footer>
+            </div>
+          </div>
+          <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
+          <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
+          <!-- General JS Scripts -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+          <!-- JS Libraies -->
+          <!-- Template JS File -->
+        </body>
+      <% end %>
     </html>
     <style>
       .fade:not(.show) {

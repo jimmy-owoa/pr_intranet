@@ -1,5 +1,9 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load', function () {
   $("#menu_parent_id").select2({
+    theme: "bootstrap",
+    width: "100%"
+  });
+  $("#menu_profile_id").select2({
     theme: "bootstrap",
     width: "100%"
   });

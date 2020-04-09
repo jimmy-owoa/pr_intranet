@@ -3,6 +3,7 @@ require "stringio"
 
 module Frontend
   class BirthsController < FrontendController
+    include ApplicationHelper
     #callbacks
     layout "admin"
     before_action :set_birth, only: [:show, :destroy]
@@ -24,18 +25,24 @@ module Frontend
           color = "black"
         end
         images = []
-        birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
+        # CORREGIR TODO NACIMIENTOS.
+        if birth.photo.attachment
+          if birth.permitted_image
+            images << url_for(birth.photo.variant(resize: "500x500>"))
+          end
+        end
+        # birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
         data << {
           id: birth.id,
           name: birth.child_name,
           last_names: birth.child_lastname + " " + birth.child_lastname2,
           company: company_name,
-          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
+          photo: birth.photo.attachment ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
           images: images,
           gender: birth.gender,
           birthday: l(birth.birthday, format: "%d de %B").downcase,
           birthday_format_2: birth.birthday.strftime("%d-%m-%Y"),
-          father: birth.user.present? ? birth.user.full_name : "",
+          father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
           email: email,
           color: color,
         }
@@ -52,15 +59,21 @@ module Frontend
       births = Employee::Birth.show_birth.order(birthday: :asc).last(4)
       births.each do |birth|
         images = []
-        birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
+
+        if birth.photo.attachment
+          if birth.permitted_image
+            images << url_for(birth.photo.variant(resize: "500x500>"))
+          end
+        end
+
         data << {
           id: birth.id,
           child_full_name: birth.child_name + " " + birth.child_lastname + " " + birth.child_lastname2,
-          photo: birth.permitted_images.present? ? url_for(birth.images.attachments.first.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
+          photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
           images: images,
           gender: birth.gender ? "Masculino" : "Femenino",
-          birthday: birth.birthday,
-          father: birth.user.present? ? birth.user.favorite_name : "",
+          birthday: birth.birthday.strftime("%d/%m"),
+          father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
           color: birth.user.present? ? birth.user.get_color : "black",
           email: birth.user.present? ? birth.user.email : "",
         }
@@ -99,12 +112,11 @@ module Frontend
           decoded_image = Base64.decode64(base64_image)
           image_io = StringIO.new(decoded_image)
           @birth_image = { io: image_io, filename: child_name }
-          @birth.images.attach(@birth_image)
+          @birth.photo.attach(@birth_image)
         end
       end
       respond_to do |format|
         if @birth.save
-          # UserNotifierMailer.send_birth_created(@birth.user.email).deliver
           format.html { redirect_to frontend_birth_path(@birth), notice: "Birth was successfully created." }
           format.json { render json: @birth, status: 200 }
         else

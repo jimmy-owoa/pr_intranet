@@ -7,8 +7,8 @@
       <div class="card">
         <div class="card-body">
           <h4>Nombre del nacido:  <%= @birth.child_fullname %></h4>
-          <p><strong> Nombre de la madre: </strong> <%= @birth.full_name_mother %></p>
-          <p><strong> Nombre del padre: </strong> <%= @birth.full_name_father %></p>
+          <p><strong> Nombre del Padre/Madre: </strong> <%= @birth.user.full_name %></p>
+          <p><strong> Día de nacimiento: </strong> <%= custom_date_no_hour(@birth.birthday) %></p>
           <p class="card-text">
             <b>Creado:</b> <%= custom_date(@birth.created_at)%>
           </p>
@@ -18,13 +18,10 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-body">
-          <%# <% if @birth.images.attachments.present?%>
-          <% if @birth.permitted_images.present? %>
-            <% @birth.permitted_images.each do |image| %>
-              <%= image_tag image.variant(resize: '250x200>'), class: 'image_attach'%>
+          <% if @birth.photo.attachment.present? %>
+            <% if @birth.permitted_image %>
+              <%= image_tag @birth.photo.attachment.variant(resize: '250x200>'), class: 'image_attach'%>
             <% end %>
-          <% else %>
-            <img src="https://webiconspng.com/wp-content/uploads/2017/09/Stork-PNG-Image-40980.png" height="230px"  />
           <% end %>
         </div>
       </div>

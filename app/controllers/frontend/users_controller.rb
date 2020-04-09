@@ -1,6 +1,7 @@
 module Frontend
   class UsersController < FrontendController
     include Rails.application.routes.url_helpers
+    include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: :upload
 
     def nickname(name)
@@ -61,9 +62,10 @@ module Frontend
         name: @user.name,
         nickname: @nickname,
         last_name: @user.last_name,
-        full_name: @user.full_name,
+        full_name: get_full_favorite_name(@user),
         email: @user.email,
         annexed: @user.annexed,
+        phone: get_phone(@user.annexed),
         position: @user.position,
         company: @user.company.present? ? @user.company.name : "Empresa no disponible",
         birthday: @user.birthday.present? && @user.show_birthday ? @user.birthday.strftime("%d/%m") : "Información oculta",
@@ -101,7 +103,7 @@ module Frontend
         user.children.where.not(parent_id: nil).each do |children|
           data_childrens << {
             id: children.id,
-            name: children.name,
+            name: children.favorite_name,
             last_name: children.last_name,
             position: children.position,
             company: children.company.present? ? children.company.name.titleize : "Empresa no disponible",
@@ -115,7 +117,7 @@ module Frontend
         user.siblings.where.not(parent_id: nil).each do |sibling|
           data_siblings << {
             id: sibling.id,
-            name: sibling.name,
+            name: sibling.favorite_name,
             last_name: sibling.last_name,
             position: sibling.position,
             company: sibling.company.present? ? sibling.company.name.titleize : "Empresa no disponible",
@@ -128,7 +130,7 @@ module Frontend
       if user.parent.present?
         data_father << {
           id: user.parent.id,
-          name: user.parent.name,
+          name: user.parent.favorite_name,
           last_name: user.parent.last_name,
           position: user.parent.position,
           company: user.parent.company.present? ? user.parent.company.name.titleize : "Empresa no disponible",
@@ -211,8 +213,9 @@ module Frontend
       data_user << {
         id: user.id,
         name: user.name,
+        favorite_name: user.favorite_name,
         last_name: user.last_name,
-        full_name: user.full_name.titleize,
+        full_name: get_full_favorite_name(user).titleize,
         full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
         nickname: @nickname,
         role: user.roles.pluck(:name),
@@ -228,6 +231,7 @@ module Frontend
         excluding_tags: user.terms.excluding_tags.map { |a| a.name },
         email: user.email,
         annexed: user.annexed,
+        phone: get_phone(user.annexed),
         breadcrumbs: [
           { link: "/", name: "Inicio" },
           { link: "#", name: "Mi perfil" },
