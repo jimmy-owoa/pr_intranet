@@ -6,7 +6,7 @@
     <div class="card post_card">
       <div class="row">
         <div class="col-md-4">
-          <b><%= fullname_user(@post.user_id) %></b>
+          <b><%= fullname_user(@post.user_id) if @post.user_id.present? %></b>
         </div>
         <div class="col-md-6">
           <b>Última actualización:</b> <%= l(@post.updated_at, format: :long2) %>
