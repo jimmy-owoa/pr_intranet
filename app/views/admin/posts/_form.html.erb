@@ -117,7 +117,7 @@
         <div class="form-group row">
           <div class="col-md-12">
             <%= f.label :post_type %><br>
-            <%= f.select :post_type, News::Post::TYPE.map { |m| m }, class:'post_type form-control string optional', id:'post_type' %>
+            <%= f.input :post_type, collection: News::Post::TYPE %>
           </div>
           <div class="col-md-12">
             <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
