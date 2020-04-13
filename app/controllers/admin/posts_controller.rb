@@ -110,7 +110,7 @@ module Admin
     end
 
     def set_gallery
-      @gallery = Media::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
+      @gallery = Media::Gallery.find(params[:post][:gallery]) if params[:post][:gallery].present?
       @post.gallery = @gallery
       @post.reload.gallery
       @post.save

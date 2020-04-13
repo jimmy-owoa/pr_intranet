@@ -70,7 +70,7 @@
             <h5 class="card-title">Galería</h5>
             <div class="card-body">
               <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
-              <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
+              <%= f.label "Galería", class: 'form-control-label' %><br>
               <%= f.input :gallery, collection: @galleries, include_blank: true, multiple: false, selected: selected_value %><br/>
               <%= link_to 'Editar Galería', edit_admin_gallery_path(@post.gallery.id) if @post.gallery.present? %>
             </div>
@@ -117,7 +117,7 @@
         <div class="form-group row">
           <div class="col-md-12">
             <%= f.label :post_type %><br>
-            <%= f.input :post_type, collection: News::Post::TYPE %>
+            <%= f.input :post_type, collection: News::Post::TYPE, prompt: :translate %>
           </div>
           <div class="col-md-12">
             <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
