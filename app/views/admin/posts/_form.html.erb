@@ -13,8 +13,7 @@
       </div>
       <div class="col-md-12 col-sm-12 pb-4">
         <% selected_value = @post.profile_id || General::Profile.find_by_name("General").id %>
-        <%= f.label "Perfilamiento" %>
-        <%= f.input :profile_id, collection: General::Profile.all, prompt: :translate, multiple: false, class:' form-control string optional' %>
+        <%= f.input :profile_id, label: 'Perfilamiento', collection: General::Profile.all, prompt: :translate, multiple: false, class:' form-control string optional' %>
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.label "Contenido" %>
@@ -70,8 +69,7 @@
             <h5 class="card-title">Galería</h5>
             <div class="card-body">
               <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
-              <%= f.label "Galería", class: 'form-control-label' %><br>
-              <%= f.input :gallery, collection: @galleries, include_blank: true, multiple: false, selected: selected_value %><br/>
+              <%= f.input :gallery, label: 'Galería', collection: @galleries, include_blank: true, multiple: false, selected: selected_value %><br/>
               <%= link_to 'Editar Galería', edit_admin_gallery_path(@post.gallery.id) if @post.gallery.present? %>
             </div>
           </div>
@@ -116,7 +114,6 @@
       <div class="card text-md-center p-2 wrapper">
         <div class="form-group row">
           <div class="col-md-12">
-            <%= f.label :post_type %><br>
             <%= f.input :post_type, collection: News::Post::TYPE, prompt: :translate %>
           </div>
           <div class="col-md-12">
@@ -150,19 +147,6 @@
           </div>
         </div>
       </div>
-      <%# <div class="card text-md-center p-2" >
-      <div class="form-group ">
-        <div class="col-md-12 col-sm-12">
-          <h5 class="card-title"> Formato </h5>
-        </div>
-        <div class="col-md-12">
-          <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
-      <%# <div class="tip_format">
-            Estilo 1: Normal - Estilo 2: Rosado - Estilo 3: Naranja
-          </div>
-        </div>
-      </div>
-    </div> %>
     </div>
   </div>
   <script>

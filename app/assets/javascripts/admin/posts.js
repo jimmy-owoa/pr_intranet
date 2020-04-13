@@ -4,18 +4,6 @@ $(document).on("turbolinks:load", function() {
     tags: true,
     tokenSeparators: [",", " "]
   });
-  // $("#post_profile_id").select2({
-  //   tags: false,
-  //   placeholder: "Seleccionar Perfil",
-  //   width: "100%"
-  // });
-
-  // $("#gallery_id").select2({
-  //   tags: false,
-  //   placeholder: "Seleccionar Galería",
-  //   width: "100%",
-  //   allowClear: true
-  // });
 
   $('#published_at').on('mousedown',function(event){ event.preventDefault(); })
 

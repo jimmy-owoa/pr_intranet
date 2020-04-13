@@ -15,11 +15,6 @@ $(document).on('turbolinks:load', function () {
       }
     });
 
-  $("#posts").select2({
-    tags: false,
-    tokenSeparators: [",", " "]
-  });
-
   var uploader = $("#fileinputuploader2");
 
   uploader.fileinput({
