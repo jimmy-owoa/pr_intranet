@@ -30,12 +30,14 @@ module Admin
       @post.build_main_image
       @post.build_file_video
       @post.terms.build
+      @galleries = Media::Gallery.all
       # @post.files.build
     end
 
     def edit
       @files = Media::File.all
       @gallery = Media::Gallery.new
+      @galleries = Media::Gallery.all
     end
 
     def create
