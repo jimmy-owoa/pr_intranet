@@ -156,7 +156,7 @@ module Frontend
         data << {
           id: post.id,
           title: post.title,
-          user_id: General::User.find(post.user_id).name,
+          # user_id: General::User.find(post.user_id).name,
           published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
           content: post.content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
