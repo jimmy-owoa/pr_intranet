@@ -230,6 +230,32 @@ module Frontend
       end
     end
 
+    def last_posts
+      posts = News::Post.normal_posts.published_posts.order(published_at: :desc).last(5)
+
+      data = []
+      posts.each do |post|
+        post_image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "100x100")) : root_url + "/assets/news.jpg"
+        extract = post.extract.slice(0..104) rescue post.extract
+        data << {
+          id: post.id,
+          title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
+          published_at: post.published_at.strftime("%d/%m/%Y"),
+          post_type: post.post_type.present? ? post.post_type.upcase : "",
+          slug: post.slug,
+          extract: extract,
+          breadcrumbs: [
+            { link: "/", name: "Inicio" },
+            { link: "/noticias", name: "Noticias" },
+            { link: "#", name: post.title.truncate(30) },
+          ],
+          main_image: post_image,
+        }
+      end
+
+      render json: data
+    end
+
     private
 
     # Use callbacks to share common setup or constraints between actions.

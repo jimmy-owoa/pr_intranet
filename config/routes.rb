@@ -91,6 +91,7 @@ Rails.application.routes.draw do
     get "products/user_products", to: "products#user_products"
     get "posts_video", to: "posts#index_video"
     get "posts_video/post", to: "posts#post_video"
+    get "last_posts", to: "posts#last_posts"
     resources :library do
       get :get_categories, on: :collection
     end
