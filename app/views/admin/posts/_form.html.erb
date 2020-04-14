@@ -12,8 +12,8 @@
         <%= f.input :slug, placeholder: 'esto-es-un-enlace', input_html: { class: "border border-dark" } %>
       </div>
       <div class="col-md-12 col-sm-12 pb-4">
-        <% selected_value = @post.profile_id || General::Profile.find_by_name("General").id %>
-        <%= f.input :profile_id, label: 'Perfilamiento', collection: General::Profile.all, prompt: :translate, multiple: false, class:' form-control string optional' %>
+        <% selected_profile = @post.profile_id || General::Profile.find_by_name("General").id %>
+        <%= f.input :profile_id, label: 'Perfilamiento', collection: General::Profile.all, prompt: :translate, multiple: false, include_blank: false, class:' form-control', selected: selected_profile %>
       </div>
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.label "Contenido" %>
@@ -114,7 +114,8 @@
       <div class="card text-md-center p-2 wrapper">
         <div class="form-group row">
           <div class="col-md-12">
-            <%= f.input :post_type, collection: News::Post::TYPE, prompt: :translate %>
+            <% selected_post_type = @post.post_type || News::Post::TYPE[0] %>
+            <%= f.input :post_type, collection: News::Post::TYPE, prompt: :translate, include_blank: false, multiple: false, selected: selected_post_type %>
           </div>
           <div class="col-md-12">
             <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
