@@ -29,7 +29,7 @@ module Frontend
         }
       end
       respond_to do |format|
-        format.json { render json: { hits: data } }
+        format.json { render json: data }
         format.js
       end
     end
