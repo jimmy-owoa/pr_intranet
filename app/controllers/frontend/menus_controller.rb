@@ -150,9 +150,9 @@ module Frontend
       menus = General::Menu.all.uniq.reject(&:blank?) - main_menus
       user_menus = General::Menu.profiled_menus(@request_user)
       data = []
-      if @request_user.legal_number.present?
-        exa_menu = do_request(@request_user)
-      end
+      # if @request_user.legal_number.present?
+      #   exa_menu = do_request(@request_user)
+      # end
 
       all_menus = user_menus.where(id: menus)
       menu_hash = {}
@@ -162,7 +162,8 @@ module Frontend
         x = all_menus.where(parent_id: main_menu.id)
         if x.present?
           x.each do |menu|
-            menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
+            # menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
+            menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, "")
           end
           data << menu_hash[main_menu.id]
         end
