@@ -111,7 +111,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: { status: "No tiene acceso"} }
+          format.json { render json: { status: "No tiene acceso" } }
           format.js
         end
       end
@@ -152,7 +152,7 @@ module Frontend
 
       data = []
       posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
+        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "1920x")) : root_url + "/assets/news.jpg"
         data << {
           id: post.id,
           title: post.title,
@@ -224,7 +224,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: { status: "No tiene acceso"} }
+          format.json { render json: { status: "No tiene acceso" } }
           format.js
         end
       end
