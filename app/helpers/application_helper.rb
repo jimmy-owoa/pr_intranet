@@ -274,6 +274,7 @@ module ApplicationHelper
     if content.include?("<p><img style=\"float: right;\"")
       content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", "<p align=\"right\"><img src=\"#{get_request_fix_content}/rails/")
     end
+
     if content.include?("<p><img style=\"float: left;\"")
       content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", "<p align=\"left\"><img src=\"#{get_request_fix_content}/rails/")
     end
@@ -281,6 +282,8 @@ module ApplicationHelper
       content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", "<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"#{get_request_fix_content}/rails/")
     end
 
+    content = content.gsub("<img", '<img style="max-width: 100%; height: auto;"')
+    content = content.gsub("<iframe", '<iframe style="max-width: 100%;"')
     content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
   end
 

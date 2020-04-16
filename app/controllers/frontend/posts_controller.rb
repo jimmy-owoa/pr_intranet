@@ -188,7 +188,7 @@ module Frontend
         relationed_posts.each do |post|
           data_relationed_posts << {
             id: post.id,
-            title: post.title.length > 36 ? post.title.slice(0..36) + "..." : post.title,
+            title: post.title,
             slug: post.slug,
             extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
