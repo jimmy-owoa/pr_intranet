@@ -8,7 +8,7 @@ module Frontend
       posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
       posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
+        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "600x400")) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
         data << {
           id: post.id,
