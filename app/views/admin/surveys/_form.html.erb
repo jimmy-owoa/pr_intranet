@@ -37,6 +37,7 @@
         <div class="col-md-12">
           <%= f.input :status, collection: Survey::Survey::STATUS, prompt: :translate %>
         </div>
+        <!-- Fecha de publicación -->
         <div class="col-md-12 col-sm-12"><br>
           <div class="input-group date" id="survey_published_at" data-target-input="nearest">
             <% if @survey.try(:published_at).present? %>
@@ -50,6 +51,22 @@
             </div>
           </div>
         </div>
+        <!-- /Fecha de publicación -->
+        <!-- Fecha de finalización -->
+        <div class="col-md-12 col-sm-12"><br>
+          <div class="input-group date" id="survey_published_at" data-target-input="nearest">
+            <% if @survey.try(:finish_date).present? %>
+              <label>Fecha de Finalización</label>
+              <%= f.text_field :finish_date, class: 'form-control datetimepicker-input', value: @survey.try(:finish_date).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#survey_published_at', class:'survey_published_at'%>
+            <% else %>
+              <%= f.text_field :finish_date, class: 'form-control datetimepicker-input', 'data-target' => '#survey_published_at', placeholder: "Fecha de finalización", label: false, class:'survey_published_at' %>
+            <% end %>
+            <div class="input-group-append" data-target="#survey_published_at" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+        </div>
+        <!-- /Fecha de finalización -->
         <br>
         <div class="col-md-12">
           <%= f.label "Mostrar Nombre" %><br />
