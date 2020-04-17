@@ -211,9 +211,9 @@ module Frontend
           format: post.format,
           extract: post.extract.present? ? post.extract : "",
           breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/noticias", name: "Noticias" },
-            { link: "#", name: post.title.truncate(30) },
+            { text: "Inicio", href: "/", disabled: false },
+            { text: "Noticias", href: "/noticias", disabled: false },
+            { text: post.title.truncate(34), href: "/", disabled: true },
           ],
           relationed_posts: data_relationed_posts,
           status: post.status,
