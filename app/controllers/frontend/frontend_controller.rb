@@ -115,6 +115,7 @@ class Frontend::FrontendController < ApplicationController
   end
 
   def is_exa(referrer)
+    return true if !referrer.present?
     exa_urls = ["https://misecurity-qa3.exa.cl/",
                 "https://misecurity-qa2.exa.cl/",
                 "https://misecurity-qa.exa.cl/",
