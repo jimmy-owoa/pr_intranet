@@ -140,6 +140,18 @@ $(document).on("turbolinks:load", function () {
     autoclose: true
   });
 
+  $("#survey_finish_date").datetimepicker({
+    sideBySide: true,
+    icons: {
+      up: "fa fa-chevron-circle-up",
+      down: "fa fa-chevron-circle-down",
+      next: "fa fa-chevron-circle-right",
+      previous: "fa fa-chevron-circle-left"
+    },
+    format: "DD/MM/YYYY",
+    buttons: {showClose: true },
+    autoclose: true
+  });
   // script que realiza el cierre de datetimepicker cuando se selecciona un campo exterior
   $(document).on('mouseup touchstart', function (e) {
     var container = $(".bootstrap-datetimepicker-widget");
