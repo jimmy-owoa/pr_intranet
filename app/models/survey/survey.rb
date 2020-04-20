@@ -30,7 +30,9 @@ class Survey::Survey < ApplicationRecord
   def self.survey_data(user)
     @data_surveys = []
     surveys = []
-    include_survey = Survey::Survey.includes(questions: [options: :answers]).where(once_by_user: true).published_surveys.where(profile_id: user.profile_ids)
+    include_survey = Survey::Survey.where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil))
+    include_survey = include_survey.includes(questions: [options: :answers]).where(once_by_user: true).published_surveys.where(profile_id: user.profile_ids)
+
     include_survey.each do |survey|
       if survey.allowed_answers.present?
         if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
@@ -50,7 +52,8 @@ class Survey::Survey < ApplicationRecord
 
   def self.get_surveys_no_once_user(user)
     allowed_surveys = []
-    surveys = Survey::Survey.where(once_by_user: false).published_surveys.where(profile_id: user.profile_ids)
+    surveys = Survey::Survey.where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil))
+    surveys = surveys.where(once_by_user: false).published_surveys.where(profile_id: user.profile_ids)
     surveys.each do |survey|
       if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
         allowed_surveys << survey
