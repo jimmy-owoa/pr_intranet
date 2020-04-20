@@ -123,7 +123,7 @@ module Frontend
       if survey.profile_id.in?(@request_user.profile_ids) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
         options_user_ids = []
         survey.questions.each { |question| options_user_ids << question.answers.pluck(:user_id) }
-        if (!@request_user.id.in?(options_user_ids) || !survey.once_by_user) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
+        if (!@request_user.id.in?(options_user_ids.flatten) || !survey.once_by_user) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
           data_survey = []
           data_questions = []
           survey.questions.each do |question|
@@ -160,7 +160,7 @@ module Frontend
             status: survey.status,
           }
         else
-          data_survey = ["Encuesta ya fué respondida por el usuario"]
+          data_survey = [""]
         end
         respond_to do |format|
           format.html
