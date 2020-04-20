@@ -53,8 +53,7 @@ class Survey::Survey < ApplicationRecord
   def self.get_surveys_no_once_user(user)
     allowed_surveys = []
     surveys = Survey::Survey.where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil))
-    surveys = surveys.where(once_by_user: false).published_surveys.where.not("finish_date <= ?", Time.now).where(profile_id: user.profile_ids)
-
+    surveys = surveys.where(once_by_user: false).published_surveys.where(profile_id: user.profile_ids)
     surveys.each do |survey|
       if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
         allowed_surveys << survey
