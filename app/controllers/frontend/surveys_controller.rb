@@ -158,6 +158,11 @@ module Frontend
             survey_type: survey.survey_type,
             slug: survey.slug,
             status: survey.status,
+            breadcrumbs: [
+              { text: "Inicio", href: "/" },
+              { text: "Encuestas", href: "/encuestas" },
+              { text: survey.name.truncate(34), href: "/", disabled: true },
+            ],
           }
         else
           data_survey = ["Encuesta ya fué respondida por el usuario"]
