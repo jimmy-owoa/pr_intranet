@@ -59,22 +59,13 @@ module Admin
     def update
       authorize @product
       approved = product_params[:approved]
-      if approved.present?
-        respond_to do |format|
-          if approved == "true"
-            UserNotifierMailer.send_product_approved(@product.user.email, @product.user.name, @product.id).deliver
-          else
-            UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
-          end
-          @product.update_attributes(approved: approved)
-          format.html { redirect_to admin_products_path }
-        end
-      elsif params["image_id"].present?
+      if params["image_id"].present?
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
       else
         respond_to do |format|
           if @product.update(product_params)
             catch_image(params[:permissions])
+            send_email
             format.html { redirect_to admin_product_path(@product), notice: "Producto fue actualizado con éxito." }
             format.json { render :show, status: :ok, location: @product }
           else
@@ -103,6 +94,14 @@ module Admin
     end
 
     private
+
+    def send_email
+      if @product.approved?
+        UserNotifierMailer.send_product_approved(@product.user.email, @product.user.name, @product.id).deliver
+      else
+        UserNotifierMailer.send_product_not_approved(@product.user.email).deliver
+      end
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_product
