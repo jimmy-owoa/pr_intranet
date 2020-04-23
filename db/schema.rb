@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_155656) do
+ActiveRecord::Schema.define(version: 2020_04_17_190532) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -747,6 +747,7 @@ ActiveRecord::Schema.define(version: 2020_04_06_155656) do
     t.bigint "profile_id"
     t.integer "allowed_answers", default: 0
     t.datetime "deleted_at"
+    t.date "finish_date"
     t.index ["deleted_at"], name: "index_survey_surveys_on_deleted_at"
     t.index ["profile_id"], name: "index_survey_surveys_on_profile_id"
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
