@@ -47,23 +47,15 @@ module Admin
     end
 
     def update
+      binding.pry
       approved = birth_params["approved"]
-      if approved.present?
-        respond_to do |format|
-          if approved == "true"
-            UserNotifierMailer.send_birth_approved(@birth.user.email).deliver
-          else
-            UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
-          end
-          @birth.update_attributes(approved: approved)
-          format.html { redirect_to admin_births_path }
-        end
-      elsif params["image_id"].present?
+      if params["image_id"].present?
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
       else
         respond_to do |format|
           if @birth.update(birth_params)
             catch_image(params[:permissions])
+            send_email
             format.html { redirect_to admin_birth_path(@birth), notice: "Nacimiento fue actualizado con éxito." }
             format.json { render :show, status: :ok, location: @birth }
           else
@@ -79,6 +71,14 @@ module Admin
         image.each do |id|
           ActiveStorage::Attachment.find(id).update_attributes(permission: 1)
         end
+      end
+    end
+
+    def send_email
+      if @birth.approved?
+        UserNotifierMailer.send_birth_approved(@birth.user.email).deliver
+      else
+        UserNotifierMailer.send_birth_not_approved(@birth.user.email).deliver
       end
     end
 
