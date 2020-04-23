@@ -47,7 +47,6 @@ module Admin
     end
 
     def update
-      binding.pry
       approved = birth_params["approved"]
       if params["image_id"].present?
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
