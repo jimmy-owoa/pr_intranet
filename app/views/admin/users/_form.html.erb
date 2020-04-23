@@ -59,7 +59,8 @@
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <% selected_value = @user.company_id || "" %>
-          <%= f.input :company_id, label: 'Compañía', collection: @companies, include_blank: false, selected: selected_value , class:'form-control' %>
+          <%= f.label "Empresa" %>
+          <%= f.select :company_id, options_for_select(@companies.map{|company| [company.name, company.id]}, selected_value), {}, class:' form-control string' %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.label :location_id %>
