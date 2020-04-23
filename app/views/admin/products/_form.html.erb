@@ -98,6 +98,7 @@
     <br>
   <% end %>
   <div class="container col-md-12 text-center">
+    <%= f.submit 'Guardar', class: 'btn btn-success' %>
     <%= link_to 'Volver', :back, class:'btn btn-primary' %>
     <% if @product.id.present? %>
       <%= link_to "Aprobar", admin_product_path(@product, product: {approved: true}) , method: :put, :class => 'btn btn-primary'%>
@@ -107,7 +108,5 @@
           :method => :delete,
           :data => { :confirm => 'Confirmar', :title => '¿Está seguro(a) que desea eliminar este elemento?' },
           :class => 'btn btn-danger'%>
-    <% else%>
-      <%= f.submit nil, class: 'btn btn-success' %>
     <% end %>
   </div>
