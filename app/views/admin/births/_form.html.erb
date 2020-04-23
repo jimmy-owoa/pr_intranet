@@ -17,7 +17,8 @@
           <%= @user.full_name %>
         <% else %>
           <% selected_value = nil %>
-          <%= f.input :user_id, label: 'Usuario', collection: @users.sort, include_blank: true, multiple: false %><br/>
+          <%= f.label :user, "Usuario", class: 'form-control-label string required' %><br>
+          <%= select_tag :user_id, options_for_select(@users.sort, selected_value), include_blank: true, multiple: false %><br/>
         <% end %>
       </div>
       <div class="col-md-4 col-sm-4">
