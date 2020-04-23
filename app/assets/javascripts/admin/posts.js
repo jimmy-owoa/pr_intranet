@@ -1,8 +1,26 @@
+document.addEventListener('turbolinks:before-cache', function () {
+  $('#gallery_id').select2('destroy');
+  $("#post_post_type").select2('destroy');
+  $("#post_status").select2('destroy');
+});
 
 $(document).on("turbolinks:load", function() {
   $("#terms_names").select2({
     tags: true,
     tokenSeparators: [",", " "]
+  });
+
+  $("#post_profile_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Perfil",
+    width: "100%"
+  });
+
+  $("#gallery_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Galería",
+    width: "100%",
+    allowClear: true
   });
 
   $('#published_at').on('mousedown',function(event){ event.preventDefault(); })
@@ -34,6 +52,12 @@ $(document).on("turbolinks:load", function() {
       "<i class='fa fa-chevron-right'></i>"
     ]
   });
+
+  $("#post_post_type").select2({
+    theme: "bootstrap",
+    width: "100%"
+  });
+
   $("#post_visibility").select2({
     theme: "bootstrap",
     placeholder: "Elegir  visibilidad",
@@ -44,6 +68,13 @@ $(document).on("turbolinks:load", function() {
     placeholder: "Elegir permiso",
     width: "100%"
   });
+
+  $("#post_status").select2({
+    theme: "bootstrap",
+    placeholder: "Elegir estado",
+    width: "100%"
+  });
+  
   $("#tag_post").select2({
     tags: false,
     tokenSeparators: [],
