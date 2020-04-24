@@ -130,17 +130,16 @@
 </div>
 <div class="row">
   <div class="col-md-12 mb-5">
-    <% if @birth.id.present? %>
-      <div class="col-md-4">
+    <div class="col-md-4">
+      <%= f.submit 'Guardar', class: 'btn btn-success' %>
+      <% if @birth.id.present? %>
         <%= link_to "Aprobar", admin_birth_path(@birth, birth: {approved: true}) , method: :put, :class => 'btn btn-primary'%>
         <%= link_to 'Rechazar',
           admin_birth_path(@birth, birth: {approved: false}), method: :put,
           method: :delete,
           data: { title: '¿Esta segura(o) que desea rechazar este elemento?', confirm: 'Confirmar' },
           class: 'btn btn-danger' %>
-      </div>
-    <% else %>
-      <%= f.submit nil, class: 'btn btn-success btn-block' %>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
