@@ -97,9 +97,9 @@ module Frontend
           format: post.format,
           extract: post.extract.present? ? post.extract : "",
           breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/momentos-security", name: "Momentos security" },
-            { link: "#", name: post.title.truncate(30) },
+            { href: "/", text: "Inicio" },
+            { href: "/momentos", text: "Momentos" },
+            { href: "#", text: post.title.truncate(30), disabled: true },
           ],
           file_video: post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news_video_image.jpg",
           relationed_posts: data_relationed_posts,
