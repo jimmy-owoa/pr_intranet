@@ -39,7 +39,7 @@ module Frontend
       posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
       posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
+        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '600x400')) : root_url + "/assets/news.jpg"
         @video = post.file_video.present? ? url_for(post.file_video.attachment) : @image
         extract = post.extract.slice(0..104) rescue post.extract
         data << {
@@ -51,9 +51,9 @@ module Frontend
           slug: post.slug,
           extract: extract,
           breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/momentos-security", name: "momentos-security" },
-            { link: "#", name: post.title.truncate(30) },
+            { href: "/", text: "Inicio" },
+            { href: "/momentos", text: "momentos" },
+            { href: "#", text: post.title.truncate(30) },
           ],
           main_image: @image,
           file_video: @video,
@@ -80,7 +80,7 @@ module Frontend
             slug: post.slug,
             extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-            main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+            main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '400x200')) : root_url + "/assets/news.jpg",
             post_type: post.post_type,
           }
         end
@@ -93,7 +93,7 @@ module Frontend
           published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d-%m-%Y"),
           content: content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
-          main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+          main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '600x400')) : root_url + "/assets/news.jpg",
           format: post.format,
           extract: post.extract.present? ? post.extract : "",
           breadcrumbs: [
