@@ -131,7 +131,7 @@
                 </li>
                 <!-- /Mensajes -->
                 <!-- Grupos -->
-                <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Grupos</a></li>
+                <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Perfilamiento</a></li>
                 <!-- /Grupos -->
                 <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
                   <li class="menu-header">Beneficios</li>
