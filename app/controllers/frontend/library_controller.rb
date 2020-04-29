@@ -62,7 +62,7 @@ module Frontend
         breadcrumbs: [
           { href: "/", text: "Inicio" },
           { href: "/biblioteca", text: "Biblioteca" },
-          { href: "#", text: book.title.truncate(30), disabled: true },
+          { href: "#", text: book.title.truncate(19), disabled: true },
         ],
       }
       respond_to do |format|
