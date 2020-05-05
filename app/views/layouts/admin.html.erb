@@ -9,223 +9,217 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <% if current_user.has_role? :super_admin or current_user.has_role? :admin %>
-  <body>
-    <div class="modal" id="gallery_modal"></div>
-    <div class="modal" id="main_image_modal"></div>
-    <div class="modal" id="video_modal"></div>
-    <div class="modal" id="img_user_modal"></div>
-
-    <div id="app">
-      <div class="main-wrapper">
-        <div class="navbar-bg"></div>
-        <nav class="navbar navbar-expand-lg main-navbar">
-          <form class="form-inline mr-auto">
-            <ul class="navbar-nav mr-3">
-              <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-              <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+    <body>
+      <div class="modal" id="gallery_modal"></div>
+      <div class="modal" id="main_image_modal"></div>
+      <div class="modal" id="video_modal"></div>
+      <div class="modal" id="img_user_modal"></div>
+      <div id="app">
+        <div class="main-wrapper">
+          <div class="navbar-bg"></div>
+          <nav class="navbar navbar-expand-lg main-navbar">
+            <form class="form-inline mr-auto">
+              <ul class="navbar-nav mr-3">
+                <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+              </ul>
+            </form>
+            <ul class="navbar-nav navbar-right">
+              <li class="dropdown dropdown-list-toggle">
+                <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep">
+                  <i class="fas fa-bell"></i>
+                </a>
+                <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                  <div class="dropdown-header">
+                    Notificaciones
+                    <div class="float-right"><a href="#">Ver todas</a></div>
+                  </div>
+                  <div class="dropdown-list-content">
+                    <a href="#" class="dropdown-item dropdown-item-unread">
+                      <div class="dropdown-item-desc">
+                        <b>Nicolás Duhart está de cumpleaños hoy</b>
+                        <div class="time">05-10-2018</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+                  <i class="ion ion-android-person d-lg-none"></i>
+                  <div class="d-sm-none d-lg-inline-block">Hola <%= current_user.name %></div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i><%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
+                </div>
+              </li>
             </ul>
-          </form>
-          <ul class="navbar-nav navbar-right">
-            <li class="dropdown dropdown-list-toggle">
-              <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep">
-                <i class="fas fa-bell"></i>
-              </a>
-              <div class="dropdown-menu dropdown-list dropdown-menu-right">
-                <div class="dropdown-header">
-                  Notificaciones
-                  <div class="float-right"><a href="#">Ver todas</a></div>
-                </div>
-                <div class="dropdown-list-content">
-                  <a href="#" class="dropdown-item dropdown-item-unread">
-                    <div class="dropdown-item-desc">
-                      <b>Nicolás Duhart está de cumpleaños hoy</b>
-                      <div class="time">05-10-2018</div>
-                    </div>
-                  </a>
+          </nav>
+          <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
+            <aside id="sidebar-wrapper" class="mb-5">
+              <div class="sidebar-brand"><%= link_to 'Grupo Security', admin_root_path %></div>
+              <div class="sidebar-user">
+                <div class="sidebar-user-details">
+                  <div class="user-name"><%= current_user.name %></div>
+                  <div class="user-role">
+                    <% if current_user.has_role? :super_admin%>
+                      <%= 'Administrador' %>
+                    <% else %>
+                      <%= 'Administrador de Noticias' %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-            </li>
-            <li class="dropdown">
-              <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
-                <i class="ion ion-android-person d-lg-none"></i>
-                <div class="d-sm-none d-lg-inline-block">Hola <%= current_user.name %></div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item has-icon" style="padding-bottom: 0px;"><i class="fas fa-user-circle"></i><%= link_to 'Perfil', edit_admin_user_path(current_user) %></a>
-              </div>
-            </li>
-          </ul>
-        </nav>
-        <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
-          <aside id="sidebar-wrapper" class="mb-5">
-            <div class="sidebar-brand"><%= link_to 'Grupo Security', admin_root_path %></div>
-            <div class="sidebar-user">
-              <div class="sidebar-user-details">
-                <div class="user-name"><%= current_user.name %></div>
-                <div class="user-role">
-                  <% if current_user.has_role? :super_admin%>
-                    <%= 'Administrador' %>
-                  <% else %>
-                    <%= 'Administrador de Noticias' %>
+              <ul class="sidebar-menu">
+                <li class="menu-header">Administrador</li>
+                <li>
+                  <%= link_to get_frontend_url, target: "_blank" do %>
+                    <i class="fas fa-eye"></i>Ver Intranet
                   <% end %>
-                </div>
+                </li>
+                <!-- MODULOS -->
+                <li class="menu-header">Módulos</li>
+                <% if current_user.has_role? :super_admin or current_user.has_role? :post_admin %>
+                  <!-- Noticias -->
+                  <li>
+                    <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i><span>Noticias <b>↓</b></span></a>
+                    <ul class="menu-dropdown">
+                      <li><a href="<%= admin_posts_path %>"><i class="fas fa-list"></i>Listado</a></li>
+                      <li><a href="<%= new_admin_post_path %>"><i class="fas fa-file"></i>Crear nueva</a></li>
+                    </ul>
+                  </li>
+                  <!-- /Noticias -->
+                <% end %>
+                <% if current_user.has_role? :super_admin %>
+                  <!-- Medios -->
+                  <li>
+                    <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios <b>↓</b></span></a>
+                    <ul class="menu-dropdown">
+                      <li><a href="<%= admin_attachments_path %>"><i class="fas fa-file-video"></i>Lista de medios</a></li>
+                      <li><a href="<%= admin_attachments_images_path %>"><i class="far fa-file-image"></i>Lista de Imágenes</a></li>
+                      <li><a href="<%= admin_attachments_videos_path %>"><i class="fas fa-film"></i>Lista de Videos</a></li>
+                      <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i>Galerías</a></li>
+                      <li><a href="<%= new_admin_attachment_path %>"><i class="fas fa-file-upload"></i>Añadir medios</a></li>
+                      <li><a href="<%= admin_files_path %>"><i class="fas fa-folder"></i>Archivos</a></li>
+                    </ul>
+                  </li>
+                  <!-- /Medios-->
+                  <!-- Formularios -->
+                  <li>
+                    <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span>Formularios <b>↓</b></span></a>
+                    <ul class="menu-dropdown">
+                      <li><a href="<%= admin_surveys_path %>"><i class="fas fa-list"></i>Listado</a></li>
+                      <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
+                      <li><a href="<%= new_admin_survey_path %>"><i class="fas fa-plus-circle"></i>Crear nueva</a></li>
+                    </ul>
+                  </li>
+                  <!-- /Formularios-->
+                  <!-- Biblioteca -->
+                  <li>
+                    <a href="#" class="has-dropdown"><i class="fas fa-book"></i><span>Biblioteca <b>↓</b></span></a>
+                    <ul class="menu-dropdown">
+                      <li><a href="<%= admin_books_path %>"><i class="fas fa-list"></i>Listado de Libros</a></li>
+                      <li><a href="<%= admin_authors_path %>"><i class="fas fa-list"></i>Autores</a></li>
+                      <li><a href="<%= admin_editorials_path %>"><i class="fas fa-list"></i>Editoriales</a></li>
+                      <li><a href="<%= admin_user_book_relationships_path %>"><i class="fas fa-list"></i>Solicitudes
+                          <li><a href="<%= new_admin_book_path %>"><i class="fas fa-plus-circle"></i>Crear nuevo Libro</a></li>
+                        </ul>
+                      </li>
+                      <!-- /Biblioteca -->
+                      <!-- Edición Home -->
+                      <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-home"></i><span>Edición Home <b>↓</b></span></a>
+                        <ul class="menu-dropdown">
+                          <li><a class="nav-link " href="<%= admin_links_path %>"><i class="fas fa-list"></i>Links</a></li>
+                          <li><a href="<%= admin_sections_path %>"><i class="fas fa-puzzle-piece"></i>Secciones</a></li>
+                          <li><a href="<%= admin_backgrounds_path %>"><i class="fas fa-palette"></i>Fondos variables</a></li>
+                        </ul>
+                      </li>
+                      <!-- /Edición Home -->
+                      <!-- Mensajes -->
+                      <li>
+                        <a href="<%= admin_messages_path %>">
+                          <i class="far fa-comment-alt"></i>Mensajes
+                        </a>
+                      </li>
+                      <!-- /Mensajes -->
+                      <!-- Grupos -->
+                      <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Perfilamiento</a></li>
+                      <!-- /Grupos -->
+                      <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
+                        <li class="menu-header">Beneficios</li>
+                        <!-- Beneficios-->
+                        <li>
+                          <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a>
+                        </li>
+                        <!-- /Beneficios-->
+                        <!-- Grupos Beneficiarios -->
+                        <li>
+                          <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a>
+                        </li>
+                        <!-- /Grupos Beneficiarios -->
+                      <% end %>
+                      <li class="menu-header">Marketplace</li>
+                      <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios <b>↓</b></span></a>
+                        <ul class="menu-dropdown">
+                          <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
+                          <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
+                          <li><a href="<%= admin_products_approved_index_path %>"><i class="fas fa-check-circle"></i>Aprobados</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu-header">Eventos</li>
+                      <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Nacimientos <b>↓</b></span></a>
+                        <ul class="menu-dropdown">
+                          <li><a class="nav-link " href="<%= admin_births_path %>"><i class="fas fa-list"></i>Lista</a></li>
+                          <li><a href="<%= admin_births_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu-header">Configuración</li>
+                      <li class="dropdown">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Usuarios <b>↓</b></span></a>
+                        <ul class="menu-dropdown">
+                          <li><a href="<%= admin_users_path %>"><i class="fas fa-users"></i>Lista Usuarios</a></li>
+                          <li><a href="<%= admin_users_images_approbation_path %>"><i class="fas fa-pencil-ruler"></i>Aprobación Fotos</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
+                    <% end %>
+                  </ul>
+                </aside>
               </div>
             </div>
-            <ul class="sidebar-menu">
-              <li class="menu-header">Administrador</li>
-              <li>                
-                <%= link_to get_frontend_url, target: "_blank" do %>
-                  <i class="fas fa-eye"></i>Ver Intranet
-                <% end %>
-              </li>
-
-              <!-- MODULOS -->
-              <li class="menu-header">Módulos</li>
-              <% if current_user.has_role? :super_admin or current_user.has_role? :post_admin %>
-                <!-- Noticias -->
-                <li>
-                  <a href="#" class="has-dropdown"><i class="far fa-newspaper"></i><span>Noticias <b>↓</b></span></a>
-                  <ul class="menu-dropdown">
-                    <li><a href="<%= admin_posts_path %>"><i class="fas fa-list"></i>Listado</a></li>
-                    <li><a href="<%= new_admin_post_path %>"><i class="fas fa-file"></i>Crear nueva</a></li>
-                  </ul>
-                </li>
-                <!-- /Noticias -->
-              <% end %>
-
-              <% if current_user.has_role? :super_admin %>
-                <!-- Medios -->
-                <li>
-                  <a href="#" class="has-dropdown"><i class="far fa-image"></i><span>Medios <b>↓</b></span></a>
-                  <ul class="menu-dropdown">
-                    <li><a href="<%= admin_attachments_path %>"><i class="fas fa-file-video"></i>Lista de medios</a></li>
-                    <li><a href="<%= admin_attachments_images_path %>"><i class="far fa-file-image"></i>Lista de Imágenes</a></li>
-                    <li><a href="<%= admin_attachments_videos_path %>"><i class="fas fa-film"></i>Lista de Videos</a></li>
-                    <li><a href="<%= admin_galleries_path %>"><i class="far fa-images"></i>Galerías</a></li>
-                    <li><a href="<%= new_admin_attachment_path %>"><i class="fas fa-file-upload"></i>Añadir medios</a></li>
-                    <li><a href="<%= admin_files_path %>"><i class="fas fa-folder"></i>Archivos</a></li>
-                  </ul>
-                </li>
-                <!-- /Medios-->
-                <!-- Formularios -->
-                <li>
-                  <a href="#" class="has-dropdown"><i class="fas fa-poll-h"></i><span>Formularios <b>↓</b></span></a>
-                  <ul class="menu-dropdown">
-                    <li><a href="<%= admin_surveys_path %>"><i class="fas fa-list"></i>Listado</a></li>
-                    <li><a href="<%= admin_answers_path %>"><i class="fas fa-tasks"></i>Respuestas</a></li>
-                    <li><a href="<%= new_admin_survey_path %>"><i class="fas fa-plus-circle"></i>Crear nueva</a></li>
-                  </ul>
-                </li>
-                <!-- /Formularios-->
-                <!-- Biblioteca -->
-                <li>
-                  <a href="#" class="has-dropdown"><i class="fas fa-book"></i><span>Biblioteca <b>↓</b></span></a>
-                  <ul class="menu-dropdown">
-                    <li><a href="<%= admin_books_path %>"><i class="fas fa-list"></i>Listado de Libros</a></li>
-                    <li><a href="<%= admin_authors_path %>"><i class="fas fa-list"></i>Autores</a></li>
-                    <li><a href="<%= admin_editorials_path %>"><i class="fas fa-list"></i>Editoriales</a></li>
-                    <li><a href="<%= admin_user_book_relationships_path %>"><i class="fas fa-list"></i>Solicitudes
-                    <li><a href="<%= new_admin_book_path %>"><i class="fas fa-plus-circle"></i>Crear nuevo Libro</a></li>
-                  </ul>
-                </li>
-                <!-- /Biblioteca -->
-                <!-- Edición Home -->
-                <li class="dropdown">
-                  <a href="#" class="nav-link has-dropdown"><i class="fas fa-home"></i><span>Edición Home <b>↓</b></span></a>
-                  <ul class="menu-dropdown">
-                    <li><a class="nav-link " href="<%= admin_links_path %>"><i class="fas fa-list"></i>Links</a></li>
-                    <li><a href="<%= admin_sections_path %>"><i class="fas fa-puzzle-piece"></i>Secciones</a></li>
-                  </ul>
-                </li>
-                <!-- /Edición Home -->
-                <!-- Mensajes -->
-                <li>
-                  <a href="<%= admin_messages_path %>">
-                    <i class="far fa-comment-alt"></i>Mensajes
-                  </a>
-                </li>
-                <!-- /Mensajes -->
-                <!-- Grupos -->
-                <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Perfilamiento</a></li>
-                <!-- /Grupos -->
-
-              <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
-                <li class="menu-header">Beneficios</li>
-                <!-- Beneficios-->
-                <li>
-                  <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a>
-                </li>
-                <!-- /Beneficios-->
-                <!-- Grupos Beneficiarios -->
-                <li>
-                  <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a>
-                </li>
-                <!-- /Grupos Beneficiarios -->
-              <% end %>
-
-          <li class="menu-header">Marketplace</li>
-          <li class="dropdown">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-cart"></i><span>Anuncios <b>↓</b></span></a>
-            <ul class="menu-dropdown">
-              <li><a class="nav-link " href="<%= admin_products_path %>"><i class="fas fa-shopping-bag"></i>Lista</a></li>
-              <li><a href="<%= admin_products_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
-              <li><a href="<%= admin_products_approved_index_path %>"><i class="fas fa-check-circle"></i>Aprobados</a></li>
-            </ul>
-          </li>
-          <li class="menu-header">Eventos</li>
-          <li class="dropdown">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-dove"></i><span>Nacimientos <b>↓</b></span></a>
-            <ul class="menu-dropdown">
-              <li><a class="nav-link " href="<%= admin_births_path %>"><i class="fas fa-list"></i>Lista</a></li>
-              <li><a href="<%= admin_births_no_approved_index_path %>"><i class="fas fa-pencil-ruler"></i>Por aprobar</a></li>
-            </ul>
-          </li>
-          <li class="menu-header">Configuración</li>
-          <li class="dropdown">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Usuarios <b>↓</b></span></a>
-            <ul class="menu-dropdown">
-              <li><a href="<%= admin_users_path %>"><i class="fas fa-users"></i>Lista Usuarios</a></li>
-              <li><a href="<%= admin_users_images_approbation_path %>"><i class="fas fa-pencil-ruler"></i>Aprobación Fotos</a></li>
-            </ul>
-          </li>
-          <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
-        <% end %>
-      </ul>
-    </aside>
-  </div>
-</div>
-</div>
-<div class="main-content">
-  <%= render partial: 'layouts/partials/search' %>
-  <%= flash_messages %>
-  <%= yield%>
-</div>
-<%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
-<script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
-</body>
-
-<% else %>
-  <body>
-  </body>
-<% end %>
-</html>
-
-<style>
-  .fade:not(.show) {
-    opacity: 1 !important;
-    background: #28a745;
-    color: white;
-  }
-  
-  /* Corrección pantallazo verde al cerrar modal */
-  .fade{
-    -webkit-transition: opacity 0s linear;
-    transition: opacity 0s linear;
-  }
-</style>
-<script>
-  $("#close_flash").click(function() {
-    $(".alert").fadeOut();
-  });
-  setTimeout(function() { $(".alert").fadeOut("slow"); }, 3000);
-</script>
+          </div>
+          <div class="main-content">
+            <%= render partial: 'layouts/partials/search' %>
+            <%= flash_messages %>
+            <%= yield%>
+          </div>
+          <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
+          <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
+        </body>
+      <% else %>
+        <body>
+        </body>
+      <% end %>
+    </html>
+    <style>
+      .fade:not(.show) {
+        opacity: 1 !important;
+        background: #28a745;
+        color: white;
+      }
+      
+      /* Corrección pantallazo verde al cerrar modal */
+      .fade{
+        -webkit-transition: opacity 0s linear;
+        transition: opacity 0s linear;
+      }
+    </style>
+    <script>
+      $("#close_flash").click(function() {
+        $(".alert").fadeOut();
+      });
+      setTimeout(function() { $(".alert").fadeOut("slow"); }, 3000);
+    </script>

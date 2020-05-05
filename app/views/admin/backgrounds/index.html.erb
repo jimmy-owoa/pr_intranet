@@ -1,0 +1,41 @@
+<%- model_class = General::Background -%>
+  <section class="section">
+    <h1 class="section-header"><%= "Fondos variables" %></h1>
+    <%= link_to "Nuevo", new_admin_background_path, :class => 'btn btn-primary btn-sm mb-1' %>
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'Nombre' %></th>
+              <th><%= 'Empieza' %></th>
+              <th><%= 'Termina' %></th>
+              <th><%= 'Acciones' %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @backgrounds.each do |background| %>
+              <tr>
+                <td><%= background.name %></td>
+                <td><%= background.starts %></td>
+                <td><%= background.ends %></td>
+                <td>
+                  <%= link_to t('.show', :default => t("helpers.backgrounds.show")),
+                              admin_background_path(background), :class => 'btn btn-success btn-sm' %>
+                  <%= link_to t('.edit', :default => t("helpers.backgrounds.edit")),
+                              edit_admin_background_path(background), :class => 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Eliminar',
+                              admin_background_path(background),
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.backgrounds.confirm", :default => '¿Esta segura(o) que desea eliminar este elemento?')) },
+                              :class => 'btn btn-sm btn-danger' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="row justify-content-center">
+        </div>
+      </div>
+    </div>
+  </section>

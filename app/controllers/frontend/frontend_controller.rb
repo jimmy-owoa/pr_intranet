@@ -68,6 +68,15 @@ class Frontend::FrontendController < ApplicationController
     end
   end
 
+  def background_img
+    data = {
+      img: url_for(General::Background.current.last.image.variant(resize: "x1080")),
+    }
+    respond_to do |format|
+      format.json { render json: data }
+    end
+  end
+
   def current_user_azure
     referrer = params[:referrer].gsub("#/", "/").insert(1, "#/") || "/"
     user = get_current_user_jwt

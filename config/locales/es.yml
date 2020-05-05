@@ -270,6 +270,15 @@ es:
       unlock: Desbloquear
       show: Ver
       confirm: Confirmar
+    backgrounds:
+      cancel: Cancelar
+      edit: Editar
+      destroy: Eliminar
+      back: Volver
+      block: Bloquear
+      unlock: Desbloquear
+      show: Ver
+      confirm: Confirmar
     profiles:
       cancel: Cancelar
       edit: Editar

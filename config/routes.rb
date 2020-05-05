@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :comments
     resources :links
     resources :attachments
+    resources :backgrounds
     resources :terms
     resources :galleries
     resources :profiles do
@@ -91,6 +92,7 @@ Rails.application.routes.draw do
     get "products/user_products", to: "products#user_products"
     get "posts_video", to: "posts#index_video"
     get "posts_video/post", to: "posts#post_video"
+    get "background_img", to: "frontend#background_img"
     resources :library do
       get :get_categories, on: :collection
     end

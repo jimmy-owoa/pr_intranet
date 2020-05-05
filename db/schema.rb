@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_155656) do
+ActiveRecord::Schema.define(version: 2020_04_28_165553) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -93,6 +93,14 @@ ActiveRecord::Schema.define(version: 2020_04_06_155656) do
     t.integer "xoops_attachment_id"
     t.string "xoops_attachment_name"
     t.index ["attachable_type", "attachable_id"], name: "index_general_attachments_on_attachable_type_and_attachable_id"
+  end
+
+  create_table "general_backgrounds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.date "starts"
+    t.date "ends"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "general_benefit_group_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -795,6 +803,7 @@ ActiveRecord::Schema.define(version: 2020_04_06_155656) do
     t.bigint "profile_id"
     t.integer "allowed_answers", default: 0
     t.datetime "deleted_at"
+    t.date "finish_date"
     t.index ["deleted_at"], name: "index_survey_surveys_on_deleted_at"
     t.index ["profile_id"], name: "index_survey_surveys_on_profile_id"
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
