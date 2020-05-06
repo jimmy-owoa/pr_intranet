@@ -8,7 +8,7 @@ module Frontend
         if section.position == 1
           data << {
             id: last_know_us_post.id,
-            title: section.title.upcase,
+            title: last_know_us_post.title,
             description: ActionController::Base.helpers.strip_tags(last_know_us_post.content[0..368]) + "...",
             position: section.position,
             image: last_know_us_post.main_image.present? ? url_for(last_know_us_post.main_image.attachment.variant(resize: "800x800>")) : root_url + ActionController::Base.helpers.asset_url("news.jpg"),
