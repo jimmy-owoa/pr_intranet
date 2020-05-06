@@ -1,6 +1,6 @@
 <section class="section">
-  <h1 class="section-header">Crear Archivo</h1>
-  <%= simple_form_for @background, as: 'background', url: {action: :create}, :html => { :class => "form" } do |f| %>
-      <%= render :partial => 'form', locals: {f: f} %>
+  <h1 class="section-header">Crear Fondo Variable</h1>
+  <%= simple_form_for @background, as: 'fondo', url: {action: :create}, :html => { :class => "form" } do |f| %>
+    <%= render :partial => 'form', locals: {f: f} %>
   <% end %>
 </section>

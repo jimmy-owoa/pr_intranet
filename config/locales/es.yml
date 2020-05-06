@@ -9,6 +9,10 @@ es:
         url: Dirección URL
       general/gallery:
         post: Noticia
+      general/background:
+        background: Fondo Variable
+        starts: Inicia
+        ends: Termina
       survey/option:
         placeholder: Sugerencia
       news/post:
@@ -95,6 +99,7 @@ es:
       user: Usuario
       general/file: Archivo
       general/user: Usuario
+      general/background: Fondo Variable
       general/section: Sección
       general/term: Taxonomía
       general/term_type: Tipo de Taxonomía
