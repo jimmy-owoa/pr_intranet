@@ -49,14 +49,14 @@ module Frontend
 
     def user_surveys
       data_surveys = []
-      if @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
-        respond_to do |format|
-          format.html
-          format.json { render json: Survey::Survey.published_surveys }
-          format.js
-        end
-        return
-      end
+      # if @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
+      #   respond_to do |format|
+      #     format.html
+      #     format.json { render json: Survey::Survey.published_surveys }
+      #     format.js
+      #   end
+      #   return
+      # end
       #model method
       no_once_by_user_surveys = Survey::Survey.get_surveys_no_once_user(@request_user)
       surveys = Survey::Survey.survey_data(@request_user)
@@ -124,7 +124,7 @@ module Frontend
         options_user_ids = []
         survey.questions.each { |question| options_user_ids << question.answers.pluck(:user_id) }
         if (!@request_user.id.in?(options_user_ids.flatten) || !survey.once_by_user) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
-          if survey.answered_times.count < survey.allowed_answers
+          if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
             data_survey = []
             data_questions = []
             survey.questions.each do |question|
@@ -174,7 +174,7 @@ module Frontend
       else
         respond_to do |format|
           format.html
-          format.json { render json: "No tiene acceso" }
+          format.json { render json: "" }
           format.js
         end
       end

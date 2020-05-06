@@ -148,7 +148,7 @@ module Frontend
     end
 
     def important_posts
-      posts = @request_user.has_role?(:admin) ? News::Post.important.first(5) : News::Post.filter_posts(@request_user, true).normal_posts.first(5)
+      posts = News::Post.filter_posts(@request_user, true).normal_posts.first(5)
 
       data = []
       posts.each do |post|

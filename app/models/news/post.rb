@@ -83,7 +83,7 @@ class News::Post < ApplicationRecord
 
   # TODO: optimizar
   def self.filter_posts(user, important = nil)
-    news = user.has_role?(:super_admin) ? News::Post.published_posts : News::Post.where(profile_id: user.profile_ids).published_posts
+    news = News::Post.where(profile_id: user.profile_ids).published_posts
     news = news.where(important: important) if important.present?
     news
   end
