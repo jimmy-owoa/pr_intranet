@@ -28,8 +28,6 @@ module Admin
       @survey = Survey::Survey.new(survey_params)
       respond_to do |format|
         if @survey.save
-          UserNotifierMailer.send_survey_created(@survey.profile.users.pluck(:email), @survey.id).deliver
-          set_tags
           format.html { redirect_to admin_surveys_path, notice: "Encuesta creada exitosamente." }
           format.json { render :show, status: :created, location: @survey }
         else
@@ -42,7 +40,6 @@ module Admin
     def update
       respond_to do |format|
         if @survey.update(survey_params)
-          set_tags
           format.html { redirect_to admin_surveys_path, notice: "Encuesta editada exitosamente." }
           format.json { render :show, status: :ok, location: @survey }
         else
@@ -86,7 +83,7 @@ module Admin
     end
 
     def survey_params
-      params.require(:survey).permit(:name, :slug, :description, :show_name, :survey_type, :once_by_user, :image, :published_at, :finish_date,:status, :profile_id, :allowed_answers, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional, :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
+      params.require(:survey).permit(:name, :slug, :description, :show_name, :survey_type, :once_by_user, :image, :published_at, :finish_date, :status, :profile_id, :allowed_answers, terms_names: [], questions_attributes: [:id, :title, :description, :question_type, :optional, :_destroy, options_attributes: [:id, :title, :default, :placeholder, :_destroy]])
     end
   end
 end
