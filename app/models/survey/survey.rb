@@ -116,7 +116,7 @@ class Survey::Survey < ApplicationRecord
   end
 
   def set_slug(val)
-    survey_by_slug = Survey::Survey.find_by(slug: val)
+    survey_by_slug = Survey::Survey.find_by(slug: val) || Survey::Survey.only_deleted.find_by(slug: val)
     if survey_by_slug.present? && survey_by_slug != self
       random_number = rand(1000..9999)
       slug_split = val.split("-")

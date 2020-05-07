@@ -117,7 +117,7 @@ class News::Post < ApplicationRecord
   end
 
   def set_slug(val)
-    post_by_slug = News::Post.find_by(slug: val)
+    post_by_slug = News::Post.find_by(slug: val) || News::Post.only_deleted.find_by(slug: val)
     if post_by_slug.present? && post_by_slug != self
       random_number = rand(1000..9999)
       slug_split = val.split("-")
