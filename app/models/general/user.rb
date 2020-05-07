@@ -7,6 +7,7 @@ class General::User < ApplicationRecord
   rolify
   searchkick
   validates_presence_of :name, :email, :legal_number, :legal_number_verification
+  validates_uniqueness_of :email
   #relationships
   has_one_attached :image
   has_one_attached :new_image

@@ -25,7 +25,6 @@ module Admin
       add_breadcrumb "Usuarios", :admin_users_path
       @user = General::User.new
       @user.terms.build
-      @companies = Company::Company.all
       authorize @user
     end
 
@@ -84,7 +83,6 @@ module Admin
     end
 
     def edit
-      @companies = Company::Company.all
       add_breadcrumb "Usuarios", :admin_users_path
     end
 
