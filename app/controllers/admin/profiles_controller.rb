@@ -62,7 +62,9 @@ module Admin
     def update
       respond_to do |format|
         if @profile.update(profile_params)
-          assign_users if !@profile.attached
+          if params[:profile][:file].present? || !@profile.attached
+            assign_users
+          end
           format.html { redirect_to admin_profile_path(@profile), notice: "Profile fue actualizada con éxito." }
           format.json { render :show, status: :ok, location: @profile }
         else
