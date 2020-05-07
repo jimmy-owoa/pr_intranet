@@ -42,8 +42,9 @@ module Admin
     end
 
     def create
-      params[:profile][:file].present? ? params[:attached] = true : params[:attached] = false
       @profile = General::Profile.new(profile_params)
+      params[:profile][:file].present? ? @profile.attached = true : @profile.attached = false
+      
       respond_to do |format|
         if @profile.save
           assign_users
