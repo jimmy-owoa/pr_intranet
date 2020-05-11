@@ -141,5 +141,6 @@ class Frontend::FrontendController < ApplicationController
 
   def get_user
     @request_user = General::User.all.sample(1).first
+    # @request_user = General::User.find(11)
   end
 end
