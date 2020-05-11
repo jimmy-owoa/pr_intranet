@@ -58,9 +58,15 @@ module Admin
 
     def update
       authorize @product
-      approved = product_params[:approved]
+      approved = params[:approved]
       if params["image_id"].present?
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
+      elsif approved.present?
+        @product.update_attributes(approved: approved)
+        send_email
+        respond_to do |format|
+          format.json { render :json => { value: "success" } and return }
+        end
       else
         respond_to do |format|
           if @product.update(product_params)
