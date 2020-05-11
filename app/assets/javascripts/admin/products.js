@@ -38,7 +38,8 @@ $(document).on("turbolinks:load", function() {
       url: "/admin/products/" + id + ".json",
       type: "PUT",
       data: {
-        image_id: image_id
+        image_id: image_id,
+        approved_image: $(this).is(":checked")
       }
     }).done(function(e) {
       alert("Estado de la imagen cambiada");

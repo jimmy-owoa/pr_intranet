@@ -106,6 +106,13 @@
                     <figure>
                       <%= image_tag birth.photo.variant(resize: '150x100>'), class: 'image_attach' %>
                     </figure>
+                    <figcaption>
+                      <%= check_box_tag 'attachment', nil, birth.photo.permission?,
+                                                data: {
+                                                  id: birth.id,
+                                                  image: birth.photo.id
+                                                }, class: "approved_birth_attachment" %>
+                    </figcaption>
                   </div>
                 </div>
               <% end %>
