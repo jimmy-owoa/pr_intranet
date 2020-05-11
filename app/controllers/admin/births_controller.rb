@@ -48,8 +48,14 @@ module Admin
 
     def update
       approved = params["approved"]
-      if params["image_id"].present?
-        ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
+      approved_image = params["approved_image"]
+      
+      if params["image_id"].present? && approved_image.present?
+        if approved_image == "true"
+          ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
+        else
+          ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 0)
+        end
       elsif approved.present?
         @birth.update_attributes(approved: approved)
         send_email
