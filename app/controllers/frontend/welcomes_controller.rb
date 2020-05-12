@@ -1,5 +1,7 @@
 module Frontend
   class WelcomesController < FrontendController
+    include ApplicationHelper
+    
     def get_home_welcome
       new_users = General::User.users_welcome.limit(4)
       data = []
