@@ -123,46 +123,51 @@ module Frontend
       if survey.profile_id.in?(@request_user.profile_ids) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
         options_user_ids = []
         survey.questions.each { |question| options_user_ids << question.answers.pluck(:user_id) }
-        if (!@request_user.id.in?(options_user_ids.flatten) || !survey.once_by_user) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
-          if survey.answered_times.count < survey.allowed_answers
-            data_survey = []
-            data_questions = []
-            survey.questions.each do |question|
-              data_options = []
-              question.options.each do |option|
-                data_options << {
-                  id: option.id,
-                  title: option.title,
-                  default: option.default,
-                  placeholder: option.placeholder,
+          if (!@request_user.id.in?(options_user_ids.flatten) || !survey.once_by_user) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
+            if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
+              data_survey = []
+              data_questions = []
+              survey.questions.each do |question|
+                data_options = []
+                question.options.each do |option|
+                  data_options << {
+                    id: option.id,
+                    title: option.title,
+                    default: option.default,
+                    placeholder: option.placeholder,
+                  }
+                end
+                data_questions << {
+                  id: question.id,
+                  title: question.title,
+                  question_type: question.question_type,
+                  optional: question.optional? ? false : true,
+                  options: data_options,
                 }
               end
-              data_questions << {
-                id: question.id,
-                title: question.title,
-                question_type: question.question_type,
-                optional: question.optional? ? false : true,
-                options: data_options,
+              data_survey << {
+                id: survey.id,
+                name: survey.name,
+                once_by_user: survey.once_by_user,
+                url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
+                show_name: survey.show_name,
+                description: survey.description,
+                image: survey.image.attached? ?
+                  url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+                created_at: survey.created_at.strftime("%d-%m-%Y"),
+                questions: data_questions,
+                survey_type: survey.survey_type,
+                slug: survey.slug,
+                status: survey.status,
+                breadcrumbs: [
+                  { text: "Inicio", href: "/" },
+                  { text: "Encuestas", href: "/encuestas" },
+                  { text: survey.name.truncate(30), disabled: true },
+                ],
               }
+            else
+              data_survey = [""]
             end
-            data_survey << {
-              id: survey.id,
-              name: survey.name,
-              once_by_user: survey.once_by_user,
-              url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
-              show_name: survey.show_name,
-              description: survey.description,
-              image: survey.image.attached? ?
-                url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
-              created_at: survey.created_at.strftime("%d-%m-%Y"),
-              questions: data_questions,
-              survey_type: survey.survey_type,
-              slug: survey.slug,
-              status: survey.status,
-            }
-          else
-            data_survey = [""]
-          end
           data_survey << {
             id: survey.id,
             name: survey.name,
@@ -180,7 +185,7 @@ module Frontend
             breadcrumbs: [
               { text: "Inicio", href: "/" },
               { text: "Encuestas", href: "/encuestas" },
-              { text: survey.name.truncate(34), href: "/", disabled: true },
+              { text: survey.name.truncate(30), disabled: true },
             ],
           }
         else
