@@ -5,7 +5,9 @@ class Survey::Survey < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :survey_term_relationships, -> { where(object_type: "Survey::Survey") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :survey
   has_many :answered_times
+  
   has_one_attached :image
+  validates :image, content_type: ['image/png', 'image/jpeg']
 
   belongs_to :profile, class_name: "General::Profile", optional: true, inverse_of: :surveys
 

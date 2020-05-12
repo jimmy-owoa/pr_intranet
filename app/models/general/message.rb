@@ -1,5 +1,6 @@
 class General::Message < ApplicationRecord
   has_one_attached :image
+  validates :image, content_type: ['image/png', 'image/jpeg']
 
   has_many :message_term_relationships, -> { where(object_type: "General::Message") },
            class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :post

@@ -1,6 +1,8 @@
 class Marketplace::Product < ApplicationRecord
   include ActiveModel::Dirty
   has_many_attached :images
+  validates :images, content_type: ['image/png', 'image/jpeg']
+  
   has_many :product_term_relationships, -> { where(object_type: "Marketplace::Product") },
            class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :product
   has_many :terms, through: :product_term_relationships
@@ -8,7 +10,6 @@ class Marketplace::Product < ApplicationRecord
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  validates :images, content_type: ['image/png', 'image/jpeg']
 
   before_save :update_published_date
 
