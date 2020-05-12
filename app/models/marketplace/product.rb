@@ -1,7 +1,7 @@
 class Marketplace::Product < ApplicationRecord
   include ActiveModel::Dirty
   has_many_attached :images
-  validates :images, content_type: ['image/png', 'image/jpeg']
+  validate :correct_image_type
   
   has_many :product_term_relationships, -> { where(object_type: "Marketplace::Product") },
            class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :product
@@ -53,5 +53,17 @@ class Marketplace::Product < ApplicationRecord
 
   def unpermitted_images
     images.attachments.where(permission: 0)
+  end
+
+  private
+
+  def correct_image_type
+    if images.attached?
+      images.each do |image|
+        if !image.content_type.in?(%w(image/jpeg image/png))
+          errors.add(:product, 'El archivo debe ser de tipo imagen (JPEG o PNG)')
+        end
+      end
+    end
   end
 end
