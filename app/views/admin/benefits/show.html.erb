@@ -11,35 +11,33 @@
       </div>
       <h5><%= raw @benefit.content %> </h5>
       <h4>Pertenece a los siguientes grupos beneficiarios: </h4>
-        <div class="table-responsive-md">
-          <table class="table table-hover">
-            <thead class="thead">
+      <div class="table-responsive-md">
+        <table class="table table-hover">
+          <thead class="thead">
+            <tr>
+              <th><%= 'Nombre' %></th>
+              <th><%= 'Variable' %></th>
+              <th><%= 'Valor' %></th>
+              <th><%= 'Url' %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @benefit.benefit_group_relationships.order(:benefit_group_id).each do |bgr| %>
               <tr>
-                <th><%= 'Nombre' %></th>
-                <th><%= 'Variable' %></th>
-                <th><%= 'Valor' %></th>
-                <th><%= 'Url' %></th>
+                <td><%= bgr.benefit_group.try(:name) %> :</td>
+                <td><%= currency_is_english?(bgr.currency) %></td>
+                <td><%= bgr.amount %></td>
+                <td><%= link_to bgr.url, bgr.url %></td>
               </tr>
-            </thead>
-            <tbody>
-              <% @benefit.benefit_group_relationships.order(:benefit_group_id).each do |bgr| %> 
-                <tr>
-                  <td><%= bgr.benefit_group.name %> :</td>
-                  <td><%= currency_is_english?(bgr.currency) %></td>
-                  <td><%= bgr.amount %></td>
-                  <td><%= link_to bgr.url, bgr.url %></td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-       
-
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-  <br><br>
+  <br>
+  <br>
 </section>
-
 <div align="center">
   <%= link_to t('.back', :default => t("helpers.links.back")), admin_benefits_path, :class => 'btn btn-primary'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_benefit_path(@benefit), :class => 'btn btn-primary' %>
