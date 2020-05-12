@@ -8,6 +8,8 @@ class Marketplace::Product < ApplicationRecord
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  validates :images, content_type: ['image/png', 'image/jpeg']
+
   before_save :update_published_date
 
   scope :show_product, -> { where(approved: true) }
