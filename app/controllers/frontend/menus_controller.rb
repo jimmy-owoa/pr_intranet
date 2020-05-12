@@ -33,20 +33,20 @@ module Frontend
               if dropdown["drop_down"].present?
                 m = { title: dropdown["nombre"], submenus: [] }
                 dropdown["drop_down"].values.each do |menu|
-                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+                  m[:submenus] << { title: menu["nombre"], link: "https://misecurity-qa3.exa.cl" + menu["link"] }
                 end
                 data[:menus_dropdown] << m
               else
                 m = { title: dropdown["nombre"], submenus: [] }
                 drop_downs.values.first["drop_down"].values.each do |menu|
-                  m[:submenus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+                  m[:submenus] << { title: menu["nombre"], link: "https://misecurity-qa3.exa.cl" + menu["link"] }
                 end
                 data[:menus_dropdown] << m
               end
             end
           else
             drop_downs.values.each do |menu|
-              data[:menus] << { title: menu["nombre"], link: request_exa_url + menu["link"] }
+              data[:menus] << { title: menu["nombre"], link: "https://misecurity-qa3.exa.cl" + menu["link"] }
             end
           end
         end
