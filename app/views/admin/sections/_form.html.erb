@@ -23,12 +23,12 @@
           <% if @section.image.attachment.present? %>
             <%= image_tag(@section.image.variant(resize: '300x300>'), class: 'left') %>
             <div class="left">
-              <%= f.file_field :image, required: false, input_html: { accept:'image/*' }, class: 'mt-2' %>
+              <%= f.file_field :image, required: false, multiple: false, as: :file, input_html: { accept:'image/*' }, class: 'mt-2', onchange: "validateImage('section_image')" %>
             </div>
           <% else %>
             <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
             <div class="left">
-              <%= f.file_field :image, required: true, input_html: { accept:'image/*' }, class: 'mt-2' %>
+              <%= f.file_field :image, required: true, multiple: false, as: :file, input_html: { accept:'image/*' }, class: 'mt-2', onchange: "validateImage('section_image')" %>
             </div>
           <% end %>
         </div>
