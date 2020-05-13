@@ -64,7 +64,7 @@
           <% else %>
           <% end %>
           <div class="left">
-            <%= f.file_field :image, input_html: { accept:'image/*' } %>
+            <%= f.file_field :image, multiple: false, as: :file, input_html: { accept:'image/*' }, onchange: "validateImage('benefit_image')" %>
           </div>
           <div class="tip_format">
             * Las dimensiones de la imágen deben ser de 245px x 245px
