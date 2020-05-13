@@ -14,7 +14,7 @@
   <div class="col-12">
     <div class="col-12">
       <%= image_tag(@background.image.variant(resize: '300x300>'), class: 'left') if @background.image.attached? %> <br>
-      <%= f.file_field :image, required: !@background.image.attached? %>
+      <%= f.file_field :image, multiple: false, as: :file, required: !@background.image.attached?, onchange: "validateImage('background_image')"  %>
     </div>
   </div>
 </div>
