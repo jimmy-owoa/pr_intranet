@@ -27,18 +27,4 @@
   $('#edit_message').submit(function(){
     $('#loading_message').show();
   });
-
-  function validateImage() {
-    const imageFile = document.getElementById('message_image');
-
-    if (imageFile) {
-      let imageType = imageFile.files[0].type; 
-      if (imageType === "image/jpeg" || imageType == "image/png" ) {
-        imageFile.value;
-      } else {
-        alert("Archivo no válido. El archivo debe ser de tipo imagen (JPEG o PNG)");
-        imageFile.value = "";
-      }
-    }
-  }
 </script>
