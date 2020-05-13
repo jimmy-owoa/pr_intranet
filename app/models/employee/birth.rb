@@ -1,6 +1,8 @@
 class Employee::Birth < ApplicationRecord
   after_create :default_image
   has_one_attached :photo
+  validates :photo, content_type: ['image/png', 'image/jpeg']
+
   enum permission: %i[No Si]
 
   belongs_to :user, class_name: "General::User", optional: true

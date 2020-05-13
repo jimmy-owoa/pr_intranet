@@ -6,6 +6,7 @@ class Library::Book < ApplicationRecord
   has_many :users, -> { distinct }, through: :user_book_relationships
 
   has_one_attached :image
+  validates :image, content_type: ['image/png', 'image/jpeg']
 
   validates :author, presence: true
   validates :editorial, presence: true

@@ -11,6 +11,9 @@ class General::User < ApplicationRecord
   #relationships
   has_one_attached :image
   has_one_attached :new_image
+  validates :image, content_type: ['image/png', 'image/jpeg']
+  validates :new_image, content_type: ['image/png', 'image/jpeg']
+
   has_many :user_term_relationships, -> { where(object_type: "General::User") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :user
   has_many :terms, through: :user_term_relationships
   has_many :posts, class_name: "News::Post", foreign_key: :user_id

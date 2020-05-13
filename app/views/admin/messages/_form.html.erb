@@ -1,4 +1,5 @@
-<%= f.error_notification %>
+<%= f.error_notification message: f.object.errors[:message].to_sentence%>
+
 <div class="form-group row">
   <div class="col-sm-7">
     <div class="row">
@@ -27,12 +28,12 @@
           <% if @message.image.attachment.present? %>
             <%= image_tag(@message.image.variant(resize: '300x300>'), class: 'left') %>
             <div class="left">
-              <%= f.file_field :image, required: false, input_html: { accept:'image/*' }, class: 'mt-2' %>
+              <%= f.file_field :image, required: false, input_html: { accept:'image/*' }, class: 'mt-2', onchange: "validateImage('message_image')" %>
             </div
           <% else %>
             <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
             <div class="left">
-              <%= f.file_field :image, required: true, input_html: { accept:'image/*' }, class: 'mt-2' %>
+              <%= f.file_field :image, required: true, multiple: false, as: :file, input_html: { accept: 'image/*' }, class: 'mt-2', onchange: "validateImage('message_image')" %>
             </div>
           <% end %>
         </div>
