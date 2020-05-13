@@ -53,3 +53,18 @@ dataConfirmModal.setDefaults({
   commit: "Aceptar",
   cancel: "Cancelar"
 });
+
+// Valida que el archivo subido sea de tipo imagen
+function validateImage(fileFieldId) {
+  const imageFile = document.getElementById(`${fileFieldId}`);
+
+  if (imageFile) {
+    let imageType = imageFile.files[0].type; 
+    if (imageType === "image/jpeg" || imageType == "image/png" ) {
+      imageFile.value;
+    } else {
+      alert("Archivo no válido. El archivo debe ser de tipo imagen (JPEG o PNG)");
+      imageFile.value = "";
+    }
+  }
+}

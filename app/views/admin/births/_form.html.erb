@@ -80,7 +80,7 @@
       </div>
       <div class=" col-md-12">
         <div class="col-md-12">
-          <%= f.file_field :photo, input_html: { accept:'image/*' } %>
+          <%= f.file_field :photo, multiple: false, as: :file, input_html: { accept:'image/*' }, onchange: "validateImage('birth_photo')"%>
         </div>
       </div>
     </div>
