@@ -6,8 +6,8 @@ set :application, "demo-redexa-api"
 set :user, "ubuntu"
 set :puma_threads, [4, 16]
 set :puma_workers, 0
-
 # Don't change these unless you know what you're doing
+set :rvm_ruby_version, "2.5.1"
 set :pty, true
 set :use_sudo, false
 set :stage, :production
@@ -22,6 +22,10 @@ set :ssh_options, { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+# Default value for :linked_files is []
+set :linked_files, %w{config/master.key config/database.yml config/credentials.yml.enc}
+# Default value for linked_dirs is []
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/system storage}
 
 ## Defaults:
 # set :scm,           :git
