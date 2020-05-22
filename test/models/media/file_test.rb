@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class General::FileTest < ActiveSupport::TestCase
+class Media::FileTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -159,10 +159,35 @@ module Frontend
               survey_type: survey.survey_type,
               slug: survey.slug,
               status: survey.status,
+              breadcrumbs: [
+                { text: "Inicio", href: "/" },
+                { text: "Encuestas", href: "/encuestas" },
+                { text: survey.name.truncate(30), disabled: true },
+              ],
             }
           else
             data_survey = [""]
           end
+          data_survey << {
+            id: survey.id,
+            name: survey.name,
+            once_by_user: survey.once_by_user,
+            url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
+            show_name: survey.show_name,
+            description: survey.description,
+            image: survey.image.attached? ?
+              url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+            created_at: survey.created_at.strftime("%d-%m-%Y"),
+            questions: data_questions,
+            survey_type: survey.survey_type,
+            slug: survey.slug,
+            status: survey.status,
+            breadcrumbs: [
+              { text: "Inicio", href: "/" },
+              { text: "Encuestas", href: "/encuestas" },
+              { text: survey.name.truncate(30), disabled: true },
+            ],
+          }
         else
           data_survey = [""]
         end

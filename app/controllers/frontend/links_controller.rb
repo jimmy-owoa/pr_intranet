@@ -8,7 +8,7 @@ module Frontend
           id: link.id,
           title: link.title,
           is_blank: link.is_blank,
-          image: link.image.attached? ? url_for(link.image.variant(resize: "600x")) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+          image: link.image.attached? ? url_for(link.image.variant(resize: "1920x")) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
           url: link.url,
         }
       end

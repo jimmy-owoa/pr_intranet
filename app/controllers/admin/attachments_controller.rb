@@ -8,20 +8,20 @@ module Admin
     respond_to :json, :html
 
     def index
-      @attachments = General::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
+      @attachments = Media::Attachment.order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
     end
 
     def index_images
-      @images = General::Attachment.images.paginate(:page => params[:page], :per_page => 12)
+      @images = Media::Attachment.images.paginate(:page => params[:page], :per_page => 12)
     end
 
     def index_videos
-      @videos = General::Attachment.videos.paginate(:page => params[:page], :per_page => 12)
+      @videos = Media::Attachment.videos.paginate(:page => params[:page], :per_page => 12)
     end
 
     def upload
       if params[:file].present?
-        new_attachment = General::Attachment.new
+        new_attachment = Media::Attachment.new
         new_attachment.attachment.attach(params[:file])
         new_attachment.save
       end
@@ -36,8 +36,8 @@ module Admin
 
     def new
       add_breadcrumb "Medios", :admin_attachments_path
-      @image_list = General::Attachment.paginate(:page => params[:page], :per_page => 12)
-      @attachment = General::Attachment.new
+      @image_list = Media::Attachment.paginate(:page => params[:page], :per_page => 12)
+      @attachment = Media::Attachment.new
       respond_to do |format|
         format.html
         format.json { render json: @attachment }
@@ -46,8 +46,8 @@ module Admin
     end
 
     def new_video
-      @video_list = General::Attachment.videos.paginate(:page => params[:page], :per_page => 10)
-      @video = General::Attachment.new
+      @video_list = Media::Attachment.videos.paginate(:page => params[:page], :per_page => 10)
+      @video = Media::Attachment.new
       respond_to do |format|
         format.json { render json: @video }
         format.js
@@ -59,7 +59,7 @@ module Admin
     end
 
     def create
-      @attachment = General::Attachment.create(attachment_params)
+      @attachment = Media::Attachment.create(attachment_params)
       set_tags
       respond_to do |f|
         f.json {
@@ -110,7 +110,7 @@ module Admin
 
     def destroy
       att_id = params[:id]
-      gal_id = General::Attachment.find(att_id).gallery_ids
+      gal_id = Media::Attachment.find(att_id).gallery_ids
       if gal_id.present?
         @attachment.destroy
         redirect_to edit_admin_gallery_path(gal_id)
@@ -124,12 +124,12 @@ module Admin
     end
 
     def search_att
-      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': i } }.paginate(:page => params[:page], :per_page => 15)
+      @search = Media::Attachment.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': i } }.paginate(:page => params[:page], :per_page => 15)
       render json: { data: @search }
     end
 
     def search_video
-      @search = General::Attachment.where("name LIKE '%#{params[:search]}%' ").select { |e| e.attachment.video? }
+      @search = Media::Attachment.where("name LIKE '%#{params[:search]}%' ").select { |e| e.attachment.video? }
       @search = @search.map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachment.preview(resize: "x50")) } }.paginate(:page => params[:page], :per_page => 15)
       render json: { data: @search }
     end
@@ -138,7 +138,7 @@ module Admin
 
     # Use callbacks to share common setup or constraints between actions.
     def set_attachment
-      @attachment = General::Attachment.find(params[:id])
+      @attachment = Media::Attachment.find(params[:id])
     end
 
     def set_post

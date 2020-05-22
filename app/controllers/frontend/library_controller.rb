@@ -60,9 +60,9 @@ module Frontend
         description: book.description,
         image: url_for(book.image),
         breadcrumbs: [
-          { link: "/", name: "Inicio" },
-          { link: "/biblioteca", name: "Biblioteca" },
-          { link: "#", name: book.title.truncate(30) },
+          { href: "/", text: "Inicio" },
+          { href: "/biblioteca", text: "Biblioteca" },
+          { href: "#", text: book.title.truncate(19), disabled: true },
         ],
       }
       respond_to do |format|

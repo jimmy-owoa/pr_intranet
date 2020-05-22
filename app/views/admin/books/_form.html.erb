@@ -7,21 +7,18 @@
       </div>
 
 			<div class="col-md-4 col-sm-4 pb-4">
-				<% selected_value = @book.author.present? ? @book.author.name : nil %>
-				<%= f.label "Autor" %>
-				<%= f.select 'author_id', options_for_select(Library::Author.all.map{|author| [author.name, author.name]}, selected_value), include_blank: true, multiple: false, class:' form-control string optional' %>
+				<% selected_author = @book.author.present? ? @book.author.name : nil %>
+				<%= f.input 'author_id', label: 'Autor', collection: Library::Author.all.map{|author| author.name}, selected: selected_author, include_blank: 'Seleccione autor', multiple: false, class:' form-control string optional', required: true %>
 			</div>
 
 			<div class="col-md-4 col-sm-4 pb-4">
-        <% selected_value = @book.editorial.present? ? @book.editorial.name : nil %>
-        <%= f.label "Editorial" %>
-        <%= f.select :editorial_id, options_for_select(Library::Editorial.all.map{|editorial| [editorial.name, editorial.name]}, selected_value), include_blank: true, multiple: false, class:' form-control string optional' %>
+        <% selected_editorial = @book.editorial.present? ? @book.editorial.name : nil %>
+        <%= f.input :editorial_id, label: 'Editorial', collection: Library::Editorial.all.map{|editorial| editorial.name}, include_blank: 'Seleccione editorial', selected: selected_editorial, multiple: false, class:' form-control string optional', required: true %>
       </div>
 
       <div class="col-md-4 col-sm-4 pb-4">
-        <% selected_value = @book.category_book.present? ? @book.category_book.name : nil %>
-        <%= f.label "Categoría" %>
-        <%= f.select :category_book_id, options_for_select(Library::CategoryBook.all.map{|category| [category.name, category.name]}, selected_value), include_blank: true, multiple: false, class:' form-control string optional' %>
+        <% selected_category = @book.category_book.present? ? @book.category_book.name : nil %>
+        <%= f.input :category_book_id, label: 'Categoría', collection: Library::CategoryBook.all.map{|category| category.name}, include_blank: 'Seleccione categoría', selected: selected_category, multiple: false, class:' form-control string optional', required: true %>
       </div>
 
 			<div class="col-md-3">

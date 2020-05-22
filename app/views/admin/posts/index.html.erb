@@ -8,10 +8,10 @@
         <thead class="thead">
           <tr>
             <th><%= 'Título' %></th>
-            <th><%= 'Tipo de Noticia' %></th>
+            <th><%= 'Tipo' %></th>
             <th><%= 'Estado' %></th>
-            <th><%= 'Fecha Publicación' %></th>
-            <th><%= 'Fecha Creación' %></th>
+            <th><%= 'Creación' %></th>
+            <th><%= 'Publicación' %></th>
             <th><%= 'Acciones' %></th>
           </tr>
         </thead>
@@ -21,8 +21,8 @@
               <td><%= link_to post.title.truncate(35), admin_post_path(post), title: post.title %></td>
               <td><%= post.post_type %></td>
               <td><%= post.status%></td>
-              <td><%= custom_date_no_hour(post.published_at) %></td>
               <td><%= custom_date_no_hour(post.created_at)  %></td>
+              <td><%= custom_date_no_hour(post.published_at) %></td>
               <td>
                 <% if post.post_type == "Video" %>
                   <%= link_to "Ver en intranet", "#{get_frontend_url}/momentos-security/#{post.slug}", target: "_blank", class: 'btn btn-success btn-sm' %>

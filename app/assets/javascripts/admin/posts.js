@@ -9,6 +9,7 @@ $(document).on("turbolinks:load", function() {
     tags: true,
     tokenSeparators: [",", " "]
   });
+
   $("#post_profile_id").select2({
     tags: false,
     placeholder: "Seleccionar Perfil",
@@ -51,10 +52,12 @@ $(document).on("turbolinks:load", function() {
       "<i class='fa fa-chevron-right'></i>"
     ]
   });
+
   $("#post_post_type").select2({
     theme: "bootstrap",
     width: "100%"
   });
+
   $("#post_visibility").select2({
     theme: "bootstrap",
     placeholder: "Elegir  visibilidad",
@@ -65,11 +68,13 @@ $(document).on("turbolinks:load", function() {
     placeholder: "Elegir permiso",
     width: "100%"
   });
+
   $("#post_status").select2({
     theme: "bootstrap",
     placeholder: "Elegir estado",
     width: "100%"
   });
+  
   $("#tag_post").select2({
     tags: false,
     tokenSeparators: [],

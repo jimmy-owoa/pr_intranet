@@ -54,7 +54,7 @@ class General::User < ApplicationRecord
 
   accepts_nested_attributes_for :terms
 
-  devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, omniauth_providers: [:azure_oauth2]
+  devise :trackable, :timeoutable, :database_authenticatable, :omniauthable
 
   # callbacks
   after_create :assign_default_role, :image_resize

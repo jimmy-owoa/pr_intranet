@@ -5,7 +5,7 @@ class General::Term < ApplicationRecord
 
   has_many :post_term_relationships, -> { where(object_type: "General::Post") }, class_name: "General::TermRelationship"
   has_many :posts, through: :post_term_relationships
-  has_many :attachment_term_relationships, -> { where(object_type: "General::Attachment") }, class_name: "General::TermRelationship"
+  has_many :attachment_term_relationships, -> { where(object_type: "Media::Attachment") }, class_name: "General::TermRelationship"
   has_many :attachments, through: :attachment_term_relationships
   has_many :products, through: :product_term_relationships
   has_many :product_term_relationships, through: :product_term_relationships

@@ -63,6 +63,11 @@ module Frontend
           benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : "",
           prev_id: benefit_ids[benefit_index - 1].present? ? benefit_ids[benefit_index - 1] : benefit_ids.first,
           next_id: benefit_ids[benefit_index + 1].present? ? benefit_ids[benefit_index + 1] : benefit_ids.last,
+          breadcrumbs: [
+            { href: "/", text: "Inicio" },
+            { href: "/beneficios", text: "Beneficios" },
+            { href: "#", text: benefit.title.truncate(30), disabled: true },
+          ],
         }
       end
       respond_to do |format|

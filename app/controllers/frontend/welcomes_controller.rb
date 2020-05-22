@@ -11,7 +11,7 @@ module Frontend
           email: user.email,
           created_at: user.created_at,
           name: user.favorite_name.present? ? user.favorite_name : user.name,
-          last_name: user.last_name.titleize,
+          last_name: user.try(:last_name),
           active: user.active,
           annexed: user.annexed,
           birthday: user.birthday,

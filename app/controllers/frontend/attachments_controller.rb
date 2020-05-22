@@ -1,14 +1,14 @@
 module Frontend
   class AttachmentsController < FrontendController
     def index
-      @attachments = General::Attachment.all
+      @attachments = Media::Attachment.all
     end
 
     private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @attachment = General::Attachment.find(params[:id])
+      @attachment = Media::Attachment.find(params[:id])
     end
   end
 end

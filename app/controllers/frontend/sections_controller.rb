@@ -11,7 +11,7 @@ module Frontend
             title: last_know_us_post.title,
             description: ActionController::Base.helpers.strip_tags(last_know_us_post.content[0..368]) + "...",
             position: section.position,
-            image: last_know_us_post.main_image.present? ? url_for(last_know_us_post.main_image.attachment.variant(resize: "800x800>")) : root_url + ActionController::Base.helpers.asset_url("news.jpg"),
+            image: last_know_us_post.main_image.present? ? url_for(last_know_us_post.main_image.attachment.variant(resize: "800x")) : root_url + ActionController::Base.helpers.asset_url("news.jpg"),
             url: last_know_us_post.slug,
           }
         else
@@ -21,7 +21,7 @@ module Frontend
             description: section.description[0..368],
             position: section.position,
             url: section.url,
-            image: section.image.attached? ? url_for(section.image.attachment.variant(resize: "800x800>")) : root_url + ActionController::Base.helpers.asset_url("news.jpg"),
+            image: section.image.attached? ? url_for(section.image.attachment.variant(resize: "800x")) : root_url + ActionController::Base.helpers.asset_url("news.jpg"),
           }
         end
       end

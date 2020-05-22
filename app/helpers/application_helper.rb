@@ -99,10 +99,12 @@ module ApplicationHelper
     jpeg = "image/jpeg"
     jpg = "image/jpg"
     png = "image/png"
-    if file.attachment.content_type == jpeg ||
-       file.attachment.content_type == jpg ||
-       file.attachment.content_type == png
-      return true
+    if file.attachment.present?
+      if file.attachment.content_type == jpeg ||
+         file.attachment.content_type == jpg ||
+         file.attachment.content_type == png
+        return true
+      end
     end
 
     return false
@@ -113,11 +115,13 @@ module ApplicationHelper
     mov = "video/mov"
     ogg = "video/ogg"
     web = "video/webm"
-    if file.attachment.content_type == mp4 ||
-       file.attachment.content_type == mov ||
-       file.attachment.content_type == ogg ||
-       file.attachment.content_type == web
-      return true
+    if file.attachment.present?
+      if file.attachment.content_type == mp4 ||
+         file.attachment.content_type == mov ||
+         file.attachment.content_type == ogg ||
+         file.attachment.content_type == web
+        return true
+      end
     end
 
     return false
@@ -144,7 +148,7 @@ module ApplicationHelper
   end
 
   # def map_attachments
-  #   General::Attachment.all.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.thumb) }] if supported_img(i) && i.present? }
+  #   Media::Attachment.all.map { |i| [i.name, i.id, { "data-img-src" => url_for(i.thumb) }] if supported_img(i) && i.present? }
   # end
 
   # def map_product_images(product_id)
@@ -152,7 +156,7 @@ module ApplicationHelper
   # end
 
   def map_galleries
-    General::Gallery.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb) }] if g.attachments.present? }
+    Media::Gallery.all.map { |g| [g.name, g.id, { "data-img-src" => url_for(g.attachments.first.thumb) }] if g.attachments.present? }
   end
 
   def gender(val)
@@ -270,6 +274,7 @@ module ApplicationHelper
     if content.include?("<p><img style=\"float: right;\"")
       content = content.gsub("<p><img style=\"float: right;\" src=\"/rails/", "<p align=\"right\"><img src=\"#{get_request_fix_content}/rails/")
     end
+
     if content.include?("<p><img style=\"float: left;\"")
       content = content.gsub("<p><img style=\"float: left;\" src=\"/rails/", "<p align=\"left\"><img src=\"#{get_request_fix_content}/rails/")
     end
@@ -277,6 +282,8 @@ module ApplicationHelper
       content = content.gsub("<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"/rails/", "<p style=\"text-align: center;\"><img style=\"float: left;\" src=\"#{get_request_fix_content}/rails/")
     end
 
+    content = content.gsub("<img", '<img style="max-width: 100%; height: auto;"')
+    content = content.gsub("<iframe", '<iframe style="max-width: 100%;"')
     content = content.gsub("/></video>", ' width="600" height="350" controls=\"controls\" /></video>')
   end
 
@@ -311,6 +318,14 @@ module ApplicationHelper
     end
   end
 
+  def nav_link(link_text, link_path)
+    class_name = current_page?(link_path) ? "active" : ""
+
+    content_tag(:li, :class => class_name) do
+      link_to link_text, link_path
+    end
+  end
+
   def get_request_fix_content
     if request.referer == "http://localhost:8080/"
       "http://localhost:3000"
@@ -330,16 +345,18 @@ module ApplicationHelper
   end
 
   def get_phone(annexed)
-    if annexed[0] == '2' || annexed[0] == '3' || annexed[0] == '4'
-      '22584' + annexed
-    elsif annexed[0] == '5'
-      '22581' + annexed
-    elsif annexed[0] == '6'
-      '22901' + annexed
-    elsif annexed[0] == '7'
-      '224618' + annexed[1..annexed.length]
-    else
-      annexed
+    if annexed.present?
+      if annexed[0] == "2" || annexed[0] == "3" || annexed[0] == "4"
+        "22584" + annexed
+      elsif annexed[0] == "5"
+        "22581" + annexed
+      elsif annexed[0] == "6"
+        "22901" + annexed
+      elsif annexed[0] == "7"
+        "224618" + annexed[1..annexed.length]
+      else
+        annexed
+      end
     end
   end
 end

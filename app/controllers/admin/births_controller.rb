@@ -47,21 +47,9 @@ module Admin
     end
 
     def update
-      approved = params["approved"]
-      approved_image = params["approved_image"]
-      
-      if params["image_id"].present? && approved_image.present?
-        if approved_image == "true"
-          ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
-        else
-          ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 0)
-        end
-      elsif approved.present?
-        @birth.update_attributes(approved: approved)
-        send_email
-        respond_to do |format|
-          format.json { render :json => { value: "success" } and return }
-        end
+      approved = birth_params["approved"]
+      if params["image_id"].present?
+        ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
       else
         respond_to do |format|
           if @birth.update(birth_params)

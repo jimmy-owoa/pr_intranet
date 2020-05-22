@@ -3,21 +3,21 @@ module Admin
     before_action :set_file, only: [:show, :edit, :update, :destroy]
 
     def index
-      @files = General::File.order(created_at: :desc)
+      @files = Media::File.order(created_at: :desc)
     end
 
     def show
     end
 
     def new
-      @file = General::File.new
+      @file = Media::File.new
     end
 
     def edit
     end
 
     def create
-      @file = General::File.new(file_params)
+      @file = Media::File.new(file_params)
       respond_to do |format|
         if @file.save
           format.html { redirect_to admin_file_path(@file), notice: "Archivo fue creado con éxito." }
@@ -54,7 +54,7 @@ module Admin
     private
 
     def set_file
-      @file = General::File.find(params[:id])
+      @file = Media::File.find(params[:id])
     end
 
     def file_params

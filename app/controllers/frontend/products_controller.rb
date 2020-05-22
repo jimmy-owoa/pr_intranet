@@ -137,9 +137,9 @@ module Frontend
           thumbnail: root_url + ActionController::Base.helpers.asset_url("noimage.png"),
         }],
         breadcrumbs: [
-          { link: "/", name: "Inicio" },
-          { link: "/avisos-clasificados", name: "Avisos clasificados" },
-          { link: "#", name: "Aviso" },
+          { href: "/", text: "Inicio", disabled: false },
+          { href: "/avisos-clasificados", text: "Avisos clasificados", disabled: false },
+          { href: "#", text: "Aviso", disabled: true },
         ],
       }
       respond_to do |format|

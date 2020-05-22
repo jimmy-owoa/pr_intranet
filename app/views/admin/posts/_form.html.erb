@@ -16,209 +16,186 @@
         <%= f.label "Perfilamiento" %>
         <%= f.select :profile_id, options_for_select(General::Profile.all.map{|profile| [profile.name, profile.id]}.sort, selected_value), multiple: false, class:' form-control string optional' %>
       </div>
-      <!-- <div class="col-md-8">
-        <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
-        <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
-        <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
-      </div> -->
       <div class="col-md-12" style="margin-bottom: 20px;">
         <%= f.label "Contenido" %>
         <%= f.text_area :content, class: 'tinymce' %>
         <%= tinymce height: "400", :relative_urls => false  %>
       </div>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      <div class="col-md-4 hidden">
-        <%= f.association :main_image, collecion: @attachments, class: 'hidden'%>
-        <%= f.association :file_video, collecion: @attachments, class: 'hidden'%>
+    </div>
+  </div>
+  <div class="wrapper col-md-3">
+    <div class="form-group row">
+      <!-- Imagen Principal -->
+      <div class="card text-md-center p-2" >
+        <div class="form-group">
+          <div class="col-md-12 col-sm-12">
+            <h5 class="card-title">Imagen principal</h5>
+            <% if @post.id.nil? %>
+              <%= image_tag((asset_url('post_news_mini.png')), id:'image_preview', :size => '180x120', :crop => :fill ) %>
+              <div class="card-body">
+                <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%>
+              </div>
+              <br/>
+              <b>
+                <p>Subir Imagen</p>
+              </b>
+              <%= f.fields_for :main_image do |aa| %>
+                <div class="form-group">
+                  <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
+                </div>
+              <% end %>
+            <% else %>
+              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
+              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
+              <br />
+              <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
+              <br />
+              <b>
+                <p>Adjuntar imagen</p>
+              </b>
+              <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
+                <div class="form-group">
+                  <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!-- /Imagen Principal -->
+      <!-- Galería -->
+      <div id="post_input_gallery" class="card text-md-center pt-1" >
+        <div class="form-group">
+          <div class="col-md-12 col-sm-12">
+            <h5 class="card-title">Galería</h5>
+            <div class="card-body">
+              <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
+              <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
+              <%= select_tag :gallery_id, options_for_select(Media::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
+              <%= link_to 'Editar Galería', edit_admin_gallery_path(@post.gallery.id) if @post.gallery.present? %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/Galería-->
+      <!-- Video -->
+      <div id="post_input_video" class="card text-md-center pt-1">
+        <div class="form-group">
+          <div class="col-md-12 col-sm-12">
+            <h5 class="card-title">Video</h5>
+            <% if @post.id.nil? %>
+              <%= image_tag((asset_url('news_video_image.jpg')), id:'video_preview', :size => '180x120', :crop => :fill ) %>
+              <div class="card-body">
+                <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%><br/>
+              </div>
+              <b>
+                <p>Subir Video</p>
+              </b>
+              <%= f.fields_for :file_video do |aa| %>
+                <div class="form-group">
+                  <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURLVideo(this);" %>
+                </div>
+              <% end %>
+            <% else %>
+              <% if @post.file_video.present? %>
+                <%= image_tag url_for(@post.file_video.attachment.preview(resize: "x100")), id:'video_preview', size: '180x120' %>
+                <div class="card-body">
+                  <%= link_to "Video seleccionado: #{@post.file_video.name}", admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image', remote: true, class: 'card-link'%>
+                </div>
+              <% else %>
+                <%= image_tag((root_url + '/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) %>
+                <div class="card-body">
+                  <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!-- /Video -->
+      <div class="card text-md-center p-2 wrapper">
+        <div class="form-group row">
+          <div class="col-md-12">
+            <%= f.label :post_type %><br>
+            <%= f.input :post_type, collection: News::Post::TYPE %>
+          </div>
+          <div class="col-md-12">
+            <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
+          </div>
+          <div class="col-md-12">
+            <%= f.label "Noticia destacada" %>
+            <% if f.object.new_record? %>
+              <%= f.check_box :important, class: 'post_type', checked: true %>
+            <% else %>
+              <%= f.check_box :important, class: 'post_type'%>
+            <% end %>
+          </div>
+          <div class="col-md-12">
+          </div>
+          <div class="col-md-12 col-sm-12"><br>
+            <div class="input-group date" id="published_at" data-target-input="nearest">
+              <% if @post.try(:published_at).present? %>
+                <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at', class:'post_published_at'%>
+              <% else %>
+                <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false, class:'post_published_at' %>
+              <% end %>
+              <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <br>
+            <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    <!-- Imagen Principal -->
-    <div class="card text-md-center p-2" >
-      <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-          <h5 class="card-title">Imagen principal</h5>
-          <% if @post.id.nil? %>
-            <%= image_tag((asset_url('post_news_mini.png')), id:'image_preview', :size => '180x120', :crop => :fill ) %>
-            <div class="card-body">
-              <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%>
-            </div>
-            <br/>
-            <b>
-              <p>Subir Imagen</p>
-            </b>
-            <%= f.fields_for :main_image do |aa| %>
-              <div class="form-group">
-                <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
-              </div>
-            <% end %>
-          <% else %>
-            <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
-            <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
-            <br />
-            <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
-            <br />
-            <b>
-              <p>Adjuntar imagen</p>
-            </b>
-            <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
-              <div class="form-group">
-                <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <!-- /Imagen Principal -->
-    <!-- Galería -->
-    <div id="post_input_gallery" class="card text-md-center pt-1" >
-      <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-          <h5 class="card-title">Galería</h5>
-          <div class="card-body">
-            <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
-            <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
-            <%= select_tag :gallery_id, options_for_select(General::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
-
-            <%= link_to 'Editar Galería', edit_admin_gallery_path(@post.gallery.id) if @post.gallery.present? %>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/Galería-->
-    <!-- Video -->
-    <div id="post_input_video" class="card text-md-center pt-1">
-      <div class="form-group">
-        <div class="col-md-12 col-sm-12">
-          <h5 class="card-title">Video</h5>
-          <% if @post.id.nil? %>
-            <%= image_tag((asset_url('news_video_image.jpg')), id:'video_preview', :size => '180x120', :crop => :fill ) %>
-            <div class="card-body">
-              <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%><br/>
-            </div>
-            <b>
-              <p>Subir Video</p>
-            </b>
-            <%= f.fields_for :file_video do |aa| %>
-              <div class="form-group">
-                <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURLVideo(this);" %>
-              </div>
-            <% end %>
-          <% else %>
-            <% if @post.file_video.present? %>
-              <%= image_tag url_for(@post.file_video.attachment.preview(resize: "x100")), id:'video_preview', size: '180x120' %>
-              <div class="card-body">
-                <%= link_to "Video seleccionado: #{@post.file_video.name}", admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image', remote: true, class: 'card-link'%>
-              </div>
-            <% else %>
-              <%= image_tag((root_url + '/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) %>
-              <div class="card-body">
-                <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <!-- /Video -->
-    <div class="card text-md-center p-2 wrapper">
-      <div class="form-group row">
-        <div class="col-md-12">
-          <%= f.label :post_type %><br>
-          <%= f.select :post_type, News::Post::TYPE.map { |m| m }, class:'post_type form-control string optional', id:'post_type' %>
-        </div>
-        <div class="col-md-12">
-          <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
-        </div>
-        <div class="col-md-12">
-          <%= f.label "Noticia destacada" %>
-          <% if f.object.new_record? %>
-            <%= f.check_box :important, class: 'post_type', checked: true %>
-          <% else %>
-            <%= f.check_box :important, class: 'post_type'%>
-          <% end %>
-        </div>
-        <div class="col-md-12">
-        </div>
-        <div class="col-md-12 col-sm-12"><br>
-          <div class="input-group date" id="published_at" data-target-input="nearest">
-            <% if @post.try(:published_at).present? %>
-              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at', class:'post_published_at'%>
-            <% else %>
-              <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false, class:'post_published_at' %>
-            <% end %>
-            <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
-              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <br>
-          <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
-        </div>
-      </div>
-    </div>
-    <%# <div class="card text-md-center p-2" >
-      <div class="form-group ">
-        <div class="col-md-12 col-sm-12">
-          <h5 class="card-title"> Formato </h5>
-        </div>
-        <div class="col-md-12">
-          <%= f.input :format, required: true, collection: News::Post::FORMAT.map{|j,k| [k,j] },  :selected => 0, prompt: :translate %>
-    <%# <div class="tip_format">
-            Estilo 1: Normal - Estilo 2: Rosado - Estilo 3: Naranja
-          </div>
-        </div>
-      </div>
-    </div> %>
-  </div>
-</div>
-<script>
-  $(document).ready(function(){
-    $('input,textarea').focus(function(){
-      $(this).data('placeholder',$(this).attr('placeholder'))
-              .attr('placeholder','');
-    }).blur(function(){
-      $(this).attr('placeholder',$(this).data('placeholder'));
+  <script>
+    $(document).ready(function(){
+      $('input,textarea').focus(function(){
+        $(this).data('placeholder',$(this).attr('placeholder'))
+                .attr('placeholder','');
+      }).blur(function(){
+        $(this).attr('placeholder',$(this).data('placeholder'));
+      });
+    
     });
-  
-  });
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $("#image_preview")
-          .attr("src", e.target.result)
-          .width(180)
-          .height(120);
-        $("#image_preview")[0].style.objectFit = "cover";
-      };
-      reader.readAsDataURL(input.files[0]);
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $("#image_preview")
+            .attr("src", e.target.result)
+            .width(180)
+            .height(120);
+          $("#image_preview")[0].style.objectFit = "cover";
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     }
-  }
-  
-  function readURLVideo(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        $("#video_image, #video_image_nil").text("Video seleccionado");
-        $("#video_preview")
-          .attr("src", "<%= image_path 'news_video_image.jpg' %>")
-          .width(180)
-          .height(120);
-        $("#video_preview")[0].style.objectFit = "cover";
-      };
-      reader.readAsDataURL(input.files[0]);
+    
+    function readURLVideo(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $("#video_image, #video_image_nil").text("Video seleccionado");
+          $("#video_preview")
+            .attr("src", "<%= image_path 'news_video_image.jpg' %>")
+            .width(180)
+            .height(120);
+          $("#video_preview")[0].style.objectFit = "cover";
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
     }
-  }
-  
-  // Solución para cerrar "datetimepicker" al hacer click fuera.
-  $(document).on('mouseup touchstart', function (e) {
-  var container = $(".bootstrap-datetimepicker-widget");
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      container.hide();
-    }
-  });
-</script>
+    
+    // Solución para cerrar "datetimepicker" al hacer click fuera.
+    $(document).on('mouseup touchstart', function (e) {
+    var container = $(".bootstrap-datetimepicker-widget");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        container.hide();
+      }
+    });
+  </script>

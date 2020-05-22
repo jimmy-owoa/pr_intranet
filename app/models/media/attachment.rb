@@ -1,8 +1,6 @@
-class General::Attachment < ApplicationRecord
+class Media::Attachment < ApplicationRecord
   has_many :posts_main_image, class_name: "News::Post", foreign_key: :main_image_id
-  has_many :attachment_term_relationships, -> { where(object_type: "General::Attachment") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :attachment
-  has_many :terms, through: :attachment_term_relationships
-  has_many :gallery_relations, class_name: "General::GalleryRelation"
+  has_many :gallery_relations, class_name: "Media::GalleryRelation"
   has_many :galleries, through: :gallery_relations
   belongs_to :attachable, polymorphic: true, optional: true
   has_many :posts_video, class_name: "News::Post", foreign_key: :file_video_id
@@ -21,11 +19,13 @@ class General::Attachment < ApplicationRecord
   end
 
   def thumb
-    begin
-      return self.attachment.variant(resize: "120x120>").processed
-    rescue
-      if self.attachment.content_type == "text/plain"
-        return nil
+    if self.attachment.attached?
+      begin
+        return self.attachment.variant(resize: "120x120>").processed
+      rescue
+        if self.attachment.content_type == "text/plain"
+          return nil
+        end
       end
     end
   end
@@ -47,10 +47,10 @@ class General::Attachment < ApplicationRecord
   end
 
   def self.images
-    General::Attachment.joins(:attachment_blob).where("content_type LIKE ?", "%image%")
+    Media::Attachment.joins(:attachment_blob).where("content_type LIKE ?", "%image%")
   end
 
   def self.videos
-    General::Attachment.joins(:attachment_blob).where("content_type LIKE ?", "%video%")
+    Media::Attachment.joins(:attachment_blob).where("content_type LIKE ?", "%video%")
   end
 end

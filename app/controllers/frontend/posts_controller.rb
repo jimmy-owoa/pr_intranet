@@ -8,7 +8,7 @@ module Frontend
       posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
       posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
+        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "900x600")) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
         data << {
           id: post.id,
@@ -29,7 +29,7 @@ module Frontend
         }
       end
       respond_to do |format|
-        format.json { render json: { hits: data } }
+        format.json { render json: data }
         format.js
       end
     end
@@ -39,7 +39,7 @@ module Frontend
       posts = posts.paginate(:page => params[:page], :per_page => 4)
       data = []
       posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg"
+        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '600x400')) : root_url + "/assets/news.jpg"
         @video = post.file_video.present? ? url_for(post.file_video.attachment) : @image
         extract = post.extract.slice(0..104) rescue post.extract
         data << {
@@ -51,9 +51,9 @@ module Frontend
           slug: post.slug,
           extract: extract,
           breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/momentos-security", name: "momentos-security" },
-            { link: "#", name: post.title.truncate(30) },
+            { href: "/", text: "Inicio" },
+            { href: "/momentos", text: "momentos" },
+            { href: "#", text: post.title.truncate(30) },
           ],
           main_image: @image,
           file_video: @video,
@@ -80,7 +80,7 @@ module Frontend
             slug: post.slug,
             extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-            main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+            main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '400x200')) : root_url + "/assets/news.jpg",
             post_type: post.post_type,
           }
         end
@@ -93,13 +93,13 @@ module Frontend
           published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d-%m-%Y"),
           content: content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
-          main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+          main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '600x400')) : root_url + "/assets/news.jpg",
           format: post.format,
           extract: post.extract.present? ? post.extract : "",
           breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/momentos-security", name: "Momentos security" },
-            { link: "#", name: post.title.truncate(30) },
+            { href: "/", text: "Inicio" },
+            { href: "/momentos", text: "Momentos" },
+            { href: "#", text: post.title.truncate(30), disabled: true },
           ],
           file_video: post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news_video_image.jpg",
           relationed_posts: data_relationed_posts,
@@ -111,7 +111,7 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: { status: "No tiene acceso"} }
+          format.json { render json: { status: "No tiene acceso" } }
           format.js
         end
       end
@@ -124,7 +124,7 @@ module Frontend
       gallery = { items: [] }
       items = []
       if post.gallery.present?
-        attachments = General::Gallery.where(post_id: post.id).last.attachments
+        attachments = Media::Gallery.where(post_id: post.id).last.attachments
         attachments.each do |image| # Por ahora está mostrando sólo la primera galería
           if image.attachment.attached?
             items << {
@@ -152,11 +152,11 @@ module Frontend
 
       data = []
       posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "800x")) : root_url + "/assets/news.jpg"
+        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "1920x")) : root_url + "/assets/news.jpg"
         data << {
           id: post.id,
           title: post.title,
-          user_id: General::User.find(post.user_id).name,
+          # user_id: General::User.find(post.user_id).name,
           published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
           content: post.content,
           post_type: post.post_type.present? ? post.post_type.upcase : "",
@@ -188,11 +188,11 @@ module Frontend
         relationed_posts.each do |post|
           data_relationed_posts << {
             id: post.id,
-            title: post.title.length > 36 ? post.title.slice(0..36) + "..." : post.title,
+            title: post.title,
             slug: post.slug,
             extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
             published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-            main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+            main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '400x200')) : root_url + "/assets/news.jpg",
           }
         end
         content = fix_content(post.content)
@@ -207,13 +207,13 @@ module Frontend
           post_type: post.post_type.present? ? post.post_type.upcase : "",
           important: post.important,
           tags: post.terms.tags,
-          main_image: post.main_image.present? ? url_for(post.main_image.attachment) : root_url + "/assets/news.jpg",
+          main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: '1000x800')) : root_url + "/assets/news.jpg",
           format: post.format,
           extract: post.extract.present? ? post.extract : "",
           breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/noticias", name: "Noticias" },
-            { link: "#", name: post.title.truncate(30) },
+            { text: "Inicio", href: "/", disabled: false },
+            { text: "Noticias", href: "/noticias", disabled: false },
+            { text: post.title.truncate(34), href: "/", disabled: true },
           ],
           relationed_posts: data_relationed_posts,
           status: post.status,
@@ -224,10 +224,36 @@ module Frontend
         end
       else
         respond_to do |format|
-          format.json { render json: { status: "No tiene acceso"} }
+          format.json { render json: { status: "No tiene acceso" } }
           format.js
         end
       end
+    end
+
+    def last_posts
+      posts = News::Post.normal_posts.published_posts.order(published_at: :desc).last(5)
+
+      data = []
+      posts.each do |post|
+        post_image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "100x100")) : root_url + "/assets/news.jpg"
+        extract = post.extract.slice(0..104) rescue post.extract
+        data << {
+          id: post.id,
+          title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
+          published_at: post.published_at.strftime("%d/%m/%Y"),
+          post_type: post.post_type.present? ? post.post_type.upcase : "",
+          slug: post.slug,
+          extract: extract,
+          breadcrumbs: [
+            { link: "/", name: "Inicio" },
+            { link: "/noticias", name: "Noticias" },
+            { link: "#", name: post.title.truncate(30) },
+          ],
+          main_image: post_image,
+        }
+      end
+
+      render json: data
     end
 
     private

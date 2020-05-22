@@ -1,48 +1,45 @@
-
-<%- model_class = General::Attachment -%>
-  <section class="section">
-    <h1 class="section-header"><%= "Medios" %></h1>
-    <%= link_to "Nuevo", new_admin_attachment_path, :class => 'btn btn-primary btn-sm mb-1' %>
-    <div class="card">
-      <div class="table-responsive-md">
-        <table class="table table-hover">
-          <thead class="thead">
+<%- model_class = Media::Attachment -%>
+<section class="section">
+  <h1 class="section-header"><%= "Medios" %></h1>
+  <%= link_to "Nuevo", new_admin_attachment_path, :class => 'btn btn-primary btn-sm mb-1' %>
+  <div class="card">
+    <div class="table-responsive-md">
+      <table class="table table-hover">
+        <thead class="thead">
+          <tr>
+            <th><%= 'Miniatura' %></th>
+            <th><%= 'Nombre' %></th>
+            <th><%= 'Acciones' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @attachments.each do |at| %>
             <tr>
-              <th><%= 'Miniatura' %></th>
-              <th><%= 'Nombre' %></th>
-              <th><%= 'Acciones' %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @attachments.each do |at| %>
-              <tr>
-                <td><%= show_media_index(at.attachment) %></td>
-                <td><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}%></td>
-                <td>
-                  <%= link_to t('.show', :default => t("helpers.messages.show")),
+              <td><%= show_media_index(at.attachment) %></td>
+              <td><%= best_in_place at, :name, url: admin_attachment_path(at), :data => {:attach_name => at.name}%></td>
+              <td>
+                <%= link_to t('.show', :default => t("helpers.messages.show")),
                               admin_attachment_path(at), :class => 'btn btn-success btn-xs' %>
-                  <%= link_to t('.edit', :default => t("helpers.messages.edit")),
+                <%= link_to t('.edit', :default => t("helpers.messages.edit")),
                               edit_admin_attachment_path(at), :class => 'btn btn-primary btn-xs' %>
-                  <%= link_to 'Eliminar',
+                <%= link_to 'Eliminar',
                               admin_attachment_path(at),
                               :method => :delete,
                               :data => { :confirm => t('.confirm', :default => t("helpers.messages.confirm", :default => '¿Esta segura(o) que desea eliminar este elemento?')) },
                               :class => 'btn btn-danger' %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class='row'>
-            <div class="col-md-10">
-              <%= will_paginate @attachments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-          </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class='row'>
+        <div class="col-md-10">
+          <%= will_paginate @attachments, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
         </div>
       </div>
     </div>
-  </section>
-
-
+  </div>
+</section>
 <script>
   $(document).ready(function() {
     $('.best_in_place').best_in_place()

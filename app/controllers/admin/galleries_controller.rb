@@ -5,7 +5,7 @@ module Admin
 
     def index
       add_breadcrumb "Galerías", :admin_galleries_path
-      @galleries = General::Gallery.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+      @galleries = Media::Gallery.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       respond_to do |format|
         format.html
         format.json { render json: @galleries }
@@ -23,9 +23,9 @@ module Admin
 
     def new
       add_breadcrumb "Galerías", :admin_galleries_path
-      @gallery = General::Gallery.new
+      @gallery = Media::Gallery.new
       @attachments = @gallery.attachments.build
-      @galleries = General::Gallery.paginate(:page => params[:page], :per_page => 10)
+      @galleries = Media::Gallery.paginate(:page => params[:page], :per_page => 10)
       respond_to do |format|
         format.html
         format.json { render json: @gallery }
@@ -34,7 +34,7 @@ module Admin
     end
 
     def search_galleries
-      @search = General::Gallery.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachments.first.thumb) } }.paginate(:page => params[:page], :per_page => 15)
+      @search = Media::Gallery.where("name LIKE '%#{params[:search]}%' ").map { |i| { name: i.name, val: i.id, 'data-img-src': url_for(i.attachments.first.thumb) } }.paginate(:page => params[:page], :per_page => 15)
       render json: { data: @search }
     end
 
@@ -43,7 +43,7 @@ module Admin
     end
 
     def create
-      @gallery = General::Gallery.new(gallery_params)
+      @gallery = Media::Gallery.new(gallery_params)
       attachments_attributes = params[:attachments_attributes]
       images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
       respond_to do |format|
@@ -51,10 +51,10 @@ module Admin
           update_gallery
           if images.present?
             images.each do |image|
-              @gallery.attachments << General::Attachment.find(image)
+              @gallery.attachments << Media::Attachment.find(image)
             end
           end
-          @galleries_list = General::Gallery.all.map { |a| [a.id, a.name] }
+          @galleries_list = Media::Gallery.all.map { |a| [a.id, a.name] }
           format.html { redirect_to edit_admin_gallery_path(@gallery), notice: "Galería fue creada con éxito." }
           format.json { render :show, status: :created, location: @gallery }
           format.js
@@ -67,16 +67,16 @@ module Admin
     end
 
     def create_gallery_post
-      @gallery = General::Gallery.new(gallery_params)
+      @gallery = Media::Gallery.new(gallery_params)
       attachments_attributes = params[:attachments_attributes]
       images = attachments_attributes.present? ? attachments_attributes.keys.map(&:to_i) : []
       if @gallery.save
         if images.present?
           images.each do |image|
-            @gallery.attachments << General::Attachment.find(image)
+            @gallery.attachments << Media::Attachment.find(image)
           end
         end
-        @galleries_list = General::Gallery.all.map { |a| [a.id, a.name] }
+        @galleries_list = Media::Gallery.all.map { |a| [a.id, a.name] }
         respond_to do |format|
           format.js
         else
@@ -93,7 +93,7 @@ module Admin
           update_gallery
           if images.present?
             images.each do |image|
-              @gallery.attachments << General::Attachment.find(image)
+              @gallery.attachments << Media::Attachment.find(image)
             end
           end
           format.html { redirect_to admin_gallery_path(@gallery), notice: "Galería fue actualizada con éxito." }
@@ -124,7 +124,7 @@ module Admin
     private
 
     def set_gallery
-      @gallery = General::Gallery.find(params[:id])
+      @gallery = Media::Gallery.find(params[:id])
     end
 
     def set_post

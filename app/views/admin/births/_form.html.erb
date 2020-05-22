@@ -133,7 +133,7 @@
     <div class="col-md-4">
       <%= f.submit 'Guardar', class: 'btn btn-success' %>
       <% if @birth.id.present? %>
-        <%= link_to "Aprobar", admin_birth_path(@birth, birth: {approved: true}) , method: :put, :class => 'btn btn-primary'%>
+        <%= link_to "Aprobar", admin_birth_path(@birth, birth: {approved: true }) , method: :put, :class => 'btn btn-primary'%>
         <%= link_to 'Rechazar',
           admin_birth_path(@birth, birth: {approved: false}), method: :put,
           method: :delete,

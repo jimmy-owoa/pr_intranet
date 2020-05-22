@@ -24,19 +24,20 @@ module Admin
 
     def new
       @post = News::Post.new
-      @gallery = General::Gallery.new
-      @attachment = General::Attachment.new
-      @files = General::File.all
+      @gallery = Media::Gallery.new
+      @attachment = Media::Attachment.new
+      @files = Media::File.all
       @post.build_main_image
       @post.build_file_video
       @post.terms.build
+      @galleries = Media::Gallery.all
       # @post.files.build
     end
 
     def edit
-      @files = General::File.all
-      @gallery = General::Gallery.new
-      # @gallery = General::Gallery.where(post_id: @post.id).last.id
+      @files = Media::File.all
+      @gallery = Media::Gallery.new
+      @galleries = Media::Gallery.all
     end
 
     def create
@@ -94,11 +95,11 @@ module Admin
     end
 
     def set_galleries
-      @galleries = General::Gallery
+      @galleries = Media::Gallery
     end
 
     def set_attachments
-      @attachments = General::Attachment
+      @attachments = Media::Attachment
     end
 
     def post_params
@@ -109,7 +110,7 @@ module Admin
     end
 
     def set_gallery
-      @gallery = General::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
+      @gallery = Media::Gallery.find(params[:gallery_id]) if params[:gallery_id].present?
       @post.gallery = @gallery
       @post.reload.gallery
       @post.save
