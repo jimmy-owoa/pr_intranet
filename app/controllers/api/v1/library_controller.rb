@@ -1,6 +1,6 @@
 module Api::V1
   class LibraryController < ApiController
-    skip_before_action :verify_authenticity_token, only: [:create_request_book]
+    # skip_before_action :verify_authenticity_token, only: [:create_request_book]
 
     def index
       page = params[:page]

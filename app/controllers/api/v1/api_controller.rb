@@ -1,7 +1,7 @@
 require "resolv-replace"
 
 class Api::V1::ApiController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  # skip_before_action :verify_authenticity_token
 
   # before_action :get_user, except: [:azure_auth, :current_user_azure, :referrer_update]
   before_action :get_user

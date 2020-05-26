@@ -2,7 +2,7 @@ module Api::V1
   class UsersController < ApiController
     include Rails.application.routes.url_helpers
     include ApplicationHelper
-    skip_before_action :verify_authenticity_token, only: :upload
+    # skip_before_action :verify_authenticity_token, only: :upload
 
     def nickname(name)
       name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present? ? name : name.split.first
@@ -27,7 +27,7 @@ module Api::V1
             company: children.company.present? ? children.company.name : "Empresa no disponible",
             color: children.get_color,
             image: children.image.attached? ?
-              url_for(children.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(children.image.variant(resize: "150x150")) : ActionController::Base.helpers.asset_path("default_avatar.png"),
           }
         end
       end
@@ -41,7 +41,7 @@ module Api::V1
             company: sibling.company.present? ? sibling.company.name : "Empresa no disponible",
             color: sibling.get_color,
             image: sibling.image.attached? ?
-              url_for(sibling.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(sibling.image.variant(resize: "150x150")) : ActionController::Base.helpers.asset_path("default_avatar.png"),
           }
         end
       end
@@ -54,7 +54,7 @@ module Api::V1
           company: @user.parent.company.present? ? @user.parent.company.name : "Empresa no disponible",
           color: @user.get_color,
           image: @user.parent.image.attached? ?
-            url_for(@user.parent.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            url_for(@user.parent.image.variant(resize: "150x150")) : ActionController::Base.helpers.asset_path("default_avatar.png"),
         }
       end
       data_user << {
@@ -76,7 +76,7 @@ module Api::V1
         date_entry: @user.date_entry,
         color: @user.get_color,
         image: @user.image.attached? ?
-          url_for(@user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          url_for(@user.image) : ActionController::Base.helpers.asset_path("default_avatar.png"),
         childrens: data_childrens,
         siblings: data_siblings,
         father: data_father,
@@ -109,7 +109,7 @@ module Api::V1
             company: children.company.present? ? children.company.name.titleize : "Empresa no disponible",
             color: children.get_color,
             image: children.image.attached? ?
-              url_for(children.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(children.image.variant(resize: "150x150")) : ActionController::Base.helpers.asset_path("default_avatar.png"),
           }
         end
       end
@@ -123,7 +123,7 @@ module Api::V1
             company: sibling.company.present? ? sibling.company.name.titleize : "Empresa no disponible",
             color: sibling.get_color,
             image: sibling.image.attached? ?
-              url_for(sibling.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(sibling.image.variant(resize: "150x150")) : ActionController::Base.helpers.asset_path("default_avatar.png"),
           }
         end
       end
@@ -136,7 +136,7 @@ module Api::V1
           company: user.parent.company.present? ? user.parent.company.name.titleize : "Empresa no disponible",
           color: user.parent.get_color,
           image: user.parent.image.attached? ?
-            url_for(user.parent.image.variant(resize: "150x150")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+            url_for(user.parent.image.variant(resize: "150x150")) : ActionController::Base.helpers.asset_path("default_avatar.png"),
         }
       end
       data << {
@@ -194,7 +194,7 @@ module Api::V1
             content: message.content,
             message_type: message.message_type,
             is_const: message.is_const,
-            image: message.image.attached? ? url_for(message.image) : root_url + "/assets/message.jpeg",
+            image: message.image.attached? ? url_for(message.image) : ActionController::Base.helpers.asset_path("message.jpeg"),
           }
         end
       end
@@ -206,7 +206,7 @@ module Api::V1
             content: message.content,
             message_type: message.message_type,
             is_const: message.is_const,
-            image: message.image.attached? ? url_for(message.image) : root_url + "/assets/message.jpeg",
+            image: message.image.attached? ? url_for(message.image) : ActionController::Base.helpers.asset_path("message.jpeg"),
           }
         end
       end
@@ -225,7 +225,7 @@ module Api::V1
         position: user.position,
         date_entry: user.date_entry,
         image: user.image.attached? ?
-          url_for(user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          url_for(user.image) : ActionController::Base.helpers.asset_path("default_avatar.png"),
         companies: user.terms.categories.map(&:name),
         including_tags: user.terms.inclusive_tags.map { |a| a.name },
         excluding_tags: user.terms.excluding_tags.map { |a| a.name },

@@ -7,7 +7,7 @@ module Api::V1
     #callbacks
     layout "admin"
     before_action :set_birth, only: [:show, :destroy]
-    skip_before_action :verify_authenticity_token, only: [:create]
+    # skip_before_action :verify_authenticity_token, only: [:create]
 
     def index
       page = params[:page]
@@ -37,7 +37,7 @@ module Api::V1
           name: birth.child_name,
           last_names: birth.child_lastname + " " + birth.child_lastname2,
           company: company_name,
-          photo: birth.photo.attachment ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
+          photo: birth.photo.attachment ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
           images: images,
           gender: birth.gender,
           birthday: l(birth.birthday, format: "%d de %B").downcase,
@@ -69,7 +69,7 @@ module Api::V1
         data << {
           id: birth.id,
           child_full_name: birth.child_name + " " + birth.child_lastname + " " + birth.child_lastname2,
-          photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) : root_url + ActionController::Base.helpers.asset_url("birth.png"),
+          photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
           images: images,
           gender: birth.gender ? "Masculino" : "Femenino",
           birthday: birth.birthday.strftime("%d/%m"),

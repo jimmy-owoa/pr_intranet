@@ -1,6 +1,6 @@
 module Api::V1
   class ProductsController < ApiController
-    skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
+    # skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
 
     def index
       page = params[:page]
@@ -35,7 +35,7 @@ module Api::V1
           expiration: product.expiration,
           description: product.description,
           main_image: product.permitted_images.present? ? url_for(product.permitted_images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
-          items: product.images.present? ? items : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+          items: product.images.present? ? items : ActionController::Base.helpers.asset_path("noimage.png"),
           breadcrumbs: [
             { link: "/", name: "Inicio" },
             { link: "/avisos", name: "Avisos Clasificados" },
@@ -83,7 +83,7 @@ module Api::V1
           expiration: product.expiration,
           description: product.description,
           main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
-          items: product.images.present? ? items : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+          items: product.images.present? ? items : ActionController::Base.helpers.asset_path("noimage.png"),
           breadcrumbs: [
             { link: "/", name: "Inicio" },
             { link: "/avisos", name: "Avisos Clasificados" },

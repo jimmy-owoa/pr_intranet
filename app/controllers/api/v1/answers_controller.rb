@@ -1,6 +1,6 @@
 module Api::V1
   class AnswersController < ApiController
-    skip_before_action :verify_authenticity_token
+    # skip_before_action :verify_authenticity_token
 
     def create
       survey = nil

@@ -20,7 +20,7 @@ module Api::V1
                 id: benefit.id,
                 name: benefit.title,
                 content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url("benefit.jpg"),
+                image: benefit.image.attached? ? url_for(benefit.image) : ActionController::Base.helpers.asset_path("benefit.jpg"),
                 url: "admin/benefits/" + "#{benefit.id}" + "/edit",
                 link: benefit.url,
               }
@@ -50,7 +50,7 @@ module Api::V1
             benefit_parents << parent
           end
         end
-        @image = benefit.image.attached? ? url_for(benefit.image.attachment) : root_url + ActionController::Base.helpers.asset_url("benefit.jpg")
+        @image = benefit.image.attached? ? url_for(benefit.image.attachment) : ActionController::Base.helpers.asset_path("benefit.jpg")
         data << {
           id: benefit.id,
           title: benefit.title,

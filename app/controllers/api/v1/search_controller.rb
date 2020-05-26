@@ -21,7 +21,7 @@ module Api::V1
             annexed: user.annexed,
             birthday: user.birthday,
             image: user.image.attached? ?
-              url_for(user.image) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+              url_for(user.image) : ActionController::Base.helpers.asset_path("default_avatar.png"),
           }
         end
         filtered_posts = filter_results_posts(result.with_hit.map { |a| a[0] if a[1]["_index"][0...10] == "news_posts" }.compact.sort_by { |post| post[:published_at] }.reverse)

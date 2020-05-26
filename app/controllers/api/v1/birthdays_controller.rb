@@ -23,7 +23,7 @@ module Api::V1
           company: user.company.present? ? user.company.name.titleize : "",
           birthday: l(user.birthday, format: "%d de %B").downcase,
           date: Date.today.year.to_s + "-" + user.birthday.strftime("%m-%d"),
-          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) :  ActionController::Base.helpers.asset_path("default_avatar.png"),
           color: user.get_color,
         }
       end
@@ -48,7 +48,7 @@ module Api::V1
           birthday: user.birthday,
           created_at: user.created_at,
           company: user.company.present? ? user.company.name.titleize : "",
-          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png"),
+          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) :  ActionController::Base.helpers.asset_path("default_avatar.png"),
           color: user.get_color,
         }
       end
@@ -63,7 +63,7 @@ module Api::V1
       @users_calendar = General::User.date_birth.show_birthday
       data = []
       @users_calendar.each do |user|
-        @image = user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) : root_url + ActionController::Base.helpers.asset_url("default_avatar.png")
+        @image = user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) :  ActionController::Base.helpers.asset_path("default_avatar.png")
         data << {
           id: user.id,
           name: user.name,

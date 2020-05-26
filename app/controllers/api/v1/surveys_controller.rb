@@ -32,7 +32,7 @@ module Api::V1
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ?
-            url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+            url_for(survey.image) : ActionController::Base.helpers.asset_path("survey.png"),
           created_at: survey.created_at.strftime("%d-%m-%Y"),
           questions: data_questions,
           survey_type: survey.survey_type,
@@ -89,7 +89,7 @@ module Api::V1
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ?
-            url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+            url_for(survey.image) : ActionController::Base.helpers.asset_path("survey.png"),
           created_at: survey.created_at.strftime("%d-%m-%Y"),
           questions: data_questions,
           survey_type: survey.survey_type,
@@ -153,7 +153,7 @@ module Api::V1
               show_name: survey.show_name,
               description: survey.description,
               image: survey.image.attached? ?
-                url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+                url_for(survey.image) : ActionController::Base.helpers.asset_path("survey.png"),
               created_at: survey.created_at.strftime("%d-%m-%Y"),
               questions: data_questions,
               survey_type: survey.survey_type,
@@ -176,7 +176,7 @@ module Api::V1
             show_name: survey.show_name,
             description: survey.description,
             image: survey.image.attached? ?
-              url_for(survey.image) : root_url + ActionController::Base.helpers.asset_url("survey.png"),
+              url_for(survey.image) : ActionController::Base.helpers.asset_path("survey.png"),
             created_at: survey.created_at.strftime("%d-%m-%Y"),
             questions: data_questions,
             survey_type: survey.survey_type,

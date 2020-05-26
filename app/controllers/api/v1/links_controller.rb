@@ -8,7 +8,7 @@ module Api::V1
           id: link.id,
           title: link.title,
           is_blank: link.is_blank,
-          image: link.image.attached? ? url_for(link.image.variant(resize: "1920x")) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+          image: link.image.attached? ? url_for(link.image.variant(resize: "1920x")) : ActionController::Base.helpers.asset_path("noimage.png"),
           url: link.url,
         }
       end
