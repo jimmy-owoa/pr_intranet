@@ -1,4 +1,4 @@
-module Api
+module Api::V1
   class UsersController < ApiController
     before_action :find_user, except: %i[create]
 

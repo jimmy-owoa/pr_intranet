@@ -1,4 +1,4 @@
-module Api
+module Api::V1
   class BenefitsController < ApiController
     before_action :find_beneficiary_group, except: %i[create index]
     before_action :validate
