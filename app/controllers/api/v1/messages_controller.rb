@@ -1,5 +1,5 @@
 module Api::V1
-  class MessagesController < FrontendController
+  class MessagesController < ApiController
     def index
       messages = General::Message.last(6)
       data = []

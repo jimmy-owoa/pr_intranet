@@ -1,7 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 module Api::V1
-  class BenefitsController < FrontendController
+  class BenefitsController < ApiController
     def index
       data = []
       user = @request_user

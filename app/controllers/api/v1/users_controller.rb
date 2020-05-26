@@ -1,5 +1,5 @@
 module Api::V1
-  class UsersController < FrontendController
+  class UsersController < ApiController
     include Rails.application.routes.url_helpers
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: :upload

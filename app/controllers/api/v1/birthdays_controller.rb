@@ -1,5 +1,5 @@
 module Api::V1
-  class BirthdaysController < FrontendController
+  class BirthdaysController < ApiController
     include ApplicationHelper
 
     def index

@@ -1,5 +1,5 @@
 module Api::V1
-  class ProductsController < FrontendController
+  class ProductsController < ApiController
     skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
 
     def index

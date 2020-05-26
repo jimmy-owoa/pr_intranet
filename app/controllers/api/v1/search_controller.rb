@@ -1,5 +1,5 @@
 module Api::V1
-  class SearchController < FrontendController
+  class SearchController < ApiController
     include Rails.application.routes.url_helpers
     skip_before_action :get_user, only: [:search_menu]
 

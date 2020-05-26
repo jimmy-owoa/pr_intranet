@@ -2,7 +2,7 @@ require "base64"
 require "stringio"
 
 module Api::V1
-  class BirthsController < FrontendController
+  class BirthsController < ApiController
     include ApplicationHelper
     #callbacks
     layout "admin"

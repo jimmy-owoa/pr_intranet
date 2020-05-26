@@ -1,5 +1,5 @@
 module Api::V1
-  class UserMessagesController < FrontendController
+  class UserMessagesController < ApiController
     include ApplicationHelper
     skip_before_action :verify_authenticity_token
 

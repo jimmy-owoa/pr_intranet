@@ -1,5 +1,5 @@
 module Api::V1
-  class SantoralsController < FrontendController
+  class SantoralsController < ApiController
     include Rails.application.routes.url_helpers
 
     def santorals

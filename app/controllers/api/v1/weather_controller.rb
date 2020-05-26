@@ -1,5 +1,5 @@
 module Api::V1
-  class WeatherController < FrontendController
+  class WeatherController < ApiController
     def index
       params[:id].present? ? id = params[:id] : id = General::User.first.id
       data = []

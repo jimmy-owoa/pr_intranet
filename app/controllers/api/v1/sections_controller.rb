@@ -1,5 +1,5 @@
 module Api::V1
-  class SectionsController < FrontendController
+  class SectionsController < ApiController
     def index
       sections = General::Section.all
       data = []

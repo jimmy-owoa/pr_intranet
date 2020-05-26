@@ -1,5 +1,5 @@
 module Api::V1
-  class AttachmentsController < FrontendController
+  class AttachmentsController < ApiController
     def index
       @attachments = Media::Attachment.all
     end

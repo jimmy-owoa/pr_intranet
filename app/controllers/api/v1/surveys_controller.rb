@@ -1,5 +1,5 @@
 module Api::V1
-  class SurveysController < FrontendController
+  class SurveysController < ApiController
     def index
       data_surveys = []
       surveys_all = []

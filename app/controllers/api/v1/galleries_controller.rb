@@ -1,5 +1,5 @@
 module Api::V1
-  class GalleriesController < FrontendController
+  class GalleriesController < ApiController
     include Rails.application.routes.url_helpers
 
     def index

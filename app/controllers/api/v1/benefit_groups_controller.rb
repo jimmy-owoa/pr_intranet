@@ -1,5 +1,5 @@
 module Api::V1
-  class BenefitGroupsController < FrontendController
+  class BenefitGroupsController < ApiController
     def index
       benefit_groups = General::BenefitGroup.all.map(&:name)
       respond_to do |format|

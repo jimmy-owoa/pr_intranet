@@ -1,5 +1,5 @@
 module Api::V1
-  class LinksController < FrontendController
+  class LinksController < ApiController
     def index
       links = General::Link.last(8)
       data = []

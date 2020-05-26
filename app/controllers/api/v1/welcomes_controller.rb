@@ -1,5 +1,5 @@
 module Api::V1
-  class WelcomesController < FrontendController
+  class WelcomesController < ApiController
     include ApplicationHelper
 
     def get_home_welcome

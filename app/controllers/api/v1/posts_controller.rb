@@ -1,5 +1,5 @@
 module Api::V1
-  class PostsController < FrontendController
+  class PostsController < ApiController
     include ApplicationHelper
 
     def index
