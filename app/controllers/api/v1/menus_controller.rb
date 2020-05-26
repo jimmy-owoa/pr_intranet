@@ -1,7 +1,7 @@
 require "uri"
 require "net/http"
 
-module Frontend
+module Api::V1
   class MenusController < FrontendController
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:get_gospel_menu, :post_gospel_menu]

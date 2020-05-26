@@ -1,6 +1,6 @@
 include ActionView::Helpers::NumberHelper
 
-module Frontend
+module Api::V1
   class BenefitsController < FrontendController
     def index
       data = []

@@ -1,7 +1,7 @@
 require "base64"
 require "stringio"
 
-module Frontend
+module Api::V1
   class BirthsController < FrontendController
     include ApplicationHelper
     #callbacks

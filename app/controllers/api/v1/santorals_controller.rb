@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class SantoralsController < FrontendController
     include Rails.application.routes.url_helpers
 

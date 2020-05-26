@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class BenefitGroupsController < FrontendController
     def index
       benefit_groups = General::BenefitGroup.all.map(&:name)

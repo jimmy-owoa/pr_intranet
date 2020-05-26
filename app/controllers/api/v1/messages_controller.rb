@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class MessagesController < FrontendController
     def index
       messages = General::Message.last(6)

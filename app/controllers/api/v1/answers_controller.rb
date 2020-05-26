@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class AnswersController < FrontendController
     skip_before_action :verify_authenticity_token
 

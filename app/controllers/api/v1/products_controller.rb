@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class ProductsController < FrontendController
     skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
 

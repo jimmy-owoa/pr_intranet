@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class SectionsController < FrontendController
     def index
       sections = General::Section.all

@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class BirthdaysController < FrontendController
     include ApplicationHelper
 

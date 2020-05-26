@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class LibraryController < FrontendController
     skip_before_action :verify_authenticity_token, only: [:create_request_book]
 

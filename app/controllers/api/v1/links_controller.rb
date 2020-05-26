@@ -1,4 +1,4 @@
-module Frontend
+module Api::V1
   class LinksController < FrontendController
     def index
       links = General::Link.last(8)
