@@ -2,7 +2,7 @@ module Api::V1
   class UsersController < ApiController
     include Rails.application.routes.url_helpers
     include ApplicationHelper
-    # skip_before_action :verify_authenticity_token, only: :upload
+    skip_before_action :verify_authenticity_token, only: :upload
 
     def nickname(name)
       name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present? ? name : name.split.first
@@ -355,8 +355,10 @@ module Api::V1
     end
 
     def upload
-      image = params[:file]
+      image = params[:file_img]
       @request_user.new_image.attach(image)
+
+      render json: { status: 200 }
     end
   end
 end

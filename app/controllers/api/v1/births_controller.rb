@@ -7,7 +7,7 @@ module Api::V1
     #callbacks
     layout "admin"
     before_action :set_birth, only: [:show, :destroy]
-    # skip_before_action :verify_authenticity_token, only: [:create]
+    skip_before_action :verify_authenticity_token, only: [:create]
 
     def index
       page = params[:page]
