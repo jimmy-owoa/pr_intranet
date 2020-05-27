@@ -94,27 +94,8 @@ module Api::V1
     end
 
     def create
-      child_name = params[:child_name]
-      child_lastname = params[:child_lastname]
-      child_lastname2 = params[:child_lastname2]
-      user_id = params[:user_id]
-      is_public = params[:is_public]
-      approved = params[:approved]
-      gender = params[:gender]
-      birthday = params[:birthday]
-      images = params[:images]
-      user_id = params[:user_id]
-      @birth = Employee::Birth.new(child_name: child_name, child_lastname: child_lastname, child_lastname2: child_lastname2, user_id: user_id,
-                                   approved: approved, gender: gender, birthday: birthday, is_public: is_public)
-      if images.present?
-        images.each do |image|
-          base64_image = image[1].sub(/^data:.*,/, "")
-          decoded_image = Base64.decode64(base64_image)
-          image_io = StringIO.new(decoded_image)
-          @birth_image = { io: image_io, filename: child_name }
-          @birth.photo.attach(@birth_image)
-        end
-      end
+      @birth = Employee::Birth.new(birth_params)
+
       respond_to do |format|
         if @birth.save
           format.html { redirect_to frontend_birth_path(@birth), notice: "Birth was successfully created." }
@@ -143,7 +124,7 @@ module Api::V1
 
     def birth_params
       params.require(:birth).permit(:full_name_mother, :full_name_father, :is_public, :child_name, :child_lastname,
-                                    :child_lastname2, :birthday, :photo, :approved, :gender)
+                                    :child_lastname2, :birthday, :photo, :approved, :gender, :user_id)
     end
   end
 end
