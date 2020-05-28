@@ -103,7 +103,7 @@
       <%= f.file_field :image, accept:'image/*', class: 'user_image' %>
       <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
-          <% if current_user.has_role? :super_admin and params["action"] != 'new'%>
+          <% if current_user.has_role? :super_admin %>
             <%= f.association :roles, as: :check_boxes %>
           <% end %>
         </div>
