@@ -1,7 +1,7 @@
 module Api::V1
   class UserMessagesController < ApiController
     include ApplicationHelper
-    # skip_before_action :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
 
     def index
       user_messages = @request_user.get_messages
