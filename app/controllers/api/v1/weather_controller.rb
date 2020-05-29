@@ -8,7 +8,6 @@ module Api::V1
       data = []
       data << {
         location: location,
-        weather: weather,
         today: weather.as_json_with_today,
         remaing_days: weather.as_json_with_remaing_days,
       }

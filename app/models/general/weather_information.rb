@@ -14,7 +14,7 @@ class General::WeatherInformation < ApplicationRecord
       current_temp: self.current_temp,
       min_temp: self.min_temp,
       max_temp: self.max_temp,
-      uv_index: self.uv_index
+      uv_index: self.get_uv
     }
     today
   end
