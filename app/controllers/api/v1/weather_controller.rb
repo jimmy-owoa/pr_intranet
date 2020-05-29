@@ -1,19 +1,16 @@
 module Api::V1
   class WeatherController < ApiController
     def index
-      params[:id].present? ? id = params[:id] : id = General::User.first.id
-      data = []
-      user = General::User.find(id)
+      user = @request_user
       location = user.location.present? ? General::Location.find(user.location_id).name : "No definido"
       weather = General::WeatherInformation.where(location_id: user.location_id).last
+
+      data = []
       data << {
         location: location,
         weather: weather,
-        today: Date.today.strftime("%d/%m/%Y"),
-        tomorrow: l(Date.today + 1, format: "%A"),
-        tomorrow_1: l(Date.today + 2, format: "%A"),
-        tomorrow_2: l(Date.today + 3, format: "%A"),
-        tomorrow_3: l(Date.today + 4, format: "%A"),
+        today: weather.as_json_with_today,
+        remaing_days: weather.as_json_with_remaing_days,
       }
       respond_to do |format|
         format.json { render json: data[0] }
