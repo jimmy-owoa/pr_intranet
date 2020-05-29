@@ -73,7 +73,7 @@ Rails.application.routes.draw do
       get "menus", to: "menus#index"
       get "api_menu_mobile", to: "menus#api_menu_mobile"
       get "api_menu_mobile_chile", to: "menus#api_menu_mobile_chile"
-      get "santorals/santorals"
+      get "santorals", to: "santorals#santorals"
       get "welcome", to: "welcomes#index"
       get "welcome/get_home_welcome", to: "welcomes#get_home_welcome"
       get "searchv", to: "search#search_vue"

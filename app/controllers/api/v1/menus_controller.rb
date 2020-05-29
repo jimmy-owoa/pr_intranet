@@ -191,8 +191,8 @@ module Api::V1
       weather = General::WeatherInformation.current(location_id).present? ? General::WeatherInformation.current(location_id) : General::WeatherInformation.last(location_id)
       uv_index = weather.last.get_uv
       location = General::Location.find(location_id)
-      santoral = General::Santoral.current
-      santoral_next = General::Santoral.next
+      santoral = General::Santoral.current_santoral
+      santoral_next = General::Santoral.get_santoral_next
       today = Date.today
       indicator = General::EconomicIndicator
       indicators = indicator.where(date: today)
