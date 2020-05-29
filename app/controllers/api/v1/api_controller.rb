@@ -10,6 +10,52 @@ class Api::V1::ApiController < ApplicationController
 
   def index
   end
+  
+  def indicators
+    data = []
+    today = Date.today.strftime("%d/%m/%Y")
+    indicator = General::EconomicIndicator
+    indicators = indicator.where(date: today)
+
+    if indicator.where(date: today).present?
+      others_indicators = [
+        { name: "Euro", values: indicator.indicator_type(2).last(2) },
+        { name: "UF", values: indicator.indicator_type(3).last(2) },
+        { name: "IPC", values: indicator.indicator_type(5).last(2) },
+        { name: "IPSA", values: indicator.indicator_type(6).last(2) }
+      ]
+
+      data << {
+        today: "Hoy, #{I18n.l(Date.today, format: "%d de %B").downcase}",
+        yesterday: "Ayer, #{I18n.l(Date.today - 1, format: "%d de %B").downcase}",
+        last_month_1: l(Date.today - 1.month, format: "%B"),
+        last_month_2: l(Date.today - 2.month, format: "%B"),
+        dolar: indicator.indicator_type(1).last(2),
+        others: others_indicators
+      }
+    else
+      others_indicators = [
+        { name: "Euro", values: indicator.where(economic_indicator_type_id: 2).pluck(:value).last(2) },
+        { name: "UF", values: indicator.where(economic_indicator_type_id: 3).pluck(:value).last(2) },
+        { name: "IPC", values: indicator.where(economic_indicator_type_id: 5).pluck(:value).last(2) },
+        { name: "IPSA", values: indicator.where(economic_indicator_type_id: 6).pluck(:value).last(2) }
+      ]
+
+      data << {
+        today: "Hoy, #{I18n.l(Date.today, format: "%d de %B").downcase}",
+        yesterday: "Ayer, #{I18n.l(Date.today - 1, format: "%d de %B").downcase}",
+        last_month_1: l(Date.today - 1.month, format: "%B"),
+        last_month_2: l(Date.today - 2.month, format: "%B"),
+        dolar: indicator.where(economic_indicator_type_id: 1).pluck(:value).last(2),
+        others: others_indicators
+      }
+    end
+    
+    respond_to do |format|
+      format.json { render json: data.first }
+      format.js
+    end
+  end
 
   # def current_user_azure
   #   referrer = params[:referrer].gsub("#/", "/").insert(1, "#/") || "/"
@@ -82,7 +128,7 @@ class Api::V1::ApiController < ApplicationController
   # end
 
   def get_user
-    @request_user = General::User.all.sample(1).first
-    # @request_user = General::User.find(11)
+    #@request_user = General::User.all.sample(1).first
+    @request_user = General::User.find(11)
   end
 end
