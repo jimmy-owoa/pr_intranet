@@ -45,7 +45,7 @@
                 </div>
               <% end %>
             <% else %>
-              <%= image_tag((root_url + '/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
+              <%= image_tag(('/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
               <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
               <br />
               <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
@@ -103,7 +103,7 @@
                   <%= link_to "Video seleccionado: #{@post.file_video.name}", admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image', remote: true, class: 'card-link'%>
                 </div>
               <% else %>
-                <%= image_tag((root_url + '/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) %>
+                <%= image_tag(('/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) %>
                 <div class="card-body">
                   <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%>
                 </div>

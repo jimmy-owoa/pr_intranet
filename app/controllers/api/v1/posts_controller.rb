@@ -10,12 +10,14 @@ module Api::V1
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "900x600")) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
+        content = fix_content(post.content)
         data << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           full_title: post.title,
           published_at: post.published_at.strftime("%d/%m/%Y"),
           post_type: post.post_type.present? ? post.post_type.upcase : "",
+          content: content,
           important: post.important,
           slug: post.slug,
           extract: extract,
