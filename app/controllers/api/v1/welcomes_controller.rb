@@ -4,9 +4,9 @@ module Api::V1
 
     def get_home_welcome
       new_users = General::User.users_welcome.limit(4)
-      data = []
+      data = { status: 'ok', users: [], users_length: new_users.count }
       new_users.each do |user|
-        data << {
+        data[:users] << {
           id: user.id,
           email: user.email,
           created_at: user.created_at,
@@ -22,10 +22,8 @@ module Api::V1
           color: user.get_color,
         }
       end
-      respond_to do |format|
-        format.json { render json: data }
-        format.js
-      end
+
+      render json: data, status: 200
     end
 
     def index

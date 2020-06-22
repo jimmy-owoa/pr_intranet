@@ -55,8 +55,8 @@ module Api::V1
     end
 
     def get_home_births
-      data = []
       births = Employee::Birth.show_birth.order(birthday: :asc).last(4)
+      data = {status: 'ok', births: [], births_length: births.count}
       births.each do |birth|
         images = []
 
@@ -66,7 +66,7 @@ module Api::V1
           end
         end
 
-        data << {
+        data[:births] << {
           id: birth.id,
           child_full_name: birth.child_name + " " + birth.child_lastname + " " + birth.child_lastname2,
           photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
@@ -78,11 +78,8 @@ module Api::V1
           email: birth.user.present? ? birth.user.email : "",
         }
       end
-      respond_to do |format|
-        format.html
-        format.json { render json: data }
-        format.js
-      end
+
+      render json: data, status: 200
     end
 
     def new
