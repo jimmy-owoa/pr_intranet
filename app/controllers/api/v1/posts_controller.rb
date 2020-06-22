@@ -36,13 +36,13 @@ module Api::V1
 
     def index_video
       posts = News::Post.filter_posts(@request_user).get_by_category(params[:category])
-      posts = posts.paginate(:page => params[:page], :per_page => 4)
-      data = []
+      posts = posts.paginate(:page => params[:page], :per_page => 10)
+      data = { status: "ok", page: params[:page] || 1, articles: [], articles_length: posts.count }
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "600x400")) : root_url + "/assets/news.jpg"
         @video = post.file_video.present? ? url_for(post.file_video.attachment) : @image
         extract = post.extract.slice(0..104) rescue post.extract
-        data << {
+        data[:articles] << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           full_title: post.title,
@@ -86,7 +86,7 @@ module Api::V1
         data << {
           id: post.id,
           title: post.title,
-          url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
+          # url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
           user_id: post.user_id,
           published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d-%m-%Y"),
           content: content,
@@ -99,7 +99,7 @@ module Api::V1
             { href: "/momentos", text: "Momentos" },
             { href: "#", text: post.title.truncate(30), disabled: true },
           ],
-          file_video: post.file_video.present? ? url_for(post.file_video.attachment) : root_url + "/assets/news_video_image.jpg",
+          file_video: post.file_video.present? ? url_for(post.file_video.attachment) : '',
           relationed_posts: data_relationed_posts,
           status: post.status,
         }
@@ -148,10 +148,10 @@ module Api::V1
     def important_posts
       posts = News::Post.filter_posts(@request_user, true).normal_posts.first(5)
 
-      data = []
+      data = { status: "ok", articles: [], articles_length: posts.count }
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "1920x")) : root_url + "/assets/news.jpg"
-        data << {
+        data[:articles] << {
           id: post.id,
           title: post.title,
           # user_id: General::User.find(post.user_id).name,
@@ -169,14 +169,11 @@ module Api::V1
           format: post.format,
         }
       end
-      respond_to do |format|
-        format.json { render json: data }
-        format.js
-      end
+      
+      render json: data, status: 200
     end
 
     def post
-      data = []
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
       if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
@@ -195,10 +192,11 @@ module Api::V1
         end
         content = fix_content(post.content)
 
-        data << {
+        data = { status: "ok", article: {}, relationed_posts: data_relationed_posts, breadcrumbs: '' }
+        data[:article] = {
           id: post.id,
           title: post.title,
-          url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
+          # url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
           user_id: post.user_id,
           published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
           content: content,
@@ -208,23 +206,18 @@ module Api::V1
           main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "1000x800")) : root_url + "/assets/news.jpg",
           format: post.format,
           extract: post.extract.present? ? post.extract : "",
-          breadcrumbs: [
-            { text: "Inicio", href: "/", disabled: false },
-            { text: "Noticias", href: "/noticias", disabled: false },
-            { text: post.title.truncate(34), href: "/", disabled: true },
-          ],
-          relationed_posts: data_relationed_posts,
           status: post.status,
         }
-        respond_to do |format|
-          format.json { render json: data[0] }
-          format.js
-        end
+
+        data[:breadcrumbs] = [
+          { text: "Inicio", href: "/", disabled: false },
+          { text: "Noticias", href: "/noticias", disabled: false },
+          { text: post.title.truncate(34), href: "/", disabled: true },
+        ]
+        
+        render json: data, status: 200
       else
-        respond_to do |format|
-          format.json { render json: { status: "No tiene acceso" } }
-          format.js
-        end
+        render json: { status: "error", message: "No tiene accesso" }
       end
     end
 
