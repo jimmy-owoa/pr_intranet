@@ -6,12 +6,12 @@ module Api::V1
       user_posts = News::Post.filter_posts(@request_user).normal_posts
       posts = params[:category].present? ? user_posts.where(post_type: params[:category]) : user_posts
       posts = posts.paginate(:page => params[:page], :per_page => 4)
-      data = []
+      data = { status: "ok", page: params[:page] || 1, articles: [] }
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "900x600")) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
         content = fix_content(post.content)
-        data << {
+        data[:articles] << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           full_title: post.title,
