@@ -83,7 +83,9 @@ module Api::V1
           }
         end
         content = fix_content(post.content)
-        data << {
+
+        data = { status: "ok", article: {}, relationed_posts: data_relationed_posts, breadcrumbs: '' }
+        data[:article] = {
           id: post.id,
           title: post.title,
           # url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
@@ -94,24 +96,19 @@ module Api::V1
           main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "600x400")) : root_url + "/assets/news.jpg",
           format: post.format,
           extract: post.extract.present? ? post.extract : "",
-          breadcrumbs: [
-            { href: "/", text: "Inicio" },
-            { href: "/momentos", text: "Momentos" },
-            { href: "#", text: post.title.truncate(30), disabled: true },
-          ],
           file_video: post.file_video.present? ? url_for(post.file_video.attachment) : '',
-          relationed_posts: data_relationed_posts,
           status: post.status,
         }
-        respond_to do |format|
-          format.json { render json: data[0] }
-          format.js
-        end
+
+        data[:breadcrumbs] = [
+          { href: "/", text: "Inicio" },
+          { href: "/momentos", text: "Momentos" },
+          { href: "#", text: post.title.truncate(30), disabled: true },
+        ]
+        
+        render json: data
       else
-        respond_to do |format|
-          format.json { render json: { status: "No tiene acceso" } }
-          format.js
-        end
+        render json: { status: "No tiene acceso" }
       end
     end
 
@@ -224,27 +221,22 @@ module Api::V1
     def last_posts
       posts = News::Post.normal_posts.published_posts.order(published_at: :desc).last(5)
 
-      data = []
+      data = { status: "ok", articles: [], articles_length: posts.count }
       posts.each do |post|
         post_image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "100x100")) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
-        data << {
+        data[:articles] << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           published_at: post.published_at.strftime("%d/%m/%Y"),
           post_type: post.post_type.present? ? post.post_type.upcase : "",
           slug: post.slug,
           extract: extract,
-          breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/noticias", name: "Noticias" },
-            { link: "#", name: post.title.truncate(30) },
-          ],
           main_image: post_image,
         }
       end
 
-      render json: data
+      render json: data, status: 200
     end
 
     private
