@@ -12,61 +12,62 @@ module Api::V1
     def index
       page = params[:page]
       date = params[:date]
-      all_births = Employee::Birth.show_birth.where("extract(year from birthday) = ?", Date.today.year).where("extract(month from birthday) = ?", date) #se cambio de un año a un mes
-      births = all_births.order(:birthday).page(page).per(9)
-      data = []
-      births.each do |birth|
-        if birth.user.present?
-          email = birth.user.email
-          color = birth.user.get_color
-          company_name = birth.user.company.name
-        else
-          email = "sin email"
-          color = "black"
-        end
-        images = []
-        # CORREGIR TODO NACIMIENTOS.
-        if birth.photo.attachment
-          if birth.permitted_image
-            images << url_for(birth.photo.variant(resize: "500x500>"))
+
+      if page && date
+        all_births = Employee::Birth.show_birth.where("extract(year from birthday) = ?", Date.today.year).where("extract(month from birthday) = ?", date) #se cambio de un año a un mes
+        births = all_births.order(:birthday).page(page).per(9)
+        data_births = []
+        births.each do |birth|
+          if birth.user.present?
+            email = birth.user.email
+            color = birth.user.get_color
+            company_name = birth.user.company.name
+          else
+            email = "sin email"
+            color = "black"
           end
+          images = []
+          # CORREGIR TODO NACIMIENTOS.
+          if birth.photo.attachment
+            if birth.permitted_image
+              images << url_for(birth.photo.variant(resize: "500x500>"))
+            end
+          end
+          # birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
+          data_births << {
+            id: birth.id,
+            name: birth.child_name,
+            last_names: birth.child_lastname + " " + birth.child_lastname2,
+            company: company_name,
+            photo: birth.photo.attachment ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
+            images: images,
+            gender: birth.gender,
+            birthday: l(birth.birthday, format: "%d de %B").downcase,
+            birthday_format_2: birth.birthday.strftime("%d-%m-%Y"),
+            father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
+            email: email,
+            color: color,
+          }
         end
-        # birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
-        data << {
-          id: birth.id,
-          name: birth.child_name,
-          last_names: birth.child_lastname + " " + birth.child_lastname2,
-          company: company_name,
-          photo: birth.photo.attachment ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
-          images: images,
-          gender: birth.gender,
-          birthday: l(birth.birthday, format: "%d de %B").downcase,
-          birthday_format_2: birth.birthday.strftime("%d-%m-%Y"),
-          father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
-          email: email,
-          color: color,
-        }
-      end
-      respond_to do |format|
-        format.html
-        format.json { render json: { hits: data } }
-        format.js
+        data = { status: 'ok', page: page || 1, births: data_births, births_length: data_births.count }
+        render json: data, status: :ok
+      else
+        render json: { status: 'error', message: 'bad request'}, status: :bad_request
       end
     end
 
     def get_home_births
       births = Employee::Birth.show_birth.order(birthday: :asc).last(4)
-      data = {status: 'ok', births: [], births_length: births.count}
+      data_births = []
       births.each do |birth|
         images = []
-
         if birth.photo.attachment
           if birth.permitted_image
             images << url_for(birth.photo.variant(resize: "500x500>"))
           end
         end
 
-        data[:births] << {
+        data_births << {
           id: birth.id,
           child_full_name: birth.child_name + " " + birth.child_lastname + " " + birth.child_lastname2,
           photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
@@ -78,8 +79,8 @@ module Api::V1
           email: birth.user.present? ? birth.user.email : "",
         }
       end
-
-      render json: data, status: 200
+      data = { status: 'ok', births: data_births, births_length: data_births.count }
+      render json: data, status: :ok
     end
 
     def new

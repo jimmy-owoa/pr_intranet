@@ -2,9 +2,9 @@ module Api::V1
   class LinksController < ApiController
     def index
       links = General::Link.last(8)
-      data = []
+      data_links = []
       links.each do |link|
-        data << {
+        data_links << {
           id: link.id,
           title: link.title,
           is_blank: link.is_blank,
@@ -12,11 +12,8 @@ module Api::V1
           url: link.url,
         }
       end
-      respond_to do |format|
-        format.html
-        format.json { render json: data }
-        format.js
-      end
+      data = { status: 'ok', links: data_links, links_length: data_links.count }
+      render json: data, status: :ok
     end
   end
 end

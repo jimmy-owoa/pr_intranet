@@ -6,12 +6,12 @@ module Api::V1
       user_posts = News::Post.filter_posts(@request_user).normal_posts
       posts = params[:category].present? ? user_posts.where(post_type: params[:category]) : user_posts
       posts = posts.paginate(:page => params[:page], :per_page => 10)
-      data = { status: "ok", page: params[:page] || 1, articles: [], articles_length: posts.count }
+      data_posts = [] 
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "900x600")) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
         content = fix_content(post.content)
-        data[:articles] << {
+        data_posts << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           full_title: post.title,
@@ -31,18 +31,20 @@ module Api::V1
         }
       end
 
-      render json: data, status: 200
+      data = { status: "ok", page: params[:page] || 1, articles: data_posts, articles_length: data_posts.count }
+
+      render json: data, status: :ok
     end
 
     def index_video
       posts = News::Post.filter_posts(@request_user).get_by_category(params[:category])
       posts = posts.paginate(:page => params[:page], :per_page => 10)
-      data = { status: "ok", page: params[:page] || 1, articles: [], articles_length: posts.count }
+      data_posts = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "600x400")) : root_url + "/assets/news.jpg"
         @video = post.file_video.present? ? url_for(post.file_video.attachment) : @image
         extract = post.extract.slice(0..104) rescue post.extract
-        data[:articles] << {
+        data_posts << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           full_title: post.title,
@@ -60,8 +62,8 @@ module Api::V1
           format: post.format,
         }
       end
- 
-      render json: data, status: 200
+      data = { status: "ok", page: params[:page] || 1, articles: data_posts, articles_length: data_posts.count }
+      render json: data, status: :ok
     end
 
     def post_video
@@ -106,7 +108,7 @@ module Api::V1
           { href: "#", text: post.title.truncate(30), disabled: true },
         ]
         
-        render json: data
+        render json: data, status: :ok
       else
         render json: { status: "No tiene acceso" }
       end
@@ -167,7 +169,7 @@ module Api::V1
         }
       end
       
-      render json: data, status: 200
+      render json: data, status: :ok
     end
 
     def post
@@ -212,7 +214,7 @@ module Api::V1
           { text: post.title.truncate(34), href: "/", disabled: true },
         ]
         
-        render json: data, status: 200
+        render json: data, status: :ok
       else
         render json: { status: "error", message: "No tiene accesso" }
       end
@@ -236,7 +238,7 @@ module Api::V1
         }
       end
 
-      render json: data, status: 200
+      render json: data, status: :ok
     end
 
     private

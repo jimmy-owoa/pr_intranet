@@ -7,12 +7,12 @@ module Api::V1
       galleries = []
       offset = 0
       galleries = load_galleries posts.pluck(:id), galleries, offset
-      data = []
+      data_galleries = []
       galleries.each do |gal|
         attachments = []
         if gal.attachments.present? && gal.attachments.first.attachment.attached?
           main_image = gal.attachments.first.attachment.variant(combine_options: { resize: "x351", gravity: "Center" })
-          data << {
+          data_galleries << {
             id: gal.id,
             name: gal.name,
             publish_date: gal.created_at.strftime("%d-%m-%Y"),
@@ -21,10 +21,8 @@ module Api::V1
           }
         end
       end
-      respond_to do |format|
-        format.json { render json: data }
-        format.js
-      end
+      data = { status: 'ok', galleries: data_galleries, galeries_length: data_galleries.count }
+      render json: data, status: :ok
     end
 
     private
