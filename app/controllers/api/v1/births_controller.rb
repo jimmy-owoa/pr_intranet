@@ -96,11 +96,9 @@ module Api::V1
 
       respond_to do |format|
         if @birth.save
-          format.html { redirect_to frontend_birth_path(@birth), notice: "Birth was successfully created." }
-          format.json { render json: @birth, status: 200 }
+          render json: { status: 'ok', birth: @birth }, status: :ok
         else
-          format.html { render :new }
-          format.json { render json: @birth.errors, status: :unprocessable_entity }
+          render json: { status: 'error', message: @birth.errors }, status: :unprocessable_entity
         end
       end
     end

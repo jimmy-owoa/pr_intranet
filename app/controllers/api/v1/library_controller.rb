@@ -1,6 +1,6 @@
 module Api::V1
   class LibraryController < ApiController
-    # skip_before_action :verify_authenticity_token, only: [:create_request_book]
+    skip_before_action :verify_authenticity_token, only: [:create_request_book]
 
     def index
       page = params[:page]
@@ -13,10 +13,10 @@ module Api::V1
       end
 
       books = books.page(page).per(6)
-      data = []
+      data_books = []
       items = []
       books.each do |book|
-        data << {
+        data_books << {
           id: book.id,
           title: book.title,
           edition: book.edition,
@@ -26,7 +26,7 @@ module Api::V1
           author: book.author.name,
           editorial: book.editorial,
           category: book.category_book.name,
-          url: root_url + "admin/books/" + "#{book.id}" + "/edit",
+          # url: root_url + "admin/books/" + "#{book.id}" + "/edit",
           description: book.description,
           image: book.image.attached? ? url_for(book.image) : "",
           breadcrumbs: [
@@ -36,17 +36,14 @@ module Api::V1
           ],
         }
       end
-      respond_to do |format|
-        format.json { render json: { hits: data } }
-        format.js
-      end
+      data = { status: 'ok', page: page, category: category, books: data_books, books_length: data_books.count }
+      render json: data, status: :ok
     end
 
     def show
       id = params[:id].present? ? params[:id] : nil
       book = Library::Book.find(id)
-      data = []
-      data << {
+      data_book = {
         id: book.id,
         title: book.title,
         edition: book.edition,
@@ -56,19 +53,17 @@ module Api::V1
         author: book.author.name,
         editorial: book.editorial,
         category: book.category_book.name,
-        url: root_url + "admin/books/" + "#{book.id}" + "/edit",
+        # url: root_url + "admin/books/" + "#{book.id}" + "/edit",
         description: book.description,
         image: url_for(book.image),
-        breadcrumbs: [
-          { href: "/", text: "Inicio" },
-          { href: "/biblioteca", text: "Biblioteca" },
-          { href: "#", text: book.title.truncate(19), disabled: true },
-        ],
       }
-      respond_to do |format|
-        format.json { render json: data[0] }
-        format.js
-      end
+      breadcrumbs = [
+        { href: "/", text: "Inicio" },
+        { href: "/biblioteca", text: "Biblioteca" },
+        { href: "#", text: book.title.truncate(19), disabled: true },
+      ]
+      data = { status: 'ok', book: data_book, breadcrumbs: breadcrumbs }
+      render json: data, status: :ok
     end
 
     def create_request_book
@@ -78,7 +73,7 @@ module Api::V1
       @request_book = General::UserBookRelationship.new(user_id: user_id, book_id: book_id, request_date: Date.today, expiration: 30)
 
       if @request_book.save
-        render json: @request_book, status: 200
+        render json: @request_book, status: :ok
       else
         render json: @request_book.errors, status: :unprocessable_entity
       end
@@ -86,14 +81,14 @@ module Api::V1
 
     def get_categories
       categories = Library::CategoryBook.all
-      data = ["Todos"]
+      data_categories = ["Todos"]
       categories.each do |category|
         if category.books.available_books.present?
-          data << category.name
+          data_categories << category.name
         end
       end
-
-      render json: data, status: 200
+      data = { status: 'ok', categories: data_categories, categories_length: data_categories.count }
+      render json: data, status: :ok
     end
 
     private

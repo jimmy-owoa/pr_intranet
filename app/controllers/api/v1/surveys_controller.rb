@@ -49,15 +49,6 @@ module Api::V1
 
     def user_surveys
       data_surveys = []
-      # if @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
-      #   respond_to do |format|
-      #     format.html
-      #     format.json { render json: Survey::Survey.published_surveys }
-      #     format.js
-      #   end
-      #   return
-      # end
-      #model method
       no_once_by_user_surveys = Survey::Survey.get_surveys_no_once_user(@request_user)
       surveys = Survey::Survey.survey_data(@request_user)
       surveys << no_once_by_user_surveys
@@ -85,7 +76,7 @@ module Api::V1
           id: survey.id,
           name: survey.name,
           once_by_user: survey.once_by_user,
-          url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
+          # url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
           show_name: survey.show_name,
           description: survey.description,
           image: survey.image.attached? ?
@@ -96,11 +87,8 @@ module Api::V1
           slug: survey.slug,
         }
       end
-      respond_to do |format|
-        format.html
-        format.json { render json: data_surveys }
-        format.js
-      end
+      data = { status: 'ok', surveys: data_surveys, surveys_length: data_surveys.count }
+      render json: data, status: :ok
     end
 
     def create
