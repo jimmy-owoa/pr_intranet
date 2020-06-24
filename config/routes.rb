@@ -94,11 +94,11 @@ Rails.application.routes.draw do
       get "posts_video", to: "posts#index_video"
       get "posts_video/post", to: "posts#post_video"
       get "last_posts", to: "posts#last_posts"
+      get "moments/latest_moments", to: "galleries#index"
       resources :library do
         get :get_categories, on: :collection
       end
       post "library/create_request_book", to: "library#create_request_book"
-      resources :galleries
       resources :weather
       resources :users, only: [:update, :show] do
         get :user, on: :collection
