@@ -105,7 +105,6 @@ module Api::V1
     end
 
     def survey
-      data = []
       slug = params[:slug].present? ? params[:slug] : nil
       survey = Survey::Survey.find_by_slug(slug)
       if survey.profile_id.in?(@request_user.profile_ids) || @request_user.has_role?(:super_admin) || @request_user.has_role?(:admin)
@@ -137,7 +136,7 @@ module Api::V1
               id: survey.id,
               name: survey.name,
               once_by_user: survey.once_by_user,
-              url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
+              # url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
               show_name: survey.show_name,
               description: survey.description,
               image: survey.image.attached? ?
@@ -147,11 +146,6 @@ module Api::V1
               survey_type: survey.survey_type,
               slug: survey.slug,
               status: survey.status,
-              breadcrumbs: [
-                { text: "Inicio", href: "/" },
-                { text: "Encuestas", href: "/encuestas" },
-                { text: survey.name.truncate(30), disabled: true },
-              ],
             }
           else
             data_survey = [""]
@@ -160,7 +154,7 @@ module Api::V1
             id: survey.id,
             name: survey.name,
             once_by_user: survey.once_by_user,
-            url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
+            # url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
             show_name: survey.show_name,
             description: survey.description,
             image: survey.image.attached? ?
@@ -170,26 +164,19 @@ module Api::V1
             survey_type: survey.survey_type,
             slug: survey.slug,
             status: survey.status,
-            breadcrumbs: [
-              { text: "Inicio", href: "/" },
-              { text: "Encuestas", href: "/encuestas" },
-              { text: survey.name.truncate(30), disabled: true },
-            ],
           }
         else
           data_survey = [""]
         end
-        respond_to do |format|
-          format.html
-          format.json { render json: data_survey[0] }
-          format.js
-        end
+        breadcrumbs = [
+          { text: "Inicio", href: "/" },
+          { text: "Encuestas", href: "/encuestas" },
+          { text: survey.name.truncate(30), disabled: true },
+        ]
+        data = { status: 'ok', survey: data_survey[0], slug: slug, breadcrumbs: breadcrumbs}
+        render json: data, status: :ok
       else
-        respond_to do |format|
-          format.html
-          format.json { render json: "" }
-          format.js
-        end
+        render json: { status: 'error', message: 'no tiene acceso'}
       end
     end
 

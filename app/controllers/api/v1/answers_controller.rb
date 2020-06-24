@@ -1,6 +1,6 @@
 module Api::V1
   class AnswersController < ApiController
-    # skip_before_action :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
 
     def create
       survey = nil
@@ -21,9 +21,7 @@ module Api::V1
       survey.answered_times.create if survey.present?
       UserNotifierMailer.send_survey_answered(@request_user.email, for_email, survey.name).deliver if survey.present?
 
-      respond_to do |format|
-        format.json { render json: "OK", status: 200 }
-      end
+      render json: { status: 'OK' }, status: :created
     end
 
     private
