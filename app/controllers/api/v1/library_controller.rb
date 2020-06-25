@@ -9,7 +9,6 @@ module Api::V1
       if available_filters.include?(filter)
         books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", filter)
       elsif filter == "todos"
-        filter = "todos"
         books = Library::Book.available_books
       else
         render json: { error: "No data available" }
