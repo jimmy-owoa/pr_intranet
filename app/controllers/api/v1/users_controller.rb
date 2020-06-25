@@ -151,7 +151,6 @@ module Api::V1
     end
 
     def current_user_vue
-      data_user = []
       user = @request_user
       @nickname = nickname(user.name)
       @location = user.location.present? ? General::Location.find(user.location_id).name : "No definido"
@@ -210,7 +209,7 @@ module Api::V1
           }
         end
       end
-      data_user << {
+      data_user = {
         id: user.id,
         name: user.name,
         favorite_name: user.favorite_name,
@@ -232,10 +231,6 @@ module Api::V1
         email: user.email,
         annexed: user.annexed,
         phone: get_phone(user.annexed),
-        breadcrumbs: [
-          { link: "/", name: "Inicio" },
-          { link: "#", name: "Mi perfil" },
-        ],
         address: user.office.try(:address),
         location: @location,
         products: data_products[0],
@@ -244,10 +239,8 @@ module Api::V1
         color: user.get_color,
         family_members: data_family_member,
       }
-      respond_to do |format|
-        format.json { render json: data_user[0] }
-        format.js
-      end
+
+      render json: { status: "ok", user: data_user }, status: :ok
     end
 
     def autocomplete_user

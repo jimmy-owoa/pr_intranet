@@ -6,7 +6,7 @@ module Api::V1
       page = params[:page]
       date = params[:date]
 
-      if page && date        
+      if page.present? && date.present?        
         if date == "0"
           users = General::User.users_birthday_today.show_birthday
         else
@@ -29,10 +29,10 @@ module Api::V1
             color: user.get_color,
           }
         end
-        data = {status: 'ok', page: page || 1, birthdays: data_birthdays, birthday_length: data_birthdays.count}
+        data = { status: "ok", page: page, results_length: data_birthdays.count, birthdays: data_birthdays }
         render json: data, status: :ok
       else
-        render json: { status: 'error', message: 'bad request'}, status: :bad_request 
+        render json: { status: "error", message: "bad request" }, status: :bad_request 
       end
     end
 
@@ -55,7 +55,7 @@ module Api::V1
           color: user.get_color,
         }
       end
-      data = { status: 'ok', birthdays: data_birthdays, birthdays_length: data_birthdays.count }
+      data = { status: "ok", results_length: data_birthdays.count, birthdays: data_birthdays }
       render json: data, status: :ok
     end
   end

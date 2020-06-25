@@ -6,7 +6,7 @@ module Api::V1
       page = params[:page]
       category = params[:category]
 
-      if category && page
+      if category.present? && page.present?
         if category == "todos"
           products = Marketplace::Product.approved_and_not_expired
         else
@@ -45,10 +45,10 @@ module Api::V1
             ],
           }
         end
-        data = { status: 'OK', products: data_products, page: page, category: category, products_length: data_products.count }
+        data = { status: "ok", page: page, category: category, results_length: data_products.count, products: data_products }
         render json: data, status: :ok
       else
-        render json: { status: 'ERROR', message: 'bad request'}, status: :bad_request
+        render json: { status: "error", message: "bad request"}, status: :bad_request
       end
     end
 
@@ -56,7 +56,7 @@ module Api::V1
       page = params[:page]
       category = params[:category]
 
-      if page && category
+      if page.present? && category.present?
         if category == "todos"
           products = @request_user.products
         else
@@ -91,7 +91,7 @@ module Api::V1
             items: product.images.present? ? items : ActionController::Base.helpers.asset_path("noimage.png")
           }
         end
-        data = { status: 'OK', products: data_products, page: page, category: category }
+        data = { status: "ok", results_length: data_products.count, products: data_products, page: page, category: category }
         render json: data, status: :ok
       else
         render json: { status: 'error', message: 'bad request' }, status: :bad_request
@@ -104,7 +104,6 @@ module Api::V1
       if id.present?
         product = Marketplace::Product.where(id: id).first
         items = []
-
         product_images = params[:myProduct] == "true" ? product.images : product.permitted_images
         product_images.each do |image|
           if image.present?
@@ -144,10 +143,10 @@ module Api::V1
           { href: "#", text: "Aviso", disabled: true },
         ]
         
-        data = { status: 'OK', product: data_product, breadcrumbs: breadcrumbs }
+        data = { status: "ok", breadcrumbs: breadcrumbs, product: data_product }
         render json: data
       else
-        render json: { status: 'error', message: 'bad request' }, status: :bad_request
+        render json: { status: "error", message: "bad request" }, status: :bad_request
       end
     end
 
@@ -164,9 +163,9 @@ module Api::V1
       set_images true
       respond_to do |format|
         if @product
-          format.json { render json: "OK", status: 200 }
+          format.json { render json: "ok", status: 200 }
         else
-          format.json { render json: "ERROR", status: 403 }
+          format.json { render json: "error", status: 403 }
         end
       end
     end
@@ -178,9 +177,9 @@ module Api::V1
       set_images
       
       if @product.save
-        render json: { status: 'OK', product: @product }, status: :created
+        render json: { status: "ok", product: @product }, status: :created
       else
-        render json: { status: 'ERROR', message: @product.errors }, status: :unprocessable_entity
+        render json: { status: "error", message: @product.errors }, status: :unprocessable_entity
       end
     end
 

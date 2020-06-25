@@ -31,7 +31,7 @@ module Api::V1
         }
       end
 
-      data = { status: "ok", page: params[:page] || 1, articles: data_posts, articles_length: data_posts.count }
+      data = { status: "ok", page: params[:page] || 1, results_length: data_posts.count, articles: data_posts}
 
       render json: data, status: :ok
     end
@@ -62,7 +62,7 @@ module Api::V1
           format: post.format,
         }
       end
-      data = { status: "ok", page: params[:page] || 1, articles: data_posts, articles_length: data_posts.count }
+      data = { status: "ok", page: params[:page] || 1, results_length: data_posts.count, articles: data_posts }
       render json: data, status: :ok
     end
 
@@ -86,8 +86,7 @@ module Api::V1
         end
         content = fix_content(post.content)
 
-        data = { status: "ok", article: {}, relationed_posts: data_relationed_posts, breadcrumbs: '' }
-        data[:article] = {
+        data_post = {
           id: post.id,
           title: post.title,
           # url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
@@ -102,12 +101,12 @@ module Api::V1
           status: post.status,
         }
 
-        data[:breadcrumbs] = [
+        breadcrumbs = [
           { href: "/", text: "Inicio" },
           { href: "/momentos", text: "Momentos" },
           { href: "#", text: post.title.truncate(30), disabled: true },
         ]
-        
+        data = { status: "ok", article: data_post, relationed_posts: data_relationed_posts, breadcrumbs: breadcrumbs }
         render json: data, status: :ok
       else
         render json: { status: "No tiene acceso" }
@@ -146,11 +145,10 @@ module Api::V1
 
     def important_posts
       posts = News::Post.filter_posts(@request_user, true).normal_posts.first(5)
-
-      data = { status: "ok", articles: [], articles_length: posts.count }
+      data_articles = []
       posts.each do |post|
         @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "1920x")) : root_url + "/assets/news.jpg"
-        data[:articles] << {
+        data_articles << {
           id: post.id,
           title: post.title,
           # user_id: General::User.find(post.user_id).name,
@@ -168,7 +166,8 @@ module Api::V1
           format: post.format,
         }
       end
-      
+
+      data = { status: "ok", results_length: posts.count, articles: data_articles }
       render json: data, status: :ok
     end
 
@@ -191,8 +190,7 @@ module Api::V1
         end
         content = fix_content(post.content)
 
-        data = { status: "ok", article: {}, relationed_posts: data_relationed_posts, breadcrumbs: '' }
-        data[:article] = {
+        data_article = {
           id: post.id,
           title: post.title,
           # url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
@@ -208,12 +206,12 @@ module Api::V1
           status: post.status,
         }
 
-        data[:breadcrumbs] = [
+        breadcrumbs = [
           { text: "Inicio", href: "/", disabled: false },
           { text: "Noticias", href: "/noticias", disabled: false },
           { text: post.title.truncate(34), href: "/", disabled: true },
         ]
-        
+        data = { status: "ok", article: data_article, relationed_posts: data_relationed_posts, breadcrumbs: breadcrumbs }
         render json: data, status: :ok
       else
         render json: { status: "error", message: "No tiene accesso" }
@@ -222,12 +220,11 @@ module Api::V1
 
     def last_posts
       posts = News::Post.normal_posts.published_posts.order(published_at: :desc).last(5)
-
-      data = { status: "ok", articles: [], articles_length: posts.count }
+      data_articles = []
       posts.each do |post|
         post_image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "100x100")) : root_url + "/assets/news.jpg"
         extract = post.extract.slice(0..104) rescue post.extract
-        data[:articles] << {
+        data_articles << {
           id: post.id,
           title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
           published_at: post.published_at.strftime("%d/%m/%Y"),
@@ -237,7 +234,7 @@ module Api::V1
           main_image: post_image,
         }
       end
-
+      data = { status: "ok", results_length: posts.count, articles: data_articles }
       render json: data, status: :ok
     end
 
