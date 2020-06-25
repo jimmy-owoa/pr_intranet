@@ -21,7 +21,7 @@ module Api::V1
       survey.answered_times.create if survey.present?
       UserNotifierMailer.send_survey_answered(@request_user.email, for_email, survey.name).deliver if survey.present?
 
-      render json: { status: 'ok', message: 'respuesta creada' }, status: :created
+      render json: { status: "ok", message: "respuesta creada" }, status: :created
     end
 
     private

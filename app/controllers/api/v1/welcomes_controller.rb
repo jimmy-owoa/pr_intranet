@@ -22,7 +22,7 @@ module Api::V1
           color: user.get_color,
         }
       end
-      data = { status: 'ok', users: data_users, users_length: data_users.count }
+      data = { status: "ok", results_length: data_users.count, users: data_users }
       render json: data, status: :ok
     end
 
@@ -30,7 +30,7 @@ module Api::V1
       page = params[:page]
       date = params[:date]
 
-      if page && date
+      if page.present? && date.present?
         if date == "0"
           new_users = General::User.where(date_entry: Date.today)
         else
@@ -54,10 +54,10 @@ module Api::V1
             color: user.get_color,
           }
         end
-        data = {status: 'ok', page: page || 1, users: data_users, users_length: data_users.count}
+        data = {status: "ok", page: page, results_length: data_users.count, date: date, users: data_users}
         render json: data, status: :ok
       else
-        render json: { status: 'error', message: 'bad request'}, status: :bad_request
+        render json: { status: "error", message: "bad request" }, status: :bad_request
       end
     end
   end
