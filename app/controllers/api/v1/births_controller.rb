@@ -79,7 +79,7 @@ module Api::V1
           email: birth.user.present? ? birth.user.email : "",
         }
       end
-      data = { status: 'ok', births: data_births, births_length: data_births.count }
+      data = { status: 'ok', results_length: data_births.count, births: data_births }
       render json: data, status: :ok
     end
 

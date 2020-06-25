@@ -5,11 +5,11 @@ module Api::V1
 
     def index
       user_messages = @request_user.get_messages
-      messages = []
+      data_messages = []
       user_messages.each do |um|
         if !um.viewed_at
           content = fix_content(um.message.content)
-          messages << {
+          data_messages << {
             id: um.id,
             title: um.message.title,
             message_type: um.message.message_type,
@@ -19,9 +19,8 @@ module Api::V1
           }
         end
       end
-      respond_to do |format|
-        format.json { render json: messages }
-      end
+      data = { status: 'ok', results_length: data_messages.count, messages: data_messages }
+      render json: data, status: :ok
     end
 
     def update

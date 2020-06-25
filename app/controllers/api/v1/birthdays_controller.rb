@@ -55,7 +55,7 @@ module Api::V1
           color: user.get_color,
         }
       end
-      data = { status: 'ok', birthdays: data_birthdays, birthdays_length: data_birthdays.count }
+      data = { status: 'ok', results_length: data_birthdays.count, birthdays: data_birthdays }
       render json: data, status: :ok
     end
   end

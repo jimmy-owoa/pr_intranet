@@ -22,7 +22,7 @@ module Api::V1
           color: user.get_color,
         }
       end
-      data = { status: 'ok', users: data_users, users_length: data_users.count }
+      data = { status: 'ok', results_length: data_users.count, users: data_users }
       render json: data, status: :ok
     end
 

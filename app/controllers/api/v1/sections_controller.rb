@@ -25,7 +25,7 @@ module Api::V1
           }
         end
       end
-      data = { status: 'ok', sections: data_sections, sections_length: data_sections.count }
+      data = { status: 'ok', results_length: data_sections.count, sections: data_sections }
       render json: data, status: :ok
     end
   end
