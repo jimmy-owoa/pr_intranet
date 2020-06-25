@@ -4,43 +4,43 @@ module Api::V1
 
     def index
       page = params[:page]
-      category = params[:category]
-      if category.present? && page.present?
-        if category != "Todos"
-          books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", category)
-        else
-          books = Library::Book.available_books
-        end
-
-        books = books.page(page).per(6)
-        data_books = []
-        items = []
-        books.each do |book|
-          data_books << {
-            id: book.id,
-            title: book.title,
-            edition: book.edition,
-            publication_year: book.publication_year,
-            stock: book.stock,
-            rating: book.rating,
-            author: book.author.name,
-            editorial: book.editorial,
-            category: book.category_book.name,
-            # url: root_url + "admin/books/" + "#{book.id}" + "/edit",
-            description: book.description,
-            image: book.image.attached? ? url_for(book.image) : "",
-            breadcrumbs: [
-              { link: "/", name: "Inicio" },
-              { link: "/biblioteca", name: "Biblioteca" },
-              { link: "#", name: book.title.truncate(30) },
-            ],
-          }
-        end
-        data = { status: "ok", page: page, category: category, results_length: data_books.count, books: data_books }
-        render json: data, status: :ok
+      filter = params[:filter].downcase
+      available_filters = Library::CategoryBook.pluck(:name).map(&:downcase)
+      if available_filters.include?(filter)
+        books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", filter)
+      elsif filter == "todos"
+        filter = "todos"
+        books = Library::Book.available_books
       else
-        render json: { status: "error", message: "bad request" }, status: :bad_request
+        render json: { error: "No data available" }
+        return
       end
+
+      books = books.page(page).per(6)
+      data_books = []
+      items = []
+      books.each do |book|
+        data_books << {
+          id: book.id,
+          title: book.title,
+          edition: book.edition,
+          publication_year: book.publication_year,
+          stock: book.stock,
+          rating: book.rating,
+          author: book.author.name,
+          editorial: book.editorial,
+          category: book.category_book.name,
+          description: book.description,
+          image: book.image.attached? ? url_for(book.image) : "",
+          breadcrumbs: [
+            { link: "/", name: "Inicio" },
+            { link: "/biblioteca", name: "Biblioteca" },
+            { link: "#", name: book.title.truncate(30) },
+          ],
+        }
+      end
+      data = { status: "ok", page: page, filter: filter, results_length: data_books.count, books: data_books }
+      render json: data, status: :ok
     end
 
     def show
