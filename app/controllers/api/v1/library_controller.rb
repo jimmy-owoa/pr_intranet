@@ -4,11 +4,12 @@ module Api::V1
 
     def index
       page = params[:page]
-      category = params[:category]
+      filter = params[:category]
 
-      if category.present? && category != "Todos"
+      if filter.present? && filter != "Todos"
         books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", category)
       else
+        filter = "Todos"
         books = Library::Book.available_books
       end
 
@@ -26,7 +27,6 @@ module Api::V1
           author: book.author.name,
           editorial: book.editorial,
           category: book.category_book.name,
-          # url: root_url + "admin/books/" + "#{book.id}" + "/edit",
           description: book.description,
           image: book.image.attached? ? url_for(book.image) : "",
           breadcrumbs: [
@@ -36,7 +36,7 @@ module Api::V1
           ],
         }
       end
-      data = { status: 'ok', page: page, category: category, books: data_books, books_length: data_books.count }
+      data = { status: "ok", page: page, filter: filter, books: data_books, books_length: data_books.count }
       render json: data, status: :ok
     end
 
@@ -62,7 +62,7 @@ module Api::V1
         { href: "/biblioteca", text: "Biblioteca" },
         { href: "#", text: book.title.truncate(19), disabled: true },
       ]
-      data = { status: 'ok', book: data_book, breadcrumbs: breadcrumbs }
+      data = { status: "ok", book: data_book, breadcrumbs: breadcrumbs }
       render json: data, status: :ok
     end
 
@@ -87,7 +87,7 @@ module Api::V1
           data_categories << category.name
         end
       end
-      data = { status: 'ok', categories: data_categories, categories_length: data_categories.count }
+      data = { status: "ok", categories: data_categories, categories_length: data_categories.count }
       render json: data, status: :ok
     end
 
