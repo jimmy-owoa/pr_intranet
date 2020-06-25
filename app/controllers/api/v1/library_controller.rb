@@ -4,13 +4,16 @@ module Api::V1
 
     def index
       page = params[:page]
-      filter = params[:category]
-
-      if filter.present? && filter != "Todos"
-        books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", category)
-      else
-        filter = "Todos"
+      filter = params[:filter].downcase
+      available_filters = Library::CategoryBook.pluck(:name).map(&:downcase)
+      if available_filters.include?(filter)
+        books = Library::Book.available_books.joins(:category_book).where("library_category_books.name = ?", filter)
+      elsif filter == "todos"
+        filter = "todos"
         books = Library::Book.available_books
+      else
+        render json: { error: "No data available" }
+        return
       end
 
       books = books.page(page).per(6)
@@ -36,7 +39,7 @@ module Api::V1
           ],
         }
       end
-      data = { status: "ok", page: page, filter: filter, books: data_books, books_length: data_books.count }
+      data = { status: "ok", page: page, filter: filter, results_length: data_books.count, books: data_books }
       render json: data, status: :ok
     end
 
