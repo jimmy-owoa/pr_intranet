@@ -149,7 +149,7 @@ module Api::V1
       main_menus = @request_user.has_role?(:super_admin) ? General::Menu.where(parent_id: nil, code: nil) : General::Menu.where(parent_id: nil, code: nil).where.not(title: "Gestionar")
       menus = General::Menu.all.uniq.reject(&:blank?) - main_menus
       user_menus = General::Menu.profiled_menus(@request_user)
-      data = []
+      data_menu = []
       # if @request_user.legal_number.present?
       #   exa_menu = do_request(@request_user)
       # end
@@ -165,13 +165,11 @@ module Api::V1
             # menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, exa_menu)
             menu_hash[main_menu.id][:menus] << get_merged_menus(menu.title, user_menus, "")
           end
-          data << menu_hash[main_menu.id]
+          data_menu << menu_hash[main_menu.id]
         end
       end
-      respond_to do |format|
-        format.json { render json: data }
-        format.js
-      end
+
+      render json: { status: "ok", menus: data_menu }, status: :ok
     end
 
     def api_menu_vue
