@@ -30,7 +30,7 @@ module Api::V1
         end
       end
 
-      data = { status: 'ok', results_length: data_benefit_types.count, benefit_types: data_benefit_types }
+      data = { status: "ok", results_length: data_benefit_types.count, benefit_types: data_benefit_types }
       render json: data, status: :ok
     end
 
@@ -71,10 +71,10 @@ module Api::V1
           { href: "#", text: benefit.title.truncate(30), disabled: true },
         ]
   
-        data = { status: 'ok', prev_id: prev_id, next_id: next_id, breadcrumbs: breadcrumbs, benefit: data_benefit }
+        data = { status: "ok", prev_id: prev_id, next_id: next_id, breadcrumbs: breadcrumbs, benefit: data_benefit }
         render json: data, status: :ok
       else
-        render json: { status: 'error', message: 'bad request' }, status: :bad_request
+        render json: { status: "error", message: "bad request" }, status: :bad_request
       end
     end
 

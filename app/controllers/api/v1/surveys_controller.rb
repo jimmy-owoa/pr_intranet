@@ -87,7 +87,7 @@ module Api::V1
           slug: survey.slug,
         }
       end
-      data = { status: 'ok', surveys: data_surveys, surveys_length: data_surveys.count }
+      data = { status: "ok", results_length: data_surveys.count, surveys: data_surveys }
       render json: data, status: :ok
     end
 
@@ -173,10 +173,10 @@ module Api::V1
           { text: "Encuestas", href: "/encuestas" },
           { text: survey.name.truncate(30), disabled: true },
         ]
-        data = { status: 'ok', survey: data_survey[0], slug: slug, breadcrumbs: breadcrumbs}
+        data = { status: "ok", slug: slug, breadcrumbs: breadcrumbs, survey: data_survey[0]}
         render json: data, status: :ok
       else
-        render json: { status: 'error', message: 'no tiene acceso'}
+        render json: { status: "error", message: "no tiene acceso" }
       end
     end
 

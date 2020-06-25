@@ -36,10 +36,10 @@ module Api::V1
             ],
           }
         end
-        data = { status: 'ok', page: page, category: category, results_length: data_books.count, books: data_books  }
+        data = { status: "ok", page: page, category: category, results_length: data_books.count, books: data_books  }
         render json: data, status: :ok
       else
-        render json: { status: 'error', message: 'bad request' }, status: :bad_request
+        render json: { status: "error", message: "bad request" }, status: :bad_request
       end
     end
 
@@ -66,7 +66,7 @@ module Api::V1
           { href: "/biblioteca", text: "Biblioteca" },
           { href: "#", text: book.title.truncate(19), disabled: true },
         ]
-        data = { status: 'ok', breadcrumbs: breadcrumbs, book: data_book }
+        data = { status: "ok", breadcrumbs: breadcrumbs, book: data_book }
         render json: data, status: :ok
       else
         render json: { status: 'error', message: 'bad request' }, status: :bad_request
@@ -80,9 +80,9 @@ module Api::V1
       @request_book = General::UserBookRelationship.new(user_id: user_id, book_id: book_id, request_date: Date.today, expiration: 30)
 
       if @request_book.save
-        render json: { status: 'ok', request_book: @request_book }, status: :created
+        render json: { status: "ok", request_book: @request_book }, status: :created
       else
-        render json: { status: 'error', message: @request_book.errors }, status: :unprocessable_entity
+        render json: { status: "error", message: @request_book.errors }, status: :unprocessable_entity
       end
     end
 
@@ -94,7 +94,7 @@ module Api::V1
           data_categories << category.name
         end
       end
-      data = { status: 'ok', results_length: data_categories.count, categories: data_categories }
+      data = { status: "ok", results_length: data_categories.count, categories: data_categories }
       render json: data, status: :ok
     end
 

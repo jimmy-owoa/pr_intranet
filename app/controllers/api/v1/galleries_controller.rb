@@ -21,7 +21,7 @@ module Api::V1
           }
         end
       end
-      data = { status: 'ok', results_length: data_galleries.count, galleries: data_galleries }
+      data = { status: "ok", results_length: data_galleries.count, galleries: data_galleries }
       render json: data, status: :ok
     end
 

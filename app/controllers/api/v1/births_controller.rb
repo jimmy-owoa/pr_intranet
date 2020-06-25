@@ -13,7 +13,7 @@ module Api::V1
       page = params[:page]
       date = params[:date]
 
-      if page && date
+      if page.present? && date.present?
         all_births = Employee::Birth.show_birth.where("extract(year from birthday) = ?", Date.today.year).where("extract(month from birthday) = ?", date) #se cambio de un año a un mes
         births = all_births.order(:birthday).page(page).per(9)
         data_births = []
@@ -49,10 +49,10 @@ module Api::V1
             color: color,
           }
         end
-        data = { status: 'ok', page: page || 1, births: data_births, births_length: data_births.count }
+        data = { status: "ok", page: page, results_length: data_births.count, births: data_births }
         render json: data, status: :ok
       else
-        render json: { status: 'error', message: 'bad request'}, status: :bad_request
+        render json: { status: "error", message: "bad request" }, status: :bad_request
       end
     end
 
@@ -79,7 +79,7 @@ module Api::V1
           email: birth.user.present? ? birth.user.email : "",
         }
       end
-      data = { status: 'ok', results_length: data_births.count, births: data_births }
+      data = { status: "ok", results_length: data_births.count, births: data_births }
       render json: data, status: :ok
     end
 
@@ -96,9 +96,9 @@ module Api::V1
 
       respond_to do |format|
         if @birth.save
-          render json: { status: 'ok', birth: @birth }, status: :created
+          render json: { status: "ok", birth: @birth }, status: :created
         else
-          render json: { status: 'error', message: @birth.errors }, status: :unprocessable_entity
+          render json: { status: "error", message: @birth.errors }, status: :unprocessable_entity
         end
       end
     end

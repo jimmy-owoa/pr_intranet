@@ -12,7 +12,7 @@ module Api::V1
           url: link.url,
         }
       end
-      data = { status: 'ok', results_length: data_links.count, links: data_links }
+      data = { status: "ok", results_length: data_links.count, links: data_links }
       render json: data, status: :ok
     end
   end
