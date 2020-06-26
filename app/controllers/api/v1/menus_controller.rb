@@ -169,7 +169,7 @@ module Api::V1
         end
       end
 
-      render json: { status: "ok", menus: data_menu }, status: :ok
+      render json: { status: "ok",  results_length: data_menu.count, menus: data_menu }, status: :ok
     end
 
     def api_menu_vue
