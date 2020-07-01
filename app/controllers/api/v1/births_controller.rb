@@ -94,12 +94,10 @@ module Api::V1
     def create
       @birth = Employee::Birth.new(birth_params)
 
-      respond_to do |format|
-        if @birth.save
-          render json: { status: "ok", birth: @birth }, status: :created
-        else
-          render json: { status: "error", message: @birth.errors }, status: :unprocessable_entity
-        end
+      if @birth.save
+        render json: { status: "ok", birth: @birth }, status: :created
+      else
+        render json: { status: "error", message: @birth.errors }, status: :unprocessable_entity
       end
     end
 

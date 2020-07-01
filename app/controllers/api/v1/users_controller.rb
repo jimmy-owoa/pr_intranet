@@ -351,7 +351,7 @@ module Api::V1
       image = params[:file_img]
       @request_user.new_image.attach(image)
 
-      render json: { status: 200 }
+      render json: { status: "ok" }, status: :ok
     end
   end
 end
