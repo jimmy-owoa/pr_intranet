@@ -31,6 +31,43 @@ puts("******* Asignando rol Super Admin al usuario admin@exaconsultores.cl *****
 user_admin = General::User.find_by_email("admin@exaconsultores.cl")
 user_admin.add_role :super_admin
 
+# - - - - - - - - - - - - - - - USUARIOS - - - - - - - - - - - - - - -
+puts("* * * * * * * Creando Usuarios * * * * * * *")
+data_users = JSON.parse(File.read("public/users_test.json"))
+
+data_users.each do |user|
+  ln_user = user["RUT"]
+  email = user["Email"]
+  name = user["Nombres"]
+  last_name = user["Apellidos"]
+  position_classification = user["clasificacion_puesto"]
+  is_boss = user["es_jefe"] == "Si"
+  rol = user["rol"]
+  employee_classification = user["clasificacion_empleado"]
+  date_entry = user["fecha_de_ingreso_grupo"]
+  office_address = user["direccion_oficina"]
+  office_commune = user["comuna_oficina"]
+  office_city = user["ciudad_oficina"]
+  office_region = user["region_oficina"]
+  office_country = user["pais_oficina"]
+  birthday = user["fecha_de_nacimento"]
+  civil_status = user["estado_civil"]
+  position = user["cargo"]
+  annexed = user["anexo"]
+  gender = user["sexo"]
+  favorite_name = user["nombre_favorito"]
+  company = Company::Company.where(name: user["empresa"]).first_or_create
+  country = Location::Country.where(name: office_country).first_or_create
+  region = Location::Region.where(name: office_region, country_id: country.id).first_or_create
+  city = Location::City.where(name: office_city, region_id: region.id).first_or_create
+  commune = Location::Commune.where(name: office_commune, city_id: city.id).first_or_create
+  office = Company::Office.where(address: office_address, commune_id: commune.id).first_or_create
+  benefit_group = General::BenefitGroup.where(name: user["grupo_beneficiario"]).first
+
+  General::User.create(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1], email: email, name: name, last_name: last_name, position_classification: position_classification, is_boss: is_boss, rol: rol, employee_classification: employee_classification, date_entry: date_entry, birthday: birthday, civil_status: civil_status, position: position, annexed: annexed, gender: gender, favorite_name: favorite_name,company_id: company.id, benefit_group_id: benefit_group.id, office_id: office.id, location_id: 2, password: "redexa2020", password_confirmation: "redexa2020")
+end
+
+General::User.all.each {|u| u.set_user_attributes }
 
 # - - - - - - - - - - - - - - - NOTICIAS - - - - - - - - - - - - - - -
 
@@ -99,4 +136,29 @@ puts("* * * * * * * Creando Noticias Conociéndonos * * * * * * *")
   ])
 end
 
-# - - - - - - - - - - - - - - - LIBROS - - - - - - - - - - - - - - - - 
+# - - - - - - - - - - - - - - - LIBROS - - - - - - - - - - - - - - - -
+puts("* * * * * * * Creando Libros * * * * * * *")
+Library::Book.destroy_all
+Library::Author.destroy_all
+Library::Editorial.destroy_all
+Library::CategoryBook.destroy_all
+
+categories = ["Literatura Juvenil", "Infantil", "Finanzas y economía", "Juegos de mesa"]
+authors = ["J. R. R. Tolkien", "George R.R. Martin", "Val Emmich", "J. K Rowling", "Gonzalo Martinez Ortega", "Dmitry Glukhovsky"]
+editorials = ["Minotauro", "Plaza Y Janes", "Cross Books", "Salamandra", "Planeta", "Montena"]
+book_titles = ["El silmarillion", "Una Cancion Para Lya", "Querido Evan Hansen", "Harry Potter y el Legado Maldito", "Mocha Dick: La Leyenda de la Ballena Blanca", "Metro 2035"]
+
+categories.each { |category| Library::CategoryBook.create(name: category) }
+authors.each { |author| Library::Author.create(name: author) }
+editorials.each { |editorial| Library::Editorial.create(name: editorial) }
+
+count = 0
+book_titles.each_with_index do |title, i|
+  image_data = File.open("app/assets/images/books/book_#{i+1}.jpg")
+  book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 1, author_id: i + 1, editorial_id: i + 1)
+  book.image.attach(io: image_data, filename: File.basename(image_data))
+end
+
+
+
+

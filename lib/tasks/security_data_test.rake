@@ -2,8 +2,6 @@
 namespace :security do
   task data_test: :environment do
     puts("/////////// Inicio carga de datos de prueba para security ///////////")
-    puts("******* Creando Post de tipo conociéndonos para las secciones *******")
-    News::Post.create(title: "Titulo de la noticia", format: 0, post_type: "Conociéndonos", content: "Descripción de la noticia", important: true, user_id: 1)
     puts("******* Creando Links *******")
     General::Link.where(id: 1, title: "Link 1", url: "http://www.google.cl").first_or_create
     General::Link.where(id: 2, title: "Link 2", url: "http://www.fayerwayer.cl").first_or_create
