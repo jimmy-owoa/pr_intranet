@@ -6,9 +6,6 @@ namespace :security do
     end
 
     puts("/////////// Inicio carga de datos base para security ///////////")
-    puts("******* Creando Usuario Id 3 para pruebas Vue *******")
-    General::User.create(name: "Nombre test", last_name: "Apellido test", birthday: Date.today, email: "test1@test.com", password: "exaConsultores", password_confirmation: "exaConsultores", location_id: 2, legal_number: "1", legal_number_verification: "7")
-    General::User.create(name: "Test", last_name: "test", birthday: Date.today, email: "test@test.com", password: "exaConsultores", password_confirmation: "exaConsultores", location_id: 2, legal_number: "16207227", legal_number_verification: "7")
     puts("******* Creando EconomicIndicatorTypes *******")
     General::EconomicIndicatorType.where(name: "dolar", symbol: "US$").first_or_create #1
     General::EconomicIndicatorType.where(name: "euro", symbol: "€").first_or_create #2
@@ -20,7 +17,7 @@ namespace :security do
     Role.find_or_create_by(name: "message_admin")
     Role.find_or_create_by(name: "benefit_admin")
     puts("******* Creando Santorales *******")
-    extra_post = News::Post.create(title: "Página informativa", format: 0, post_type: "Conociéndonos", content: "Contenido del sitio informativo", important: false, user_id: 1)
+    extra_post = News::Post.where(post_type: "Conociéndonos").first
 
     puts("******* Creando Santorales *******")
     General::Santoral.find_or_create_by(name: "María, Madre de Dios", santoral_day: "01-01")
@@ -389,12 +386,7 @@ namespace :security do
     General::Santoral.find_or_create_by(name: "Tomás Becket, David", santoral_day: "12-29")
     General::Santoral.find_or_create_by(name: "Rogelio", santoral_day: "12-30")
     General::Santoral.find_or_create_by(name: "Silvestre", santoral_day: "12-31")
-    puts("******* Creando Secciones *******")
-    General::Section.find_or_create_by(title: "Conoce mi área", description: "Esta es la descripción de la sección", position: 1, url: "url-blablabla-1")
-    General::Section.find_or_create_by(title: "Avisos clasificados", description: "Esta es la descripción de la sección/", position: 3, url: "url-blablabla-3")
-    General::Section.find_or_create_by(title: "Grupo security", description: "Esta es la descripción de la sección/", position: 4, url: "url-blablabla-4")
-    General::Section.find_or_create_by(title: "Concursos internos", description: "Esta es la descripción de la sección", position: 5, url: "url-blablabla-5")
-    General::Section.find_or_create_by(title: "Cultura security", description: "Esta es la descripción de la sección", position: 6, url: "url-blablabla-6")
+
     puts("******* Creando Menús Padres *******")
     General::Menu.find_or_create_by(title: "EN LINEA")
     General::Menu.find_or_create_by(title: "INFORMADOS")

@@ -145,20 +145,31 @@ Library::CategoryBook.destroy_all
 
 categories = ["Literatura Juvenil", "Infantil", "Finanzas y economía", "Juegos de mesa"]
 authors = ["J. R. R. Tolkien", "George R.R. Martin", "Val Emmich", "J. K Rowling", "Gonzalo Martinez Ortega", "Dmitry Glukhovsky"]
+authors_b = ["Jose María Maza", "Disney", "Ben Brooks", "Luis Sepúlveda", "Tea Stilton", "Vegetta777 Willyrex"]
 editorials = ["Minotauro", "Plaza Y Janes", "Cross Books", "Salamandra", "Planeta", "Montena"]
-book_titles = ["El silmarillion", "Una Cancion Para Lya", "Querido Evan Hansen", "Harry Potter y el Legado Maldito", "Mocha Dick: La Leyenda de la Ballena Blanca", "Metro 2035"]
 
 categories.each { |category| Library::CategoryBook.create(name: category) }
 authors.each { |author| Library::Author.create(name: author) }
 editorials.each { |editorial| Library::Editorial.create(name: editorial) }
 
-count = 0
-book_titles.each_with_index do |title, i|
-  image_data = File.open("app/assets/images/books/book_#{i+1}.jpg")
+book_titles_A = ["El silmarillion", "Una Cancion Para Lya", "Querido Evan Hansen", "Harry Potter y el Legado Maldito", "Mocha Dick: La Leyenda de la Ballena Blanca", "Metro 2035"]
+book_titles_A.each_with_index do |title, i|
+  image_data = File.open("app/assets/images/books/book_A#{i+1}.jpg")
   book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 1, author_id: i + 1, editorial_id: i + 1)
   book.image.attach(io: image_data, filename: File.basename(image_data))
 end
 
+book_titles_B = ["Somos Polvo de Estrellas. Para Niños y Niñas", "Gravity Falls. Lejos de Casa", "Cuentos Para Niños que se Atreven a ser Diferentes", "Historia de Mix, de max y de mex", "Salvemos a los Animales", "Wigetta y el Antídoto Secreto"]
+book_titles_B.each_with_index do |title, i|
+  image_data = File.open("app/assets/images/books/book_B#{i+1}.jpg")
+  book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 2, author_id: i + 1, editorial_id: i + 1)
+  book.image.attach(io: image_data, filename: File.basename(image_data))
+end
 
-
+book_titles_C = ["Véndele a la Mente, no a la Gente", "Por que Fracasan los Paises", "El método del lobo de Wall Street", "Piensa al Revés", "20 Filósofos Visitan su Empresa", "El poder del click"]
+book_titles_C.each_with_index do |title, i|
+  image_data = File.open("app/assets/images/books/book_C#{i+1}.jpg")
+  book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 3, author_id: i + 1, editorial_id: i + 1)
+  book.image.attach(io: image_data, filename: File.basename(image_data))
+end
 
