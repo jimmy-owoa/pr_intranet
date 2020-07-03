@@ -191,3 +191,18 @@ book_titles_C.each_with_index do |title, i|
   end
 end
 
+# - - - - - - - - - - - NACIMIENTOS - - - - - - - - - - - - - - -
+puts("* * * * * * * Creando Nacimientos * * * * * * *")
+birth_names = ["Felipe", "Juan", "Nicolás", "Andrés", "Sebastián", "Carlos"]
+birth_lastnames = ["Pérez", "Gutierrez", "Baeza", "Morales", "Saavedra", "Pinto"]
+birth_lastnames_2 = ["Zamorano", "Abarca", "Molina", "López", "Diaz", "Ramirez"]
+
+6.times do |i|
+  birth = Employee::Birth.find(i+1) rescue nil
+  if birth.nil?
+    birth = Employee::Birth.create(id: i+1, child_name: birth_names[i], child_lastname: birth_lastnames[i], child_lastname2: birth_lastnames_2[i], approved: true, gender: true, is_public: true, user_id: i+2, birthday: Date.new(2020, 1, 6))
+    image_data = File.open("app/assets/images/nacimiento.jpg")
+    birth.photo.attach(io: image_data, filename: File.basename(image_data))
+    birth.photo.attachment.update(permission: 1)
+  end
+end
