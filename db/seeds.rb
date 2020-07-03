@@ -64,7 +64,11 @@ data_users.each do |user|
   office = Company::Office.where(address: office_address, commune_id: commune.id).first_or_create
   benefit_group = General::BenefitGroup.where(name: user["grupo_beneficiario"]).first
 
-  General::User.create(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1], email: email, name: name, last_name: last_name, position_classification: position_classification, is_boss: is_boss, rol: rol, employee_classification: employee_classification, date_entry: date_entry, birthday: birthday, civil_status: civil_status, position: position, annexed: annexed, gender: gender, favorite_name: favorite_name,company_id: company.id, benefit_group_id: benefit_group.id, office_id: office.id, location_id: 2, password: "redexa2020", password_confirmation: "redexa2020")
+  user_data = General::user.where(email: email).first rescue nil
+
+  if user_data.nil?
+    General::User.create(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1], email: email, name: name, last_name: last_name, position_classification: position_classification, is_boss: is_boss, rol: rol, employee_classification: employee_classification, date_entry: date_entry, birthday: birthday, civil_status: civil_status, position: position, annexed: annexed, gender: gender, favorite_name: favorite_name,company_id: company.id, benefit_group_id: benefit_group.id, office_id: office.id, location_id: 2, password: "redexa2020", password_confirmation: "redexa2020")
+  end
 end
 
 General::User.all.each {|u| u.set_user_attributes }
@@ -75,101 +79,115 @@ content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus 
 
 extract = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus felis felis, sed placerat nunc accumsan eu. Nullam dictum dignissim mattis."
 
-puts("* * * * * * * Eliminando noticias * * * * * * *")
-News::Post.destroy_all
-
 puts("* * * * * * * Creando Noticias Corporativas * * * * * * *")
 10.times do |i|
-  image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
-  image = Media::Attachment.create(name: File.basename(image_data))
-  image.attachment.attach(io: image_data, filename: File.basename(image_data))
-  post = News::Post.create([
-    {
-      title: "Título de Noticia corporativa #{i+1}",
-      extract: extract,
-      content: content,
-      status: "Publicado",
-      user_id: 1,
-      post_type: "Corporativas",
-      main_image_id: image.id,
-      important: true,
-      profile_id: 1,
-    }
-  ])
+  post = News::Post.where(title: "Título de Noticia corporativa #{i+1}").first rescue nil
+
+  if post.nil?
+    image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
+    image = Media::Attachment.create(name: File.basename(image_data))
+    image.attachment.attach(io: image_data, filename: File.basename(image_data))
+    News::Post.create([
+      {
+        title: "Título de Noticia corporativa #{i+1}",
+        extract: extract,
+        content: content,
+        status: "Publicado",
+        user_id: 1,
+        post_type: "Corporativas",
+        main_image_id: image.id,
+        important: true,
+        profile_id: 1,
+      }
+    ])
+  end
 end
 puts("* * * * * * * Creando Noticias Miscelaneos * * * * * * *")
 10.times do |i|
-  image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
-  image = Media::Attachment.create(name: File.basename(image_data))
-  image.attachment.attach(io: image_data, filename: File.basename(image_data))
-  News::Post.create([
-    {
-      title: "Título de Noticia miscelaneos #{i+1}",
-      extract: extract,
-      content: content,
-      status: "Publicado",
-      user_id: 1,
-      post_type: "Miscelaneos",
-      main_image_id: image.id,
-      important: false,
-      profile_id: 1,
-    }
-  ])
+  post = News::Post.where(title: "Título de Noticia miscelaneos #{i+1}").first rescue nil
+
+  if post.nil?
+    image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
+    image = Media::Attachment.create(name: File.basename(image_data))
+    image.attachment.attach(io: image_data, filename: File.basename(image_data))
+    News::Post.create([
+      {
+        title: "Título de Noticia miscelaneos #{i+1}",
+        extract: extract,
+        content: content,
+        status: "Publicado",
+        user_id: 1,
+        post_type: "Miscelaneos",
+        main_image_id: image.id,
+        important: false,
+        profile_id: 1,
+      }
+    ])
+  end
 end
 puts("* * * * * * * Creando Noticias Conociéndonos * * * * * * *")
 10.times do |i|
-  image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
-  image = Media::Attachment.create(name: File.basename(image_data))
-  image.attachment.attach(io: image_data, filename: File.basename(image_data))
-  News::Post.create([
-    {
-      title: "Título de Noticia conociéndonos #{i+1}",
-      extract: extract,
-      content: content,
-      status: "Publicado",
-      user_id: 1,
-      post_type: "Conociéndonos",
-      main_image_id: image.id,
-      important: false,
-      profile_id: 1,
-    }
-  ])
+  post = News::Post.where(title: "Título de Noticia conociéndonos #{i+1}").first rescue nil
+
+  if post.nil?
+    image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
+    image = Media::Attachment.create(name: File.basename(image_data))
+    image.attachment.attach(io: image_data, filename: File.basename(image_data))
+    News::Post.create([
+      {
+        title: "Título de Noticia conociéndonos #{i+1}",
+        extract: extract,
+        content: content,
+        status: "Publicado",
+        user_id: 1,
+        post_type: "Conociéndonos",
+        main_image_id: image.id,
+        important: false,
+        profile_id: 1,
+      }
+    ])
+  end
 end
 
 # - - - - - - - - - - - - - - - LIBROS - - - - - - - - - - - - - - - -
 puts("* * * * * * * Creando Libros * * * * * * *")
-Library::Book.destroy_all
-Library::Author.destroy_all
-Library::Editorial.destroy_all
-Library::CategoryBook.destroy_all
 
 categories = ["Literatura Juvenil", "Infantil", "Finanzas y economía", "Juegos de mesa"]
 authors = ["J. R. R. Tolkien", "George R.R. Martin", "Val Emmich", "J. K Rowling", "Gonzalo Martinez Ortega", "Dmitry Glukhovsky"]
 authors_b = ["Jose María Maza", "Disney", "Ben Brooks", "Luis Sepúlveda", "Tea Stilton", "Vegetta777 Willyrex"]
 editorials = ["Minotauro", "Plaza Y Janes", "Cross Books", "Salamandra", "Planeta", "Montena"]
 
-categories.each { |category| Library::CategoryBook.create(name: category) }
-authors.each { |author| Library::Author.create(name: author) }
-editorials.each { |editorial| Library::Editorial.create(name: editorial) }
+categories.each { |category| Library::CategoryBook.find_or_create_by(name: category) }
+authors.each { |author| Library::Author.find_or_create_by(name: author) }
+editorials.each { |editorial| Library::Editorial.find_or_create_by(name: editorial) }
 
 book_titles_A = ["El silmarillion", "Una Cancion Para Lya", "Querido Evan Hansen", "Harry Potter y el Legado Maldito", "Mocha Dick: La Leyenda de la Ballena Blanca", "Metro 2035"]
 book_titles_A.each_with_index do |title, i|
-  image_data = File.open("app/assets/images/books/book_A#{i+1}.jpg")
-  book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 1, author_id: i + 1, editorial_id: i + 1)
-  book.image.attach(io: image_data, filename: File.basename(image_data))
+  book = Library::Book.where(title: title).first rescue nil
+  if book.nil?
+    book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 1, author_id: i + 1, editorial_id: i + 1)
+    image_data = File.open("app/assets/images/books/book_A#{i+1}.jpg")
+    book.image.attach(io: image_data, filename: File.basename(image_data)) if book.image.attachment.nil?
+  end
 end
 
 book_titles_B = ["Somos Polvo de Estrellas. Para Niños y Niñas", "Gravity Falls. Lejos de Casa", "Cuentos Para Niños que se Atreven a ser Diferentes", "Historia de Mix, de max y de mex", "Salvemos a los Animales", "Wigetta y el Antídoto Secreto"]
 book_titles_B.each_with_index do |title, i|
-  image_data = File.open("app/assets/images/books/book_B#{i+1}.jpg")
-  book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 2, author_id: i + 1, editorial_id: i + 1)
-  book.image.attach(io: image_data, filename: File.basename(image_data))
+  book = Library::Book.where(title: title).first rescue nil
+  if book.nil?  
+    book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 2, author_id: i + 1, editorial_id: i + 1)
+    image_data = File.open("app/assets/images/books/book_B#{i+1}.jpg")
+    book.image.attach(io: image_data, filename: File.basename(image_data)) if book.image.attachment.nil?
+  end
 end
 
 book_titles_C = ["Véndele a la Mente, no a la Gente", "Por que Fracasan los Paises", "El método del lobo de Wall Street", "Piensa al Revés", "20 Filósofos Visitan su Empresa", "El poder del click"]
 book_titles_C.each_with_index do |title, i|
-  image_data = File.open("app/assets/images/books/book_C#{i+1}.jpg")
-  book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 3, author_id: i + 1, editorial_id: i + 1)
-  book.image.attach(io: image_data, filename: File.basename(image_data))
+  book = Library::Book.where(title: title).first rescue nil
+  if book.nil?
+    image_data = File.open("app/assets/images/books/book_C#{i+1}.jpg")
+    book = Library::Book.create(title: title, description: content, edition: 1, publication_year: 2020, stock: 10, available: true, category_book_id: 3, author_id: i + 1, editorial_id: i + 1)
+    book.image.attach(io: image_data, filename: File.basename(image_data)) if book.image.attachment.nil?
+  end
 end
 
