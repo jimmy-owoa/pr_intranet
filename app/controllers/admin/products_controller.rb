@@ -69,7 +69,7 @@ module Admin
         end
       elsif approved.present?
         @product.update_attributes(approved: approved)
-        send_email
+      # send_email
         respond_to do |format|
           format.json { render :json => { value: "success" } and return }
         end
@@ -77,7 +77,7 @@ module Admin
         respond_to do |format|
           if @product.update(product_params)
             catch_image(params[:permissions])
-            send_email
+          # send_email
             format.html { redirect_to admin_product_path(@product), notice: "Producto fue actualizado con éxito." }
             format.json { render :show, status: :ok, location: @product }
           else
