@@ -30,13 +30,13 @@ module Api::V1
             approved: product.approved,
             product_type: product.product_type,
             user_id: product.user_id,
-            # url: root_url + "admin/products/" + "#{product.id}" + "/edit",
+            # url:  "admin/products/" + "#{product.id}" + "/edit",
             currency: product.currency,
             price: product.price,
             is_expired: product.is_expired,
             expiration: product.expiration,
             description: product.description,
-            main_image: product.permitted_images.present? ? url_for(product.permitted_images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+            main_image: product.permitted_images.present? ? url_for(product.permitted_images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) :  ActionController::Base.helpers.asset_path("noimage.png"),
             items: product.images.present? ? items : ActionController::Base.helpers.asset_path("noimage.png"),
             breadcrumbs: [
               { link: "/", name: "Inicio" },
@@ -80,14 +80,14 @@ module Api::V1
             approved: product.approved,
             product_type: product.product_type,
             user_id: product.user_id,
-            # url: root_url + "admin/products/" + "#{product.id}" + "/edit",
+            # url:  "admin/products/" + "#{product.id}" + "/edit",
             currency: product.currency,
             price: product.price,
             published_date: product.published_date.present? ? l(product.published_date, format: "%d de %B, %Y").downcase : nil,
             is_expired: product.is_expired,
             expiration: product.expiration,
             description: product.description,
-            main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+            main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) :  ActionController::Base.helpers.asset_path("noimage.png"),
             items: product.images.present? ? items : ActionController::Base.helpers.asset_path("noimage.png")
           }
         end
@@ -130,11 +130,11 @@ module Api::V1
           user_company: product.user.company.present? ? product.user.company.name : "",
           user_full_name: General::User.find(product.user_id).full_name,
           is_expired: product.is_expired,
-          # admin_url: root_url + admin_product_path(product.id),
+          # admin_url:  admin_product_path(product.id),
           items: product.images.present? ? items :
             [{
-            src: root_url + ActionController::Base.helpers.asset_url("noimage.png"),
-            thumbnail: root_url + ActionController::Base.helpers.asset_url("noimage.png"),
+            src:  ActionController::Base.helpers.asset_path("noimage.png"),
+            thumbnail:  ActionController::Base.helpers.asset_path("noimage.png"),
           }],
         }
         breadcrumbs = [
