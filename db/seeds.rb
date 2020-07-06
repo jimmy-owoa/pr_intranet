@@ -32,6 +32,9 @@ user_admin = General::User.find_by_email("admin@exaconsultores.cl")
 user_admin.add_role :super_admin
 
 # - - - - - - - - - - - - - - - USUARIOS - - - - - - - - - - - - - - -
+puts("* * * * * * * Cargando Beneficios * * * * * * *")
+ExaBenefitsService.perform
+
 puts("* * * * * * * Creando Usuarios * * * * * * *")
 data_users = JSON.parse(File.read("public/users_test.json"))
 
@@ -72,6 +75,9 @@ data_users.each do |user|
 end
 
 General::User.all.each {|u| u.set_user_attributes }
+
+puts("* * * * * * * Cargando Beneficios con usuarios * * * * * * *")
+ExaBenefitsService.perform
 
 # - - - - - - - - - - - - - - - NOTICIAS - - - - - - - - - - - - - - -
 
@@ -238,5 +244,27 @@ if products_type_2.empty?
     image_data = File.open("app/assets/images/products/house_#{i+1}.jpg")
     product.images.attach(io: image_data, filename: File.basename(image_data))
     product.images.attachments.update(permission: 1)
+  end
+end
+
+# - - - - - - - - - - - ENCUESTAS - - - - - - - - - - - - - - -
+puts("* * * * * * * Creando Encuestas * * * * * * *")
+question_type = ["Múltiple", "Simple", "Verdadero o Falso", "Texto", "Número", "Selección", "Escala lineal"]
+
+surveys = Survey::Survey.count
+
+if surveys == 0
+  7.times do |i|
+    survey = Survey::Survey.create(name: "Encuesta General #{i+1}", description: content, status: "Publicado", profile_id: 1)
+    image_data = File.open("app/assets/images/surveys/survey_#{i+1}.jpg")
+    survey.image.attach(io: image_data, filename: File.basename(image_data))
+    7.times do |j|
+      question = Survey::Question.create(title: "Pregunta #{j+1}", question_type: question_type[j], optional: true, survey_id: survey.id)
+      4.times do |k|
+        if question.question_type == "Múltiple" || question.question_type == "Simple" || question.question_type == "Selección" 
+          option = Survey::Option.create(title: "Opción #{k+1}", question_id: question.id)
+        end
+      end
+    end
   end
 end
