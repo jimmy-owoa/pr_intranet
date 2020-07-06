@@ -93,21 +93,28 @@ puts("* * * * * * * Creando Noticias Corporativas * * * * * * *")
     image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
     image = Media::Attachment.create(name: File.basename(image_data))
     image.attachment.attach(io: image_data, filename: File.basename(image_data))
-    News::Post.create([
-      {
-        title: "Título de Noticia corporativa #{i+1}",
-        extract: extract,
-        content: content,
-        status: "Publicado",
-        user_id: 1,
-        post_type: "Corporativas",
-        main_image_id: image.id,
-        important: true,
-        profile_id: 1,
-      }
-    ])
+    post = News::Post.create(    
+      title: "Título de Noticia corporativa #{i+1}",
+      extract: extract,
+      content: content,
+      status: "Publicado",
+      user_id: 1,
+      post_type: "Corporativas",
+      main_image_id: image.id,
+      important: true,
+      profile_id: 1,
+    )
+
+    gallery = Media::Gallery.create(name: "Galería noticia corporativa #{i+1}", post_id: post.id)
+    6.times do |j|
+      image_data = File.open("app/assets/images/news/news_#{j+1}.jpg")
+      media_attachment = Media::Attachment.create(name: File.basename(image_data))
+      media_attachment.attachment.attach(io: image_data, filename: File.basename(image_data))
+      gallery.attachments << media_attachment
+    end
   end
 end
+
 puts("* * * * * * * Creando Noticias Miscelaneos * * * * * * *")
 10.times do |i|
   post = News::Post.where(title: "Título de Noticia miscelaneos #{i+1}").first rescue nil
@@ -116,19 +123,17 @@ puts("* * * * * * * Creando Noticias Miscelaneos * * * * * * *")
     image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
     image = Media::Attachment.create(name: File.basename(image_data))
     image.attachment.attach(io: image_data, filename: File.basename(image_data))
-    News::Post.create([
-      {
-        title: "Título de Noticia miscelaneos #{i+1}",
-        extract: extract,
-        content: content,
-        status: "Publicado",
-        user_id: 1,
-        post_type: "Miscelaneos",
-        main_image_id: image.id,
-        important: false,
-        profile_id: 1,
-      }
-    ])
+    News::Post.create(
+      title: "Título de Noticia miscelaneos #{i+1}",
+      extract: extract,
+      content: content,
+      status: "Publicado",
+      user_id: 1,
+      post_type: "Miscelaneos",
+      main_image_id: image.id,
+      important: false,
+      profile_id: 1,
+    )
   end
 end
 puts("* * * * * * * Creando Noticias Conociéndonos * * * * * * *")
@@ -139,19 +144,17 @@ puts("* * * * * * * Creando Noticias Conociéndonos * * * * * * *")
     image_data = File.open("app/assets/images/news/news_#{i+1}.jpg")
     image = Media::Attachment.create(name: File.basename(image_data))
     image.attachment.attach(io: image_data, filename: File.basename(image_data))
-    News::Post.create([
-      {
-        title: "Título de Noticia conociéndonos #{i+1}",
-        extract: extract,
-        content: content,
-        status: "Publicado",
-        user_id: 1,
-        post_type: "Conociéndonos",
-        main_image_id: image.id,
-        important: false,
-        profile_id: 1,
-      }
-    ])
+    News::Post.create(
+      title: "Título de Noticia conociéndonos #{i+1}",
+      extract: extract,
+      content: content,
+      status: "Publicado",
+      user_id: 1,
+      post_type: "Conociéndonos",
+      main_image_id: image.id,
+      important: false,
+      profile_id: 1,
+    )
   end
 end
 
