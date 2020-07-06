@@ -5,7 +5,7 @@ namespace :security do
       year % 4 == 0 && year % 100 != 0 || year % 400 == 0
     end
 
-    puts("/////////// Inicio carga de datos base para security ///////////")
+    puts("/////////// Inicio carga de datos ///////////")
     puts("******* Creando EconomicIndicatorTypes *******")
     General::EconomicIndicatorType.where(name: "dolar", symbol: "US$").first_or_create #1
     General::EconomicIndicatorType.where(name: "euro", symbol: "€").first_or_create #2
@@ -387,953 +387,108 @@ namespace :security do
     General::Santoral.find_or_create_by(name: "Rogelio", santoral_day: "12-30")
     General::Santoral.find_or_create_by(name: "Silvestre", santoral_day: "12-31")
 
-    puts("******* Creando Menús Padres *******")
-    General::Menu.find_or_create_by(title: "EN LINEA")
-    General::Menu.find_or_create_by(title: "INFORMADOS")
-    General::Menu.find_or_create_by(title: "MIS BENEFICIOS")
-    puts("******* Creando Menús Hijos *******")
-    menu_1 = General::Menu.find_by_title("EN LINEA")
-    menu_2 = General::Menu.find_by_title("INFORMADOS")
-    menu_3 = General::Menu.find_by_title("MIS BENEFICIOS")
-    menu = General::Menu.find_or_create_by(
-      title: "Vacaciones",
-      description: "Vacaciones Security",
-      css_class: "#000000",
-      link: "vacaciones",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "vacs",
-    )
-    vacation = General::Menu.find_by_title("Vacaciones")
-    menu = General::Menu.find_or_create_by(
-      title: "Mis Vacaciones",
-      description: "Mis Vacaciones",
-      css_class: "#db9398",
-      link: "https://misecurity.exa.cl/vac_records_register/index",
-      priority: nil,
-      parent_id: vacation.id,
-    )
-    menu = General::Menu.find_or_create_by(
-      title: "Aprobación",
-      description: "Aprobación",
-      css_class: "#db9398",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: vacation.id,
-    )
-    menu = General::Menu.find_or_create_by(
-      title: "Vacaciones progresivas",
-      description: "Vacaciones progresivas",
-      css_class: "#db3562",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: vacation.id,
-    )
-    #->Permisos
-    menu = General::Menu.find_or_create_by(
-      title: "Permisos",
-      description: "Permisos",
-      css_class: "#243in0",
-      link: "",
-      priority: nil,
-      parent_id: menu_1.id,
-    )
-    permission = General::Menu.find_by_title("Permisos")
-    # 24 Horas para algo importante
-    menu = General::Menu.find_or_create_by(
-      title: "24 Horas para algo importante",
-      description: "24 Horas para algo importante",
-      css_class: "#3nnd99",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    # Post Natal Paterno
-    menu = General::Menu.find_or_create_by(
-      title: "Post Natal Paterno",
-      description: "Post Natal Paterno",
-      css_class: "#346kg9",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    # Matrimonio
-    menu = General::Menu.find_or_create_by(
-      title: "Matrimonio",
-      description: "Matrimonio",
-      css_class: "#93899h",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    # Unión Civil
-    menu = General::Menu.find_or_create_by(
-      title: "Unión Civil",
-      description: "Unión Civil",
-      css_class: "#64334f",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    # Fallecimiento
-    menu = General::Menu.find_or_create_by(
-      title: "Fallecimiento",
-      description: "Fallecimiento",
-      css_class: "#04jdj9",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    # Examen de Grado
-    menu = General::Menu.find_or_create_by(
-      title: "Examen de Grado",
-      description: "Examen de Grado",
-      css_class: "#04jdj9",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    # Exámenes Preventivos
-    menu = General::Menu.find_or_create_by(
-      title: "Exámenes Preventivos",
-      description: "Exámenes Preventivos",
-      css_class: "#983839",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    # Día Libre para cambio de casa
-    menu = General::Menu.find_or_create_by(
-      title: "Día Libre para cambio de casa",
-      description: "Día Libre para cambio de casa",
-      css_class: "#7889s0",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: permission.id,
-    )
-    #->Tarjeta de trabajo bien hecho
-    menu = General::Menu.find_or_create_by(
-      title: "Tarjeta de trabajo bien hecho",
-      description: "Tarjeta de trabajo bien hecho",
-      css_class: "#c5590k",
-      link: "",
-      priority: nil,
-      parent_id: menu_1.id,
-    )
-    work_card = General::Menu.find_by_title("Tarjeta de trabajo bien hecho")
-    #Ingresar tarjeta
-    menu = General::Menu.find_or_create_by(
-      title: "Ingresar tarjeta",
-      description: "Ingresar tarjeta",
-      css_class: "#9883hb",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: work_card.id,
-    )
-    #Mis tarjetas
-    menu = General::Menu.find_or_create_by(
-      title: "Mis tarjetas",
-      description: "Mis tarjetas",
-      css_class: "#989390",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: work_card.id,
-    )
-    #->Selección
-    menu = General::Menu.find_or_create_by(
-      title: "Selección",
-      description: "Selección",
-      css_class: "#m28390",
-      link: "",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "sel",
-    )
-    selection = General::Menu.find_by_title("Selección")
-    #Ingreso solicitudes
-    menu = General::Menu.find_or_create_by(
-      title: "Ingreso solicitudes",
-      description: "Ingreso solicitudes",
-      css_class: "#n89279",
-      link: "https://misecurity.exa.cl/sel_requirements/new",
-      priority: nil,
-      parent_id: selection.id,
-    )
-    #Seguimiento
-    menu = General::Menu.find_or_create_by(
-      title: "Seguimiento",
-      description: "Seguimiento",
-      css_class: "#g77900",
-      link: "https://misecurity.exa.cl/sel_process_trackers",
-      priority: nil,
-      parent_id: selection.id,
-    )
-    #Mis solicitudes
-    menu = General::Menu.find_or_create_by(
-      title: "Mis solicitudes",
-      description: "Mis solicitudes",
-      css_class: "#yu8999",
-      link: "https://misecurity.exa.cl/sel_requirements/mine",
-      priority: nil,
-      parent_id: selection.id,
-    )
-    #Evaluación de solicitudes
-    menu = General::Menu.find_or_create_by(
-      title: "Evaluación de solicitudes",
-      description: "Evaluación de solicitudes",
-      css_class: "#b77890",
-      link: "https://misecurity.exa.cl/sel_req_processes/eval/to_eval",
-      priority: nil,
-      parent_id: selection.id,
-    )
-    #->Desempeño y Desarrollo
-    menu = General::Menu.find_or_create_by(
-      title: "Desempeño y Desarrollo",
-      description: "Desempeño y Desarrollo",
-      css_class: "#968390",
-      link: "",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "pe",
-    )
-    development = General::Menu.find_by_title("Desempeño y Desarrollo")
-    #Plan de desarrollo profesional
-    menu = General::Menu.find_or_create_by(
-      title: "Plan de desarrollo profesional",
-      description: "Plan de desarrollo profesional",
-      css_class: "#v77890",
-      link: "https://misecurity.exa.cl/tracking_processes/3/index",
-      priority: nil,
-      parent_id: development.id,
-    )
-    #Feedback
-    menu = General::Menu.find_or_create_by(
-      title: "Feedback",
-      description: "Feedback",
-      css_class: "#v77890",
-      link: "https://misecurity.exa.cl/pe/uniq",
-      priority: nil,
-      parent_id: development.id,
-    )
-    #Talento
-    menu = General::Menu.find_or_create_by(
-      title: "Talento",
-      description: "Talento",
-      css_class: "#d77780",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: development.id,
-    )
-    #(Tal cual está ahora en exa)
-    menu = # General::Menu.find_or_create_by(
-      #title: "Talento",
-      #description: "Talento",
-      #css_class: "#d77780",
-      #code: 82799,
-      #link: "talento",
-      #priority: nil,
-      #parent_id: development.id
-      # )
-      #Gestionar
-      General::Menu.find_or_create_by(
-        title: "Gestionar",
-        description: "Gestionar",
-        css_class: "#641160",
-        link: "capacitacion-funcional",
-        priority: nil,
-        parent_id: menu_1.id,
-        integration_code: "manage",
-      )
-    #Beneficios
-    General::Menu.find_or_create_by(
-      title: "Beneficios",
-      description: "Beneficios",
-      css_class: "#641160",
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_3.id,
-      integration_code: "licenses",
-    )
-    #Bono Rol General
-    General::Menu.find_or_create_by(
-      title: "Bono Rol General",
-      description: "Bono Rol General",
-      css_class: "#641160",
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_3.id,
-      integration_code: "brg",
-    )
-    #Capacitémonos
-    General::Menu.find_or_create_by(
-      title: "Capacitémonos",
-      description: "Capacitémonos",
-      css_class: "#641160",
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "tr",
-    )
-    #Biblioteca
-    General::Menu.find_or_create_by(
-      title: "Biblioteca",
-      description: "Biblioteca",
-      css_class: "#641160",
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "lib",
-    )
-    #Mesa Ayuda
-    General::Menu.find_or_create_by(
-      title: "Mesa Ayuda",
-      description: "Mesa de ayuda",
-      css_class: "#641160",
-      link: "capacitacion-funcional",
-      priority: nil,
-      parent_id: menu_1.id,
-      integration_code: "hd",
-    )
-    #Capacitemonos
-    menu = General::Menu.find_or_create_by(
-      title: "Capacitemonos",
-      description: "Capacitemonos",
-      css_class: "#768393",
-      link: "",
-      priority: nil,
-      parent_id: menu_1.id,
-    )
-    capacitation = General::Menu.find_by_title("Capacitemonos")
-    #Capacitación Corporativa
-    menu = General::Menu.find_or_create_by(
-      title: "Capacitación Corporativa",
-      description: "Capacitación Corporativa",
-      css_class: "#647720",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: capacitation.id,
-    )
-    #Capacitación Funcional
-    menu = General::Menu.find_or_create_by(
-      title: "Capacitación Funcional",
-      description: "Capacitación Funcional",
-      css_class: "#641160",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: capacitation.id,
-    )
-    #Programa de capacitación
-    menu = General::Menu.find_or_create_by(
-      title: "Programa de capacitación",
-      description: "Programa de capacitación",
-      css_class: "#649370",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: capacitation.id,
-    )
-    #Material de Capacitación
-    menu = General::Menu.find_or_create_by(
-      title: "Material de Capacitación",
-      description: "Material de Capacitación",
-      css_class: "#379908",
-      link: "https://misecurity.exa.cl/biblioteca",
-      priority: nil,
-      parent_id: capacitation.id,
-    )
-    #Historial de Capacitación
-    menu = General::Menu.find_or_create_by(
-      title: "Historial de Capacitación",
-      description: "Historial de Capacitación",
-      css_class: "#379100",
-      link: "https://misecurity.exa.cl/user_profile",
-      priority: nil,
-      parent_id: capacitation.id,
-    )
-    #->Remuneraciones
-    menu = General::Menu.find_or_create_by(
-      title: "Remuneraciones",
-      description: "Remuneraciones",
-      css_class: "#366678",
-      link: "",
-      priority: nil,
-      parent_id: menu_1.id,
-    )
-    remuneration = General::Menu.find_by_title("Remuneraciones")
-    #Liquidaciones
-    menu = General::Menu.find_or_create_by(
-      title: "Liquidaciones",
-      description: "Liquidaciones",
-      css_class: "#299900",
-      link: "https://expert.adpsoluciones.com/Expert/inicio/ini/Login.aspx?AspxAutoDetectCookieSupport=1",
-      priority: nil,
-      parent_id: remuneration.id,
-    )
-    #Anticipos
-    menu = General::Menu.find_or_create_by(
-      title: "Anticipos",
-      description: "Anticipos",
-      css_class: "#23929",
-      link: "https://expert.adpsoluciones.com/Expert/inicio/ini/Login.aspx?AspxAutoDetectCookieSupport=1",
-      priority: nil,
-      parent_id: remuneration.id,
-    )
-    #APV
-    menu = General::Menu.find_or_create_by(
-      title: "APV",
-      description: "APV",
-      css_class: "#23121",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: remuneration.id,
-    )
-    #Certificados
-    menu = General::Menu.find_or_create_by(
-      title: "Certificados",
-      description: "Certificados",
-      css_class: "#88999",
-      link: "",
-      priority: nil,
-      parent_id: menu_1.id,
-    )
-    certification = General::Menu.find_by_title("Certificados")
-    #Antigüedad
-    menu = General::Menu.find_or_create_by(
-      title: "Antigüedad",
-      description: "Antigüedad",
-      css_class: "#29929",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: certification.id,
-    )
-    #Renta
-    menu = General::Menu.find_or_create_by(
-      title: "Renta",
-      description: "Renta",
-      css_class: "#22929",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: certification.id,
-    )
-    ################################################ TERMINO EN LINEA ################################################
-    #->Noticias
+    puts("******* Creando Menú INFORMADOS *******")
+    menu_1 = General::Menu.find_or_create_by(title: "INFORMADOS", profile_id: 1)
+    
+    puts("******* Creando Menús Hijos de INFORMADOS *******")
+    
+    # - - - - - - - - - - NOTICIAS - - - - - - - - - -
     menu = General::Menu.find_or_create_by(
       title: "Noticias",
-      description: "Noticias new menu",
-      css_class: "#b13362",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
+      description: "Noticias",
+      parent_id: menu_1.id,
+      profile_id: 1
     )
-    # General::Menu.create(
-    #title: "Noticias",
-    #description: "Noticias new menu",
-    #css_class: "#b13362",
-    #code: 1235,
-    #link: "",
-    #priority: nil,
-    #parent_id: nil
-    # )
-    post = General::Menu.find_by_description("Noticias new menu")
-    #Corporativas
-    menu = General::Menu.find_or_create_by(
-      title: "Corporativas",
-      description: "corporativas",
-      css_class: "#b13362",
-      link: "corporativas",
-      priority: nil,
-      parent_id: post.id,
-    )
-    #Miscelaneos
-    menu = General::Menu.find_or_create_by(
-      title: "Miscelaneos",
-      description: "Miscelaneos",
-      css_class: "#b10312",
-      link: "miscelaneos",
-      priority: nil,
-      parent_id: post.id,
-    )
-    #Conociéndonos
-    menu = General::Menu.find_or_create_by(
-      title: "Conociéndonos",
-      description: "Conociéndonos",
-      css_class: "#a15293",
-      link: "conociendonos",
-      priority: nil,
-      parent_id: post.id,
-    )
-    #->Políticas
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas",
-      description: "Políticas",
-      css_class: "#bp1332",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    politic = General::Menu.find_by_title("Políticas")
-    #Corporativas
-    menu = General::Menu.find_or_create_by(
-      title: "Corporativas",
-      description: "Corporativas",
-      css_class: "#65293",
-      link: "https://misecurity.exa.cl/biblioteca/134",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Factoring Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Factoring Security",
-      description: "Políticas Factoring Security",
-      css_class: "#93293",
-      link: "https://misecurity.exa.cl/biblioteca/135",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Inversiones Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Inversiones Security",
-      description: "Políticas Inversiones Security",
-      css_class: "#92213",
-      link: "https://misecurity.exa.cl/biblioteca/136",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Corredora Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Corredora Security",
-      description: "Políticas Corredora Security",
-      css_class: "#52413",
-      link: "https://misecurity.exa.cl/biblioteca/137",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Travel Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Travel Security",
-      description: "Políticas Travel Security",
-      css_class: "#59213",
-      link: "https://misecurity.exa.cl/biblioteca/138",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Banco Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Banco Security",
-      description: "Políticas Banco Security",
-      css_class: "#52233",
-      link: "https://misecurity.exa.cl/biblioteca/139",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Vida Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Vida Security",
-      description: "Políticas Vida Security",
-      css_class: "#58211",
-      link: "https://misecurity.exa.cl/biblioteca/140",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Mandatos Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Mandatos Security",
-      description: "Políticas Mandatos Security",
-      css_class: "#58019",
-      link: "https://misecurity.exa.cl/biblioteca/141",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Grupo Security
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Grupo Security",
-      description: "Políticas Grupo Security",
-      css_class: "#52419",
-      link: "https://misecurity.exa.cl/biblioteca/142",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #Políticas Hipotecaria
-    menu = General::Menu.find_or_create_by(
-      title: "Políticas Hipotecaria",
-      description: "Políticas Hipotecaria",
-      css_class: "#56411",
-      link: "https://misecurity.exa.cl/biblioteca/143",
-      priority: nil,
-      parent_id: politic.id,
-    )
-    #->Guardianes del Security
-    menu = General::Menu.find_or_create_by(
-      title: "Guardianes del Security",
-      description: "Guardianes del Security",
-      css_class: "#p19362",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    guardian = General::Menu.find_by_title("Guardianes del Security")
-    #Información importante
-    menu = General::Menu.find_or_create_by(
-      title: "Información importante",
-      description: "Información importante",
-      css_class: "#96312",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: guardian.id,
-    )
-    #Tutoriales
-    menu = General::Menu.find_or_create_by(
-      title: "Tutoriales",
-      description: "Tutoriales",
-      css_class: "#93382",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: guardian.id,
-    )
-    #Cliente Integral
-    menu = General::Menu.find_or_create_by(
-      title: "Cliente Integral",
-      description: "Cliente Integral",
-      css_class: "#139362",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    integral = General::Menu.find_by_title("Cliente Integral")
-    #Refiere aquí
-    menu = General::Menu.find_or_create_by(
-      title: "Refiere aquí",
-      description: "Refiere aquí",
-      css_class: "#92352",
-      link: "http://integracion.gr.security.cl/modules/uinfo/referidos.php",
-      priority: nil,
-      parent_id: integral.id,
-    )
-    #Acceso al sitio
-    menu = General::Menu.find_or_create_by(
-      title: "Acceso al sitio ",
-      description: "Acceso al sitio ",
-      css_class: "#92654",
-      link: "http://clienteintegral.security.cl/",
-      priority: nil,
-      parent_id: integral.id,
-    )
-    #Busca tu cliente
-    menu = General::Menu.find_or_create_by(
-      title: "Busca tu cliente ",
-      description: "Busca tu cliente ",
-      css_class: "#92654",
-      link: "http://ventacruzadabo/ConsultaClienteIntegral.aspx",
-      priority: nil,
-      parent_id: integral.id,
-    )
-    #->Reconociendo
-    menu = General::Menu.find_or_create_by(
-      title: "Reconociendo",
-      description: "Reconociendo",
-      css_class: "#00034",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    recognize = General::Menu.find_by_title("Reconociendo")
-    #Tarjeta de trabajo bien hecho
-    menu = General::Menu.find_or_create_by(
-      title: "Tarjeta de trabajo bien hecho ",
-      description: "Tarjeta de trabajo bien hecho ",
-      css_class: "#002838",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: recognize.id,
-    )
-    #Premio Espíritu
-    menu = General::Menu.find_or_create_by(
-      title: "Premio Espíritu",
-      description: "Premio Espíritu",
-      css_class: "#006868",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: recognize.id,
-    )
-    #Premio Integración
-    menu = General::Menu.find_or_create_by(
-      title: "Premio Integración",
-      description: "Premio Integración",
-      css_class: "#001811",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: recognize.id,
-    )
-    #Premio Calidad de servicio
-    menu = General::Menu.find_or_create_by(
-      title: "Premio Calidad de servicio",
-      description: "Premio Calidad de servicio",
-      css_class: "#002289",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: recognize.id,
-    )
-    #Grupo Best
-    menu = General::Menu.find_or_create_by(
-      title: "Grupo Best",
-      description: "Grupo Best",
-      css_class: "#007778",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: recognize.id,
-    )
-    #->Oportunidades Security
-    menu = General::Menu.find_or_create_by(
-      title: "Oportunidades Security",
-      description: "Oportunidades Security",
-      css_class: "#34444",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    opportunity = General::Menu.find_by_title("Oportunidades Security")
-    #Cargos disponibles
-    menu = General::Menu.find_or_create_by(
-      title: "Cargos disponibles",
-      description: "Cargos disponibles",
-      css_class: "#38899",
-      link: "https://misecurity.exa.cl/job_market",
-      priority: nil,
-      parent_id: opportunity.id,
-    )
-    #Referidos
-    menu = General::Menu.find_or_create_by(
-      title: "Referidos",
-      description: "Referidos",
-      css_class: "#311222",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: opportunity.id,
-    )
-    #->Programa Previsional
-    menu = General::Menu.find_or_create_by(
-      title: "Programa Previsional",
-      description: "Programa Previsional",
-      css_class: "#24224",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    program = General::Menu.find_by_title("Programa Previsional")
-    #Solicita tu asesoría
-    menu = General::Menu.find_or_create_by(
-      title: "Solicita tu asesoría",
-      description: "Solicita tu asesoría",
-      css_class: "#21998",
-      link: "https://docs.google.com/forms/d/e/1FAIpQLScBs8L8223yfTqW_QRl8RxVn8ICRKodaHJIGqrfY9m5yRxtfg/viewform",
-      priority: nil,
-      parent_id: program.id,
-    )
-    #Información
-    menu = General::Menu.find_or_create_by(
-      title: "Información",
-      description: "Información",
-      css_class: "#29938",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: program.id,
-    )
-    #->Celebremos
+
+    titles = ["Corporativas", "Miscelaneos", "Conociéndonos", "Ver todo"]
+    links = ["noticias/corporativas", "noticias/conociendonos", "noticias/miscelaneos", "noticias"]
+
+    titles.length.times do |i|
+      General::Menu.find_or_create_by(
+        title: titles[i],
+        description: titles[i],
+        link: links[i],
+        parent_id: menu.id,
+        profile_id: 1
+      )
+    end
+
+    # - - - - - - - - - - CELEBREMOS - - - - - - - - - -
     menu = General::Menu.find_or_create_by(
       title: "Celebremos",
       description: "Celebremos",
-      css_class: "#64220",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
+      parent_id: menu_1.id,
+      profile_id: 1
     )
-    celebrate = General::Menu.find_by_title("Celebremos")
-    #Nacimientos
-    menu = General::Menu.find_or_create_by(
-      title: "Nacimientos",
-      description: "Nacimientos",
-      css_class: "#67778",
-      link: "celebremos-nacimientos",
-      priority: nil,
-      parent_id: celebrate.id,
-    )
-    #Cumpleaños
-    menu = General::Menu.find_or_create_by(
-      title: "Cumpleaños",
-      description: "Cumpleaños",
-      css_class: "#67338",
-      link: "celebremos-cumpleaños",
-      priority: nil,
-      parent_id: celebrate.id,
-    )
-    #Bienvenidos
-    menu = General::Menu.find_or_create_by(
-      title: "Bienvenidos",
-      description: "Bienvenidos",
-      css_class: "#62278",
-      link: "celebremos-bienvenidos",
-      priority: nil,
-      parent_id: celebrate.id,
-    )
-    #->Ayuda a la comunidad
-    menu = General::Menu.find_or_create_by(
-      title: "Ayuda a la comunidad",
-      description: "Ayuda a la comunidad",
-      css_class: "#54550",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    community = General::Menu.find_by_title("Ayuda a la comunidad")
-    #Fundación Las Rosas
-    menu = General::Menu.find_or_create_by(
-      title: "Fundación Las Rosas",
-      description: "Fundación Las Rosas",
-      css_class: "#55258",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: community.id,
-    )
-    #Fundación Mi Parque
-    menu = General::Menu.find_or_create_by(
-      title: "Fundación Mi Parque",
-      description: "Fundación Mi Parque",
-      css_class: "#55599",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: community.id,
-    )
-    #->Puertas abiertas
-    menu = General::Menu.find_or_create_by(
-      title: "Puertas abiertas",
-      description: "Puertas abiertas",
-      css_class: "#89999",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    door_open = General::Menu.find_by_title("Puertas abiertas")
-    #Solicitar Puertas Abiertas
-    menu = General::Menu.find_or_create_by(
-      title: "Solicitar Puertas Abiertas",
-      description: "Solicitar Puertas Abiertas",
-      css_class: "#80003",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: door_open.id,
-    )
-    #Descripción
-    menu = General::Menu.find_or_create_by(
-      title: "Descripción",
-      description: "Descripción",
-      css_class: "#82939",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: door_open.id,
-    )
-    #->Cultura Corporativa
-    menu = General::Menu.find_or_create_by(
-      title: "Cultura Corporativa",
-      description: "Cultura Corporativa",
-      css_class: "#65677",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    sporty = General::Menu.find_by_title("Cultura Corporativa")
 
-    #Tiempo libre
-    General::Menu.create(
-      title: "Tiempo libre",
-      description: "Tiempo libre",
-      css_class: "#11110",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    free_time = General::Menu.find_by_title("Tiempo libre")
-    #Avisos clasificados
-    menu = General::Menu.find_or_create_by(
-      title: "Avisos clasificados",
-      description: "Avisos clasificados",
-      css_class: "#11100",
-      link: "avisos-clasificados",
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    #Biblioteca y ludoteca
-    menu = General::Menu.find_or_create_by(
-      title: "Biblioteca y ludoteca",
-      description: "Biblioteca y ludoteca",
-      css_class: "#12000",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    #Jugar y aprender
-    menu = General::Menu.find_or_create_by(
-      title: "Jugar y aprender",
-      description: "Jugar y aprender",
-      css_class: "#19300",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    #Ser +
-    menu = General::Menu.find_or_create_by(
-      title: "Ser +",
-      description: "Ser +",
-      css_class: "#12333",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    #Concursos de cuentos
-    menu = General::Menu.find_or_create_by(
-      title: "Concursos de cuentos",
-      description: "Concursos de cuentos",
-      css_class: "#14559",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    #Concursos de fotografía
-    menu = General::Menu.find_or_create_by(
-      title: "Concursos de fotografía",
-      description: "Concursos de fotografía",
-      css_class: "#15277",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    #Concurso de pintura
-    menu = General::Menu.find_or_create_by(
-      title: "Concurso de pintura",
-      description: "Concurso de pintura",
-      css_class: "#13447",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    #Concuros Papá Espíritu Security
-    menu = General::Menu.find_or_create_by(
-      title: "Concuros Papá Espíritu Security",
-      description: "Concuros Papá Espíritu Security",
-      css_class: "#12222",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: free_time.id,
-    )
-    ################################################ TÉRMINO INFORMADOS
+    titles = ["Bienvenidos", "Cumpleaños", "Nacimientos"]
+    links = ["bienvenidos", "cumpleaños", "nacimientos"]
 
-    #->Mis beneficios
+    titles.length.times do |i|
+      General::Menu.find_or_create_by(
+        title: titles[i],
+        description: titles[i],
+        link: links[i],
+        parent_id: menu.id,
+        profile_id: 1
+      )
+    end
+
+    # - - - - - - - - - - TIEMPO LIBRE - - - - - - - - - -
+    menu = General::Menu.find_or_create_by(
+      title: "Tiempo Libre",
+      description: "Tiempo Libre",
+      parent_id: menu_1.id,
+      profile_id: 1
+    )
+
+    titles = ["Avisos clasificados", "Biblioteca"]
+    links = ["avisos-clasificados", "biblioteca"]
+
+    titles.length.times do |i|
+      General::Menu.find_or_create_by(
+        title: titles[i],
+        description: titles[i],
+        link: links[i],
+        parent_id: menu.id,
+        profile_id: 1
+      )
+    end
+
+    # - - - - - - - - - - MOMENTOS - - - - - - - - - -
+    menu = General::Menu.find_or_create_by(
+      title: "Momentos",
+      description: "Momentos",
+      parent_id: menu_1.id,
+      profile_id: 1
+    )
+
+    titles = ["Ver Momentos"]
+    links = ["momentos"]
+
+    titles.length.times do |i|
+      General::Menu.find_or_create_by(
+        title: titles[i],
+        description: titles[i],
+        link: links[i],
+        parent_id: menu.id,
+        profile_id: 1
+      )
+    end
+
+    # - - - - - - - - - - BERNEFICIOS - - - - - - - - - - - - -
+    puts("******* Creando Menú MIS BENEFICIOS *******")
+    menu_2 = General::Menu.find_or_create_by(title: "MIS BENEFICIOS", profile_id: 1)
+
     menu = General::Menu.find_or_create_by(
       title: "Bonos",
       description: "Bonos",
       css_class: "#y32233",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
+
     bonus = General::Menu.find_by_title("Bonos")
     menu = General::Menu.find_or_create_by(
       title: "Vacaciones",
@@ -1446,7 +601,7 @@ namespace :security do
       css_class: "#u88899",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     credit = General::Menu.find_by_title("Créditos y Subsidios")
     #Créditos Banca Empleados
@@ -1474,7 +629,7 @@ namespace :security do
       css_class: "#o0293",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     secure = General::Menu.find_by_title("Seguros")
     #Seguro de Salud y Catastrófico
@@ -1520,7 +675,7 @@ namespace :security do
       css_class: "#33330",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     scholarship = General::Menu.find_by_title("Becas")
     #Becas de estudio hijos
@@ -1548,7 +703,7 @@ namespace :security do
       css_class: "#o0293",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     b_free_time = General::Menu.find_by_description("Beneficios Tiempo Libre")
     #Jornada reducida (viernes)
@@ -1630,7 +785,7 @@ namespace :security do
       css_class: "#400jk3",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     family = General::Menu.find_by_title("Familia")
     #Post Natal Paterno
@@ -1651,10 +806,10 @@ namespace :security do
       priority: nil,
       parent_id: family.id,
     )
-    #Securitylandia Verano - Invierno
+    #Empresalandia Verano - Invierno
     menu = General::Menu.find_or_create_by(
-      title: "Securitylandia Verano - Invierno",
-      description: "Securitylandia Verano - Invierno",
+      title: "Empresalandia Verano - Invierno",
+      description: "Empresalandia Verano - Invierno",
       css_class: "#444555",
       post_id: extra_post.id,
       priority: nil,
@@ -1694,7 +849,7 @@ namespace :security do
       css_class: "#o0293",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     celebrating = General::Menu.find_by_title("Celebrando")
     #Cumpleaños
@@ -1715,10 +870,10 @@ namespace :security do
       priority: nil,
       parent_id: celebrating.id,
     )
-    #Paseo Grupo Security
+    #Paseo Grupo Empresa
     menu = General::Menu.find_or_create_by(
-      title: "Paseo Grupo Security",
-      description: "Paseo Grupo Security",
+      title: "Paseo Grupo Empresa",
+      description: "Paseo Grupo Empresa",
       css_class: "#57888",
       post_id: extra_post.id,
       priority: nil,
@@ -1733,10 +888,10 @@ namespace :security do
       priority: nil,
       parent_id: celebrating.id,
     )
-    #Nacimientos mini Security
+    #Nacimientos mini Empresa
     menu = General::Menu.find_or_create_by(
-      title: "Nacimientos mini Security",
-      description: "Nacimientos mini Security",
+      title: "Nacimientos mini Empresa",
+      description: "Nacimientos mini Empresa",
       css_class: "#51113",
       post_id: extra_post.id,
       priority: nil,
@@ -1848,7 +1003,7 @@ namespace :security do
       css_class: "#88863",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     healthy = General::Menu.find_by_title("Programa Yo Elijo Salud y Sustentabilidad")
     #Fun Friday´s
@@ -1921,7 +1076,7 @@ namespace :security do
       css_class: "#32099",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
     general = General::Menu.find_by_title("Convenios generales")
     #Convenio Movistar
@@ -1985,8 +1140,12 @@ namespace :security do
       css_class: "#32032",
       link: "",
       priority: nil,
-      parent_id: menu_3.id,
+      parent_id: menu_2.id,
     )
-    puts("/////////// Fin carga de datos base para security ///////////")
+
+    puts("******* Creando Menús Hijos de MIS BENEFICIOS *******")
+
+
+    puts("/////////// Fin carga de datos ///////////")
   end
 end
