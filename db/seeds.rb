@@ -218,3 +218,25 @@ if births_date_today.empty?
 end
 
 # - - - - - - - - - - - PRODUCTOS - - - - - - - - - - - - - - -
+puts("* * * * * * * Creando Productos * * * * * * *")
+user_product = General::User.find(10)
+
+products_type_1 = Marketplace::Product.where(product_type: "Autos")
+if products_type_1.empty?
+  6.times do |i|
+    product = Marketplace::Product.create(name: "Producto Automóvil#{i+1}", description: content, product_type: "Autos", price: 7000000, email: user_product.email, phone: "+561234", location: "Av. 23, Santiago", approved: true, user_id: user_product.id, currency: "$")
+    image_data = File.open("app/assets/images/products/car_#{i+1}.jpg")
+    product.images.attach(io: image_data, filename: File.basename(image_data))
+    product.images.attachments.update(permission: 1)
+  end
+end
+
+products_type_2 = Marketplace::Product.where(product_type: "Propiedades")
+if products_type_2.empty?
+  6.times do |i|
+    product = Marketplace::Product.create(name: "Producto Propiedad #{i+1}", description: content, product_type: "Propiedades", price: 3000, email: user_product.email, phone: "+561234", location: "Av. 23, Santiago", approved: true, user_id: user_product.id, currency: "UF")
+    image_data = File.open("app/assets/images/products/house_#{i+1}.jpg")
+    product.images.attach(io: image_data, filename: File.basename(image_data))
+    product.images.attachments.update(permission: 1)
+  end
+end
