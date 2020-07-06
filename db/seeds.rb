@@ -206,3 +206,15 @@ birth_lastnames_2 = ["Zamorano", "Abarca", "Molina", "López", "Diaz", "Ramirez"
     birth.photo.attachment.update(permission: 1)
   end
 end
+
+births_date_today = Employee::Birth.where(birthday: Date.today)
+if births_date_today.empty?
+  6.times do |i|    
+    birth = Employee::Birth.create(child_name: birth_names[i], child_lastname: birth_lastnames[i], child_lastname2: birth_lastnames_2[i], approved: true, gender: true, is_public: true, user_id: i+2, birthday: Date.today)
+    image_data = File.open("app/assets/images/nacimiento.jpg")
+    birth.photo.attach(io: image_data, filename: File.basename(image_data))
+    birth.photo.attachment.update(permission: 1)
+  end
+end
+
+# - - - - - - - - - - - PRODUCTOS - - - - - - - - - - - - - - -
