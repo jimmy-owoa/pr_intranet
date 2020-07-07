@@ -52,7 +52,7 @@ module Admin
         ActiveStorage::Attachment.find(params["image_id"]).update_attributes(permission: 1)
       elsif approved.present?
         @birth.update_attributes(approved: approved)
-        send_email
+      # send_email
         respond_to do |format|
           format.json { render :json => { value: "success" } and return }
         end
@@ -60,7 +60,7 @@ module Admin
         respond_to do |format|
           if @birth.update(birth_params)
             catch_image(params[:permissions])
-            send_email
+          # send_email
             format.html { redirect_to admin_birth_path(@birth), notice: "Nacimiento fue actualizado con éxito." }
             format.json { render :show, status: :ok, location: @birth }
           else
