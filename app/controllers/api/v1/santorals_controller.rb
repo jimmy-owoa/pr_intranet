@@ -3,9 +3,9 @@ module Api::V1
     include Rails.application.routes.url_helpers
 
     def santorals
-      @santorals = General::Santoral.current
+      santoral = General::Santoral.as_json_with_today
       respond_to do |format|
-        format.json { render json: @santorals }
+        format.json { render json: santoral }
         format.js
       end
     end

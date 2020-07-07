@@ -11,6 +11,23 @@ class Api::V1::ApiController < ApplicationController
   def index
   end
 
+  def indicators
+    data = []
+    today = Date.today.strftime("%d/%m/%Y")
+    indicators = General::EconomicIndicator.where(date: today)
+
+    if indicators.present?
+      data = General::EconomicIndicator.as_json_today_indicators
+    else
+      data = General::EconomicIndicator.as_json_last_indicators
+    end
+
+    respond_to do |format|
+      format.json { render json: data.first }
+      format.js
+    end
+  end
+
   # def current_user_azure
   #   referrer = params[:referrer].gsub("#/", "/").insert(1, "#/") || "/"
   #   user = get_current_user_jwt

@@ -2,11 +2,11 @@ module Api::V1
   class SectionsController < ApiController
     def index
       sections = General::Section.all
-      data = []
+      data_sections = []
       last_know_us_post = News::Post.where(post_type: "Conociéndonos").published_posts.first
       sections.each do |section|
         if section.position == 1
-          data << {
+          data_sections << {
             id: last_know_us_post.id,
             title: last_know_us_post.title,
             description: ActionController::Base.helpers.strip_tags(last_know_us_post.content[0..368]) + "...",
@@ -15,7 +15,7 @@ module Api::V1
             url: last_know_us_post.slug,
           }
         else
-          data << {
+          data_sections << {
             id: section.id,
             title: section.title.upcase,
             description: section.description[0..368],
@@ -25,11 +25,8 @@ module Api::V1
           }
         end
       end
-      respond_to do |format|
-        format.html
-        format.json { render json: data }
-        format.js
-      end
+      data = { status: 'ok', results_length: data_sections.count, sections: data_sections }
+      render json: data, status: :ok
     end
   end
 end
