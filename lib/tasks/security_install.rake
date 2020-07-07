@@ -476,6 +476,27 @@ namespace :security do
       )
     end
 
+    # - - - - - - - - - - ENCUESTAS - - - - - - - - - -
+    menu = General::Menu.find_or_create_by(
+      title: "Encuestas",
+      description: "Encuestas",
+      parent_id: menu_1.id,
+      profile_id: 1
+    )
+
+    titles = ["Ver Encuestas"]
+    links = ["encuestas"]
+
+    titles.length.times do |i|
+      General::Menu.find_or_create_by(
+        title: titles[i],
+        description: titles[i],
+        link: links[i],
+        parent_id: menu.id,
+        profile_id: 1
+      )
+    end
+
     # - - - - - - - - - - BERNEFICIOS - - - - - - - - - - - - -
     puts("******* Creando Menú MIS BENEFICIOS *******")
     menu_2 = General::Menu.find_or_create_by(title: "MIS BENEFICIOS", profile_id: 1)
@@ -696,88 +717,6 @@ namespace :security do
       priority: nil,
       parent_id: scholarship.id,
     )
-    #->Tiempo Libre
-    General::Menu.create(
-      title: "Tiempo Libre",
-      description: "Beneficios Tiempo Libre",
-      css_class: "#o0293",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    b_free_time = General::Menu.find_by_description("Beneficios Tiempo Libre")
-    #Jornada reducida (viernes)
-    menu = General::Menu.find_or_create_by(
-      title: "Jornada reducida (viernes)",
-      description: "Jornada reducida (viernes)",
-      css_class: "#19384",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
-    #24 hrs para algo importante
-    menu = General::Menu.find_or_create_by(
-      title: "24 hrs para algo importante",
-      description: "24 hrs para algo importante",
-      css_class: "#18299",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
-    #Vacaciones temporada baja
-    menu = General::Menu.find_or_create_by(
-      title: "Vacaciones temporada baja",
-      description: "Vacaciones temporada baja",
-      css_class: "#17283",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
-    #Día Libre para cambio de casa
-    menu = General::Menu.find_or_create_by(
-      title: "Día Libre para cambio de casa",
-      description: "Día Libre para cambio de casa",
-      css_class: "#12900",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
-    #Días adicionales de vacaciones
-    menu = General::Menu.find_or_create_by(
-      title: "Días adicionales de vacaciones",
-      description: "Días adicionales de vacaciones",
-      css_class: "#14899",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
-    #Horarios de salida en días especiales
-    menu = General::Menu.find_or_create_by(
-      title: "Horarios de salida en días especiales",
-      description: "Horarios de salida en días especiales",
-      css_class: "#12936",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
-    #Examen de Grado
-    menu = General::Menu.find_or_create_by(
-      title: "Examen de Grado",
-      description: "Examen de Grado",
-      css_class: "#11190",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
-    #Exámenes Preventivos
-    menu = General::Menu.find_or_create_by(
-      title: "Exámenes Preventivos",
-      description: "Exámenes Preventivos",
-      css_class: "#13403",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: b_free_time.id,
-    )
     #->Familia
     menu = General::Menu.find_or_create_by(
       title: "Familia",
@@ -841,160 +780,6 @@ namespace :security do
       post_id: extra_post.id,
       priority: nil,
       parent_id: family.id,
-    )
-    #->Celebrando
-    menu = General::Menu.find_or_create_by(
-      title: "Celebrando",
-      description: "Celebrando",
-      css_class: "#o0293",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
-    )
-    celebrating = General::Menu.find_by_title("Celebrando")
-    #Cumpleaños
-    menu = General::Menu.find_or_create_by(
-      title: "Cumpleaños",
-      description: "Cumpleaños",
-      css_class: "#54321",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Fiesta Fin de Año
-    menu = General::Menu.find_or_create_by(
-      title: "Fiesta Fin de Año",
-      description: "Fiesta Fin de Año",
-      css_class: "#54666",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Paseo Grupo Empresa
-    menu = General::Menu.find_or_create_by(
-      title: "Paseo Grupo Empresa",
-      description: "Paseo Grupo Empresa",
-      css_class: "#57888",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Fiestas Patrias
-    menu = General::Menu.find_or_create_by(
-      title: "Fiestas Patrias",
-      description: "Fiestas Patrias",
-      css_class: "#54321",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Nacimientos mini Empresa
-    menu = General::Menu.find_or_create_by(
-      title: "Nacimientos mini Empresa",
-      description: "Nacimientos mini Empresa",
-      css_class: "#51113",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Inicio año escolar
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Inicio año escolar",
-      description: "Regalo Inicio año escolar",
-      css_class: "#50099",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Pascua de Resurrección
-    menu = General::Menu.find_or_create_by(
-      title: "Pascua de Resurrección",
-      description: "Pascua de Resurrección",
-      css_class: "#56697",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo de Navidad para hijos
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo de Navidad para hijos",
-      description: "Regalo de Navidad para hijos",
-      css_class: "#56666",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Navidad con sentido
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Navidad con sentido",
-      description: "Regalo Navidad con sentido",
-      css_class: "#54111",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Día de la madre
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Día de la madre",
-      description: "Regalo Día de la madre",
-      css_class: "#55446",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Día de padre
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Día de padre",
-      description: "Regalo Día de padre",
-      css_class: "#51116",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Día del abuelo
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Día del abuelo",
-      description: "Regalo Día del abuelo",
-      css_class: "#59998",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Día de la mujer
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Día de la mujer",
-      description: "Regalo Día de la mujer",
-      css_class: "#58889",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Día del abuelo
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Día del abuelo",
-      description: "Regalo Día del abuelo",
-      css_class: "#53428",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Regalo Pasamos Agosto
-    menu = General::Menu.find_or_create_by(
-      title: "Regalo Pasamos Agosto",
-      description: "Regalo Pasamos Agosto",
-      css_class: "#51222",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
-    )
-    #Día de la Secretaria
-    menu = General::Menu.find_or_create_by(
-      title: "Día de la Secretaria",
-      description: "Día de la Secretaria",
-      css_class: "#53339",
-      post_id: extra_post.id,
-      priority: nil,
-      parent_id: celebrating.id,
     )
     #->Programa Yo Elijo Salud y Sustentabilidad
     menu = General::Menu.find_or_create_by(
@@ -1132,15 +917,6 @@ namespace :security do
       post_id: extra_post.id,
       priority: nil,
       parent_id: general.id,
-    )
-    #-> Convenios colectivos
-    menu = General::Menu.find_or_create_by(
-      title: "Convenios colectivos",
-      description: "Convenios colectivos",
-      css_class: "#32032",
-      link: "",
-      priority: nil,
-      parent_id: menu_2.id,
     )
 
     puts("******* Creando Menús Hijos de MIS BENEFICIOS *******")
