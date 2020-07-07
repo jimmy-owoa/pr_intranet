@@ -144,10 +144,8 @@ module Api::V1
         siblings: data_siblings,
         father: data_father,
       }
-      respond_to do |format|
-        format.json { render json: data[0] }
-        format.js
-      end
+
+      render json: { status: "ok", parents_data: data[0] }
     end
 
     def current_user_vue
