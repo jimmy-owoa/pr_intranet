@@ -113,6 +113,33 @@ namespace :security do
     puts("* * * * * * * Cargando Beneficios con usuarios * * * * * * *")
     ExaBenefitsService.perform
 
+    # - - - - - - - - - - - - - - - ORGANIGRAMA - - - - - - - - - - - - - - -
+    puts("* * * * * * * Creando organigramas * * * * * * *")
+    parent = General::User.find(2)
+    (3..12).each do |i|
+      General::User.find(i).update(parent_id: parent.id)
+    end
+
+    parent = General::User.find(13)
+    (14..23).each do |i|
+      General::User.find(i).update(parent_id: parent.id)
+    end
+
+    parent = General::User.find(24)
+    (25..34).each do |i|
+      General::User.find(i).update(parent_id: parent.id)
+    end
+
+    parent = General::User.find(35)
+    (36..45).each do |i|
+      General::User.find(i).update(parent_id: parent.id)
+    end
+
+    parent = General::User.find(46)
+    (47..51).each do |i|
+      General::User.find(i).update(parent_id: parent.id)
+    end
+
     # - - - - - - - - - - - - - - - NOTICIAS - - - - - - - - - - - - - - -
 
     content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus felis felis, sed placerat nunc accumsan eu. Nullam dictum dignissim mattis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas mollis vehicula aliquam. Mauris molestie nisl ac quam tincidunt, nec bibendum elit pharetra. Donec lacinia, arcu a fermentum vulputate, lectus augue rutrum nunc, non aliquam neque massa vel libero. Donec eget posuere mauris. Ut metus massa, vulputate id sodales vel, malesuada eu elit. Nulla facilisi. Aenean viverra sollicitudin sollicitudin. Nunc interdum leo in erat fermentum vulputate eget in est. Nam lacus nibh, faucibus id pellentesque venenatis, efficitur eget sem."
