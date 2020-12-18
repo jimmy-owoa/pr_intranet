@@ -144,10 +144,8 @@ module Api::V1
         siblings: data_siblings,
         father: data_father,
       }
-      respond_to do |format|
-        format.json { render json: data[0] }
-        format.js
-      end
+
+      render json: { status: "ok", parents_data: data[0] }
     end
 
     def current_user_vue
@@ -168,10 +166,12 @@ module Api::V1
         end
       end
       if user.products.present?
-        user.products.each do |product|
+        user.products.last(4).each do |product|
           data_products << {
+            id: product.id,
+            image: url_for(product.images.attachments.first.variant(resize: "900x600")),
             name: product.name,
-            description: product.description,
+            description: product.description.truncate(80),
             product_type: product.product_type,
             price: product.price,
             email: product.email,
@@ -182,6 +182,7 @@ module Api::V1
             user_id: product.user_id,
             is_expired: product.is_expired,
             published_date: product.published_date,
+            currency: product.currency
           }
         end
       end
@@ -233,7 +234,7 @@ module Api::V1
         phone: get_phone(user.annexed),
         address: user.office.try(:address),
         location: @location,
-        products: data_products[0],
+        products: data_products,
         messages: data_messages,
         notifications: user.notifications,
         color: user.get_color,
