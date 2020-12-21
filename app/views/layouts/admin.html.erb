@@ -71,13 +71,25 @@
                 </li>
                 <li class="menu-header">Módulos</li>
                 <!-- Noticias -->
+                
+                <% if false %>                  
+                  <li class="nav-item dropdown <%= 'active' if "/admin/posts".in?(request.path)%>">
+                    <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
+                    <ul class="dropdown-menu">
+                      <li><%= nav_link "Lista de noticias", admin_posts_path %></li>
+                      <li><%= nav_link "Nueva noticia", new_admin_post_path %></li>
+                    </ul>
+                  </li>
+                <% end %>
+
                 <li class="nav-item dropdown <%= 'active' if "/admin/posts".in?(request.path)%>">
-                  <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
+                  <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Beneficios</span></a>
                   <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de noticias", admin_posts_path %></li>
-                    <li><%= nav_link "Nueva noticia", new_admin_post_path %></li>
+                    <li><%= nav_link "Lista de beneficios", admin_posts_path %></li>
+                    <li><%= nav_link "Nuevo beneficio", new_admin_post_path %></li>
                   </ul>
                 </li>
+                
                 <!-- /Noticias -->
                 <!-- Medios -->
                 <li class="nav-item dropdown <%= 'active' if "/admin/attachments".in?(request.path)%>">
