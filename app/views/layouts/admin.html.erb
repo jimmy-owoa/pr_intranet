@@ -67,7 +67,7 @@
               <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
                 <li class="nav-item">
-                  <a href="https://google.com" class="nav-link"><i class="fas fa-fire"></i><span>Sitio usuario</span></a>
+                  <a href="https://master.d67wapnkmqewb.amplifyapp.com" class="nav-link" target="_blank"><i class="fas fa-fire"></i><span>Sitio usuario</span></a>
                 </li>
                 <li class="menu-header">Módulos</li>
                 <!-- Noticias -->
@@ -91,7 +91,7 @@
                 </li>
                 
                 <!-- /Noticias -->
-                <!-- Medios -->
+                <!-- Medios 
                 <li class="nav-item dropdown <%= 'active' if "/admin/attachments".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="far fa-image"></i> <span>Medios</span></a>
                   <ul class="dropdown-menu">
@@ -103,8 +103,8 @@
                     <li><%= nav_link "Archivos", admin_files_path %></li>
                   </ul>
                 </li>
-                <!-- /Medios -->
-                <!-- Formularios -->
+                 /Medios -->
+                <!-- Formularios
                 <li class="nav-item dropdown <%= 'active' if "/admin/surveys".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-poll-h"></i> <span>Formularios</span></a>
                   <ul class="dropdown-menu">
@@ -113,8 +113,8 @@
                     <li><%= nav_link "Nuevo formulario", new_admin_survey_path %></li>
                   </ul>
                 </li>
-                <!-- /Formularios -->
-                <!-- Biblioteca -->
+                /Formularios -->
+                <!-- Biblioteca
                 <li class="nav-item dropdown <%= 'active' if "/admin/books".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-book"></i> <span>Biblioteca</span></a>
                   <ul class="dropdown-menu">
@@ -125,7 +125,7 @@
                     <li><%= nav_link "Nuevo libro", new_admin_book_path %></li>
                   </ul>
                 </li>
-                <!-- /Biblioteca -->
+                /Biblioteca -->
                 <!-- Edición Home -->
                 <li class="nav-item dropdown <%= 'active' if "/admin/links".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-home"></i> <span>Edición Home</span></a>
@@ -135,29 +135,30 @@
                   </ul>
                 </li>
                 <!-- /Edición Home -->
-                <!-- Mensajes -->
+                <!-- Mensajes
                 <li class="nav-item">
                   <a href="<%= admin_messages_path %>">
                     <i class="far fa-comment-alt"></i>Mensajes
                   </a>
                 </li>
-                <!-- /Mensajes -->
-                <!-- Grupos -->
+                 /Mensajes -->
+                <!-- Grupos
                 <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Perfilamiento</a></li>
-                <!-- /Grupos -->
+                /Grupos -->
+                <!-- 
                 <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
                   <li class="menu-header">Beneficios</li>
-                  <!-- Beneficios-->
+                  Beneficio
                   <li>
                     <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a>
                   </li>
-                  <!-- /Beneficios-->
-                  <!-- Grupos Beneficiarios -->
+                  /Beneficios-->
+                  <!-- Grupos Beneficiarios
                   <li>
                     <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a>
                   </li>
-                  <!-- /Grupos Beneficiarios -->
-                <% end %>
+                  /Grupos Beneficiarios
+                <% end %> -->
                 <!-- Marketplace -->
                 <li class="menu-header">Marketplace</li>
                 <li class="nav-item dropdown <%= 'active' if "/admin/products".in?(request.path)%>">
@@ -169,9 +170,9 @@
                   </ul>
                 </li>
                 <!-- /Marketplace -->
-                <!-- Eventos -->
+                <!-- Eventos
                 <li class="menu-header">Eventos</li>
-                <!-- Nacimientos -->
+                 Nacimientos
                 <li class="nav-item dropdown <%= 'active' if "/admin/births".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-dove"></i> <span>Nacimientos</span></a>
                   <ul class="dropdown-menu">
@@ -179,7 +180,7 @@
                     <li><%= nav_link "Pendientes aprobación", admin_births_no_approved_index_path %></li>
                   </ul>
                 </li>
-                <!-- /Nacimientos -->
+                /Nacimientos -->
                 <!-- /Eventos -->
                 <li class="menu-header">Configuración</li>
                 <li class="nav-item dropdown <%= 'active' if "/admin/users".in?(request.path)%>">
