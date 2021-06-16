@@ -24,45 +24,10 @@
     </div>
   </div>
   <div class="wrapper col-md-3">
-    <div class="form-group row">
+    <div class="row">
       <!-- Imagen Principal -->
-      <div class="card text-md-center p-2 col-md-12 col-sm-12" >
-        <div class="form-group">
-          <div class="col-md-12 col-sm-12">
-            <h5 class="card-title">Imagen principal</h5>
-            <% if @post.id.nil? %>
-              <%= image_tag((asset_url('post_news_mini.png')), id:'image_preview', :size => '180x120', :crop => :fill ) %>
-              <!-- <div class="card-body">
-                <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%>
-              </div> -->
-              <br/>
-              <b>
-                <p>Subir Imagen</p>
-              </b>
-              <%= f.fields_for :main_image do |aa| %>
-                <div class="form-group">
-                  <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
-                </div>
-              <% end %>
-            <% else %>
-              <%= image_tag(('/assets/post_news_mini.png'), id:'image_preview', :size => '180x120', :crop => :fill) if @post.main_image.blank? %>
-              <%= image_tag url_for(@post.main_image.attachment.variant(resize: "160x200")) if @post.main_image.present? %>
-              <br />
-              <%= link_to 'Imagen desde galería', new_admin_post_attachment_path(@post), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal', id: 'main_image', remote: true %>
-              <br />
-              <b>
-                <p>Adjuntar imagen</p>
-              </b>
-              <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
-                <div class="form-group">
-                  <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <!-- /Imagen Principal -->
+      <%= render "admin/posts/partials/input_main_image", f: f  %>
+
       <!-- Galería -->
       <div id="post_input_gallery" class="card text-md-center pt-1 col-md-12 col-sm-12" >
         <div class="form-group">
@@ -79,15 +44,12 @@
       </div>
       <!--/Galería-->
       <!-- Video -->
-      <div id="post_input_video" class="card text-md-center pt-1">
-        <div class="form-group">
-          <div class="col-md-12 col-sm-12">
+      <div id="post_input_video" class="card text-md-center pt-1 col-md-12 col-sm-12">
+        <div class="row">
+          <div class="col-md-12">
             <h5 class="card-title">Video</h5>
             <% if @post.id.nil? %>
               <%= image_tag((asset_url('news_video_image.jpg')), id:'video_preview', :size => '180x120', :crop => :fill ) %>
-              <div class="card-body">
-                <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%><br/>
-              </div>
               <b>
                 <p>Subir Video</p>
               </b>
@@ -104,17 +66,14 @@
                 </div>
               <% else %>
                 <%= image_tag(('/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) %>
-                <div class="card-body">
-                  <%= link_to 'Biblioteca de Videos', admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image_nil', remote: true, class: 'card-link'%>
-                </div>
               <% end %>
             <% end %>
           </div>
         </div>
       </div>
       <!-- /Video -->
-      <div class="card text-md-center p-2 wrapper">
-        <div class="form-group row">
+      <div class="card text-md-center p-4 wrapper">
+        <div class="row">
           <div class="col-md-12">
             <%= f.input :post_type, label: "Tipo de Noticia", collection: News::Post::TYPE %>
           </div>
@@ -130,8 +89,16 @@
             <% end %>
           </div>
           <div class="col-md-12">
+            <%= f.label "Aceptar comentarios" %>
+            <%= f.check_box :accept_comments, class: 'post_type' %>
           </div>
-          <div class="col-md-12 col-sm-12"><br>
+  
+          <div class="col-md-12">
+            <%= f.label "Aceptar Me gusta" %>
+            <%= f.check_box :accept_interactions, class: 'post_type' %>
+          </div>
+
+          <div class="col-md-12 mt-3">
             <div class="input-group date" id="published_at" data-target-input="nearest">
               <% if @post.try(:published_at).present? %>
                 <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at', class:'post_published_at'%>
@@ -143,15 +110,13 @@
               </div>
             </div>
           </div>
-          <div class="col-md-12">
-            <br>
-            
+
+          <div class="col-md-12 mt-4">
             <% if @post.id.present? %>
               <%= f.submit "Actualizar Noticia", :class => 'btn btn-primary btn-block' %>
             <% else %>
               <%= f.submit "Crear Noticia", :class => 'btn btn-primary btn-block' %>
             <% end %>
-            
           </div>
         </div>
       </div>
