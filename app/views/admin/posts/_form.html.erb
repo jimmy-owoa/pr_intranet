@@ -26,15 +26,15 @@
   <div class="wrapper col-md-3">
     <div class="form-group row">
       <!-- Imagen Principal -->
-      <div class="card text-md-center p-2" >
+      <div class="card text-md-center p-2 col-md-12 col-sm-12" >
         <div class="form-group">
           <div class="col-md-12 col-sm-12">
             <h5 class="card-title">Imagen principal</h5>
             <% if @post.id.nil? %>
               <%= image_tag((asset_url('post_news_mini.png')), id:'image_preview', :size => '180x120', :crop => :fill ) %>
-              <div class="card-body">
+              <!-- <div class="card-body">
                 <%= link_to 'Biblioteca de imágenes', new_admin_attachment_path(), 'data-toggle' => 'modal', 'data-target' => '#main_image_modal',id: 'main_image_nil', remote: true, class: 'card-link'%>
-              </div>
+              </div> -->
               <br/>
               <b>
                 <p>Subir Imagen</p>
@@ -64,7 +64,7 @@
       </div>
       <!-- /Imagen Principal -->
       <!-- Galería -->
-      <div id="post_input_gallery" class="card text-md-center pt-1" >
+      <div id="post_input_gallery" class="card text-md-center pt-1 col-md-12 col-sm-12" >
         <div class="form-group">
           <div class="col-md-12 col-sm-12">
             <h5 class="card-title">Galería</h5>
@@ -116,14 +116,13 @@
       <div class="card text-md-center p-2 wrapper">
         <div class="form-group row">
           <div class="col-md-12">
-            <%#= f.label :post_type %><br>
-            <%= f.input :post_type, label: "Tipo de beneficio", collection: News::Post::TYPE %>
+            <%= f.input :post_type, label: "Tipo de Noticia", collection: News::Post::TYPE %>
           </div>
           <div class="col-md-12">
             <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
           </div>
           <div class="col-md-12">
-            <%= f.label "Beneficio destacado" %>
+            <%= f.label "Noticia destacada" %>
             <% if f.object.new_record? %>
               <%= f.check_box :important, class: 'post_type', checked: true %>
             <% else %>
@@ -148,9 +147,9 @@
             <br>
             
             <% if @post.id.present? %>
-              <%= f.submit "Actualizar Beneficio", :class => 'btn btn-primary btn-block' %>
+              <%= f.submit "Actualizar Noticia", :class => 'btn btn-primary btn-block' %>
             <% else %>
-              <%= f.submit "Crear Beneficio", :class => 'btn btn-primary btn-block' %>
+              <%= f.submit "Crear Noticia", :class => 'btn btn-primary btn-block' %>
             <% end %>
             
           </div>
