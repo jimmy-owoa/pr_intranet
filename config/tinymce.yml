@@ -1,3 +1,4 @@
+height: 500
 toolbar:
   - formatselect fontsizeselect styleselect alignleft aligncenter alignright | bold italic forecolor backcolor| undo redo | image media link | imagetools | emoticons | paste | print |
 plugins:
@@ -18,9 +19,7 @@ plugins:
   - searchreplace
   - fullscreen
   - emoticons
-  - textcolor
-language:
-  - es
+language: es
 relative_urls: true
 browser_spellcheck:
   - true
