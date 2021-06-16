@@ -69,20 +69,11 @@
                 <li class="nav-item">
                   <a href="https://master.d67wapnkmqewb.amplifyapp.com" class="nav-link" target="_blank"><i class="fas fa-fire"></i><span>Sitio usuario</span></a>
                 </li>
-                <li class="menu-header">Módulos</li>
-                <!-- Noticias -->
-                
-                <% if false %>                  
-                  <li class="nav-item dropdown <%= 'active' if "/admin/posts".in?(request.path)%>">
-                    <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
-                    <ul class="dropdown-menu">
-                      <li><%= nav_link "Lista de noticias", admin_posts_path %></li>
-                      <li><%= nav_link "Nueva noticia", new_admin_post_path %></li>
-                    </ul>
-                  </li>
-                <% end %>
 
-                <li class="nav-item dropdown <%= 'active' if "/admin/posts".in?(request.path)%>">
+                <li class="menu-header">Módulos</li>
+
+                <!-- Noticias -->
+                <li class="nav-item dropdown <%= dropdown_active?(['posts']) %>">
                   <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Lista de Noticias", admin_posts_path %></li>
@@ -104,7 +95,7 @@
                 </li>
     
                 <!-- Formularios -->
-                <li class="nav-item dropdown <%= 'active' if "/admin/surveys".in?(request.path)%>">
+                <li class="nav-item dropdown <%= dropdown_active?(['surveys', 'answers']) %>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-poll-h"></i> <span>Formularios</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Lista de formularios", admin_surveys_path %></li>
@@ -114,7 +105,7 @@
                 </li>
 
                 <!-- Biblioteca -->
-                <li class="nav-item dropdown <%= 'active' if "/admin/books".in?(request.path)%>">
+                <li class="nav-item dropdown <%= dropdown_active?(['book', 'authors', 'editorials']) %>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-book"></i> <span>Biblioteca</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Lista de libros", admin_books_path %></li>
@@ -126,7 +117,7 @@
                 </li>
                 
                 <!-- Edición Home -->
-                <li class="nav-item dropdown <%= 'active' if "/admin/links".in?(request.path)%>">
+                <li class="nav-item dropdown <%= dropdown_active?(['links', 'sections']) %>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-home"></i> <span>Edición Home</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Links", admin_links_path %></li>
@@ -161,7 +152,7 @@
                 <% end %> -->
                 <!-- Marketplace -->
                 <li class="menu-header">Marketplace</li>
-                <li class="nav-item dropdown <%= 'active' if "/admin/products".in?(request.path)%>">
+                <li class="nav-item dropdown <%= dropdown_active?(['products']) %>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-shopping-cart"></i> <span>Anuncios</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Lista de anuncios", admin_products_path %></li>
@@ -170,20 +161,20 @@
                   </ul>
                 </li>
                 <!-- /Marketplace -->
-                <!-- Eventos
+
+                <!-- Nacimientos -->
                 <li class="menu-header">Eventos</li>
-                 Nacimientos
-                <li class="nav-item dropdown <%= 'active' if "/admin/births".in?(request.path)%>">
+                <li class="nav-item dropdown <%= dropdown_active?(['births']) %>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-dove"></i> <span>Nacimientos</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Lista de nacimientos", admin_births_path %></li>
                     <li><%= nav_link "Pendientes aprobación", admin_births_no_approved_index_path %></li>
                   </ul>
                 </li>
-                /Nacimientos -->
-                <!-- /Eventos -->
+
+                <!-- Usuarios -->
                 <li class="menu-header">Configuración</li>
-                <li class="nav-item dropdown <%= 'active' if "/admin/users".in?(request.path)%>">
+                <li class="nav-item dropdown <%= dropdown_active?(['users']) %>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-users"></i> <span>Usuarios</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Lista de usuarios", admin_users_path %></li>
@@ -192,6 +183,8 @@
                 </li>
                 <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
               </ul>
+
+              <!-- Cerrar sesión -->
               <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
                 <a href="#" class="btn btn-danger btn-lg btn-block btn-icon-split">
                   <i class="fas fa-close"></i> Cerrar sesión
