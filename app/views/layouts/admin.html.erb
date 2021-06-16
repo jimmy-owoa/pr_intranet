@@ -9,6 +9,7 @@
     <%= stylesheet_link_tag    'application', media: 'all'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+
   <% if current_user.has_role? :admin %>
     <body>
       <div class="modal" id="gallery_modal"></div>
@@ -111,31 +112,34 @@
               <footer class="text-right p-2 ">Desarrollado por REDEX</footer>
             </div>
           </div>
-          <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
-          <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
-          <!-- General JS Scripts -->
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-          <!-- JS Libraies -->
-          <!-- Template JS File -->
-        </body>
-      <% end %>
-    </html>
-    <style>
-      .fade:not(.show) {
-        opacity: 1 !important;
-        background: #28a745;
-        color: white;
-      }
-      
-      /* Corrección pantallazo verde al cerrar modal */
-      .fade{
-        -webkit-transition: opacity 0s linear;
-        transition: opacity 0s linear;
-      }
-    </style>
-    <script>
-      $("#close_flash").click(function() {
-        $(".alert").fadeOut();
-      });
-      setTimeout(function() { $(".alert").fadeOut("slow"); }, 3000);
-    </script>
+        </div>
+      </div>
+    </body>
+  <% end %>
+  
+  <%= javascript_include_tag 'nicescroll', 'data-turbolinks-track': 'reload' %>
+  <script href="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
+  <!-- General JS Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <!-- JS Libraies -->
+  <!-- Template JS File -->
+</html>
+<style>
+  .fade:not(.show) {
+    opacity: 1 !important;
+    background: #28a745;
+    color: white;
+  }
+  
+  /* Corrección pantallazo verde al cerrar modal */
+  .fade{
+    -webkit-transition: opacity 0s linear;
+    transition: opacity 0s linear;
+  }
+</style>
+<script>
+  $("#close_flash").click(function() {
+    $(".alert").fadeOut();
+  });
+  setTimeout(function() { $(".alert").fadeOut("slow"); }, 3000);
+</script>

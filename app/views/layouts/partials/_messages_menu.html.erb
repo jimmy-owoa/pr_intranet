@@ -1,5 +1,9 @@
-<li class="nav-item">
-  <a href="<%= admin_messages_path %>">
-    <i class="far fa-comment-alt"></i>Mensajes
+<li class="nav-item dropdown <%= dropdown_active?(['messages']) %>">
+  <a class="nav-link has-dropdown" data-toggle="dropdown">
+    <i class="far fa-comment-alt"></i> <span>Mensajes</span>
   </a>
+  <ul class="dropdown-menu">
+    <li><%= nav_link "Lista de mensajes", admin_messages_path %></li>
+    <li><%= nav_link "Nuevo mensaje", new_admin_message_path %></li>
+  </ul>
 </li>
