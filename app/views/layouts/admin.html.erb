@@ -83,16 +83,15 @@
                 <% end %>
 
                 <li class="nav-item dropdown <%= 'active' if "/admin/posts".in?(request.path)%>">
-                  <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Beneficios</span></a>
+                  <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
                   <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de beneficios", admin_posts_path %></li>
-                    <li><%= nav_link "Nuevo beneficio", new_admin_post_path %></li>
+                    <li><%= nav_link "Lista de Noticias", admin_posts_path %></li>
+                    <li><%= nav_link "Nueva Noticia", new_admin_post_path %></li>
                   </ul>
                 </li>
-                
-                <!-- /Noticias -->
-                <!-- Medios 
-                <li class="nav-item dropdown <%= 'active' if "/admin/attachments".in?(request.path)%>">
+
+                <!-- Medios -->
+                <li class="nav-item dropdown <%= dropdown_active?(['attachments', 'galleries', 'files']) %>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="far fa-image"></i> <span>Medios</span></a>
                   <ul class="dropdown-menu">
                     <li><%= nav_link "Lista de medios", admin_attachments_path %></li>
@@ -103,8 +102,8 @@
                     <li><%= nav_link "Archivos", admin_files_path %></li>
                   </ul>
                 </li>
-                 /Medios -->
-                <!-- Formularios
+    
+                <!-- Formularios -->
                 <li class="nav-item dropdown <%= 'active' if "/admin/surveys".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-poll-h"></i> <span>Formularios</span></a>
                   <ul class="dropdown-menu">
@@ -113,8 +112,8 @@
                     <li><%= nav_link "Nuevo formulario", new_admin_survey_path %></li>
                   </ul>
                 </li>
-                /Formularios -->
-                <!-- Biblioteca
+
+                <!-- Biblioteca -->
                 <li class="nav-item dropdown <%= 'active' if "/admin/books".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-book"></i> <span>Biblioteca</span></a>
                   <ul class="dropdown-menu">
@@ -125,7 +124,7 @@
                     <li><%= nav_link "Nuevo libro", new_admin_book_path %></li>
                   </ul>
                 </li>
-                /Biblioteca -->
+                
                 <!-- Edición Home -->
                 <li class="nav-item dropdown <%= 'active' if "/admin/links".in?(request.path)%>">
                   <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-home"></i> <span>Edición Home</span></a>
@@ -135,16 +134,17 @@
                   </ul>
                 </li>
                 <!-- /Edición Home -->
-                <!-- Mensajes
+                
+                <!-- Mensajes -->
                 <li class="nav-item">
                   <a href="<%= admin_messages_path %>">
                     <i class="far fa-comment-alt"></i>Mensajes
                   </a>
                 </li>
-                 /Mensajes -->
-                <!-- Grupos
+
+                <!-- Grupos -->
                 <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Perfilamiento</a></li>
-                /Grupos -->
+
                 <!-- 
                 <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
                   <li class="menu-header">Beneficios</li>
