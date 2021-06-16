@@ -1,0 +1,8 @@
+<li class="nav-item dropdown <%= dropdown_active?(['products']) %>">
+  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-shopping-cart"></i> <span>Anuncios</span></a>
+  <ul class="dropdown-menu">
+    <li><%= nav_link "Lista de anuncios", admin_products_path %></li>
+    <li><%= nav_link "Pendientes de aprobación", admin_products_no_approved_index_path %></li>
+    <li><%= nav_link "Aprobados", admin_products_approved_index_path %></li>
+  </ul>
+</li>

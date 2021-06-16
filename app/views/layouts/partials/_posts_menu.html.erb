@@ -1,0 +1,9 @@
+<li class="nav-item dropdown <%= dropdown_active?(['posts']) %>">
+  <a class="nav-link has-dropdown" data-toggle="dropdown">
+    <i class="far fa-newspaper"></i> <span>Noticias</span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= nav_link "Lista de Noticias", admin_posts_path %></li>
+    <li><%= nav_link "Nueva Noticia", new_admin_post_path %></li>
+  </ul>
+</li>

@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     resources :surveys
     resources :files
     resources :benefits, only: [:show, :edit, :update, :index]
+    resources :benefit_types
+    
     resources :answers do
       get :report, on: :member
     end

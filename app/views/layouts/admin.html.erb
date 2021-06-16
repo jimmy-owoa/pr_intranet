@@ -9,7 +9,7 @@
     <%= stylesheet_link_tag    'application', media: 'all'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <% if current_user.has_role? :super_admin or current_user.has_role? :admin %>
+  <% if current_user.has_role? :admin %>
     <body>
       <div class="modal" id="gallery_modal"></div>
       <div class="modal" id="main_image_modal"></div>
@@ -71,117 +71,26 @@
                 </li>
 
                 <li class="menu-header">Módulos</li>
-
-                <!-- Noticias -->
-                <li class="nav-item dropdown <%= dropdown_active?(['posts']) %>">
-                  <a class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-newspaper"></i> <span>Noticias</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de Noticias", admin_posts_path %></li>
-                    <li><%= nav_link "Nueva Noticia", new_admin_post_path %></li>
-                  </ul>
-                </li>
-
-                <!-- Medios -->
-                <li class="nav-item dropdown <%= dropdown_active?(['attachments', 'galleries', 'files']) %>">
-                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="far fa-image"></i> <span>Medios</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de medios", admin_attachments_path %></li>
-                    <li><%= nav_link "Lista de Imágenes", admin_attachments_images_path %></li>
-                    <li><%= nav_link "Lista de Videos", admin_attachments_videos_path %></li>
-                    <li><%= nav_link "Galerías", admin_galleries_path %></li>
-                    <li><%= nav_link "Añadir medios", new_admin_attachment_path %></li>
-                    <li><%= nav_link "Archivos", admin_files_path %></li>
-                  </ul>
-                </li>
-    
-                <!-- Formularios -->
-                <li class="nav-item dropdown <%= dropdown_active?(['surveys', 'answers']) %>">
-                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-poll-h"></i> <span>Formularios</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de formularios", admin_surveys_path %></li>
-                    <li><%= nav_link "Lista de respuestas", admin_answers_path %></li>
-                    <li><%= nav_link "Nuevo formulario", new_admin_survey_path %></li>
-                  </ul>
-                </li>
-
-                <!-- Biblioteca -->
-                <li class="nav-item dropdown <%= dropdown_active?(['book', 'authors', 'editorials']) %>">
-                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-book"></i> <span>Biblioteca</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de libros", admin_books_path %></li>
-                    <li><%= nav_link "Lista de autores", admin_authors_path %></li>
-                    <li><%= nav_link "Lista de editoriales", admin_editorials_path %></li>
-                    <li><%= nav_link "Lista de solicitudes", admin_user_book_relationships_path %></li>
-                    <li><%= nav_link "Nuevo libro", new_admin_book_path %></li>
-                  </ul>
-                </li>
+                <%= render "layouts/partials/posts_menu" %>
+                <%= render "layouts/partials/medios_menu" %>
+                <%= render "layouts/partials/surveys_menu" %>
+                <%= render "layouts/partials/books_menu" %>
+                <%= render "layouts/partials/home_menu" %>
+                <%= render "layouts/partials/messages_menu" %>
+                <%= render "layouts/partials/profiles_menu" %>
                 
-                <!-- Edición Home -->
-                <li class="nav-item dropdown <%= dropdown_active?(['links', 'sections']) %>">
-                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-home"></i> <span>Edición Home</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Links", admin_links_path %></li>
-                    <li><%= nav_link "Secciones", admin_sections_path %></li>
-                  </ul>
-                </li>
-                <!-- /Edición Home -->
-                
-                <!-- Mensajes -->
-                <li class="nav-item">
-                  <a href="<%= admin_messages_path %>">
-                    <i class="far fa-comment-alt"></i>Mensajes
-                  </a>
-                </li>
+                <li class="menu-header">Beneficios</li>
+                <%= render "layouts/partials/benefits_menu" %>
 
-                <!-- Grupos -->
-                <li><a href="<%= admin_profiles_path %>"><i class="fas fa-users"></i>Perfilamiento</a></li>
-
-                <!-- 
-                <% if current_user.has_role? :super_admin or current_user.has_role? :benefit_admin %>
-                  <li class="menu-header">Beneficios</li>
-                  Beneficio
-                  <li>
-                    <a href="<%= admin_benefits_path %>"><i class="far fa-handshake"></i>Beneficios</a>
-                  </li>
-                  /Beneficios-->
-                  <!-- Grupos Beneficiarios
-                  <li>
-                    <a href="<%= admin_benefit_groups_path %>"><i class="fas fa-people-carry"></i>Grupos Beneficiarios</a>
-                  </li>
-                  /Grupos Beneficiarios
-                <% end %> -->
-                <!-- Marketplace -->
                 <li class="menu-header">Marketplace</li>
-                <li class="nav-item dropdown <%= dropdown_active?(['products']) %>">
-                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-shopping-cart"></i> <span>Anuncios</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de anuncios", admin_products_path %></li>
-                    <li><%= nav_link "Pendientes de aprobación", admin_products_no_approved_index_path %></li>
-                    <li><%= nav_link "Aprobados", admin_products_approved_index_path %></li>
-                  </ul>
-                </li>
-                <!-- /Marketplace -->
+                <%= render "layouts/partials/products_menu" %>
 
-                <!-- Nacimientos -->
                 <li class="menu-header">Eventos</li>
-                <li class="nav-item dropdown <%= dropdown_active?(['births']) %>">
-                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-dove"></i> <span>Nacimientos</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de nacimientos", admin_births_path %></li>
-                    <li><%= nav_link "Pendientes aprobación", admin_births_no_approved_index_path %></li>
-                  </ul>
-                </li>
+                <%= render "layouts/partials/births_menu" %>
 
-                <!-- Usuarios -->
                 <li class="menu-header">Configuración</li>
-                <li class="nav-item dropdown <%= dropdown_active?(['users']) %>">
-                  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-users"></i> <span>Usuarios</span></a>
-                  <ul class="dropdown-menu">
-                    <li><%= nav_link "Lista de usuarios", admin_users_path %></li>
-                    <li><%= nav_link "Aprobación de fotos", admin_users_images_approbation_path %></li>
-                  </ul>
-                </li>
-                <li><a href="<%= admin_menus_path %>"><i class="fab fa-trello"></i>Menús</a></li>
+                <%= render "layouts/partials/users_menu" %>
+                <%= render "layouts/partials/menus_menu" %>
               </ul>
 
               <!-- Cerrar sesión -->
@@ -193,7 +102,7 @@
             </aside>
           </div>
           <div class="main-content">
-            <%= render partial: 'layouts/partials/search' %>
+            <%= render partial: 'layouts/partials/search' %> -->
             <%= flash_messages %>
             <%= yield %>
           </div>

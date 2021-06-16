@@ -1,0 +1,8 @@
+<li class="nav-item dropdown <%= dropdown_active?(['surveys', 'answers']) %>">
+  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-poll-h"></i> <span>Formularios</span></a>
+  <ul class="dropdown-menu">
+    <li><%= nav_link "Lista de formularios", admin_surveys_path %></li>
+    <li><%= nav_link "Lista de respuestas", admin_answers_path %></li>
+    <li><%= nav_link "Nuevo formulario", new_admin_survey_path %></li>
+  </ul>
+</li>
