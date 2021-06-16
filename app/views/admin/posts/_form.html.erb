@@ -27,51 +27,11 @@
     <div class="row">
       <!-- Imagen Principal -->
       <%= render "admin/posts/partials/input_main_image", f: f  %>
-
       <!-- Galería -->
-      <div id="post_input_gallery" class="card text-md-center pt-1 col-md-12 col-sm-12" >
-        <div class="form-group">
-          <div class="col-md-12 col-sm-12">
-            <h5 class="card-title">Galería</h5>
-            <div class="card-body">
-              <% selected_value = @post.gallery.present? ? @post.gallery.id : nil %>
-              <%= f.label :gallery, "Galería", class: 'form-control-label string required' %><br>
-              <%= select_tag :gallery_id, options_for_select(Media::Gallery.all.map { |gal| [gal.name, gal.id] }.sort, selected_value), include_blank: true, multiple: false %><br/>
-              <%= link_to 'Editar Galería', edit_admin_gallery_path(@post.gallery.id) if @post.gallery.present? %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--/Galería-->
+      <%= render "admin/posts/partials/input_gallery", f: f  %>
       <!-- Video -->
-      <div id="post_input_video" class="card text-md-center pt-1 col-md-12 col-sm-12">
-        <div class="row">
-          <div class="col-md-12">
-            <h5 class="card-title">Video</h5>
-            <% if @post.id.nil? %>
-              <%= image_tag((asset_url('news_video_image.jpg')), id:'video_preview', :size => '180x120', :crop => :fill ) %>
-              <b>
-                <p>Subir Video</p>
-              </b>
-              <%= f.fields_for :file_video do |aa| %>
-                <div class="form-group">
-                  <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURLVideo(this);" %>
-                </div>
-              <% end %>
-            <% else %>
-              <% if @post.file_video.present? %>
-                <%= image_tag url_for(@post.file_video.attachment.preview(resize: "x100")), id:'video_preview', size: '180x120' %>
-                <div class="card-body">
-                  <%= link_to "Video seleccionado: #{@post.file_video.name}", admin_new_video_post_path(), 'data-toggle' => 'modal', 'data-target' => '#video_modal',id: 'video_image', remote: true, class: 'card-link'%>
-                </div>
-              <% else %>
-                <%= image_tag(('/assets/news_video_image.jpg'), id:'video_preview', :size => '180x120', :crop => :fill) %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <!-- /Video -->
+      <%= render "admin/posts/partials/input_video", f: f  %>
+
       <div class="card text-md-center p-4 wrapper">
         <div class="row">
           <div class="col-md-12">
