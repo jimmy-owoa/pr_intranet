@@ -144,31 +144,10 @@ module Api::V1
     end
 
     def important_posts
-      posts = News::Post.filter_posts(@request_user, true).normal_posts.first(5)
-      data_articles = []
-      posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "1920x")) : root_url + "/assets/news.jpg"
-        data_articles << {
-          id: post.id,
-          title: post.title,
-          # user_id: General::User.find(post.user_id).name,
-          published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y · %H:%M") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-          content: post.content.present? ? post.content : "",
-          post_type: post.post_type.present? ? post.post_type.upcase : "",
-          important: post.important,
-          slug: post.slug,
-          breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/noticias", name: "Noticias" },
-            { link: "#", name: post.title.truncate(30) },
-          ],
-          main_image: @image,
-          format: post.format,
-        }
-      end
+      posts = News::Post.filter_posts(@request_user).important_posts.first(5)
+      data = ActiveModel::Serializer::CollectionSerializer.new(posts, serializer: PostSerializer)
 
-      data = { status: "ok", results_length: posts.count, articles: data_articles }
-      render json: data, status: :ok
+      render json: { data: data, success: true }
     end
 
     def post

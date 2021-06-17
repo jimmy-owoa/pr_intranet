@@ -1,6 +1,7 @@
 class News::Post < ApplicationRecord
+  include Rails.application.routes.url_helpers
   acts_as_paranoid
-  searchkick match: :word, searchable: [:title, :slug, :content]
+  # searchkick match: :word, searchable: [:title, :slug, :content]
 
   validates_presence_of :title
 
@@ -32,7 +33,8 @@ class News::Post < ApplicationRecord
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
-  scope :normal_posts, -> { where.not(post_type: "Página Informativa").where.not(post_type: "Video") }
+  scope :normal_posts, -> { where.not(post_type: "Video") }
+  scope :important_posts, -> { where(important: true) }
   scope :video_gallery_posts, -> { where.not(post_type: "Página Informativa") }
 
   STATUS = ["Publicado", "Borrador", "Programado"]
@@ -82,10 +84,9 @@ class News::Post < ApplicationRecord
   end
 
   # TODO: optimizar
-  def self.filter_posts(user, important = nil)
-    news = News::Post.where(profile_id: user.profile_ids).published_posts
-    news = news.where(important: important) if important.present?
-    news
+  def self.filter_posts(user)
+    # News::Post.where(profile_id: user.profile_ids).published_posts.normal_posts
+    News::Post.published_posts.normal_posts
   end
 
   def self.get_by_category(category = nil)
@@ -98,6 +99,10 @@ class News::Post < ApplicationRecord
       galleries = self.joins(:gallery).pluck(:id)
       self.where(id: videos + galleries)
     end
+  end
+
+  def get_main_image
+    main_image.present? ? url_for(main_image.attachment) : ""
   end
 
   private
