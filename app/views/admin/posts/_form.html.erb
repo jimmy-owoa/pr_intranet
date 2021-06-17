@@ -23,109 +23,108 @@
       </div>
     </div>
   </div>
+  
   <div class="wrapper col-md-3">
     <div class="row">
-      <!-- Imagen Principal -->
-      <%= render "admin/posts/partials/input_main_image", f: f  %>
-      <!-- Galería -->
-      <%= render "admin/posts/partials/input_gallery", f: f  %>
-      <!-- Video -->
-      <%= render "admin/posts/partials/input_video", f: f  %>
+      <div class="col-md-12 col-sm-12">
+        <%= render "admin/posts/partials/input_main_image", f: f  %>
+      </div>
+      <div class="col-md-12 col-sm-12">
+        <%= render "admin/posts/partials/input_gallery", f: f  %>
+      </div>
+      <div class="col-md-12 col-sm-12">
+        <%= render "admin/posts/partials/input_video", f: f  %>
+      </div>
+    </div>
 
-      <div class="card text-md-center p-4 wrapper">
-        <div class="row">
-          <div class="col-md-12">
-            <%= f.input :post_type, label: "Tipo de Noticia", collection: News::Post::TYPE %>
-          </div>
-          <div class="col-md-12">
-            <%= f.input :status, collection: News::Post::STATUS, prompt: :translate %>
-          </div>
-          <div class="col-md-12">
-            <%= f.label "Noticia destacada" %>
-            <% if f.object.new_record? %>
-              <%= f.check_box :important, class: 'post_type', checked: true %>
-            <% else %>
-              <%= f.check_box :important, class: 'post_type'%>
-            <% end %>
-          </div>
-          <div class="col-md-12">
-            <%= f.label "Aceptar comentarios" %>
-            <%= f.check_box :accept_comments, class: 'post_type' %>
-          </div>
-  
-          <div class="col-md-12">
-            <%= f.label "Aceptar Me gusta" %>
-            <%= f.check_box :accept_interactions, class: 'post_type' %>
-          </div>
+    <div class="card text-md-center p-4 wrapper">
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.label "Tipo de noticia" %><br>
+          <%= f.select :post_type, News::Post::TYPE.map { |m| m }, class:'post_type form-control' %>
+        </div>
+        <div class="col-md-12 mt-2">
+          <%= f.label "Estado" %><br>
+          <%= f.select :status, News::Post::STATUS, prompt: :translate, class:'post_type form-control' %>
+        </div>
+        <div class="col-md-12 mt-2">
+          <%= f.label "Noticia destacada" %>
+          <% if f.object.new_record? %>
+            <%= f.check_box :important, class: 'post_type', checked: true %>
+          <% else %>
+            <%= f.check_box :important, class: 'post_type'%>
+          <% end %>
+        </div>
+        <div class="col-md-12">
+          <%= f.label "Aceptar comentarios" %>
+          <%= f.check_box :accept_comments, class: 'post_type' %>
+        </div>
 
-          <div class="col-md-12 mt-3">
-            <div class="input-group date" id="published_at" data-target-input="nearest">
-              <% if @post.try(:published_at).present? %>
-                <%= f.text_field :published_at, class: 'form-control datetimepicker-input', value: @post.try(:published_at).strftime("%d-%m-%Y %H:%M"), 'data-target' => '#published_at', class:'post_published_at'%>
-              <% else %>
-                <%= f.text_field :published_at, class: 'form-control datetimepicker-input', 'data-target' => '#published_at', placeholder: "Fecha de publicación", label: false, class:'post_published_at' %>
-              <% end %>
-              <div class="input-group-append" data-target="#published_at" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-12">
+          <%= f.label "Aceptar Me gusta" %>
+          <%= f.check_box :accept_interactions, class: 'post_type' %>
+        </div>
 
-          <div class="col-md-12 mt-4">
-            <% if @post.id.present? %>
-              <%= f.submit "Actualizar Noticia", :class => 'btn btn-primary btn-block' %>
-            <% else %>
-              <%= f.submit "Crear Noticia", :class => 'btn btn-primary btn-block' %>
-            <% end %>
-          </div>
+        <div class="col-md-12 mt-3">
+          <%= render "admin/posts/partials/input_date", f: f  %>
+        </div>
+
+        <div class="col-md-12 mt-4">
+          <% if @post.id.present? %>
+            <%= f.submit "Actualizar Noticia", :class => 'btn btn-primary btn-block' %>
+          <% else %>
+            <%= f.submit "Crear Noticia", :class => 'btn btn-primary btn-block' %>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
-  <script>
-    $(document).ready(function(){
-      $('input,textarea').focus(function(){
-        $(this).data('placeholder',$(this).attr('placeholder'))
-                .attr('placeholder','');
-      }).blur(function(){
-        $(this).attr('placeholder',$(this).data('placeholder'));
-      });
-    
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('input,textarea').focus(function(){
+      $(this).data('placeholder',$(this).attr('placeholder'))
+              .attr('placeholder','');
+    }).blur(function(){
+      $(this).attr('placeholder',$(this).data('placeholder'));
     });
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          $("#image_preview")
-            .attr("src", e.target.result)
-            .width(180)
-            .height(120);
-          $("#image_preview")[0].style.objectFit = "cover";
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
+  
+  });
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#image_preview")
+          .attr("src", e.target.result)
+          .width(180)
+          .height(120);
+        $("#image_preview")[0].style.objectFit = "cover";
+      };
+      reader.readAsDataURL(input.files[0]);
     }
-    
-    function readURLVideo(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          $("#video_image, #video_image_nil").text("Video seleccionado");
-          $("#video_preview")
-            .attr("src", "<%= image_path 'news_video_image.jpg' %>")
-            .width(180)
-            .height(120);
-          $("#video_preview")[0].style.objectFit = "cover";
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
+  }
+  
+  function readURLVideo(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#video_image, #video_image_nil").text("Video seleccionado");
+        $("#video_preview")
+          .attr("src", "<%= image_path 'news_video_image.jpg' %>")
+          .width(180)
+          .height(120);
+        $("#video_preview")[0].style.objectFit = "cover";
+      };
+      reader.readAsDataURL(input.files[0]);
     }
-    
-    // Solución para cerrar "datetimepicker" al hacer click fuera.
-    $(document).on('mouseup touchstart', function (e) {
-    var container = $(".bootstrap-datetimepicker-widget");
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-        container.hide();
-      }
-    });
-  </script>
+  }
+  
+  // Solución para cerrar "datetimepicker" al hacer click fuera.
+  $(document).on('mouseup touchstart', function (e) {
+  var container = $(".bootstrap-datetimepicker-widget");
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      container.hide();
+    }
+  });
+</script>
