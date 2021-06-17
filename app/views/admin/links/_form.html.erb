@@ -10,23 +10,47 @@
     <div class="col-12">
       <div class="form-group form-check">
         <%= f.check_box :is_blank, class: 'form-check-input' %>
-        <%= f.label 'Abrir en una nueva pestaña'%>
+        <%= f.label "Abrir en una nueva pestaña" %>
       </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <%= f.radio_button :is_left, true, class: 'radio-inline'%>
+        </div>
+        <div class="col-md-9">
+          Mostrar en carousel izquierdo
+        </div>
+        <div class="col-md-3">
+          <%= f.radio_button :is_left, false, class: 'radio-inline'%>
+        </div>
+        <div class="col-md-9">
+          Mostrar en carousel derecho
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-4">
+      <% selected_value = @link.profile_id || General::Profile.find_by_name("General").id %>
+      <%= f.label "Perfilamiento" %>
+      <%= f.select :profile_id, options_for_select(General::Profile.all.map{|profile| [profile.name, profile.id]}.sort, selected_value), multiple: false, class:' form-control' %>
     </div>
   </div><!-- /.col-7 -->
   
   <div class="col-xs-12 col-md-5" >
     <div class="card border-secondary mb-2">
       <div class="card-body text-secondary border border-primary rounded">
+        <h6>Imagen (600 px x 210 px)</h6>
         <% if @link.image.attachment.present? %>
           <%= image_tag(@link.image.variant(resize: '300x300>'), class: 'left') %>
           <div class="left mt-2">
-            <%= f.file_field :image, required: false, input_html: { accept:'image/*' } %>
+            <%= f.file_field :image, required: false, input_html: { accept:'image/*' }, onchange:"readURL(this);" %>
           </div>
         <% else %>
-          <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" alt="rss feed" />
+          <img src="https://zcoin.io/wp-content/uploads/2017/01/blank-avatar-e1484377033610.png" id="image_preview" alt="rss feed" />
           <div class="left mt-2">
-            <%= f.file_field :image, input_html: { accept:'image/*' } %>
+            <%= f.file_field :image, input_html: { accept:'image/*' }, onchange:"readURL(this);" %>
           </div>
         <% end %>
       </div>
@@ -34,3 +58,44 @@
   </div>
 </div>
 <%= f.submit nil, :class => 'btn btn-primary btn-block' %>
+
+<script>
+  // Limpia los campos al recargar página
+  $(document).ready(function(){
+    $('input,textarea').focus(function(){
+      $(this).data('placeholder',$(this).attr('placeholder'))
+              .attr('placeholder','');
+    }).blur(function(){
+      $(this).attr('placeholder',$(this).data('placeholder'));
+    });
+  
+  });
+  // Muestra una previsualización de la imagen cargada
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#image_preview")
+          .attr("src", e.target.result)
+          .width(180)
+          .height(120);
+        $("#image_preview")[0].style.objectFit = "cover";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function readMobileURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        $("#image_mobile_preview")
+          .attr("src", e.target.result)
+          .width(180)
+          .height(120);
+        $("#image_mobile_preview")[0].style.objectFit = "cover";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
