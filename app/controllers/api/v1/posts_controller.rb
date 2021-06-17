@@ -147,7 +147,7 @@ module Api::V1
       posts = News::Post.filter_posts(@request_user).important_posts.first(5)
       data = ActiveModel::Serializer::CollectionSerializer.new(posts, serializer: PostSerializer)
 
-      render json: { data: data, success: true }
+      render json: { data: data, success: true }, status: :ok
     end
 
     def post
