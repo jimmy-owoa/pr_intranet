@@ -3,37 +3,21 @@ module Api::V1
     include ApplicationHelper
 
     def index
+      category = params[:category]
+      page = params[:page] || 1
+    
       user_posts = News::Post.filter_posts(@request_user).normal_posts
-      posts = params[:category].present? ? user_posts.where(post_type: params[:category]) : user_posts
-      posts = posts.paginate(:page => params[:page], :per_page => 10)
-      data_posts = [] 
-      posts.each do |post|
-        @image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "900x600")) : root_url + "/assets/news.jpg"
-        extract = post.extract.slice(0..104) rescue post.extract
-        content = fix_content(post.content)
-        data_posts << {
-          id: post.id,
-          title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
-          full_title: post.title,
-          published_at: post.published_at.strftime("%d/%m/%Y"),
-          post_type: post.post_type.present? ? post.post_type.upcase : "",
-          content: content,
-          important: post.important,
-          slug: post.slug,
-          extract: extract,
-          breadcrumbs: [
-            { link: "/", name: "Inicio" },
-            { link: "/noticias", name: "Noticias" },
-            { link: "#", name: post.title.truncate(30) },
-          ],
-          main_image: @image,
-          format: post.format,
-        }
-      end
+      posts = category.present? ? user_posts.where(post_type: category) : user_posts
+      posts = posts.page(page).per(10)
 
-      data = { status: "ok", page: params[:page] || 1, results_length: data_posts.count, articles: data_posts}
+      data = ActiveModel::Serializer::CollectionSerializer.new(posts, serializer: PostSerializer)
 
-      render json: data, status: :ok
+      render json: { 
+        data: data,
+        size: posts.size,
+        total_pages: posts.total_pages, 
+        total_count: posts.total_count 
+      }, status: :ok
     end
 
     def index_video

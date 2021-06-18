@@ -4,4 +4,8 @@ class PostSerializer < ActiveModel::Serializer
   def main_image
     object.get_main_image
   end
+
+  def published_at
+    object.published_at.strftime("%d/%m/%Y")
+  end
 end
