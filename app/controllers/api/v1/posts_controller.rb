@@ -137,48 +137,23 @@ module Api::V1
     def post
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-      if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
-        relationed_posts = post.get_relationed_posts(@request_user)
 
-        data_relationed_posts = []
-        relationed_posts.each do |post|
-          data_relationed_posts << {
-            id: post.id,
-            title: post.title,
-            slug: post.slug,
-            extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
-            published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-            main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "400x200")) : root_url + "/assets/news.jpg",
-          }
-        end
-        content = fix_content(post.content)
+      render json: post, serializer: PostSerializer, show: true
+      # if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
+      #   relationed_posts = post.get_relationed_posts(@request_user)
 
-        data_article = {
-          id: post.id,
-          title: post.title,
-          # url: root_url + "admin/posts/" + "#{post.id}" + "/edit",
-          user_id: post.user_id,
-          published_at: post.published_at.present? ? post.published_at.strftime("%d-%m-%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-          content: content,
-          post_type: post.post_type.present? ? post.post_type.upcase : "",
-          important: post.important,
-          tags: post.terms.tags,
-          main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "1000x800")) : root_url + "/assets/news.jpg",
-          format: post.format,
-          extract: post.extract.present? ? post.extract : "",
-          status: post.status,
-        }
-
-        breadcrumbs = [
-          { text: "Inicio", href: "/", disabled: false },
-          { text: "Noticias", href: "/noticias", disabled: false },
-          { text: post.title.truncate(34), href: "/", disabled: true },
-        ]
-        data = { status: "ok", article: data_article, relationed_posts: data_relationed_posts, breadcrumbs: breadcrumbs }
-        render json: data, status: :ok
-      else
-        render json: { status: "error", message: "No tiene accesso" }
-      end
+      #   data_relationed_posts = []
+      #   relationed_posts.each do |post|
+      #     data_relationed_posts << {
+      #       id: post.id,
+      #       title: post.title,
+      #       slug: post.slug,
+      #       extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
+      #       published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
+      #       main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "400x200")) : root_url + "/assets/news.jpg",
+      #     }
+      #   end
+      #   content = fix_content(post.content)
     end
 
     def last_posts
