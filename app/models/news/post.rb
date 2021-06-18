@@ -83,6 +83,10 @@ class News::Post < ApplicationRecord
     News::Post.get_by_category().where.not(id: self.id).last(5)
   end
 
+  def get_show_published_at
+    I18n.l(published_at.to_date, format: :long).capitalize
+  end
+
   # TODO: optimizar
   def self.filter_posts(user)
     # News::Post.where(profile_id: user.profile_ids).published_posts.normal_posts

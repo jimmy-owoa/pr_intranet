@@ -7,7 +7,11 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def published_at
-    object.published_at.strftime("%d/%m/%Y")
+    if is_show?
+      object.get_show_published_at
+    else
+      object.published_at.strftime("%d/%m/%Y")
+    end
   end
 
   def breadcrumbs
