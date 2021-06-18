@@ -12,9 +12,9 @@ class PostSerializer < ActiveModel::Serializer
 
   def breadcrumbs
     [
-      { to: "/", text: "Inicio" },
-      { to: "/noticias", text: "Noticias" },
-      { to: "", text: object.title.truncate(30) },
+      { to: "/", text: "Inicio", disabled: false, exact: true },
+      { to: "/noticias", text: "Noticias", disabled: false, exact: true },
+      { to: "", text: object.title.truncate(30), disabled: true },
     ]
   end
 
