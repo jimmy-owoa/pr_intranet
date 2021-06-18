@@ -137,23 +137,8 @@ module Api::V1
     def post
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
-
-      render json: post, serializer: PostSerializer, show: true
-      # if @request_user.has_role?(:admin) || @request_user.has_role?(:super_admin) || post.profile_id.in?(@request_user.profile_ids)
-      #   relationed_posts = post.get_relationed_posts(@request_user)
-
-      #   data_relationed_posts = []
-      #   relationed_posts.each do |post|
-      #     data_relationed_posts << {
-      #       id: post.id,
-      #       title: post.title,
-      #       slug: post.slug,
-      #       extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
-      #       published_at: post.published_at.present? ? post.published_at.strftime("%d/%m/%Y") : post.created_at.strftime("%d/%m/%Y · %H:%M"),
-      #       main_image: post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "400x200")) : root_url + "/assets/news.jpg",
-      #     }
-      #   end
-      #   content = fix_content(post.content)
+      # data = ActiveModelSerializers::SerializableResource.new(post, serializer: PostSerializer, show_action: true)
+      render json: post, serializer: PostSerializer, show_action: true
     end
 
     def last_posts

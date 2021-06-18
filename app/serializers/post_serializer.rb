@@ -1,6 +1,7 @@
 class PostSerializer < ActiveModel::Serializer
   attributes :id, :title, :published_at, :content, :post_type, :important, :slug, :main_image
   attribute :breadcrumbs, if: -> { is_show? }
+  attribute :relationed_posts, if: -> { is_show? }
 
   def main_image
     object.get_main_image
@@ -22,7 +23,20 @@ class PostSerializer < ActiveModel::Serializer
     ]
   end
 
+  def relationed_posts
+    object.get_relationed_posts(@request_user).map do |post|
+      {
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+        extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
+        published_at: post.published_at.strftime("%d/%m/%Y"),
+        main_image: post.get_main_image
+      }
+    end
+  end
+
   def is_show?
-    instance_options[:show]
+    instance_options[:show_action].present? ? true : false
   end
 end
