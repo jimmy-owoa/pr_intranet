@@ -5,7 +5,7 @@ class General::User < ApplicationRecord
   acts_as_paranoid
   acts_as_nested_set
   rolify
-  searchkick
+  # searchkick
   validates_presence_of :name, :email, :legal_number, :legal_number_verification
   validates_uniqueness_of :email
   #relationships
