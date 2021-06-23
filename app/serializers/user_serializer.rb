@@ -10,6 +10,6 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def company
-    object.company.name
+    object.company.try(:name)
   end
 end

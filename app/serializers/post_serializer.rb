@@ -27,9 +27,8 @@ class PostSerializer < ActiveModel::Serializer
     object.get_relationed_posts(@request_user).map do |post|
       {
         id: post.id,
-        title: post.title,
+        title: post.title.truncate(30),
         slug: post.slug,
-        extract: post.extract.present? && post.extract.length > 36 ? post.extract.slice(0..36) + "..." : post.extract,
         published_at: post.published_at.strftime("%d/%m/%Y"),
         main_image: post.get_main_image
       }
