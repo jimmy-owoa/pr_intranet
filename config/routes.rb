@@ -134,6 +134,7 @@ Rails.application.routes.draw do
         get :post, on: :collection
         get :important_posts, on: :collection
         get :gallery, on: :collection
+        resources :comments, only: [:index, :create, :destroy]
       end
       resources :births, only: [:index] do
         get :home_births, on: :collection

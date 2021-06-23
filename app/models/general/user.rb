@@ -49,6 +49,8 @@ class General::User < ApplicationRecord
   has_many :education_institutions, through: :user_educations
   has_many :users, through: :user_educations
 
+  has_many :comments, class_name: 'News::Comment', foreign_key: :user_id
+
   has_many :family_members, class_name: "PersonalData::FamilyMember"
 
   has_one :menu_exa, class_name: "Menu::Exa", foreign_key: :user_id
