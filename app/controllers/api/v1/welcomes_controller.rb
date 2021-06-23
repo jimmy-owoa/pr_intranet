@@ -2,28 +2,10 @@ module Api::V1
   class WelcomesController < ApiController
     include ApplicationHelper
 
-    def get_home_welcome
-      new_users = General::User.users_welcome.limit(4)
-      data_users = []
-      new_users.each do |user|
-        data_users << {
-          id: user.id,
-          email: user.email,
-          created_at: user.created_at,
-          name: user.favorite_name.present? ? user.favorite_name : user.name,
-          last_name: user.try(:last_name),
-          active: user.active,
-          annexed: user.annexed,
-          birthday: user.birthday,
-          company: user.company.present? ? user.company.name.titleize : nil,
-          date: user.date_entry.present? ? user.date_entry.strftime("%Y-%m-%d") : user.date_entry,
-          show_birthday: user.show_birthday,
-          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300")) :  ActionController::Base.helpers.asset_path("default_avatar.png"),
-          color: user.get_color,
-        }
-      end
-      data = { status: "ok", results_length: data_users.count, users: data_users }
-      render json: data, status: :ok
+    def home_welcome
+      users = General::User.users_welcome.limit(4)
+
+      render json: users,each_serializer: UserSerializer, status: :ok
     end
 
     def index

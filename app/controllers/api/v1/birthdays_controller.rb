@@ -36,27 +36,10 @@ module Api::V1
       end
     end
 
-    def get_home_birthdays
-      birthdays_users = General::User.users_birthday_today.show_birthday.sample(4)
-      data_birthdays = []
-      birthdays_users.each do |user|
-        data_birthdays << {
-          id: user.id,
-          name: user.favorite_name.present? ? user.favorite_name : user.name,
-          last_name: user.last_name,
-          full_name: get_full_favorite_name(user),
-          email: user.email,
-          active: user.active,
-          annexed: user.annexed,
-          birthday: user.birthday,
-          created_at: user.created_at,
-          company: user.company.present? ? user.company.name.titleize : "",
-          image: user.image.attached? ? url_for(user.image.variant(resize: "300x300>")) :  ActionController::Base.helpers.asset_path("default_avatar.png"),
-          color: user.get_color,
-        }
-      end
-      data = { status: "ok", results_length: data_birthdays.count, birthdays: data_birthdays }
-      render json: data, status: :ok
+    def home_birthdays
+      users = General::User.users_birthday_today.show_birthday.sample(4)
+      
+      render json: users, each_serializer: UserSerializer, status: :ok
     end
   end
 end

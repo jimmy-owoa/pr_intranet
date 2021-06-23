@@ -2,6 +2,7 @@ require "uri"
 require "net/http"
 
 class General::User < ApplicationRecord
+  include Rails.application.routes.url_helpers
   acts_as_paranoid
   acts_as_nested_set
   rolify
@@ -196,7 +197,6 @@ class General::User < ApplicationRecord
   end
 
   def self.users_welcome
-    # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
     General::User.where(date_entry: (Date.today - 100.days)..Date.today).order("RAND()")
   end
 
@@ -265,6 +265,10 @@ class General::User < ApplicationRecord
     attributes.each do |attr|
       set_data_attributes(attr[0], attr[1])
     end
+  end
+
+  def get_image
+    image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("default_avatar.png")
   end
 
   private

@@ -129,9 +129,8 @@ module Api::V1
 
     def important_posts
       posts = News::Post.filter_posts(@request_user).important_posts.first(5)
-      data = ActiveModel::Serializer::CollectionSerializer.new(posts, serializer: PostSerializer)
 
-      render json: { data: data, success: true }, status: :ok
+      render json: posts, each_serializer: PostSerializer, status: :ok
     end
 
     def post
@@ -139,26 +138,6 @@ module Api::V1
       post = News::Post.find_by_slug(slug)
       # data = ActiveModelSerializers::SerializableResource.new(post, serializer: PostSerializer, show_action: true)
       render json: post, serializer: PostSerializer, show_action: true
-    end
-
-    def last_posts
-      posts = News::Post.normal_posts.published_posts.order(published_at: :desc).last(5)
-      data_articles = []
-      posts.each do |post|
-        post_image = post.main_image.present? ? url_for(post.main_image.attachment.variant(resize: "100x100")) : root_url + "/assets/news.jpg"
-        extract = post.extract.slice(0..104) rescue post.extract
-        data_articles << {
-          id: post.id,
-          title: post.title.length > 43 ? post.title.slice(0..43) + "..." : post.title,
-          published_at: post.published_at.strftime("%d/%m/%Y"),
-          post_type: post.post_type.present? ? post.post_type.upcase : "",
-          slug: post.slug,
-          extract: extract,
-          main_image: post_image,
-        }
-      end
-      data = { status: "ok", results_length: posts.count, articles: data_articles }
-      render json: data, status: :ok
     end
 
     private
