@@ -18,7 +18,7 @@ module Api::V1
           content: comment.content,
           user: comment.user.full_name,
           user_id: comment.user_id,
-          avatar: comment.user.get_avatar,
+          avatar: comment.user.get_image,
           created_at: comment.created_at.strftime('%d-%m-%Y %H:%M')
         }
       end
