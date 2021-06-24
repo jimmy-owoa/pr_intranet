@@ -1,7 +1,10 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :title, :published_at, :content, :post_type, :important, :slug, :main_image
+  attributes :id, :title, :published_at, :content, :post_type, :important, :slug, :main_image, :accept_interactions
   attribute :breadcrumbs, if: -> { is_show? }
   attribute :relationed_posts, if: -> { is_show? }
+  attribute :interactions, if: -> { is_show? }
+  attribute :interaction_id, if: -> { is_show? }
+  attribute :interaction_type, if: -> { is_show? }
 
   def main_image
     object.get_main_image
@@ -33,6 +36,18 @@ class PostSerializer < ActiveModel::Serializer
         main_image: post.get_main_image
       }
     end
+  end
+
+  def interactions
+    object.get_interactions
+  end
+
+  def interaction_id
+    object.interactions.find_by(user_id: instance_options[:user_id]).try(:id)
+  end
+
+  def interaction_type
+    object.interactions.find_by(user_id: instance_options[:user_id]).try(:interaction_type)
   end
 
   def is_show?

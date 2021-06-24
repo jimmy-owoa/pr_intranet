@@ -14,6 +14,7 @@ class News::Post < ApplicationRecord
   has_many :menus, class_name: "General::Menu"
   has_many :attachments, as: :attachable
   has_many :files, class_name: "Media::File"
+  has_many :interactions, class_name: 'News::Interaction', foreign_key: :post_id, dependent: :destroy
 
   belongs_to :profile, class_name: "General::Profile", optional: true
   belongs_to :post_parent, class_name: "News::Post", optional: true
@@ -87,6 +88,25 @@ class News::Post < ApplicationRecord
     I18n.l(published_at.to_date, format: :long).capitalize
   end
 
+  def get_interactions
+    return [] if !accept_interactions && interactions.empty?
+
+    [
+      { name: 'I like', total: self.total_interactions('I like') },
+      { name: 'I love it', total: self.total_interactions('I love it') },
+      { name: 'I enjoy', total: self.total_interactions('I enjoy') },
+      { name: 'I surprises', total: self.total_interactions('I surprises') }
+    ]
+  end
+
+  def total_interactions(type)
+    interactions.where(interaction_type: type).count
+  end
+
+  def liked? (user)
+    !!self.interactions.find_by(user_id: user.id)
+  end
+  
   # TODO: optimizar
   def self.filter_posts(user)
     # News::Post.where(profile_id: user.profile_ids).published_posts.normal_posts
