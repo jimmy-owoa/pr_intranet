@@ -279,6 +279,16 @@ class General::User < ApplicationRecord
     users.order(:date_entry).page(page).per(9)
   end
 
+  def self.get_birthday_users(page, month)
+    if month == "0"
+      users = self.users_birthday_today.show_birthday
+    else
+      users = self.where("extract(month from birthday) = ?", month).order("DAY(birthday)").show_birthday
+    end
+
+    users.order(:birthday).page(page).per(9)
+  end
+
   private
 
   def set_data_attributes(attr_name, attr_value)
