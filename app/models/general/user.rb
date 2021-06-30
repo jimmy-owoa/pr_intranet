@@ -181,11 +181,11 @@ class General::User < ApplicationRecord
     end
   end
 
-  def full_name
-    if self.last_name.present?
-      self.name + " " + self.last_name
+  def get_full_name
+    if favorite_name.present?
+      "#{favorite_name} #{last_name}"
     else
-      self.name
+      "#{name} #{last_name}"
     end
   end
 
@@ -271,6 +271,12 @@ class General::User < ApplicationRecord
 
   def get_image
     image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("default_avatar.png")
+  end
+
+  def self.get_welcomes_users(page, month)
+    first_day_selected_month = Date.new(Date.today.year, month.to_i, 1)
+    users = self.where(date_entry: first_day_selected_month..first_day_selected_month.end_of_month)
+    users.order(:date_entry).page(page).per(9)
   end
 
   private
