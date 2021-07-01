@@ -137,7 +137,7 @@ Rails.application.routes.draw do
         resources :comments, only: [:index, :create, :destroy]
         resources :interactions, only: [:create, :destroy]
       end
-      resources :births, only: [:index] do
+      resources :births, only: [:index, :create] do
         get :home_births, on: :collection
       end
       resources :welcomes, only: [:index] do

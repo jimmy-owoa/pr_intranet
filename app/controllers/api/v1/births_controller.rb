@@ -83,29 +83,13 @@ module Api::V1
       render json: data, status: :ok
     end
 
-    def new
-      add_breadcrumb "Nacimientos", :frontend_births_path
-      @birth = Employee::Birth.new
-    end
-
-    def show
-    end
-
     def create
-      @birth = Employee::Birth.new(birth_params)
+      birth = Employee::Birth.new(birth_params)
 
-      if @birth.save
-        render json: { status: "ok", birth: @birth }, status: :created
+      if birth.save
+        render json: { success: true, message: "Birth created"}, status: :created
       else
-        render json: { status: "error", message: @birth.errors }, status: :unprocessable_entity
-      end
-    end
-
-    def destroy
-      @birth.destroy
-      respond_to do |format|
-        format.html { redirect_to admin_births_path, notice: "Birth was successfully destroyed." }
-        format.json { head :no_content }
+        render json: { success: false, message: "Error" }, status: :unprocessable_entity
       end
     end
 
@@ -117,7 +101,7 @@ module Api::V1
     end
 
     def birth_params
-      params.require(:birth).permit(:full_name_mother, :full_name_father, :is_public, :child_name, :child_lastname,
+      params.require(:birth).permit(:is_public, :child_name, :child_lastname,
                                     :child_lastname2, :birthday, :photo, :approved, :gender, :user_id)
     end
   end
