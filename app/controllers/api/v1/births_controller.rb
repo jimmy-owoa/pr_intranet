@@ -10,50 +10,13 @@ module Api::V1
     skip_before_action :verify_authenticity_token, only: [:create]
 
     def index
-      page = params[:page]
-      date = params[:date]
+      page = params[:page] || 1
+      month = params[:month] || 1
 
-      if page.present? && date.present?
-        all_births = Employee::Birth.show_birth.where("extract(year from birthday) = ?", Date.today.year).where("extract(month from birthday) = ?", date) #se cambio de un año a un mes
-        births = all_births.order(:birthday).page(page).per(9)
-        data_births = []
-        births.each do |birth|
-          if birth.user.present?
-            email = birth.user.email
-            color = birth.user.get_color
-            company_name = birth.user.company.name
-          else
-            email = "sin email"
-            color = "black"
-          end
-          images = []
-          # CORREGIR TODO NACIMIENTOS.
-          if birth.photo.attachment
-            if birth.permitted_image
-              images << url_for(birth.photo.variant(resize: "500x500>"))
-            end
-          end
-          # birth.permitted_images.map { |image| images << url_for(image.variant(resize: "500x500>")) }
-          data_births << {
-            id: birth.id,
-            name: birth.child_name,
-            last_names: birth.child_lastname + " " + birth.child_lastname2,
-            company: company_name,
-            photo: birth.photo.attachment ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
-            images: images,
-            gender: birth.gender,
-            birthday: l(birth.birthday, format: "%d de %B").downcase,
-            birthday_format_2: birth.birthday.strftime("%d-%m-%Y"),
-            father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
-            email: email,
-            color: color,
-          }
-        end
-        data = { status: "ok", page: page, results_length: data_births.count, births: data_births }
-        render json: data, status: :ok
-      else
-        render json: { status: "error", message: "bad request" }, status: :bad_request
-      end
+      births = Employee::Birth.get_births_index(page, month)
+      data = ActiveModel::Serializer::CollectionSerializer.new(births, serializer: BirthSerializer, is_index: true)
+
+      render json: { births: data, meta: meta_attributes(births) }, status: :ok
     end
 
     def get_home_births
@@ -95,7 +58,6 @@ module Api::V1
 
     private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_birth
       @birth = Employee::Birth.find(params[:id])
     end
