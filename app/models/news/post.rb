@@ -1,7 +1,7 @@
 class News::Post < ApplicationRecord
   include Rails.application.routes.url_helpers
   acts_as_paranoid
-  # searchkick match: :word, searchable: [:title, :slug, :content]
+  searchkick match: :word, searchable: [:title, :slug, :content]
 
   validates_presence_of :title
 
