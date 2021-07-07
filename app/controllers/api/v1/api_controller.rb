@@ -109,7 +109,7 @@ class Api::V1::ApiController < ApplicationController
   # end
 
   def get_user
-    @request_user = General::User.find(9)
+    @request_user = General::User.all.sample(1).last
     # @request_user = General::User.find(11)
   end
 end
