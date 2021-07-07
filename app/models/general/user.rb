@@ -189,6 +189,14 @@ class General::User < ApplicationRecord
     end
   end
 
+  def full_name
+    if last_name.present?
+      name + ' ' + last_name + ' ' + self.try(:last_name2).to_s
+    else
+      name
+    end
+  end
+  
   def assign_default_role
     add_role(:user) if roles.blank?
   end
