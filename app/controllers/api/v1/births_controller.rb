@@ -19,31 +19,10 @@ module Api::V1
       render json: { births: data, meta: meta_attributes(births) }, status: :ok
     end
 
-    def get_home_births
-      births = Employee::Birth.show_birth.order(birthday: :asc).last(4)
-      data_births = []
-      births.each do |birth|
-        images = []
-        if birth.photo.attachment
-          if birth.permitted_image
-            images << url_for(birth.photo.variant(resize: "500x500>"))
-          end
-        end
+    def home_births
+      births = Employee::Birth.public_births.order(birthday: :desc).first(4)
 
-        data_births << {
-          id: birth.id,
-          child_full_name: birth.child_name + " " + birth.child_lastname + " " + birth.child_lastname2,
-          photo: birth.permitted_image ? url_for(birth.photo.attachment.variant(resize: "500x500>")) :  ActionController::Base.helpers.asset_path("birth.png"),
-          images: images,
-          gender: birth.gender ? "Masculino" : "Femenino",
-          birthday: birth.birthday.strftime("%d/%m"),
-          father: birth.user.present? ? get_full_favorite_name(birth.user) : "",
-          color: birth.user.present? ? birth.user.get_color : "black",
-          email: birth.user.present? ? birth.user.email : "",
-        }
-      end
-      data = { status: "ok", results_length: data_births.count, births: data_births }
-      render json: data, status: :ok
+      render json: births, each_serializer: BirthSerializer, status: :ok
     end
 
     def create
