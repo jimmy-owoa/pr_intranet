@@ -1,0 +1,9 @@
+<li class="nav-item dropdown <%= dropdown_active?(['profiles']) %>">
+  <a class="nav-link has-dropdown" data-toggle="dropdown">
+    <i class="fas fa-users"></i> <span>Perfilamiento</span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= nav_link "Lista de perfiles", admin_profiles_path %></li>
+    <li><%= nav_link "Nuevo perfil", new_admin_profile_path %></li>
+  </ul>
+</li>

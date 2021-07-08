@@ -28,6 +28,16 @@ class Api::V1::ApiController < ApplicationController
     end
   end
 
+  def meta_attributes(collection)
+    {
+      size: collection.size,
+      current_page: collection.current_page,
+      next_page: collection.next_page,
+      total_pages: collection.total_pages,
+      total_count: collection.total_count
+    }
+  end
+
   # def current_user_azure
   #   referrer = params[:referrer].gsub("#/", "/").insert(1, "#/") || "/"
   #   user = get_current_user_jwt
@@ -99,7 +109,7 @@ class Api::V1::ApiController < ApplicationController
   # end
 
   def get_user
-    @request_user = General::User.all.sample(1).first
+    @request_user = General::User.all.sample(1).last
     # @request_user = General::User.find(11)
   end
 end

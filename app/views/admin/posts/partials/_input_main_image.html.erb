@@ -1,0 +1,44 @@
+<div class="card text-md-center p-2">
+  <div class="form-group">
+    <div class="col-md-12 col-sm-12">
+      <h5 class="card-title">Imagen principal</h5>
+      <% if @post.id.nil? %>
+        <%= image_tag(
+              (asset_url('post_news_mini.png')), 
+              id:'image_preview', 
+              size: '180x120', 
+              crop: :fill 
+            ) 
+        %>
+
+        <b><p>Subir Imagen</p></b>
+        
+        <%= f.fields_for :main_image do |aa| %>
+          <div class="form-group">
+            <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
+          </div>
+        <% end %>
+      <% else %>
+        <%= image_tag(('/assets/post_news_mini.png'), 
+              id: 'image_preview', 
+              size: '180x120', 
+              crop: :fill) if @post.main_image.blank? 
+        %>
+
+        <%= image_tag(
+              url_for(@post.main_image.attachment.variant(resize: "160x200")),
+              id: 'image_preview'
+            ) if @post.main_image.present?
+        %>
+
+        <b><p>Adjuntar imagen</p></b>
+
+        <%= f.fields_for :main_image, @post.build_main_image do |aa| %>
+          <div class="form-group">
+            <%= aa.file_field :attachment, class:'form-control-file', onchange:"readURL(this);" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

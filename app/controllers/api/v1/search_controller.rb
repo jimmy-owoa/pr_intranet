@@ -4,7 +4,6 @@ module Api::V1
     skip_before_action :get_user, only: [:search_menu]
 
     def search_vue
-      data = []
       users = []
       posts = []
       menus = []
@@ -47,10 +46,10 @@ module Api::V1
         menus_result.each do |menu|
           menus << menu if menu.link.present?
         end
-        data << [users, posts, menus]
+        data = {users: users, posts: posts, menus: menus}
       end
       respond_to do |format|
-        format.json { render json: data[0] }
+        format.json { render json: data }
         format.js
       end
     end

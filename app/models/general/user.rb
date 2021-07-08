@@ -2,6 +2,7 @@ require "uri"
 require "net/http"
 
 class General::User < ApplicationRecord
+  include Rails.application.routes.url_helpers
   acts_as_paranoid
   acts_as_nested_set
   rolify
@@ -47,6 +48,8 @@ class General::User < ApplicationRecord
   has_many :user_educations, class_name: "PersonalData::UserEducation", foreign_key: :user_id
   has_many :education_institutions, through: :user_educations
   has_many :users, through: :user_educations
+
+  has_many :comments, class_name: 'News::Comment', foreign_key: :user_id
 
   has_many :family_members, class_name: "PersonalData::FamilyMember"
 
@@ -178,11 +181,19 @@ class General::User < ApplicationRecord
     end
   end
 
-  def full_name
-    if self.last_name.present?
-      self.name + " " + self.last_name
+  def get_full_name
+    if favorite_name.present?
+      "#{favorite_name} #{last_name}"
     else
-      self.name
+      "#{name} #{last_name}"
+    end
+  end
+
+  def full_name
+    if last_name.present?
+      name + ' ' + last_name + ' ' + self.try(:last_name2).to_s
+    else
+      name
     end
   end
 
@@ -196,7 +207,6 @@ class General::User < ApplicationRecord
   end
 
   def self.users_welcome
-    # Rails.cache.fetch('General::User.last(4)') { last(4).to_a }
     General::User.where(date_entry: (Date.today - 100.days)..Date.today).order("RAND()")
   end
 
@@ -265,6 +275,26 @@ class General::User < ApplicationRecord
     attributes.each do |attr|
       set_data_attributes(attr[0], attr[1])
     end
+  end
+
+  def get_image
+    image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("default_avatar.png")
+  end
+
+  def self.get_welcomes_users(page, month)
+    first_day_selected_month = Date.new(Date.today.year, month.to_i, 1)
+    users = self.where(date_entry: first_day_selected_month..first_day_selected_month.end_of_month)
+    users.order(:date_entry).page(page).per(9)
+  end
+
+  def self.get_birthday_users(page, month)
+    if month == "0"
+      users = self.users_birthday_today.show_birthday
+    else
+      users = self.where("extract(month from birthday) = ?", month).order("DAY(birthday)").show_birthday
+    end
+
+    users.order(:birthday).page(page).per(9)
   end
 
   private

@@ -1,4 +1,6 @@
 class Employee::Birth < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   after_create :default_image
   has_one_attached :photo
   validates :photo, content_type: ['image/png', 'image/jpeg']
@@ -7,7 +9,7 @@ class Employee::Birth < ApplicationRecord
 
   belongs_to :user, class_name: "General::User", optional: true
 
-  scope :show_birth, -> { where(approved: true, is_public: true) }
+  scope :public_births, -> { where(approved: true, is_public: true) }
   scope :births_between, lambda { |start_date, end_date| where("birthday >= ? AND birthday <= ?", start_date, end_date) }
 
   PERMISSION = { "todos" => "Todos", true => "Aprobados", false => "No aprobados" }
@@ -47,9 +49,14 @@ class Employee::Birth < ApplicationRecord
     end
   end
 
-  # def permitted_images
-  #   images.attachments.where(permission: 1)
-  # end
+  def get_image
+    photo.attached? ? url_for(photo) : ActionController::Base.helpers.asset_path("birth.png")
+  end
+
+  def self.get_births_index(page, month)
+    births = self.public_births.where('extract(year from birthday) = ?', Date.today.year).where('extract(month from birthday) = ?', month)
+    births.order(:birthday).page(page).per(9)
+  end
 
   def unpermitted_image
     photo

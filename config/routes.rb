@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     resources :surveys
     resources :files
     resources :benefits, only: [:show, :edit, :update, :index]
+    resources :benefit_types
+    
     resources :answers do
       get :report, on: :member
     end
@@ -74,8 +76,6 @@ Rails.application.routes.draw do
       get "api_menu_mobile", to: "menus#api_menu_mobile"
       get "api_menu_mobile_chile", to: "menus#api_menu_mobile_chile"
       get "santorals", to: "santorals#santorals"
-      get "welcome", to: "welcomes#index"
-      get "welcome/get_home_welcome", to: "welcomes#get_home_welcome"
       get "searchv", to: "search#search_vue"
       get "searchm", to: "search#search_menu"
       get "autocomplete_user", to: "users#autocomplete_user"
@@ -125,7 +125,7 @@ Rails.application.routes.draw do
       end
       resources :birthdays do
         get :users_birthday, on: :collection
-        get :get_home_birthdays, on: :collection
+        get :home_birthdays, on: :collection
       end
       resources :products do
         get :product, on: :collection
@@ -134,9 +134,14 @@ Rails.application.routes.draw do
         get :post, on: :collection
         get :important_posts, on: :collection
         get :gallery, on: :collection
+        resources :comments, only: [:index, :create, :destroy]
+        resources :interactions, only: [:create, :destroy]
       end
-      resources :births do
-        get :get_home_births, on: :collection
+      resources :births, only: [:index, :create] do
+        get :home_births, on: :collection
+      end
+      resources :welcomes, only: [:index] do
+        get :home_welcome, on: :collection
       end
     end
     root to: "application#index"

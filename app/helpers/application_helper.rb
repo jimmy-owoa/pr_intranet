@@ -344,6 +344,10 @@ module ApplicationHelper
     end
   end
 
+  def dropdown_active?(modules)
+    modules.any? { |w| request.path.include?(w) } ? 'active' : ''
+  end
+
   def get_phone(annexed)
     if annexed.present?
       if annexed[0] == "2" || annexed[0] == "3" || annexed[0] == "4"

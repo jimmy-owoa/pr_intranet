@@ -3,7 +3,8 @@ module Admin
     before_action :set_section, only: [:show, :edit, :update, :destroy]
 
     def index
-      @sections = General::Section.order(created_at: :desc)
+      @top_sections = General::Section.where(position: [1..3]).order(position: :asc)
+      @bottom_sections = General::Section.where(position: [4..5]).order(position: :asc)
     end
 
     def show

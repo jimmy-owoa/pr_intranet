@@ -1,5 +1,5 @@
 <section class="section">
-  <h1 class="section-header">Crear Beneficio</h1>
+  <h1 class="section-header">Crear Noticia</h1>
   <%= simple_form_for @post, as: 'post', :include_id => false,  url: {action: :create}, :html => { :class => "form" } do |f| %>
     <%= render :partial => 'form', locals: {f: f} %>
   <% end %>

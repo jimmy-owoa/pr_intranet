@@ -172,15 +172,13 @@ module Api::V1
     end
 
     def create
-      set_params
-      @product = Marketplace::Product.new(name: @name, email: @email, price: @price, phone: @phone,
-                                          description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30, currency: @currency)
-      set_images
+      product = Marketplace::Product.new(product_params)
+      product.user = @request_user
       
-      if @product.save
-        render json: { status: "ok", product: @product }, status: :created
+      if product.save
+        render json: { status: "ok", product: product }, status: :created
       else
-        render json: { status: "error", message: @product.errors }, status: :unprocessable_entity
+        render json: { status: "error", message: product.errors }, status: :unprocessable_entity
       end
     end
 
@@ -198,32 +196,6 @@ module Api::V1
 
     private
 
-    def set_params
-      @name = params[:name]
-      @email = params[:email]
-      @price = params[:price]
-      @phone = params[:phone]
-      @description = params[:description]
-      @location = params[:location]
-      @user_id = @request_user.id
-      @images = params[:images]
-      @product_type = params[:product_type]
-      @currency = params[:currency]
-    end
-
-    def set_images(purge = nil)
-      if @images.present?
-        @product.images.purge if purge.present?
-        @images.each do |image|
-          base64_image = image[1].sub(/^data:.*,/, "")
-          decoded_image = Base64.decode64(base64_image)
-          image_io = StringIO.new(decoded_image)
-          @product_image = { io: image_io, filename: @name }
-          @product.images.attach(@product_image)
-        end
-      end
-    end
-
     def set_product_types
       @product_types = General::Term.product_types
     end
@@ -234,7 +206,7 @@ module Api::V1
     end
 
     def product_params
-      params.require(:product).permit(:name, :description, :product_type, :price, :email, :user_id, :phone, :location, :expiration, :approved, :published_date, images: [])
+      params.require(:product).permit(:name, :description, :product_type, :price, :email, :phone, :location, :expiration, :approved, images: [])
     end
   end
 end

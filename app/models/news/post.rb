@@ -1,4 +1,5 @@
 class News::Post < ApplicationRecord
+  include Rails.application.routes.url_helpers
   acts_as_paranoid
   searchkick match: :word, searchable: [:title, :slug, :content]
 
@@ -13,6 +14,7 @@ class News::Post < ApplicationRecord
   has_many :menus, class_name: "General::Menu"
   has_many :attachments, as: :attachable
   has_many :files, class_name: "Media::File"
+  has_many :interactions, class_name: 'News::Interaction', foreign_key: :post_id, dependent: :destroy
 
   belongs_to :profile, class_name: "General::Profile", optional: true
   belongs_to :post_parent, class_name: "News::Post", optional: true
@@ -32,7 +34,8 @@ class News::Post < ApplicationRecord
   scope :published_posts, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   scope :informative_posts, -> { where(post_type: "Página Informativa") }
-  scope :normal_posts, -> { where.not(post_type: "Página Informativa").where.not(post_type: "Video") }
+  scope :normal_posts, -> { where.not(post_type: "Video") }
+  scope :important_posts, -> { where(important: true) }
   scope :video_gallery_posts, -> { where.not(post_type: "Página Informativa") }
 
   STATUS = ["Publicado", "Borrador", "Programado"]
@@ -81,11 +84,33 @@ class News::Post < ApplicationRecord
     News::Post.get_by_category().where.not(id: self.id).last(5)
   end
 
+  def get_show_published_at
+    I18n.l(published_at.to_date, format: :long).capitalize
+  end
+
+  def get_interactions
+    return [] if !accept_interactions && interactions.empty?
+
+    [
+      { name: 'I like', total: self.total_interactions('I like') },
+      { name: 'I love it', total: self.total_interactions('I love it') },
+      { name: 'I enjoy', total: self.total_interactions('I enjoy') },
+      { name: 'I surprises', total: self.total_interactions('I surprises') }
+    ]
+  end
+
+  def total_interactions(type)
+    interactions.where(interaction_type: type).count
+  end
+
+  def liked? (user)
+    !!self.interactions.find_by(user_id: user.id)
+  end
+  
   # TODO: optimizar
-  def self.filter_posts(user, important = nil)
-    news = News::Post.where(profile_id: user.profile_ids).published_posts
-    news = news.where(important: important) if important.present?
-    news
+  def self.filter_posts(user)
+    # News::Post.where(profile_id: user.profile_ids).published_posts.normal_posts
+    News::Post.published_posts.normal_posts
   end
 
   def self.get_by_category(category = nil)
@@ -98,6 +123,10 @@ class News::Post < ApplicationRecord
       galleries = self.joins(:gallery).pluck(:id)
       self.where(id: videos + galleries)
     end
+  end
+
+  def get_main_image
+    main_image.present? ? url_for(main_image.attachment) : ""
   end
 
   private
