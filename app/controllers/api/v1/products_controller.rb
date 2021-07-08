@@ -174,11 +174,11 @@ module Api::V1
     def create
       product = Marketplace::Product.new(product_params)
       product.user = @request_user
-      
+
       if product.save
-        render json: { status: "ok", product: product }, status: :created
+        render json: { success: true, message: "Product created"}, status: :created
       else
-        render json: { status: "error", message: product.errors }, status: :unprocessable_entity
+        render json: { success: false, message: "Error" }, status: :unprocessable_entity
       end
     end
 
