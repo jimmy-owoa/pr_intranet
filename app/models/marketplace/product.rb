@@ -1,4 +1,5 @@
 class Marketplace::Product < ApplicationRecord
+  include Rails.application.routes.url_helpers
   include ActiveModel::Dirty
   has_many_attached :images
   # validate :correct_image_type
@@ -54,6 +55,15 @@ class Marketplace::Product < ApplicationRecord
   def unpermitted_images
     images.attachments.where(permission: 0)
   end
+
+  def get_main_image
+    if permitted_images.present? 
+      url_for(permitted_images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" }))
+    else
+      "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png"
+    end
+  end
+
 
   private
 
