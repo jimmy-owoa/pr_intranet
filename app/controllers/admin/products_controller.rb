@@ -18,17 +18,15 @@ module Admin
     end
 
     def show
-      add_breadcrumb "Marketplace", :admin_products_path
+     
     end
 
     def new
-      add_breadcrumb "Marketplace", :admin_products_path
       @product = Marketplace::Product.new
     end
 
     def edit
-      add_breadcrumb "Marketplace", :admin_products_path
-      authorize @product
+      @users = General::User.all.map { |u| [u.full_name, u.id] }
     end
 
     def delete_image
@@ -57,7 +55,7 @@ module Admin
     end
 
     def update
-      authorize @product
+      # authorize @product
       approved = params[:approved]
       approved_image = params["approved_image"]
 
