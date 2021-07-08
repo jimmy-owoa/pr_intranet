@@ -64,6 +64,26 @@ class Marketplace::Product < ApplicationRecord
     end
   end
 
+  def get_images
+    items = []
+
+    if self.permitted_images.present? 
+      self.permitted_images.each do |image|
+        items << {
+          src: url_for(image.variant(combine_options: { resize: "600x400>", gravity: "Center" })),
+          thumbnail: url_for(image.variant(resize: "100x100")),
+        }
+      end
+    else
+      items = [{
+        src: "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png",
+        thumbnail: "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png",
+      }]
+    end
+
+    items
+  end
+
 
   private
 
