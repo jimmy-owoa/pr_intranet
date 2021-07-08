@@ -13,7 +13,7 @@
             <div class="col-md-6">
             </div>
             <div class="col-md-2 text-right">
-              <b><%= General::User.find(@product.user_id).full_name %></b>
+              <b><%= @product.user.get_full_name %></b>
             </div>
           </div>
           <p><strong> Precio: </strong> <%= @product.price %></p>
@@ -45,7 +45,8 @@
     </div>
   </div>
   <div class="col-sm-12 text-center">
-    <%= link_to t('.back', :default => t("helpers.links.back")), :back, :class => 'btn btn-primary'  %>
+    <!-- <%= link_to t('.back', :default => t("helpers.links.back")), :back, :class => 'btn btn-primary'  %> -->
+    <%= link_to t('.back', :default => t("helpers.links.back")), admin_products_path, :class => 'btn btn-primary'  %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_product_path(@product), :class => 'btn btn-primary' %>
   </div>
 </div>
