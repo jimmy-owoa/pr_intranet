@@ -11,9 +11,17 @@ class ProductSerializer < ActiveModel::Serializer
   attribute :is_expired, if: -> { is_show? }
   attribute :items, if: -> { is_show? }
   attribute :user_full_name, if: -> { is_show? }
+  attribute :description, if: -> { is_show? }
+
+  attribute :product_type, if: -> { is_show? }
+  attribute :images, if: -> { is_show? }
 
   def main_image
     object.get_main_image(is_user_product?)
+  end
+
+  def images
+    return []
   end
 
   def user_company

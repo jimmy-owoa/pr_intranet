@@ -2,7 +2,7 @@ module Api::V1
   class ProductsController < ApiController
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
-    before_action :set_product, only: [:show, :update, :destroy, :user_product]
+    before_action :set_product, only: [:show, :edit, :update, :destroy, :user_product]
 
     def index
       page = params[:page] || 1
@@ -35,6 +35,10 @@ module Api::V1
       render json: { products: data, meta: meta_attributes(products) }, status: :ok
     end
 
+    def edit
+      render json: @product, serializer: ProductSerializer, is_show: true, is_user_product: true, status: :ok
+    end
+
     def show
       render json: @product, serializer: ProductSerializer, is_show: true, status: :ok
     end
@@ -44,18 +48,10 @@ module Api::V1
     end
 
     def update
-      id = params[:id] || nil
-      @product = Marketplace::Product.find(id)
-      set_params
-      @product.update(name: @name, email: @email, price: @price, phone: @phone,
-                      description: @description, location: @location, user_id: @user_id, product_type: @product_type, approved: false, expiration: 30)
-      set_images true
-      respond_to do |format|
-        if @product
-          format.json { render json: "ok", status: 200 }
-        else
-          format.json { render json: "error", status: 403 }
-        end
+      if @product.update(product_params)
+        render json: { success: true, message: "Product updated"}, status: :ok
+      else
+        render json: { success: false, message: "Error" }, status: :unprocessable_entity
       end
     end
 
@@ -91,7 +87,7 @@ module Api::V1
     end
 
     def product_params
-      params.require(:product).permit(:name, :description, :product_type, :price, :email, :phone, :location, :expiration, :approved, images: [])
+      params.require(:product).permit(:name, :description, :currency, :product_type, :price, :email, :phone, :location, :expiration, :approved, images: [])
     end
   end
 end
