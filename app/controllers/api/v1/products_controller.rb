@@ -2,7 +2,7 @@ module Api::V1
   class ProductsController < ApiController
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:create, :update, :update_expiration, :destroy]
-    before_action :set_product, only: [:show, :update, :destroy]
+    before_action :set_product, only: [:show, :update, :destroy, :user_product]
 
     def index
       page = params[:page] || 1
@@ -21,53 +21,26 @@ module Api::V1
     end
 
     def user_products
-      page = params[:page]
-      category = params[:category]
+      page = params[:page] || 1
+      category = params[:category] || "todos"
 
-      if page.present? && category.present?
-        if category == "todos"
-          products = @request_user.products
-        else
-          products = @request_user.products.where(product_type: category)
-        end
-        products = products.order(published_date: :desc).page(page).per(6)
-        data_products = []
-        items = []
-        products.each do |product|
-          product.images.each do |image|
-            if image.present?
-              items << {
-                src: url_for(image),
-                thumbnail: url_for(image.variant(resize: "100x100")),
-              }
-            end
-          end
-          data_products << {
-            id: product.id,
-            name: product.name.capitalize,
-            approved: product.approved,
-            product_type: product.product_type,
-            user_id: product.user_id,
-            # url: "admin/products/" + "#{product.id}" + "/edit",
-            currency: product.currency,
-            price: product.price,
-            published_date: product.published_date.present? ? l(product.published_date, format: "%d de %B, %Y").downcase : nil,
-            is_expired: product.is_expired,
-            expiration: product.expiration,
-            description: product.description,
-            main_image: product.images.first.present? ? url_for(product.images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) : "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png",
-            items: product.images.present? ? items : "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png"
-          }
-        end
-        data = { status: "ok", results_length: data_products.count, products: data_products, page: page, category: category }
-        render json: data, status: :ok
+      if category == "todos"
+        products = @request_user.products
       else
-        render json: { status: 'error', message: 'bad request' }, status: :bad_request
+        products = @request_user.products.where(product_type: category)
       end
+
+      products = products.order(published_date: :desc).page(page).per(6)
+      data = ActiveModel::Serializer::CollectionSerializer.new(products, serializer: ProductSerializer, is_user_product: true)
+      render json: { products: data, meta: meta_attributes(products) }, status: :ok
     end
 
     def show
       render json: @product, serializer: ProductSerializer, is_show: true, status: :ok
+    end
+
+    def user_product
+      render json: @product, serializer: ProductSerializer, is_show: true, is_user_product: true, status: :ok
     end
 
     def update
@@ -103,9 +76,10 @@ module Api::V1
     end
 
     def destroy
-      Marketplace::Product.find(params[:id]).destroy
-      respond_to do |format|
-        format.json { head :no_content }
+      if @product.destroy
+        render json: { success: true, message: "Product deleted"}, status: :created
+      else
+        render json: { success: false, message: "Error" }, status: :unprocessable_entity
       end
     end
 

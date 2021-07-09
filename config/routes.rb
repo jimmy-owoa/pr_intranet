@@ -90,7 +90,7 @@ Rails.application.routes.draw do
       post "user_message/update", to: "user_messages#update"
       get "azure_auth", to: "api#azure_auth"
       get "current_user_azure", to: "api#current_user_azure"
-      get "products/user_products", to: "products#user_products"
+      
       get "posts_video", to: "posts#index_video"
       get "posts_video/post", to: "posts#post_video"
       get "last_posts", to: "posts#last_posts"
@@ -128,7 +128,10 @@ Rails.application.routes.draw do
         get :home_birthdays, on: :collection
       end
       
-      resources :products
+      resources :products do
+        get :user_products, on: :collection
+        get "user_product/:id", to: "products#user_product", on: :collection
+      end
 
       resources :posts, only: [:show, :index] do
         get :post, on: :collection
