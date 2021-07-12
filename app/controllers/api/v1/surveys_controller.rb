@@ -1,50 +1,8 @@
 module Api::V1
   class SurveysController < ApiController
     def index
-      data_surveys = []
-      surveys_all = []
-      surveys = Survey::Survey.includes(questions: :options).where(profile_id: @request_user.profile_ids)
-      surveys.each do |survey|
-        data_questions = []
-        survey.questions.each do |question|
-          data_options = []
-          question.options.each do |option|
-            data_options << {
-              id: option.id,
-              title: option.title,
-              default: option.default,
-              placeholder: option.placeholder,
-            }
-          end
-          data_questions << {
-            id: question.id,
-            title: question.title,
-            question_type: question.question_type,
-            optional: question.optional? ? false : true,
-            options: data_options,
-          }
-        end
-        data_surveys << {
-          id: survey.id,
-          name: survey.name,
-          once_by_user: survey.once_by_user,
-          url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
-          show_name: survey.show_name,
-          description: survey.description,
-          image: survey.image.attached? ?
-            url_for(survey.image) : ActionController::Base.helpers.asset_path("survey.png"),
-          created_at: survey.created_at.strftime("%d-%m-%Y"),
-          questions: data_questions,
-          survey_type: survey.survey_type,
-          slug: survey.slug,
-        }
-      end
-
-      respond_to do |format|
-        format.html
-        format.json { render json: data_surveys }
-        format.js
-      end
+      surveys = Survey::Survey.get_surveys(@request_user)
+      render json: surveys, each_serializer: SurveySerializer, status: :ok
     end
 
     def user_surveys

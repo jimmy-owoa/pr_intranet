@@ -7,7 +7,6 @@
       <table class="table table-hover">
         <thead class="thead">
           <tr>
-            <th><%= 'Tipo'%></th>
             <th><%= 'Título' %></th>
             <th><%= 'Respuestas' %></th>
             <th><%= 'Fecha Creación' %></th>
@@ -17,7 +16,6 @@
         <tbody>
           <% @surveys.each do |survey| %>
             <tr>
-              <td><%= survey.get_name_survey_type unless survey.survey_type.nil?  %></td>
               <td><%= survey.name %></td>
               <td><%= survey.answered_times.count %></td>
               <td><%= custom_date_no_hour(survey.created_at)  %></td>

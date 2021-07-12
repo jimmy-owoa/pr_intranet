@@ -13,7 +13,6 @@ module Admin
       @survey = Survey::Survey.new
       @question = @survey.questions.build
       @question.options.build
-      @survey_types = Survey::Survey::SURVEY_TYPES
     end
 
     def edit
@@ -21,7 +20,6 @@ module Admin
         @question = @survey.questions.build
         @question.options.build
       end
-      @survey_types = Survey::Survey::SURVEY_TYPES
     end
 
     def create
