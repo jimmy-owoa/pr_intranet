@@ -5,7 +5,7 @@ class CreateMarketplaceProducts < ActiveRecord::Migration[5.2]
       t.text :description
       t.string :product_type
       t.string :currency
-      t.integer :price,
+      t.integer :price
       t.string :email
       t.integer :phone
       t.string :location
