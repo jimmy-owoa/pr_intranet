@@ -1,9 +1,11 @@
 class Survey::Survey < ApplicationRecord
+  include Rails.application.routes.url_helpers
   acts_as_paranoid
   # searchkick match: :word, searchable: [:name]
 
   has_many :questions, dependent: :destroy
   has_many :answered_times
+  has_many :answered_forms
   
   has_one_attached :image
   validates :image, content_type: ['image/png', 'image/jpeg']
@@ -79,6 +81,10 @@ class Survey::Survey < ApplicationRecord
 
   def get_answer_count
     Survey::Answer.joins(:question).where(survey_questions: { survey_id: id }).pluck(:user_id).uniq.count
+  end
+
+  def get_image
+    image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("survey.png")
   end
 
   private

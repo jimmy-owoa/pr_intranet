@@ -6,7 +6,7 @@ class General::User < ApplicationRecord
   acts_as_paranoid
   acts_as_nested_set
   rolify
-  searchkick
+  # searchkick
   validates_presence_of :name, :email, :legal_number, :legal_number_verification
   validates_uniqueness_of :email
   #relationships
@@ -31,6 +31,8 @@ class General::User < ApplicationRecord
   has_many :user_messages, class_name: "General::UserMessage", foreign_key: :user_id, inverse_of: :user
   has_many :profiles, through: :user_profiles
   has_many :user_attributes, class_name: "General::UserAttribute", foreign_key: :user_id, inverse_of: :user
+
+  has_many :answered_forms, class_name: 'Survey::AnsweredForm'
 
   belongs_to :location, class_name: "General::Location", inverse_of: :users, optional: true
   belongs_to :benefit_group, optional: true, class_name: "General::BenefitGroup"
@@ -183,7 +185,7 @@ class General::User < ApplicationRecord
 
   def get_full_name
     if favorite_name.present?
-      "#{favorite_name} #{last_name}"
+      "#{favorite_name} #{last_name} #{self.try(:last_name2).to_s}"
     else
       "#{name} #{last_name}"
     end

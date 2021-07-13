@@ -108,15 +108,16 @@ Rails.application.routes.draw do
       end
       post "users/upload", to: "users#upload"
       post "products/update_expiration", to: "products#update_expiration"
-      resources :surveys do
+      resources :surveys, param: :slug do
         get :survey_count, on: :collection
         get :survey, on: :collection
         get :user_surveys, on: :collection
+        resources :answers, on: :member, only: [:create]
       end
       resources :benefit_groups, only: [:index] do
         get :benefits_group, on: :collection
       end
-      resources :answers
+      # resources :answers
       resources :messages
       resources :links
       resources :sections

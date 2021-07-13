@@ -1,5 +1,8 @@
 module Api::V1
   class SurveysController < ApiController
+    before_action :set_survey, only: [:show]
+    before_action :check_user, only: [:show]
+
     def index
       surveys = Survey::Survey.get_surveys(@request_user)
       render json: surveys, each_serializer: SurveySerializer, status: :ok
@@ -138,21 +141,20 @@ module Api::V1
       end
     end
 
-    def survey_count
-      data_user = []
-      association = Survey::Question.includes(:answers)
-      #si hay alguna pregunta sin ninguna respuesta, alerta
-      if association.map { |a| a.answers.blank? }.include?(true)
-        data_user << { alert: 1 }
-      elsif association.map { |a| a.answers.map(&:ln_user).include?(@request_user.id) }.include?(false)
-        data_user << { alert: 1 }
-      else
-        data_user << { alert: 0 }
+    def show
+      render json: @survey, serializer: SurveySerializer, is_show: true, status: :ok
+    end
+
+    def check_user
+      if !@survey.profile_id.in?(@request_user.profile_ids) && !@request_user.has_role?(:admin)
+        return render json: { success: false, message: "Error" }, status: :unauthorized
       end
-      respond_to do |format|
-        format.json { render json: data_user[0] }
-        format.js
-      end
+    end
+
+    private
+
+    def set_survey
+      @survey = Survey::Survey.find_by_slug(params[:slug])
     end
   end
 end

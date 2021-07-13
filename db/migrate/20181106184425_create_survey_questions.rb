@@ -5,6 +5,7 @@ class CreateSurveyQuestions < ActiveRecord::Migration[5.2]
       t.text :description
       t.string :question_type
       t.references :survey
+      t.boolean :required, default: false
 
       t.timestamps
     end
