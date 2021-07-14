@@ -9,9 +9,11 @@ module Api::V1
       params[:answers].each do |answer|
         options = Survey::Option.where(question_id: answer[:question_id])
         if options.present?
-          option_id = options.find_by_title(answer[:option]).id
-          answer = answered_form.answers.create(question_id: answer[:question_id], option_id: option_id, user: @request_user)
-          for_email = add_email_show(for_email, Survey::Question.find(answer.question_id).title, Survey::Option.find(option_id).title)
+          option_ids = options.where(title: answer[:option]).pluck(:id)
+          option_ids.each do |id|
+            answer = answered_form.answers.create(question_id: answer[:question_id], option_id: id, user: @request_user)
+          end
+          for_email = add_email_show(for_email, Survey::Question.find(answer.question_id).title, Survey::Option.find(option_ids).pluck(:title))
         else
           answer = answered_form.answers.create(question_id: answer[:question_id], answer_variable: answer[:option], user: @request_user)
           for_email = add_email_show(for_email, Survey::Question.find(answer.question_id).title, answer.answer_variable)
