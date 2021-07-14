@@ -29,54 +29,35 @@ class Survey::Survey < ApplicationRecord
     self.status ||= "Publicado"
   end
 
-  def self.survey_data(user)
-    @data_surveys = []
-    surveys = []
-    include_survey = Survey::Survey.where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil))
-    include_survey = include_survey.includes(questions: [options: :answers]).where(once_by_user: true).published_surveys.where(profile_id: user.profile_ids)
-
-    include_survey.each do |survey|
-      if survey.allowed_answers.present?
-        if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
-          survey.questions.each do |question|
-            if user.id.in?(question.answers.pluck(:user_id))
-              @data_surveys << survey
-            end
-          end
-        else
-          @data_surveys << survey
-        end
-      end
-    end
-
-    surveys << include_survey.where.not(id: @data_surveys.pluck(:id))
-  end
-
   def self.get_surveys(current_user)
-    self.includes(:questions).where(profile_id: current_user.profile_ids).no_finished.published_surveys
+    surveys_filtered = self.includes(:questions).where(profile_id: current_user.profile_ids).no_finished.published_surveys
+    surveys = surveys_filtered.get_no_once_user + surveys_filtered.get_once_user(current_user)
+
+    data = []
+    surveys.each do |survey|
+      data << survey if survey.allows_answers?
+    end
+
+    return data
   end
 
-  def self.get_surveys_no_once_user(user)
-    allowed_surveys = []
-    surveys = Survey::Survey.where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil))
-    surveys = surveys.where(once_by_user: false).published_surveys.where(profile_id: user.profile_ids)
-    surveys.each do |survey|
-      if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
-        allowed_surveys << survey
-      end
-    end
-    allowed_surveys
+  def allows_answers?
+    self.answered_times.count < self.allowed_answers || self.allowed_answers == 0
   end
 
-  def self.get_surveys_once_user(user)
-    allowed_surveys = []
-    surveys = surveys.no_finished.where(once_by_user: false).published_surveys
+  def self.get_no_once_user()
+    return self.where(once_by_user: false)
+  end
+
+  def self.get_once_user(current_user)
+    surveys = self.where(once_by_user: true)
+
+    data = []
     surveys.each do |survey|
-      if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
-        allowed_surveys << survey
-      end
+      data << survey if !survey.answered_forms.where(user: current_user).exists?
     end
-    allowed_surveys
+
+    data
   end
 
   def get_answer_count
@@ -85,6 +66,12 @@ class Survey::Survey < ApplicationRecord
 
   def get_image
     image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("survey.png")
+  end
+
+  def delete_answers
+    Survey::Answer.delete_all
+    Survey::AnsweredTime.delete_all
+    Survey::AnsweredForm.delete_all
   end
 
   private

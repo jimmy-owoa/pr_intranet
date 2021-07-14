@@ -8,50 +8,6 @@ module Api::V1
       render json: surveys, each_serializer: SurveySerializer, status: :ok
     end
 
-    def user_surveys
-      data_surveys = []
-      no_once_by_user_surveys = Survey::Survey.get_surveys_no_once_user(@request_user)
-      surveys = Survey::Survey.survey_data(@request_user)
-      surveys << no_once_by_user_surveys
-      surveys.flatten.each do |survey|
-        data_questions = []
-        survey.questions.each do |question|
-          data_options = []
-          question.options.each do |option|
-            data_options << {
-              id: option.id,
-              title: option.title,
-              default: option.default,
-              placeholder: option.placeholder,
-            }
-          end
-          data_questions << {
-            id: question.id,
-            title: question.title,
-            question_type: question.question_type,
-            optional: question.optional? ? false : true,
-            options: data_options,
-          }
-        end
-        data_surveys << {
-          id: survey.id,
-          name: survey.name,
-          once_by_user: survey.once_by_user,
-          # url: root_url + "admin/surveys/" + "#{survey.id}" + "/edit",
-          show_name: survey.show_name,
-          description: survey.description,
-          image: survey.image.attached? ?
-            url_for(survey.image) : ActionController::Base.helpers.asset_path("survey.png"),
-          created_at: survey.created_at.strftime("%d-%m-%Y"),
-          questions: data_questions,
-          survey_type: survey.survey_type,
-          slug: survey.slug,
-        }
-      end
-      data = { status: "ok", results_length: data_surveys.count, surveys: data_surveys }
-      render json: data, status: :ok
-    end
-
     def create
       @answer = Survey::Answer.new(answer_params)
       respond_to do |format|
