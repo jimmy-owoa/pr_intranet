@@ -30,7 +30,7 @@ class Survey::Survey < ApplicationRecord
   end
 
   def self.get_surveys(current_user)
-    surveys_filtered = self.includes(:questions).where(profile_id: current_user.profile_ids).no_finished.published_surveys
+    surveys_filtered = self.get_filtered_surveys(current_user)
     surveys = surveys_filtered.get_no_once_user + surveys_filtered.get_once_user(current_user)
 
     data = []
@@ -43,6 +43,10 @@ class Survey::Survey < ApplicationRecord
 
   def allows_answers?
     self.answered_times.count < self.allowed_answers || self.allowed_answers == 0
+  end
+
+  def self.get_filtered_surveys(current_user)
+    self.includes(:questions).where(profile_id: current_user.profile_ids).no_finished.published_surveys
   end
 
   def self.get_no_once_user()
