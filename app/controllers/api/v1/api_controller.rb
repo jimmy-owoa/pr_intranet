@@ -63,7 +63,12 @@ class Api::V1::ApiController < ApplicationController
   #   redirect_to user_azure_oauth2_omniauth_authorize_path
   # end
 
+  def record_not_found
+    render json: { msg: "Error" }, status: :not_found
+  end
+
   private
+
 
   # def get_current_user_jwt
   #   if params[:cod].present? && params[:url].present? && !params[:view_as].present? || params[:view_as] == "null"
@@ -109,7 +114,7 @@ class Api::V1::ApiController < ApplicationController
   # end
 
   def get_user
-    @request_user = General::User.all.sample(1).last
-    # @request_user = General::User.find(11)
+    # @request_user = General::User.all.sample(1).last
+    @request_user = General::User.find(13)
   end
 end

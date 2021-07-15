@@ -64,6 +64,14 @@ class Survey::Survey < ApplicationRecord
     data
   end
 
+  def show_to?(current_user)
+    if once_by_user
+      answered_forms.find_by(user: current_user).nil? && self.allows_answers?
+    else
+      self.allows_answers?
+    end
+  end
+
   def get_answer_count
     Survey::Answer.joins(:question).where(survey_questions: { survey_id: id }).pluck(:user_id).uniq.count
   end
