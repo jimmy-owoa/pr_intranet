@@ -1,27 +1,6 @@
 {
   "beneficiary_groups": [
       {
-          "code": "ASCTY-0",
-          "name": "ASESORIAS SECURITY - GTES Y SUBGTES",
-          "benefits": [
-              ""
-          ]
-      },
-      {
-          "code": "ASCTY-1",
-          "name": "ASESORIAS SECURITY -EXTEN DE BENEF NO COMISIONISTAS",
-          "benefits": [
-              ""
-          ]
-      },
-      {
-          "code": "ASCTY-2",
-          "name": "ASESORIAS SECURITY -  EXTEN DE BENEF COMISIONISTAS",
-          "benefits": [
-              ""
-          ]
-      },
-      {
           "code": "BSCTY-0",
           "name": "BANCO SECURITY - SIN SINDICATO",
           "benefits": [
@@ -91,19 +70,6 @@
                   ]
               },
               {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/596",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
                   "code": "TLVH",
                   "es_transaccional": "si",
                   "name": "Tardes libres ",
@@ -151,22 +117,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1327",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1372",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1462",
                   "variables": []
               },
               {
@@ -263,14 +213,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2094",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2133",
                   "variables": []
               },
               {
@@ -747,19 +689,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/597",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/648",
@@ -844,22 +773,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1326",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1371",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1461",
                   "variables": []
               },
               {
@@ -964,14 +877,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2093",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2132",
                   "variables": []
               },
               {
@@ -1604,19 +1509,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/598",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/649",
@@ -1701,22 +1593,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1325",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1370",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1460",
                   "variables": []
               },
               {
@@ -1813,14 +1689,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2092",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2131",
                   "variables": []
               },
               {
@@ -2383,19 +2251,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/599",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/810",
@@ -2436,22 +2291,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1334",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1379",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1469",
                   "variables": []
               },
               {
@@ -2540,14 +2379,6 @@
                   "name": "Feria de la Salud",
                   "pretty_name": "Feria de la Salud",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2056",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2140",
                   "variables": []
               },
               {
@@ -2943,19 +2774,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/600",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/831",
@@ -3014,22 +2832,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1320",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1365",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1455",
                   "variables": []
               },
               {
@@ -3126,14 +2928,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2087",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2126",
                   "variables": []
               },
               {
@@ -3688,19 +3482,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/601",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/650",
@@ -3785,22 +3566,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1319",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1364",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1454",
                   "variables": []
               },
               {
@@ -3897,14 +3662,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2086",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2125",
                   "variables": []
               },
               {
@@ -4480,19 +4237,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/602",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/651",
@@ -4577,22 +4321,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1318",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1363",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1453",
                   "variables": []
               },
               {
@@ -4689,14 +4417,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2085",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2124",
                   "variables": []
               },
               {
@@ -5192,19 +4912,6 @@
                   ]
               },
               {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/603",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
                   "code": "TLVH",
                   "es_transaccional": "si",
                   "name": "Tardes libres ",
@@ -5252,22 +4959,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1336",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1381",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1471",
                   "variables": []
               },
               {
@@ -5364,14 +5055,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2101",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2142",
                   "variables": []
               },
               {
@@ -5921,19 +5604,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/604",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Nacimiento Adicional (3° Hijo en adelante)",
                   "pretty_name": " Bono Nacimiento Adicional (3° Hijo en adelante)",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/645",
@@ -6018,22 +5688,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1337",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1382",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1472",
                   "variables": []
               },
               {
@@ -6130,14 +5784,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2102",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2143",
                   "variables": []
               },
               {
@@ -6700,19 +6346,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/605",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/834",
@@ -6771,22 +6404,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1342",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1387",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1477",
                   "variables": []
               },
               {
@@ -6883,14 +6500,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2107",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2148",
                   "variables": []
               },
               {
@@ -7445,19 +7054,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/606",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/652",
@@ -7542,22 +7138,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1341",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1386",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1476",
                   "variables": []
               },
               {
@@ -7654,14 +7234,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2106",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2147",
                   "variables": []
               },
               {
@@ -8172,19 +7744,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/607",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/836",
@@ -8243,22 +7802,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1340",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1385",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1475",
                   "variables": []
               },
               {
@@ -8355,14 +7898,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2105",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2146",
                   "variables": []
               },
               {
@@ -8917,19 +8452,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/608",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/653",
@@ -9014,22 +8536,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1339",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1384",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1474",
                   "variables": []
               },
               {
@@ -9126,14 +8632,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2104",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2145",
                   "variables": []
               },
               {
@@ -9709,19 +9207,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/609",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/654",
@@ -9793,22 +9278,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1338",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1383",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1473",
                   "variables": []
               },
               {
@@ -9905,14 +9374,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2103",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2144",
                   "variables": []
               },
               {
@@ -10441,19 +9902,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/610",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/720",
@@ -10593,22 +10041,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3517",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3554",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3568",
@@ -10676,14 +10108,6 @@
                   "name": "VIDA - El día de tu Cumpleaños",
                   "pretty_name": "El día de tu Cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3720",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3736",
                   "variables": []
               },
               {
@@ -10985,19 +10409,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/611",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/721",
@@ -11192,22 +10603,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3518",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3555",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3569",
@@ -11283,14 +10678,6 @@
                   "name": "VIDA - El día de tu Cumpleaños",
                   "pretty_name": "El día de tu Cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3721",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3737",
                   "variables": []
               },
               {
@@ -11616,19 +11003,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/612",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/839",
@@ -11687,22 +11061,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1330",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1375",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1465",
                   "variables": []
               },
               {
@@ -11799,14 +11157,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2097",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2136",
                   "variables": []
               },
               {
@@ -12382,19 +11732,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/613",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/655",
@@ -12479,22 +11816,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1328",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1373",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1463",
                   "variables": []
               },
               {
@@ -12591,14 +11912,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2095",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2134",
                   "variables": []
               },
               {
@@ -13174,19 +12487,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/614",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/656",
@@ -13258,22 +12558,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1329",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1374",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1464",
                   "variables": []
               },
               {
@@ -13370,14 +12654,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2096",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2135",
                   "variables": []
               },
               {
@@ -13880,19 +13156,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/615",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/812",
@@ -13951,22 +13214,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1349",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1394",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1484",
                   "variables": []
               },
               {
@@ -14063,14 +13310,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2114",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2155",
                   "variables": []
               },
               {
@@ -14586,19 +13825,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/616",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/657",
@@ -14670,22 +13896,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1348",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1393",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1483",
                   "variables": []
               },
               {
@@ -14782,14 +13992,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2113",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2154",
                   "variables": []
               },
               {
@@ -15253,19 +14455,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/617",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/814",
@@ -15324,22 +14513,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1347",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1392",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1482",
                   "variables": []
               },
               {
@@ -15436,14 +14609,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2112",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2153",
                   "variables": []
               },
               {
@@ -15985,19 +15150,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/618",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/658",
@@ -16082,22 +15234,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1346",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1391",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1481",
                   "variables": []
               },
               {
@@ -16194,14 +15330,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2111",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2152",
                   "variables": []
               },
               {
@@ -16671,19 +15799,6 @@
                   ]
               },
               {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/619",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
                   "code": "TLVH",
                   "es_transaccional": "si",
                   "name": "Tardes libres ",
@@ -16731,22 +15846,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1351",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1396",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1486",
                   "variables": []
               },
               {
@@ -16843,14 +15942,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2116",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2157",
                   "variables": []
               },
               {
@@ -17340,19 +16431,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/620",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/729",
@@ -17424,22 +16502,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1352",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1397",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1487",
                   "variables": []
               },
               {
@@ -17536,14 +16598,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2117",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2158",
                   "variables": []
               },
               {
@@ -18074,19 +17128,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/623",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso- Fallecimiento de Suegro",
                   "pretty_name": " Permiso- Fallecimiento de Suegro",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/671",
@@ -18357,22 +17398,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3516",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3553",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3567",
@@ -18456,14 +17481,6 @@
                   "name": "VIDA - Fallecimiento del Empleado",
                   "pretty_name": "Fallecimiento del Empleado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3733",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3735",
                   "variables": []
               },
               {
@@ -18800,19 +17817,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/624",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/843",
@@ -18871,22 +17875,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1345",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1390",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1480",
                   "variables": []
               },
               {
@@ -18983,14 +17971,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2110",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2151",
                   "variables": []
               },
               {
@@ -19545,19 +18525,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/625",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/661",
@@ -19642,22 +18609,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1344",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1389",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1479",
                   "variables": []
               },
               {
@@ -19754,14 +18705,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2109",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2150",
                   "variables": []
               },
               {
@@ -20337,19 +19280,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/626",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/662",
@@ -20421,22 +19351,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1343",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1388",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1478",
                   "variables": []
               },
               {
@@ -20533,14 +19447,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2108",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2149",
                   "variables": []
               },
               {
@@ -21051,19 +19957,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/627",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/846",
@@ -21122,22 +20015,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1357",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1402",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1492",
                   "variables": []
               },
               {
@@ -21234,14 +20111,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2120",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2163",
                   "variables": []
               },
               {
@@ -21796,19 +20665,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/628",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/663",
@@ -21893,22 +20749,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1356",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1401",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1491",
                   "variables": []
               },
               {
@@ -22005,14 +20845,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2119",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2162",
                   "variables": []
               },
               {
@@ -22588,19 +21420,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/629",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/664",
@@ -22672,22 +21491,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1355",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1400",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1490",
                   "variables": []
               },
               {
@@ -22784,14 +21587,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2118",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2161",
                   "variables": []
               },
               {
@@ -23315,19 +22110,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/630",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/665",
@@ -23407,22 +22189,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1359",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1404",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1494",
                   "variables": []
               },
               {
@@ -23511,14 +22277,6 @@
                   "name": "Feria de la Salud",
                   "pretty_name": "Feria de la Salud",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2081",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2165",
                   "variables": []
               },
               {
@@ -23903,19 +22661,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": "Permiso- Fallecimiento Hijo P. Gestación",
-                  "pretty_name": "Permiso- Fallecimiento Hijo P. Gestación",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/631",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/666",
@@ -23995,22 +22740,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1358",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1403",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1493",
                   "variables": []
               },
               {
@@ -24099,14 +22828,6 @@
                   "name": "Feria de la Salud",
                   "pretty_name": "Feria de la Salud",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2080",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2164",
                   "variables": []
               },
               {
@@ -24505,19 +23226,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/632",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/741",
@@ -24623,14 +23331,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3559",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3573",
@@ -24706,14 +23406,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3725",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3741",
                   "variables": []
               },
               {
@@ -24991,19 +23683,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/633",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/742",
@@ -25122,14 +23801,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3558",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3572",
@@ -25205,14 +23876,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3724",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3740",
                   "variables": []
               },
               {
@@ -25490,19 +24153,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/634",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/743",
@@ -25647,14 +24297,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3557",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3571",
@@ -25730,14 +24372,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3723",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3739",
                   "variables": []
               },
               {
@@ -25997,19 +24631,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/635",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/744",
@@ -26144,22 +24765,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3523",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3564",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3578",
@@ -26235,14 +24840,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3730",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3746",
                   "variables": []
               },
               {
@@ -26568,19 +25165,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/636",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/745",
@@ -26715,22 +25299,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3522",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3563",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3577",
@@ -26806,14 +25374,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3729",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3745",
                   "variables": []
               },
               {
@@ -27115,19 +25675,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/637",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/746",
@@ -27249,22 +25796,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3521",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3562",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3576",
@@ -27332,14 +25863,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3728",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3744",
                   "variables": []
               },
               {
@@ -27628,19 +26151,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/638",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/747",
@@ -27775,22 +26285,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3520",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3560",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3574",
@@ -27866,14 +26360,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3726",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3742",
                   "variables": []
               },
               {
@@ -28199,19 +26685,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/639",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/748",
@@ -28317,14 +26790,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3566",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3580",
@@ -28400,14 +26865,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3732",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3748",
                   "variables": []
               },
               {
@@ -28672,19 +27129,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/640",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/749",
@@ -28790,14 +27234,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3561",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3575",
@@ -28881,14 +27317,6 @@
                   "name": "VIDA - El día de tu cumpleaños",
                   "pretty_name": "El día de tu cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3727",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3743",
                   "variables": []
               },
               {
@@ -29173,19 +27601,7 @@
                       }
                   ]
               },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/641",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
+
               {
                   "code": "",
                   "es_transaccional": "si",
@@ -29459,22 +27875,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3524",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3565",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3579",
@@ -29558,14 +27958,6 @@
                   "name": "VIDA - Fallecimiento del Empleado",
                   "pretty_name": "Fallecimiento del Empleado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3734",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3747",
                   "variables": []
               },
               {
@@ -29916,19 +28308,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/642",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Bono Fallecimiento Familiar directo",
                   "pretty_name": " Bono Fallecimiento Familiar directo",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/849",
@@ -29987,22 +28366,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1362",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1407",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1497",
                   "variables": []
               },
               {
@@ -30099,14 +28462,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2123",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2168",
                   "variables": []
               },
               {
@@ -30661,19 +29016,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/643",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/667",
@@ -30758,22 +29100,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1361",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1406",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1496",
                   "variables": []
               },
               {
@@ -30870,14 +29196,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2122",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2167",
                   "variables": []
               },
               {
@@ -31453,19 +29771,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/644",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/668",
@@ -31537,22 +29842,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1360",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1405",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1495",
                   "variables": []
               },
               {
@@ -31649,14 +29938,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2121",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2166",
                   "variables": []
               },
               {
@@ -32165,19 +30446,6 @@
                   ]
               },
               {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1046",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
                   "code": "TLVH",
                   "es_transaccional": "si",
                   "name": "Tardes libres ",
@@ -32225,22 +30493,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1324",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1369",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1459",
                   "variables": []
               },
               {
@@ -32337,14 +30589,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2091",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2130",
                   "variables": []
               },
               {
@@ -32813,19 +31057,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1087",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": " Permiso - Examen de Grado",
                   "pretty_name": " Permiso - Examen de Grado",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1088",
@@ -32897,22 +31128,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1331",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1376",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1466",
                   "variables": []
               },
               {
@@ -33009,14 +31224,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2098",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2137",
                   "variables": []
               },
               {
@@ -33577,19 +31784,6 @@
                   ]
               },
               {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1057",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
                   "code": "TLVH",
                   "es_transaccional": "si",
                   "name": "Tardes libres ",
@@ -33637,22 +31831,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1332",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1377",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1467",
                   "variables": []
               },
               {
@@ -33749,14 +31927,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2099",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2138",
                   "variables": []
               },
               {
@@ -34258,19 +32428,6 @@
               },
               {
                   "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1067",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
                   "es_transaccional": "no",
                   "name": "Actividades deportivas",
                   "pretty_name": "Actividades deportivas",
@@ -34299,22 +32456,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1333",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1378",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1468",
                   "variables": []
               },
               {
@@ -34403,14 +32544,6 @@
                   "name": "Feria de la Salud",
                   "pretty_name": "Feria de la Salud",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2055",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2139",
                   "variables": []
               },
               {
@@ -34791,19 +32924,6 @@
                   ]
               },
               {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1077",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
                   "code": "TLVH",
                   "es_transaccional": "si",
                   "name": "Tardes libres ",
@@ -34864,22 +32984,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1335",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1380",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1470",
                   "variables": []
               },
               {
@@ -34976,14 +33080,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2100",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2141",
                   "variables": []
               },
               {
@@ -35486,19 +33582,6 @@
               {
                   "code": "",
                   "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1099",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "si",
                   "name": "Permiso- Fallecimiento Padre o Madre",
                   "pretty_name": "Permiso- Fallecimiento Padre o Madre",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1100",
@@ -35646,22 +33729,6 @@
               {
                   "code": "",
                   "es_transaccional": "no",
-                  "name": "VIDA - Clases de Cueca",
-                  "pretty_name": "Clases de Cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3519",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3556",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
                   "name": "VIDA - Convenio Clínica Dental Everest",
                   "pretty_name": "Convenio Clínica Dental Everest",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3570",
@@ -35729,14 +33796,6 @@
                   "name": "VIDA - El día de tu Cumpleaños",
                   "pretty_name": "El día de tu Cumpleaños",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/3722",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "VIDA - Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/3738",
                   "variables": []
               },
               {
@@ -36000,19 +34059,6 @@
                   ]
               },
               {
-                  "code": "",
-                  "es_transaccional": "si",
-                  "name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "pretty_name": " Permiso- Fallecimiento Hijo P. Gestación ",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1113",
-                  "variables": [
-                      {
-                          "amount": 3,
-                          "currency": "days"
-                      }
-                  ]
-              },
-              {
                   "code": "TLVH",
                   "es_transaccional": "si",
                   "name": "Tardes libres ",
@@ -36060,22 +34106,6 @@
                   "name": "Charlas",
                   "pretty_name": "Charlas",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/1350",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Clases de cueca",
-                  "pretty_name": "Clases de cueca",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1395",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Construcción de la Plaza",
-                  "pretty_name": "Construcción de la Plaza",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/1485",
                   "variables": []
               },
               {
@@ -36172,14 +34202,6 @@
                   "name": "Fiesta Fin de Año",
                   "pretty_name": "Fiesta Fin de Año",
                   "url": "https://misecurity.exa.cl/lic_register/event_new/2115",
-                  "variables": []
-              },
-              {
-                  "code": "",
-                  "es_transaccional": "no",
-                  "name": "Fun Friday´s",
-                  "pretty_name": "Fun Friday´s",
-                  "url": "https://misecurity.exa.cl/lic_register/event_new/2156",
                   "variables": []
               },
               {
@@ -36549,13 +34571,6 @@
                   "url": "https://misecurity.exa.cl/lic_register/event_new/4928",
                   "variables": []
               }
-          ]
-      },
-      {
-          "code": "EXT",
-          "name": "EXTERNOS",
-          "benefits": [
-              ""
           ]
       }
   ]
