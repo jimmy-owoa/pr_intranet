@@ -1,7 +1,7 @@
 class News::Post < ApplicationRecord
   include Rails.application.routes.url_helpers
   acts_as_paranoid
-  searchkick match: :word, searchable: [:title, :slug, :content]
+  # searchkick match: :word, searchable: [:title, :slug, :content]
 
   validates_presence_of :title
 
@@ -109,8 +109,7 @@ class News::Post < ApplicationRecord
   
   # TODO: optimizar
   def self.filter_posts(user)
-    # News::Post.where(profile_id: user.profile_ids).published_posts.normal_posts
-    News::Post.published_posts.normal_posts
+    News::Post.where(profile_id: user.profile_ids).published_posts.normal_posts
   end
 
   def self.get_by_category(category = nil)
