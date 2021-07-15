@@ -18,14 +18,14 @@
             <tr>
               <td><%= benefit.try(:alias) %></td>
               <td><%= benefit.code %></td>
-              <td><%= benefit.benefit_type.name %></td>
-              <td><%= link_to benefit.title, admin_benefit_path(benefit) %></td>
+              <td><%= benefit.benefit_type.name if benefit.benefit_type.present? %></td>
+              <td><%= benefit.title %></td>
               <td>
-                <%= link_to t('.show', :default => t("helpers.benefits.show")),
+                <%= link_to t("helpers.links.show"),
                               admin_benefit_path(benefit), :class => 'btn btn-success btn-xs' %>
-                <%= link_to t('.edit', :default => t("helpers.benefits.edit")),
+                <%= link_to t("helpers.links.edit"),
                               edit_admin_benefit_path(benefit), :class => 'btn btn-primary btn-xs' %>
-                <%= link_to 'Eliminar',
+                <%= link_to t("helpers.links.destroy"),
                               admin_benefit_path(benefit),
                               :method => :delete,
                               :data => { :confirm => t('.confirm', :default => t("helpers.benefits.confirm", :default => '¿Esta segura(o) que desea eliminar este elemento?')) },
