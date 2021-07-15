@@ -108,7 +108,7 @@ Rails.application.routes.draw do
       end
       post "users/upload", to: "users#upload"
       post "products/update_expiration", to: "products#update_expiration"
-      resources :surveys, param: :slug do
+      resources :surveys, param: :slug, only: [:index, :show] do
         get :survey_count, on: :collection
         get :survey, on: :collection
         get :user_surveys, on: :collection
