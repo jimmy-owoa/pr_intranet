@@ -1,6 +1,7 @@
 class General::Benefit < ApplicationRecord
+  include Rails.application.routes.url_helpers
   acts_as_paranoid
-  searchkick match: :word, searchable: [:title]
+  # searchkick match: :word, searchable: [:title]
 
   has_one_attached :image
   has_many :benefit_term_relationships, -> { where(object_type: 'General::Benefit') },
@@ -36,5 +37,9 @@ class General::Benefit < ApplicationRecord
     else
       General::Benefit
     end
+  end
+
+  def get_main_image
+    image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("benefit.jpg")
   end
 end

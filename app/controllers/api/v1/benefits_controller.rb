@@ -2,13 +2,14 @@
 
 include ActionView::Helpers::NumberHelper
 
-module Frontend
-  class BenefitsController < FrontendController
+module Api::V1
+  class BenefitsController < ApiController
     include ApplicationHelper
 
     def index
       data = []
       user = @request_user
+      
       if user.benefit_group.present?
         data = { benefit_types: [] }
         @benefit_types = General::BenefitType.all.order(:priority)
@@ -25,7 +26,7 @@ module Frontend
               id: benefit.id,
               name: benefit.title,
               content: benefit.content,
-              image: benefit.image.attached? ? url_for(benefit.image) : root_url + ActionController::Base.helpers.asset_url('benefit.jpg'),
+              image: benefit.get_main_image,
               url: 'admin/benefits/' + benefit.id.to_s + '/edit',
               link: benefit.url
             }
@@ -38,7 +39,7 @@ module Frontend
       end
     end
 
-    def benefit
+    def show
       data = []
       id = params[:id].present? ? params[:id] : nil
       benefit = General::Benefit.find(id)
@@ -50,7 +51,6 @@ module Frontend
         parents.each do |parent|
           benefit_parents << parent if benefit_group.benefits.include?(parent)
         end
-        @image = benefit.image.attached? ? url_for(benefit.image.attachment) : root_url + ActionController::Base.helpers.asset_url('benefit.jpg')
 
         benefit_ids = []
 
@@ -61,23 +61,28 @@ module Frontend
         benefit_ids = benefit_ids.flatten.map(&:id)
         benefit_index = benefit_ids.index(benefit.id)
 
-        data << {
+        data = {
           id: benefit.id,
           title: benefit.title,
-          url: root_url + 'admin/benefit_groups/' + benefit.id.to_s + '/edit',
+          # url: root_url + 'admin/benefit_groups/' + benefit.id.to_s + '/edit',
           content: formatted_content(benefit, benefit.benefit_group_relationships.where(benefit_id: benefit.id, benefit_group_id: benefit_group.id ).first),
-          image: @image,
+          image: benefit.get_main_image,
           types: types,
           parents: benefit_parents,
           link: get_benefit_url(benefit, benefit_group.id),
           benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : '',
           prev_id: benefit_ids[benefit_index - 1].present? ? benefit_ids[benefit_index - 1] : benefit_ids.first,
           next_id: benefit_ids[benefit_index + 1].present? ? benefit_ids[benefit_index + 1] : benefit_ids.last,
-          is_transactional: benefit.is_transactional
+          is_transactional: benefit.is_transactional,
+          breadcrumbs: [
+            { to: "/", text: "Inicio", disabled: false, exact: true },
+            { to: "/beneficios", text: "Beneficios", disabled: false, exact: true },
+            { to: "", text: benefit.title.truncate(30), disabled: true },
+          ]
         }
       end
       respond_to do |format|
-        format.json { render json: data[0] }
+        format.json { render json: data }
         format.js
       end
     end
@@ -86,14 +91,6 @@ module Frontend
       types = General::BenefitType.where(id: @request_user.benefit_group.benefits.pluck(:benefit_type_id)).pluck(:name)
       respond_to do |format|
         format.json { render json: types }
-      end
-    end
-
-    def show
-      respond_to do |format|
-        format.html
-        format.json { render json: @benefit }
-        format.js
       end
     end
 

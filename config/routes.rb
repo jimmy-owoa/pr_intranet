@@ -122,7 +122,7 @@ Rails.application.routes.draw do
       resources :links
       resources :sections
       resources :benefits do
-        get :benefit, on: :collection
+        # get :benefit, on: :collection
       end
       resources :birthdays do
         get :users_birthday, on: :collection
