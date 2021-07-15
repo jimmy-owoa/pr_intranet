@@ -27,7 +27,7 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def relationed_posts
-    object.get_relationed_posts(@request_user).map do |post|
+    object.get_relationed_posts(instance_options[:user]).map do |post|
       {
         id: post.id,
         title: post.title.truncate(30),
@@ -43,11 +43,11 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def interaction_id
-    object.interactions.find_by(user_id: instance_options[:user_id]).try(:id)
+    object.interactions.find_by(user_id: instance_options[:user].id).try(:id)
   end
 
   def interaction_type
-    object.interactions.find_by(user_id: instance_options[:user_id]).try(:interaction_type)
+    object.interactions.find_by(user_id: instance_options[:user].id).try(:interaction_type)
   end
 
   def is_show?
