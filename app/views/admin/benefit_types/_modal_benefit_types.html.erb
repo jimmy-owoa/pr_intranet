@@ -1,0 +1,57 @@
+<div class="modal fade text-center" id="modal_benefit_types" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p>Los valores númericos de prioridad se mostrarán en la intranet en orden de menor a mayor</p>
+          </div>
+
+          <div class="col-md-6">
+            <p>Por ejemplo:</p>
+            <table class="table table-sm table-bordered">
+              <thead class="">
+                <tr>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Prioridad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @data_modal.each do |code| %>
+                  <tr>
+                    <td><%= code[:category] %></td>
+                    <td><%= code[:priority] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-6">
+            <%= image_tag('example_order_benefit_types.png', style: '') %>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnClose" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-backdrop {
+    position: unset;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+  }
+  
+  .modal {
+    top: 46px;
+  }
+</style>
