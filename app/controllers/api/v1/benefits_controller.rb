@@ -1,80 +1,96 @@
+# frozen_string_literal: true
+
 include ActionView::Helpers::NumberHelper
 
 module Api::V1
   class BenefitsController < ApiController
-    def index
-      user = @request_user
+    include ApplicationHelper
 
+    def index
+      data = []
+      user = @request_user
+      
       if user.benefit_group.present?
-        data_benefit_types = []
-        @benefit_types = General::BenefitType.all
+        data = { benefit_types: [] }
+        @benefit_types = General::BenefitType.all.order(:priority)
         @benefit_types.each do |benefit_type|
-          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(user.benefit_group.try(:id))
-          if allowed_benefits.present?
-            benefit_type_hash = {
-              name: benefit_type.name,
-              benefits: [],
+          allowed_benefits = benefit_type.benefits.allowed_by_benefit_group(user.benefit_group.try(:id)).order(:id)
+          next unless allowed_benefits.present?
+
+          benefit_type_hash = {
+            name: benefit_type.name,
+            benefits: []
+          }
+          allowed_benefits.each do |benefit|
+            benefit_type_hash[:benefits] << {
+              id: benefit.id,
+              name: benefit.title,
+              content: benefit.content,
+              image: benefit.get_main_image,
+              url: 'admin/benefits/' + benefit.id.to_s + '/edit',
+              link: benefit.url
             }
-            allowed_benefits.each do |benefit|
-              benefit_type_hash[:benefits] << {
-                id: benefit.id,
-                name: benefit.title,
-                content: benefit.content,
-                image: benefit.image.attached? ? url_for(benefit.image) : ActionController::Base.helpers.asset_path("benefit.jpg"),
-                url: "admin/benefits/" + "#{benefit.id}" + "/edit",
-                link: benefit.url,
-              }
-            end
-            data_benefit_types << benefit_type_hash
           end
+          data[:benefit_types] << benefit_type_hash
         end
       end
-
-      data = { status: "ok", results_length: data_benefit_types.count, benefit_types: data_benefit_types }
-      render json: data, status: :ok
+      respond_to do |format|
+        format.json { render json: data }
+      end
     end
 
-    def benefit
+    def show
+      data = []
       id = params[:id].present? ? params[:id] : nil
-      if id.present?
-        benefit = General::Benefit.find(id)
-        benefit_group = @request_user.benefit_group
-        if benefit_group.benefits.include?(benefit)
-          benefit_ids = benefit_group.benefits.order(:benefit_type_id, :id).map { |x| x.id }
-          benefit_index = benefit_ids.index(benefit.id)
-          types = General::BenefitType.where(id: @request_user.benefit_group.benefits.pluck(:benefit_type_id))
-          parents = General::Benefit.where(benefit_type_id: benefit.benefit_type_id)
-          benefit_parents = []
-          parents.each do |parent|
-            if benefit_group.benefits.include?(parent)
-              benefit_parents << parent
-            end
-          end
-          @image = benefit.image.attached? ? url_for(benefit.image.attachment) : ActionController::Base.helpers.asset_path("benefit.jpg")
-          data_benefit = {
-            id: benefit.id,
-            title: benefit.title,
-            # url: root_url + "admin/benefit_groups/" + "#{benefit.id}" + "/edit",
-            content: formatted_content(benefit, benefit.benefit_group_relationships.first),
-            image: @image,
-            types: types,
-            parents: benefit_parents,
-            link: get_benefit_url(benefit, benefit_group.id),
-            benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : "",
-          }
-          prev_id = benefit_ids[benefit_index - 1].present? ? benefit_ids[benefit_index - 1] : benefit_ids.first
-          next_id = benefit_ids[benefit_index + 1].present? ? benefit_ids[benefit_index + 1] : benefit_ids.last
+      benefit = General::Benefit.find(id)
+      benefit_group = @request_user.benefit_group
+      if benefit_group.benefits.include?(benefit)
+        types = General::BenefitType.where(id: @request_user.benefit_group.benefits.pluck(:benefit_type_id)).order(:priority)
+        parents = General::Benefit.where(benefit_type_id: benefit.benefit_type_id)
+        benefit_parents = []
+        parents.each do |parent|
+          benefit_parents << parent if benefit_group.benefits.include?(parent)
         end
-        breadcrumbs = [
-          { href: "/", text: "Inicio" },
-          { href: "/beneficios", text: "Beneficios" },
-          { href: "#", text: benefit.title.truncate(30), disabled: true },
-        ]
-  
-        data = { status: "ok", prev_id: prev_id, next_id: next_id, breadcrumbs: breadcrumbs, benefit: data_benefit }
-        render json: data, status: :ok
-      else
-        render json: { status: "error", message: "bad request" }, status: :bad_request
+
+        benefit_ids = []
+
+        types.each do |type|
+          benefit_ids << benefit_group.benefits.where(benefit_type_id: type.id).order(:id)
+        end
+
+        benefit_ids = benefit_ids.flatten.map(&:id)
+        benefit_index = benefit_ids.index(benefit.id)
+
+        data = {
+          id: benefit.id,
+          title: benefit.title,
+          # url: root_url + 'admin/benefit_groups/' + benefit.id.to_s + '/edit',
+          content: formatted_content(benefit, benefit.benefit_group_relationships.where(benefit_id: benefit.id, benefit_group_id: benefit_group.id ).first),
+          image: benefit.get_main_image,
+          types: types,
+          parents: benefit_parents,
+          link: get_benefit_url(benefit, benefit_group.id),
+          benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : '',
+          prev_id: benefit_ids[benefit_index - 1].present? ? benefit_ids[benefit_index - 1] : benefit_ids.first,
+          next_id: benefit_ids[benefit_index + 1].present? ? benefit_ids[benefit_index + 1] : benefit_ids.last,
+          is_transactional: benefit.is_transactional,
+          breadcrumbs: [
+            { to: "/", text: "Inicio", disabled: false, exact: true },
+            { to: "/beneficios", text: "Beneficios", disabled: false, exact: true },
+            { to: "", text: benefit.title.truncate(30), disabled: true },
+          ]
+        }
+      end
+      respond_to do |format|
+        format.json { render json: data }
+        format.js
+      end
+    end
+
+    def get_benefit_types
+      types = General::BenefitType.where(id: @request_user.benefit_group.benefits.pluck(:benefit_type_id)).pluck(:name)
+      respond_to do |format|
+        format.json { render json: types }
       end
     end
 
@@ -85,27 +101,27 @@ module Api::V1
     end
 
     def formatted_content(benefit, benefit_group_relationship)
-      key = benefit_group_relationship.currency.present? ? currency_type_format(benefit_group_relationship.currency) : ""
-      val = benefit_group_relationship.amount.present? ? number_to_currency(benefit_group_relationship.amount, unit: "", delimiter: ".", precision: 0) : ""
+      key = benefit_group_relationship.currency.present? ? currency_type_format(benefit_group_relationship.currency) : ''
+      val = benefit_group_relationship.amount.present? ? number_to_currency(benefit_group_relationship.amount, unit: '', delimiter: '.', precision: 0) : ''
       replace_variables = {
         "TIPO": key,
-        "VALOR": val,
+        "VALOR": val
       }
       content = benefit.content
-      if (content.present? && content.include?("*|TIPO|*") && content.include?("*|VALOR|*"))
+      if content.present? && content.include?('*|TIPO|*') && content.include?('*|VALOR|*')
         replace_variables.each do |key, value|
           content = content.gsub!("*|#{key}|*", value)
         end
       end
-      content
+      fix_content(content) if content.present?
     end
 
     def currency_type_format(currency)
       case currency
-      when "days"
-        "días"
-      when "hours"
-        "horas"
+      when 'days'
+        'días'
+      when 'hours'
+        'horas'
       else
         currency
       end

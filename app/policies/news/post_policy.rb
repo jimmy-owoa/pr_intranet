@@ -1,19 +1,19 @@
 class News::PostPolicy < ApplicationPolicy
 
   def destroy?
-    user.has_role? :super_admin or user.has_role? :post_admin or user == post.user
+    user.has_role? :super_admin or user.has_role? :admin
   end
 
   def update?
-    user.has_role? :super_admin or user.has_role? :post_admin or user == post.user
+    user.has_role? :super_admin or user.has_role? :admin
   end
 
   def edit?
-    user.has_role? :super_admin or user.has_role? :post_admin or user == post.user
+    user.has_role? :super_admin or user.has_role? :admin
   end
 
   def create?
-    user.has_role? :super_admin or user.has_role? :post_admin or user == post.user
+    user.has_role? :super_admin or user.has_role? :admin 
   end
 
   private

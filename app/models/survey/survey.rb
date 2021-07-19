@@ -1,10 +1,11 @@
 class Survey::Survey < ApplicationRecord
+  include Rails.application.routes.url_helpers
   acts_as_paranoid
-  searchkick match: :word, searchable: [:name]
+  # searchkick match: :word, searchable: [:name]
 
   has_many :questions, dependent: :destroy
-  has_many :survey_term_relationships, -> { where(object_type: "Survey::Survey") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :survey
   has_many :answered_times
+  has_many :answered_forms
   
   has_one_attached :image
   validates :image, content_type: ['image/png', 'image/jpeg']
@@ -17,93 +18,75 @@ class Survey::Survey < ApplicationRecord
   validates :allowed_answers, numericality: { only_integer: true, greater_than_or_equal_to: 0, message: "debe ser mayor o igual a 0" }
 
   after_initialize :set_status
-  before_save :unique_slug, :set_survey_type, :set_published_at
+  before_save :unique_slug, :set_published_at
 
-  SURVEY_TYPES = [["Encuesta", "survey"], ["Formulario", "form"]]
   STATUS = ["Publicado", "Borrador", "Programado"]
 
-  # scope :published_surveys, -> { where(status: "Publicado").order(published_at: :desc) }
+  scope :no_finished, -> { where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil)) }
   scope :published_surveys, -> { where("published_at <= ?", Time.now).where(status: ["Publicado", "Programado"]).order(published_at: :desc) }
 
   def set_status
     self.status ||= "Publicado"
   end
 
-  def self.survey_data(user)
-    @data_surveys = []
-    surveys = []
-    include_survey = Survey::Survey.where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil))
-    include_survey = include_survey.includes(questions: [options: :answers]).where(once_by_user: true).published_surveys.where(profile_id: user.profile_ids)
+  def self.get_surveys(current_user)
+    surveys_filtered = self.get_filtered_surveys(current_user)
+    surveys = surveys_filtered.get_no_once_user + surveys_filtered.get_once_user(current_user)
 
-    include_survey.each do |survey|
-      if survey.allowed_answers.present?
-        if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
-          survey.questions.each do |question|
-            if user.id.in?(question.answers.pluck(:user_id))
-              @data_surveys << survey
-            end
-          end
-        else
-          @data_surveys << survey
-        end
-      end
-    end
-
-    surveys << include_survey.where.not(id: @data_surveys.pluck(:id))
-  end
-
-  def self.get_surveys_no_once_user(user)
-    allowed_surveys = []
-    surveys = Survey::Survey.where.not("finish_date <= ?", Date.today).or(Survey::Survey.where(finish_date: nil))
-    surveys = surveys.where(once_by_user: false).published_surveys.where(profile_id: user.profile_ids)
+    data = []
     surveys.each do |survey|
-      if survey.answered_times.count < survey.allowed_answers || survey.allowed_answers == 0
-        allowed_surveys << survey
-      end
+      data << survey if survey.allows_answers?
     end
-    allowed_surveys
+
+    return data
   end
 
-  def self.sort_survey(data)
-    data.partition { |x| x.is_a? String }.map(&:sort).flatten
+  def allows_answers?
+    self.answered_times.count < self.allowed_answers || self.allowed_answers == 0
   end
 
-  def self.filter_surveys(id, data_surveys)
-    surveys = []
-    user = General::User.find(id)
-    user_tags = user.terms.tags.map(&:name)
-    excluding_tags = user.terms.tags.excluding_tags.map(&:name)
-    inclusive_tags = user.terms.tags.inclusive_tags.map(&:name)
-    data_surveys.each do |survey|
-      comparation = sort_survey(survey[:excluding_tags]) == sort_survey(excluding_tags)
-      #toma los terms excluyentes del usuario y los del survey, los ordena y compara. Si no son iguales, no los agrega al array surveys.
-      if (survey[:excluding_tags].present? && survey[:inclusive_tags].present?)
-        surveys << survey if comparation
-        survey[:inclusive_tags].each { |et| surveys << survey if et.in?(inclusive_tags) } if comparation == false
-      elsif (survey[:excluding_tags].present? && survey[:inclusive_tags].blank?)
-        surveys << survey if comparation
-      elsif (survey[:inclusive_tags].present? && survey[:excluding_tags].blank?)
-        survey[:inclusive_tags].each { |et| surveys << survey if et.in?(inclusive_tags) }
-      else
-        surveys << survey
-      end
+  def self.get_filtered_surveys(current_user)
+    self.includes(:questions).where(profile_id: current_user.profile_ids).no_finished.published_surveys
+  end
+
+  def self.get_no_once_user()
+    return self.where(once_by_user: false)
+  end
+
+  def self.get_once_user(current_user)
+    surveys = self.where(once_by_user: true)
+
+    data = []
+    surveys.each do |survey|
+      data << survey if !survey.answered_forms.where(user: current_user).exists?
     end
-    surveys.uniq
+
+    data
   end
 
-  def get_name_survey_type
-    SURVEY_TYPES.find { |st| st[1] == self.survey_type }[0]
+  def show_to?(current_user)
+    if once_by_user
+      answered_forms.find_by(user: current_user).nil? && self.allows_answers?
+    else
+      self.allows_answers?
+    end
   end
 
   def get_answer_count
     Survey::Answer.joins(:question).where(survey_questions: { survey_id: id }).pluck(:user_id).uniq.count
   end
 
-  private
-
-  def set_survey_type
-    self.survey_type = self.survey_type ||= "survey"
+  def get_image
+    image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("survey.png")
   end
+
+  def delete_answers
+    Survey::Answer.delete_all
+    Survey::AnsweredTime.delete_all
+    Survey::AnsweredForm.delete_all
+  end
+
+  private
 
   def set_published_at
     self.published_at = self.published_at || DateTime.now
@@ -111,7 +94,7 @@ class Survey::Survey < ApplicationRecord
 
   def unique_slug
     self.slug = if self.slug.blank?
-                  self.name.blank? ? set_slug(self.get_name_survey_type) : set_slug(self.name.parameterize)
+                  set_slug(self.name.parameterize)
                 else
                   set_slug(self.slug.parameterize)
                 end
@@ -136,8 +119,4 @@ class Survey::Survey < ApplicationRecord
       val
     end
   end
-
-  # def get_surveys
-  #   General::Survey
-  # end
 end

@@ -137,7 +137,7 @@ module Api::V1
       slug = params[:slug].present? ? params[:slug] : nil
       post = News::Post.find_by_slug(slug)
       # data = ActiveModelSerializers::SerializableResource.new(post, serializer: PostSerializer, show_action: true)
-      render json: post, serializer: PostSerializer, show_action: true, user_id: @request_user.id
+      render json: post, serializer: PostSerializer, show_action: true, user: @request_user
     end
 
     private

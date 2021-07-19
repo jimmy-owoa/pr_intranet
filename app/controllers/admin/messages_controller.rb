@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 module Admin
   class MessagesController < AdminController
-    before_action :set_message, only: [:show, :edit, :update, :destroy]
+    before_action :set_message, only: %i[show edit update destroy]
 
     def index
       @messages = General::Message.order(created_at: :desc)
     end
 
-    def show
-    end
+    def show; end
 
     def new
       @message = General::Message.new
@@ -23,7 +24,7 @@ module Admin
       respond_to do |format|
         if @message.save
           @message.set_users
-          format.html { redirect_to admin_message_path(@message), notice: "Mensaje fue creado con éxito." }
+          format.html { redirect_to admin_message_path(@message), notice: 'Mensaje fue creado con éxito.' }
           format.json { render :show, status: :created, location: @message }
           format.js
         else
@@ -38,7 +39,7 @@ module Admin
       respond_to do |format|
         if @message.update(message_params)
           @message.set_users
-          format.html { redirect_to admin_message_path(@message), notice: "Mensaje fue actualizado con éxito." }
+          format.html { redirect_to admin_message_path(@message), notice: 'Mensaje fue actualizado con éxito.' }
           format.json { render :show, status: :ok, location: @message }
         else
           format.html { render :edit }
@@ -50,7 +51,7 @@ module Admin
     def destroy
       @message.destroy
       respond_to do |format|
-        format.html { redirect_to admin_messages_path, notice: "Mensaje fue eliminado con éxito." }
+        format.html { redirect_to admin_messages_path, notice: 'Mensaje fue eliminado con éxito.' }
         format.json { head :no_content }
       end
     end

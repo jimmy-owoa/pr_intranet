@@ -1,5 +1,7 @@
-module Api::V1
-  class BenefitGroupsController < ApiController
+# frozen_string_literal: true
+
+module Frontend
+  class BenefitGroupsController < FrontendController
     def index
       benefit_groups = General::BenefitGroup.all.map(&:name)
       respond_to do |format|
@@ -14,15 +16,15 @@ module Api::V1
       benefit_group = @request_user.benefit_group
       benefit_group_name = benefit_group.name
       benefit_group.benefits.order(:benefit_type, :id) do |benefit|
-        @image = benefit.image.present? ? url_for(benefit.image.attachment) :  ActionController::Base.helpers.asset_path("news.jpg")
+        @image = benefit.image.present? ? url_for(benefit.image.attachment) : root_url + '/assets/news.jpg'
         data << {
           benefit_group_name: benefit_group_name,
           id: benefit.id,
           title: benefit.title,
           content: benefit.content,
-          url: root_url + "admin/benefit_groups/" + "#{benefit.id}" + "/edit",
+          url: root_url + 'admin/benefit_groups/' + benefit.id.to_s + '/edit',
           image: @image,
-          benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : "",
+          benefit_type: benefit.benefit_type.present? ? benefit.benefit_type.name.downcase : ''
         }
       end
       respond_to do |format|

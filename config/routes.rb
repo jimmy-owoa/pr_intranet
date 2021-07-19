@@ -90,7 +90,7 @@ Rails.application.routes.draw do
       post "user_message/update", to: "user_messages#update"
       get "azure_auth", to: "api#azure_auth"
       get "current_user_azure", to: "api#current_user_azure"
-      get "products/user_products", to: "products#user_products"
+      
       get "posts_video", to: "posts#index_video"
       get "posts_video/post", to: "posts#post_video"
       get "last_posts", to: "posts#last_posts"
@@ -108,28 +108,32 @@ Rails.application.routes.draw do
       end
       post "users/upload", to: "users#upload"
       post "products/update_expiration", to: "products#update_expiration"
-      resources :surveys do
+      resources :surveys, param: :slug, only: [:index, :show] do
         get :survey_count, on: :collection
         get :survey, on: :collection
         get :user_surveys, on: :collection
+        resources :answers, on: :member, only: [:create]
       end
       resources :benefit_groups, only: [:index] do
         get :benefits_group, on: :collection
       end
-      resources :answers
+      # resources :answers
       resources :messages
       resources :links
       resources :sections
       resources :benefits do
-        get :benefit, on: :collection
+        # get :benefit, on: :collection
       end
       resources :birthdays do
         get :users_birthday, on: :collection
         get :home_birthdays, on: :collection
       end
+      
       resources :products do
-        get :product, on: :collection
+        get :user_products, on: :collection
+        get "user_product/:id", to: "products#user_product", on: :collection
       end
+
       resources :posts, only: [:show, :index] do
         get :post, on: :collection
         get :important_posts, on: :collection

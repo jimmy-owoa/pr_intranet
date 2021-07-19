@@ -165,27 +165,7 @@ module Api::V1
           }
         end
       end
-      if user.products.present?
-        user.products.last(4).each do |product|
-          data_products << {
-            id: product.id,
-            image: url_for(product.images.attachments.first.variant(resize: "900x600")),
-            name: product.name,
-            description: product.description.truncate(80),
-            product_type: product.product_type,
-            price: product.price,
-            email: product.email,
-            phone: product.phone,
-            location: product.location,
-            expiration: product.expiration,
-            approved: product.approved,
-            user_id: product.user_id,
-            is_expired: product.is_expired,
-            published_date: product.published_date,
-            currency: product.currency
-          }
-        end
-      end
+      
       if user.birthday?
         General::Message.where(message_type: "birthdays").take(1).each do |message|
           data_messages << {

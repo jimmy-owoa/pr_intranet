@@ -1,4 +1,5 @@
 class Marketplace::Product < ApplicationRecord
+  include Rails.application.routes.url_helpers
   include ActiveModel::Dirty
   has_many_attached :images
   # validate :correct_image_type
@@ -54,6 +55,48 @@ class Marketplace::Product < ApplicationRecord
   def unpermitted_images
     images.attachments.where(permission: 0)
   end
+
+  def get_main_image(is_user_product = false)
+    default_image = "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png"
+
+    if is_user_product
+      # return default_image if !self.images.present?
+      url_for(images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) rescue default_image
+    else
+      # return default_image if self.permitted_images.empty?
+      url_for(permitted_images.first.variant(combine_options: { resize: "400>x300>", gravity: "Center" })) rescue default_image
+    end
+  end
+
+  def default_images
+    [{
+      src: "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png",
+      thumbnail: "https://intranet-security-assets.s3.us-east-2.amazonaws.com/noimage.png",
+    }]
+  end
+
+  def get_images(is_user_product = false)
+    items = []
+
+    if is_user_product
+      self.images.each do |image|
+        items << {
+          src: url_for(image.variant(combine_options: { resize: "600x400>", gravity: "Center" })),
+          thumbnail: url_for(image.variant(resize: "100x100")),
+        }
+      end
+    else
+      self.permitted_images.each do |image|
+        items << {
+          src: url_for(image.variant(combine_options: { resize: "600x400>", gravity: "Center" })),
+          thumbnail: url_for(image.variant(resize: "100x100")),
+        }
+      end
+    end
+
+    items
+  end
+
 
   private
 

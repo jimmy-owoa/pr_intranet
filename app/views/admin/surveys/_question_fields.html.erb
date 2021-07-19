@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="col-md-11">
-      <%= f.input :optional, as: :boolean, boolean_style: :inline, input_html: { class: "col-md-7" } %>
+      <%= f.input :required, label: "Obligatorio", as: :boolean, boolean_style: :inline, input_html: { class: "col-md-7" } %>
     </div>
     <div class="col-md-11"><br/>
       <%= f.input :question_type, collection: Survey::Question::QUESTION_TYPE, as: :select, include_blank: false, input_html: { class: "col-md-7 select-question-type", include_hidden: false }  %>
