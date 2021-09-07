@@ -18,13 +18,17 @@
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-12">
           <%= f.input :email, required: true,autofocus: true ,input_html: { autocomplete: "email" }%>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.input :password, required: !@user.id.present?,
-            hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" } %>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.input :password_confirmation,required: !@user.id.present?,input_html: { autocomplete: "new-password" } %>
-        </div>
+
+        <% if false %>          
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <%= f.input :password, required: !@user.id.present?,
+              hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" } %>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+            <%= f.input :password_confirmation,required: !@user.id.present?,input_html: { autocomplete: "new-password" } %>
+          </div>
+        <% end %>
+        
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.label "Fecha de nacimiento"%>
           <div class="input-group date" id="birthday" data-target-input="nearest">
@@ -73,20 +77,21 @@
         <div class="col-6 col-sm-6">
           <%= f.input :address %>
         </div>
-        <div class="col-4 col-sm-6">
-          <%= f.label 'Jerarquía' %>
-          <!-- TODO: ARREGLAR ESTO! -->
-          <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
-        </div>
+
+        <% if false %>          
+          <div class="col-4 col-sm-6">
+            <%= f.label 'Jerarquía' %>
+            <!-- TODO: ARREGLAR ESTO! -->
+            <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
+          </div>
+        <% end %>
         <div class="col-4 col-sm-3">
           <%= f.label :active %>
           <%= f.input :active, as: :boolean, label: false %>
         </div>
         <div class="col-4 col-sm-3">
-          <% if current_user.has_role? :super_admin %>
-            <%= f.label :show_birthday %>
-            <%= f.input :show_birthday, as: :boolean, label: false %>
-          <% end %>
+          <%= f.label :show_birthday %>
+          <%= f.input :show_birthday, as: :boolean, label: false %>
         </div>
       </div>
     </div>
@@ -103,9 +108,12 @@
       <%= f.file_field :image, accept:'image/*', class: 'user_image' %>
       <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
-          <% if current_user.has_role? :super_admin %>
-            <%= f.association :roles, as: :check_boxes %>
-          <% end %>
+          <p>Roles</p>
+          <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: nil), as: :check_boxes, label_method: :label_name %>
+          <p>Centro de ayuda</p>
+          <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: Helpcenter::Category), as: :check_boxes, label_method: :name %>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
         </div>
       </div>
     </div>
