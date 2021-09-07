@@ -1,7 +1,0 @@
-<%- model_class = Library::Book -%>
-<section class="section">
-  <h1 class="section-header">Editar Libro: <%= @book.title %></h1>
-  <%= simple_form_for @book, as: 'book', url: {action: :update}, :html => { :class => "form" } do |f| %>
-    <%= render :partial => 'form', locals: {f: f} %>
-  <% end %>
-</section>

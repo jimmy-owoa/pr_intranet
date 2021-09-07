@@ -1,6 +1,0 @@
-$("#gallery_modal").modal('hide');
-$("#post_gallery_ids").empty();
-<% @galleries_list.each do |i| %>
-  $("#post_gallery_ids").append("<option value=" + '<%= i[0] %>'   + ">" + '<%= i[1] %>' + "</option>");
-<% end %>
-$("#post_gallery_ids").val('<%= @galleries_list.last[0] %>');

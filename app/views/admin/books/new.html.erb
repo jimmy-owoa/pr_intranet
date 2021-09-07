@@ -1,6 +1,0 @@
-<section class="section">
-    <h1 class="section-header">Crear Libro</h1>
-    <%= simple_form_for @book, as: 'book', :include_id => false,  url: {action: :create}, :html => { :class => "form" } do |f| %>
-        <%= render :partial => 'form', locals: {f: f} %>
-    <% end %>
-</section>

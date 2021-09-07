@@ -1,9 +1,0 @@
-<%@benefit_groups.each do |benefit_group| %>
-  <tr>
-    <td><%= link_to benefit_group.code, admin_benefit_group_path(benefit_group) %></td>
-    <td><%= benefit_group.name %></td>
-    <td><%= link_to t('.show', :default => t("helpers.links.show")),
-          admin_benefit_group_path(benefit_group), :class => 'btn btn-success btn-sm btn-block' %>
-    </td>
-  </tr>
-<% end %>
