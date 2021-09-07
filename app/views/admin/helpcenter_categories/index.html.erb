@@ -1,0 +1,43 @@
+<section class="section">
+  <h1 class="section-header"><%= "Categorias" %></h1>
+  <%= link_to "Nuevo", new_admin_helpcenter_category_path, class: 'btn btn-primary btn-sm mb-1' %>
+  <div class="card">
+    <div class="table-responsive-md">
+      <table class="table table-hover" id="categories_table">
+        <thead class="thead">
+          <tr>
+            <th><%= 'Icono' %></th>
+            <th><%= "Nombre" %></th>
+            <th><%= "Acciones" %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @categories.each do |category| %>
+            <tr>
+              <td><%= image_tag category.image.attachment.variant(resize: '30x30!'), :class=> 'img-thumbnail img-fluid' unless category.image.attachment.nil? %></td>
+              <td><%= category.name %></td>
+              <td>
+                
+                <%= link_to t("helpers.links.show"),
+                              admin_helpcenter_category_path(category), :class => 'btn btn-success btn-xs' %>
+                <%= link_to t("helpers.links.edit"),
+                              edit_admin_helpcenter_category_path(category), :class => 'btn btn-primary btn-xs' %>
+
+                <%= link_to "Resolutores",
+                assistants_admin_helpcenter_category_path(category), :class => 'btn btn-success btn-xs' %>
+
+                <%= link_to t("helpers.links.destroy"),
+                              admin_helpcenter_category_path(category),
+                              :method => :delete,
+                              :data => { :confirm => t('.confirm', :default => t("helpers.messages.confirm", :default => '¿Esta segura(o) que desea eliminar este elemento?')) },
+                              :class => 'btn btn-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="row justify-content-center">
+      </div>
+    </div>
+  </div>
+</section>

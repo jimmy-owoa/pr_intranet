@@ -1,0 +1,10 @@
+<section class="section">
+  <h1 class="section-header"><%= "Crear pregunta" %></h1>
+  <%= simple_form_for @question, as: 'question', url: {action: :create}, :html => { :class => "form" } do |f| %>
+    <%= render :partial => 'form', locals: {f: f} %>
+  <% end %>
+</section>
+
+<script>
+$("#question_subcategory_id").prop("disabled", true);
+</script>

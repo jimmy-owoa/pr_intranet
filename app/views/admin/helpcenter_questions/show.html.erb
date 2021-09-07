@@ -1,0 +1,27 @@
+<div class="container">
+  <section class="section">
+    <h2 class="section-header"><%= @question.name %></h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card post_card">
+            <p><b><%= "Nombre" %>:</b> <%= @question.name %></p>
+            <p><b><%= "Sub-categoría" %>:</b> <%= @question.subcategory.name %></p>
+            <p><b><%= "Perfil" %>:</b> <%= @question.profile.present? ? @question.profile.name : "General" %></p>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="card post_card">
+            <%= @question.content.present? ? raw(@question.content) : "No existe contenido..." %>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="container" align="center">
+        <%= link_to t("helpers.links.back"), admin_helpcenter_questions_path, :class => 'btn btn-primary'  %>
+        <%= link_to t("helpers.links.edit"), edit_admin_helpcenter_question_path(@question), :class => 'btn btn-primary' %>
+      </div>
+    </div>
+  </section>

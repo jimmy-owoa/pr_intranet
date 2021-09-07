@@ -1,0 +1,6 @@
+<section class="section">
+  <h1 class="section-header"><%= "Nuevo Ticket" %></h1>
+  <%= simple_form_for @ticket, as: 'ticket', url: {action: :create}, :html => { :class => "form" } do |f| %>
+    <%= render :partial => 'form', locals: {f: f} %>
+  <% end %>
+</section>
