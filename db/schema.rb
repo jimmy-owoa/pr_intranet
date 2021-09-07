@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_01_183112) do
+ActiveRecord::Schema.define(version: 2021_08_13_190937) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -456,6 +456,70 @@ ActiveRecord::Schema.define(version: 2021_06_01_183112) do
     t.integer "uv_index"
   end
 
+  create_table "helpcenter_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "name", default: ""
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "helpcenter_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id"
+    t.bigint "ticket_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ticket_id"], name: "index_helpcenter_messages_on_ticket_id"
+    t.index ["user_id"], name: "index_helpcenter_messages_on_user_id"
+  end
+
+  create_table "helpcenter_questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "name", default: ""
+    t.text "content"
+    t.boolean "important", default: false
+    t.bigint "subcategory_id"
+    t.bigint "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_helpcenter_questions_on_profile_id"
+    t.index ["subcategory_id"], name: "index_helpcenter_questions_on_subcategory_id"
+  end
+
+  create_table "helpcenter_satisfaction_answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "ticket_id"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ticket_id"], name: "index_helpcenter_satisfaction_answers_on_ticket_id"
+    t.index ["user_id"], name: "index_helpcenter_satisfaction_answers_on_user_id"
+  end
+
+  create_table "helpcenter_subcategories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "name", default: ""
+    t.string "slug"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_helpcenter_subcategories_on_category_id"
+  end
+
+  create_table "helpcenter_tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.text "description"
+    t.string "status"
+    t.boolean "created_by_admin", default: false
+    t.datetime "closed_at"
+    t.datetime "attended_at"
+    t.bigint "category_id"
+    t.bigint "user_id"
+    t.bigint "assistant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assistant_id"], name: "index_helpcenter_tickets_on_assistant_id"
+    t.index ["category_id"], name: "index_helpcenter_tickets_on_category_id"
+    t.index ["user_id"], name: "index_helpcenter_tickets_on_user_id"
+  end
+
   create_table "library_authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -530,19 +594,18 @@ ActiveRecord::Schema.define(version: 2021_06_01_183112) do
     t.string "name"
     t.text "description"
     t.string "product_type"
-    t.decimal "price", precision: 15, scale: 2
+    t.string "currency"
+    t.integer "price"
     t.string "email"
     t.integer "phone"
     t.string "location"
     t.integer "expiration"
     t.boolean "approved", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.boolean "is_expired", default: false
     t.date "published_date"
-    t.string "currency"
-    t.integer "xoops_product_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "media_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -555,7 +618,6 @@ ActiveRecord::Schema.define(version: 2021_06_01_183112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "caption"
-    t.integer "xoops_attachment_id"
     t.string "xoops_attachment_name"
     t.index ["attachable_type", "attachable_id"], name: "index_media_attachments_on_attachable_type_and_attachable_id"
   end
@@ -574,7 +636,6 @@ ActiveRecord::Schema.define(version: 2021_06_01_183112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "post_id"
-    t.integer "xoops_gallery_id"
   end
 
   create_table "media_galleries_news_posts", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -800,28 +861,28 @@ ActiveRecord::Schema.define(version: 2021_06_01_183112) do
     t.text "description"
     t.string "question_type"
     t.bigint "survey_id"
+    t.boolean "required", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "optional", default: false
     t.index ["survey_id"], name: "index_survey_questions_on_survey_id"
   end
 
   create_table "survey_surveys", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
+    t.string "survey_type"
+    t.string "status"
+    t.text "description"
+    t.date "finish_date"
+    t.datetime "published_at"
+    t.boolean "show_name", default: true
+    t.boolean "once_by_user", default: true
+    t.integer "allowed_answers", default: 0
+    t.string "slug"
+    t.string "string"
+    t.bigint "profile_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "survey_type"
-    t.string "slug"
-    t.boolean "show_name", default: true
-    t.text "description"
-    t.boolean "once_by_user", default: true
-    t.datetime "published_at"
-    t.string "status"
-    t.integer "xoops_survey_id"
-    t.bigint "profile_id"
-    t.integer "allowed_answers", default: 0
     t.datetime "deleted_at"
-    t.date "finish_date"
     t.index ["deleted_at"], name: "index_survey_surveys_on_deleted_at"
     t.index ["profile_id"], name: "index_survey_surveys_on_profile_id"
     t.index ["slug"], name: "index_survey_surveys_on_slug", unique: true
