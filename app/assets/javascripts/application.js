@@ -42,6 +42,9 @@
 //= require admin/surveys
 //= require admin/benefit_groups
 //= require admin/books
+//= require admin/helpcenter_questions
+//= require admin/helpcenter_categories
+//= require admin/helpcenter_tickets
 //= require owl.carousel
 //= require clipboard
 //= require jquery.minicolors
