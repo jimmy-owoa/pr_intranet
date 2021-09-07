@@ -8,6 +8,7 @@ set :application, 'compass-helpcenter'
 set :repo_url, 'git@bitbucket.org:redvel-cl/demo-redexa-api.git'
 set :ssh_options, { forward_agent: false }
 
+set :branch, ENV['BRANCH'] if ENV['BRANCH']
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
