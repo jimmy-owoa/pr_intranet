@@ -32,7 +32,7 @@
 /config/credentials.yml
 /config/credentials.yml.enc
 # Ignore database.yml
-/config/database.yml
+# /config/database.yml
 
 .DS_Store
 
