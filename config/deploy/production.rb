@@ -1,3 +1,4 @@
+set :stage, :production
 set :deploy_to, "/home/ubuntu/apps/prod_helpcenter"
 set :branch, "master-compass-helpcenter"
 set :rails_env, 'production'
