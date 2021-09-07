@@ -38,17 +38,17 @@ class Api::V1::ApiController < ApplicationController
     }
   end
 
-  # def current_user_azure
-  #   referrer = params[:referrer].gsub("#/", "/").insert(1, "#/") || "/"
-  #   user = get_current_user_jwt
-  #   respond_to do |format|
-  #     if user.present?
-  #       format.json { render json: { message: "OK", token: http_auth_header, cod: params[:cod], referrer: user.referrer } }
-  #     else
-  #       format.json { render json: { error: "No hay user" } }
-  #     end
-  #   end
-  # end
+  def current_user_azure
+    referrer = params[:referrer].gsub("#/", "/").insert(1, "#/") || "/"
+    user = get_current_user_jwt
+    respond_to do |format|
+      if user.present?
+        format.json { render json: { message: "OK", token: http_auth_header, cod: params[:cod], referrer: user.referrer } }
+      else
+        format.json { render json: { error: "No hay user" } }
+      end
+    end
+  end
 
   # def referrer_update(token, referrer)
   #   decoded = JsonWebToken.decode(token)
