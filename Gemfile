@@ -134,6 +134,7 @@ group :development do
   gem "capistrano-rails", require: false
   gem "capistrano-bundler", require: false
   gem "capistrano3-puma", require: false
+  gem 'capistrano-passenger', require: false
   #debugear yml
   # gem 'i18n-debug'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
