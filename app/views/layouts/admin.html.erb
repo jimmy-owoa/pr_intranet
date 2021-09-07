@@ -10,7 +10,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <% if current_user.has_role? :admin %>
+  <% if current_user.is_authorized? %>
     <body>
       <div class="modal" id="gallery_modal"></div>
       <div class="modal" id="main_image_modal"></div>
@@ -72,33 +72,24 @@
                 </li>
 
                 <li class="menu-header">Módulos</li>
-                <%= render "layouts/partials/posts_menu" %>
-                <%= render "layouts/partials/medios_menu" %>
-                <%= render "layouts/partials/surveys_menu" %>
-                <%= render "layouts/partials/books_menu" %>
-                <%= render "layouts/partials/home_menu" %>
-                <%= render "layouts/partials/messages_menu" %>
-                <%= render "layouts/partials/profiles_menu" %>
-                
-                <li class="menu-header">Beneficios</li>
-                <%= render "layouts/partials/benefits_menu" %>
+                <% if current_user.is_admin? %>
+                  <%= render "layouts/partials/profiles_menu" %>
+                <% end %>
 
-                <li class="menu-header">Marketplace</li>
-                <%= render "layouts/partials/products_menu" %>
+                <% if current_user.is_admin? || current_user.is_helpcenter? %>                  
+                  <li class="menu-header">Centro de ayuda</li>
+                  <%= render "layouts/partials/helpcenter_menu" %>
+                <% end %>
 
-                <li class="menu-header">Eventos</li>
-                <%= render "layouts/partials/births_menu" %>
-
-                <li class="menu-header">Configuración</li>
-                <%= render "layouts/partials/users_menu" %>
-                <%= render "layouts/partials/menus_menu" %>
+                <% if current_user.is_admin? %>
+                  <li class="menu-header">Configuración</li>
+                  <%= render "layouts/partials/users_menu" %>
+                <% end %>
               </ul>
 
               <!-- Cerrar sesión -->
               <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-                <a href="#" class="btn btn-danger btn-lg btn-block btn-icon-split">
-                  <i class="fas fa-close"></i> Cerrar sesión
-                </a>
+                <%= link_to '<i class="fas fa-close"></i> Cerrar sesión'.html_safe, destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-lg btn-block btn-icon-split' %>
               </div>
             </aside>
           </div>

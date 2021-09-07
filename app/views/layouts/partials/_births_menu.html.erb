@@ -1,7 +1,0 @@
-<li class="nav-item dropdown <%= dropdown_active?(['births']) %>">
-  <a class="nav-link has-dropdown" data-turbolinks="false"><i class="fas fa-dove"></i> <span>Nacimientos</span></a>
-  <ul class="dropdown-menu">
-    <li><%= nav_link "Lista de nacimientos", admin_births_path %></li>
-    <li><%= nav_link "Pendientes aprobación", admin_births_no_approved_index_path %></li>
-  </ul>
-</li>

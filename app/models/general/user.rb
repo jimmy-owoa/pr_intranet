@@ -61,10 +61,14 @@ class General::User < ApplicationRecord
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable
 
+  has_many :tickets, class_name: 'Helpcenter::Ticket', foreign_key: :user_id
+  has_many :tickets_attended, class_name: 'Helpcenter::Ticket', foreign_key: :assistant_id
+  has_many :chat_messages, class_name: 'Helpcenter::Message', foreign_key: :user_id
+  has_many :satisfaction_answers, class_name: 'Helpcenter::SatisfactionAnswer', foreign_key: :user_id
+
   # callbacks
   after_create :assign_default_role, :image_resize
   before_update :image_resize
-  before_create :only_admin?
 
   #scopes
   scope :show_birthday, -> { where(show_birthday: true) }
@@ -203,60 +207,6 @@ class General::User < ApplicationRecord
     add_role(:user) if roles.blank?
   end
 
-  def only_admin?
-    true if roles.map { |q| q.name }.any? "super_admin"
-    false
-  end
-
-  def self.users_welcome
-    General::User.where(date_entry: (Date.today - 100.days)..Date.today).order("RAND()")
-  end
-
-  def get_color
-    if self.company.present?
-      case self.company.name.upcase
-      when "BANCO SECURITY S.A.", "FACTORING SECURITY S.A.", "MANDATOS SECURITY LIMITADA"
-        "#8D0C9A"
-      when "TRAVEX SECURITY", "TRAVEL SECURITY S.A.", "INMOBILIARIA SECURITY S.A.", "INMOBILIARIA SECURITY SIETE", "REPRESENTACIONES SECURITY LTDA"
-        "#008DCF"
-      when "VALORES SECURITY S.A. COR. BOLSA", "ADM GRAL DE FONDOS SECURITY S.A.", "SECURITIZADORA SECURITY S. A.", "INMOBILIARIA CASANUESTRA", "GLOBAL SECURITY LTDA.", "ASESORIAS SECURITY S.A."
-        "#FF052B"
-      when "VIDA SECURITY S.A.", "CORREDORA DE SEGUROS SECURITY", "HIPOTECARIA SECURITY PRINCIPAL", "PROTECTA SECURITY", "ADM. SERVICIOS BENEFICIOS LTDA"
-        "#FF6E00"
-      when "GRUPO SECURITY S.A.", "CAPITAL S.A"
-        "#628D36"
-      else
-        "#000000"
-      end
-    else
-      "#000000"
-    end
-  end
-
-  def get_messages
-    messages = self.user_messages
-    data = []
-    birthday_messages = []
-    welcome_messages = []
-    messages.each do |um|
-      case um.message.message_type.downcase
-      when "birthdays"
-        if um.user.is_birthday_today
-          birthday_messages << um
-        end
-      when "welcomes"
-        if um.user.is_entry_today
-          welcome_messages << um
-        end
-      when "general"
-        data << um
-      end
-    end
-    data << birthday_messages.sample
-    data << welcome_messages.sample
-    return data.compact
-  end
-
   def set_user_attributes
     attributes = [
       ["company", self.company_id],
@@ -279,24 +229,28 @@ class General::User < ApplicationRecord
     end
   end
 
+  def help_categories
+    Helpcenter::Category.joins(:roles).where(roles: self.roles)
+  end
+
   def get_image
     image.attached? ? url_for(image) : ActionController::Base.helpers.asset_path("default_avatar.png")
   end
 
-  def self.get_welcomes_users(page, month)
-    first_day_selected_month = Date.new(Date.today.year, month.to_i, 1)
-    users = self.where(date_entry: first_day_selected_month..first_day_selected_month.end_of_month)
-    users.order(:date_entry).page(page).per(9)
+  def is_authorized?
+    self.is_admin? || self.is_helpcenter?
   end
 
-  def self.get_birthday_users(page, month)
-    if month == "0"
-      users = self.users_birthday_today.show_birthday
-    else
-      users = self.where("extract(month from birthday) = ?", month).order("DAY(birthday)").show_birthday
-    end
+  def is_admin?
+    self.has_role?(:admin)
+  end
 
-    users.order(:birthday).page(page).per(9)
+  def is_helpcenter?
+    self.has_role?(:helpcenter)
+  end
+
+  def format_legal_number
+    legal_number.present? ? "#{legal_number}-#{legal_number_verification}" : ''
   end
 
   private
