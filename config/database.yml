@@ -51,5 +51,6 @@ test:
 production:
   <<: *default
   database: compass_helpcenter_production
-  username: intranet
-  password: <%= ENV['INTRANET_DATABASE_PASSWORD'] %>
+  username: compass
+  # password: <%= ENV['COMPASS_DATABASE_PASSWORD'] %>
+  password: KNyyEz2SFeHt8qW344dZtfaD
