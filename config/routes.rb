@@ -36,7 +36,21 @@ Rails.application.routes.draw do
         get :current_user_vue_temp, on: :collection
         get :parents_data, on: :collection
       end
+
+      resources :hc_questions, only: [:show] do
+        get :importants, on: :collection
+        get :search, on: :collection
+      end
+  
+      resources :hc_categories, param: :slug, only: [:index, :show]
+      resources :hc_subcategories, param: :slug, only: [:show]
+  
+      resources :hc_tickets do
+        resources :hc_messages, on: :member, only: [:create]
+        resources :hc_satisfaction_answers, on: :member, only: [:create]
+      end
     end
+    
     root to: "application#index"
   end
 
