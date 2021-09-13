@@ -216,7 +216,6 @@ module Api::V1
         location: @location,
         products: data_products,
         messages: data_messages,
-        color: user.get_color,
         family_members: data_family_member,
       }
 
