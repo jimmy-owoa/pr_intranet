@@ -1,5 +1,5 @@
 class General::Menu < ApplicationRecord
-  searchkick word_start: [:title]
+  # searchkick word_start: [:title]
 
   # validates_presence_of :title
   belongs_to :post, class_name: "News::Post", foreign_key: "post_id", optional: true

@@ -4,6 +4,4 @@ class Helpcenter::Question < ApplicationRecord
   # relations
   belongs_to :profile, class_name: 'General::Profile'
   belongs_to :subcategory, class_name: 'Helpcenter::Subcategory'
-  # Elasticsearch
-  # searchkick
 end

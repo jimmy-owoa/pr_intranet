@@ -71,7 +71,7 @@ gem "pundit"
 #role system
 gem "rolify"
 #searching for elasticsearch
-gem "searchkick"
+# gem "searchkick"
 #paginate
 gem "will_paginate-bootstrap4"
 #Soft delete
