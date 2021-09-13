@@ -5,15 +5,14 @@ class Helpcenter::QuestionSerializer < ActiveModel::Serializer
   def breadcrumbs
     [
       { to: "/", text: "Inicio", disabled: false, exact: true },
-      { to: "/centro-de-ayuda", text: "Centro de ayuda", disabled: false, exact: true },
       { 
-        to: "/centro-de-ayuda/#{object.subcategory.category.slug}", 
+        to: "/#{object.subcategory.category.slug}", 
         text: "#{object.subcategory.category.name}", 
         disabled: false, 
         exact: true 
       },
       { 
-        to: "/centro-de-ayuda/#{object.subcategory.category.slug}/#{object.subcategory.slug}", 
+        to: "/#{object.subcategory.category.slug}/#{object.subcategory.slug}", 
         text: "#{object.subcategory.name.truncate(30)}", 
         disabled: false,
         exact: true
@@ -23,7 +22,7 @@ class Helpcenter::QuestionSerializer < ActiveModel::Serializer
   end
 
   def url
-    "/centro-de-ayuda/#{object.subcategory.category.slug}/#{object.subcategory.slug}/#{object.id}"
+    "/#{object.subcategory.category.slug}/#{object.subcategory.slug}/#{object.id}"
   end
 
   def is_show?
