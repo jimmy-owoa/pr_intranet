@@ -7,7 +7,6 @@ class Helpcenter::CategorySerializer < ActiveModel::Serializer
   def breadcrumbs
     [
       { to: "/", text: "Inicio", disabled: false, exact: true },
-      { to: "/centro-de-ayuda", text: "Centro de ayuda", disabled: false, exact: true },
       { to: "", text: object.name.truncate(30), disabled: true },
     ]
   end
