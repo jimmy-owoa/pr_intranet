@@ -203,7 +203,7 @@ content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in lor
 profile = General::Profile.find_by(name: "General")
 
 categories.each do |item|
-  cat = Helpcenter::Category.create(name: item[:name])
+  cat = Helpcenter::Category.create(name: item[:name], profile: profile)
 
   item[:subcategories].each do |subitem|
     subcat = Helpcenter::Subcategory.create(name: subitem[:name], category: cat)
@@ -211,7 +211,7 @@ categories.each do |item|
 
     subitem[:questions].each do |q|
       puts("#{q}")
-      question = Helpcenter::Question.create(name: q[:name], content: content, subcategory: subcat, profile: profile)
+      question = Helpcenter::Question.create(name: q[:name], content: content, subcategory: subcat)
       puts("Pregunta #{question.id}")
     end
   end

@@ -7,7 +7,7 @@ module Api::V1
     end
 
     def importants
-      questions = Helpcenter::Question.where(important: true, profile: @request_user.profiles).order(:created_at).first(5)
+      questions = Helpcenter::Question.where(important: true).order(:created_at).first(5)
       render json: questions, each_serializer: Helpcenter::QuestionSerializer, status: :ok
     end
 
@@ -21,8 +21,8 @@ module Api::V1
     private
 
     def show?
-      return if @question.profile_id.in?(@request_user.profile_ids)
-      render json: { msg: "Not authorized", success: false }, status: :unauthorized
+      # return if @question.profile_id.in?(@request_user.profile_ids)
+      # render json: { msg: "Not authorized", success: false }, status: :unauthorized
     end
 
     def set_question

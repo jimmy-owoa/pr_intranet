@@ -187,8 +187,10 @@ ActiveRecord::Schema.define(version: 2021_08_13_190937) do
   create_table "helpcenter_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", default: ""
     t.string "slug"
+    t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_helpcenter_categories_on_profile_id"
   end
 
   create_table "helpcenter_messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -206,10 +208,8 @@ ActiveRecord::Schema.define(version: 2021_08_13_190937) do
     t.text "content"
     t.boolean "important", default: false
     t.bigint "subcategory_id"
-    t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_helpcenter_questions_on_profile_id"
     t.index ["subcategory_id"], name: "index_helpcenter_questions_on_subcategory_id"
   end
 
