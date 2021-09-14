@@ -210,7 +210,6 @@ class General::User < ApplicationRecord
   def set_user_attributes
     attributes = [
       ["company", self.company_id],
-      ["benefit_group", self.benefit_group_id],
       ["management", self.management_id],
       ["cost_center", self.cost_center_id],
       ["gender", self.gender],

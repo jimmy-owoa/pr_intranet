@@ -11,7 +11,6 @@ module Admin
     def show
       @regions = Location::Region.find(General::ProfileAttribute.where(profile: @profile, class_name: 'location_region').pluck(:value))
       @companies = Company::Company.where(id: General::ProfileAttribute.where(profile: @profile, class_name: 'company').pluck(:value))
-      @benefit_groups = General::BenefitGroup.find(General::ProfileAttribute.where(profile: @profile, class_name: 'benefit_group').pluck(:value))
       @managements = Company::Management.find(General::ProfileAttribute.where(profile: @profile, class_name: 'management').pluck(:value))
       @genders = General::ProfileAttribute.where(profile: @profile, class_name: 'gender').pluck(:value)
       @is_boss = General::ProfileAttribute.where(profile: @profile, class_name: 'is_boss').pluck(:value)
@@ -66,7 +65,6 @@ module Admin
         @profile.attached = params[:creation_option] != 'manual'
         if @profile.update(profile_params)
           assign_users
-          @profile.update_user_messages
           format.html { redirect_to admin_profile_path(@profile), notice: 'Profile fue actualizada con éxito.' }
           format.json { render :show, status: :ok, location: @profile }
         else
@@ -134,7 +132,6 @@ module Admin
       @is_boss = { "Si": 1, "No": 0 }
       @employee_classifications = users.pluck(:employee_classification).uniq.reject(&:blank?).sort
       @regions = Location::Region.order(:name).pluck(:id, :name).uniq.reject(&:blank?)
-      @benefit_groups = General::BenefitGroup.order(:name).pluck(:id, :name)
       @companies = Company::Company.where.not(name: '').order(:name).pluck(:id, :name)
       @managements = Company::Management.where.not(name: '').order(:name).pluck(:id, :name)
       @cost_centers = Company::CostCenter.where.not(name: '').order(:name).pluck(:id, :name)
