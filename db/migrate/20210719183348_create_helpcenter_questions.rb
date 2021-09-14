@@ -5,7 +5,6 @@ class CreateHelpcenterQuestions < ActiveRecord::Migration[5.2]
       t.text :content
       t.boolean :important, default: false
       t.references :subcategory
-      t.references :profile
 
       t.timestamps
     end

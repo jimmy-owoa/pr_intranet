@@ -6,6 +6,7 @@ class Helpcenter::Category < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false }
   # Relations
+  belongs_to :profile, class_name: 'General::Profile'
   has_many :tickets ,class_name: 'Helpcenter::Ticket', foreign_key: :category_id
   has_many :subcategories ,class_name: 'Helpcenter::Subcategory', foreign_key: :category_id, dependent: :destroy, inverse_of: :category
   accepts_nested_attributes_for :subcategories, allow_destroy: true, reject_if: proc { |att| att['name'].blank? }
