@@ -111,14 +111,6 @@ class General::Profile < ApplicationRecord
     end
   end
 
-  def update_user_messages
-    messages = General::Message.where(profile_id: self.id)
-
-    messages.each do |message|
-      message.set_users
-    end
-  end
-
   def set_query(class_name, query)
     profile_attributes_where = profile_attributes.where(class_name: class_name).map { |v| "'#{v.value}'" }.join(',')
     if profile_attributes_where.present?
