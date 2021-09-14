@@ -15,49 +15,13 @@ class General::User < ApplicationRecord
   validates :image, content_type: ['image/png', 'image/jpeg']
   validates :new_image, content_type: ['image/png', 'image/jpeg']
 
-  has_many :user_term_relationships, -> { where(object_type: "General::User") }, class_name: "General::TermRelationship", foreign_key: :object_id, inverse_of: :user
-  has_many :terms, through: :user_term_relationships
-  has_many :posts, class_name: "News::Post", foreign_key: :user_id
-  has_many :products, class_name: "Marketplace::Product", foreign_key: :user_id
-  has_many :answers, class_name: "Survey::Answer", foreign_key: :user_id
-  has_many :births, class_name: "Employee::Birth", foreign_key: :user_id
-  has_many :notifications, class_name: "General::Notification"
-  has_many :language_levels, class_name: "PersonalData::LanguageLevel", foreign_key: :user_id, inverse_of: :user
-  has_many :languages, through: :language_levels
-  has_many :education_states, class_name: "PersonalData::EducationState", foreign_key: :user_id, inverse_of: :user
-  has_many :education_institutions, through: :education_states
-  has_many :family_members, class_name: "PersonalData::FamilyMember", foreign_key: :user_id
   has_many :user_profiles, class_name: "General::UserProfile", foreign_key: :user_id, inverse_of: :user
-  has_many :user_messages, class_name: "General::UserMessage", foreign_key: :user_id, inverse_of: :user
   has_many :profiles, through: :user_profiles
   has_many :user_attributes, class_name: "General::UserAttribute", foreign_key: :user_id, inverse_of: :user
 
-  has_many :answered_forms, class_name: 'Survey::AnsweredForm'
-
   belongs_to :location, class_name: "General::Location", inverse_of: :users, optional: true
-  belongs_to :benefit_group, optional: true, class_name: "General::BenefitGroup"
   belongs_to :office, class_name: "Company::Office", inverse_of: :users, optional: true
-  belongs_to :cost_center, class_name: "Company::CostCenter", inverse_of: :users, optional: true
-  belongs_to :management, class_name: "Company::Management", inverse_of: :users, optional: true
   belongs_to :company, class_name: "Company::Company", inverse_of: :users, optional: true
-
-  has_many :user_book_relationships, class_name: "General::UserBookRelationship", foreign_key: :user_id
-  has_many :books, -> { distinct }, through: :user_book_relationships
-  has_many :user_languages, class_name: "PersonalData::UserLanguage", foreign_key: :user_id
-  has_many :language_levels, through: :user_languages
-  has_many :languages, through: :user_languages
-
-  has_many :user_educations, class_name: "PersonalData::UserEducation", foreign_key: :user_id
-  has_many :education_institutions, through: :user_educations
-  has_many :users, through: :user_educations
-
-  has_many :comments, class_name: 'News::Comment', foreign_key: :user_id
-
-  has_many :family_members, class_name: "PersonalData::FamilyMember"
-
-  has_one :menu_exa, class_name: "Menu::Exa", foreign_key: :user_id
-
-  accepts_nested_attributes_for :terms
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable
 
@@ -71,7 +35,6 @@ class General::User < ApplicationRecord
   before_update :image_resize
 
   #scopes
-  scope :show_birthday, -> { where(show_birthday: true) }
   scope :date_birth, -> { where("MONTH(birthday) = ?", Date.today.month) }
   scope :birthdays, -> { where("DATE_FORMAT(birthday, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }
   scope :first_welcome, -> { joins(:image_attachment).where("DATE_FORMAT(general_users.created_at, '%d/%m/%Y') = ?", Date.today.strftime("%d/%m/%Y")) }

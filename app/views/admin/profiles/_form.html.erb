@@ -30,50 +30,50 @@
       <%= f.label 'Sexo' %>
       <%= select_tag :genders, options_for_select(@genders, @selected_genders), multiple: true, class:' form-control string optional' %>
     </div>
-    <div class="col-4">
-      <%= f.label 'Clasificación Empleado' %>
-      <%= select_tag :employee_classifications, options_for_select(@employee_classifications, @selected_employee_classifications), multiple: true, class:' form-control string optional' %>
-    </div>
-    <div class="col-4">
-      <%= f.label 'Empresas' %>
-      <%= select_tag :companies, options_for_select(@companies.collect {|company| [company[1], company[0]]}, @selected_companies), multiple: true, class:' form-control string', id: 'companies' %>
-    </div>
-    <div class="col-4">
-      <%= f.label 'Gerencias' %>
-      <%= select_tag :managements, options_for_select(@managements.collect {|management| [management[1], management[0]]}, @selected_managements), multiple: true, class:' form-control string', id: 'managements' %>
-    </div>
-    <div class="col-4">
-      <%= f.label 'Centro de Costos' %>
-      <%= select_tag :cost_centers, options_for_select(@cost_centers.collect {|cost_center| [cost_center[1], cost_center[0]]}, @selected_cost_centers), multiple: true, class:' form-control string', id: 'cost_centers' %>
-    </div>
-    <div class="col-4">
-      <%= f.label 'Clasificaciones de puesto' %>
-      <%= select_tag :position_classifications, options_for_select(@position_classifications, @selected_position_classifications), multiple: true, class:' form-control string'%>
-    </div>
-    <div class="col-4">
-      <%= f.label 'Tiene gente a cargo' %>
-      <%= select_tag :is_boss, options_for_select(@is_boss, @selected_boss), multiple: true, class:' form-control string optional' %>
-    </div>
-    <div class="col-4">
-      <%= f.label 'Ciudad de oficina' %>
-      <%= select_tag :office_cities, options_for_select(@office_cities, @selected_office_cities), multiple: true, class:' form-control string optional' %>
-    </div>
-    <div class="col-4">
-      <%= f.label 'Región de oficina' %>
-      <%= select_tag :office_regions, options_for_select(@office_regions, @selected_office_regions), multiple: true, class:' form-control string optional' %>
-    </div>
+
     <div class="col-4">
       <%= f.label 'País de oficina' %>
       <%= select_tag :office_countries, options_for_select(@office_countries, @selected_office_countries), multiple: true, class:' form-control string optional' %>
     </div>
-    <div class="col-4">
-      <%= f.label 'Tiene hijos' %>
-      <%= select_tag :has_children, options_for_select(@has_children, @selected_has_children), multiple: true, class:' form-control string' %>
-    </div>
-    <%# <div class="col-4"> %>
-    <%# <%= f.label 'Región' %>
-    <%# <%= select_tag :regions, options_for_select(@regions.collect {|region| [region[1], region[0]]}, @selected_regions), multiple: true, class:' form-control string', id: 'regions' %>
-    <%# </div> %>
+
+    <% if false %>
+      <div class="col-4">
+        <%= f.label 'Clasificación Empleado' %>
+        <%= select_tag :employee_classifications, options_for_select(@employee_classifications, @selected_employee_classifications), multiple: true, class:' form-control string optional' %>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Empresas' %>
+        <%= select_tag :companies, options_for_select(@companies.collect {|company| [company[1], company[0]]}, @selected_companies), multiple: true, class:' form-control string', id: 'companies' %>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Gerencias' %>
+        <%= select_tag :managements, options_for_select(@managements.collect {|management| [management[1], management[0]]}, @selected_managements), multiple: true, class:' form-control string', id: 'managements' %>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Centro de Costos' %>
+        <%= select_tag :cost_centers, options_for_select(@cost_centers.collect {|cost_center| [cost_center[1], cost_center[0]]}, @selected_cost_centers), multiple: true, class:' form-control string', id: 'cost_centers' %>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Clasificaciones de puesto' %>
+        <%= select_tag :position_classifications, options_for_select(@position_classifications, @selected_position_classifications), multiple: true, class:' form-control string'%>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Tiene gente a cargo' %>
+        <%= select_tag :is_boss, options_for_select(@is_boss, @selected_boss), multiple: true, class:' form-control string optional' %>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Ciudad de oficina' %>
+        <%= select_tag :office_cities, options_for_select(@office_cities, @selected_office_cities), multiple: true, class:' form-control string optional' %>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Región de oficina' %>
+        <%= select_tag :office_regions, options_for_select(@office_regions, @selected_office_regions), multiple: true, class:' form-control string optional' %>
+      </div>
+      <div class="col-4">
+        <%= f.label 'Tiene hijos' %>
+        <%= select_tag :has_children, options_for_select(@has_children, @selected_has_children), multiple: true, class:' form-control string' %>
+      </div>
+    <% end %>
   </div>
 </div>
 <div class="col-7">
