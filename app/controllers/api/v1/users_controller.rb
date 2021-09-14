@@ -150,46 +150,8 @@ module Api::V1
 
     def current_user_vue
       user = @request_user
-      @nickname = nickname(user.name)
       @location = user.location.present? ? General::Location.find(user.location_id).name : "No definido"
-      data_benefits = []
-      data_products = []
-      data_messages = []
-      data_family_member = []
-      if user.family_members.present?
-        user.family_members.each do |member|
-          data_family_member << {
-            id: member.id,
-            title: member.name,
-            relation: member.relation,
-          }
-        end
-      end
       
-      if user.birthday?
-        General::Message.where(message_type: "birthdays").take(1).each do |message|
-          data_messages << {
-            id: message.id,
-            title: message.title,
-            content: message.content,
-            message_type: message.message_type,
-            is_const: message.is_const,
-            image: message.image.attached? ? url_for(message.image) : ActionController::Base.helpers.asset_path("message.jpeg"),
-          }
-        end
-      end
-      if General::User.welcome?(user.id, user.date_entry)
-        General::Message.where(message_type: "welcomes").take(1).each do |message|
-          data_messages << {
-            id: message.id,
-            title: message.title,
-            content: message.content,
-            message_type: message.message_type,
-            is_const: message.is_const,
-            image: message.image.attached? ? url_for(message.image) : ActionController::Base.helpers.asset_path("message.jpeg"),
-          }
-        end
-      end
       data_user = {
         id: user.id,
         name: user.name,
@@ -197,26 +159,18 @@ module Api::V1
         last_name: user.last_name,
         full_name: get_full_favorite_name(user).titleize,
         full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
-        nickname: @nickname,
         role: user.roles.pluck(:name),
         company: user.company.present? ? user.company.name : "Empresa no disponible",
-        birthday: user.birthday.present? && user.show_birthday ? user.birthday.strftime("%d/%m") : "Información oculta",
         is_birthday: user.is_birthday_today,
         position: user.position,
         date_entry: user.date_entry,
         image: user.image.attached? ?
           url_for(user.image) : ActionController::Base.helpers.asset_path("default_avatar.png"),
-        companies: user.terms.categories.map(&:name),
-        including_tags: user.terms.inclusive_tags.map { |a| a.name },
-        excluding_tags: user.terms.excluding_tags.map { |a| a.name },
         email: user.email,
         annexed: user.annexed,
         phone: get_phone(user.annexed),
         address: user.office.try(:address),
         location: @location,
-        products: data_products,
-        messages: data_messages,
-        family_members: data_family_member,
       }
 
       render json: { status: "ok", user: data_user }, status: :ok
