@@ -21,8 +21,8 @@ module Api::V1
     private
 
     def show?
-      # return if @question.profile_id.in?(@request_user.profile_ids)
-      # render json: { msg: "Not authorized", success: false }, status: :unauthorized
+      return if @question.subcategory.category.profile_id.in?(@request_user.profile_ids)
+      render json: { msg: "Not authorized", success: false }, status: :unauthorized
     end
 
     def set_question

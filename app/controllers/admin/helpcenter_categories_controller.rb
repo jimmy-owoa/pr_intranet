@@ -78,7 +78,8 @@ module Admin
       params.require(:category).permit(
         :name, 
         :slug, 
-        :image, 
+        :image,
+        :profile_id,
         subcategories_attributes: [:id, :name, :_destroy]
       )
     end

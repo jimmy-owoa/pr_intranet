@@ -67,7 +67,7 @@ module Admin
     end
 
     def question_params
-      params.require(:question).permit(:name, :content, :profile_id, :subcategory_id, :important)
+      params.require(:question).permit(:name, :content, :subcategory_id, :important)
     end
   end
 end

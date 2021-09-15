@@ -17,4 +17,10 @@ $(document).on("turbolinks:load", function() {
       }
     }
   });
+
+  $("#category_profile_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Perfil",
+    width: "100%"
+  });
 });

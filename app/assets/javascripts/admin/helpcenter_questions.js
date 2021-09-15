@@ -18,12 +18,6 @@ $(document).on("turbolinks:load", function() {
     }
   });
 
-  $("#question_profile_id").select2({
-    tags: false,
-    placeholder: "Seleccionar Perfil",
-    width: "100%"
-  });
-
   $("#category").select2({
     tags: false,
     placeholder: "Seleccionar Categoría",
