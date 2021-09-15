@@ -7,14 +7,13 @@ module Api::V1
     end
 
     def importants
-      questions = Helpcenter::Question.where(important: true).order(:created_at).first(5)
+      questions = Helpcenter::Question.important_questions(@request_user)
       render json: questions, each_serializer: Helpcenter::QuestionSerializer, status: :ok
     end
 
     def search
       search = params[:search] || ""
       questions = Helpcenter::Question.where("name LIKE :search", search: "%#{search}%")
-      # questions = Helpcenter::Question.search "#{search}", fields: [:name]
       render json: questions, each_serializer: Helpcenter::QuestionSerializer, status: :ok
     end
 
