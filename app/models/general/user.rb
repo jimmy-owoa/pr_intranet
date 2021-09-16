@@ -215,6 +215,27 @@ class General::User < ApplicationRecord
     legal_number.present? ? "#{legal_number}-#{legal_number_verification}" : ''
   end
 
+  def as_json_with_jwt
+    json = {}
+    json[:email] = self.email
+    json[:name] = self.name
+    json[:lastname] = self.last_name
+    json[:token] = self.generate_token
+    json
+  end
+
+  def as_profile_json
+    json = {}
+    json[:email] = self.email
+    json[:name] = self.name
+    json[:last_name] = self.last_name
+    json
+  end
+
+  def generate_token()
+    JsonWebToken.encode(id_exa: self.id_exa)
+  end
+
   private
 
   def set_data_attributes(attr_name, attr_value)

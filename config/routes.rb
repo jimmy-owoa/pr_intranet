@@ -29,12 +29,20 @@ Rails.application.routes.draw do
   namespace :api, :defaults => { :format => "json" } do
     namespace :v1, :defaults => { :format => "json" } do
 
-      get 'current_user_azure', to: 'api#current_user_azure'
+      
       resources :users, only: [:update, :show] do
-        get :user, on: :collection
+        # post 'login', to: 'users#sign_in'
+        # delete 'sign_out', to: 'users#sign_out'
+        # get 'current_user', to: 'users#current_user'
+        post :sign_in, on: :collection
+        delete :sign_out, on: :collection
+        get :current_user, on: :collection
+        
+        # get :user, on: :collection
         get :current_user_vue, on: :collection
         get :current_user_vue_temp, on: :collection
         get :parents_data, on: :collection
+
       end
 
       resources :hc_questions, only: [:show] do

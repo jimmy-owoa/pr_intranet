@@ -2,10 +2,22 @@ module Api::V1
   class UsersController < ApiController
     include Rails.application.routes.url_helpers
     include ApplicationHelper
-    skip_before_action :verify_authenticity_token, only: :upload
+    skip_before_action :verify_authenticity_token, only: [:upload, :sign_in]
+    skip_before_action :set_current_user_from_header, only: [:sign_in]
 
     def nickname(name)
       name.match(/^([jJ]os.|[jJ]uan|[mM]ar.a) /).present? ? name : name.split.first
+    end
+
+    def sign_in
+      user_code = params[:user][:user_code]
+      return handle_400 if user_code.blank?
+      
+      id_exa = InternalAuth.decrypt(user_code) rescue ""
+      user = General::User.find_by(id_exa: id_exa)
+      return handle_400 if user.blank?
+      
+      render json: { token: user.as_json_with_jwt[:token] }
     end
 
     def user
@@ -149,31 +161,31 @@ module Api::V1
     end
 
     def current_user_vue
-      user = @request_user
-      @location = user.location.present? ? General::Location.find(user.location_id).name : "No definido"
+      render json: { success: true, user: request_user.as_profile_json }
+      # @location = user.location.present? ? General::Location.find(user.location_id).name : "No definido"
       
-      data_user = {
-        id: user.id,
-        name: user.name,
-        favorite_name: user.favorite_name,
-        last_name: user.last_name,
-        full_name: get_full_favorite_name(user).titleize,
-        full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
-        role: user.roles.pluck(:name),
-        company: user.company.present? ? user.company.name : "Empresa no disponible",
-        is_birthday: user.is_birthday_today,
-        position: user.position,
-        date_entry: user.date_entry,
-        image: user.image.attached? ?
-          url_for(user.image) : ActionController::Base.helpers.asset_path("default_avatar.png"),
-        email: user.email,
-        annexed: user.annexed,
-        phone: get_phone(user.annexed),
-        address: user.office.try(:address),
-        location: @location,
-      }
+      # data_user = {
+      #   id: user.id,
+      #   name: user.name,
+      #   favorite_name: user.favorite_name,
+      #   last_name: user.last_name,
+      #   full_name: get_full_favorite_name(user).titleize,
+      #   full_legal_number: user.legal_number.present? ? user.legal_number + user.legal_number_verification : "sin rut",
+      #   role: user.roles.pluck(:name),
+      #   company: user.company.present? ? user.company.name : "Empresa no disponible",
+      #   is_birthday: user.is_birthday_today,
+      #   position: user.position,
+      #   date_entry: user.date_entry,
+      #   image: user.image.attached? ?
+      #     url_for(user.image) : ActionController::Base.helpers.asset_path("default_avatar.png"),
+      #   email: user.email,
+      #   annexed: user.annexed,
+      #   phone: get_phone(user.annexed),
+      #   address: user.office.try(:address),
+      #   location: @location,
+      # }
 
-      render json: { status: "ok", user: data_user }, status: :ok
+      # render json: { status: "ok", user: data_user }, status: :ok
     end
 
     def autocomplete_user
@@ -205,66 +217,6 @@ module Api::V1
       respond_to do |format|
         format.json { render json: data }
         format.js
-      end
-    end
-
-    def sso_user_auth
-      if params["data"].present?
-        json = JSON.parse(params["data"])
-        data = json["data"]
-      else
-        respond_to do |format|
-          format.json { render json: "" }
-        end
-        return
-      end
-
-      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      Rails.logger.info "%%%%%%%%%%% Revision data %%%%%%%%%%%%%"
-      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      Rails.logger.info "&&& #{json} &&&"
-      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      Rails.logger.info "%%%%%%%%% Fin Revision data %%%%%%%%%%%"
-      Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      begin
-        data = json["data"]
-        cipher_key = "EB5932580C920015B65B4B308FF7F352"
-        nt_user = InternalAuth.decrypt(data, cipher_key)
-
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%% Revision ntuser %%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-        Rails.logger.info "&&& #{nt_user} &&&"
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%% Fin Revision ntuser %%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      rescue
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%% Se cayo al desencriptar %%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      end
-
-      begin
-        if nt_user.present?
-          user = General::User.where(nt_user: nt_user).first
-
-          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-          Rails.logger.info "%%%%%%%%%% Revision user %%%%%%%%%%%%"
-          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-          Rails.logger.info "&&& #{user.try(:legal_number)} &&&"
-          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-          Rails.logger.info "%%%%%%%% Fin Revision ntuser %%%%%%%%%%"
-          Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-
-          rut = user.legal_number + user.legal_number_verification
-        end
-      rescue
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-        Rails.logger.info "%%%%%%%% Se cayo al cargar el usuario %%%%%%%%%%"
-        Rails.logger.info "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-      end
-      respond_to do |format|
-        format.json { render json: rut }
       end
     end
 
