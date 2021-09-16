@@ -21,8 +21,6 @@
               <b>Fecha de nacimiento:</b> <%= @user.birthday.present? ? custom_date_no_hour(@user.try(:birthday) ) : "" %></br>
               <b>Fecha de ingreso:</b> <%= @user.date_entry.present? ? custom_date_no_hour(@user.try(:date_entry) ) : "" %></br>
               <b>Anexo:</b> <%= @user.try(:annexed) %></br>
-              <b>Tags:</b> <%= @user.terms.tags.map(&:name).reject(&:blank?).join(", ") %></br>
-              <b>Empresas:</b> <%= @user.terms.where(term_type_id: 1).map(&:name).reject(&:blank?).join(", ") %></br>
               <b>Creado el:</b> <%= custom_date(@user.created_at) %></br>
               <b>Última actualización:</b> <%= custom_date(@user.updated_at) %></br>
               <b>Estado:</b> <%= @user.active? ? 'Si' : 'No'  %></br>
@@ -34,46 +32,3 @@
   <%= link_to t('.back', :default => t("helpers.links.back")), admin_users_path, :class => 'btn btn-primary'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_admin_user_path(@user), :class => 'btn btn-primary' %>
 </div>
-
-<% unless @user.parent_id.nil? %>
-<hr class='hr_top'>
-<h5>Principal</h5>
-  <div class="card" style="width: 11rem;">
-    <%= ornanigram_image(@user.parent_id)%>
-    <div class="card-body text-secondary">
-      <h5 class="card-title"><%= [@user.parent.name, @user.parent.last_name].join(' ') %></h5>
-      <p class="card-text"><%= @user.parent.email %></p>
-    </div>
-  </div>
-<% end %>
-<hr class='hr_top'>
-<h5>Pares</h5>
-<div class="row pre-scrollable">
-  <% @user.siblings.where.not(parent_id: nil).each do |sb| %>
-      <div class="col-md-2">
-        <div class="card" style="width: 11rem;">
-          <%= ornanigram_image(sb.id)%>
-          <div class="card-body text-secondary">
-            <h5 class="card-title"><%= [sb.name, sb.last_name].join(' ') %></h5>
-            <p class="card-text"><%= sb.email %></p>
-          </div>
-        </div>
-      </div>
-  <% end %>
-</div>
-<hr class='hr_top'>
-<h5>A cargo</h5>
-<div class="row pre-scrollable">
-  <% @user.children.each do |cd| %>
-      <div class="col-md-2">
-        <div class="card" style="width: 11rem;">
-          <%= ornanigram_image(cd.id)%>
-          <div class="card-body text-secondary">
-            <h5 class="card-title"><%= [cd.name, cd.last_name].join(' ') %></h5>
-            <p class="card-text"><%= cd.email %></p>
-          </div>
-        </div>
-      </div>
-  <% end %>
-</div>
-<hr class='hr_top'>

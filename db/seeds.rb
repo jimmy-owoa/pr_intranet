@@ -57,6 +57,7 @@ data_users.each do |user|
   annexed = user["anexo"]
   gender = user["sexo"]
   favorite_name = user["nombre_favorito"]
+  id_exa = user["id_exa"]
   company = Company::Company.where(name: user["empresa"]).first_or_create
   country = Location::Country.where(name: office_country).first_or_create
   region = Location::Region.where(name: office_region, country_id: country.id).first_or_create
@@ -87,6 +88,7 @@ data_users.each do |user|
       company_id: company.id,
       office_id: office.id, 
       location_id: 2,
+      id_exa: id_exa,
       password: "redexa2020", 
       password_confirmation: "redexa2020"
     )
