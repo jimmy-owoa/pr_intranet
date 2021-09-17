@@ -1,7 +1,6 @@
 module Api::V1
   class SearchController < ApiController
     include Rails.application.routes.url_helpers
-    skip_before_action :get_user, only: [:search_menu]
 
     def search_vue
       users = []
