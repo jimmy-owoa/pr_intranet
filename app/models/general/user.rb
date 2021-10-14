@@ -7,7 +7,7 @@ class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
   # searchkick
-  validates_presence_of :name, :last_name, :email, :legal_number, :id_exa, :position
+  validates_presence_of :name, :last_name, :email, :legal_number, :id_exa
   validates_uniqueness_of :email
   #relationships
   has_one_attached :image
