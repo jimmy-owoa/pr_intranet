@@ -29,9 +29,9 @@ module Api::V1
 
     def update_user
       if @user.update(user_params)
+        Location::Country.set_office_country(@user, params[:office_address])
         render json: { success: true, message: "User updated" }, status: :ok
       else
-        create_log_report(request.url, user_params, result, "Error!", @user.errors.full_messages)
         render json: { success: false, message: "Error"}, status: :unprocessable_entity
       end
     end
@@ -40,6 +40,7 @@ module Api::V1
       @user = General::User.new(user_params)
 
       if @user.save
+        Location::Country.set_office_country(@user, params[:office_address])
         render json: {  success: true, message: "User created" }, status: :created
       else
         render json: { success: false, message: "Error"}, status: :unprocessable_entity
