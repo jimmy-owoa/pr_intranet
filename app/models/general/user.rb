@@ -7,7 +7,7 @@ class General::User < ApplicationRecord
   acts_as_nested_set
   rolify
   # searchkick
-  validates_presence_of :name, :email, :legal_number, :legal_number_verification
+  validates_presence_of :name, :last_name, :email, :legal_number, :id_exa, :position
   validates_uniqueness_of :email
   #relationships
   has_one_attached :image
@@ -19,9 +19,7 @@ class General::User < ApplicationRecord
   has_many :profiles, through: :user_profiles
   has_many :user_attributes, class_name: "General::UserAttribute", foreign_key: :user_id, inverse_of: :user
 
-  belongs_to :location, class_name: "General::Location", inverse_of: :users, optional: true
-  belongs_to :office, class_name: "Company::Office", inverse_of: :users, optional: true
-  belongs_to :company, class_name: "Company::Company", inverse_of: :users, optional: true
+  belongs_to :country, class_name: "Location::Country", inverse_of: :users, optional: true
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable
 
@@ -234,6 +232,15 @@ class General::User < ApplicationRecord
 
   def generate_token()
     JsonWebToken.encode(id_exa: self.id_exa)
+  end
+
+  def set_office_country(office_country)
+    
+    binding.pry
+    
+    location_country = Location::Country.where(name: office_country).first_or_create
+    binding.pry
+    self.country = location_country
   end
 
   private

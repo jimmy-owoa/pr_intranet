@@ -2,8 +2,9 @@ module Api::V1
   class UsersController < ApiController
     include Rails.application.routes.url_helpers
     include ApplicationHelper
-    skip_before_action :verify_authenticity_token, only: [:upload, :sign_in]
+    skip_before_action :verify_authenticity_token, only: [:upload, :sign_in, :create_update, :destroy]
     skip_before_action :set_current_user_from_header, only: [:sign_in]
+    before_action :set_user, only: [:create_update, :destroy]
 
     def sign_in
       user_code = params[:user][:user_code]
@@ -21,55 +22,55 @@ module Api::V1
       render json: { user: data }, status: :ok
     end
 
-    def autocomplete_user
-      search = params[:user] #acá va la variable del search
-      data = []
-      # donde se busca, por si tenemos que agregar más que nombre y apellidos
-      variables = [
-        "name",
-        "last_name",
-        "last_name2",
-        "CONCAT(name,' ',last_name)",
-        "CONCAT(name,' ',last_name,' ',last_name2)",
-        "CONCAT(last_name,' ',last_name2)",
-      ]
-      queries = []
+    def create_update
+      @user.restore if @user.present? && @user.deleted_at.present?
+      @user.present? ? update_user : create_user
+    end
 
-      variables.each do |var|
-        queries << "#{var} LIKE '%#{search}%'"
-      end
-
-      query_where = queries.join(" OR ")
-      results = General::User.where(query_where)
-
-      results.each do |result|
-        data << { value: result.id,
-                 text: result.name + " " + result.last_name }
-      end
-
-      respond_to do |format|
-        format.json { render json: data }
-        format.js
+    def update_user
+      if @user.update(user_params)
+        Location::Country.set_office_country(@user, params[:office_address])
+        render json: { success: true, message: "User updated" }, status: :ok
+      else
+        render json: { success: false, message: "Error"}, status: :unprocessable_entity
       end
     end
+
+    def create_user
+      @user = General::User.new(user_params)
+
+      if @user.save
+        Location::Country.set_office_country(@user, params[:office_address])
+        render json: {  success: true, message: "User created" }, status: :created
+      else
+        render json: { success: false, message: "Error"}, status: :unprocessable_entity
+      end
+    end
+
+    def destroy
+      if @user.destroy
+        render json: { success: true, message: "User deleted" }, status: :ok
+      else
+        render json: { success: false, message: "Error" }, status: :unprocessable_entity
+      end
+    end
+
+    private
 
     def set_user
-      token = params[:token]
-      # START DECRYPT AND VALIDATION
-      result = General::User.decrypt(token)
-      # END DECRYPT
-      cookies.encrypted[:sso_unt] = {
-        value: result,
-        expires: 1.hour,
-      }
-      render json: { data: cookies.encrypted[:sso_unt] }, callback: "*"
+      begin
+        id_exa = InternalAuth.decrypt(params[:user_code_crypted_base64])
+        @user = General::User.with_deleted.find_by(id_exa: id_exa)
+      rescue
+        render json: { success: true, error: "Error" }, status: :unauthorized
+      end
     end
 
-    def upload
-      image = params[:file_img]
-      @request_user.new_image.attach(image)
-
-      render json: { status: "ok" }, status: :ok
+    def user_params
+      params.permit(
+        :id_exa, :legal_number, :name, :last_name, 
+        :last_name2, :email, :office_addres, :position, :id_exa_boss
+      )
     end
   end
 end

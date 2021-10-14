@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_152341) do
+ActiveRecord::Schema.define(version: 2021_10_14_023312) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -405,7 +405,6 @@ ActiveRecord::Schema.define(version: 2021_09_21_152341) do
     t.boolean "handicapped"
     t.boolean "has_children"
     t.bigint "cost_center_id"
-    t.bigint "office_id"
     t.bigint "management_id"
     t.integer "company_id", default: 0
     t.string "auth_token"
@@ -416,12 +415,13 @@ ActiveRecord::Schema.define(version: 2021_09_21_152341) do
     t.integer "id_exa"
     t.string "user_code"
     t.integer "id_exa_boss"
+    t.bigint "country_id"
     t.index ["answered_form_id"], name: "index_general_users_on_answered_form_id"
     t.index ["cost_center_id"], name: "index_general_users_on_cost_center_id"
+    t.index ["country_id"], name: "index_general_users_on_country_id"
     t.index ["deleted_at"], name: "index_general_users_on_deleted_at"
     t.index ["email"], name: "index_general_users_on_email", unique: true
     t.index ["management_id"], name: "index_general_users_on_management_id"
-    t.index ["office_id"], name: "index_general_users_on_office_id"
     t.index ["reset_password_token"], name: "index_general_users_on_reset_password_token", unique: true
   end
 
