@@ -2,7 +2,7 @@ module Api::V1
   class UsersController < ApiController
     include Rails.application.routes.url_helpers
     include ApplicationHelper
-    skip_before_action :verify_authenticity_token, only: [:upload, :sign_in, :create_update]
+    skip_before_action :verify_authenticity_token, only: [:upload, :sign_in, :create_update, :destroy]
     skip_before_action :set_current_user_from_header, only: [:sign_in]
     before_action :set_user, only: [:create_update, :destroy]
 
@@ -43,6 +43,14 @@ module Api::V1
         render json: {  success: true, message: "User created" }, status: :created
       else
         render json: { success: false, message: "Error"}, status: :unprocessable_entity
+      end
+    end
+
+    def destroy
+      if @user.destroy
+        render json: { success: true, message: "User deleted" }, status: :ok
+      else
+        render json: { success: false, message: "Error" }, status: :unprocessable_entity
       end
     end
 
