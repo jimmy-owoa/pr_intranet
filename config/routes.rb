@@ -36,14 +36,10 @@ Rails.application.routes.draw do
         # get 'current_user', to: 'users#current_user'
         post :sign_in, on: :collection
         delete :sign_out, on: :collection
-        get :current_user, on: :collection
-        
-        # get :user, on: :collection
         get :current_user_vue, on: :collection
-        get :current_user_vue_temp, on: :collection
-        get :parents_data, on: :collection
-
       end
+      
+      post 'users', to: 'users#create_update'
 
       resources :hc_questions, only: [:show] do
         get :importants, on: :collection
