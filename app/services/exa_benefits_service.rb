@@ -14,9 +14,6 @@ class ExaBenefitsService
     beneficiary_groups_used = []
     @data['beneficiary_groups'].each do |bg|
       puts "========= Creando o actualizando benefit group: #{bg['name']} ========="
-      
-      # binding.pry if bg['name'] == 'EXTERNOS'
-      
       benefit_group = General::BenefitGroup.find_by(code: bg['code']) || General::BenefitGroup.only_deleted.find_by(code: bg['code'])
       benefit_group = General::BenefitGroup.create(code: bg['code'], name: bg['name']) if benefit_group.nil?
       

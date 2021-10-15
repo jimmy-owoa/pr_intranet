@@ -15,6 +15,7 @@ class General::Profile < ApplicationRecord
       gender
       office_country
       has_children
+      country
     ].freeze
   end
 

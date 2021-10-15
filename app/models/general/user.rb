@@ -171,6 +171,7 @@ class General::User < ApplicationRecord
   def set_user_attributes
     attributes = [
       ["company", self.company_id],
+      ["country", self.country_id],
       ["management", self.management_id],
       ["cost_center", self.cost_center_id],
       ["gender", self.gender],
@@ -179,11 +180,11 @@ class General::User < ApplicationRecord
       ["is_boss", self.is_boss],
       ["has_children", self.has_children],
     ]
-    if self.office.present?
-      attributes << ["office_city", self.office.commune.city_id]
-      attributes << ["office_region", self.office.commune.city.region_id]
-      attributes << ["office_country", self.office.commune.city.region.country_id]
-    end
+    # if self.office.present?
+    #   attributes << ["office_city", self.office.commune.city_id]
+    #   attributes << ["office_region", self.office.commune.city.region_id]
+    #   attributes << ["office_country", self.office.commune.city.region.country_id]
+    # end
     attributes.each do |attr|
       set_data_attributes(attr[0], attr[1])
     end
@@ -235,11 +236,7 @@ class General::User < ApplicationRecord
   end
 
   def set_office_country(office_country)
-    
-    binding.pry
-    
     location_country = Location::Country.where(name: office_country).first_or_create
-    binding.pry
     self.country = location_country
   end
 
