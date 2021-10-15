@@ -109,6 +109,7 @@ module Admin
       set_class_name_value(params[:regions], 'region')
       set_class_name_value(params[:benefit_groups], 'benefit_group')
       set_class_name_value(params[:companies], 'company')
+      set_class_name_value(params[:countries], 'country')
       set_class_name_value(params[:managements], 'management')
       set_class_name_value(params[:genders], 'gender')
       set_class_name_value(params[:is_boss], 'is_boss')
@@ -133,6 +134,7 @@ module Admin
       @employee_classifications = users.pluck(:employee_classification).uniq.reject(&:blank?).sort
       @regions = Location::Region.order(:name).pluck(:id, :name).uniq.reject(&:blank?)
       @companies = Company::Company.where.not(name: '').order(:name).pluck(:id, :name)
+      @countries = Location::Country.where.not(name: '').order(:name).pluck(:id, :name)
       @managements = Company::Management.where.not(name: '').order(:name).pluck(:id, :name)
       @cost_centers = Company::CostCenter.where.not(name: '').order(:name).pluck(:id, :name)
       @position_classifications = users.pluck(:position_classification).uniq.reject(&:blank?).sort
@@ -147,6 +149,7 @@ module Admin
     end
 
     def get_selected
+      @selected_countries = @profile.profile_attributes.where(class_name: 'country').pluck(:value)
       @selected_genders = @profile.profile_attributes.where(class_name: 'gender').pluck(:value)
       @selected_boss = @profile.profile_attributes.where(class_name: 'is_boss').pluck(:value)
       @selected_employee_classifications = @profile.profile_attributes.where(class_name: 'employee_classification').pluck(:value)

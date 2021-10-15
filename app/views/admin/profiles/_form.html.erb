@@ -26,14 +26,21 @@
 </div>
 <div id="manual_filters">
   <div class="form-group row">
-    <div class="col-4">
-      <%= f.label 'Sexo' %>
-      <%= select_tag :genders, options_for_select(@genders, @selected_genders), multiple: true, class:' form-control string optional' %>
-    </div>
+    <% if false %>
+      <div class="col-4">
+        <%= f.label 'Sexo' %>
+        <%= select_tag :genders, options_for_select(@genders, @selected_genders), multiple: true, class:' form-control string optional' %>
+      </div>
+
+      <div class="col-4">
+        <%= f.label 'País de oficina' %>
+        <%= select_tag :office_countries, options_for_select(@office_countries, @selected_office_countries), multiple: true, class:' form-control string optional' %>
+      </div>
+    <% end %>
 
     <div class="col-4">
-      <%= f.label 'País de oficina' %>
-      <%= select_tag :office_countries, options_for_select(@office_countries, @selected_office_countries), multiple: true, class:' form-control string optional' %>
+      <%= f.label 'Pais oficina' %>
+      <%= select_tag :countries, options_for_select(@countries.collect {|country| [country[1], country[0]]}, @selected_countries), multiple: true, class:' form-control string', id: 'countries' %>
     </div>
 
     <% if false %>

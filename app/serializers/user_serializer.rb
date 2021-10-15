@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :full_name, :last_name, :image, :company
+  attributes :id, :email, :name, :full_name, :last_name, :image
 
   def image
     object.get_image
@@ -7,10 +7,6 @@ class UserSerializer < ActiveModel::Serializer
 
   def full_name
     object.get_full_name
-  end
-
-  def company
-    object.company.try(:name)
   end
 
   def is_welcome_index?
