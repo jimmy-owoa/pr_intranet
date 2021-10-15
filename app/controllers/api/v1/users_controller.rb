@@ -28,6 +28,8 @@ module Api::V1
     end
 
     def update_user
+      params[:email] = @user.email if params[:email].blank?
+      
       if @user.update(user_params)
         Location::Country.set_office_country(@user, params[:office_address])
         render json: { success: true, message: "User updated" }, status: :ok
@@ -38,6 +40,7 @@ module Api::V1
 
     def create_user
       @user = General::User.new(user_params)
+      @user.email = set_email if @user.email.blank?
 
       if @user.save
         Location::Country.set_office_country(@user, params[:office_address])
@@ -45,6 +48,14 @@ module Api::V1
       else
         render json: { success: false, message: "Error"}, status: :unprocessable_entity
       end
+    end
+
+    def set_email
+      email = "#{((0...8).map { (65 + rand(26)).chr }.join).downcase}@compass.cl"
+      if General::User.find_by(email: email).present?
+        set_email
+      end
+      email
     end
 
     def destroy
