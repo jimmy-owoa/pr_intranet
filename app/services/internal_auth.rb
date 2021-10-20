@@ -8,7 +8,7 @@ class InternalAuth
   def self.decrypt(data, cipher_key = nil)
     cipher = OpenSSL::Cipher.new "aes-256-cbc"
     cipher.decrypt
-    cipher.key = cipher_key || "EB5932580C920015B65B4B308FF7F352"
+    cipher.key = cipher_key || "EB5332480C920115B65B4B308FF7C352"
     # Proceso de desencriptación
     unescaped = CGI.unescape(data) # Se le quita el urlencode
     decoded = Base64.decode64(unescaped) # Se descodifica de base64
@@ -28,7 +28,7 @@ class InternalAuth
 
   def self.encrypt(raw_user_cod, cipher_key = nil)
     timestamp = Time.now.utc.to_i
-    secret = cipher_key || "EB5932580C920015B65B4B308FF7F352"
+    secret = cipher_key || "EB5332480C920115B65B4B308FF7C352"
     cipher = OpenSSL::Cipher::Cipher.new("aes-256-cbc")
 
     iv = cipher.random_iv
