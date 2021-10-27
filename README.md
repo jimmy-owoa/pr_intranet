@@ -7,15 +7,30 @@
 
 Script cargar usuarios
 ~~~rb
+# STEP 1
 data = JSON.parse(File.read("public/compass_users.json")); nil
 count = data.count
-
+# STEP 2
+def set_email
+  email = "#{((0...8).map { (65 + rand(26)).chr }.join).downcase}@compass.cl"
+  if General::User.find_by(email: email).present?
+    set_email
+  end
+  email
+end
+# STEP 3
 data.each_with_index do |user, i|
-  next unless user["email"].present?
+  if user["email"].present?
+    email = user["email"]
+  else
+    email = set_email
+  end
+
+  puts("#{set_email}")
   puts "====== Quedan #{count - i} usuarios por cargar ======="
-  puts "Cargando usuario: #{user["email"]}"
+  puts "Cargando usuario: #{email}"
   hash = {}
-  hash[:email] = user["email"]
+  hash[:email] = email
   hash[:id_exa] = user["id_exa"]
   hash[:legal_number] = user["legal_number"]
   hash[:name] = user["name"]
@@ -38,4 +53,9 @@ data.each_with_index do |user, i|
     puts "++Usuario creado. EMAIL: #{hash[:email]}"
   end
 end
+~~~
+
+Subir archivo al servidor:
+~~~
+scp ./public/compass_users.json ssh ubuntu@18.233.138.39:~/compass-helpcenter/current/public
 ~~~
