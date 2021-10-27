@@ -9,22 +9,8 @@ module Admin
     end
 
     def show
-      @regions = Location::Region.find(General::ProfileAttribute.where(profile: @profile, class_name: 'location_region').pluck(:value))
-      @companies = Company::Company.where(id: General::ProfileAttribute.where(profile: @profile, class_name: 'company').pluck(:value))
-      @managements = Company::Management.find(General::ProfileAttribute.where(profile: @profile, class_name: 'management').pluck(:value))
-      @genders = General::ProfileAttribute.where(profile: @profile, class_name: 'gender').pluck(:value)
-      @is_boss = General::ProfileAttribute.where(profile: @profile, class_name: 'is_boss').pluck(:value)
-      @employee_classifications = General::ProfileAttribute.where(profile: @profile, class_name: 'employee_classification').pluck(:value)
-      @cost_centers = Company::CostCenter.find(General::ProfileAttribute.where(profile: @profile, class_name: 'cost_center').pluck(:value))
-      @position_classifications = General::ProfileAttribute.where(profile: @profile, class_name: 'position_classification').pluck(:value)
-      @syndicate_members = General::ProfileAttribute.where(profile: @profile, class_name: 'syndicate_member').pluck(:value)
-      @contract_types = General::ProfileAttribute.where(profile: @profile, class_name: 'contract_type').pluck(:value)
-      @roles = General::ProfileAttribute.where(profile: @profile, class_name: 'rol').pluck(:value)
-      @schedules = General::ProfileAttribute.where(profile: @profile, class_name: 'schedule').pluck(:value)
-      @has_children = General::ProfileAttribute.where(profile: @profile, class_name: 'has_children').pluck(:value)
-      @office_countries = General::ProfileAttribute.where(profile: @profile, class_name: 'office_country').pluck(:value)
-      @office_cities = Location::City.find(General::ProfileAttribute.where(profile: @profile, class_name: 'office_city').pluck(:value))
-      @office_regions = Location::Region.find(General::ProfileAttribute.where(profile: @profile, class_name: 'office_region').pluck(:value))
+      country_ids = General::ProfileAttribute.where(profile: @profile, class_name: 'country').pluck(:value)
+      @office_countries = Location::Country.find(country_ids)
     end
 
     def users_list
