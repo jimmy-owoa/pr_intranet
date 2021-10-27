@@ -1,6 +1,10 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :full_name, :last_name, :image, :legal_number
+  attributes :id, :email, :name, :full_name, :last_name, :image, :legal_number, :country
 
+  def country
+    object.country.name
+  end
+  
   def image
     object.get_image
   end
