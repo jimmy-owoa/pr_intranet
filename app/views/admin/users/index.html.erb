@@ -17,7 +17,6 @@
         <table class="table table-hover">
           <thead class="thead">
             <tr>
-              <th>Foto de perfil</th>
               <th>Nombre(s)</th>
               <th>Apellido(s)</th>
               <th>Email</th>
@@ -30,11 +29,6 @@
           <tbody>
             <% @users.each do |user| %>
               <tr>
-                <td>
-                  <% if user.image.attachment.present? %>
-                    <%= image_tag(user.image.attachment.variant(resize: '40x40!').processed, class: 'rounded-circle border border-secondary') %>
-                  <% end %>
-                </td>
                 <td><%= user.name %></td>
                 <td><%= user.last_name %></td>
                 <td><%= mail_to(user.email) %></td>
