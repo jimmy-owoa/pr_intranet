@@ -8,6 +8,7 @@
           <tr>
             <th><%= 'Icono' %></th>
             <th><%= "Nombre" %></th>
+            <th><%= 'Oficina' %></th>
             <th><%= "Acciones" %></th>
           </tr>
         </thead>
@@ -16,6 +17,7 @@
             <tr>
               <td><%= image_tag category.image.attachment.variant(resize: '30x30!'), :class=> 'img-thumbnail img-fluid' unless category.image.attachment.nil? %></td>
               <td><%= category.name %></td>
+              <td><%= category.profile.name %></td>
               <td>
                 
                 <%= link_to t("helpers.links.show"),
