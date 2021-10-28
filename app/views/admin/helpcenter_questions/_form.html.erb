@@ -11,7 +11,7 @@
         <% selected_value = @question.new_record? ? nil : @question.subcategory.category.id %>
         <%= f.label :category %><br>
         <%= select_tag "category", 
-            options_from_collection_for_select(Helpcenter::Category.all, "id", "name", selected_value),
+            options_from_collection_for_select(Helpcenter::Category.all, "id", lambda { |cat| "#{cat.name} (#{cat.profile.name})"}, selected_value),
             prompt: "Selecciona una categoría",
             :onchange => "update_subscategories(this.value)" 
         %>
