@@ -17,6 +17,7 @@
               <b>Nombre(s):</b> <%= @user.try(:name) %></br>
               <b>Apellido(s):</b> <%= @user.try(:last_name) %></br>
               <b>Correo:</b> <%= @user.email %></br>
+              <b>Posición:</b> <%= @user.position %></br>
               <b>Creado el:</b> <%= custom_date(@user.created_at) %></br>
               <b>Última actualización:</b> <%= custom_date(@user.updated_at) %></br>
             </p>

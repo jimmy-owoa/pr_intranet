@@ -13,9 +13,6 @@
           <%= f.input :legal_number %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.input :legal_number_verification %>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-12">
           <%= f.input :email, required: true,autofocus: true ,input_html: { autocomplete: "email" }%>
         </div>
 
@@ -28,63 +25,16 @@
             <%= f.input :password_confirmation,required: !@user.id.present?,input_html: { autocomplete: "new-password" } %>
           </div>
         <% end %>
-        
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.label "Fecha de nacimiento"%>
-          <div class="input-group date" id="birthday" data-target-input="nearest">
-            <% if @user.try(:birthday).present? %>
-              <%= f.text_field :birthday, class: 'form-control datetimepicker-input', 'data-target' => '#birthday', value: custom_date_no_hour(@user.birthday), id: 'birthday' %>
-            <% else %>
-              <%= f.text_field :birthday, class: 'form-control datetimepicker-input', value: @user.try(:birthday), 'data-target' => '#birthday', id: 'birthday' %>
-            <% end %>
-            <div class="input-group-append" data-target="#birthday" data-toggle="datetimepicker">
-              <div class="input-group-text"><i class="fas fa-birthday-cake"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.label "Fecha de ingreso"%>
-          <div class="input-group date" id="date_entry" data-target-input="nearest">
-            <% if @user.try(:date_entry).present? %>
-              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', 'data-target' => '#date_entry', value: custom_date_no_hour(@user.date_entry), id: 'date_entry' %>
-            <% else %>
-              <%= f.text_field :date_entry, class: 'form-control datetimepicker-input date_entry', value: @user.try(:date_entry), 'data-target' => '#date_entry', id: 'date_entry' %>
-            <% end %>
-            <div class="input-group-append" data-target="#date_entry" data-toggle="datetimepicker">
-              <div class="input-group-text"><i class="far fa-handshake"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.input :annexed %>
-        </div>
+      
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.input :position %>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <% selected_value = @user.company_id || "" %>
-          <%= f.label "Empresa" %>
-          <%= f.select :company_id, options_for_select(Company::Company.all.map{|company| [company.name, company.id]}, selected_value), {}, class:' form-control string' %>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-          <%= f.label :location_id %>
-          <% if f.object.location.present? %>
-            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }, f.object.location.id), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
-          <% else %>
-            <%= f.select :location_id, options_for_select(General::Location.all.map { |v| [v.name, v.id] }), include_blank: 'Seleccionar Ciudad', class:'form-control string optional', id:'user_address' %>
-          <% end %>
-        </div>
-        <div class="col-6 col-sm-6">
-          <%= f.input :address %>
+          <% selected_value = @user.country_id || "" %>
+          <%= f.label "Oficina" %>
+          <%= f.select :country_id, options_for_select(Location::Country.all.map{|country| [country.name, country.id]}, selected_value), {}, class:' form-control string' %>
         </div>
 
-        <% if false %>          
-          <div class="col-4 col-sm-6">
-            <%= f.label 'Jerarquía' %>
-            <!-- TODO: ARREGLAR ESTO! -->
-            <%= f.select :parent_id, nested_set_options(General::User, @users) {|i| "#{'-' * i.level} #{i.name} #{i.last_name}" }, {include_blank: 'Sin padre'} %>
-          </div>
-        <% end %>
         <div class="col-4 col-sm-3">
           <%= f.label :active %>
           <%= f.input :active, as: :boolean, label: false %>
