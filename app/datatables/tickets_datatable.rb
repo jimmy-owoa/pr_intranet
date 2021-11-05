@@ -6,7 +6,7 @@ class TicketsDatatable < ApplicationDatatable
   def data
     tickets.map do |ticket|
       links = []
-      links << link_to('<i class="fas fa-edit"></i> Atender'.html_safe, admin_helpcenter_ticket_path(ticket), class: 'btn btn-success btn-sm')
+      links << link_to('<i class="fas fa-edit"></i> Ver'.html_safe, admin_helpcenter_ticket_path(ticket), class: 'btn btn-success btn-sm')
 
       {
         id: ticket.id,
