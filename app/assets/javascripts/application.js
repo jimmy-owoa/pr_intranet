@@ -32,6 +32,7 @@
 //= require admin/helpcenter_questions
 //= require admin/helpcenter_categories
 //= require admin/helpcenter_tickets
+//= require admin/users_datatable
 //= require owl.carousel
 //= require clipboard
 //= require jquery.minicolors
