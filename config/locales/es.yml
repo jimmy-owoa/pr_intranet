@@ -97,6 +97,12 @@ es:
       attachment: Adjunto
       post: Publicación
       user: Usuario
+      helpcenter/question:    
+        one: Pregunta
+        other: Preguntas
+      helpcenter/category:    
+        one: Categoría
+        other: Categorías
       general/file: Archivo
       general/user: Usuario
       general/background: Fondo Variable
