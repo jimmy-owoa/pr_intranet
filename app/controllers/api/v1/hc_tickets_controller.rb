@@ -17,7 +17,7 @@ module Api::V1
       ticket.user = @request_user
 
       if ticket.save
-        # UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
+        UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
         render json: { message: "Ticket created", success: true }, status: :created
       else
         render json: { message: "Error", success: false }, status: :unprocessable_entity

@@ -1,5 +1,5 @@
 class UserNotifierMailer < ApplicationMailer
-  default :from => "intranet@security.cl"
+  default from: 'Centro de ayuda <centrodeayuda@email.cl>'
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def send_signup_email(user)
@@ -48,5 +48,12 @@ class UserNotifierMailer < ApplicationMailer
   def send_survey_created(email, survey_id)
     @survey_id = survey_id
     mail(to: email, subject: "Encuesta Asignada")
+  end
+
+  def notification_new_ticket(ticket, user)
+    emails = ticket.category.assistants.map(&:email)
+    @ticket = ticket
+    @user = user
+    mail(to: emails, subject: 'Nuevo caso creado')
   end
 end
