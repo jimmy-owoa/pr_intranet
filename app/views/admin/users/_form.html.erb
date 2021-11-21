@@ -53,13 +53,11 @@
       </div>
       <%= f.file_field :image, accept:'image/*', class: 'user_image' %>
       <div class="row">
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
+        <div class="col-sm-6 col-md-12 col-lg-12 col-xl-12 scrollDiv">
           <p>Roles</p>
           <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: nil), as: :check_boxes, label_method: :label_name %>
           <p>Centro de ayuda</p>
           <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: Helpcenter::Category), as: :check_boxes, label_method: :name %>
-        </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
         </div>
       </div>
     </div>
