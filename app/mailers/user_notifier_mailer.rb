@@ -56,4 +56,16 @@ class UserNotifierMailer < ApplicationMailer
     @user = user
     mail(to: emails, subject: 'Nuevo caso creado')
   end
+
+  def notification_new_message_user(ticket, message)
+    @ticket = ticket
+    @message = message
+    mail(to: ticket.assistant.email, subject: "Nuevo mensaje en caso ##{ticket.id}")
+  end
+
+  def notification_new_message_assistant(ticket, message)
+    @ticket = ticket
+    @message = message
+    mail(to: ticket.user.email, subject: "Nuevo mensaje en caso ##{ticket.id}")
+  end
 end
