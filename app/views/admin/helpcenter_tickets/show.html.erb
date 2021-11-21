@@ -7,7 +7,7 @@
           <div class="card post_card">
             <p><b><%= "Categoría" %>:</b> <%= @ticket.category.name %></p>
             <p><b><%= "Nombre" %>:</b> <%= @ticket.user.full_name %></p>
-            <p><b><%= "R.U.N." %>:</b> <%= @ticket.user.format_legal_number %></p>
+            <p><b><%= "Código" %>:</b> <%= @ticket.user.format_legal_number %></p>
             <p><b><%= "Correo electrónicos" %>:</b> <%= @ticket.user.email %></p>
             <p><b><%= "Estado" %>:</b> <%= @ticket.status %></p>
             <% if @ticket.assistant.present? %>
