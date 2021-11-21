@@ -2,6 +2,7 @@ require "uri"
 require "net/http"
 
 class General::User < ApplicationRecord
+  include ActionView::Helpers::DateHelper
   include Rails.application.routes.url_helpers
   acts_as_paranoid
   acts_as_nested_set
@@ -238,6 +239,15 @@ class General::User < ApplicationRecord
   def set_office_country(office_country)
     location_country = Location::Country.where(name: office_country).first_or_create
     self.country = location_country
+  end
+
+  def average_time
+    tickets = self.tickets_attended.where.not(closed_at: nil)
+    return "" if tickets.empty?
+
+    times = tickets.map {|t| t.closed_at - t.created_at}
+    average_time = times.sum / times.size
+    distance_of_time_in_words(average_time)
   end
 
   private
