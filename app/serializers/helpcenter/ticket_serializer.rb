@@ -1,11 +1,11 @@
 class Helpcenter::TicketSerializer < ActiveModel::Serializer
-  attributes :id, :category, :created_at, :closed_at, :status
+  attributes :id, :subcategory, :created_at, :closed_at, :status
   has_many :chat_messages, if: -> { is_show? }
   attribute :description, if: -> { is_show? }
   attribute :survey_answered, if: -> { is_show? }
 
-  def category
-    object.category.name
+  def subcategory
+    object.subcategory.name
   end
 
   def created_at
