@@ -15,11 +15,13 @@ module Admin
     def new
       @ticket = Helpcenter::Ticket.new
       @users = General::User.all.map { |u| [u.full_name, u.id] }
+      @subcategories = []
     end
 
     def edit
       authorize @ticket, :show?
       @users = General::User.all.map { |u| [u.full_name, u.id] }
+      @subcategories = Helpcenter::Subcategory.where(category: @ticket.subcategory.category)
     end
 
     def create
@@ -92,6 +94,11 @@ module Admin
       end
     end
 
+    def subcategories
+      @subcategories = Helpcenter::Subcategory.where(category_id: params[:category_id])
+      render :partial => "admin/helpcenter_tickets/subcategories", :object => @subcategories
+    end
+
     private
 
     def user_not_authorized
@@ -103,7 +110,7 @@ module Admin
     end
 
     def ticket_params
-      params.require(:ticket).permit(:name, :description, :category_id, :user_id, files: [])
+      params.require(:ticket).permit(:name, :description, :subcategory_id, :user_id, files: [])
     end
   end
 end

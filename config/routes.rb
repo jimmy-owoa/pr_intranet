@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get :assistants, on: :member
     end
     resources :helpcenter_tickets do
+      get :subcategories, on: :collection
       put :take_ticket, on: :member
       put :close, on: :member
       resources :helpcenter_messages, on: :member, only: [:create]

@@ -19,14 +19,24 @@
         </div>
       <% end %>
 
-      <div class="col-12 col-md-12">
-        <% selected_value = @ticket.new_record? ? nil : @ticket.category.id %>
-        <%= f.label "Categoría *" %><br>
-        <%= f.select :category_id, options_for_select(Helpcenter::Category.all.map{|cat| [cat.name, cat.id]}, selected_value), include_blank: true %>
+      <div class="col-12 col-sm-12">
+        <% selected_value = @ticket.new_record? ? nil : @ticket.subcategory.category.id %>
+        <%= f.label :category %><br>
+        <%= select_tag "category", 
+            options_from_collection_for_select(Helpcenter::Category.all, "id", lambda { |cat| "#{cat.name} (#{cat.profile.name})"}, selected_value),
+            prompt: "Selecciona una categoría",
+            :onchange => "update_ticket_subscategories(this.value)" 
+        %>
+      </div>
 
-        <% f.object.errors.messages[:category].each do |message| %>
-          <p class="text-danger mb-2"><%= message %></p>
-        <% end %>
+      <div class="col-12 col-md-12">
+        <% selected_value = @ticket.new_record? ? nil : @ticket.subcategory.id %>
+        <%= f.label "Subcategoría *" %><br>
+        <%= f.select :subcategory_id, 
+            options_from_collection_for_select(@subcategories || [], "id", "name", selected_value), 
+            prompt: "Selecciona una subcategoría",
+            required: true
+        %>
       </div>
     </div>
   </div>
@@ -51,6 +61,12 @@ $(document).on("turbolinks:load", function() {
     width: "100%"
   });
 
+  $("#ticket_subcategory_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Subcategoría",
+    width: "100%"
+  });
+
   $("#ticket_user_id").select2({
     tags: false,
     placeholder: "Seleccionar Usuario",
@@ -58,4 +74,12 @@ $(document).on("turbolinks:load", function() {
   });
 });
 
+function update_ticket_subscategories(category_id) {  
+  jQuery.ajax({
+    url: `/admin/helpcenter_tickets/subcategories`,
+    type: "GET",
+    data: { "category_id": category_id },
+    dataType: "script"
+  });
+}
 </script>

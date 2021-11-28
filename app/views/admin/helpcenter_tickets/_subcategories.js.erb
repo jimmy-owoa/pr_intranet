@@ -1,0 +1,6 @@
+$('#ticket_subcategory_id').empty();
+$('#ticket_subcategory_id').append( $('<option>Selecciona una subcategoría</option>'));
+$("#ticket_subcategory_id").prop("disabled", false);
+<% @subcategories.each do |subcat| %>
+  $('#ticket_subcategory_id').append($('<option value="<%= subcat.id %>"><%= subcat.name %></option>'));
+<% end %>
