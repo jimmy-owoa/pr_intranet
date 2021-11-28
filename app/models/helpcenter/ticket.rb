@@ -6,7 +6,7 @@ class Helpcenter::Ticket < ApplicationRecord
   # relations
   belongs_to :user, class_name: 'General::User'
   belongs_to :assistant, class_name: 'General::User', optional: true
-  belongs_to :category, class_name: 'Helpcenter::Category'
+  belongs_to :subcategory, class_name: 'Helpcenter::Subcategory'
   has_many :chat_messages, class_name: 'Helpcenter::Message', foreign_key: :ticket_id
   has_many :satisfaction_answers, class_name: 'Helpcenter::SatisfactionAnswer', foreign_key: :ticket_id
   # active storage

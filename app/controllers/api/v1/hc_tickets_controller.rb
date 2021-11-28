@@ -31,7 +31,7 @@ module Api::V1
     end
 
     def ticket_params
-      params.require(:ticket).permit(:category_id, :description, files: [])
+      params.require(:ticket).permit(:subcategory_id, :description, files: [])
     end
   end
 end

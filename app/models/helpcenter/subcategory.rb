@@ -3,6 +3,7 @@ class Helpcenter::Subcategory < ApplicationRecord
 
   belongs_to :category, class_name: 'Helpcenter::Category'
   has_many :questions, class_name: 'Helpcenter::Question', foreign_key: :subcategory_id
+  has_many :tickets ,class_name: 'Helpcenter::Ticket', foreign_key: :subcategory_id
 
   before_save :unique_slug
 
