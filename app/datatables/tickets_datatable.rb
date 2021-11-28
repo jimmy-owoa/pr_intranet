@@ -11,7 +11,7 @@ class TicketsDatatable < ApplicationDatatable
       {
         id: ticket.id,
         user: ticket.user.full_name,
-        category: ticket.category.name,
+        subcategory: ticket.subcategory.name,
         status: ticket.status,
         total_time: ticket.total_time,
         time_worked: ticket.time_worked,
@@ -37,7 +37,8 @@ class TicketsDatatable < ApplicationDatatable
       tickets = Helpcenter::Ticket.all.order(created_at: :desc)
     else
       categories = @view.current_user.help_categories
-      tickets = Helpcenter::Ticket.where(category: categories).order(created_at: :desc)
+      subcategories = categories.map(&:subcategory_ids).flatten
+      tickets = Helpcenter::Ticket.where("subcategory_id in (:subcategory_ids)", subcategory_ids: subcategories)
     end
 
     tickets = tickets.where(status: params[:status]) if params[:status].present?
@@ -51,6 +52,6 @@ class TicketsDatatable < ApplicationDatatable
   end
 
   def columns
-    %w(id user category status total_time time_worked actions)
+    %w(id user subcategory status total_time time_worked actions)
   end
 end
