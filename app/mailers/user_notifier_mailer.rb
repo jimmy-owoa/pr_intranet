@@ -51,9 +51,10 @@ class UserNotifierMailer < ApplicationMailer
   end
 
   def notification_new_ticket(ticket, user)
-    emails = ticket.category.assistants.map(&:email)
+    emails = ticket.subcategory.category.assistants.map(&:email)
     @ticket = ticket
     @user = user
+    @subcategory = @ticket.subcategory
     mail(to: emails, subject: 'Nuevo caso creado')
   end
 
