@@ -43,6 +43,7 @@ module Admin
     def update
       respond_to do |format|
         if @category.update(category_params)
+          Role.find_by(resource: @category).update(name: @category.name)
           format.html { redirect_to admin_helpcenter_category_path(@category), notice: 'Categoría fue actualizada con éxito.' }
           format.json { render :show, status: :ok, location: @category }
         else
