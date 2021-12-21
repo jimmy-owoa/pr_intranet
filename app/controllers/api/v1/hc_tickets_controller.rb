@@ -14,13 +14,24 @@ module Api::V1
 
     def create
       ticket = Helpcenter::Ticket.new(ticket_params)
-      ticket.user = @request_user
-
-      if ticket.save
-        UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
-        render json: { message: "Ticket created", success: true }, status: :created
+      if category_params["category_id"].to_i == Helpcenter::Category.find_by(name: 'Rendición de Gastos').id
+        ticket.user = @request_user
+        ticket.aproved_to_review = nil
+        if ticket.save
+          UserNotifierMailer.notification_new_ticket_boss(ticket, @request_user).deliver
+          render json: { message: "Ticket created", success: true }, status: :created
+        else
+          render json: { message: "Error", success: false }, status: :unprocessable_entity
+        end
       else
-        render json: { message: "Error", success: false }, status: :unprocessable_entity
+        ticket.user = @request_user
+
+        if ticket.save
+          UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
+          render json: { message: "Ticket created", success: true }, status: :created
+        else
+          render json: { message: "Error", success: false }, status: :unprocessable_entity
+        end
       end
     end
 
@@ -32,6 +43,10 @@ module Api::V1
 
     def ticket_params
       params.require(:ticket).permit(:subcategory_id, :description, files: [])
+    end
+    
+    def category_params
+      params.require(:category).permit(:category_id)
     end
   end
 end

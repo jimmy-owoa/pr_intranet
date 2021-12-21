@@ -58,6 +58,14 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: emails, subject: 'Nuevo caso creado')
   end
 
+  def notification_new_ticket_boss(ticket, user) 
+    boss = General::User.find_by(id: ticket.user.id_exa_boss)
+    email = boss.email
+    @ticket = ticket
+    @subcategory = @ticket.subcategory
+    mail(to: email, subject: 'Nuevo caso por aprobar')
+  end
+
   def notification_new_message_user(ticket, message)
     @ticket = ticket
     @message = message
