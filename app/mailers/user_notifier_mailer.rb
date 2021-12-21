@@ -49,4 +49,32 @@ class UserNotifierMailer < ApplicationMailer
     @survey_id = survey_id
     mail(to: email, subject: "Encuesta Asignada")
   end
+
+  def notification_new_ticket(ticket, user)
+    emails = ticket.subcategory.category.assistants.map(&:email)
+    @ticket = ticket
+    @user = user
+    @subcategory = @ticket.subcategory
+    mail(to: emails, subject: 'Nuevo caso creado')
+  end
+
+  def notification_new_ticket_boss(ticket, user) 
+    boss = General::User.find_by(id: ticket.user.id_exa_boss)
+    email = boss.email
+    @ticket = ticket
+    @subcategory = @ticket.subcategory
+    mail(to: email, subject: 'Nuevo caso por aprobar')
+  end
+
+  def notification_new_message_user(ticket, message)
+    @ticket = ticket
+    @message = message
+    mail(to: ticket.assistant.email, subject: "Nuevo mensaje en caso ##{ticket.id}")
+  end
+
+  def notification_new_message_assistant(ticket, message)
+    @ticket = ticket
+    @message = message
+    mail(to: ticket.user.email, subject: "Nuevo mensaje en caso ##{ticket.id}")
+  end
 end
