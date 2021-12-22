@@ -14,8 +14,8 @@ module Api::V1
 
     def create
       ticket = Helpcenter::Ticket.new(ticket_params)
+      @request_user = ticket.user
       if category_params["category_id"].to_i == Helpcenter::Category.find_by(name: 'Rendición de Gastos').id
-        ticket.user = @request_user
         ticket.aproved_to_review = nil
         if ticket.save
           UserNotifierMailer.notification_new_ticket_boss(ticket, @request_user).deliver
@@ -24,13 +24,31 @@ module Api::V1
           render json: { message: "Error", success: false }, status: :unprocessable_entity
         end
       else
-        ticket.user = @request_user
-
         if ticket.save
           UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
           render json: { message: "Ticket created", success: true }, status: :created
         else
           render json: { message: "Error", success: false }, status: :unprocessable_entity
+        end
+      end
+    end
+
+    def is_approved
+      ticket = Helpcenter::Ticket.find(params[:ticket_id])
+      @request_user = ticket.user 
+      time_expiry = ticket.created_at + 8760.hours # 1 año 
+      if DateTime.now >= time_expiry
+        redirect_to vista_link_ha_expirado_path
+      else
+        if params[:aproved_to_review] == "false"
+          UserNotifierMailer.notification_ticket_rejected_to_boss(ticket, @request_user).deliver
+          UserNotifierMailer.notification_ticket_rejected_to_user(ticket, @request_user).deliver
+          ticket.destroy
+        else
+          ticket.update(aproved_to_review: DateTime.now)
+          UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
+          UserNotifierMailer.notification_ticket_approved_to_boss(ticket, @request_user).deliver
+          UserNotifierMailer.notification_ticket_approved_to_user(ticket, @request_user).deliver
         end
       end
     end

@@ -65,6 +65,34 @@ class UserNotifierMailer < ApplicationMailer
     @subcategory = @ticket.subcategory
     mail(to: email, subject: 'Nuevo caso por aprobar')
   end
+  def notification_ticket_approved_to_boss(ticket, user)
+    email_boss = General::User.find(user.id_exa_boss).email
+    @ticket = ticket
+    @user = user
+    @subcategory = @ticket.subcategory
+    mail(to: email_boss, subject: 'Caso por aprobar')
+  end
+  def notification_ticket_approved_to_user(ticket, user)
+    email_user = user.email
+    @ticket = ticket
+    @user = user
+    @subcategory = @ticket.subcategory
+    mail(to: email_user, subject: 'Caso por aprobar')
+  end
+  def notification_ticket_rejected_to_boss(ticket, user)
+    email_boss = General::User.find(user.id_exa_boss).email
+    @ticket = ticket
+    @user = user
+    @subcategory = @ticket.subcategory
+    mail(to: email_boss, subject: 'Caso rechazado')
+  end
+  def notification_ticket_rejected_to_user(ticket, user)
+    email_user = user.email
+    @ticket = ticket
+    @user = user
+    @subcategory = @ticket.subcategory
+    mail(to: email_user, subject: 'Caso rechazado')
+  end
 
   def notification_new_message_user(ticket, message)
     @ticket = ticket

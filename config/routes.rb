@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
     root to: "helpcenter_tickets#index"
   end
+
   namespace :api, :defaults => { :format => "json" } do
     namespace :v1, :defaults => { :format => "json" } do
       resources :users, only: [:show] do
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
 
       post 'users', to: 'users#create_update'
       delete 'users', to: 'users#destroy'
+      post 'hc_tickets', to: 'hc_tickets#is_approved'
 
       resources :hc_questions, only: [:show] do
         get :importants, on: :collection
