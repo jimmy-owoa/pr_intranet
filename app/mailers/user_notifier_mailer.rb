@@ -63,6 +63,11 @@ class UserNotifierMailer < ApplicationMailer
     email = boss.email
     @ticket = ticket
     @subcategory = @ticket.subcategory
+    #encryp
+    key = Rails.application.credentials[:secret_key_base][0..31]
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    @encrypted_data_approved_false = Base64.strict_encode64(crypt.encrypt_and_sign(ticket_id: @ticket.id, aproved_to_review: false))
+    @encrypted_data_approved_true = Base64.strict_encode64(crypt.encrypt_and_sign(ticket_id: @ticket.id, aproved_to_review: true))
     mail(to: email, subject: 'Nuevo caso por aprobar')
   end
   def notification_ticket_approved_to_boss(ticket, user)

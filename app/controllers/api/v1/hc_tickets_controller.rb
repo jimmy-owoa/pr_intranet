@@ -34,13 +34,17 @@ module Api::V1
     end
 
     def is_approved
-      ticket = Helpcenter::Ticket.find(params[:ticket_id])
-      @request_user = ticket.user 
-      time_expiry = ticket.created_at + 8760.hours # 1 año 
+      encrypted_data = Base64.decode64(params[:aproved_to_review])
+      key = Rails.application.credentials[:secret_key_base][0..31]
+      crypt = ActiveSupport::MessageEncryptor.new(key) 
+      decrypted_back = crypt.decrypt_and_verify(encrypted_data)
+      ticket = Helpcenter::Ticket.find(decrypted_back[:ticket_id])
+      @request_user = ticket.user
+      time_expiry = ticket.created_at + 8760.hours # 1 año
       if DateTime.now >= time_expiry
         redirect_to vista_link_ha_expirado_path
       else
-        if params[:aproved_to_review] == "false"
+        if decrypted_back[:aproved_to_review] == false
           UserNotifierMailer.notification_ticket_rejected_to_boss(ticket, @request_user).deliver
           UserNotifierMailer.notification_ticket_rejected_to_user(ticket, @request_user).deliver
           ticket.destroy

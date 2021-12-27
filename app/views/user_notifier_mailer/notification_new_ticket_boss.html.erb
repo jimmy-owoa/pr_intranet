@@ -1,10 +1,10 @@
 <p>Se ha ingresado una nueva solicitud de Rendición de gastos</p>
-<p>  <b>Nombre: </b><%= @ticket.user.name  %> </p>
+<p><b>Nombre: </b><%= @ticket.user.name  %> </p>
 <p><b>Subcategoría: </b> <%= @subcategory.name  %></p>
 <p>
   <b>Descripción: </b><%= @ticket.description %>
 </p>
 <form action="/api/v1/hc_tickets" method="post">
-    <%= f.button :submit, 'Aprobar', name: 'aproved_to_review', value: 'true' %>
-    <%= f.button :submit, 'Rechazar', name: 'aproved_to_review', value: 'false' %>
-</form>
+    <%= f.button :submit, 'Aprobar', name: 'aproved_to_review', value: @encrypted_data_approved_true %>
+    <%= f.button :submit, 'Rechazar', name: 'aproved_to_review', value: @encrypted_data_approved_false %>
+</form> 
