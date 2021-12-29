@@ -41,7 +41,6 @@ Rails.application.routes.draw do
 
       post 'users', to: 'users#create_update'
       delete 'users', to: 'users#destroy'
-      post 'hc_tickets', to: 'hc_tickets#is_approved'
 
       resources :hc_questions, only: [:show] do
         get :importants, on: :collection

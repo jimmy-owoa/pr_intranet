@@ -14,7 +14,7 @@ module Api::V1
 
     def create
       ticket = Helpcenter::Ticket.new(ticket_params)
-      @request_user = ticket.user
+      ticket.user = @request_user
       if category_params["category_id"].to_i == Helpcenter::Category.find_by(name: 'Rendición de Gastos').id
         ticket.aproved_to_review = nil
         if ticket.save
@@ -34,27 +34,16 @@ module Api::V1
     end
 
     def is_approved
-      encrypted_data = Base64.decode64(params[:aproved_to_review])
-      key = Rails.application.credentials[:secret_key_base][0..31]
-      crypt = ActiveSupport::MessageEncryptor.new(key) 
-      decrypted_back = crypt.decrypt_and_verify(encrypted_data)
-      ticket = Helpcenter::Ticket.find(decrypted_back[:ticket_id])
-      @request_user = ticket.user
-      time_expiry = ticket.created_at + 8760.hours # 1 año
-      if DateTime.now >= time_expiry
-        redirect_to vista_link_ha_expirado_path
+      approved_to_review = params[:aproved_to_review]
+      # comprobar si el ticket esta expirado y enviar correos
+      result = Helpcenter::Ticket.ticket_boss_notifications(approved_to_review)
+      if result == "link_expired"
+        render json: { message: "Link expired", success: false }, status: :unprocessable_entity
+      elsif result == "rejected"
+        render json: { message: "Ticket rejected", success: false }, status: :unprocessable_entity
       else
-        if decrypted_back[:aproved_to_review] == false
-          UserNotifierMailer.notification_ticket_rejected_to_boss(ticket, @request_user).deliver
-          UserNotifierMailer.notification_ticket_rejected_to_user(ticket, @request_user).deliver
-          ticket.destroy
-        else
-          ticket.update(aproved_to_review: DateTime.now)
-          UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
-          UserNotifierMailer.notification_ticket_approved_to_boss(ticket, @request_user).deliver
-          UserNotifierMailer.notification_ticket_approved_to_user(ticket, @request_user).deliver
-        end
-      end
+        render json: { message: "Ticket approved", success: true }, status: :ok
+      end 
     end
 
     private
