@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       resources :hc_subcategories, param: :slug, only: [:show]
   
       resources :hc_tickets do
+        get :review_ticket, on: :collection
         resources :hc_messages, on: :member, only: [:create]
         resources :hc_satisfaction_answers, on: :member, only: [:create]
       end

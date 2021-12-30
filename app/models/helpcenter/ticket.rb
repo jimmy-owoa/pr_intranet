@@ -52,21 +52,26 @@ class Helpcenter::Ticket < ApplicationRecord
     decrypted_back = decrypt_data(encrypted_data)
     ticket = Helpcenter::Ticket.find(decrypted_back[:ticket_id])
     request_user = ticket.user
-    time_expiry = ticket.created_at + 1.years
+    time_expiry = ticket.created_at + 1.year
+    ticket_date = I18n.l(ticket.created_at, format: '%A, %d de %B de %Y')
     if DateTime.now >= time_expiry
-      return "link_expired" 
+      result = {ticket: ticket, state: "link_expired",user: request_user.full_name.capitalize, ticket_date: ticket_date}
+      return result
     else
       if decrypted_back[:aproved_to_review] == false
         UserNotifierMailer.notification_ticket_rejected_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_rejected_to_user(ticket, request_user).deliver
+        result = {ticket: ticket, state: "rejected",user: request_user.full_name.capitalize, ticket_date: ticket_date}
         ticket.destroy
-        return "rejected"
+        return result
+        
       else
         ticket.update(aproved_to_review: DateTime.now)
         UserNotifierMailer.notification_new_ticket(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_user(ticket, request_user).deliver
-        return "approved"
+        result = {ticket: ticket, state: "approved",user: request_user.full_name.capitalize, ticket_date: ticket_date}
+        return result
       end
     end
   end

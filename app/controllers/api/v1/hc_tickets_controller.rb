@@ -33,16 +33,16 @@ module Api::V1
       end
     end
 
-    def is_approved
-      approved_to_review = params[:aproved_to_review]
+    def review_ticket
+      approved_to_review = params[:aproved_to_review].tr('=', '')
       # comprobar si el ticket esta expirado y enviar correos
       result = Helpcenter::Ticket.ticket_boss_notifications(approved_to_review)
-      if result == "link_expired"
-        render json: { message: "Link expired", success: false }, status: :unprocessable_entity
-      elsif result == "rejected"
-        render json: { message: "Ticket rejected", success: false }, status: :unprocessable_entity
+      if  result[:state] == "link_expired"
+        render json: { message: "Link expired", success: false, ticket: result[:ticket], user: result[:user]}, status: :unprocessable_entity
+      elsif  result[:state] == "rejected"
+        render json: { message: "Ticket rejected", success: false, ticket: result[:ticket], user: result[:user] }, status: :unprocessable_entity
       else
-        render json: { message: "Ticket approved", success: true }, status: :ok
+        render json: { message: "Ticket approved", success: true, ticket: result[:ticket], user: result[:user], ticket_date: result[:ticket_date] }, status: :ok
       end 
     end
 
