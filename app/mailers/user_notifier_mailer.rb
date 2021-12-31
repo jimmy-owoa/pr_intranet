@@ -68,8 +68,8 @@ class UserNotifierMailer < ApplicationMailer
     crypt = ActiveSupport::MessageEncryptor.new(key)
     @encrypted_data_approved_false = Base64.strict_encode64(crypt.encrypt_and_sign({ticket_id: @ticket.id, aproved_to_review: false}))
     @encrypted_data_approved_true = Base64.strict_encode64(crypt.encrypt_and_sign({ticket_id: @ticket.id, aproved_to_review: true}))
-    @link_false = "localhost:8000/tickets/review/#{@encrypted_data_approved_false}"
-    @link_true = "localhost:8000/tickets/review/#{@encrypted_data_approved_true}"
+    @link_false = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_false}"
+    @link_true = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_true}"
     mail(to: email, subject: 'Nuevo caso por aprobar')
   end
 
