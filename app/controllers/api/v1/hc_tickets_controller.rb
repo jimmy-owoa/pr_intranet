@@ -38,9 +38,9 @@ module Api::V1
       # comprobar si el ticket esta expirado y enviar correos
       result = Helpcenter::Ticket.ticket_boss_notifications(approved_to_review)
       if  result[:state] == "link_expired"
-        render json: { message: "Link expired", success: false, ticket: result[:ticket], user: result[:user]}, status: :unprocessable_entity
+        render json: { message: "Link expired", success: true, ticket: result[:ticket], user: result[:user],ticket_date: result[:ticket_date]}, status: :ok
       elsif  result[:state] == "rejected"
-        render json: { message: "Ticket rejected", success: false, ticket: result[:ticket], user: result[:user] }, status: :unprocessable_entity
+        render json: { message: "Ticket rejected", success: true, ticket: result[:ticket], user: result[:user],ticket_date: result[:ticket_date] }, status: :ok
       else
         render json: { message: "Ticket approved", success: true, ticket: result[:ticket], user: result[:user], ticket_date: result[:ticket_date] }, status: :ok
       end 
