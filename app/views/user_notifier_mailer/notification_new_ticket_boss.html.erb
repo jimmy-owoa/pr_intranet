@@ -1,5 +1,6 @@
 <p>Se ha ingresado una nueva solicitud de Rendición de gastos</p>
-<p><b>Nombre: </b><%= @ticket.user.name  %> </p>
+<p><b>Nombre: </b><%= @ticket.user.full_name %> </p>
+<p><b>Codigo: </b><%= @ticket.user.legal_number %> </p>
 <p><b>Subcategoría: </b> <%= @subcategory.name  %></p>
 <p>
   <b>Descripción: </b><%= @ticket.description %>

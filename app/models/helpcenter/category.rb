@@ -4,7 +4,7 @@ class Helpcenter::Category < ApplicationRecord
   resourcify
   #validations
   validates :name, presence: true
-  validates :name, uniqueness: { case_sensitive: false }
+  validates :name, case_sensitive: false
   # Relations
   belongs_to :profile, class_name: 'General::Profile'
   has_many :subcategories ,class_name: 'Helpcenter::Subcategory', foreign_key: :category_id, dependent: :destroy, inverse_of: :category

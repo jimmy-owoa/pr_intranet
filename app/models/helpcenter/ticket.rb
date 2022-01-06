@@ -61,7 +61,7 @@ class Helpcenter::Ticket < ApplicationRecord
       if decrypted_back[:aproved_to_review] == false
         UserNotifierMailer.notification_ticket_rejected_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_rejected_to_user(ticket, request_user).deliver
-        result = {ticket: ticket, state: "rejected",user: request_user.full_name.capitalize, ticket_date: ticket_date}  
+        result = {ticket: ticket, state: "rejected",user: request_user, ticket_date: ticket_date}  
         ticket.destroy
         return result
         
@@ -70,7 +70,7 @@ class Helpcenter::Ticket < ApplicationRecord
         UserNotifierMailer.notification_new_ticket(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_user(ticket, request_user).deliver
-        result = {ticket: ticket, state: "approved",user: request_user.full_name.capitalize, ticket_date: ticket_date}
+        result = {ticket: ticket, state: "approved",user: request_user, ticket_date: ticket_date}
         return result
       end
     end

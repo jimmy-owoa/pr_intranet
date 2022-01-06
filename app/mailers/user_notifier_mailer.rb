@@ -78,7 +78,7 @@ class UserNotifierMailer < ApplicationMailer
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
-    mail(to: email_boss, subject: 'Caso por aprobar')
+    mail(to: email_boss, subject: 'Has aprobado un caso')
   end
 
   def notification_ticket_approved_to_user(ticket, user)
@@ -86,7 +86,7 @@ class UserNotifierMailer < ApplicationMailer
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
-    mail(to: email_user, subject: 'Caso por aprobar')
+    mail(to: email_user, subject: 'Solicitud de Caso aprobada')
   end
 
   def notification_ticket_rejected_to_boss(ticket, user)
@@ -94,7 +94,7 @@ class UserNotifierMailer < ApplicationMailer
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
-    mail(to: email_boss, subject: 'Caso rechazado')
+    mail(to: email_boss, subject: 'has rechazado un caso')
   end
 
   def notification_ticket_rejected_to_user(ticket, user)
@@ -102,7 +102,7 @@ class UserNotifierMailer < ApplicationMailer
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
-    mail(to: email_user, subject: 'Caso rechazado')
+    mail(to: email_user, subject: 'Solicitud de Caso rechazada')
   end
 
   def notification_new_message_user(ticket, message)
