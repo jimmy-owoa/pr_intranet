@@ -5,18 +5,18 @@ class TicketsDatatable < ApplicationDatatable
 
   def data
     tickets.map do |ticket|
-      links = []
-      links << link_to('<i class="fas fa-edit"></i> Ver'.html_safe, admin_helpcenter_ticket_path(ticket), class: 'btn btn-success btn-sm')
+        links = []
+        links << link_to('<i class="fas fa-edit"></i> Ver'.html_safe, admin_helpcenter_ticket_path(ticket), class: 'btn btn-success btn-sm')
 
-      {
-        id: ticket.id,
-        user: ticket.user.full_name,
-        subcategory: ticket.subcategory.present? ? ticket.subcategory.name : 'sin subcategoria',
-        status: ticket.status,
-        total_time: ticket.total_time,
-        time_worked: ticket.time_worked,
-        actions: links.join(' ')
-      }
+        {
+          id: ticket.id,
+          user: ticket.user.full_name,
+          subcategory: ticket.subcategory.present? ? ticket.subcategory.name : 'sin subcategoria',
+          status: ticket.status,
+          total_time: ticket.total_time,
+          time_worked: ticket.time_worked,
+          actions: links.join(' ')
+        }
     end
   end
 
@@ -34,7 +34,7 @@ class TicketsDatatable < ApplicationDatatable
 
   def fetch_tickets
     if @view.current_user.is_admin?
-      tickets = Helpcenter::Ticket.all.order(created_at: :desc)
+      tickets = Helpcenter::Ticket.where(aproved_to_review: true).order(created_at: :desc)
     else
       categories = @view.current_user.help_categories
       subcategories = categories.map(&:subcategory_ids).flatten
