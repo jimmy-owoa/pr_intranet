@@ -45,6 +45,31 @@ class Helpcenter::Ticket < ApplicationRecord
     end
   end
 
+  def self.take_ticket(take, ticket, current_user)
+    @ticket = ticket
+    if take == 'true'
+      assistant = current_user.id
+      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status:               Helpcenter::TicketState.find_by(status: 'attended').status)
+        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'attended').id)
+        result = {ticket: @ticket, take_ticket: true}
+        return result
+      else
+        result = {ticket: @ticket, take_ticket: false}
+        return result
+      end
+    else
+      assistant = nil
+      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'open').status  )
+        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
+        result = {ticket: @ticket, take_ticket: true}
+        return result
+      else
+        result = {ticket: @ticket, take_ticket: false}
+        return result
+      end
+    end
+  end
+
   def self.ticket_boss_notifications(encrypted_data)
     decrypted_back = decrypt_data(encrypted_data)
     ticket = Helpcenter::Ticket.find(decrypted_back[:ticket_id])
@@ -66,7 +91,7 @@ class Helpcenter::Ticket < ApplicationRecord
         UserNotifierMailer.notification_new_ticket(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_user(ticket, request_user).deliver
-        result = {ticket: ticket, state: "approved",user: request_user, ticket_date: ticket_date}
+        result = {ticket: ticket, state: "approved", user: request_user, ticket_date: ticket_date}
         return result
       end
     end

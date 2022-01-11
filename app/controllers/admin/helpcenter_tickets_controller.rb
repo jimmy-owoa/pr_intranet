@@ -48,20 +48,17 @@ module Admin
     end
 
     def take_ticket
-      assistant = params[:take_ticket] == 'true' ? current_user.id : nil
-      
-      respond_to do |format|
-        if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'attended').status  )
-          Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'attended').id)
+      result = Helpcenter::Ticket.take_ticket(params[:take_ticket], @ticket, current_user)
+      @ticket = result[:ticket]
+        respond_to do |format|
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'Ticket fue actualizado con éxito.' }
           format.json { render :show, status: :ok, location: @ticket }
         else
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'Ocurrió un error' }
           format.json { render :show, status: :ok, location: @ticket }
         end
-      end
     end
-
+    
     def close
       respond_to do |format|
         if @ticket.update(closed_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'closed').status)
