@@ -13,18 +13,14 @@ class Helpcenter::Ticket < ApplicationRecord
   # active storage
   has_many_attached :files
   # ENUM
-  STATUS = [
-    "Abierto",
-    "Atendido",
-    "Cerrado"
-  ].freeze
+  STATUS_COLLECTION = { '' => 'Todos', 'open' => 'Abiertos', 'attended' => 'Atendidos', 'recategorized' => 'Recategorizado', 'closed' => 'Resueltos', 'deleted' => 'Eliminados', 'waiting' => 'Esperando respuesta' }.freeze
 
-  STATUS_COLLECTION = { "" => "Todos", "Abierto" => "Abiertos", "Atendido" => "Atendidos", "Cerrado" => "Cerrados" }.freeze
+  STATUS_ES = { 'open' => 'abierto', 'attended' => 'atendiendo', 'recategorized' => 'recategorizado', 'closed' => 'resuelto', 'deleted' => 'eliminado', 'waiting' => 'esperando respuesta' }.freeze
 
   before_create :set_status
 
   def set_status
-    self.status = "Abierto"
+    self.status = Helpcenter::TicketState.find_by(status: 'open' ).status
   end
 
   def format_closed_at

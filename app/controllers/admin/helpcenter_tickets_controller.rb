@@ -31,6 +31,7 @@ module Admin
 
       respond_to do |format|
         if @ticket.save
+          Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'Ticket fue creado con éxito.' }
           format.json { render :show, status: :ok, location: @ticket }
         else
@@ -50,7 +51,8 @@ module Admin
       assistant = params[:take_ticket] == 'true' ? current_user.id : nil
       
       respond_to do |format|
-        if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: 'Atendido')
+        if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'attended').status  )
+          Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'attended').id)
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'Ticket fue actualizado con éxito.' }
           format.json { render :show, status: :ok, location: @ticket }
         else
@@ -62,7 +64,8 @@ module Admin
 
     def close
       respond_to do |format|
-        if @ticket.update(closed_at: DateTime.now, status: 'Cerrado')
+        if @ticket.update(closed_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'closed').status)
+          Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'closed').id)
           # UserNotifierMailer.notification_ticket_close(@ticket).deliver
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'Ticket fue actualizado con éxito.' }
           format.json { render :show, status: :ok, location: @ticket }
@@ -87,6 +90,7 @@ module Admin
     end
 
     def destroy
+      Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'deleted').status)
       @ticket.destroy
       respond_to do |format|
         format.html { redirect_to admin_helpcenter_tickets_path, notice: 'Ticket fue eliminado con éxito.' }

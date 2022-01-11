@@ -12,7 +12,7 @@ class TicketsDatatable < ApplicationDatatable
           id: ticket.id,
           user: ticket.user.full_name,
           subcategory: ticket.subcategory.present? ? ticket.subcategory.name : 'sin subcategoria',
-          status: ticket.status,
+          status: Helpcenter::Ticket::STATUS_ES[ticket.status],
           total_time: ticket.total_time,
           time_worked: ticket.time_worked,
           actions: links.join(' ')
