@@ -9,7 +9,7 @@
             <p><b><%= "Nombre" %>:</b> <%= @ticket.user.full_name %></p>
             <p><b><%= "Código" %>:</b> <%= @ticket.user.format_legal_number %></p>
             <p><b><%= "Correo electrónicos" %>:</b> <%= @ticket.user.email %></p>
-            <p><b><%= "Estado" %>:</b> <%= @ticket.status %></p>
+            <p><b><%= "Estado" %>:</b> <%= Helpcenter::Ticket::STATUS_ES[@ticket.status] %></p>
             <% if @ticket.assistant.present? %>
               <p><b><%= "Tomado por" %>:</b> <%= @ticket.assistant.full_name %></p>
             <% end %>

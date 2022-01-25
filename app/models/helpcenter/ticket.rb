@@ -9,21 +9,18 @@ class Helpcenter::Ticket < ApplicationRecord
   belongs_to :subcategory, class_name: "Helpcenter::Subcategory"
   has_many :chat_messages, class_name: "Helpcenter::Message", foreign_key: :ticket_id
   has_many :satisfaction_answers, class_name: "Helpcenter::SatisfactionAnswer", foreign_key: :ticket_id
+  has_many :ticket_histories, class_name: 'Helpcenter::TicketHistory', foreign_key: :ticket_id
   # active storage
   has_many_attached :files
   # ENUM
-  STATUS = [
-    "Abierto",
-    "Atendido",
-    "Cerrado",
-  ].freeze
+  STATUS_COLLECTION = { '' => 'Todos', 'open' => 'Abiertos', 'attended' => 'Atendidos', 'recategorized' => 'Recategorizado', 'closed' => 'Resueltos', 'deleted' => 'Eliminados', 'waiting' => 'Esperando respuesta' }.freeze
 
-  STATUS_COLLECTION = { "" => "Todos", "Abierto" => "Abiertos", "Atendido" => "Atendidos", "Cerrado" => "Cerrados" }.freeze
+  STATUS_ES = { 'open' => 'abierto', 'attended' => 'atendiendo', 'recategorized' => 'recategorizado', 'closed' => 'resuelto', 'deleted' => 'eliminado', 'waiting' => 'esperando respuesta' }.freeze
 
   before_create :set_status
 
   def set_status
-    self.status = "Abierto"
+    self.status = Helpcenter::TicketState.find_by(status: 'open' ).status
   end
 
   def format_closed_at
@@ -48,6 +45,31 @@ class Helpcenter::Ticket < ApplicationRecord
     end
   end
 
+  def self.take_ticket(take, ticket, current_user)
+    @ticket = ticket
+    if take == 'true'
+      assistant = current_user.id
+      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status:               Helpcenter::TicketState.find_by(status: 'attended').status)
+        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'attended').id)
+        result = {ticket: @ticket, take_ticket: true}
+        return result
+      else
+        result = {ticket: @ticket, take_ticket: false}
+        return result
+      end
+    else
+      assistant = nil
+      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'open').status  )
+        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
+        result = {ticket: @ticket, take_ticket: true}
+        return result
+      else
+        result = {ticket: @ticket, take_ticket: false}
+        return result
+      end
+    end
+  end
+
   def self.ticket_boss_notifications(encrypted_data)
     decrypted_back = decrypt_data(encrypted_data)
     ticket = Helpcenter::Ticket.find(decrypted_back[:ticket_id])
@@ -64,13 +86,12 @@ class Helpcenter::Ticket < ApplicationRecord
         result = {ticket: ticket, state: "rejected",user: request_user, ticket_date: ticket_date}  
         ticket.destroy
         return result
-        
       else
-        ticket.update(aproved_to_review: DateTime.now)
+        ticket.update(aproved_to_review: true)
         UserNotifierMailer.notification_new_ticket(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_user(ticket, request_user).deliver
-        result = {ticket: ticket, state: "approved",user: request_user, ticket_date: ticket_date}
+        result = {ticket: ticket, state: "approved", user: request_user, ticket_date: ticket_date}
         return result
       end
     end
