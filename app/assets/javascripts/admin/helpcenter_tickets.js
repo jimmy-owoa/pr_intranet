@@ -51,7 +51,9 @@ $(document).on("turbolinks:load", function() {
     columns: [
       { title: '#', data: 'id', orderable: false, targets: 'no-sort'},
       { title: 'Usuario', data: 'user', orderable: false, targets: 'no-sort' },
+      { title: 'Categoría', data: 'category', orderable: false, targets: 'no-sort' },
       { title: 'Subcategoría', data: 'subcategory', orderable: false, targets: 'no-sort' },
+      { title: 'Oficina', data: 'office', orderable: false, targets: 'no-sort' },
       { title: 'Estado', data: 'status', orderable: false, targets: 'no-sort' },
       { title: 'Tiempo total', data: 'total_time', orderable: false, targets: 'no-sort' },
       { title: 'Tiempo Security', data: 'time_worked', orderable: false, targets: 'no-sort' },

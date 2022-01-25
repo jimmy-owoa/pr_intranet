@@ -11,7 +11,9 @@ class TicketsDatatable < ApplicationDatatable
         {
           id: ticket.id,
           user: ticket.user.full_name,
+          category: ticket.subcategory.present? ? ticket.subcategory.category.name : 'sin categoria',
           subcategory: ticket.subcategory.present? ? ticket.subcategory.name : 'sin subcategoria',
+          office: ticket.subcategory.present? ? ticket.subcategory.category.profile.name : '',
           status: Helpcenter::Ticket::STATUS_ES[ticket.status],
           total_time: ticket.total_time,
           time_worked: ticket.time_worked,

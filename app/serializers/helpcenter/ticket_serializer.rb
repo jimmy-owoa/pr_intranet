@@ -19,6 +19,10 @@ class Helpcenter::TicketSerializer < ActiveModel::Serializer
   def survey_answered
     object.satisfaction_answers.present?
   end
+  
+  def status
+    Helpcenter::Ticket::STATUS_ES[object.status]
+  end
 
   def is_show?
     instance_options[:is_show]
