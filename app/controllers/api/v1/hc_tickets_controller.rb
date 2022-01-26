@@ -19,7 +19,7 @@ module Api::V1
         ticket.aproved_to_review = false
         if ticket.save
           Helpcenter::TicketHistory.create(user_id: @request_user.id, ticket_id: ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
-          #UserNotifierMailer.notification_new_ticket_boss(ticket, @request_user).deliver
+          UserNotifierMailer.notification_new_ticket_boss(ticket, @request_user).deliver
           render json: { message: "Ticket created", success: true }, status: :created
         else
           render json: { message: "Error", success: false }, status: :unprocessable_entity
@@ -27,7 +27,7 @@ module Api::V1
       else
         if ticket.save
           Helpcenter::TicketHistory.create(user_id: @request_user.id, ticket_id: ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
-          # UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
+          UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
           render json: { message: "Ticket created", success: true }, status: :created
         else
           render json: { message: "Error", success: false }, status: :unprocessable_entity

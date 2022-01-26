@@ -63,7 +63,7 @@ module Admin
       respond_to do |format|
         if @ticket.update(closed_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'closed').status)
           Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'closed').id)
-          # UserNotifierMailer.notification_ticket_close(@ticket).deliver
+          UserNotifierMailer.notification_ticket_close(@ticket).deliver
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'Ticket fue actualizado con éxito.' }
           format.json { render :show, status: :ok, location: @ticket }
         else
