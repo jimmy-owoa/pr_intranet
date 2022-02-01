@@ -8,7 +8,7 @@ module Admin
 
       respond_to do |format|
         if @message.save
-          # UserNotifierMailer.notification_new_message_assistant(@ticket, @message.content).deliver
+          UserNotifierMailer.notification_new_message_assistant(@ticket, @message.content).deliver
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'Respondido con éxito.' }
           format.json { render :show, status: :ok, location: @ticket }
         else

@@ -57,7 +57,7 @@
           <p>Roles</p>
           <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: nil), as: :check_boxes, label_method: :label_name %>
           <p>Centro de ayuda</p>
-          <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: Helpcenter::Category), as: :check_boxes, label_method: :name %>
+          <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: Helpcenter::Category), as: :check_boxes, label_method: lambda { |owner |"#{owner.name} #{owner.resource.profile.name}"} %> 
         </div>
       </div>
     </div>
