@@ -116,4 +116,10 @@ class UserNotifierMailer < ApplicationMailer
     @message = message
     mail(to: ticket.user.email, subject: "Nuevo mensaje en caso ##{ticket.id}")
   end
+
+  def notification_ticket_close(ticket)
+    @ticket = ticket
+    @subcategory = @ticket.subcategory
+    mail(to: ticket.user.email, subject: "Caso ##{ticket.id} ha sido resuelto")
+  end
 end
