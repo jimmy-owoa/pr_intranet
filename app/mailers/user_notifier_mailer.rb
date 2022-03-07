@@ -55,7 +55,7 @@ class UserNotifierMailer < ApplicationMailer
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
-    mail(to: emails, subject: 'Nuevo caso creado')
+    mail(to: emails, subject: "Nuevo Caso #{@subcategory.category.name}")
   end
 
   def notification_new_ticket_boss(ticket, user) 
@@ -70,7 +70,7 @@ class UserNotifierMailer < ApplicationMailer
     @encrypted_data_approved_true = Base64.strict_encode64(crypt.encrypt_and_sign({ticket_id: @ticket.id, aproved_to_review: true}))
     @link_false = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_false}"
     @link_true = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_true}"
-    mail(to: email, subject: 'Nuevo caso por aprobar')
+    mail(to: email, subject: 'Nueva rendición de gastos por aprobar')
   end
 
   def notification_ticket_approved_to_boss(ticket, user)
