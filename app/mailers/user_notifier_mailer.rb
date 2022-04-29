@@ -59,7 +59,7 @@ class UserNotifierMailer < ApplicationMailer
   end
 
   def notification_new_ticket_boss(ticket, user) 
-    boss = General::User.find_by(id: ticket.user.id_exa_boss)
+    boss = General::User.find_by(id_exa: user.id_exa_boss)
     email = boss.email
     @ticket = ticket
     @subcategory = @ticket.subcategory
@@ -74,7 +74,7 @@ class UserNotifierMailer < ApplicationMailer
   end
 
   def notification_ticket_approved_to_boss(ticket, user)
-    email_boss = General::User.find(user.id_exa_boss).email
+    email_boss = General::User.find_by(id_exa: user.id_exa_boss).email
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
@@ -90,7 +90,7 @@ class UserNotifierMailer < ApplicationMailer
   end
 
   def notification_ticket_rejected_to_boss(ticket, user)
-    email_boss = General::User.find(user.id_exa_boss).email
+    email_boss = General::User.find_by(id_exa: user.id_exa_boss).email
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
