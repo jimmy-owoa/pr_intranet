@@ -61,5 +61,5 @@ Rails.application.routes.draw do
     root to: "application#index"
   end
 
-  root to: "helpcenter_tickets#index"
+  root to: "application#index"
 end

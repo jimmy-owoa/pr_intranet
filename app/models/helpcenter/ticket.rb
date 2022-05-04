@@ -9,20 +9,20 @@ class Helpcenter::Ticket < ApplicationRecord
   belongs_to :subcategory, class_name: "Helpcenter::Subcategory"
   has_many :chat_messages, class_name: "Helpcenter::Message", foreign_key: :ticket_id
   has_many :satisfaction_answers, class_name: "Helpcenter::SatisfactionAnswer", foreign_key: :ticket_id
-  has_many :ticket_histories, class_name: 'Helpcenter::TicketHistory', foreign_key: :ticket_id
+  has_many :ticket_histories, class_name: "Helpcenter::TicketHistory", foreign_key: :ticket_id
   # active storage
   has_many_attached :files
   # ENUM
-  STATUS_COLLECTION = { '' => 'Todos', 'open' => 'Abiertos', 'attended' => 'Atendidos', 'recategorized' => 'Recategorizado', 'closed' => 'Resueltos', 'deleted' => 'Eliminados', 'waiting' => 'Esperando respuesta' }.freeze
+  STATUS_COLLECTION = { "" => "Todos", "open" => "Abiertos", "attended" => "Atendidos", "recategorized" => "Recategorizado", "closed" => "Resueltos", "deleted" => "Eliminados", "waiting" => "Esperando respuesta" }.freeze
 
-  STATUS_ES = { 'open' => 'abierto', 'attended' => 'atendiendo', 'recategorized' => 'recategorizado', 'closed' => 'resuelto', 'deleted' => 'eliminado', 'waiting' => 'esperando respuesta' }.freeze
+  STATUS_ES = { "open" => "abierto", "attended" => "atendiendo", "recategorized" => "recategorizado", "closed" => "resuelto", "deleted" => "eliminado", "waiting" => "esperando respuesta" }.freeze
 
-  DIVISAS = [ 'EUR', 'USD','CLP' ].freeze
+  DIVISAS = ["EUR", "USD", "CLP"].freeze
 
   before_create :set_status
 
   def set_status
-    self.status = Helpcenter::TicketState.find_by(status: 'open' ).status
+    self.status = Helpcenter::TicketState.find_by(status: "open").status
   end
 
   def format_closed_at
@@ -49,24 +49,24 @@ class Helpcenter::Ticket < ApplicationRecord
 
   def self.take_ticket(take, ticket, current_user)
     @ticket = ticket
-    if take == 'true'
+    if take == "true"
       assistant = current_user.id
-      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status:               Helpcenter::TicketState.find_by(status: 'attended').status)
-        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'attended').id)
-        result = {ticket: @ticket, take_ticket: true}
+      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: "attended").status)
+        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: "attended").id)
+        result = { ticket: @ticket, take_ticket: true, success: true }
         return result
       else
-        result = {ticket: @ticket, take_ticket: false}
+        result = { ticket: @ticket, take_ticket: false, success: false }
         return result
       end
     else
       assistant = nil
-      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: 'open').status  )
-        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
-        result = {ticket: @ticket, take_ticket: true}
+      if @ticket.update(assistant_id: assistant, attended_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: "open").status)
+        Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: "open").id)
+        result = { ticket: @ticket, take_ticket: true, success: true }
         return result
       else
-        result = {ticket: @ticket, take_ticket: false}
+        result = { ticket: @ticket, take_ticket: false, success: false }
         return result
       end
     end
@@ -77,15 +77,15 @@ class Helpcenter::Ticket < ApplicationRecord
     ticket = Helpcenter::Ticket.find(decrypted_back[:ticket_id])
     request_user = ticket.user
     time_expiry = ticket.created_at + 1.year
-    ticket_date = I18n.l(ticket.created_at, format: '%A, %d de %B de %Y')
+    ticket_date = I18n.l(ticket.created_at, format: "%A, %d de %B de %Y")
     if DateTime.now >= time_expiry
-      result = {ticket: ticket, state: "link_expired",user: request_user.full_name.capitalize, ticket_date: ticket_date}
+      result = { ticket: ticket, state: "link_expired", user: request_user.full_name.capitalize, ticket_date: ticket_date }
       return result
     else
       if decrypted_back[:aproved_to_review] == false
         UserNotifierMailer.notification_ticket_rejected_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_rejected_to_user(ticket, request_user).deliver
-        result = {ticket: ticket, state: "rejected",user: request_user, ticket_date: ticket_date}  
+        result = { ticket: ticket, state: "rejected", user: request_user, ticket_date: ticket_date }
         ticket.destroy
         return result
       else
@@ -93,7 +93,7 @@ class Helpcenter::Ticket < ApplicationRecord
         UserNotifierMailer.notification_new_ticket(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_boss(ticket, request_user).deliver
         UserNotifierMailer.notification_ticket_approved_to_user(ticket, request_user).deliver
-        result = {ticket: ticket, state: "approved", user: request_user, ticket_date: ticket_date}
+        result = { ticket: ticket, state: "approved", user: request_user, ticket_date: ticket_date }
         return result
       end
     end
