@@ -63,7 +63,7 @@ module Api::V1
     end
 
     def ticket_params
-      params.require(:ticket).permit(:subcategory_id, :description, :total_acount, :type_of_currency, files: [])
+      params.require(:ticket).permit(:subcategory_id, :description, :amount, :currency_type, files: [])
     end
     
     def category_params
