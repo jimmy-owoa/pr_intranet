@@ -17,6 +17,8 @@ class Helpcenter::Ticket < ApplicationRecord
 
   STATUS_ES = { 'open' => 'abierto', 'attended' => 'atendiendo', 'recategorized' => 'recategorizado', 'closed' => 'resuelto', 'deleted' => 'eliminado', 'waiting' => 'esperando respuesta' }.freeze
 
+  DIVISAS = [ 'EUR', 'USD','CLP' ].freeze
+
   before_create :set_status
 
   def set_status
