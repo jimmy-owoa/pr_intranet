@@ -10,5 +10,5 @@
 
   <P>Archivos</P>
   <%= @files.each_with_index do |file, index| %>
-    <%= link_to  `Archivo #{ index + 1}`, file %>
+    <%= link_to  "Archivo #{ index + 1}", file %>
   <% end %> 
