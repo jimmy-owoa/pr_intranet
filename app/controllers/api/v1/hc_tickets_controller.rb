@@ -18,6 +18,7 @@ module Api::V1
       if category_params["category_id"].to_i == Helpcenter::Category.find_by(name: 'Rendición de Gastos').id
         ticket.aproved_to_review = false
         if ticket.save
+          # @files = ticket.files.map {|file| url_for(file)}
           Helpcenter::TicketHistory.create(user_id: @request_user.id, ticket_id: ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
           UserNotifierMailer.notification_new_ticket_boss(ticket, @request_user).deliver
           render json: { message: "Ticket created", success: true }, status: :created
@@ -50,6 +51,11 @@ module Api::V1
         render json: { message: "Ticket approved", success: true, ticket: result[:ticket], user: result[:user], ticket_date: result[:ticket_date] }, status: :ok
       end 
     end
+    
+    def divisas 
+      data = Helpcenter::Ticket::DIVISAS
+      render json: data, is_show: true, status: :ok
+    end
 
     private
 
@@ -58,7 +64,7 @@ module Api::V1
     end
 
     def ticket_params
-      params.require(:ticket).permit(:subcategory_id, :description, files: [])
+      params.require(:ticket).permit(:subcategory_id, :description, :total_acount, :type_of_currency, files: [])
     end
     
     def category_params
