@@ -1,183 +1,210 @@
 <div class="container">
   <section class="section">
-    <h2 class="section-header">Caso # <%= @ticket.id %></h2>
+    <h2 class="section-header">[<%= @ticket.subcategory.category.name %>] Caso # <%= @ticket.id %></h2>
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
           <div class="card post_card">
-            <p><b><%= "Categoría" %>:</b> <%= @ticket.subcategory.category.name %></p>
-            <p><b><%= "Nombre" %>:</b> <%= @ticket.user.full_name %></p>
-            <p><b><%= "Código" %>:</b> <%= @ticket.user.format_legal_number %></p>
-            <p><b><%= "Correo electrónicos" %>:</b> <%= @ticket.user.email %></p>
-            <p><b><%= "Estado" %>:</b> <%= Helpcenter::Ticket::STATUS_ES[@ticket.status] %></p>
-            <% if @ticket.assistant.present? %>
-              <p><b><%= "Tomado por" %>:</b> <%= @ticket.assistant.full_name %></p>
-            <% end %>
-
-            <p><b><%= "Tiempo total" %>:</b> <%= @ticket.total_time %></p>
-            <p><b><%= "Tiempo Compass" %>:</b> <%= @ticket.time_worked %></p>
+            <div class="card-header">
+              <h3 class="card-title">Usuario</h3>
+            </div>
+            <ul>
+              <li>
+                <strong>Usuario:</strong> <%= @ticket.user.full_name.titleize %>
+              </li>
+              <li>
+                <strong>Código:</strong> <%= @ticket.user.format_legal_number %>
+              </li>
+              <li>
+                <strong>Correo:</strong> <%= @ticket.user.email %>
+              </li>
+              <li>
+                <strong>Estado ticket:</strong> <%= Helpcenter::Ticket::STATUS_ES[@ticket.status].capitalize %>
+              </li>
+              <% if @ticket.assistant.present? %>
+                <li>
+                  <strong>Asistente:</strong> <%= @ticket.assistant.full_name.titleize %>
+                </li>
+              <% end %>
+              <li>
+                <strong>Tiempo total:</strong> <%= @ticket.total_time %>
+              </li>
+              <li>
+                <strong>Tiempo Compass:</strong> <%= @ticket.time_worked %>
+              </li>
+              <% if @ticket.subcategory.category.name.downcase == "rendición de gastos"%>
+                <li>
+                  <strong>Monto solicitado:</strong> <%= @ticket.currency_type %> <%= @ticket.amount %>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </div>
-
         <div class="col-sm-12">
           <div class="card post_card">
-            <%= raw(@ticket.description) %>
-
-            <div class="col-12">
-              <ul class="list-group list-group-flush">
-                <% @ticket.files.each do |file| %>
-                  <li class="list-group-item">
-                    <%=link_to file.filename.to_s, root_url + rails_blob_path(file, disposition: "attachment")%>
-                  </li>
-                <% end %>
-              </ul>
+            <div class="card-header">
+              <h3 class="card-title">Descripción</h3>
+            </div>
+            <div class="card-body">
+              <p><%= @ticket.description %></p>
+            </div>
+            <div class="card post_card">
+              <div class="card-header">
+                <h3 class="card-title">Archivos adjuntos: <%= @ticket.files.count %></h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <% @ticket.files.each_with_index do |file, i| %>
+                    <li class="list-group-item">
+                      <%= link_to "#{i + 1}) #{file.filename.to_s}", root_url + rails_blob_path(file, disposition: "attachment")%>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+              <div class="col-12">
+              </div>
             </div>
           </div>
-        </div>
-
-        <% if @ticket.assistant == current_user %>  
-          <div class="col-md-12">
-            <div class="msg_history">
-              <% @messages.each do |message| %>
-                <% if message.user == current_user %>
-                  <div class="outgoing_msg">
-                    <div class="sent_msg">
-                      <p><%= message.content %></p>
-                      <span class="time_date"> <%= message.format_created_at %></span>
-                    </div>
-                  </div>
-                <% else %>
-                  <div class="incoming_msg">
-                    <div class="received_msg">
-                      <div class="received_withd_msg">
+          <% if @ticket.assistant == current_user %>
+            <div class="col-md-12">
+              <div class="msg_history">
+                <% @messages.each do |message| %>
+                  <% if message.user == current_user %>
+                    <div class="outgoing_msg">
+                      <div class="sent_msg">
                         <p><%= message.content %></p>
                         <span class="time_date"> <%= message.format_created_at %></span>
-                    </div>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-
-          <% if @ticket.closed_at.nil? %>
-            <div class="col-md-12">
-              <div class="type_msg">
-                <div class="col-md-12 input_msg_write">
-                  <%= form_with url: admin_helpcenter_ticket_helpcenter_messages_path(@ticket), method: :post, model: @message do |f| %>
-                    <div class="row">
-                      <div class="col-md-9">
-                        <%= f.text_field :content, required: true, class: "write_msg", placeholder: "Ingresa una respuesta..." %>
-                      </div>
-                      <div class="col-md-3">
-                        <button type="submit" class="btn btn-primary">Responder</button>
                       </div>
                     </div>
+                  <% else %>
+                    <div class="incoming_msg">
+                      <div class="received_msg">
+                        <div class="received_withd_msg">
+                          <p><%= message.content %></p>
+                          <span class="time_date"> <%= message.format_created_at %></span>
+                        </div>
+                      </div>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-      <br />
-
-      <div class="container mt-5" align="center">
-        <%= link_to t("helpers.links.back"), admin_helpcenter_tickets_path, :class => 'btn btn-primary'  %>
-        <%= link_to "#{current_user.is_admin? ? 'Editar' : 'Recategorizar'}", edit_admin_helpcenter_ticket_path(@ticket), :class => 'btn btn-primary' %>
-        <% if @ticket.assistant == current_user %>
-          <%= link_to "Dejar caso", take_ticket_admin_helpcenter_ticket_path(@ticket, take_ticket: false), method: :put, class: 'btn btn-primary' if @ticket.closed_at.nil? %>
-          <%= link_to "Marcar como resuelto",  close_admin_helpcenter_ticket_path(@ticket), method: :put, class: 'btn btn-primary' if @ticket.closed_at.nil? %>
-        <% end %>
-        <% if @ticket.assistant.nil? %>
-          <%= link_to "Tomar caso", take_ticket_admin_helpcenter_ticket_path(@ticket, take_ticket: true), method: :put, class: 'btn btn-primary' %>
-        <% end %>
-      </div>
+              <% if @ticket.closed_at.nil? %>
+                <div class="col-md-12">
+                  <div class="type_msg">
+                    <div class="col-md-12 input_msg_write">
+                      <%= form_with url: admin_helpcenter_ticket_helpcenter_messages_path(@ticket), method: :post, model: @message do |f| %>
+                        <div class="row">
+                          <div class="col-md-9">
+                            <%= f.text_field :content, required: true, class: "write_msg", placeholder: "Ingresa una respuesta..." %>
+                          </div>
+                          <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary">Responder</button>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <br />
+          <div class="container mt-5" align="center">
+            <%= link_to t("helpers.links.back"), admin_helpcenter_tickets_path, :class => 'btn btn-primary'  %>
+            <%= link_to "#{current_user.is_admin? ? 'Editar' : 'Recategorizar'}", edit_admin_helpcenter_ticket_path(@ticket), :class => 'btn btn-primary' %>
+            <% if @ticket.assistant == current_user %>
+              <%= link_to "Dejar caso", take_ticket_admin_helpcenter_ticket_path(@ticket, take_ticket: false), method: :put, class: 'btn btn-primary' if @ticket.closed_at.nil? %>
+              <%= link_to "Marcar como resuelto",  close_admin_helpcenter_ticket_path(@ticket), method: :put, class: 'btn btn-primary' if @ticket.closed_at.nil? %>
+            <% end %>
+            <% if @ticket.assistant.nil? %>
+              <%= link_to "Tomar caso", take_ticket_admin_helpcenter_ticket_path(@ticket, take_ticket: true), method: :put, class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
-</div>
+    <style>
+      .chat_people{ overflow:hidden; clear:both;}
+      .chat_list {
+        border-bottom: 1px solid #c4c4c4;
+        margin: 0;
+        padding: 18px 16px 10px;
+      }
+      .inbox_chat { height: 550px; overflow-y: scroll;}
 
-<style>
-.chat_people{ overflow:hidden; clear:both;}
-.chat_list {
-  border-bottom: 1px solid #c4c4c4;
-  margin: 0;
-  padding: 18px 16px 10px;
-}
-.inbox_chat { height: 550px; overflow-y: scroll;}
+      .active_chat{ background:#ebebeb;}
 
-.active_chat{ background:#ebebeb;}
+      .incoming_msg_img {
+        display: inline-block;
+        width: 6%;
+      }
+      .received_msg {
+        display: inline-block;
+        padding: 0 0 0 10px;
+        vertical-align: top;
+        width: 92%;
+       }
+       .received_withd_msg p {
+        background: #ebebeb none repeat scroll 0 0;
+        border-radius: 3px;
+        color: #646464;
+        font-size: 14px;
+        margin: 0;
+        padding: 5px 10px 5px 12px;
+        width: 100%;
+      }
+      .time_date {
+        color: #747474;
+        display: block;
+        font-size: 12px;
+        margin: 8px 0 0;
+      }
+      .received_withd_msg { width: 57%;}
+      .mesgs {
+        float: left;
+        padding: 30px 15px 0 25px;
+        width: 60%;
+      }
 
-.incoming_msg_img {
-  display: inline-block;
-  width: 6%;
-}
-.received_msg {
-  display: inline-block;
-  padding: 0 0 0 10px;
-  vertical-align: top;
-  width: 92%;
- }
- .received_withd_msg p {
-  background: #ebebeb none repeat scroll 0 0;
-  border-radius: 3px;
-  color: #646464;
-  font-size: 14px;
-  margin: 0;
-  padding: 5px 10px 5px 12px;
-  width: 100%;
-}
-.time_date {
-  color: #747474;
-  display: block;
-  font-size: 12px;
-  margin: 8px 0 0;
-}
-.received_withd_msg { width: 57%;}
-.mesgs {
-  float: left;
-  padding: 30px 15px 0 25px;
-  width: 60%;
-}
+       .sent_msg p {
+        background: #05728f none repeat scroll 0 0;
+        border-radius: 3px;
+        font-size: 14px;
+        margin: 0; color:#fff;
+        padding: 5px 10px 5px 12px;
+        width:100%;
+      }
+      .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+      .sent_msg {
+        float: right;
+        width: 46%;
+      }
+      .input_msg_write input {
+        background: rgba(0, 0, 0, 0) scroll 0 0;
+        border: 1px solid;
+        color: #4c4c4c;
+        font-size: 15px;
+        min-height: 48px;
+        width: 100%;
+      }
 
- .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
-  border-radius: 3px;
-  font-size: 14px;
-  margin: 0; color:#fff;
-  padding: 5px 10px 5px 12px;
-  width:100%;
-}
-.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
-.sent_msg {
-  float: right;
-  width: 46%;
-}
-.input_msg_write input {
-  background: rgba(0, 0, 0, 0) scroll 0 0;
-  border: 1px solid;
-  color: #4c4c4c;
-  font-size: 15px;
-  min-height: 48px;
-  width: 100%;
-}
+      .type_msg {border-top: 1px solid #c4c4c4;position: relative; padding-top: 20px;}
+      .msg_send_btn {
+        background: #05728f none repeat scroll 0 0;
+        border: medium none;
+        border-radius: 50%;
+        color: #fff;
+        cursor: pointer;
+        font-size: 17px;
+        height: 33px;
+        position: absolute;
+        right: 0;
+        top: 11px;
+        width: 33px;
+      }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative; padding-top: 20px;}
-.msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
-  border: medium none;
-  border-radius: 50%;
-  color: #fff;
-  cursor: pointer;
-  font-size: 17px;
-  height: 33px;
-  position: absolute;
-  right: 0;
-  top: 11px;
-  width: 33px;
-}
-
-.msg_history {
-  height: 516px;
-  overflow-y: auto;
-}
-</style>
+      .msg_history {
+        height: 516px;
+        overflow-y: auto;
+      }
+    </style>
