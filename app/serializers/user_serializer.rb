@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :full_name, :last_name, :image, :legal_number, :country
+  attributes :id, :email, :name, :full_name, :last_name, :image, :legal_number, :country, :id_exa_boss
 
   def country
     object.country.name
@@ -19,5 +19,9 @@ class UserSerializer < ActiveModel::Serializer
 
   def is_birthday_index?
     instance_options[:birthdays_index]
+  end
+
+  def id_exa_boss
+    General::User.find_by(id_exa: object.id_exa_boss).full_name
   end
 end

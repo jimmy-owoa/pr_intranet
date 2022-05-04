@@ -18,7 +18,6 @@ module Api::V1
       if category_params["category_id"].to_i == Helpcenter::Category.find_by(name: 'Rendición de Gastos').id
         ticket.aproved_to_review = false
         if ticket.save
-          # @files = ticket.files.map {|file| url_for(file)}
           Helpcenter::TicketHistory.create(user_id: @request_user.id, ticket_id: ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
           UserNotifierMailer.notification_new_ticket_boss(ticket, @request_user).deliver
           render json: { message: "Ticket created", success: true }, status: :created

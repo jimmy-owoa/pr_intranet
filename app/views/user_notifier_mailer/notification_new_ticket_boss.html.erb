@@ -7,3 +7,8 @@
 </p>
   <%= link_to 'Aprobar', @link_true %>
   <%= link_to 'Rechazar', @link_false %>
+
+  <P>Archivos</P>
+  <%= @files.each_with_index do |file, index| %>
+    <%= link_to  `Archivo #{ index + 1}`, file %>
+  <% end %> 

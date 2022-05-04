@@ -59,7 +59,8 @@ class UserNotifierMailer < ApplicationMailer
   end
 
   def notification_new_ticket_boss(ticket, user) 
-    boss = General::User.find_by(id: ticket.user.id_exa_boss)
+    @files = ticket.files.map {|file| url_for(file)}
+    boss = General::User.find_by(id_exa: ticket.user.id_exa_boss)
     email = boss.email
     @ticket = ticket
     @subcategory = @ticket.subcategory
@@ -70,11 +71,11 @@ class UserNotifierMailer < ApplicationMailer
     @encrypted_data_approved_true = Base64.strict_encode64(crypt.encrypt_and_sign({ticket_id: @ticket.id, aproved_to_review: true}))
     @link_false = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_false}"
     @link_true = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_true}"
-    mail(to: email, subject: 'Nueva rendición de gastos por aprobar')
+    mail(to: 'jeremias@exaconsultores.cl', subject: 'Nueva rendición de gastos por aprobar')
   end
 
   def notification_ticket_approved_to_boss(ticket, user)
-    email_boss = General::User.find(user.id_exa_boss).email
+    email_boss = General::User.find_by(id_exa: user.id_exa_boss).email
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
@@ -90,7 +91,7 @@ class UserNotifierMailer < ApplicationMailer
   end
 
   def notification_ticket_rejected_to_boss(ticket, user)
-    email_boss = General::User.find(user.id_exa_boss).email
+    email_boss = General::User.find_by(id_exa: user.id_exa_boss).email
     @ticket = ticket
     @user = user
     @subcategory = @ticket.subcategory
