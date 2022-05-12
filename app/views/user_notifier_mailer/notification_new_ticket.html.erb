@@ -1,5 +1,9 @@
 
-<p>Se ha ingresado una nueva solicitud en relación al caso "#<%= @ticket.id %> - <%= @subcategory.name %>" que indica:</p>
+<p>Se ha ingresado una nueva solicitud en relación al caso "#<%= @ticket.id %> - <%= @subcategory.name %>"</p>
+<% if @subcategory.category.name == 'Rendición de Gastos' %>
+  <p>supervisor: <%= @boss_name  %></p>
+<% end %>
+<p>Que indica lo siguiente:</p>
 <p>
   <%= @ticket.description %>
 </p>
