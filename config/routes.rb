@@ -31,9 +31,6 @@ Rails.application.routes.draw do
   namespace :api, :defaults => { :format => "json" } do
     namespace :v1, :defaults => { :format => "json" } do
       resources :users, only: [:show] do
-        # post 'login', to: 'users#sign_in'
-        # delete 'sign_out', to: 'users#sign_out'
-        # get 'current_user', to: 'users#current_user'
         post :sign_in, on: :collection
         delete :sign_out, on: :collection
         get :current_user_vue, on: :collection
@@ -41,6 +38,7 @@ Rails.application.routes.draw do
 
       post 'users', to: 'users#create_update'
       delete 'users', to: 'users#destroy'
+      get 'search/users', to: 'users#search'
 
       resources :hc_questions, only: [:show] do
         get :importants, on: :collection
