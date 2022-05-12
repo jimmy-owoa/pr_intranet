@@ -45,6 +45,7 @@ module Admin
       authorize @ticket, :show?
       @message = Helpcenter::Message.new
       @messages = @ticket.chat_messages
+      @supervisor = General::User.find_by(id_exa: @ticket.user.id_exa_boss).full_name
     end
 
     def take_ticket
