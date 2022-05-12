@@ -40,13 +40,13 @@ module Api::V1
       # comprobar si el ticket esta expirado y enviar correos
       result = Helpcenter::Ticket.ticket_boss_notifications(approved_to_review)
       if  result[:state] == "link_expired"
-        Helpcenter::TicketHistory.create(user_id: result[:user].id, ticket_id: result[:ticket].id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'expired').id, supervisor_id: @request_user.id)
+        Helpcenter::TicketHistory.create(user_id: result[:user].id, ticket_id: result[:ticket].id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'expired').id, supervisor_id: result[:user].id_exa_boss )
         render json: { message: "Link expired", success: true, ticket: result[:ticket], user: result[:user],ticket_date: result[:ticket_date]}, status: :ok
       elsif  result[:state] == "rejected"
-        Helpcenter::TicketHistory.create(user_id: result[:user].id, ticket_id: result[:ticket].id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'rejected').id, supervisor_id: @request_user.id)
+        Helpcenter::TicketHistory.create(user_id: result[:user].id, ticket_id: result[:ticket].id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'rejected').id, supervisor_id: result[:user].id_exa_boss)
         render json: { message: "Ticket rejected", success: true, ticket: result[:ticket], user: result[:user],ticket_date: result[:ticket_date] }, status: :ok
       else
-        Helpcenter::TicketHistory.create(user_id: result[:user].id, ticket_id: result[:ticket].id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'approved').id, supervisor_id: @request_user.id)
+        Helpcenter::TicketHistory.create(user_id: result[:user].id, ticket_id: result[:ticket].id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'approved').id, supervisor_id: result[:user].id_exa_boss )
         render json: { message: "Ticket approved", success: true, ticket: result[:ticket], user: result[:user], ticket_date: result[:ticket_date] }, status: :ok
       end 
     end

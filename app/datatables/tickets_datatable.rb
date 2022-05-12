@@ -10,7 +10,7 @@ class TicketsDatatable < ApplicationDatatable
 
         {
           id: ticket.id,
-          user: ticket.user.full_name,
+          user: General::User.with_deleted.find(ticket.user_id).full_name,
           category: ticket.subcategory.present? ? ticket.subcategory.category.name : 'sin categoria',
           subcategory: ticket.subcategory.present? ? ticket.subcategory.name : 'sin subcategoria',
           office: ticket.subcategory.present? ? ticket.subcategory.category.profile.name : '',
