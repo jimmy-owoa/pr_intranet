@@ -44,12 +44,12 @@ Rails.application.routes.draw do
         get :importants, on: :collection
         get :search, on: :collection
       end
-  
+      
       resources :hc_categories, param: :slug, only: [:index, :show]
       resources :hc_subcategories, param: :slug, only: [:show]
-  
+      
+      post 'hc_tickets/review_ticket', to: 'hc_tickets#review_ticket' 
       resources :hc_tickets do
-        get :review_ticket, on: :collection
         get :divisas, on: :collection
         resources :hc_messages, on: :member, only: [:create]
         resources :hc_satisfaction_answers, on: :member, only: [:create]
