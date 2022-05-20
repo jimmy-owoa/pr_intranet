@@ -66,6 +66,16 @@ module Api::V1
       end
     end
 
+    def search
+      if params[:search].present? && params[:search].length > 2
+        users = General::User.select(:id, :name, :last_name, :last_name2, :email, :legal_number, :country_id, :id_exa_boss).search(params[:search]).order(:name, :last_name, :last_name2)
+        results = users.map {|u| { id: u.id, name: u.name + " " + u.last_name + " " + u.last_name2, email: u.email,legal_number: u.legal_number, country: u.country.name, id_exa_boss: General::User.find_by(id_exa: u.id_exa_boss).full_name } }
+        render json: { success: true, users: results }, status: :ok
+      else
+        render json: { success: false, message: "Error" }, status: :unprocessable_entity
+      end
+    end
+    
     private
 
     def set_user

@@ -61,6 +61,11 @@ class General::User < ApplicationRecord
     }
   end
 
+  # search by name, last_name and last_name2
+  def self.search(search)
+    where("name LIKE ? OR last_name LIKE ? OR last_name2 LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
+  end
+
   def self.get_user_by_ln(ln_user)
     user = General::User.where(legal_number: ln_user[0...-1], legal_number_verification: ln_user[-1]).last
   end

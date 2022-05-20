@@ -14,7 +14,6 @@ module Api::V1
 
     def create
       ticket = Helpcenter::Ticket.new(ticket_params)
-      ticket.user = @request_user
       if category_params["category_id"].to_i == Helpcenter::Category.find_by(name: 'Rendición de Gastos').id
         ticket.aproved_to_review = false
         if ticket.save
@@ -63,7 +62,7 @@ module Api::V1
     end
 
     def ticket_params
-      params.require(:ticket).permit(:subcategory_id, :description, :amount, :currency_type, files: [])
+      params.require(:ticket).permit(:subcategory_id, :description, :amount, :currency_type, :user_id, files: [])
     end
     
     def category_params
