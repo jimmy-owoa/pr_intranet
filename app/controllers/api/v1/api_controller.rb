@@ -15,6 +15,7 @@ class Api::V1::ApiController < ApplicationController
     id_exa = results["id_exa"] rescue nil
 
     @request_user = General::User.find_by(id_exa: id_exa)
+    handle_401 if !@request_user.present?
   end
 
   def request_user
