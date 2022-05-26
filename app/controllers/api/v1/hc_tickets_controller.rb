@@ -1,6 +1,7 @@
 module Api::V1
   class HcTicketsController < ApiController
     skip_before_action :verify_authenticity_token
+    skip_before_action :set_current_user_from_header, only: [:review_ticket]
     before_action :set_ticket, only: [:show]
 
     def index
