@@ -30,7 +30,7 @@ set :branch, ENV['BRANCH'] if ENV['BRANCH']
 set :linked_files, %w[config/master.key config/database.yml]
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w[log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system]
+set :linked_dirs, %w[log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system storage]
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
