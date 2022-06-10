@@ -3,7 +3,7 @@ module Api::V1
     include Rails.application.routes.url_helpers
     include ApplicationHelper
     skip_before_action :verify_authenticity_token, only: [:upload, :sign_in, :create_update, :destroy]
-    skip_before_action :set_current_user_from_header, only: [:sign_in]
+    skip_before_action :set_current_user_from_header, only: [:sign_in, :create_update, :destroy]
     before_action :set_user, only: [:create_update, :destroy]
 
     def sign_in
