@@ -29,6 +29,9 @@ class General::User < ApplicationRecord
   has_many :chat_messages, class_name: 'Helpcenter::Message', foreign_key: :user_id
   has_many :satisfaction_answers, class_name: 'Helpcenter::SatisfactionAnswer', foreign_key: :user_id
   has_many :ticket_histories, class_name: 'Helpcenter::TicketHistory', foreign_key: :user_id
+  has_many :accounts, class_name: 'Payment::Account', foreign_key: :user_id
+  has_many :requests, class_name: 'ExpenseReport::Request', foreign_key: :user_id
+  has_many :request_histories, class_name: 'ExpenseReport::RequestHistory', foreign_key: :user_id
 
   # callbacks
   after_create :assign_default_role, :image_resize
