@@ -1,0 +1,9 @@
+<li class="nav-item dropdown <%= dropdown_active?(['expense_report']) %>">
+    <a class="nav-link has-dropdown" data-turbolinks="false">
+      <i class="fas fa-question-circle"></i><span>Rendición de gastos</span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= nav_link "Rendición de gastos", admin_expense_report_requests_path %></li>
+      <li><%= nav_link "Categorías", admin_expense_report_categories_path %></li>
+    </ul>
+  </li>

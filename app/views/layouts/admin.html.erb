@@ -83,6 +83,11 @@
                   <%= render "layouts/partials/helpcenter_menu" %>
                 <% end %>
 
+                <% if current_user.is_admin? || current_user.is_helpcenter? %>                  
+                <li class="menu-header">Rendicion de gastos</li>
+                <%= render "layouts/partials/expense_report_menu" %>
+                <% end %>
+
                 <% if current_user.is_admin? %>
                   <li class="menu-header">Configuración</li>
                   <%= render "layouts/partials/users_menu" %>

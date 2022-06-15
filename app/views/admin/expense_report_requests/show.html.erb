@@ -1,0 +1,158 @@
+<div class="container">
+    <section class="section">
+      <h2 class="section-header">Rendición de gastos # <%= @request.id %></h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card post_card">
+              <div class="card-header">
+                <h3 class="card-title">Usuario</h3>
+              </div>
+              <ul>
+                <li>
+                  <strong>Usuario:</strong> <%= @request.user.full_name.titleize %>
+                </li>
+                <li>
+                  <strong>Código:</strong> <%= @request.user.format_legal_number %>
+                </li>
+                <li>
+                  <strong>Correo:</strong> <%= @request.user.email %>
+                </li>
+                <li>
+                  <strong>Estado request:</strong> <%= @request.request_state.code %>
+                </li>
+                <% if @request.request_histories.present? %>
+                <li>
+                  <strong>Asistente:</strong> <%= @request.request_histories.last.user.full_name.titleize %>
+                </li>
+                <% end %>
+                <li>
+                  <strong>Monto solicitado:</strong> <%= @request.total %>
+                </li>
+                <li>
+                  <strong>Supervisor:</strong> <%= @supervisor %>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="card post_card">
+              <div class="card-header">
+                <h3 class="card-title">Descripción</h3>
+              </div>
+              <div class="card-body">
+                <p><%= @request.description %></p>
+              </div>
+              <div class="card post_card">
+                <div class="card-header">
+                  <h3 class="card-title">Archivos adjuntos: <% 'request.invoices.all.files.count'  %></h3>
+                </div>
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+
+                  </ul>
+                </div>
+                <div class="col-12">
+                </div>
+              </div>
+            </div>
+            </div>
+            <br />
+            <div class="container mt-5" align="center">
+              <%= link_to t("helpers.links.back"), admin_expense_report_requests_path, :class => 'btn btn-primary'  %>
+              <%= link_to "#{current_user.is_admin? ? 'Editar' : 'Recategorizar'}", edit_admin_expense_report_request_path(@request), :class => 'btn btn-primary' %>
+              <% if @request.assistant == current_user %>
+              <% end %>
+              <% if @request.assistant.nil? %>
+                <%= link_to "Tomar caso", take_request_admin_expense_report_request_path(@request, take_request: true), method: :put, class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+          </div>
+        </section>
+      </div>
+      <style>
+        .chat_people{ overflow:hidden; clear:both;}
+        .chat_list {
+          border-bottom: 1px solid #c4c4c4;
+          margin: 0;
+          padding: 18px 16px 10px;
+        }
+        .inbox_chat { height: 550px; overflow-y: scroll;}
+  
+        .active_chat{ background:#ebebeb;}
+  
+        .incoming_msg_img {
+          display: inline-block;
+          width: 6%;
+        }
+        .received_msg {
+          display: inline-block;
+          padding: 0 0 0 10px;
+          vertical-align: top;
+          width: 92%;
+         }
+         .received_withd_msg p {
+          background: #ebebeb none repeat scroll 0 0;
+          border-radius: 3px;
+          color: #646464;
+          font-size: 14px;
+          margin: 0;
+          padding: 5px 10px 5px 12px;
+          width: 100%;
+        }
+        .time_date {
+          color: #747474;
+          display: block;
+          font-size: 12px;
+          margin: 8px 0 0;
+        }
+        .received_withd_msg { width: 57%;}
+        .mesgs {
+          float: left;
+          padding: 30px 15px 0 25px;
+          width: 60%;
+        }
+  
+         .sent_msg p {
+          background: #05728f none repeat scroll 0 0;
+          border-radius: 3px;
+          font-size: 14px;
+          margin: 0; color:#fff;
+          padding: 5px 10px 5px 12px;
+          width:100%;
+        }
+        .outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+        .sent_msg {
+          float: right;
+          width: 46%;
+        }
+        .input_msg_write input {
+          background: rgba(0, 0, 0, 0) scroll 0 0;
+          border: 1px solid;
+          color: #4c4c4c;
+          font-size: 15px;
+          min-height: 48px;
+          width: 100%;
+        }
+  
+        .type_msg {border-top: 1px solid #c4c4c4;position: relative; padding-top: 20px;}
+        .msg_send_btn {
+          background: #05728f none repeat scroll 0 0;
+          border: medium none;
+          border-radius: 50%;
+          color: #fff;
+          cursor: pointer;
+          font-size: 17px;
+          height: 33px;
+          position: absolute;
+          right: 0;
+          top: 11px;
+          width: 33px;
+        }
+  
+        .msg_history {
+          height: 516px;
+          overflow-y: auto;
+        }
+      </style>
+  

@@ -2,6 +2,7 @@ class Media::File < ApplicationRecord
   has_one_attached :file
   
   belongs_to :posts, class_name: 'News::Post', optional: true
+  belongs_to :request, class_name: 'News::Post', optional: true
 
   validates :name, presence: true
   validates :file, presence: true
