@@ -24,6 +24,10 @@ Rails.application.routes.draw do
       put :close, on: :member
       resources :helpcenter_messages, on: :member, only: [:create]
     end
+    resources :expense_report_requests do
+      put :take_request, on: :member
+    end
+    resources :expense_report_categories 
 
     root to: "helpcenter_tickets#index"
   end

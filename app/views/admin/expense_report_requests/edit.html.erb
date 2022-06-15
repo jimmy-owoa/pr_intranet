@@ -1,0 +1,6 @@
+<section class="section">
+  <h1 class="section-header"><%= "Editar" %>: Rendición de gastos <%= "##{@request.id}" %></h1>
+  <%= simple_form_for @request, as: 'requet', url: {action: :update}, :html => { :class => "form" } do |f| %>
+    <%= render :partial => 'form', locals: {f: f} %>
+  <% end %>
+</section> 
