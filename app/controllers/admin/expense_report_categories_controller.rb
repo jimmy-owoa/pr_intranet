@@ -1,7 +1,6 @@
 module Admin
   class ExpenseReportCategoriesController < AdminController
     before_action :set_category, only: [:edit, :show, :destroy, :update]
-    before_action :check_admin
 
     def index
       @categories = ExpenseReport::Category.all
