@@ -4,11 +4,7 @@ module Admin
     before_action :check_admin
 
     def index
-      if current_user.has_role? :admin
-        @categories = ExpenseReport::Category.all
-      else
-        @categories = current_user.help_categories
-      end
+      @categories = ExpenseReport::Category.all
     end
 
     def new
@@ -70,8 +66,7 @@ module Admin
 
     def category_params
       params.require(:category).permit(
-        :name, 
-        :slug, 
+        :name,
         :image,
         subcategories_attributes: [:id, :name, :_destroy]
       )

@@ -56,7 +56,7 @@ document.addEventListener('turbolinks:before-cache', function () {
         { title: 'Oficina', data: 'office', orderable: false, targets: 'no-sort' },
         { title: 'Estado', data: 'status', orderable: false, targets: 'no-sort' },
         { title: 'Tiempo total', data: 'total_time', orderable: false, targets: 'no-sort' },
-        { title: 'Tiempo Security', data: 'time_worked', orderable: false, targets: 'no-sort' },
+        { title: 'Tiempo Compass', data: 'time_worked', orderable: false, targets: 'no-sort' },
         { title: 'Acciones', data: 'actions', orderable: false, targets: 'no-sort' },
       ]
     })

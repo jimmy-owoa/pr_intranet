@@ -1,9 +1,9 @@
 document.addEventListener('turbolinks:before-cache', function () {
-  $('#categories_table').DataTable().destroy();
+  $('#expense_report_categories_table').DataTable().destroy();
 });
 
 $(document).on("turbolinks:load", function() {
-  $('#categories_table').DataTable({
+  $('#expense_report_categories_table').DataTable({
     "language": {
       "lengthMenu": "Mostrar _MENU_ registros por página",
       "zeroRecords": "Nothing found - sorry",
@@ -18,9 +18,4 @@ $(document).on("turbolinks:load", function() {
     }
   });
 
-  $("#category_profile_id").select2({
-    tags: false,
-    placeholder: "Seleccionar Perfil",
-    width: "100%"
-  });
 });
