@@ -36,12 +36,9 @@ class RequestsDatatable < ApplicationDatatable
   
     def fetch_requests
       if @view.current_user.is_admin?
-        requests = ExpenseReport::Request.all.order(created_at: :desc) #filtrar si el caso esta aprobado por el supervisor
+        requests = ExpenseReport::Request.all.order(created_at: :desc)
       else
         requests = ExpenseReport::Request.all.order(created_at: :desc)
-        #categories = @view.current_user.help_categories
-        #subcategories = categories.map(&:subcategory_ids).flatten
-       # tickets = Helpcenter::Ticket.where("subcategory_id in (:subcategory_ids)", subcategory_ids: subcategories)
       end
       
       requests = requests.where(request_state_id: params[:status]) if params[:status].present?

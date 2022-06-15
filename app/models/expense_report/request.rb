@@ -33,17 +33,4 @@ class ExpenseReport::Request < ApplicationRecord
    def attended_at
       self.request_histories.first.created_at
    end
-
-   def take_ticket(take, current_user)
-    @request = self
-    take == 'true' ? state = 'attended' : state = 'open'
-    if @request.update(assistant_id: current_user.id, request_state_id: ExpenseReport::Request.find_by(name: state).id)
-      ExpenseReport::RequestHistory.create(user_id: current_user.id, request_id: @request.id, request_state_id: ExpenseReport::Request.find_by(name: state).id)
-      result = { ticket: @ticket, take_ticket: true, success: true }
-      return result
-    else
-      result = { ticket: @ticket, take_ticket: false, success: false }
-      return result
-    end
-  end
 end
