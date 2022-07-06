@@ -24,6 +24,11 @@ Rails.application.routes.draw do
       put :close, on: :member
       resources :helpcenter_messages, on: :member, only: [:create]
     end
+    resources :expense_report_requests do
+      put :take_request, on: :member
+      put :close, on: :member
+    end
+    resources :expense_report_categories 
 
     root to: "helpcenter_tickets#index"
   end
@@ -40,15 +45,20 @@ Rails.application.routes.draw do
       delete 'users', to: 'users#destroy'
       get 'search/users', to: 'users#search'
 
+      get 'societies', to: 'societies#societies'
+      get 'subcategories', to: 'expense_report_categories#subcategories' 
+      
       resources :hc_questions, only: [:show] do
         get :importants, on: :collection
         get :search, on: :collection
       end
-      
+      post 'expense_report_requests/review_request', to: 'expense_report_requests#review_request' 
+      get 'expense_report_requests/response_request', to: 'expense_report_requests#response_request' 
+      get 'expense_report_requests/divisas', to: 'expense_report_requests#divisas'
+      resources :expense_report_requests
       resources :hc_categories, param: :slug, only: [:index, :show]
       resources :hc_subcategories, param: :slug, only: [:show]
       
-      post 'hc_tickets/review_ticket', to: 'hc_tickets#review_ticket' 
       resources :hc_tickets do
         get :divisas, on: :collection
         resources :hc_messages, on: :member, only: [:create]

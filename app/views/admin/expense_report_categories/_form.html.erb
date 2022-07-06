@@ -1,0 +1,35 @@
+<%= f.error_notification category: f.object.errors[:category].to_sentence%>
+
+<%= f.error_notification %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="col-md-12">
+          <%= f.input :name, autofocus: true, input_html: { class: "border border-dark" } %>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <h2 class="text-center"><%= "Lista de sub-categorías" %></h2>
+      </div>
+      <div class="col-md-12 card" id="subcategories">
+        <%= f.simple_fields_for :subcategories do |subcategory_form|%>
+          <%= render 'subcategory_fields', f: subcategory_form %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to_add_association "Agregar sub-categoría", 
+          f, :subcategories, 
+          class: 'btn btn-success buttons_group', 
+          data: {
+            association_insertion_node: '#subcategories', 
+            association_insertion_method: :append 
+          } 
+      %>
+    <div>
+  </div>
+</div>
+
