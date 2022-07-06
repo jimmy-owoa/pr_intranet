@@ -4,5 +4,5 @@ class ExpenseReport::Subcategory < ApplicationRecord
     
   # Relations
   belongs_to :category, class_name: 'ExpenseReport::Category'
-  has_many :request ,class_name: 'ExpenseReport::Request', foreign_key: :subcategory_id
+  has_many :invoices ,class_name: 'ExpenseReport::Invoice', foreign_key: :subcategory_id
 end

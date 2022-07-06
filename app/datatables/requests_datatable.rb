@@ -11,10 +11,8 @@ class RequestsDatatable < ApplicationDatatable
           {
             id: request.id,
             user: General::User.with_deleted.find(request.user_id).full_name,
-            category: request.subcategory.present? ? request.subcategory.category.name : 'sin categoria',
-            subcategory: request.subcategory.present? ? request.subcategory.name : 'sin subcategoria',
             office: request.user.country.name,
-            status: request.request_state.code,
+            status: request.request_state.present? ? request.request_state.code : '',
             total_time: request.total_time,
             time_worked: request.time_worked,
             actions: links.join(' ')
@@ -38,9 +36,15 @@ class RequestsDatatable < ApplicationDatatable
       if @view.current_user.is_admin?
         requests = ExpenseReport::Request.all.order(created_at: :desc)
       else
-        requests = ExpenseReport::Request.all.order(created_at: :desc)
+        requests_country = []
+        roles_countries = @view.current_user.roles.where(resource_type: "Location::Country")
+        roles_countries.map do |r|
+          requests_country << r.resource.requests
+        end
+        requests_country = ExpenseReport::Request.where(id: requests_country.map {|r| r.ids})
+        requests = requests_country.where.not(request_state_id: ExpenseReport::RequestState.find_by(code: 'en revisión').id).order(created_at: :desc)
+
       end
-      
       requests = requests.where(request_state_id: params[:status]) if params[:status].present?
       requests = requests.page(page).per(per_page)
   

@@ -6,10 +6,11 @@ class CreateExpenseReportRequests < ActiveRecord::Migration[5.2]
       t.datetime :date
       t.datetime :closed_at
       t.references :user
-      t.references :subcategory
+      t.integer :divisa_id
       t.references :society
       t.references :request_state
       t.references :assistant
+      t.references :country
 
       t.timestamps
     end
