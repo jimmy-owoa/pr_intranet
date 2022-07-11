@@ -159,7 +159,7 @@ class UserNotifierMailer < ApplicationMailer
   end
   # rendicion cerrada 
   def notification_request_close(request)
-    @request = ticket
+    @request = request
     mail(to: request.user.email, subject: "Caso ##{request.id} ha sido resuelto")
   end
 end
