@@ -31,6 +31,11 @@ module Api::V1
       params[:email] = @user.email if params[:email].blank?
       
       if @user.update(user_params)
+        if @user.accounts.where(account_number: params[:payment_account][:account_number]).present?
+          @user.accounts.where(account_number: params[:payment_account][:account_number]).first.update(params[:payment_account])
+        else
+          @user.accounts.create(params[:payment_account])
+        end
         Location::Country.set_office_country(@user, params[:office_address])
         render json: { success: true, message: "User updated" }, status: :ok
       else
@@ -41,8 +46,9 @@ module Api::V1
     def create_user
       @user = General::User.new(user_params)
       @user.email = set_email if @user.email.blank?
-
+      
       if @user.save
+        @user.accounts.create(params[:payment_account])
         Location::Country.set_office_country(@user, params[:office_address])
         render json: {  success: true, message: "User created" }, status: :created
       else
@@ -90,7 +96,7 @@ module Api::V1
     def user_params
       params.permit(
         :id_exa, :legal_number, :name, :last_name, 
-        :last_name2, :email, :office_addres, :position, :id_exa_boss
+        :last_name2, :email, :office_addres, :position, :id_exa_boss, :payment_account
       )
     end
   end

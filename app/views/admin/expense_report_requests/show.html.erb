@@ -42,22 +42,22 @@
               </div>
               <ul>
                 <li>
-                  <strong>Usuario:</strong> <%= '' %>
+                  <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
                 </li>
                 <li>
-                  <strong>Nro. cuenta:</strong> <%= '' %>
+                  <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
                 </li>
                 <li>
-                  <strong>Documento de Identidad:</strong> <%= '' %>
+                  <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
                 </li>
                 <li>
-                  <strong>Banco:</strong> <%=''%>
+                  <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
                 </li>
                 <li>
-                  <strong>Tipo de cuenta:</strong> <%= '' %>
+                  <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
                 </li>
                 <li>
-                  <strong>Oficina:</strong> <%= '' %>
+                  <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
                 </li>
               </ul>
             </div>
