@@ -41,24 +41,28 @@
                 <h3 class="card-title">Cuenta de abono</h3>
               </div>
               <ul>
-                <li>
-                  <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
-                </li>
-                <li>
-                  <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
-                </li>
-                <li>
-                  <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
-                </li>
-                <li>
-                  <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
-                </li>
-                <li>
-                  <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
-                </li>
-                <li>
-                  <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
-                </li>
+                <% if @request.user.accounts.present?%>
+                  <li>
+                    <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
+                  </li>
+                  <li>
+                    <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
+                  </li>
+                  <li>
+                    <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
+                  </li>
+                  <li>
+                    <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
+                  </li>
+                  <li>
+                    <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
+                  </li>
+                  <li>
+                    <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
+                  </li>
+                  <% else %>
+                    <li> Sin datos bancaríos</li>
+                  <% end %>
               </ul>
             </div>
           </div>
