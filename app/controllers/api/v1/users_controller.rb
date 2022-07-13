@@ -96,7 +96,7 @@ module Api::V1
     def user_params
       params.permit(
         :id_exa, :legal_number, :name, :last_name, 
-        :last_name2, :email, :office_addres, :position, :id_exa_boss, :payment_account
+        :last_name2, :email, :office_addres, :position, :id_exa_boss, :payment_account [:name, :account_number, :email, :legal_number, :bank_name, :account_type, :country]
       )
     end
   end
