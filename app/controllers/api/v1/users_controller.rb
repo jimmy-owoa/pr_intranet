@@ -32,9 +32,9 @@ module Api::V1
       
       if @user.update(user_params)
         if @user.accounts.where(account_number: params[:payment_account][:account_number]).present?
-          @user.accounts.where(account_number: params[:payment_account][:account_number]).first.update(params[:payment_account])
+          @user.accounts.where(account_number: params[:payment_account][:account_number]).first.update(payment_account)
         else
-          @user.accounts.create(params[:payment_account])
+          @user.accounts.create(payment_account)
         end
         Location::Country.set_office_country(@user, params[:office_address])
         render json: { success: true, message: "User updated" }, status: :ok
@@ -48,7 +48,7 @@ module Api::V1
       @user.email = set_email if @user.email.blank?
       
       if @user.save
-        @user.accounts.create(params[:payment_account])
+        @user.accounts.create(payment_account)
         Location::Country.set_office_country(@user, params[:office_address])
         render json: {  success: true, message: "User created" }, status: :created
       else
@@ -96,8 +96,11 @@ module Api::V1
     def user_params
       params.permit(
         :id_exa, :legal_number, :name, :last_name, 
-        :last_name2, :email, :office_addres, :position, :id_exa_boss, payment_account: [:name, :account_number, :email, :legal_number, :bank_name, :account_type, :country]
+        :last_name2, :email, :office_addres, :position, :id_exa_boss
       )
+    end
+    def payment_account 
+      params.require(:payment_account).permit(:name, :account_number, :email, :legal_number, :bank_name, :account_type, :country)
     end
   end
 end
