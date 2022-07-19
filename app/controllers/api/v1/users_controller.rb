@@ -13,7 +13,7 @@ module Api::V1
       id_exa = InternalAuth.decrypt(user_code) rescue ""
       user = General::User.find_by(id_exa: id_exa)
       return handle_400 if user.blank?
-      
+
       render json: { success: true, token: user.as_json_with_jwt[:token] }
     end
 
@@ -36,6 +36,7 @@ module Api::V1
         else
           @user.accounts.create(payment_account)
         end
+        @user.update(society_id: General::Society.where(id_exa: params[:society][:society_id], name: params[:society][:name], country: params[:office_address]).first_or_create.id)
         Location::Country.set_office_country(@user, params[:office_address])
         render json: { success: true, message: "User updated" }, status: :ok
       else
@@ -49,6 +50,7 @@ module Api::V1
       
       if @user.save
         @user.accounts.create(payment_account)
+        @user.update(society_id: General::Society.where(id_exa: params[:society][:society_id], name: params[:society][:name], country: params[:office_address]).first_or_create.id)
         Location::Country.set_office_country(@user, params[:office_address])
         render json: {  success: true, message: "User created" }, status: :created
       else
@@ -95,7 +97,7 @@ module Api::V1
 
     def user_params
       params.permit(
-        :id_exa, :legal_number, :name, :last_name, 
+        :id_exa, :legal_number, :name, :last_name,
         :last_name2, :email, :office_addres, :position, :id_exa_boss
       )
     end
