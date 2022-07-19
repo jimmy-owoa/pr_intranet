@@ -119,6 +119,7 @@ class UserNotifierMailer < ApplicationMailer
     key = Rails.application.credentials[:secret_key_base][0..31]
     crypt = ActiveSupport::MessageEncryptor.new(key)
     @encrypted_data = Base64.strict_encode64(crypt.encrypt_and_sign({id: @request.id}))
+    @user = @request.user.full_name
     @link_index = "https://ayudacompass.redexa.cl/rendicion-gastos/review/#{@encrypted_data }"
     mail(to: email_boss, subject: 'Nueva rendición de gastos por aprobar')
   end
