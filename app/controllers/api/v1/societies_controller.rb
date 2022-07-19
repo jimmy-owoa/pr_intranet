@@ -5,8 +5,12 @@ module Api::V1
   
 
     def societies
-      society = General::Society.all
-      render json: society , status: :ok
+      if params[:user_id] == "undefined"
+        ''
+      else
+        societies = General::Society.where(country: General::User.find(params[:user_id]).country.name)   
+      end
+      render json: societies , status: :ok
     end
   end
 end
