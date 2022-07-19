@@ -25,6 +25,6 @@ class UserSerializer < ActiveModel::Serializer
     General::User.find_by(id_exa: object.id_exa_boss).full_name
   end
   def society
-    object.society.id
-  end
+    object.society.id if object.society.present?
+  end 
 end
