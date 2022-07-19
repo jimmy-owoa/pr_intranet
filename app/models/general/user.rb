@@ -21,6 +21,7 @@ class General::User < ApplicationRecord
   has_many :user_attributes, class_name: "General::UserAttribute", foreign_key: :user_id, inverse_of: :user
 
   belongs_to :country, class_name: "Location::Country", inverse_of: :users, optional: true
+  belongs_to :society, class_name: "General::Society", inverse_of: :users, optional: true
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable
 
