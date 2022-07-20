@@ -32,6 +32,9 @@
                 <li>
                   <strong>Subtotal:</strong> <%= @request.divisa_id %> <%= @request.total %>
                 </li>
+                <li>
+                  <strong>Sociedad:</strong> <%= @request.society.name if @request.society.present?%>
+                </li>
               </ul>
             </div>
           </div>
@@ -59,9 +62,6 @@
                   </li>
                   <li>
                     <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
-                  </li>
-                  <li>
-                    <strong>Sociedad:</strong> <%= @request.society.name if @request.society.present?%>
                   </li>
                   <% else %>
                     <li> Sin datos bancaríos</li>
