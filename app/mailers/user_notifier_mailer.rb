@@ -124,6 +124,13 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email_boss, subject: 'Nueva rendición de gastos por aprobar')
   end
 
+  # notificacion al usuario cuando un tercero crea una rendición
+  def notification_new_request_user(request)
+    @request = request
+    email = @request.user.email
+    mail(to: email, subject: 'Nueva rendición de gastos')
+  end
+
   # notificacion para el supervisor, aprobo una rendicion
   def notification_request_approved_to_boss(request)
     email_boss = General::User.find_by(id_exa: request.user.id_exa_boss).email

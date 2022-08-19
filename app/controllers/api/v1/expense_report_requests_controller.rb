@@ -22,8 +22,8 @@ module Api::V1
       def create
         request = ExpenseReport::Request.new(request_params)
         if request.save
-          # enviar correo al supervisor
-          UserNotifierMailer.notification_new_request_boss(request).deliver
+          UserNotifierMailer.notification_new_request_boss(request).deliver # enviar correo al supervisor
+          UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
           request.update(request_state_id: ExpenseReport::RequestState.find_by(name: 'awaiting approval').id, country: request.user.country) #se asigna el estado en espera de aprobación
           # recorrer los requests para crear los invoice
           total_request = 0
