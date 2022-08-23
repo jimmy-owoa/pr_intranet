@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       post 'expense_report_requests/review_request', to: 'expense_report_requests#review_request' 
       get 'expense_report_requests/response_request', to: 'expense_report_requests#response_request' 
       get 'expense_report_requests/divisas', to: 'expense_report_requests#divisas'
+      get 'expense_report_requests/countries', to: 'expense_report_requests#countries'
       resources :expense_report_requests
       resources :hc_categories, param: :slug, only: [:index, :show]
       resources :hc_subcategories, param: :slug, only: [:show]

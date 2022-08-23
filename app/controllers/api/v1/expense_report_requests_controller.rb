@@ -83,16 +83,19 @@ module Api::V1
         render json: data, status: :ok
       end
 
+      def countries 
+        data = ExpenseReport::Request::COUNTRY
+        render json: data, status: :ok
+      end
 
-
-      private
+      private 
 
       def set_request
         @request = ExpenseReport::Request.find(params[:id])
       end
 
       def request_params
-        params.require(:request).permit(:subcategory_id, :description, :user_id, :society_id, :divisa_id, [])
+        params.require(:request).permit(:subcategory_id, :description, :user_id, :society_id, :divisa_id, :is_local, :destination_country_id, [])
       end
     end
   end
