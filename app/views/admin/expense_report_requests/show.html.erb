@@ -111,6 +111,18 @@
                 <div class="col-12">
                 </div>
               </div>
+              <div class="card post_card">
+                <div class="card-header">
+                  <h3 class="card-title">Documentación de respaldo de la tarjeta de credito</h3>
+                </div>
+            
+                <% @request.files.each_with_index do |file, index| %>
+                  <div class="container ml-5">
+                    <p><%= link_to "#{index + 1}) Archivo", root_url + rails_blob_path(file, disposition: "attachment")%></p>
+                  </div>
+                <% end %>
+              </div>
+            
             </div>
             </div>
             <br />
