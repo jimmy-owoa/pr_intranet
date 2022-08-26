@@ -19,7 +19,10 @@ class ExpenseReport::Request < ApplicationRecord
   
   enum destination_country_id: ['Centro de costo', 'Argentina', 'Brasil', 'Chile', 'Colombia', 'Miami', 'México', 'Nueva York', 'Perú', 'Uruguay'] 
   COUNTRY = [{"Centro de costo": 1}, {"Argentina": 2}, {"Brasil": 3}, {"Chile": 4} ,{"Colombia": 5}, {"Miami": 6} ,{"México": 7} ,{"Nueva York": 8} ,{"Perú": 9}, {"Uruguay": 10} ].freeze
- 
+  
+  enum payment_method_id: ['Transferencia bancaria moneda local', 'Transferencia bancaria moneda extranjera', 'Abono tarjeta de crédito']
+  PAYMENT_METHOD = [{"Transferencia bancaria moneda local": 1}, {"Transferencia bancaria moneda extranjera": 2}, {"Abono tarjeta de crédito": 3 }].freeze
+
    def total_time
      if closed_at.present?
        distance_of_time_in_words(created_at, closed_at)

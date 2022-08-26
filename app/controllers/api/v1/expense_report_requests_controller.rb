@@ -89,6 +89,16 @@ module Api::V1
         render json: data, status: :ok
       end
 
+      def accounts
+        data = @request_user.accounts.first
+        render json: data, status: :ok
+      end
+
+      def payment_method
+        data = ExpenseReport::Request::PAYMENT_METHOD
+        render json: data, status: :ok
+      end
+
       private 
 
       def set_request
@@ -96,7 +106,7 @@ module Api::V1
       end
 
       def request_params
-        params.require(:request).permit(:subcategory_id, :description, :user_id, :society_id, :divisa_id, :is_local, :destination_country_id, files: [])
+        params.require(:request).permit(:subcategory_id, :description, :user_id, :society_id, :divisa_id, :is_local, :destination_country_id, :bank_account_details, :payment_method_id, files: [])
       end
     end
   end

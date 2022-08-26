@@ -35,6 +35,15 @@
                 <li>
                   <strong>Sociedad:</strong> <%= @request.society.name if @request.society.present?%>
                 </li>
+                <li>
+                  <strong>Rendicion Local:</strong> <%= @request.is_local? ? 'Si' : 'No' %>
+                </li>
+                <li>
+                  <strong>País destino del reembolso:</strong> <%= @request.destination_country_id%>
+                </li>
+                <li>
+                  <strong>Método de pago:</strong> <%= @request.payment_method_id%>
+                </li>
               </ul>
             </div>
           </div>
@@ -69,10 +78,24 @@
               </ul>
             </div>
           </div>
+          <% if @request.payment_method_id != 'Transferencia bancaria moneda local' %>
+          <div class="col-12">
+            <div class="card post_card">
+              <div class="card-header">
+                <h3 class="card-title">Datos de nueva cuenta bancaria</h3><br/>
+              </div>
+              <div class="card-body">
+                
+                <p><%= @request.bank_account_details%></p>
+              </div>
+            </div>
+          </div>
+          <% end %>
+
           <div class="col-sm-12">
             <div class="card post_card">
               <div class="card-header">
-                <h3 class="card-title">Descripción</h3>
+                <h3 class="card-title">Titulo de la rendición</h3>
               </div>
               <div class="card-body">
                 <p><%= @request.description %></p>
