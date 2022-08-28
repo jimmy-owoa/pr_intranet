@@ -15,7 +15,7 @@ class ExpenseReport::Request < ApplicationRecord
   has_many_attached :files
 
   enum divisa_id: %i[ARS BRL CLP COP EUR MXN PEN USD UYU] 
-  DIVISAS = [{"ARS": 1}, {"BRL": 2}, {"CLP": 3}, {"COP": 4} ,{"EUR": 5}, {"MXN": 6} ,{"PEN": 7} ,{"USD": 8} ,{"UYU": 9} ].freeze
+  DIVISAS = [{"ARS": 1}, {"BRL": 2}, {"CLP": 3}, {"COP": 4} ,{"EUR": 5}, {"GBP": 6}, {"MXN": 7}, {"PEN": 8}, {"USD": 9}, {"UYU": 10} ].freeze
   
   enum destination_country_id: ['Centro de costo', 'Argentina', 'Brasil', 'Chile', 'Colombia', 'Miami', 'México', 'Nueva York', 'Perú', 'Uruguay'] 
   COUNTRY = [{"Centro de costo": 1}, {"Argentina": 2}, {"Brasil": 3}, {"Chile": 4} ,{"Colombia": 5}, {"Miami": 6} ,{"México": 7} ,{"Nueva York": 8} ,{"Perú": 9}, {"Uruguay": 10} ].freeze
