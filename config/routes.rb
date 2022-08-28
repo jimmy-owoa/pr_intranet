@@ -46,7 +46,7 @@ Rails.application.routes.draw do
       get 'search/users', to: 'users#search'
 
       get 'societies', to: 'societies#societies'
-      get 'subcategories', to: 'expense_report_categories#subcategories' 
+      get 'categories', to: 'expense_report_categories#categories' 
       
       resources :hc_questions, only: [:show] do
         get :importants, on: :collection

@@ -48,7 +48,7 @@ module Api::V1
         result[:request].invoices.each do |i|
         invoices << {
             invoice: i,
-            subcategory: i.subcategory.name,
+            category: i.category.name,
             file: root_url + rails_blob_path(i.file, disposition: "attachment")     
           }
         end
@@ -106,7 +106,7 @@ module Api::V1
       end
 
       def request_params
-        params.require(:request).permit(:subcategory_id, :description, :user_id, :society_id, :divisa_id, :is_local, :destination_country_id, :bank_account_details, :payment_method_id, files: [])
+        params.require(:request).permit(:category_id, :description, :user_id, :society_id, :divisa_id, :is_local, :destination_country_id, :bank_account_details, :payment_method_id, files: [])
       end
     end
   end

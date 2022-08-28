@@ -121,7 +121,7 @@
                       <tbody>
                         <tr>
                           <th scope="row"><%=index + 1%></th>
-                          <td><%= invoice.subcategory.name%></td>
+                          <td><%= invoice.category.name%></td>
                           <td><%= invoice.description %></td>
                           <td><%= invoice.total%></td>
                           <td><%= link_to "#{index + 1}) Archivo", root_url + rails_blob_path(invoice.file, disposition: "attachment")%></td>
