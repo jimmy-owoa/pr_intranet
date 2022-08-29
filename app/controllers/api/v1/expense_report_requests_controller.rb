@@ -6,6 +6,11 @@ module Api::V1
 
       def index
         status = params[:status].downcase
+        if status == 'enviado' 
+          status = 'en revisión'
+        elsif status == 'aprobado'
+          status = 'abierto'
+        end
         if status == 'todos'
           requests = @request_user.requests.order(created_at: :desc)
         else
@@ -97,6 +102,10 @@ module Api::V1
       def payment_method
         data = ExpenseReport::Request::PAYMENT_METHOD
         render json: data, status: :ok
+      end
+
+      def create_request_draft
+        binding.pry
       end
 
       private 
