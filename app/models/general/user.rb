@@ -7,7 +7,7 @@ class General::User < ApplicationRecord
   acts_as_paranoid
   acts_as_nested_set
   rolify
-  # searchkick
+  searchkick
   validates_presence_of :name, :last_name, :email, :legal_number, :id_exa
   validates_uniqueness_of :email
   #relationships
@@ -22,7 +22,7 @@ class General::User < ApplicationRecord
 
   belongs_to :country, class_name: "Location::Country", inverse_of: :users, optional: true
 
-  devise :trackable, :timeoutable, :database_authenticatable, :omniauthable
+  devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, :recoverable 
 
   has_many :tickets, class_name: 'Helpcenter::Ticket', foreign_key: :user_id
   has_many :tickets_attended, class_name: 'Helpcenter::Ticket', foreign_key: :assistant_id
