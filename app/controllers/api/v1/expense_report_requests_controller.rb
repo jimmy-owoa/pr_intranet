@@ -31,7 +31,7 @@ module Api::V1
             r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
             invoice = ExpenseReport::Invoice.create(r[1])
             invoice.update(request_id: request.id)
-            total_request += r[1][:total].to_i
+            total_request += r[1][:total].to_f
           end
           request.update(total: total_request)
           render json: { message: "Request created", success: true }, status: :created

@@ -30,7 +30,7 @@
                   <strong>Supervisor:</strong> <%= @supervisor %>
                 </li>
                 <li>
-                  <strong>Subtotal:</strong> <%= @request.divisa_id %> <%= @request.total %>
+                  <strong>Subtotal:</strong> <%= @request.divisa_id %> <%= number_to_currency(@request.total, precision: 2, separator: '.', delimiter: ',')%>
                 </li>
                 <li>
                   <strong>Sociedad:</strong> <%= @request.society.name if @request.society.present?%>
@@ -123,7 +123,7 @@
                           <th scope="row"><%=index + 1%></th>
                           <td><%= invoice.category.name%></td>
                           <td><%= invoice.description %></td>
-                          <td><%= invoice.total%></td>
+                          <td><%=number_to_currency(invoice.total, precision: 2)%></td>
                           <td><%= link_to "#{index + 1}) Archivo", root_url + rails_blob_path(invoice.file, disposition: "attachment")%></td>
                         </tr>
                       </tbody>
