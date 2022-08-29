@@ -30,10 +30,19 @@
                   <strong>Supervisor:</strong> <%= @supervisor %>
                 </li>
                 <li>
-                  <strong>Subtotal:</strong> <%= @request.divisa_id %> <%= @request.total %>
+                  <strong>Subtotal:</strong> <%= @request.divisa_id %> <%= number_to_currency(@request.total, precision: 2, separator: '.', delimiter: ',')%>
                 </li>
                 <li>
                   <strong>Sociedad:</strong> <%= @request.society.name if @request.society.present?%>
+                </li>
+                <li>
+                  <strong>Rendicion Local:</strong> <%= @request.is_local? ? 'Si' : 'No' %>
+                </li>
+                <li>
+                  <strong>País destino del reembolso:</strong> <%= @request.destination_country_id%>
+                </li>
+                <li>
+                  <strong>Método de pago:</strong> <%= @request.payment_method_id%>
                 </li>
               </ul>
             </div>
@@ -69,10 +78,24 @@
               </ul>
             </div>
           </div>
+          <% if @request.payment_method_id != 'Transferencia bancaria moneda local' %>
+          <div class="col-12">
+            <div class="card post_card">
+              <div class="card-header">
+                <h3 class="card-title">Datos de nueva cuenta bancaria</h3><br/>
+              </div>
+              <div class="card-body">
+                
+                <p><%= @request.bank_account_details%></p>
+              </div>
+            </div>
+          </div>
+          <% end %>
+
           <div class="col-sm-12">
             <div class="card post_card">
               <div class="card-header">
-                <h3 class="card-title">Descripción</h3>
+                <h3 class="card-title">Titulo de la rendición</h3>
               </div>
               <div class="card-body">
                 <p><%= @request.description %></p>
@@ -98,9 +121,9 @@
                       <tbody>
                         <tr>
                           <th scope="row"><%=index + 1%></th>
-                          <td><%= invoice.subcategory.name%></td>
+                          <td><%= invoice.category.name%></td>
                           <td><%= invoice.description %></td>
-                          <td><%= invoice.total%></td>
+                          <td><%=number_to_currency(invoice.total, precision: 2)%></td>
                           <td><%= link_to "#{index + 1}) Archivo", root_url + rails_blob_path(invoice.file, disposition: "attachment")%></td>
                         </tr>
                       </tbody>
@@ -111,6 +134,18 @@
                 <div class="col-12">
                 </div>
               </div>
+              <div class="card post_card">
+                <div class="card-header">
+                  <h3 class="card-title">Documentación de respaldo de la tarjeta de credito</h3>
+                </div>
+            
+                <% @request.files.each_with_index do |file, index| %>
+                  <div class="container ml-5">
+                    <p><%= link_to "#{index + 1}) Archivo", root_url + rails_blob_path(file, disposition: "attachment")%></p>
+                  </div>
+                <% end %>
+              </div>
+            
             </div>
             </div>
             <br />

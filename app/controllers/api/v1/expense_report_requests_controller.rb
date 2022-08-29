@@ -22,15 +22,16 @@ module Api::V1
       def create
         request = ExpenseReport::Request.new(request_params)
         if request.save
-          # enviar correo al supervisor
-          UserNotifierMailer.notification_new_request_boss(request).deliver
+          UserNotifierMailer.notification_new_request_boss(request).deliver # enviar correo al supervisor
+          UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
           request.update(request_state_id: ExpenseReport::RequestState.find_by(name: 'awaiting approval').id, country: request.user.country) #se asigna el estado en espera de aprobación
           # recorrer los requests para crear los invoice
           total_request = 0
           params[:invoice].permit!.to_h.each do |r|
+            r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
             invoice = ExpenseReport::Invoice.create(r[1])
             invoice.update(request_id: request.id)
-            total_request += r[1][:total].to_i
+            total_request += r[1][:total].to_f
           end
           request.update(total: total_request)
           render json: { message: "Request created", success: true }, status: :created
@@ -47,7 +48,7 @@ module Api::V1
         result[:request].invoices.each do |i|
         invoices << {
             invoice: i,
-            subcategory: i.subcategory.name,
+            category: i.category.name,
             file: root_url + rails_blob_path(i.file, disposition: "attachment")     
           }
         end
@@ -83,16 +84,29 @@ module Api::V1
         render json: data, status: :ok
       end
 
+      def countries 
+        data = ExpenseReport::Request::COUNTRY
+        render json: data, status: :ok
+      end
 
+      def accounts
+        data = @request_user.accounts.first
+        render json: data, status: :ok
+      end
 
-      private
+      def payment_method
+        data = ExpenseReport::Request::PAYMENT_METHOD
+        render json: data, status: :ok
+      end
+
+      private 
 
       def set_request
         @request = ExpenseReport::Request.find(params[:id])
       end
 
       def request_params
-        params.require(:request).permit(:subcategory_id, :description, :user_id, :society_id, :divisa_id, [])
+        params.require(:request).permit(:category_id, :description, :user_id, :society_id, :divisa_id, :is_local, :destination_country_id, :bank_account_details, :payment_method_id, files: [])
       end
     end
   end
