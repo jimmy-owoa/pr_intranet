@@ -260,6 +260,12 @@ class General::User < ApplicationRecord
     average_time = times.sum / times.size
     distance_of_time_in_words(average_time)
   end
+  
+  def self.accounts_data(user)
+    data = user.accounts.first
+    data.account_number = "X" * (data.account_number.length - 4) + data.account_number.last(4)
+    return data
+  end
 
   private
 

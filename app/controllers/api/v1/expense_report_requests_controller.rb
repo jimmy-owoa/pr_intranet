@@ -90,8 +90,7 @@ module Api::V1
       end
 
       def accounts
-        data = @request_user.accounts.first
-        data.account_number = "X" * (data.account_number.length - 4) + data.account_number.last(4)
+        data = General::User.accounts_data(@request_user)
         render json: data, status: :ok
       end
 
