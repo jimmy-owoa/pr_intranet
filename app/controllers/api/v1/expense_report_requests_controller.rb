@@ -90,7 +90,8 @@ module Api::V1
       end
 
       def accounts
-        data = General::User.accounts_data(@request_user)
+        data = @request_user.accounts.first
+        data.filtered_account_number
         render json: data, status: :ok
       end
 
