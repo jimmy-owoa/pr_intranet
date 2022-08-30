@@ -23,13 +23,16 @@ module Api::V1
     end
 
     def create_update
-      @user.restore if @user.present? && @user.deleted_at.present?
-      @user.present? ? update_user : create_user
+      if params[:active] == false
+        user_active_false
+      else
+        @user.restore if @user.present? && @user.deleted_at.present?
+        @user.present? ? update_user : create_user
+      end
     end
 
     def update_user
       params[:email] = @user.email if params[:email].blank?
-      
       if @user.update(user_params)
         Location::Country.set_office_country(@user, params[:office_address])
         render json: { success: true, message: "User updated" }, status: :ok
@@ -78,10 +81,22 @@ module Api::V1
     
     private
 
+    def user_active_false
+      if @user.present?
+        if !@user.deleted?
+          destroy
+        else  
+          render json: { message: "User deleted" }, status: :ok
+        end
+      else
+        render json: { message: "User not created" }, status: :ok
+      end
+    end
+
     def set_user
       begin
         id_exa = InternalAuth.decrypt(params[:user_code_crypted_base64])
-        @user = General::User.with_deleted.find_by(id_exa: id_exa)
+        @user = General::User.with_deleted.find_by(id_exa: 99991)
       rescue
         render json: { success: true, error: "Error" }, status: :unauthorized
       end
