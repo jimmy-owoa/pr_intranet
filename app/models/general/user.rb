@@ -23,7 +23,7 @@ class General::User < ApplicationRecord
   belongs_to :country, class_name: "Location::Country", inverse_of: :users, optional: true
   belongs_to :society, class_name: "General::Society", inverse_of: :users, optional: true
 
-  devise :trackable, :timeoutable, :database_authenticatable, :omniauthable
+  devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, :recoverable 
 
   has_many :tickets, class_name: 'Helpcenter::Ticket', foreign_key: :user_id
   has_many :tickets_attended, class_name: 'Helpcenter::Ticket', foreign_key: :assistant_id
