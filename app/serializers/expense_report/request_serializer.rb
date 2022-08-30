@@ -25,9 +25,8 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
     else
       ''
     end
-    
-
   end
+  
   # def is_show?
   #   instance_options[:is_show]
   # end
