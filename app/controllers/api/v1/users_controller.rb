@@ -23,13 +23,16 @@ module Api::V1
     end
 
     def create_update
-      @user.restore if @user.present? && @user.deleted_at.present?
-      @user.present? ? update_user : create_user
+      if params[:active] == false
+        user_active_false
+      else
+        @user.restore if @user.present? && @user.deleted_at.present?
+        @user.present? ? update_user : create_user
+      end
     end
 
     def update_user
       params[:email] = @user.email if params[:email].blank?
-      
       if @user.update(user_params)
         Location::Country.set_office_country(@user, params[:office_address])
         render json: { success: true, message: "User updated" }, status: :ok
@@ -77,6 +80,18 @@ module Api::V1
     end
     
     private
+
+    def user_active_false
+      if @user.present?
+        if !@user.deleted?
+          destroy
+        else  
+          render json: { message: "User deleted" }, status: :ok
+        end
+      else
+        render json: { message: "User not created" }, status: :ok
+      end
+    end
 
     def set_user
       begin
