@@ -103,10 +103,7 @@ module Api::V1
         data = ExpenseReport::Request::PAYMENT_METHOD
         render json: data, status: :ok
       end
-
-      def create_request_draft
-        binding.pry
-      end
+      
 
       private 
 
