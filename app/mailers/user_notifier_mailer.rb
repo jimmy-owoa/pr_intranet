@@ -50,6 +50,12 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email, subject: "Encuesta Asignada")
   end
 
+  def organization_charts_error(error)
+    @error = error
+    ti_users = ["jeremias@exaconsultores.cl", "christopher@exa.cl", "pedro@exa.cl"]
+    mail(to: ti_users.first, cc: ti_users[1..-1], subject: 'Error en Organización Organigramas')
+  end
+
   def notification_new_ticket(ticket, user)
     emails = ticket.subcategory.category.assistants.map(&:email)
     @ticket = ticket
