@@ -133,8 +133,9 @@ module Api::V1
     def set_user
       begin
         id_exa = InternalAuth.decrypt(params[:user_code_crypted_base64])
-        @user = General::User.with_deleted.find_by(id_exa: 99991)
-      rescue
+        @user = General::User.with_deleted.find_by(id_exa: id_exa)
+      rescue => error
+        create_log_report(request.url, params, error, "Error!", "Error en find_user")
         render json: { success: true, error: "Error" }, status: :unauthorized
       end
     end
