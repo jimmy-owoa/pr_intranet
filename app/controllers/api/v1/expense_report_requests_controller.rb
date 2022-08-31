@@ -104,22 +104,6 @@ module Api::V1
         render json: data, status: :ok
       end
 
-      def save_draft_request
-        request = ExpenseReport::Request.new(request_params)
-        if request.save
-          # recorrer los requests para crear los invoice
-          total_request = 0
-          params[:invoice].permit!.to_h.each do |r|
-            r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
-            invoice = ExpenseReport::Invoice.create(r[1])
-            invoice.update(request_id: request.id)
-            total_request += r[1][:total].to_f
-          end
-          request.update(total: total_request)
-        else
-        end
-      end 
-
       private 
 
       def set_request
