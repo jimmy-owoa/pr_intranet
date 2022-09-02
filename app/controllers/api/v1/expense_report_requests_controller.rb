@@ -26,10 +26,11 @@ module Api::V1
 
       def create
         request = ExpenseReport::Request.new(request_params)
+        request.country_id = request.user.country
+        request.request_state_id = ExpenseReport::RequestState.find_by(name: 'awaiting approval').id
         if request.save
           UserNotifierMailer.notification_new_request_boss(request).deliver # enviar correo al supervisor
           UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
-          request.update(request_state_id: ExpenseReport::RequestState.find_by(name: 'awaiting approval').id, country: request.user.country) #se asigna el estado en espera de aprobación
           # recorrer los requests para crear los invoice
           total_request = 0
           params[:invoice].permit!.to_h.each do |r|
@@ -106,6 +107,7 @@ module Api::V1
 
       def save_draft_request
         request = ExpenseReport::Request.new(request_params)
+        request.request_state_id = ExpenseReport::RequestState.find_by(name: 'draft').id
         if request.save
           # recorrer los requests para crear los invoice
           total_request = 0
@@ -114,11 +116,13 @@ module Api::V1
             invoice = ExpenseReport::Invoice.create(r[1])
             invoice.update(request_id: request.id)
             total_request += r[1][:total].to_f
+            render json: { message: "Request created", success: true }, status: :created
           end
           request.update(total: total_request)
         else
+          render json: { message: "Error", success: false }, status: :unprocessable_entity
         end
-      end 
+      end
 
       private 
 
