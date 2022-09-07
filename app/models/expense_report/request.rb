@@ -14,14 +14,14 @@ class ExpenseReport::Request < ApplicationRecord
 
   has_many_attached :files
 
-  enum divisa_id: %i[ARS BRL CLP COP EUR MXN PEN USD UYU] 
-  DIVISAS = [{"ARS": 1}, {"BRL": 2}, {"CLP": 3}, {"COP": 4} ,{"EUR": 5}, {"GBP": 6}, {"MXN": 7}, {"PEN": 8}, {"USD": 9}, {"UYU": 10} ].freeze
+  enum divisa_id: %i[ARS BRL CLP COP EUR MXN PEN USD UYU N/A] 
+  DIVISAS = [{"ARS": 1}, {"BRL": 2}, {"CLP": 3}, {"COP": 4} ,{"EUR": 5}, {"GBP": 6}, {"MXN": 7}, {"PEN": 8}, {"USD": 9}, {"UYU": 10}, {"N/A": 11} ].freeze
   
-  enum destination_country_id: ['Centro de costo', 'Argentina', 'Brasil', 'Chile', 'Colombia', 'Miami', 'México', 'Nueva York', 'Perú', 'Uruguay'] 
-  COUNTRY = [{"Centro de costo": 1}, {"Argentina": 2}, {"Brasil": 3}, {"Chile": 4} ,{"Colombia": 5}, {"Miami": 6} ,{"México": 7} ,{"Nueva York": 8} ,{"Perú": 9}, {"Uruguay": 10} ].freeze
+  enum destination_country_id: ['Centro de costo', 'Argentina', 'Brasil', 'Chile', 'Colombia', 'Miami', 'México', 'Nueva York', 'Perú', 'Uruguay', 'NULL'] 
+  COUNTRY = [{"Centro de costo": 1}, {"Argentina": 2}, {"Brasil": 3}, {"Chile": 4} ,{"Colombia": 5}, {"Miami": 6} ,{"México": 7} ,{"Nueva York": 8} ,{"Perú": 9}, {"Uruguay": 10}, {"NULL": 11} ].freeze
   
   enum payment_method_id: ['Transferencia bancaria moneda local', 'Transferencia bancaria moneda extranjera', 'Abono tarjeta de crédito']
-  PAYMENT_METHOD = [{"Transferencia bancaria moneda local": 1}, {"Transferencia bancaria moneda extranjera": 2}, {"Abono tarjeta de crédito": 3 }].freeze
+  PAYMENT_METHOD = [{"Transferencia bancaria moneda local": 1}, {"Transferencia bancaria moneda extranjera": 2}, {"Abono tarjeta de crédito": 3}].freeze
 
    def total_time
      if closed_at.present?
