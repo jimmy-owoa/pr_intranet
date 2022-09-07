@@ -159,8 +159,8 @@ module Api::V1
             invoice.update(request_id: request.id)
             total_request += r[1][:total].to_f
             request.update(total: total_request)
-            render json: { message: "Request created", success: true }, status: :created
           end
+          render json: { message: "Request created", success: true }, status: :created
         else
           render json: { message: "Error", success: false }, status: :unprocessable_entity
         end
