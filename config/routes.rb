@@ -59,7 +59,10 @@ Rails.application.routes.draw do
       get 'expense_report_requests/accounts', to: 'expense_report_requests#accounts'
       get 'expense_report_requests/payment_method', to: 'expense_report_requests#payment_method'
       post 'expense_report_requests/save_draft_request', to: 'expense_report_requests#save_draft_request'
-      resources :expense_report_requests
+      resources :expense_report_requests do
+        get :destroy_file, on: :collection
+        get :destroy_invoice, on: :collection
+      end
       resources :hc_categories, param: :slug, only: [:index, :show]
       resources :hc_subcategories, param: :slug, only: [:show]
       
