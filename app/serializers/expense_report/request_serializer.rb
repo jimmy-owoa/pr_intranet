@@ -1,7 +1,8 @@
 class ExpenseReport::RequestSerializer < ActiveModel::Serializer
   attributes :id, :total, :divisa_id, :description, :created_at, :closed_at, :status, :user,
-  :society_id, :request_state_id,:country_id, :is_local, :destination_country_id, :payment_method_id, :bank_account_details, :invoices
+  :society_id, :request_state_id,:country_id, :is_local, :destination_country_id, :payment_method_id, :bank_account_details, :invoices, :files
   # has_many :invoices
+  include Rails.application.routes.url_helpers
 
   def created_at
     object.created_at.strftime('%d/%m/%Y %H:%M hrs')
@@ -33,12 +34,19 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
   def invoices
     result = []
     object.invoices.each do |i| 
+      files = []
+      files_url = []
+      i.files.each do |file|
+        files << file
+        files_url << {url: root_url + rails_blob_path(file, disposition: "attachment"), id: file.id }
+      end
       result.push({
         id: i.id,
         total: i.total.to_s,
         description: i.description,
         category_id: i.category_id,
-        file: i.file
+        files: files,
+        files_url: files_url
       })
     end
     result
@@ -53,6 +61,14 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
 
   def is_local
     object.is_local.to_s
+  end
+
+  def files 
+    files = []
+    object.files.each do |file|
+      files << {url: root_url + rails_blob_path(file, disposition: "attachment"), id: file.id }
+    end
+    return files
   end
   
   # def is_show?
