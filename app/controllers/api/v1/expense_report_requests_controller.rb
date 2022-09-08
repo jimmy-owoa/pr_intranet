@@ -45,8 +45,9 @@ module Api::V1
           r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
           if r[1][:id] == 'null'
             r[1][:id] = ExpenseReport::Invoice.last.id + 1
+            invoice = ExpenseReport::Invoice.new(r[1])
             invoice.request_id = request.id
-            invoice = ExpenseReport::Invoice.create(r[1])
+            invoice.save
           else
             invoice = ExpenseReport::Invoice.find(r[1][:id])
             invoice.request_id = request.id
@@ -141,7 +142,8 @@ module Api::V1
           total_request += r[1][:total].to_f
         end
         request.update(total: total_request)
-        render json: { message: "Request Updated", success: true }, status: :created
+        # render json: { message: "Request Updated", success: true }, status: :created
+        render json: request.id, status: :ok
       else
         render json: { message: "Error", success: false }, status: :unprocessable_entity
       end
@@ -162,7 +164,8 @@ module Api::V1
           total_request += r[1][:total].to_f
           request.update(total: total_request)
         end
-        render json: { message: "Request created", success: true }, status: :created
+        # render json: { message: "Request created", success: true }, status: :created
+        render json: request.id, status: :ok
       else
         render json: { message: "Error", success: false }, status: :unprocessable_entity
       end
