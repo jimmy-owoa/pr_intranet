@@ -69,4 +69,8 @@ class ExpenseReport::Request < ApplicationRecord
     decrypted_back = crypt.decrypt_and_verify(encrypted_data)
     decrypted_back
   end
+
+  def set_state(state)
+    return self.request_state_id = ExpenseReport::RequestState.find_by(name: state.downcase).id
+  end
 end

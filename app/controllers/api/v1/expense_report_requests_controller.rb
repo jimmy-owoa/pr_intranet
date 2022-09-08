@@ -1,6 +1,6 @@
 module Api::V1
   class ExpenseReportRequestsController < ApiController
-    before_action :set_request, only: [:show]
+    before_action :set_request, only: [:show, :update]
     skip_before_action :set_current_user_from_header, only: [:review_request, :response_request]
     skip_before_action :verify_authenticity_token
 
@@ -22,32 +22,17 @@ module Api::V1
     end
 
     def create
-      if params[:request][:id] != 'null'
-        request = ExpenseReport::Request.find(params[:request][:id])
-        request.update(request_params)
-      else
-        params[:request][:id] = ExpenseReport::Request.last.id + 1
-        request = ExpenseReport::Request.new(request_params)
-      end
+      request = ExpenseReport::Request.new(request_params)
+      request.set_state(params[:request][:request_state])
       request.country_id = request.user.country.id
-      request.request_state_id = ExpenseReport::RequestState.find_by(name: 'envoy').id
       if request.save
-        UserNotifierMailer. (request).deliver # enviar correo al supervisor
+        UserNotifierMailer.notification_new_request_boss(request).deliver if request.request_state.name == 'envoy'
         # UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
         # recorrer los requests para crear los invoice
         total_request = 0
         params[:invoice].permit!.to_h.each do |r|
           r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
-          if r[1][:id] == 'null'
-            r[1][:id] = ExpenseReport::Invoice.last.id + 1
-            invoice = ExpenseReport::Invoice.new(r[1])
-            invoice.request_id = request.id
-            invoice.save
-          else
-            invoice = ExpenseReport::Invoice.find(r[1][:id])
-            invoice.request_id = request.id
-            invoice.update(r[1])
-          end
+            request.invoices.create(r[1])
           total_request += r[1][:total].to_f
         end
         request.update(total: total_request)
@@ -78,6 +63,15 @@ module Api::V1
       else
         render json: { message: "request", success: true, invoices: invoices ,request: result[:request], user: result[:user], request_date: result[:request_date] }, status: :ok
       end 
+    end
+    
+    def request_draft
+      request = ExpenseReport::Request.find(params[:id])
+      if request.request_state.name == 'draft'
+        render json: request, serializer: ExpenseReport::RequestSerializer, is_show: true, status: :ok
+      else
+        render json: { message: "false"}, status: :ok
+      end
     end
 
     def response_request
@@ -119,47 +113,26 @@ module Api::V1
       render json: data, status: :ok
     end
     
-    def update_draft_request
-      request =  ExpenseReport::Request.find(request_params[:id])
-      if request.update(request_params)
+    def update
+      @request.set_state(params[:request][:request_state])
+      if @request.update(request_params)
         total_request = 0
         params[:invoice].permit!.to_h.each do |r|
           r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
-          invoice = ExpenseReport::Invoice.where(id: r[1][:id]).first_or_create if r[1][:id] != 'null'
+          invoice = ExpenseReport::Invoice.find_by(id: r[1][:id]) if r[1][:id].present?
           if invoice.present? 
             invoice.update(r[1])
           else
-            r[1][:id] = ExpenseReport::Invoice.last.id + 1 if r[1][:id] == 'null'
-            invoice = ExpenseReport::Invoice.create(r[1])
+            @request.invoices.create(r[1])
           end
-          invoice.update(request_id: request.id)
           total_request += r[1][:total].to_f
         end
-        request.update(total: total_request)
-        # render json: { message: "Request Updated", success: true }, status: :created
-        render json: request.id, status: :ok
-      else
-        render json: { message: "Error", success: false }, status: :unprocessable_entity
-      end
-    end
-
-    def save_draft_request
-      return update_draft_request if request_params[:id].present?
-      request = ExpenseReport::Request.new(request_params)
-      request.request_state_id = ExpenseReport::RequestState.find_by(name: 'draft').id
-      if request.save
-        # recorrer los requests para crear los invoice
-        total_request = 0
-        params[:invoice].permit!.to_h.each do |r|
-          r[1][:id] = ExpenseReport::Invoice.last.id + 1 if r[1][:id] == 'null'
-          r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
-          invoice = ExpenseReport::Invoice.create(r[1])
-          invoice.update(request_id: request.id)
-          total_request += r[1][:total].to_f
-          request.update(total: total_request)
+        @request.update(total: total_request)
+        if @request.request_state.name == 'draft'
+          render json: @request.id, status: :ok
+        else
+          render json: { message: "Request updated", success: true }, status: :ok
         end
-        # render json: { message: "Request created", success: true }, status: :created
-        render json: request.id, status: :ok
       else
         render json: { message: "Error", success: false }, status: :unprocessable_entity
       end
