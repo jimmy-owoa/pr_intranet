@@ -7,11 +7,6 @@ module Api::V1
     def index
       status = params[:status].downcase
       data = []
-      if status == 'enviado' 
-        status = 'en revisión'
-      elsif status == 'aprobado'
-        status = 'abierto'
-      end
       if status == 'todos'
         requests = @request_user.requests.order(created_at: :desc)
       else
@@ -34,10 +29,10 @@ module Api::V1
         params[:request][:id] = ExpenseReport::Request.last.id + 1
         request = ExpenseReport::Request.new(request_params)
       end
-      request.country_id = request.user.country
-      request.request_state_id = ExpenseReport::RequestState.find_by(name: 'awaiting approval').id
+      request.country_id = request.user.country.id
+      request.request_state_id = ExpenseReport::RequestState.find_by(name: 'envoy').id
       if request.save
-        UserNotifierMailer.notification_new_request_boss(request).deliver # enviar correo al supervisor
+        UserNotifierMailer. (request).deliver # enviar correo al supervisor
         # UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
         # recorrer los requests para crear los invoice
         total_request = 0
@@ -78,7 +73,7 @@ module Api::V1
           files: files
         }
       end
-      if  result[:state] == "link_expired" || result[:request].request_state.name != 'awaiting approval'
+      if  result[:state] == "link_expired" || result[:request].request_state.name != 'envoy'
         render json: { message: "Link expired", success: true, request: result[:request], user: result[:user],request_date: result[:request_date]}, status: :ok
       else
         render json: { message: "request", success: true, invoices: invoices ,request: result[:request], user: result[:user], request_date: result[:request_date] }, status: :ok
@@ -87,15 +82,14 @@ module Api::V1
 
     def response_request
       response = params[:request][0]
-      request = ExpenseReport::Request.find(params[:request][1].to_i) 
-
-      if response == 'true' && request.request_state.name == 'awaiting approval'
-        request.update(request_state_id: ExpenseReport::RequestState.find_by(name: 'open').id)
+      request = ExpenseReport::Request.find(params[:request][1].to_i)
+      if response == 'true' && request.request_state.name == 'envoy'
+        request.update(request_state_id: ExpenseReport::RequestState.find_by(name: 'approved').id)
         UserNotifierMailer.notification_new_request(request).deliver
         UserNotifierMailer.notification_request_approved_to_user(request).deliver
         UserNotifierMailer.notification_request_approved_to_boss(request).deliver
         render json: { message: "true" }, status: :ok
-      elsif response == 'false' && request.request_state.name == 'awaiting approval'
+      elsif response == 'false' && request.request_state.name == 'envoy'
         UserNotifierMailer.notification_request_rejected(request).deliver
         UserNotifierMailer.notification_request_rejected_to_boss(request).deliver
         request.destroy
@@ -195,28 +189,10 @@ module Api::V1
     def set_data_request(requests)
       data = []
       requests.each do |request|
-        status = ''
-        if request.request_state.present?
-          case request.request_state.code 
-          when 'abierto'
-            status='aprobado'
-          when 'atendiendo'
-            status='atendiendo'
-          when 'en revisión'
-            status='enviado'
-          when 'resuelto'
-            status='resuelto'
-          when 'borrador'
-            status='borrador'
-          end
-        else
-          ''
-        end
-
         data << {
           id: request.id,
           created_at: request.created_at.strftime('%d/%m/%Y %H:%M hrs'),
-          status: status
+          status: request.request_state.code
         }
       end
       return data

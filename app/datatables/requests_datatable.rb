@@ -42,7 +42,7 @@ class RequestsDatatable < ApplicationDatatable
           requests_country << r.resource.requests
         end
         requests_country = ExpenseReport::Request.where(id: requests_country.map {|r| r.ids})
-        requests = requests_country.where.not(request_state_id: ExpenseReport::RequestState.find_by(code: 'en revisión').id).order(created_at: :desc)
+        requests = requests_country.where.not(request_state_id: ExpenseReport::RequestState.find_by(code: 'enviado').id).order(created_at: :desc)
 
       end
       requests = requests.where(request_state_id: params[:status]) if params[:status].present?

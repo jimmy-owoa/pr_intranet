@@ -14,18 +14,7 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
   
   def status
     if object.request_state.present?
-      case object.request_state.code 
-      when 'abierto'
-        'aprobado'
-      when 'atendiendo'
-        'atendiendo'
-      when 'en revisión'
-        'enviado'
-      when 'resuelto'
-        'resuelto'
-      when 'borrador'
-        'borrador'
-      end
+      object.request_state.code
     else
       ''
     end

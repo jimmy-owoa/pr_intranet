@@ -48,7 +48,7 @@ module Admin
     end
 
     def take_request
-      params[:take_request] == 'true' ? state = 'attended' : state = 'open'
+      params[:take_request] == 'true' ? state = 'attended' : state = 'approved'
       params[:take_request] == 'true' ? assistant = current_user.id :  assistant = nil
       respond_to do |format|
         if @request.update(assistant_id: assistant, request_state_id: ExpenseReport::RequestState.find_by(name: state).id)
