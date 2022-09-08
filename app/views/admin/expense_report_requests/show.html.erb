@@ -39,7 +39,7 @@
                   <strong>Rendicion Local:</strong> <%= @request.is_local? ? 'Si' : 'No' %>
                 </li>
                 <li>
-                  <strong>País destino del reembolso:</strong> <%= @request.destination_country_id%>
+                  <strong>País destino del reembolso:</strong> <%= @request.destination_country_id == 'NULL' ? 'N/A' : @request.destination_country_id%>
                 </li>
                 <li>
                   <strong>Método de pago:</strong> <%= @request.payment_method_id%>

@@ -6,6 +6,7 @@ module Api::V1
 
     def index
       status = params[:status].downcase
+      data = []
       if status == 'enviado' 
         status = 'en revisión'
       elsif status == 'aprobado'
@@ -17,7 +18,8 @@ module Api::V1
         id_status = ExpenseReport::RequestState.find_by(code: status).id
         requests = @request_user.requests.where(request_state_id: id_status ).order(created_at: :desc)
       end
-      render json: requests, each_serializer: ExpenseReport::RequestSerializer, status: :ok
+      data = set_data_request(requests)
+      render json: data, status: :ok
     end
 
     def show
@@ -186,6 +188,36 @@ module Api::V1
     end
 
     private 
+
+    def set_data_request(requests)
+      data = []
+      requests.each do |request|
+        status = ''
+        if request.request_state.present?
+          case request.request_state.code 
+          when 'abierto'
+            status='aprobado'
+          when 'atendiendo'
+            status='atendiendo'
+          when 'en revisión'
+            status='enviado'
+          when 'resuelto'
+            status='resuelto'
+          when 'borrador'
+            status='borrador'
+          end
+        else
+          ''
+        end
+
+        data << {
+          id: request.id,
+          created_at: request.created_at.strftime('%d/%m/%Y %H:%M hrs'),
+          status: status
+        }
+      end
+      return data
+    end
 
     def set_request
       @request = ExpenseReport::Request.find(params[:id])
