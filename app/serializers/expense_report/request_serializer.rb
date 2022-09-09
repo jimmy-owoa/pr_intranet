@@ -27,7 +27,7 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
       files_url = []
       i.files.each do |file|
         files << file
-        files_url << {url: root_url + rails_blob_path(file, disposition: "attachment"), id: file.id }
+        files_url << {url: url_for(file), id: file.id }
       end
       result.push({
         id: i.id,
@@ -55,7 +55,7 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
   def files 
     files = []
     object.files.each do |file|
-      files << {url: root_url + rails_blob_path(file, disposition: "attachment"), id: file.id }
+      files << {url: url_for(file), id: file.id }
     end
     return files
   end
