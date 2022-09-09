@@ -116,6 +116,7 @@ module Api::V1
     def update
       @request.set_state(params[:request][:request_state])
       if @request.update(request_params)
+        UserNotifierMailer.notification_new_request_boss(@request).deliver if @request.request_state.name == 'envoy'
         total_request = 0
         params[:invoice].permit!.to_h.each do |r|
           r[1][:total] = r[1][:total].gsub(/[\s,]/ ,"")
