@@ -1,8 +1,6 @@
 class ExpenseReport::RequestSerializer < ActiveModel::Serializer
   attributes :id, :total, :divisa_id, :description, :created_at, :closed_at, :status, :user,
   :society_id, :request_state_id,:country_id, :is_local, :destination_country_id, :payment_method_id, :bank_account_details, :invoices, :files
-  # has_many :invoices
-  include Rails.application.routes.url_helpers
 
   def created_at
     object.created_at.strftime('%d/%m/%Y %H:%M hrs')
