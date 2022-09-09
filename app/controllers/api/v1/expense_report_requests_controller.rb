@@ -36,7 +36,11 @@ module Api::V1
           total_request += r[1][:total].to_f
         end
         request.update(total: total_request)
-        render json: { message: "Request created", success: true }, status: :created
+        if(request.request_state.name == 'draft')
+          render json: request.id, status: :ok
+        else
+          render json: { message: "Request created", success: true }, status: :created
+        end
       else
         render json: { message: "Error", success: false }, status: :unprocessable_entity
       end
