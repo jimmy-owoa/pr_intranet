@@ -34,7 +34,7 @@ class RequestsDatatable < ApplicationDatatable
   
     def fetch_requests
       if @view.current_user.is_admin?
-        requests = ExpenseReport::Request.all.order(created_at: :desc)
+        requests = ExpenseReport::Request.where.not(request_state_id: ExpenseReport::RequestState.find_by(name: 'draft').id).order(created_at: :desc)
       else
         requests_country = []
         roles_countries = @view.current_user.roles.where(resource_type: "Location::Country")
@@ -42,7 +42,8 @@ class RequestsDatatable < ApplicationDatatable
           requests_country << r.resource.requests
         end
         requests_country = ExpenseReport::Request.where(id: requests_country.map {|r| r.ids})
-        requests = requests_country.where.not(request_state_id: ExpenseReport::RequestState.find_by(code: 'en revisión').id).order(created_at: :desc)
+        ids_status = [ExpenseReport::RequestState.find_by(name: 'envoy').id, ExpenseReport::RequestState.find_by(name: 'draft').id]
+        requests = requests_country.where.not(request_state_id: ids_status).order(created_at: :desc)
 
       end
       requests = requests.where(request_state_id: params[:status]) if params[:status].present?

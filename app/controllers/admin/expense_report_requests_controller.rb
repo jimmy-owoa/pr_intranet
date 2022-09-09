@@ -6,7 +6,7 @@ module Admin
 
     def index
       @status = params[:status]
-      @all_status = ExpenseReport::RequestState.all.map {|status| [status.code, status.id]}
+      @all_status= ExpenseReport::RequestState.where.not(name: ['draft', 'envoy']).map {|status| [status.code, status.id]}
 
       respond_to do |format|
         format.html
@@ -20,7 +20,6 @@ module Admin
     def edit
       #authorize @request, :show?
       @users = General::User.all.map { |u| [u.full_name, u.id] }
-      @subcategories = ExpenseReport::Subcategory.where(category: @request.subcategory.category)
     end
 
     def show
@@ -49,7 +48,7 @@ module Admin
     end
 
     def take_request
-      params[:take_request] == 'true' ? state = 'attended' : state = 'open'
+      params[:take_request] == 'true' ? state = 'attended' : state = 'approved'
       params[:take_request] == 'true' ? assistant = current_user.id :  assistant = nil
       respond_to do |format|
         if @request.update(assistant_id: assistant, request_state_id: ExpenseReport::RequestState.find_by(name: state).id)

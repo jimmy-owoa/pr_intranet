@@ -39,7 +39,7 @@
                   <strong>Rendicion Local:</strong> <%= @request.is_local? ? 'Si' : 'No' %>
                 </li>
                 <li>
-                  <strong>País destino del reembolso:</strong> <%= @request.destination_country_id%>
+                  <strong>País destino del reembolso:</strong> <%= @request.destination_country_id == 'NULL' ? 'N/A' : @request.destination_country_id%>
                 </li>
                 <li>
                   <strong>Método de pago:</strong> <%= @request.payment_method_id%>
@@ -111,10 +111,10 @@
                       <thead>
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Subcategoría</th>
+                          <th scope="col">Categoría</th>
                           <th scope="col">Descripción</th>
                           <th scope="col">Total</th>
-                          <th scope="col">archvios</th>
+                          <th scope="col">Archvios</th>
                         </tr>
                       </thead>
                     <% @request.invoices.each_with_index do |invoice, index| %>
@@ -124,7 +124,11 @@
                           <td><%= invoice.category.name%></td>
                           <td><%= invoice.description %></td>
                           <td><%=number_to_currency(invoice.total, precision: 2)%></td>
-                          <td><%= link_to "#{index + 1}) Archivo", root_url + rails_blob_path(invoice.file, disposition: "attachment")%></td>
+                          <td class="d-flex">
+                            <%invoice.files.each_with_index do |file, index|%>
+                              <p class="m-auto"><%= link_to "#{index + 1}) Archivo", root_url + rails_blob_path(file, disposition: "attachment")%></p>
+                            <% end %>
+                          </td>
                         </tr>
                       </tbody>
                       <% end %>

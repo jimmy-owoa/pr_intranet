@@ -18,26 +18,6 @@
           <%= f.input :description, as: :text, required: true %>
         </div>
       <% end %>
-
-      <div class="col-12 col-sm-12">
-        <% selected_value = @request.new_record? ? nil : @request.subcategory.category.id %>
-        <%= f.label :category, label:'categoría *' %><br>
-        <%= select_tag "category", 
-            options_from_collection_for_select(ExpenseReport::Category.all || [], "id", "name", selected_value),
-            prompt: "Selecciona una categoría",
-            :onchange => "update_request_subscategories(this.value)" 
-        %>
-      </div>
-
-      <div class="col-12 col-md-12 m-1">
-        <% selected_value = @request.new_record? ? nil : @request.subcategory.id %>
-        <%= f.label "Subcategoría *" %><br>
-        <%= f.select :subcategory_id, 
-            options_from_collection_for_select(@subcategories || [], "id", "name", selected_value), 
-            prompt: "Selecciona una subcategoría",
-            required: true
-        %>
-      </div>
     </div>
   </div>
 </div>
