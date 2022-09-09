@@ -6,7 +6,7 @@ module Admin
 
     def index
       @status = params[:status]
-      @all_status = ExpenseReport::RequestState.all.map {|status| [status.code, status.id]}
+      @all_status= ExpenseReport::RequestState.where.not(name: ['draft', 'envoy']).map {|status| [status.code, status.id]}
 
       respond_to do |format|
         format.html
