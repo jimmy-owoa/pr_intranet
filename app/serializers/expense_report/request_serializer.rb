@@ -1,6 +1,7 @@
 class ExpenseReport::RequestSerializer < ActiveModel::Serializer
   attributes :id, :total, :divisa_id, :description, :created_at, :closed_at, :status, :user,
   :society_id, :request_state_id,:country_id, :is_local, :destination_country_id, :payment_method_id, :bank_account_details, :invoices, :files
+  include Rails.application.routes.url_helpers
 
   def created_at
     object.created_at.strftime('%d/%m/%Y %H:%M hrs')
@@ -25,7 +26,7 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
       files_url = []
       i.files.each do |file|
         files << file
-        files_url << {url: url_for(file), id: file.id }
+        files_url << {url: Rails.application.routes.url_helpers.url_for(file), id: file.id }
       end
       result.push({
         id: i.id,
