@@ -24,7 +24,6 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
     object.invoices.each do |i| 
       files = []
       files_url = []
-      Rails.application.routes.default_url_options[:host]= 'https://adminhc.redexa.cl'
       i.files.each do |file|
         files << file
         files_url << {url: url_for(file), id: file.id }
