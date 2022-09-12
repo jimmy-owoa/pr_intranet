@@ -51,8 +51,8 @@ module Api::V1
       # comprobar si el request esta expirado y enviar correos
       result = ExpenseReport::Request.request_boss_notifications(approved_to_review)
       invoices = []
-      files = []
       result[:request].invoices.each do |i|
+        files = []
         i.files.each do |file|
           files << root_url + rails_blob_path(file, disposition: "attachment") 
         end
