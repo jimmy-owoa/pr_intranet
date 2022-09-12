@@ -19,8 +19,6 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
     end
   end
 
-  Rails.application.routes.default_url_options[:host]= 'https://adminhc.redexa.cl'
-
   def invoices
     result = []
     object.invoices.each do |i| 
