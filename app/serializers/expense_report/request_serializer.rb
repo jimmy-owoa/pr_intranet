@@ -60,6 +60,10 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
     end
     return files
   end
+
+  def destination_country_id
+    ExpenseReport::Request.destination_country_ids[object.destination_country_id]
+  end
   
   # def is_show?
   #   instance_options[:is_show]
