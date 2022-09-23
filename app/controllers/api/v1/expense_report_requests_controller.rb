@@ -23,6 +23,7 @@ module Api::V1
 
     def create
       request = ExpenseReport::Request.new(request_params)
+      request.destination_country_id = params[:request][:destination_country_id].to_i  if params[:request][:destination_country_id] != 'NULL'
       request.set_state(params[:request][:request_state])
       request.country_id = request.user.country.id
       if request.save
@@ -119,6 +120,8 @@ module Api::V1
     
     def update
       @request.set_state(params[:request][:request_state])
+      @request.destination_country_id =  params[:request][:destination_country_id].to_i
+      params[:request][:destination_country_id] == 'NULL' ? @request.destination_country_id = nil : @request.destination_country_id = params[:request][:destination_country_id].to_i 
       if @request.update(request_params)
         UserNotifierMailer.notification_new_request_boss(@request).deliver if @request.request_state.name == 'envoy'
         total_request = 0
@@ -180,7 +183,7 @@ module Api::V1
     end
 
     def request_params
-      params.require(:request).permit(:id, :category_id, :description, :user_id, :society_id, :divisa_id, :is_local, :destination_country_id, :bank_account_details, :payment_method_id, files: [])
+      params.require(:request).permit(:id, :category_id, :description, :user_id, :society_id, :divisa_id, :is_local, :bank_account_details, :payment_method_id, files: [])
     end
   end
 end
