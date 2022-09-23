@@ -121,6 +121,7 @@ module Api::V1
     def update
       @request.set_state(params[:request][:request_state])
       @request.destination_country_id =  params[:request][:destination_country_id].to_i
+      params[:request][:destination_country_id] == 'NULL' ? @request.destination_country_id = nil : @request.destination_country_id = params[:request][:destination_country_id].to_i 
       if @request.update(request_params)
         UserNotifierMailer.notification_new_request_boss(@request).deliver if @request.request_state.name == 'envoy'
         total_request = 0
