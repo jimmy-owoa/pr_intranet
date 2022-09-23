@@ -23,7 +23,7 @@ module Api::V1
 
     def create
       request = ExpenseReport::Request.new(request_params)
-      request.destination_country_id =  params[:request][:destination_country_id].to_i
+      request.destination_country_id = params[:request][:destination_country_id].to_i  if params[:request][:destination_country_id] != 'NULL'
       request.set_state(params[:request][:request_state])
       request.country_id = request.user.country.id
       if request.save
