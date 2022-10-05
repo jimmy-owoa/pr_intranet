@@ -261,6 +261,18 @@ class General::User < ApplicationRecord
     distance_of_time_in_words(average_time)
   end
 
+  def get_supervisor_full_name
+    get_supervisor.try(:full_name)
+  end
+
+  def get_supervisor_email
+    get_supervisor.try(:email)
+  end
+
+  def get_supervisor
+    General::User.where(id_exa: supervisor).last || General::User.where(email: 'Felipe.Gumucio@cgcompass.com').last
+  end
+
   private
 
   def set_data_attributes(attr_name, attr_value)
