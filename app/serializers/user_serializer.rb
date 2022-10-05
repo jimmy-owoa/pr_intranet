@@ -26,7 +26,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def supervisor
-    object.get_name_supervisor
+    object.get_supervisor_full_name
   end
 
   def society

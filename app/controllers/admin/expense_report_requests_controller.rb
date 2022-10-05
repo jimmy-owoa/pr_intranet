@@ -24,7 +24,7 @@ module Admin
 
     def show
       #authorize @request, :show?
-      @supervisor = @request.user.get_name_supervisor
+      @supervisor = @request.user.get_supervisor_full_name
     end
 
     def update

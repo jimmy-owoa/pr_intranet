@@ -118,7 +118,7 @@ module Api::V1
     def search
       if params[:search].present? && params[:search].length > 2
         users = General::User.select(:id, :name, :last_name, :last_name2, :email, :legal_number, :country_id, :supervisor, :society_id).search(params[:search]).order(:name, :last_name, :last_name2)
-        results = users.map {|u| { id: u.id, name: u.name + " " + u.last_name + " " + u.last_name2, society: u.society_id, email: u.email,legal_number: u.legal_number, country: u.country.name, supervisor: u.get_name_supervisor}}
+        results = users.map {|u| { id: u.id, name: u.name + " " + u.last_name + " " + u.last_name2, society: u.society_id, email: u.email,legal_number: u.legal_number, country: u.country.name, supervisor: u.get_supervisor_full_name}}
         render json: { success: true, users: results }, status: :ok
       else
         render json: { success: false, message: "Error" }, status: :unprocessable_entity

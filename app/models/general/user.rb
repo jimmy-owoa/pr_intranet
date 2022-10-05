@@ -261,20 +261,16 @@ class General::User < ApplicationRecord
     distance_of_time_in_words(average_time)
   end
 
-  def get_name_supervisor
-    if self.supervisor.present? 
-      General::User.find_by(id_exa: supervisor).full_name
-    else
-      General::User.find_by(email: 'Felipe.Gumucio@cgcompass.com').full_name
-    end
+  def get_supervisor_full_name
+    get_supervisor.try(:full_name)
   end
 
-  def get_email_supervisor
-    if self.supervisor.present?
-      General::User.find_by(id_exa: supervisor).email
-    else
-      'Felipe.Gumucio@cgcompass.com'
-    end
+  def get_supervisor_email
+    get_supervisor.try(:email)
+  end
+
+  def get_supervisor
+    General::User.where(id_exa: supervisor).last || General::User.where(email: 'Felipe.Gumucio@cgcompass.com').last
   end
 
   private
