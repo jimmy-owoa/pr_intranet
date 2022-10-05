@@ -120,7 +120,7 @@ class UserNotifierMailer < ApplicationMailer
   # notificacion al supervisor para poder aprobar o rechazar una rendición
   def notification_new_request_boss(request) 
     @request = request
-    email_boss = General::User.find_by(id_exa: @request.user.id_exa_boss).email
+    email_boss = @request.user.get_email_supervisor
     #encrypt
     key = Rails.application.credentials[:secret_key_base][0..31]
     crypt = ActiveSupport::MessageEncryptor.new(key)
@@ -139,7 +139,7 @@ class UserNotifierMailer < ApplicationMailer
 
   # notificacion para el supervisor, aprobo una rendicion
   def notification_request_approved_to_boss(request)
-    email_boss = General::User.find_by(id_exa: request.user.id_exa_boss).email
+    email_boss = request.user.get_email_supervisor
     @request = request
     mail(to: email_boss, subject: 'Has aprobado una rendición de gastos')
   end
@@ -155,7 +155,7 @@ class UserNotifierMailer < ApplicationMailer
   def notification_new_request(request)
     emails = request.country.assistants.map(&:email)
     @request = request
-    @boss_name = General::User.find_by(id_exa: request.user.id_exa_boss).full_name
+    @boss_name = request.user.get_name_supervisor
     mail(to: emails, subject: "Nueva Rendición de gastos #{@request.id}")
   end
 
@@ -167,7 +167,7 @@ class UserNotifierMailer < ApplicationMailer
   end
   # notificacion para el supervisor - rechazo una rendicion de gastos
   def notification_request_rejected_to_boss(request)
-    email_boss = General::User.find_by(id_exa: request.user.id_exa_boss).email
+    email_boss = request.user.get_email_supervisor
     @request = request
     mail(to: email_boss, subject: "Rendición de gastos rechazada")
   end

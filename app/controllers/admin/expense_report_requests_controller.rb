@@ -24,11 +24,7 @@ module Admin
 
     def show
       #authorize @request, :show?
-      if @request.user.id_exa_boss.present? 
-        @supervisor = General::User.find_by(id_exa: @request.user.id_exa_boss).full_name
-      else
-        @supervisor = 'sin jefe'
-      end
+      @supervisor = @request.user.get_name_supervisor
     end
 
     def update

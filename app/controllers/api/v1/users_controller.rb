@@ -117,8 +117,8 @@ module Api::V1
 
     def search
       if params[:search].present? && params[:search].length > 2
-        users = General::User.select(:id, :name, :last_name, :last_name2, :email, :legal_number, :country_id, :id_exa_boss, :society_id).search(params[:search]).order(:name, :last_name, :last_name2)
-        results = users.map {|u| { id: u.id, name: u.name + " " + u.last_name + " " + u.last_name2, society: u.society_id, email: u.email,legal_number: u.legal_number, country: u.country.name, id_exa_boss: General::User.find_by(id_exa: u.id_exa_boss).present? ? General::User.find_by(id_exa: u.id_exa_boss).full_name : 'Sin Supervisor'}}
+        users = General::User.select(:id, :name, :last_name, :last_name2, :email, :legal_number, :country_id, :supervisor, :society_id).search(params[:search]).order(:name, :last_name, :last_name2)
+        results = users.map {|u| { id: u.id, name: u.name + " " + u.last_name + " " + u.last_name2, society: u.society_id, email: u.email,legal_number: u.legal_number, country: u.country.name, supervisor: u.get_name_supervisor}}
         render json: { success: true, users: results }, status: :ok
       else
         render json: { success: false, message: "Error" }, status: :unprocessable_entity
@@ -152,7 +152,7 @@ module Api::V1
     def user_params
       params.permit(
         :id_exa, :legal_number, :name, :last_name,
-        :last_name2, :email, :office_addres, :position, :id_exa_boss
+        :last_name2, :email, :office_addres, :position, :id_exa_boss, :supervisor
       )
     end
     def payment_account 
