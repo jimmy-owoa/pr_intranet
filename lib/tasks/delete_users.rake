@@ -7,7 +7,7 @@ namespace :users do
     start_time = Time.now
     puts "------------- Inicio #{Date.today.strftime('%FT%T')} -------------"
     users_to_deleted = General::User.where('updated_at < ?', Date.today)
-    if users_to_deleted.count > 100
+    if users_to_deleted.count > 50
       puts "------------- La tarea no se ejecuto, numero de usuarios #{users_to_deleted.count} -------------"
     else
       puts "------------- Se eliminaron los siguientes usuarios:  -------------"
@@ -21,4 +21,3 @@ namespace :users do
     puts "------------- Tiempo de ejecución: #{(end_time - start_time).round(2)} segundos -------------"
   end
 end
-  
