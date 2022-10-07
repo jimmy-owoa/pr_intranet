@@ -43,9 +43,10 @@ module Admin
 
     def show
       authorize @ticket, :show?
+      @user = General::User.with_deleted.find(@ticket.user_id)
       @message = Helpcenter::Message.new
       @messages = @ticket.chat_messages
-      @supervisor = General::User.find_by(id_exa: @ticket.user.id_exa_boss).full_name
+      @supervisor = General::User.where(id_exa: @user.id_exa_boss).last.try(:full_name)
     end
 
     def take_ticket
