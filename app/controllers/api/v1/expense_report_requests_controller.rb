@@ -84,7 +84,7 @@ module Api::V1
       request = ExpenseReport::Request.find(params[:request][1].to_i)
       if response == 'true' && request.request_state.name == 'envoy'
         request.update(request_state_id: ExpenseReport::RequestState.find_by(name: 'approved').id)
-        UserNotifierMailer.notification_new_request(request).deliver
+        UserNotifierMailer.notification_new_request(request).deliver if request.country.assistants.map(&:email).present?
         UserNotifierMailer.notification_request_approved_to_user(request).deliver
         UserNotifierMailer.notification_request_approved_to_boss(request).deliver
         render json: { message: "true" }, status: :ok
