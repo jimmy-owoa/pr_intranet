@@ -52,10 +52,14 @@ module Api::V1
       # comprobar si el request esta expirado y enviar correos
       result = ExpenseReport::Request.request_boss_notifications(approved_to_review)
       invoices = []
+      request_files = []
+      result[:request].files.each_with_index do |f, index|
+        request_files << {id: index + 1, url: root_url + rails_blob_path(f, disposition: "attachment")}
+      end
       result[:request].invoices.each do |i|
         files = []
         i.files.each do |file|
-          files << root_url + rails_blob_path(file, disposition: "attachment") 
+          files << root_url + rails_blob_path(file, disposition: "attachment")
         end
         invoices << {
           invoice: i,
@@ -66,7 +70,7 @@ module Api::V1
       if  result[:state] == "link_expired" || result[:request].request_state.name != 'envoy'
         render json: { message: "Link expired", success: true, request: result[:request], user: result[:user],request_date: result[:request_date]}, status: :ok
       else
-        render json: { message: "request", success: true, invoices: invoices ,request: result[:request], user: result[:user], request_date: result[:request_date] }, status: :ok
+        render json: { message: "request", success: true,files: request_files, invoices: invoices ,request: result[:request], user: result[:user], request_date: result[:request_date] }, status: :ok
       end 
     end
     
