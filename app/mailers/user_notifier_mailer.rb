@@ -151,6 +151,13 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email_user, subject: 'Solicitud de rendición aprobada')
   end
 
+  # notificacion para el usuario, cuando el resolutor toma el caso
+  def notification_request_attended(request)
+    email_user = request.user.email
+    @request = request
+    mail(to: email_user, subject: 'Resolutor está gestionando su rendición')
+  end
+
   # notificacion a los assistentes de la rendición 
   def notification_new_request(request)
     emails = request.country.assistants.map(&:email)

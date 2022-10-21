@@ -48,6 +48,7 @@ module Admin
       params[:take_request] == 'true' ? assistant = current_user.id :  assistant = nil
       respond_to do |format|
         if @request.update(assistant_id: assistant, request_state_id: ExpenseReport::RequestState.find_by(name: state).id)
+          UserNotifierMailer.notification_request_attended(@request).deliver if state == 'attended'
           ExpenseReport::RequestHistory.create(user_id: current_user, request_id: @request.id, request_state_id: ExpenseReport::RequestState.find_by(name: state).id)
           format.html { redirect_to admin_expense_report_request_path(@request), notice: "Rendición actualizada con éxito." }
           format.json { render :show, status: :ok, location: @request }
