@@ -34,6 +34,8 @@ class General::User < ApplicationRecord
   has_many :accounts, class_name: 'Payment::Account', foreign_key: :user_id
   has_many :requests, class_name: 'ExpenseReport::Request', foreign_key: :user_id
   has_many :request_histories, class_name: 'ExpenseReport::RequestHistory', foreign_key: :user_id
+  has_many :cost_center_users, class_name: 'General::CostCenterUser', foreign_key: :user_id
+  has_many :cost_centers, class_name: 'Company::CostCenter', through: :cost_center_users
 
   # callbacks
   after_create :assign_default_role, :image_resize
