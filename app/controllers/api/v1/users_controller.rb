@@ -53,6 +53,7 @@ module Api::V1
 
     def update_user
       params[:email] = @user.email if params[:email].blank?
+      set_cost_centers
       begin
         if @user.update(user_params)
           @user.touch(:updated_at)
@@ -78,7 +79,7 @@ module Api::V1
     def create_user
       @user = General::User.new(user_params)
       @user.email = set_email if @user.email.blank?
-      
+      set_cost_centers
       begin
         if @user.save
           @user.accounts.create(payment_account)
@@ -124,6 +125,22 @@ module Api::V1
         render json: { success: false, message: "Error" }, status: :unprocessable_entity
       end
     end
+
+    def set_cost_centers
+      if params[:cost_centers].present?
+        params[:cost_centers].each do |cost_center|
+          if !@user.cost_centers.map {|c| c.id_exa }.include?(cost_center[:id_exa].to_i) 
+            @user.cost_centers << Company::CostCenter.where(id_exa: cost_center[:id_exa], name: cost_center[:name]).first_or_create
+          end
+        end
+      end
+        # eliminar los cc que no vienen en el json
+      ids_exa = @user.cost_centers.map {|c| c.id_exa } - params[:cost_centers].map { |c| c[:id_exa].to_i }
+      if ids_exa.present? 
+        ids_cost_centers = Company::CostCenter.where(id_exa: ids_exa).map {|c| c.id}
+        @user.cost_center_ids = @user.cost_center_ids - ids_cost_centers
+      end
+    end
     
     private
 
@@ -152,7 +169,7 @@ module Api::V1
     def user_params
       params.permit(
         :id_exa, :legal_number, :name, :last_name,
-        :last_name2, :email, :office_addres, :position, :id_exa_boss, :supervisor
+        :last_name2, :email, :office_addres, :position, :id_exa_boss, :supervisor, :cost_centers
       )
     end
     def payment_account 
