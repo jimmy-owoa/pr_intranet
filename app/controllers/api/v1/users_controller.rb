@@ -128,17 +128,12 @@ module Api::V1
 
     def set_cost_centers
       if params[:cost_centers].present?
+        user_cost_centers = []
         params[:cost_centers].each do |cost_center|
-          if !@user.cost_centers.map {|c| c.id_exa }.include?(cost_center[:id_exa].to_i) 
-            @user.cost_centers << Company::CostCenter.where(id_exa: cost_center[:id_exa], name: cost_center[:name]).first_or_create
-          end
+          temp_cc = Company::CostCenter.where(id_exa: cost_center[:id_exa], name: cost_center[:name]).first_or_create
+          user_cost_centers << General::CostCenterUser.where(percentage: cost_center[:percentage], cost_center_id: temp_cc.id ).first_or_create 
         end
-      end
-        # eliminar los cc que no vienen en el json
-      ids_exa = @user.cost_centers.map {|c| c.id_exa } - params[:cost_centers].map { |c| c[:id_exa].to_i }
-      if ids_exa.present? 
-        ids_cost_centers = Company::CostCenter.where(id_exa: ids_exa).map {|c| c.id}
-        @user.cost_center_ids = @user.cost_center_ids - ids_cost_centers
+        @user.cost_center_users = user_cost_centers
       end
     end
     
