@@ -21,10 +21,12 @@ module Admin
       #authorize @request, :show?
       @users = General::User.all.map { |u| [u.full_name, u.id] }
     end
-
+    
     def show
       #authorize @request, :show?
       @supervisor = @request.user.get_supervisor_full_name
+      @start_chat = params[:start_chat] if params[:start_chat].present?
+      @chat_messages = Chat::Room.where(resource_type: 'ExpenseReport::Request', resource_id: @request.id).last.try(:messages) || []
     end
 
     def update

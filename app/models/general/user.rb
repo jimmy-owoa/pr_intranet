@@ -36,6 +36,7 @@ class General::User < ApplicationRecord
   has_many :request_histories, class_name: 'ExpenseReport::RequestHistory', foreign_key: :user_id
   has_many :cost_center_users, class_name: 'General::CostCenterUser', foreign_key: :user_id
   has_many :cost_centers, class_name: 'Company::CostCenter', through: :cost_center_users
+  has_many :messages, class_name: 'Chat::Message', foreign_key: :user_id
 
   # callbacks
   after_create :assign_default_role, :image_resize
