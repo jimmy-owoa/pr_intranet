@@ -1,0 +1,56 @@
+<%= f.error_notification request: f.object.errors[:request].to_sentence %>
+
+<div class="form-group row">
+  <div class="col-sm-7">
+    <div class="row">
+      <% if current_user.is_admin? %>
+        <div class="col-12 col-md-12 m-1">
+          <% selected_value = @request.user_id.present? ? @request.user_id : nil %>
+          <%= f.label "Nombre de usuario *" %><br>
+          <%= f.select :user_id, options_for_select(@users.sort, selected_value), include_blank: true, multiple: false %><br/>
+
+          <% f.object.errors.messages[:user].each do |message| %>
+            <p class="text-danger mb-2"><%= message %></p>
+          <% end %>
+        </div>
+
+        <div class="col-12 col-md-12 m-1">
+          <%= f.input :description, as: :text, required: true %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= f.submit 'Actualizar', :class => 'btn btn-primary' %>
+
+<script>
+$(document).on("turbolinks:load", function() {
+  $("#request_category_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Categoría",
+    width: "100%"
+  });
+
+  $("#request_subcategory_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Subcategoría",
+    width: "100%"
+  });
+
+  $("#request_user_id").select2({
+    tags: false,
+    placeholder: "Seleccionar Usuario",
+    width: "100%"
+  });
+});
+
+function update_request_subscategories(category_id) {  
+  jQuery.ajax({
+    url: `/admin/helpcenter_requests/subcategories`,
+    type: "GET",
+    data: { "category_id": category_id },
+    dataType: "script"
+  });
+}
+</script>

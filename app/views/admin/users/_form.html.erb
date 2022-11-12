@@ -29,13 +29,13 @@
         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <%= f.input :position %>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
           <% selected_value = @user.country_id || "" %>
           <%= f.label "Oficina" %>
           <%= f.select :country_id, options_for_select(Location::Country.all.map{|country| [country.name, country.id]}, selected_value), {}, class:' form-control string' %>
         </div>
 
-        <div class="col-4 col-sm-3">
+        <div class="col-2 col-sm-2">
           <%= f.label :active %>
           <%= f.input :active, as: :boolean, label: false %>
         </div>
@@ -52,13 +52,22 @@
         </div>
       </div>
       <%= f.file_field :image, accept:'image/*', class: 'user_image' %>
+    </div>
+    <div class="col-12">
       <div class="row">
-        <div class="col-sm-6 col-md-12 col-lg-12 col-xl-12 scrollDiv">
-          <p>Roles</p>
-          <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: nil), as: :check_boxes, label_method: :label_name %>
-          <p>Centro de ayuda</p>
-          <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: Helpcenter::Category), as: :check_boxes, label_method: lambda { |owner |"#{owner.name} #{owner.resource.profile.name}"} %> 
+        <div class="col-12">
+          <h3>Asignar Roles</h3>
         </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
+            <p>Roles</p>
+            <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: nil), as: :check_boxes, label_method: :label_name %>
+            <p>Centro de ayuda</p>
+            <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: Helpcenter::Category), as: :check_boxes, label_method: lambda { |owner |"#{owner.name} #{owner.resource.profile.name}"} %> 
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 scrollDiv">
+            <p>Roles Rendición de gastos</p>
+            <%= f.association :roles, legend_tag: false, collection: Role.where(resource_type: Location::Country), as: :check_boxes, label_method: lambda { |owner |"#{owner.name} "} %> 
+          </div>
       </div>
     </div>
   </div>

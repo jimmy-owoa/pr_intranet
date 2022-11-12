@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :full_name, :last_name, :image, :legal_number, :country, :id_exa_boss
+  attributes :id, :email, :name, :full_name, :last_name, :image, :legal_number, :country, :id_exa_boss, :society, :supervisor
 
   def country
     object.country.name
@@ -24,4 +24,12 @@ class UserSerializer < ActiveModel::Serializer
   def id_exa_boss
     General::User.find_by(id_exa: object.id_exa_boss).full_name
   end
+
+  def supervisor
+    object.get_supervisor_full_name
+  end
+
+  def society
+    object.society.id if object.society.present?
+  end 
 end

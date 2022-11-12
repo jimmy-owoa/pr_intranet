@@ -1,15 +1,2 @@
 <p>Se ha ingresado una nueva solicitud de Rendición de gastos</p>
-<p><b>Nombre: </b><%= @ticket.user.full_name %> </p>
-<p><b>Codigo: </b><%= @ticket.user.legal_number %> </p>
-<p><b>Subcategoría: </b> <%= @subcategory.name  %></p>
-<p><b>Subtotal: </b> <%= @ticket.currency_type %> <%= @ticket.amount  %></p>
-<p>
-  <b>Descripción: </b><%= @ticket.description %>
-</p>
-  <%= link_to 'Aprobar', @link_true %>
-  <%= link_to 'Rechazar', @link_false %>
-
-  <P>Archivos adjuntos por el usuario: </P>
-  <%= @files.each_with_index do |file, index| %>
-    <%= link_to  `Archivo #{ index + 1}`, file %>
-  <% end %> 
+<p>Para revisarlo ingresa <%= link_to 'aquí', @link_index %> </p>

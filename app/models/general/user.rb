@@ -21,14 +21,21 @@ class General::User < ApplicationRecord
   has_many :user_attributes, class_name: "General::UserAttribute", foreign_key: :user_id, inverse_of: :user
 
   belongs_to :country, class_name: "Location::Country", inverse_of: :users, optional: true
+  belongs_to :society, class_name: "General::Society", inverse_of: :users, optional: true
 
   devise :trackable, :timeoutable, :database_authenticatable, :omniauthable, :recoverable 
 
   has_many :tickets, class_name: 'Helpcenter::Ticket', foreign_key: :user_id
   has_many :tickets_attended, class_name: 'Helpcenter::Ticket', foreign_key: :assistant_id
+  has_many :requests_assistant, class_name: 'ExpenseReport::Request', foreign_key: :assistant_id
   has_many :chat_messages, class_name: 'Helpcenter::Message', foreign_key: :user_id
   has_many :satisfaction_answers, class_name: 'Helpcenter::SatisfactionAnswer', foreign_key: :user_id
   has_many :ticket_histories, class_name: 'Helpcenter::TicketHistory', foreign_key: :user_id
+  has_many :accounts, class_name: 'Payment::Account', foreign_key: :user_id
+  has_many :requests, class_name: 'ExpenseReport::Request', foreign_key: :user_id
+  has_many :request_histories, class_name: 'ExpenseReport::RequestHistory', foreign_key: :user_id
+  has_many :cost_center_users, class_name: 'General::CostCenterUser', foreign_key: :user_id
+  has_many :cost_centers, class_name: 'Company::CostCenter', through: :cost_center_users
 
   # callbacks
   after_create :assign_default_role, :image_resize
@@ -254,6 +261,18 @@ class General::User < ApplicationRecord
     times = tickets.map {|t| t.closed_at - t.created_at}
     average_time = times.sum / times.size
     distance_of_time_in_words(average_time)
+  end
+
+  def get_supervisor_full_name
+    get_supervisor.try(:full_name)
+  end
+
+  def get_supervisor_email
+    get_supervisor.try(:email)
+  end
+
+  def get_supervisor
+    General::User.where(id_exa: supervisor).last || General::User.where(email: 'Felipe.Gumucio@cgcompass.com').last
   end
 
   private

@@ -50,6 +50,12 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email, subject: "Encuesta Asignada")
   end
 
+  def organization_charts_error(error)
+    @error = error
+    ti_users = ["jeremias@exaconsultores.cl", "christopher@exa.cl", "pedro@exa.cl"]
+    mail(to: ti_users.first, cc: ti_users[1..-1], subject: 'Error en Organización Organigramas')
+  end
+
   def notification_new_ticket(ticket, user)
     emails = ticket.subcategory.category.assistants.map(&:email)
     @ticket = ticket
@@ -57,22 +63,6 @@ class UserNotifierMailer < ApplicationMailer
     @user = user
     @subcategory = @ticket.subcategory
     mail(to: emails, subject: "Nuevo Caso #{@subcategory.category.name}")
-  end
-
-  def notification_new_ticket_boss(ticket, user) 
-    @files = ticket.files.map {|file| url_for(file)}
-    boss = General::User.find_by(id_exa: ticket.user.id_exa_boss)
-    email = boss.email
-    @ticket = ticket
-    @subcategory = @ticket.subcategory
-    #encrypt
-    key = Rails.application.credentials[:secret_key_base][0..31]
-    crypt = ActiveSupport::MessageEncryptor.new(key)
-    @encrypted_data_approved_false = Base64.strict_encode64(crypt.encrypt_and_sign({ticket_id: @ticket.id, aproved_to_review: false}))
-    @encrypted_data_approved_true = Base64.strict_encode64(crypt.encrypt_and_sign({ticket_id: @ticket.id, aproved_to_review: true}))
-    @link_false = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_false}"
-    @link_true = "https://ayudacompass.redexa.cl/tickets/review/#{@encrypted_data_approved_true}"
-    mail(to: email, subject: 'Nueva rendición de gastos por aprobar')
   end
 
   def notification_ticket_approved_to_boss(ticket, user)
@@ -123,5 +113,74 @@ class UserNotifierMailer < ApplicationMailer
     @ticket = ticket
     @subcategory = @ticket.subcategory
     mail(to: ticket.user.email, subject: "Caso ##{ticket.id} ha sido resuelto")
+  end
+
+  # notificaciones rendicion de gastos
+
+  # notificacion al supervisor para poder aprobar o rechazar una rendición
+  def notification_new_request_boss(request) 
+    @request = request
+    email_boss = @request.user.get_supervisor_email
+    #encrypt
+    key = Rails.application.credentials[:secret_key_base][0..31]
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    @encrypted_data = Base64.strict_encode64(crypt.encrypt_and_sign({id: @request.id}))
+    @user = @request.user.full_name
+    @link_index = "https://ayudacompass.redexa.cl/rendicion-gastos/review/#{@encrypted_data }"
+    mail(to: email_boss, subject: 'Nueva rendición de gastos por aprobar')
+  end
+
+  # notificacion al usuario cuando un tercero crea una rendición
+  def notification_new_request_user(request)
+    @request = request
+    email = @request.user.email
+    mail(to: email, subject: 'Nueva rendición de gastos')
+  end
+
+  # notificacion para el supervisor, aprobo una rendicion
+  def notification_request_approved_to_boss(request)
+    email_boss = request.user.get_supervisor_email
+    @request = request
+    mail(to: email_boss, subject: 'Has aprobado una rendición de gastos')
+  end
+
+  # notificacion para el usuario, rendicicion aprobada por el supervisor
+  def notification_request_approved_to_user(request)
+    email_user = request.user.email
+    @request = request
+    mail(to: email_user, subject: 'Solicitud de rendición aprobada')
+  end
+
+  # notificacion para el usuario, cuando el resolutor toma el caso
+  def notification_request_attended(request)
+    email_user = request.user.email
+    @request = request
+    mail(to: email_user, subject: 'Resolutor está gestionando su rendición')
+  end
+
+  # notificacion a los assistentes de la rendición 
+  def notification_new_request(request)
+    emails = request.country.assistants.map(&:email)
+    @request = request
+    @boss_name = request.user.get_supervisor_full_name
+    mail(to: emails, subject: "Nueva Rendición de gastos #{@request.id}")
+  end
+
+  # notificacion para el usuarío - rendicion rechazada por el supervisor
+  def notification_request_rejected(request)
+    email = request.user.email
+    @request = request
+    mail(to: email, subject: "Rendición de gastos rechazada")
+  end
+  # notificacion para el supervisor - rechazo una rendicion de gastos
+  def notification_request_rejected_to_boss(request)
+    email_boss = request.user.get_supervisor_email
+    @request = request
+    mail(to: email_boss, subject: "Rendición de gastos rechazada")
+  end
+  # rendicion cerrada 
+  def notification_request_close(request)
+    @request = request
+    mail(to: request.user.email, subject: "Caso ##{request.id} ha sido resuelto")
   end
 end
