@@ -157,7 +157,7 @@ module Api::V1
         @user = General::User.with_deleted.find_by(id_exa: id_exa)
       rescue => error
         create_log_report(request.url, params, error, "Error!", "Error en find_user")
-        render json: { success: true, error: "Error" }, status: :unauthorized
+        render json: { success: false, error: "Error" }, status: :unauthorized
       end
     end
 

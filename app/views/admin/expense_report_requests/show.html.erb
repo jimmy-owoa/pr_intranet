@@ -47,53 +47,74 @@
               </ul>
             </div>
           </div>
-          <% if @request.payment_method_id != 'Transferencia bancaria moneda local' %>
-            <div class="col-sm-6">
-              <div class="card post_card">
-                <div class="card-header">
-                  <h3 class="card-title">Datos de nueva cuenta bancaria</h3><br/>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <% if @request.payment_method_id != 'Transferencia bancaria moneda local' %>
+                    <div class="card post_card">
+                      <div class="card-header">
+                        <h3 class="card-title">Datos de nueva cuenta bancaria</h3><br/>
+                      </div>
+                      <ul>
+                        <li>
+                          <p><%= @request.bank_account_details%></p>
+                        </li>
+                      </ul>
+                    </div>
+                <%else%>
+                    <div class="card post_card">
+                      <div class="card-header">
+                        <h3 class="card-title">Cuenta de abono</h3>
+                      </div>
+                      <ul>
+                        <% if @request.user.accounts.present?%>
+                          <li>
+                            <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
+                          </li>
+                          <li>
+                            <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
+                          </li>
+                          <li>
+                            <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
+                          </li>
+                          <li>
+                            <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
+                          </li>
+                          <li>
+                            <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
+                          </li>
+                          <li>
+                            <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
+                          </li>
+                          <% else %>
+                            <li> Sin datos bancaríos</li>
+                          <% end %>
+                      </ul>
+                    </div>
+                <% end %>
+              </div>
+              <div class="col-12">
+                <div class="card post_card">
+                  <div class="card-header">
+                    <h3 class="card-title">Centro de costo</h3>
+                  </div>
+                  <ul>
+                    <% if @request.try(:user).try(:cost_centers).present?%>
+                      <% @request.try(:user).try(:cost_center_users).each do |cc|%>
+                        <li>
+                          <strong>Centro de costo:</strong> <%= cc.cost_center.name %>
+                          <strong>porcentaje:</strong> <%= cc.percentage %>
+                        </li>
+                      <% end %>
+  
+                      <% else %>
+                        <li> Sin Centro de Costo</li>
+                      <% end %>
+                  </ul>
                 </div>
-                <ul>
-                  <li>
-                    <p><%= @request.bank_account_details%></p>
-                  </li>
-                </ul>
               </div>
             </div>
-          <%else%>
-            <div class="col-sm-6">
-              <div class="card post_card">
-                <div class="card-header">
-                  <h3 class="card-title">Cuenta de abono</h3>
-                </div>
-                <ul>
-                  <% if @request.user.accounts.present?%>
-                    <li>
-                      <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
-                    </li>
-                    <li>
-                      <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
-                    </li>
-                    <li>
-                      <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
-                    </li>
-                    <li>
-                      <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
-                    </li>
-                    <li>
-                      <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
-                    </li>
-                    <li>
-                      <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
-                    </li>
-                    <% else %>
-                      <li> Sin datos bancaríos</li>
-                    <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-
+          </div>
           <div class="col-sm-12">
             <div class="card post_card">
               <div class="card-header">
