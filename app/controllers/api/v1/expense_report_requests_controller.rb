@@ -113,13 +113,36 @@ module Api::V1
     end
 
     def accounts
-      data = @request_user.accounts.last.filtered_account
-      render json: data, status: :ok
+      begin
+        user = General::User.find(params[:user_id])
+        data = user.accounts.last.try(:filtered_account)
+        render json: data, status: :ok
+      rescue => error 
+        render json: error, status: :unprocessable_entity
+      end
     end
 
     def payment_method
       data = ExpenseReport::Request::PAYMENT_METHOD
       render json: data, status: :ok
+    end
+
+    def request_user
+      @user = {
+        id: @request_user.id,
+        email: @request_user.try(:email),
+        country: @request_user.try(:email),
+        full_name: @request_user.get_full_name,
+        id_exa_boss: General::User.find_by(id_exa: @request_user.id_exa_boss).full_name,
+        last_name: @request_user.try(:last_name),
+        legal_number: @request_user.try(:legal_number),
+        name: @request_user.try(:name),
+        society: @request_user.try(:society).id,
+        supervisor: @request_user.get_supervisor_full_name,
+        accounts: @request_user.accounts.last.try(:filtered_account)
+    
+      }
+      render json: @user, status: :ok
     end
     
     def update
