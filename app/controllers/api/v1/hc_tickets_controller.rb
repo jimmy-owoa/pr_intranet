@@ -15,23 +15,13 @@ module Api::V1
 
     def create
       ticket = Helpcenter::Ticket.new(ticket_params)
-      if category_params["category_id"].to_i == Helpcenter::Category.find_by(name: 'Rendición de Gastos').id
-        ticket.aproved_to_review = false
-        if ticket.save
-          Helpcenter::TicketHistory.create(user_id: @request_user.id, ticket_id: ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
-          UserNotifierMailer.notification_new_ticket_boss(ticket, @request_user).deliver
-          render json: { message: "Ticket created", success: true }, status: :created
-        else
-          render json: { message: "Error", success: false }, status: :unprocessable_entity
-        end
+      ticket.user_id = @request_user.id
+      if ticket.save
+        Helpcenter::TicketHistory.create(user_id: @request_user.id, ticket_id: ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
+        UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
+        render json: { message: "Ticket created", success: true }, status: :created
       else
-        if ticket.save
-          Helpcenter::TicketHistory.create(user_id: @request_user.id, ticket_id: ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: 'open').id)
-          UserNotifierMailer.notification_new_ticket(ticket, @request_user).deliver
-          render json: { message: "Ticket created", success: true }, status: :created
-        else
-          render json: { message: "Error", success: false }, status: :unprocessable_entity
-        end
+        render json: { message: "Error", success: false }, status: :unprocessable_entity
       end
     end
 
