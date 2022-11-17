@@ -275,6 +275,10 @@ class General::User < ApplicationRecord
     General::User.where(id_exa: supervisor).last || General::User.where(email: 'Felipe.Gumucio@cgcompass.com').last
   end
 
+  def self.users_for_search
+    General::User.all.includes(:accounts).select(:id, :name, :last_name, :last_name2, :email, :legal_number, :country_id, :supervisor, :society_id)
+  end
+  
   private
 
   def set_data_attributes(attr_name, attr_value)
