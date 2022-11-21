@@ -44,6 +44,9 @@
                 <li>
                   <strong>Método de pago:</strong> <%= @request.payment_method_id%>
                 </li>
+                <li>
+                  <%= link_to ('Fecha de pago: ' + @payment_date), edit_admin_expense_report_request_path(@request), class: 'payment-date' %>
+                </li>
               </ul>
             </div>
           </div>

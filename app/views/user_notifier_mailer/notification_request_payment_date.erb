@@ -1,0 +1,5 @@
+<p>Hola,</p>
+<p>Se ha definido la siguinte fecha de pago para tu rendición de gastos n° <%= @request.id %></p>
+<p>Fecha de pago: <%= I18n.l(@request.try(:payment_date), format: "%A, %d de %B de %Y") %></p>
+
+<p>Muchas gracias.</p>
