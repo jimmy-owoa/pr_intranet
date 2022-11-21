@@ -173,45 +173,45 @@
                 <% end %>
               </div>
               <% if @request.assistant.present? && @request.assistant == current_user %>
-              <div class="card post_card">
-                <div class="card-header">
-                  <h3 class="card-title">Mensajes</h3>
-                </div>
+                <% if @chat_messages.present? || @start_chat%>
+                  <div class="card post_card">
+                    <div class="card-header">
+                      <h3 class="card-title">Mensajes</h3>
+                    </div>
                 <!-- inicio chat -->
-                <div class="container content-chat p-4">
-                  <% if @chat_messages.present? || @start_chat%>
-                    <div class="content-msg" id="scroll">
-                      <% @chat_messages.each do |message| %>
-                        <% if message.user == current_user %>
-                          <div class="row m-1 justify-content-end">
-                            <div class="col-4 bg-primary profile-content-resolutor text-white">
-                              <span><%= message.message %></span>
-                              <br>
-                              <% message.files.each do |file|%>
-                                <p class="m-1"><%= link_to "Descargar archivo", root_url + rails_blob_path(file, disposition: "attachment"), class: 'btn btn-white'%></p>
-                              <% end %>
-                              <br>
-                              <span style="font-size: 10px;"><%= distance_of_time_in_words(message.created_at, Time.now)  %></span>
-                            </div>
-                          </div>
-                          <% else %>
-                          <div class="row m-1">
-                            <div class="col-4 bg-white profile-content-user">
-                              <span><%= message.message %></span> 
-                              <br>
-                              <% if message.files.present? %>
+                    <div class="container content-chat p-4">
+                      <div class="content-msg" id="scroll">
+                        <% @chat_messages.each do |message| %>
+                          <% if message.user == current_user %>
+                            <div class="row m-1 justify-content-end">
+                              <div class="col-4 bg-primary profile-content-resolutor text-white">
+                                <span><%= message.message %></span>
+                                <br>
                                 <% message.files.each do |file|%>
-                                  <p class="m-1"><%= link_to "Descargar archivo", root_url + rails_blob_path(file, disposition: "attachment"), class: 'btn btn-primary'%></p>
+                                  <p class="m-1"><%= link_to "Descargar archivo", root_url + rails_blob_path(file, disposition: "attachment"), class: 'btn btn-white'%></p>
                                 <% end %>
-                              <% end %>
-                              <br>
-                              <span style="font-size: 10px;"><%= distance_of_time_in_words(message.created_at, Time.now)  %></span>
+                                <br>
+                                <span style="font-size: 10px;"><%= distance_of_time_in_words(message.created_at, Time.now)  %></span>
+                              </div>
                             </div>
-                          </div>
+                            <% else %>
+                            <div class="row m-1">
+                              <div class="col-4 bg-white profile-content-user">
+                                <span><%= message.message %></span> 
+                                <br>
+                                <% if message.files.present? %>
+                                  <% message.files.each do |file|%>
+                                    <p class="m-1"><%= link_to "Descargar archivo", root_url + rails_blob_path(file, disposition: "attachment"), class: 'btn btn-primary'%></p>
+                                  <% end %>
+                                <% end %>
+                                <br>
+                                <span style="font-size: 10px;"><%= distance_of_time_in_words(message.created_at, Time.now)  %></span>
+                              </div>
+                            </div>
                         <% end %>
                       <% end %>
                     </div>
-                    <% if  @request.try(:request_histories).last.request_state.code != 'resuelto'%>
+                    <% if @request.try(:request_histories).last.request_state.code != 'resuelto'%>
                       <div class="row mt-4">
                         <div class="col-12 p-3 bg-white">
                           <%= form_with url: admin_chat_messages_path(request_id: @request.id, resource_type: 'ExpenseReport::Request'), method: :post, model: @chat do |f| %>
@@ -232,12 +232,11 @@
                         </div>
                       </div>
                     <% end %>
-                  <% end %>
+                  </div>
+                  <!-- fin chat -->
                 </div>
-                <!-- fin chat -->
-              </div>
-              <%end%>
-            
+                <% end %>
+              <% end %>
             </div>
           </div>
           <br />
