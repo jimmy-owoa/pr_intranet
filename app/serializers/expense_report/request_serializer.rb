@@ -1,5 +1,5 @@
 class ExpenseReport::RequestSerializer < ActiveModel::Serializer
-  attributes :id, :total, :divisa_id, :description, :created_at, :closed_at, :status, :user,
+  attributes :id, :total, :divisa_id, :description, :created_at, :closed_at, :status, :user, :payment_date,
   :society_id, :request_state_id,:country_id, :is_local, :destination_country_id, :payment_method_id, :bank_account_details, :invoices, :files
   include Rails.application.routes.url_helpers
 
@@ -61,6 +61,14 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
 
   def destination_country_id
     ExpenseReport::Request.destination_country_ids[object.destination_country_id]
+  end
+
+  def payment_date
+    if object.try(:payment_date).present?
+      I18n.l(object.try(:payment_date), format: "%A, %d de %B de %Y") 
+    else
+      'No definida'
+    end
   end
   
   # def is_show?
