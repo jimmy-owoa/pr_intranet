@@ -4,7 +4,7 @@
   <div class="col-sm-7">
     <div class="row">
       <% if current_user.is_admin? %>
-        <div class="col-12 col-md-12 m-1">
+        <div class="col-12 col-md-4">
           <% selected_value = @request.user_id.present? ? @request.user_id : nil %>
           <%= f.label "Nombre de usuario *" %><br>
           <%= f.select :user_id, options_for_select(@users.sort, selected_value), include_blank: true, multiple: false %><br/>
@@ -18,6 +18,12 @@
           <%= f.input :description, as: :text, required: true %>
         </div>
       <% end %>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="col-12 col-md-6 col-sm-12">
+      <%= f.label "Fecha de pago" %><br>
+      <%= f.input :payment_date, as: :date, html5: true, label: false %>
     </div>
   </div>
 </div>

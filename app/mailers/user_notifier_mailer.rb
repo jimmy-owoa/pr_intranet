@@ -183,4 +183,9 @@ class UserNotifierMailer < ApplicationMailer
     @request = request
     mail(to: request.user.email, subject: "Caso ##{request.id} ha sido resuelto")
   end
+
+  def notification_request_payment_date(request)
+    @request = request
+    mail(to: request.user.email, subject: "Nueva fecha de pago para tu caso ##{request.id}")
+  end
 end
