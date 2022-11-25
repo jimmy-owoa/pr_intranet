@@ -98,19 +98,28 @@
                   <div class="card-header">
                     <h3 class="card-title">Centro de costo</h3>
                   </div>
-                  <ul>
-                    <% if @request.try(:user).try(:cost_centers).present?%>
-                      <% @request.try(:user).try(:cost_center_users).each do |cc|%>
-                        <li>
-                          <strong>Centro de costo:</strong> <%= cc.cost_center.name %>
-                          <strong>porcentaje:</strong> <%= cc.percentage %>
-                        </li>
-                      <% end %>
-  
-                      <% else %>
-                        <li> Sin Centro de Costo</li>
-                      <% end %>
-                  </ul>
+                  <% if @request.try(:user).try(:cost_centers).present?%>
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Nombre Centro de costo</th>
+                          <th scope="col">Porcentaje</th>
+                          <th scope="col">Oficina</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @request.try(:user).try(:cost_center_users).each do |cc|%>
+                        <tr>
+                            <td> <%= cc.cost_center.name %></td>
+                            <td><%= cc.percentage %>%</td>
+                            <td><%= cc.cost_center.try(:dependence) %></td>                      
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  <% else %>
+                    <li class="pl-4"> Sin Centro de Costo</li>
+                  <% end %>
                 </div>
               </div>
             </div>

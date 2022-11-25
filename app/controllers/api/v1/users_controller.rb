@@ -130,8 +130,8 @@ module Api::V1
       if params[:cost_centers].present?
         user_cost_centers = []
         params[:cost_centers].each do |cost_center|
-          temp_cc = Company::CostCenter.where(id_exa: cost_center[:id_exa], name: cost_center[:name]).first_or_create
-          user_cost_centers << General::CostCenterUser.where(percentage: cost_center[:percentage], cost_center_id: temp_cc.id ).first_or_create 
+          temp_cc = Company::CostCenter.where(name: cost_center[:name], dependence: cost_center[:dependence]).first_or_create
+          user_cost_centers << General::CostCenterUser.where(percentage: cost_center[:percentage], cost_center_id: temp_cc.id ).first_or_create
         end
         @user.cost_center_users = user_cost_centers
       end
