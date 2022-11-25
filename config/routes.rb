@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       put :close, on: :member
     end
     resources :expense_report_categories 
+    resource :chat_messages
+    resource :chat_rooms
 
     root to: "helpcenter_tickets#index"
   end
@@ -65,6 +67,7 @@ Rails.application.routes.draw do
         delete :destroy_file, on: :collection
         delete :destroy_invoice, on: :collection
       end
+      resources :chat_messages, param: :slug, only: [:create]
       
       resources :hc_categories, param: :slug, only: [:index, :show]
       resources :hc_subcategories, param: :slug, only: [:show]
