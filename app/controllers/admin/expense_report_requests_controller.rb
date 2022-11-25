@@ -27,12 +27,14 @@ module Admin
       @supervisor = @request.user.get_supervisor_full_name
       @start_chat = params[:start_chat] if params[:start_chat].present?
       @chat_messages = Chat::Room.where(resource_type: 'ExpenseReport::Request', resource_id: @request.id).last.try(:messages) || []
+      @payment_date = @request.try(:payment_date).present? ? @request.try(:payment_date).strftime("%d/%m/%Y") : 'Definir fecha de pago'
     end
 
     def update
       # authorize @request, :show?
       respond_to do |format|
         if @request.update(request_params)
+          UserNotifierMailer.notification_request_payment_date(@request).deliver if @request.payment_date.present? 
           format.html { redirect_to admin_expense_report_request_path(@request), notice: "request fue actualizado con éxito." }
           format.json { render :show, status: :ok, location: @request }
         else
@@ -86,7 +88,7 @@ module Admin
     end
 
     def request_params
-      params.require(:requet).permit(:name, :description, :subcategory_id, :category, :user_id, :take_ticket, files: [])
+      params.require(:requet).permit(:name, :description, :subcategory_id, :category, :user_id, :take_ticket, :payment_date, files: [])
     end
   end
 end
