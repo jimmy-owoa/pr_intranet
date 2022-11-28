@@ -184,6 +184,12 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: request.user.email, subject: "Caso ##{request.id} ha sido resuelto")
   end
 
+  # mensaje al usuario cuando el resolutor reponde a una rendición 
+  def notification_request_message(request)
+    @request = request
+    mail(to: request.user.email, subject: "Tu rendición ##{request.id}, tiene un nuevo mensaje")
+  end
+
   def notification_request_payment_date(request)
     @request = request
     mail(to: request.user.email, subject: "Nueva fecha de pago para tu caso ##{request.id}")

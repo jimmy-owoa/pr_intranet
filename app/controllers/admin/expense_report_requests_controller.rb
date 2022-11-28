@@ -20,10 +20,12 @@ module Admin
     def edit
       #authorize @request, :show?
     end
-
+    
     def show
       #authorize @request, :show?
       @supervisor = @request.user.get_supervisor_full_name
+      @start_chat = params[:start_chat] if params[:start_chat].present?
+      @chat_messages = Chat::Room.where(resource_type: 'ExpenseReport::Request', resource_id: @request.id).last.try(:messages) || []
       @payment_date = @request.try(:payment_date).present? ? @request.try(:payment_date).strftime("%d/%m/%Y") : 'Definir fecha de pago'
     end
 

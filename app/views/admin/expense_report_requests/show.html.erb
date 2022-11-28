@@ -50,53 +50,83 @@
               </ul>
             </div>
           </div>
-          <% if @request.payment_method_id != 'Transferencia bancaria moneda local' %>
-            <div class="col-sm-6">
-              <div class="card post_card">
-                <div class="card-header">
-                  <h3 class="card-title">Datos de nueva cuenta bancaria</h3><br/>
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <% if @request.payment_method_id != 'Transferencia bancaria moneda local' %>
+                    <div class="card post_card">
+                      <div class="card-header">
+                        <h3 class="card-title">Datos de nueva cuenta bancaria</h3><br/>
+                      </div>
+                      <ul>
+                        <li>
+                          <p><%= @request.bank_account_details%></p>
+                        </li>
+                      </ul>
+                    </div>
+                <%else%>
+                    <div class="card post_card">
+                      <div class="card-header">
+                        <h3 class="card-title">Cuenta de abono</h3>
+                      </div>
+                      <ul>
+                        <% if @request.user.accounts.present?%>
+                          <li>
+                            <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
+                          </li>
+                          <li>
+                            <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
+                          </li>
+                          <li>
+                            <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
+                          </li>
+                          <li>
+                            <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
+                          </li>
+                          <li>
+                            <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
+                          </li>
+                          <li>
+                            <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
+                          </li>
+                          <% else %>
+                            <li> Sin datos bancaríos</li>
+                          <% end %>
+                      </ul>
+                    </div>
+                <% end %>
+              </div>
+              <div class="col-12">
+                <div class="card post_card">
+                  <div class="card-header">
+                    <h3 class="card-title">Centro de costo</h3>
+                  </div>
+                  <% if @request.try(:user).try(:cost_centers).present?%>
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Nombre Centro de costo</th>
+                          <th scope="col">Porcentaje</th>
+                          <th scope="col">Oficina</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @request.try(:user).try(:cost_center_users).each do |cc|%>
+                        <tr>
+                            <td> <%= cc.cost_center.name %></td>
+                            <td><%= cc.percentage %>%</td>
+                            <td><%= cc.cost_center.try(:dependence) %></td>                      
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  <% else %>
+                    <li class="pl-4"> Sin Centro de Costo</li>
+                  <% end %>
                 </div>
-                <ul>
-                  <li>
-                    <p><%= @request.bank_account_details%></p>
-                  </li>
-                </ul>
               </div>
             </div>
-          <%else%>
-            <div class="col-sm-6">
-              <div class="card post_card">
-                <div class="card-header">
-                  <h3 class="card-title">Cuenta de abono</h3>
-                </div>
-                <ul>
-                  <% if @request.user.accounts.present?%>
-                    <li>
-                      <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
-                    </li>
-                    <li>
-                      <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
-                    </li>
-                    <li>
-                      <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
-                    </li>
-                    <li>
-                      <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
-                    </li>
-                    <li>
-                      <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
-                    </li>
-                    <li>
-                      <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
-                    </li>
-                    <% else %>
-                      <li> Sin datos bancaríos</li>
-                    <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-
+          </div>
           <div class="col-sm-12">
             <div class="card post_card">
               <div class="card-header">
@@ -154,26 +184,118 @@
                   </div>
                 <% end %>
               </div>
-            
-            </div>
-            </div>
-            <br />
-            <div class="container mt-5" align="center">
-              <%= link_to t("helpers.links.back"), admin_expense_report_requests_path, :class => 'btn btn-primary'  %>
-              <%= link_to "#{current_user.is_admin? ? 'Editar' : 'Recategorizar'}", edit_admin_expense_report_request_path(@request), :class => 'btn btn-primary' %>
-              <% if @request.assistant == current_user %>
+              <% if @request.assistant.present? && @request.assistant == current_user %>
+                <% if @chat_messages.present? || @start_chat%>
+                  <div class="card post_card">
+                    <div class="card-header">
+                      <h3 class="card-title">Mensajes</h3>
+                    </div>
+                <!-- inicio chat -->
+                    <div class="container content-chat p-4">
+                      <div class="content-msg" id="scroll">
+                        <% @chat_messages.each do |message| %>
+                          <% if message.user == current_user %>
+                            <div class="row m-1 justify-content-end">
+                              <div class="col-4 bg-primary profile-content-resolutor text-white">
+                                <span><%= message.message %></span>
+                                <br>
+                                <% message.files.each do |file|%>
+                                  <p class="m-1"><%= link_to "Descargar archivo", root_url + rails_blob_path(file, disposition: "attachment"), class: 'btn btn-white'%></p>
+                                <% end %>
+                                <br>
+                                <span style="font-size: 10px;"><%= distance_of_time_in_words(message.created_at, Time.now)  %></span>
+                              </div>
+                            </div>
+                            <% else %>
+                            <div class="row m-1">
+                              <div class="col-4 bg-white profile-content-user">
+                                <span><%= message.message %></span> 
+                                <br>
+                                <% if message.files.present? %>
+                                  <% message.files.each do |file|%>
+                                    <p class="m-1"><%= link_to "Descargar archivo", root_url + rails_blob_path(file, disposition: "attachment"), class: 'btn btn-primary'%></p>
+                                  <% end %>
+                                <% end %>
+                                <br>
+                                <span style="font-size: 10px;"><%= distance_of_time_in_words(message.created_at, Time.now)  %></span>
+                              </div>
+                            </div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <% if @request.try(:request_histories).last.request_state.code != 'resuelto'%>
+                      <div class="row mt-4">
+                        <div class="col-12 p-3 bg-white">
+                          <%= form_with url: admin_chat_messages_path(request_id: @request.id, resource_type: 'ExpenseReport::Request'), method: :post, model: @chat do |f| %>
+                            <div class="row">
+                              <div class="col-md-9 sm-12 mb-2" style="min-height:40px">
+                                <%= f.text_field :message, required: true, class: "write_msg", placeholder: "Ingresa una respuesta..." %>
+                              </div>
+                              <div class="col-md-3 sm-12" style="text-align: end; display:flex;">
+                                <button type="submit" class="btn btn-primary m-1">Responder</button>
+                              </div>
+                              <div class="col-md-9 sm-12">
+                                <div class="">
+                                  <%= f.file_field :files, multiple: true %>
+                                </div>
+                              </div>
+                            </div>
+                          <% end %>  
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                  <!-- fin chat -->
+                </div>
+                <% end %>
               <% end %>
-              <% if @request.assistant.nil? %>
-                <%= link_to "Tomar caso", take_request_admin_expense_report_request_path(@request, take_request: true), method: :put, class: 'btn btn-primary' %>
-              <% end %>
-              <% if @request.assistant == current_user %>
-              <%= link_to "Dejar caso", take_request_admin_expense_report_request_path(@request, take_ticket: false), method: :put, class: 'btn btn-primary' if @request.closed_at.nil? %>
-              <%= link_to "Marcar como resuelto",  close_admin_expense_report_request_path(@request), method: :put, class: 'btn btn-primary' if @request.closed_at.nil? %>
-            <% end %>
             </div>
           </div>
-        </section>
+          <br />
+          <div class="container mt-5" align="center">
+          <%= link_to t("helpers.links.back"), admin_expense_report_requests_path, :class => 'btn btn-primary'  %>
+          <%= link_to "#{current_user.is_admin? ? 'Editar' : 'Recategorizar'}", edit_admin_expense_report_request_path(@request), :class => 'btn btn-primary' %>
+          <% if @request.assistant.nil? %>
+            <%= link_to "Tomar caso", take_request_admin_expense_report_request_path(@request, take_request: true), method: :put, class: 'btn btn-primary' %>
+          <% end %>
+          <% if @request.assistant == current_user %>
+            <%= link_to "Dejar caso", take_request_admin_expense_report_request_path(@request, take_ticket: false), method: :put, class: 'btn btn-primary' if @request.closed_at.nil? %>
+            <%= link_to "Marcar como resuelto",  close_admin_expense_report_request_path(@request), method: :put, class: 'btn btn-primary' if @request.closed_at.nil? %>
+            <%= link_to 'Iniciar Conversación', admin_expense_report_request_path(@request, start_chat: 'true'), class: 'btn btn-success' if !@chat_messages.present? %>
+          <% end %>
+        </div>
       </div>
-      <style>
-      </style>
+    </section>
+  </div>
+  <style>
+    .content-chat{
+      background-color: #F4F2F5;
+      border-radius: 10px
+    }
+    .content-msg{
+      height: 200px;
+      overflow: auto;
+    }
+    .profile-content-resolutor{
+      border-radius: 10px 0px 10px 10px;
+      padding: 10px 5px;
+    }
+    .profile-content-user{
+      border-radius: 0px 10px 10px 10px;
+      padding: 10px 5px;
+    }
+    .write_msg{
+      border: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .btn-white{
+      color: black;
+      background-color: #F4F2F5;
+    }
+  </style>
+  <script>
+    var objDiv = document.getElementById("scroll");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  </script>
   
