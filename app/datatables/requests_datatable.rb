@@ -11,7 +11,7 @@ class RequestsDatatable < ApplicationDatatable
           {
             id: request.id,
             user: General::User.with_deleted.find(request.user_id).full_name,
-            office: request.user.country.name,
+            office: request.user.try(:country).try(:name),
             status: request.request_state.present? ? request.request_state.code : '',
             total_time: request.total_time,
             time_worked: request.time_worked,

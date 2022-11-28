@@ -3,6 +3,7 @@ module Api::V1
     before_action :set_request, only: [:show, :update]
     skip_before_action :set_current_user_from_header, only: [:review_request, :response_request]
     skip_before_action :verify_authenticity_token
+    include ActionView::Helpers::DateHelper
 
     def index
       status = params[:status].downcase
@@ -18,7 +19,35 @@ module Api::V1
     end
 
     def show
-      render json: @request, serializer: ExpenseReport::RequestSerializer, is_show: true, status: :ok
+     data_messages = []
+      data = []
+      messages = Chat::Room.where(resource_id: @request.id, resource_type: 'ExpenseReport::Request').last.try(:messages) || []
+      messages.each do |m|
+        files = []
+        m.files.each do |file|
+          files << root_url + rails_blob_path(file, disposition: "attachment")
+        end
+        data_messages << {
+          message: m.message,
+          user: m.user,
+          files: files,
+          created_at: distance_of_time_in_words(m.created_at, Time.now)
+        }
+      end
+
+      data = {
+        id: @request.id,
+        created_at: @request.created_at,
+        description: @request.description,
+        assistant: @request.assistant_id,
+        total: @request.total,
+        closed_at: @request.closed_at,
+        user: @request.user,
+        divisa_id: @request.divisa_id,
+        status: @request.request_state.code,
+        messages: data_messages
+      }
+      render json: data, is_show: true, status: :ok
     end
 
     def create
