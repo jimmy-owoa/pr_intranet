@@ -19,7 +19,6 @@ module Admin
 
     def edit
       #authorize @request, :show?
-      @users = General::User.all.map { |u| [u.full_name, u.id] }
     end
     
     def show
