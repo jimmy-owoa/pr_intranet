@@ -1,0 +1,15 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Lista de tickets") do |sheet|
+
+  sheet.add_row ['Id', 'Usuario', 'Fecha de creacion', 'Estado', 'Categoria', 'Oficina']
+
+  @tickets.each do |ticket|
+    sheet.add_row [ ticket.id,
+                    General::User.with_deleted.find(ticket.user_id).full_name,
+                    ticket.created_at,
+                    Helpcenter::Ticket::STATUS_ES[ticket.status],
+                    ticket.subcategory.present? ? ticket.subcategory.category.name : 'sin categoria',
+                    ticket.subcategory.present? ? ticket.subcategory.category.try(:profile).try(:name) : ''
+                    ]
+  end
+end

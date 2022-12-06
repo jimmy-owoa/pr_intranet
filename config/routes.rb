@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       put :take_ticket, on: :member
       put :close, on: :member
       resources :helpcenter_messages, on: :member, only: [:create]
+      get :tickets_list, on: :member
     end
     resources :expense_report_requests do
       put :take_request, on: :member
