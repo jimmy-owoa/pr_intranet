@@ -85,6 +85,16 @@ module Admin
       end
     end
 
+    def inbox
+      @status = params[:status]
+      @all_status= ExpenseReport::RequestState.where.not(name: ['draft', 'envoy', 'open']).map {|status| [status.code, status.id]}
+
+      respond_to do |format|
+        format.html
+        format.json { render json: InboxDatatable.new(view_context) }
+      end
+    end
+
     private
 
     def user_not_authorized

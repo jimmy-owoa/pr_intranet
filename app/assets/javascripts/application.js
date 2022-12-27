@@ -32,6 +32,7 @@
 //= require admin/helpcenter_questions
 //= require admin/helpcenter_categories
 //= require admin/helpcenter_tickets
+//= require admin/expense_report_inbox
 //= require admin/expense_report_requests
 //= require admin/expense_report_categories
 //= require admin/users_datatable

@@ -1,0 +1,40 @@
+<section class="section">
+    <h1 class="section-header"><%= "Inbox" %></h1>
+
+    <div class="card mb-0">
+      <%= form_tag('', method: 'get') do %>
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="row" style='margin-left: 10px;padding: 15px;'>
+              <%= select_tag(
+                  :status, 
+                  options_for_select(@all_status), 
+                  include_blank: 'Seleccionar', 
+                  class: 'custom-select',
+                  :onchange => 'request_filter_action()') 
+              %>
+              <%= button_tag "Buscar", class: "btn btn-primary btn-sm", id: 'request_filter', style: 'display: none' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  
+    <div class="card">
+      <div class="table-responsive-md">
+        <table class="table table-hover" id="inbox_table" data-source="<%= inbox_admin_expense_report_requests_path(format: :json) %>">
+          <thead class="thead">
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    function request_filter_action() {
+      document.getElementById("request_filter").click()
+    }
+  </script>
+  
