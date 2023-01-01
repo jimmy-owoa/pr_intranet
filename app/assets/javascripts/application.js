@@ -41,6 +41,7 @@
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require_self
+//= require admin/helpcenter_tickets_inbox
 
 dataConfirmModal.setDefaults({
   title: "¿Esta segura(o) que desea eliminar este elemento?",

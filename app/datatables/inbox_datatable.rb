@@ -14,7 +14,7 @@ class InboxDatatable < ApplicationDatatable
           when 'resuelto'
             "<p class='text-light bg-success rounded text-center'>Resuelto</p>"
           when 'enviado'
-            "<p class='text-light bg-secondary rounded text-center'>enviado</p>"
+            "<p class='text-black bg-secondary rounded text-center'>enviado</p>"
           when 'abierto'
             "<p class='text-light bg-warning rounded text-center'>abierto</p>"
           when 'en revisión'

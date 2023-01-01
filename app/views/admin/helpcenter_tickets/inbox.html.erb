@@ -1,0 +1,42 @@
+<section class="section">
+  <h1 class="section-header"><%= "Inbox" %></h1>
+
+  <%= link_to "Nuevo", new_admin_helpcenter_ticket_path, class: 'btn btn-primary btn-sm mb-1' if current_user.is_admin? %>
+
+  <div class="card mb-0">
+    <%= form_tag('', method: 'get') do %>
+      <div class="large-12 columns">
+        <div class="row">
+          <div class="row" style='margin-left: 10px;padding: 15px;'>
+            <%= select_tag(
+                :status, 
+                options_for_select(Helpcenter::Ticket::STATUS_COLLECTION.map{ |a| [a[1], a[0]] } ), 
+                include_blank: 'Seleccionar', 
+                class: 'custom-select',
+                :onchange => 'ticket_filter_action()') 
+            %>
+            <%= button_tag "Buscar", class: "btn btn-primary btn-sm", id: 'ticket_filter', style: 'display: none' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive-md">
+      <table class="table table-hover" id="inbox_tickets_table" data-source="<%= inbox_admin_helpcenter_tickets_path(status: @status, format: :json) %>">
+        <thead class="thead">
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<script>
+  function ticket_filter_action() {
+    document.getElementById("ticket_filter").click()
+  }
+</script>
+

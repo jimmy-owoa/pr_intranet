@@ -104,6 +104,15 @@ module Admin
       render :partial => "admin/helpcenter_tickets/subcategories", :object => @subcategories
     end
 
+    def inbox
+      @status = params[:status]
+
+      respond_to do |format|
+        format.html
+        format.json { render json: InboxTicketsDatatable.new(view_context) }
+      end
+    end
+
     private
 
     def user_not_authorized

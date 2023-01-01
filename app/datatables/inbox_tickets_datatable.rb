@@ -1,6 +1,6 @@
-class TicketsDatatable < ApplicationDatatable
+class InboxTicketsDatatable < ApplicationDatatable
   delegate :admin_helpcenter_ticket_path, to: :@view
-
+  
   private
 
   def data
@@ -18,7 +18,7 @@ class TicketsDatatable < ApplicationDatatable
         when 'closed'
           "<p class='text-light bg-sucess rounded text-center p-1'>Resuelto</p>"
         when 'waiting'
-          "<p class='text-back bg-secondary rounded text-center p-1'>En Espera</p>"
+          "<p class='text-black bg-secondary rounded text-center p-1'>En Espera</p>"
         end
 
         {
@@ -44,19 +44,13 @@ class TicketsDatatable < ApplicationDatatable
   end
 
   def tickets
-    @posts ||= fetch_tickets
+    @tickets ||= fetch_tickets
   end
 
   def fetch_tickets
-    if @view.current_user.is_admin?
-      tickets = Helpcenter::Ticket.where(aproved_to_review: true)
-    else
-      categories = @view.current_user.help_categories
-      subcategories = categories.map(&:subcategory_ids).flatten
-      tickets = Helpcenter::Ticket.where("subcategory_id in (:subcategory_ids)", subcategory_ids: subcategories)
-    end
-
+    tickets = Helpcenter::Ticket.where(assistant: @view.current_user)
     tickets = tickets.where(status: params[:status]) if params[:status].present?
+
 
     if sort_column.present? && sort_column == 'user'
       tickets = tickets.joins(:user).order("name #{sort_direction}")

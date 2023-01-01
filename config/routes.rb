@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :subcategories, on: :collection
       put :take_ticket, on: :member
       put :close, on: :member
+      get :inbox, on: :collection
       resources :helpcenter_messages, on: :member, only: [:create]
     end
     resources :expense_report_requests do
