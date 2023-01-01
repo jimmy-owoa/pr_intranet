@@ -1,10 +1,10 @@
 document.addEventListener('turbolinks:before-cache', function () {
-  $('#tickets_table').DataTable().destroy();
+  $('#inbox_tickets_table').DataTable().destroy();
 });
 
 $(document).on("turbolinks:load", function() {
 
-  $('#tickets_table').DataTable({
+  $('#inbox_tickets_table').DataTable({
     "language": {
       "lengthMenu": "Mostrar _MENU_ registros por página",
       "zeroRecords": "Nothing found - sorry",
@@ -46,7 +46,7 @@ $(document).on("turbolinks:load", function() {
     searchDelay: 600,
     draw: 1,
     ajax: {
-      url: $('#tickets_table').data('source'),
+      url: $('#inbox_tickets_table').data('source'),
     },
     columns: [
       { title: '#', data: 'id', orderable: true},

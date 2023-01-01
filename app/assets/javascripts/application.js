@@ -32,6 +32,7 @@
 //= require admin/helpcenter_questions
 //= require admin/helpcenter_categories
 //= require admin/helpcenter_tickets
+//= require admin/expense_report_inbox
 //= require admin/expense_report_requests
 //= require admin/expense_report_categories
 //= require admin/users_datatable
@@ -40,6 +41,7 @@
 //= require jquery.minicolors
 //= require jquery.minicolors.simple_form
 //= require_self
+//= require admin/helpcenter_tickets_inbox
 
 dataConfirmModal.setDefaults({
   title: "¿Esta segura(o) que desea eliminar este elemento?",

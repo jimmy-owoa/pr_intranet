@@ -19,6 +19,15 @@ module Admin
 
     def edit
       #authorize @request, :show?
+      @categories = ExpenseReport::Category.all
+      @invoices = @request.invoices
+      @selected_index = nil
+      ExpenseReport::Request::COUNTRY.each_with_index do |country, index|
+        if country.first.first.to_s == @request.destination_country_id
+          @selected_index = index
+          break
+        end
+      end
     end
     
     def show
@@ -32,7 +41,7 @@ module Admin
     def update
       # authorize @request, :show?
       respond_to do |format|
-        if @request.update(request_params)
+        if @request.update(request_params.merge(destination_country_id: request_params[:destination_country_id].to_i))
           UserNotifierMailer.notification_request_payment_date(@request).deliver if @request.payment_date.present? 
           format.html { redirect_to admin_expense_report_request_path(@request), notice: "request fue actualizado con éxito." }
           format.json { render :show, status: :ok, location: @request }
@@ -76,6 +85,16 @@ module Admin
       end
     end
 
+    def inbox
+      @status = params[:status]
+      @all_status= ExpenseReport::RequestState.where.not(name: ['draft', 'envoy', 'open']).map {|status| [status.code, status.id]}
+
+      respond_to do |format|
+        format.html
+        format.json { render json: InboxDatatable.new(view_context) }
+      end
+    end
+
     private
 
     def user_not_authorized
@@ -87,7 +106,7 @@ module Admin
     end
 
     def request_params
-      params.require(:requet).permit(:name, :description, :subcategory_id, :category, :user_id, :take_ticket, :payment_date, files: [])
+      params.require(:requet).permit(:name, :description, :subcategory_id, :category, :user_id, :take_ticket, :payment_date, :destination_country_id, files: [], invoices_attributes: [:id, :category_id])
     end
   end
 end

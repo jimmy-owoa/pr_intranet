@@ -1,10 +1,10 @@
 document.addEventListener('turbolinks:before-cache', function () {
-    $('#requests_table').DataTable().destroy();
+    $('#inbox_table').DataTable().destroy();
   });
   
   $(document).on("turbolinks:load", function() {
   
-    $('#requests_table').DataTable({
+    $('#inbox_table').DataTable({
       "language": {
         "lengthMenu": "Mostrar _MENU_ registros por página",
         "zeroRecords": "Nothing found - sorry",
@@ -44,18 +44,19 @@ document.addEventListener('turbolinks:before-cache', function () {
       processing: true,
       serverSide: true,
       searchDelay: 600,
+      "order": [[ 0, "desc" ]],
       draw: 1,
       ajax: {
-        url: $('#requests_table').data('source'),
+        url: $('#inbox_table').data('source'),
       },
       columns: [
-        { title: '#', data: 'id', orderable: true},
+        { title: '#', data: 'id' },
         { title: 'Usuario', data: 'user', orderable: true },
         { title: 'Oficina', data: 'office', orderable: false, targets: 'no-sort' },
         { title: 'Estado', data: 'status', orderable: false, targets: 'no-sort' },
         { title: 'Tiempo total', data: 'total_time', orderable: false, targets: 'no-sort' },
         { title: 'Tiempo Compass', data: 'time_worked', orderable: false, targets: 'no-sort' },
         { title: 'Acciones', data: 'actions', orderable: false, targets: 'no-sort' },
-      ]
+      ],
     })
   });
