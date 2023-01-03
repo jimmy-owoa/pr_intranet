@@ -22,9 +22,9 @@ class RequestsDatatable < ApplicationDatatable
           when 'borrador'
             "<p class='text-light bg-danger rounded text-center'>Borrador</p>"
           when 'aprobado'
-            "<p class='text-black bg-success rounded text-center'>Aprobado</p>"
+            "<p class='text-light bg-success rounded text-center'>Aprobado</p>"
           else
-            "<p class='text-black bg-success rounded text-center'>Sin Estado</p>"
+            "<p class='text-light bg-success rounded text-center'>Sin Estado</p>"
           end
           
           {
