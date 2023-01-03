@@ -16,7 +16,7 @@ class TicketsDatatable < ApplicationDatatable
         when 'recategorized'
           "<p class='text-black bg-secondary rounded text-center p-1'>Recategorizado</p>"
         when 'closed'
-          "<p class='text-light bg-sucess rounded text-center p-1'>Resuelto</p>"
+          "<p class='text-light bg-success rounded text-center p-1'>Resuelto</p>"
         when 'waiting'
           "<p class='text-back bg-secondary rounded text-center p-1'>En Espera</p>"
         end
