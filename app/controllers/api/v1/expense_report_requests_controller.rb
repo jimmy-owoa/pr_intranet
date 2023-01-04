@@ -76,12 +76,15 @@ module Api::V1
       end
     end
 
-    def review_request 
+    def review_request
       approved_to_review = params[:approved_to_review].tr('=', '')
       # comprobar si el request esta expirado y enviar correos
       result = ExpenseReport::Request.request_boss_notifications(approved_to_review)
       invoices = []
       request_files = []
+      boss_id = result[:user].id_exa_boss
+      pending_requests = data_pending_requests(boss_id)
+      pending_requests.reject! { |request| request[:id] == result[:request].id }
       result[:request].files.each_with_index do |f, index|
         request_files << {id: index + 1, url: root_url + rails_blob_path(f, disposition: "attachment")}
       end
@@ -99,8 +102,26 @@ module Api::V1
       if  result[:state] == "link_expired" || result[:request].request_state.name != 'envoy'
         render json: { message: "Link expired", success: true, request: result[:request], user: result[:user],request_date: result[:request_date]}, status: :ok
       else
-        render json: { message: "request", success: true,files: request_files, invoices: invoices ,request: result[:request], user: result[:user], request_date: result[:request_date] }, status: :ok
+        render json: { message: "request", success: true,files: request_files, invoices: invoices ,request: result[:request], requests: pending_requests, user: result[:user], request_date: result[:request_date] }, status: :ok
       end 
+    end
+
+    def data_pending_requests(boss_id)
+      pending_requests_to_approve = General::User.find_by(id_exa_boss: boss_id).requests.where(request_state_id: 6)
+      key = Rails.application.credentials[:secret_key_base][0..31]
+      crypt = ActiveSupport::MessageEncryptor.new(key)
+      data = []
+      pending_requests_to_approve.each do |r|
+        @encrypted_data = Base64.strict_encode64(crypt.encrypt_and_sign({id: r.id}))
+        @link_index = "https://ayudacompass.redexa.cl/rendicion-gastos/review/#{@encrypted_data }"
+        data << {
+          id: r.id,
+          user_name: r.user.try(:full_name),
+          created_at: r.created_at,
+          link: @link_index
+        }
+      end
+      return data 
     end
     
     def request_draft
