@@ -1,6 +1,6 @@
 module Api::V1
   class ExpenseReportRequestsController < ApiController
-    before_action :set_request, only: [:show, :update]
+    before_action :set_request, only: [:show, :update, :destroy]
     skip_before_action :set_current_user_from_header, only: [:review_request, :response_request]
     skip_before_action :verify_authenticity_token
     include ActionView::Helpers::DateHelper
@@ -109,6 +109,14 @@ module Api::V1
         render json: request, serializer: ExpenseReport::RequestSerializer, is_show: true, status: :ok
       else
         render json: { message: "false"}, status: :ok
+      end
+    end
+
+    def destroy
+      if @request.destroy
+        render json: { message: "Request Destroy", success: true }, status: :ok
+      else
+        render json: { message: "Error", success: false }, status: :unprocessable_entity
       end
     end
 
