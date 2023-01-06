@@ -59,7 +59,7 @@ class InboxDatatable < ApplicationDatatable
         roles_countries.map do |r|
           requests_country << r.resource.requests
         end
-        requests_country = ExpenseReport::Request.where(id: requests_country.map {|r| r.ids}, assistant: current_user)
+        requests_country = ExpenseReport::Request.where(id: requests_country.map {|r| r.ids}, assistant: @view.current_user)
         ids_status = [ExpenseReport::RequestState.find_by(name: 'envoy').id, ExpenseReport::RequestState.find_by(name: 'draft').id]
         requests = requests_country.where.not(request_state_id: ids_status).where(assistant: @view.current_user).order("#{sort_column} #{sort_direction}")
       end
