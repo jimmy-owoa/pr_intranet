@@ -57,7 +57,8 @@ module Api::V1
       request.country_id = request.user.country.id
       if request.save
         UserNotifierMailer.notification_new_request_boss(request).deliver if request.request_state.name == 'envoy'
-        # UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
+        UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
+        UserNotifierMailer.notification_to_the_third_party(request, @request_user).deliver if @request_user != request.user # enviar correo al tercero
         # recorrer los requests para crear los invoice
         total_request = 0
         params[:invoice].permit!.to_h.each do |r|
