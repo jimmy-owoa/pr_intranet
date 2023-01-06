@@ -133,8 +133,8 @@ class UserNotifierMailer < ApplicationMailer
   # notificacion al usuario cuando un tercero crea una rendición
   def notification_new_request_user(request)
     @request = request
-    email = @request.user.email
-    mail(to: email, subject: 'Nueva rendición de gastos')
+    @user = request.user
+    mail(to: @user.email, subject: 'Nueva rendición de gastos')
   end
 
   # notificacion para el supervisor, aprobo una rendicion
@@ -193,5 +193,11 @@ class UserNotifierMailer < ApplicationMailer
   def notification_request_payment_date(request)
     @request = request
     mail(to: request.user.email, subject: "Nueva fecha de pago para tu caso ##{request.id}")
+  end
+
+  def notification_to_the_third_party(request, user)
+    @request = request
+    @user = user
+    mail(to: @user.email, subject: "Nueva rendición de gastos")
   end
 end
