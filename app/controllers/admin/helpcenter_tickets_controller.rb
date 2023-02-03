@@ -18,6 +18,11 @@ module Admin
       @subcategories = []
     end
 
+    def tickets_list
+      @tickets = Helpcenter::Ticket.all
+      render xlsx: 'tickets_list.xlsx.axlsx', filename: "listada de tickets #{Date.today}.xlsx"
+    end
+
     def edit
       authorize @ticket, :show?
       @users = General::User.all.map { |u| [u.full_name, u.id] }

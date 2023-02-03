@@ -1,6 +1,8 @@
 <section class="section">
     <h1 class="section-header"><%= "Rendición de gastos" %></h1>
-
+    <div style="text-align: end">
+      <%= link_to 'Descargar listado de Rendiciones', requests_list_admin_expense_report_request_path(:expense_report_request_id,format: 'xlsx'), method: 'get', class:'btn btn-primary btn-sm mb-1'%>
+    </div>
     <div class="card mb-0">
       <%= form_tag('', method: 'get') do %>
         <div class="large-12 columns">

@@ -24,11 +24,13 @@ Rails.application.routes.draw do
       put :close, on: :member
       get :inbox, on: :collection
       resources :helpcenter_messages, on: :member, only: [:create]
+      get :tickets_list, on: :member
     end
     resources :expense_report_requests do
       put :take_request, on: :member
       put :close, on: :member
       get :inbox, on: :collection
+      get :requests_list, on: :member
     end
     resources :expense_report_categories 
     resource :chat_messages
