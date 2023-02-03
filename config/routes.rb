@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :expense_report_requests do
       put :take_request, on: :member
       put :close, on: :member
+      get :requests_list, on: :member
     end
     resources :expense_report_categories 
     resource :chat_messages

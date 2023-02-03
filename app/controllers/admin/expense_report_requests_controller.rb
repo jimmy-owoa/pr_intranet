@@ -76,6 +76,11 @@ module Admin
       end
     end
 
+    def requests_list
+      @requests = ExpenseReport::Request.all
+      render xlsx: 'requests_list.xlsx.axlsx', filename: "listada de rendiciones #{Date.today}.xlsx"
+    end
+
     private
 
     def user_not_authorized
