@@ -52,8 +52,11 @@ document.addEventListener('turbolinks:before-cache', function () {
       columns: [
         { title: '#', data: 'id' },
         { title: 'Usuario', data: 'user', orderable: true },
-        { title: 'Oficina', data: 'office', orderable: false, targets: 'no-sort' },
-        { title: 'Estado', data: 'status', orderable: false, targets: 'no-sort' },
+        { title: 'Oficina', data: 'office', orderable: true },
+        { title: 'Sociedad', data: 'society_id', orderable: true },
+        { title: 'Asistente', data: 'assistant_id', orderable: true },
+        { title: 'Estado', data: 'status', orderable: true},
+        { title: 'Divisa', data: 'divisa', orderable: true },
         { title: 'Tiempo total', data: 'total_time', orderable: false, targets: 'no-sort' },
         { title: 'Tiempo Compass', data: 'time_worked', orderable: false, targets: 'no-sort' },
         { title: 'Acciones', data: 'actions', orderable: false, targets: 'no-sort' },

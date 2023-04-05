@@ -29,7 +29,10 @@ class InboxDatatable < ApplicationDatatable
             id: request.id,
             user: General::User.with_deleted.find(request.user_id).name,
             office: request.user.try(:country).try(:name),
+            society_id: request.society.present? ? request.society.name : 'No definido',
+            assistant_id: request.assistant_id.present? ? General::User.find(request.assistant_id).full_name : 'No definido',
             status: status,
+            divisa: request.divisa_id.nil? ? 'No definido' : request.divisa_id,
             total_time: request.total_time,
             time_worked: request.time_worked,
             actions: links.join(' ')
@@ -66,11 +69,13 @@ class InboxDatatable < ApplicationDatatable
 
       requests = requests.where(request_state_id: params[:status]) if params[:status].present?
 
-       if sort_column.present? && sort_column == 'user'
-         requests = requests.joins(:user).order("name #{sort_direction}")
-       else
-         requests = requests.order("#{sort_column} #{sort_direction}")
-       end
+      if sort_column.present? && sort_column == 'user'
+        requests = requests.joins(:user).order("name #{sort_direction}")
+      elsif sort_column == 'office'
+        requests = requests.joins(user: :country).order("location_countries.name #{sort_direction}")
+      else
+        requests = requests.order("#{sort_column} #{sort_direction}")
+      end
       requests = requests.page(page).per(per_page)
   
       if params[:search][:value].length > 1
@@ -80,6 +85,6 @@ class InboxDatatable < ApplicationDatatable
     end
   
     def columns
-      %w(id user subcategory status total_time time_worked actions)
+      %w(id user office society_id assistant_id request_state_id divisa_id total_time time_worked actions)
     end
   end
