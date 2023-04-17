@@ -6,5 +6,6 @@ class ExpenseReport::Invoice < ApplicationRecord
   validates_presence_of :total, :category
 
   has_many_attached :files
+  acts_as_paranoid
 
 end

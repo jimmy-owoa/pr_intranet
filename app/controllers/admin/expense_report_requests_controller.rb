@@ -53,6 +53,17 @@ module Admin
     end
     
     def destroy
+      @request.request_histories.each {|h| h.destroy}
+      @request.invoices.each {|i| i.destroy}
+      respond_to do |format|
+        if @request.destroy
+          format.html { redirect_to admin_expense_report_requests_path(), notice: "Rendición eliminada con éxito." }
+          format.json { render :index, status: :ok, location: @request }
+        else
+          format.html { redirect_to admin_expense_report_requests_path(), notice: "Ocurrió un error" }
+          format.json { render :index, status: :ok, location: @request }
+        end
+      end
     end
 
     def take_request
@@ -65,7 +76,7 @@ module Admin
           format.html { redirect_to admin_expense_report_request_path(@request), notice: "Rendición actualizada con éxito." }
           format.json { render :show, status: :ok, location: @request }
         else
-          format.html { redirect_to admin_expense_report_request_path(@ticket), notice: "Ocurrió un error" }
+          format.html { redirect_to admin_expense_report_request_path(@request), notice: "Ocurrió un error" }
           format.json { render :show, status: :ok, location: @request }
         end
       end

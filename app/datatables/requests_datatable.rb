@@ -7,6 +7,7 @@ class RequestsDatatable < ApplicationDatatable
       requests.map do |request|
           links = []
           links << link_to('ver', admin_expense_report_request_path(request), class: 'btn btn-success btn-sm')
+          links << link_to('Eliminar', admin_expense_report_request_path(request), method: :delete, data: { confirm: '¿Estás seguro?' }, class: 'btn btn-danger btn-sm')
           
           status = case request.request_state.code
           when 'atendiendo'

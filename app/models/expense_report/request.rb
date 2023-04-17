@@ -15,6 +15,8 @@ class ExpenseReport::Request < ApplicationRecord
 
   has_many_attached :files
 
+  acts_as_paranoid
+
   enum divisa_id: %i[ARS BRL CLP COP EUR GBP MXN PEN USD UYU N/A]
   DIVISAS = [{"ARS": 1}, {"BRL": 2}, {"CLP": 3}, {"COP": 4} ,{"EUR": 5}, {"GBP": 6}, {"MXN": 7}, {"PEN": 8}, {"USD": 9}, {"UYU": 10}, {"N/A": 11} ].freeze
   
