@@ -58,6 +58,11 @@ class InboxTicketsDatatable < ApplicationDatatable
       tickets = tickets.order("#{sort_column} #{sort_direction}")
     end
 
+    if params[:search][:value].length > 2
+      tickets = tickets.joins(:user, :subcategory).where("LOWER(general_users.name) LIKE ? OR LOWER(helpcenter_subcategories.name) LIKE ?",
+        "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%")
+    end
+
     tickets = tickets.page(page).per(per_page)
 
     if params[:search][:value].length > 1

@@ -67,7 +67,6 @@ class RequestsDatatable < ApplicationDatatable
         requests_country = ExpenseReport::Request.where(id: requests_country.map {|r| r.ids})
         ids_status = [ExpenseReport::RequestState.find_by(name: 'envoy').id, ExpenseReport::RequestState.find_by(name: 'draft').id]
         requests = requests_country.where.not(request_state_id: ids_status)
-
       end
       
       if sort_column.present? && sort_column == 'user'
@@ -78,12 +77,16 @@ class RequestsDatatable < ApplicationDatatable
         requests = requests.order("#{sort_column} #{sort_direction}")
       end
 
+      if params[:search][:value].length > 2
+        requests = requests.joins(:user, :society, :country, :request_state, :assistant).where("LOWER(general_users.name) LIKE ? OR general_societies.name LIKE ? OR location_countries.name LIKE ? OR expense_report_request_states.code LIKE ? OR LOWER(assistants_expense_report_requests.name) LIKE ? ",
+        "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%")
+      end
+
       requests = requests.where(request_state_id: params[:status]) if params[:status].present?
       requests = requests.page(page).per(per_page)
   
-      if params[:search][:value].length > 1
-        
-      end
+
+
       requests
     end
   
