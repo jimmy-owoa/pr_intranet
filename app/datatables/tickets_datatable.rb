@@ -66,7 +66,7 @@ class TicketsDatatable < ApplicationDatatable
 
     tickets = tickets.page(page).per(per_page)
 
-    if params[:search][:value].length > 2
+    if params[:search][:value].length > 1
       tickets = tickets.joins(:user, :subcategory).where("LOWER(general_users.name) LIKE ? OR LOWER(helpcenter_subcategories.name) LIKE ?",
         "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%")
     end
