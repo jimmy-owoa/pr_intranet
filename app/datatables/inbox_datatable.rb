@@ -77,9 +77,10 @@ class InboxDatatable < ApplicationDatatable
         requests = requests.order("#{sort_column} #{sort_direction}")
       end
       
-      if params[:search][:value].length > 2
-        requests = requests.joins(:user, :society, :country, :request_state, :assistant).where("LOWER(general_users.name) LIKE ? OR general_societies.name LIKE ? OR location_countries.name LIKE ? OR expense_report_request_states.code LIKE ? OR LOWER(assistants_expense_report_requests.name) LIKE ? ",
-        "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%", "%#{params[:search][:value].downcase}%")
+      if params[:search][:value].length > 1
+        requests = requests.joins(:user, :society, :country, :request_state, :assistant)
+        .where("expense_report_requests.id LIKE :search OR LOWER(general_users.name) LIKE :search OR LOWER(general_users.last_name) LIKE :search OR LOWER(general_societies.name) LIKE :search OR location_countries.name LIKE :search OR expense_report_request_states.code LIKE :search OR LOWER(assistants_expense_report_requests.name) LIKE :search OR LOWER(assistants_expense_report_requests.last_name) LIKE :search",
+        search: "%#{params[:search][:value].downcase}%")
       end
 
       requests = requests.page(page).per(per_page)
