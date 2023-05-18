@@ -130,6 +130,20 @@ class UserNotifierMailer < ApplicationMailer
     mail(to: email_boss, subject: 'Nueva rendición de gastos por aprobar')
   end
 
+
+  # recordatorio notificacion al supervisor para poder aprobar o rechazar una rendición
+  def reminder_supervisors_requests(request) 
+    @request = request
+    email_boss = @request.user.get_supervisor_email
+    #encrypt
+    key = Rails.application.credentials[:secret_key_base][0..31]
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    @encrypted_data = Base64.strict_encode64(crypt.encrypt_and_sign({id: @request.id}))
+    @user = @request.user.full_name
+    @link_index = "https://ayudacompass.redexa.cl/rendicion-gastos/review/#{@encrypted_data }"
+    mail(to: email_boss, subject: 'Rendición de gastos por aprobar')
+  end
+
   # notificacion al usuario cuando un tercero crea una rendición
   def notification_new_request_user(request)
     @request = request
