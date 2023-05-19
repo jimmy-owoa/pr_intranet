@@ -5,9 +5,8 @@ namespace :expense_report do
         requests = ExpenseReport::Request.where("created_at < ? AND request_state_id = ?", 24.hours.ago, envoy_id)
 
         requests.each do |request|
-          puts 'Enviando...'
+          puts "Enviando request n° #{request.id}"
           UserNotifierMailer.reminder_supervisors_requests(request).deliver_now
         end
       end
   end
-  
