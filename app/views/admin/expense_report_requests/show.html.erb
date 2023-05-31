@@ -129,8 +129,11 @@
           </div>
           <div class="col-sm-12">
             <div class="card post_card">
-              <div class="card-header">
-                <h3 class="card-title">Titulo de la rendición</h3>
+              <div class="card-header" style="justify-content: space-between;">
+                <h3 class="card-title m-0">Titulo de la rendición</h3>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Ver historial
+                </button>
               </div>
               <div class="card-body">
                 <p><%= @request.description %></p>
@@ -266,6 +269,51 @@
         </div>
       </div>
     </section>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Historial</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if @request.request_histories.present? %>
+                <% @request.request_histories.each_with_index do |history, index|%>
+                  <tr>
+                    <th scope="row"><%= index + 1 %></th>
+                    <td><%= history.created_at.strftime("%d / %m / %Y") %></td>
+                    <td><%= history.user.try(:full_name) %></td>
+                    <td><%= history.request_state.code %></td>
+                  </tr>
+                <% end %>
+              <% else %>
+                  <tr>
+                    <td>
+                      No existen registros
+                    </td>
+                  </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
   </div>
   <style>
     .content-chat{

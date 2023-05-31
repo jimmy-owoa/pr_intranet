@@ -56,6 +56,7 @@ module Api::V1
       request.set_state(params[:request][:request_state])
       request.country_id = request.user.country.id
       if request.save
+        request.request_histories.create(user_id: request.user_id, request_state_id: request.request_state_id)
         UserNotifierMailer.notification_new_request_boss(request).deliver if request.request_state.name == 'envoy'
         UserNotifierMailer.notification_new_request_user(request).deliver # enviar correo al usuario
         UserNotifierMailer.notification_to_the_third_party(request, @request_user).deliver if @request_user != request.user # enviar correo al tercero
@@ -150,10 +151,12 @@ module Api::V1
         UserNotifierMailer.notification_new_request(request).deliver if request.country.assistants.map(&:email).present?
         UserNotifierMailer.notification_request_approved_to_user(request).deliver
         UserNotifierMailer.notification_request_approved_to_boss(request).deliver
+        request.request_histories.create(user_id: request.user.get_supervisor.id, request_state_id: request.request_state_id)
         render json: { message: "true" }, status: :ok
       elsif response == 'false' && request.request_state.name == 'envoy'
         UserNotifierMailer.notification_request_rejected(request).deliver
         UserNotifierMailer.notification_request_rejected_to_boss(request).deliver
+        request.request_histories.create(user_id: request.user.get_supervisor.id, request_state_id: ExpenseReport::RequestState.where(code: 'rechazado').last.id)
         request.destroy
         render json: { message: "false"}, status: :ok
       else 
