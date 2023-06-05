@@ -107,7 +107,7 @@ module Admin
     end
     
     def requests_list
-      @requests = ExpenseReport::Request.all
+      @requests = ExpenseReport::Request.includes(:request_state).where.not(expense_report_request_states: { name: 'draft' })
       render xlsx: 'requests_list.xlsx.axlsx', filename: "listada de rendiciones #{Date.today}.xlsx"
     end
 
