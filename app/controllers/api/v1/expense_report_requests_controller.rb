@@ -19,35 +19,7 @@ module Api::V1
     end
 
     def show
-     data_messages = []
-      data = []
-      messages = Chat::Room.where(resource_id: @request.id, resource_type: 'ExpenseReport::Request').last.try(:messages) || []
-      messages.each do |m|
-        files = []
-        m.files.each do |file|
-          files << root_url + rails_blob_path(file, disposition: "attachment")
-        end
-        data_messages << {
-          message: m.message,
-          user: m.user,
-          files: files,
-          created_at: distance_of_time_in_words(m.created_at, Time.now)
-        }
-      end
-
-      data = {
-        id: @request.id,
-        created_at: @request.created_at,
-        description: @request.description,
-        assistant: @request.assistant_id,
-        total: @request.total,
-        closed_at: @request.closed_at,
-        user: @request.user,
-        divisa_id: @request.divisa_id,
-        status: @request.request_state.code,
-        messages: data_messages
-      }
-      render json: data, is_show: true, status: :ok
+      render json: @request, serializer: ExpenseReport::RequestSerializer, is_show: true, status: :ok
     end
 
     def create
@@ -253,6 +225,23 @@ module Api::V1
       end
     end
 
+    def pending_requests
+      pending_requests = ExpenseReport::Request.includes(:user).where(general_users: { supervisor: @request_user.id_exa }).order(created_at: :desc)
+      pending_requests = pending_requests.includes(:request_state).where(expense_report_request_states: {name: 'envoy'})
+      data = []
+      pending_requests.each do |request|
+        link = generate_link_supervisor(request)
+
+        data << {
+          id: request.id,
+          created_at: request.created_at.strftime('%d/%m/%Y %H:%M hrs'),
+          status: request.request_state.code,
+          url: link
+        }
+      end
+      render json: data, status: :ok
+    end
+
     private 
 
     def set_data_request(requests)
@@ -273,6 +262,14 @@ module Api::V1
 
     def request_params
       params.require(:request).permit(:id, :category_id, :description, :user_id, :society_id, :divisa_id, :is_local, :bank_account_details, :payment_method_id, files: [])
+    end
+
+    def generate_link_supervisor(request)
+      #encrypt
+      key = Rails.application.credentials[:secret_key_base][0..31]
+      crypt = ActiveSupport::MessageEncryptor.new(key)
+      @encrypted_data = Base64.strict_encode64(crypt.encrypt_and_sign({id: request.id}))
+      @link_index = "http://localhost:8000/rendicion-gastos/review/#{@encrypted_data }"
     end
   end
 end
