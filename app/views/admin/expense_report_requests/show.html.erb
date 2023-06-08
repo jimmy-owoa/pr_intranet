@@ -257,7 +257,7 @@
           <br />
           <div class="container mt-5" align="center">
           <%= link_to t("helpers.links.back"), admin_expense_report_requests_path, :class => 'btn btn-primary'  %>
-          <%= link_to "#{current_user.is_admin? ? 'Editar' : 'Recategorizar'}", edit_admin_expense_report_request_path(@request), :class => 'btn btn-primary' %>
+          <%= link_to "Editar", edit_admin_expense_report_request_path(@request), :class => 'btn btn-primary' %>
           <% if @request.assistant.nil? %>
             <%= link_to "Tomar caso", take_request_admin_expense_report_request_path(@request, take_request: true), method: :put, class: 'btn btn-primary' %>
           <% end %>
