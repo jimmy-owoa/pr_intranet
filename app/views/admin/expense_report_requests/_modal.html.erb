@@ -1,0 +1,23 @@
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Eliminar Rendición de gastos n° <%= @request.id %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= form_with(model: @request, url: admin_expense_report_request_path(@request), method: :delete) do |form| %>
+            <%= form.label :comment, 'Motivo de eliminación' %>
+            <%= form.text_area :comment, class: 'form-control' %>
+            <div class="text-right mt-2">
+              <%= form.submit 'Eliminar', class: 'btn btn-danger' %>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  

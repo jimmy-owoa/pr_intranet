@@ -46,10 +46,10 @@ module Admin
     end
     
     def destroy
-      @request.request_histories.each {|h| h.destroy}
-      @request.invoices.each {|i| i.destroy}
+      # @request.invoices.each {|i| i.destroy}
       respond_to do |format|
         if @request.destroy
+          @request.request_histories.create(user_id: current_user.id, comment: params[:expense_report_request][:comment], request_state_id: ExpenseReport::RequestState.where(code: 'eliminado').last.id)
           format.html { redirect_to admin_expense_report_requests_path(), notice: "Rendición eliminada con éxito." }
           format.json { render :index, status: :ok, location: @request }
         else
