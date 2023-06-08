@@ -67,6 +67,7 @@ Rails.application.routes.draw do
       post 'expense_report_requests/save_draft_request', to: 'expense_report_requests#save_draft_request'
       get 'expense_report_requests/request_draft', to: 'expense_report_requests#request_draft'
       get 'expense_report_requests/request_user', to: 'expense_report_requests#request_user'
+      get 'expense_report_requests/pending_requests', to: 'expense_report_requests#pending_requests'
       resources :expense_report_requests do
         delete :destroy_file, on: :collection
         delete :destroy_invoice, on: :collection

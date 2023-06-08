@@ -57,6 +57,7 @@ module Api::V1
       begin
         if @user.update(user_params)
           @user.touch(:updated_at)
+          set_supervisor
           if @user.accounts.where(account_number: params[:payment_account][:account_number]).present?
             @user.accounts.where(account_number: params[:payment_account][:account_number]).first.update(payment_account)
           else
@@ -82,6 +83,7 @@ module Api::V1
       set_cost_centers
       begin
         if @user.save
+          set_supervisor
           @user.accounts.create(payment_account)
           @user.update(society_id: General::Society.where(id_exa: params[:society][:society_id], name: params[:society][:name], country: params[:office_address]).first_or_create.id)
           Location::Country.set_office_country(@user, params[:office_address])
@@ -159,6 +161,11 @@ module Api::V1
         create_log_report(request.url, params, error, "Error!", "Error en find_user")
         render json: { success: false, error: "Error" }, status: :unauthorized
       end
+    end
+
+    def set_supervisor
+      supervisor = General::User.where(id_exa: @user.supervisor).last
+      supervisor.update(is_boss: true) if supervisor.present?
     end
 
     def user_params
