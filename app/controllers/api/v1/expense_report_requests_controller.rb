@@ -269,7 +269,7 @@ module Api::V1
       key = Rails.application.credentials[:secret_key_base][0..31]
       crypt = ActiveSupport::MessageEncryptor.new(key)
       @encrypted_data = Base64.strict_encode64(crypt.encrypt_and_sign({id: request.id}))
-      @link_index = "http://localhost:8000/rendicion-gastos/review/#{@encrypted_data }"
+      @link_index = "https://ayudacompass.redexa.cl/rendicion-gastos/review/#{@encrypted_data }"
     end
   end
 end
