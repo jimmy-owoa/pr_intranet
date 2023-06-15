@@ -10,7 +10,7 @@
         <div class="modal-body">
           <%= form_with(model: @request, url: admin_expense_report_request_path(@request), method: :delete) do |form| %>
             <%= form.label :comment, 'Motivo de eliminación' %>
-            <%= form.text_area :comment, class: 'form-control' %>
+            <%= form.text_area :comment, class: 'form-control', required: true  %>
             <div class="text-right mt-2">
               <%= form.submit 'Eliminar', class: 'btn btn-danger' %>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
