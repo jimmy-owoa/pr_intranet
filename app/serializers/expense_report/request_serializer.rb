@@ -81,11 +81,16 @@ class ExpenseReport::RequestSerializer < ActiveModel::Serializer
         end
         data_messages << {
           message: m.message,
-          user: m.user,
+          user: {
+            id: m.user.id,
+            name: m.user.name
+          },
           files: files,
-          created_at: distance_of_time_in_words(m.created_at, Time.now)
+          created_at: m.created_at.strftime("%d/%m/%Y %H:%M")
+
         }
       end
+    data_messages
   end
   
   def supervisor
