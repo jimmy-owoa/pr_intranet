@@ -128,7 +128,9 @@ module Api::V1
       elsif response == 'false' && request.request_state.name == 'envoy'
         UserNotifierMailer.notification_request_rejected(request).deliver
         UserNotifierMailer.notification_request_rejected_to_boss(request).deliver
-        request.request_histories.create(user_id: request.user.get_supervisor.id, request_state_id: ExpenseReport::RequestState.where(code: 'rechazado').last.id)
+        rejected_id = ExpenseReport::RequestState.where(code: 'rechazado').last.id
+        request.request_histories.create(user_id: request.user.get_supervisor.id, request_state_id: rejected_id)
+        request.update(request_state_id: rejected_id)
         request.destroy
         render json: { message: "false"}, status: :ok
       else 
@@ -137,7 +139,11 @@ module Api::V1
     end
 
     def divisas
-      data = ExpenseReport::Request::DIVISAS
+      if @request_user.country.name == 'CHILE' 
+        data = [{"CLP": 3}, {"USD": 9}, {"N/A": 11}].freeze
+      else
+        data = ExpenseReport::Request::DIVISAS
+      end
       render json: data, status: :ok
     end
 
