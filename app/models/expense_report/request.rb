@@ -76,4 +76,30 @@ class ExpenseReport::Request < ApplicationRecord
   def set_state(state)
     return self.request_state_id = ExpenseReport::RequestState.find_by(name: state.downcase).id
   end
+
+  def status_color
+    status = case request_state.code
+    when 'atendiendo'
+      "<p class='text-light bg-primary rounded text-center px-2'>Atendiendo</p>".html_safe
+    when 'resuelto'
+      "<p class='text-light bg-success rounded text-center px-2'>Resuelto</p>".html_safe
+    when 'enviado'
+      "<p class='text-black bg-secondary rounded text-center px-2'>Enviado</p>".html_safe
+    when 'abierto'
+      "<p class='text-light bg-danger rounded text-center px-2'>Abierto</p>".html_safe
+    when 'en revisión'
+      "<p class='text-light bg-warning rounded text-center px-2'>En Revisión</p>".html_safe
+    when 'borrador'
+      "<p class='text-light bg-danger rounded text-center px-2'>Borrador</p>".html_safe
+    when 'aprobado'
+      "<p class='text-light bg-success rounded text-center px-2'>Aprobado</p>".html_safe
+    when 'rechazado'
+      "<p class='text-light bg-danger rounded text-center px-2'>Rechazado</p>".html_safe
+    when 'eliminado'
+      "<p class='text-light bg-danger rounded text-center px-2'>Eliminado</p>".html_safe
+    else
+      "<p class='text-light bg-success rounded text-center px-2'>Sin Estado</p>".html_safe
+    end
+    return status
+  end
 end

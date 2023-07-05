@@ -29,6 +29,7 @@ module Admin
       @start_chat = params[:start_chat] if params[:start_chat].present?
       @chat_messages = Chat::Room.where(resource_type: 'ExpenseReport::Request', resource_id: @request.id).last.try(:messages) || []
       @payment_date = @request.try(:payment_date).present? ? @request.try(:payment_date).strftime("%d/%m/%Y") : 'Definir fecha de pago'
+      @excluded_status = @request.request_state.code == 'eliminado' || @request.request_state.code == 'rechazado'
     end
     
     def update
@@ -113,7 +114,7 @@ module Admin
     end
 
     def set_request
-      @request = ExpenseReport::Request.find(params[:id])
+      @request = ExpenseReport::Request.with_deleted.find(params[:id])
     end
 
     def request_params
