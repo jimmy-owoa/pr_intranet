@@ -18,8 +18,8 @@
                 <li>
                   <strong>Correo:</strong> <%= @request.user.email %>
                 </li>
-                <li>
-                  <strong>Estado Rendición:</strong> <%= @request.request_state.code %>
+                <li class="d-flex">
+                  <strong>Estado Rendición:</strong> <%= @request.status_color %>
                 </li>
                 <% if @request.assistant.present? %>
                 <li>
@@ -256,17 +256,19 @@
           </div>
           <br />
           <div class="container mt-5" align="center">
-          <%= link_to t("helpers.links.back"), admin_expense_report_requests_path, :class => 'btn btn-primary'  %>
-          <%= link_to "Editar", edit_admin_expense_report_request_path(@request), :class => 'btn btn-primary' %>
-          <% if @request.assistant.nil? && @request.closed_at.nil? %>
+          <%= link_to t("helpers.links.back"), admin_expense_report_requests_path, class: 'btn btn-primary'  %>
+          <%if !@excluded_status%>
+            <%= link_to "Editar", edit_admin_expense_report_request_path(@request), class: 'btn btn-primary' %>
+          <% end %>
+          <% if @request.assistant.nil? && @request.closed_at.nil? && !@excluded_status %>
             <%= link_to "Tomar caso", take_request_admin_expense_report_request_path(@request, take_request: true), method: :put, class: 'btn btn-primary' %>
           <% end %>
           <% if @request.assistant == current_user %>
             <%= link_to "Dejar caso", take_request_admin_expense_report_request_path(@request, take_ticket: false), method: :put, class: 'btn btn-primary' if @request.closed_at.nil? %>
             <%= link_to 'Iniciar Conversación', admin_expense_report_request_path(@request, start_chat: 'true'), class: 'btn btn-success' if !@chat_messages.present? %>
           <% end %>
-          <%= link_to "Marcar como resuelto", close_admin_expense_report_request_path(@request), method: :put, class: 'btn btn-primary' if @request.closed_at.nil? %>
-          <% if current_user.is_admin? %>
+          <%= link_to "Marcar como resuelto", close_admin_expense_report_request_path(@request), method: :put, class: 'btn btn-primary' if @request.closed_at.nil? && @request.request_state.name == 'attended' %>
+          <% if current_user.is_admin? && !@excluded_status %>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Eliminar</button>
           <% end %>
         </div>
