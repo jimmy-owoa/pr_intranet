@@ -51,19 +51,19 @@ class ExpenseReport::Request < ApplicationRecord
    end
 
    def self.request_boss_notifications(encrypted_data)
-    decrypted_back = decrypt_data(encrypted_data)
-    request = ExpenseReport::Request.find(decrypted_back[:id])
-    request_user = request.user
-    time_expiry = request.created_at + 1.year
-    request_date = I18n.l(request.created_at, format: "%A, %d de %B de %Y")
-    if DateTime.now >= time_expiry
-      result = { request: request, state: "link_expired", user: request_user.full_name.capitalize, request_date: request_date }
-      return result
-    else
-      result = { request: request, user: request_user, request_date: request_date }
-      return result
-    end
-  end
+     decrypted_back = decrypt_data(encrypted_data)
+     request = ExpenseReport::Request.with_deleted.find(decrypted_back[:id])
+     request_user = request.user
+     time_expiry = request.created_at + 1.year
+     request_date = I18n.l(request.created_at, format: "%A, %d de %B de %Y")
+     if DateTime.now >= time_expiry
+       result = { request: request, state: "link_expired", user: request_user.full_name.capitalize, request_date: request_date }
+       return result
+     else
+       result = { request: request, user: request_user, request_date: request_date }
+       return result
+     end
+   end
 
   def self.decrypt_data(data)
     encrypted_data = Base64.decode64(data)
