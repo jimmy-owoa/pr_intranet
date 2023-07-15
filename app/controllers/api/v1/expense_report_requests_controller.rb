@@ -56,6 +56,7 @@ module Api::V1
       result = ExpenseReport::Request.request_boss_notifications(approved_to_review)
       invoices = []
       request_files = []
+      request_state = result[:request].request_state.code
       boss_id = result[:user].id_exa_boss
       pending_requests = data_pending_requests(boss_id)
       pending_requests.reject! { |request| request[:id] == result[:request].id }
@@ -73,10 +74,10 @@ module Api::V1
           files: files
         }
       end
-      if  result[:state] == "link_expired" || result[:request].request_state.name != 'envoy'
-        render json: { message: "Link expired", success: true, request: result[:request], user: result[:user],request_date: result[:request_date]}, status: :ok
+      if  result[:state] == "link_expired"
+        render json: { message: "Link expired", success: true, request: result[:request], user: result[:user], request_date: result[:request_date]}, status: :ok
       else
-        render json: { message: "request", success: true,files: request_files, invoices: invoices ,request: result[:request], requests: pending_requests, user: result[:user], request_date: result[:request_date] }, status: :ok
+        render json: { message: "request", request_state: request_state, success: true,files: request_files, invoices: invoices ,request: result[:request], requests: pending_requests, user: result[:user], request_date: result[:request_date] }, status: :ok
       end 
     end
 
@@ -232,8 +233,12 @@ module Api::V1
     end
 
     def pending_requests
-      pending_requests = ExpenseReport::Request.includes(:user).where(general_users: { supervisor: @request_user.id_exa }).order(created_at: :desc)
-      pending_requests = pending_requests.includes(:request_state).where(expense_report_request_states: {name: 'envoy'})
+      pending_requests = ExpenseReport::Request.with_deleted.includes(:user).where(general_users: { supervisor: @request_user.id_exa }).order(created_at: :desc)
+      pending_requests = pending_requests.includes(:request_state).where.not(expense_report_request_states: {name: ['draft', 'delete']})
+
+      if params[:status] != 'Todos'
+        pending_requests =  pending_requests.includes(:request_state).where(expense_report_request_states: {code: params[:status].downcase})
+      end
       data = []
       pending_requests.each do |request|
         link = generate_link_supervisor(request)
