@@ -103,7 +103,12 @@ module Admin
     end
     
     def requests_list
-      @requests = ExpenseReport::Request.with_deleted.includes(:request_state).where.not(expense_report_request_states: { name: 'draft' })
+      if current_user.is_admin?
+        @requests = ExpenseReport::Request.includes(:request_state).with_deleted.where.not(expense_report_request_states: { name: 'draft' })
+      else
+        roles_countries = current_user.roles.where(resource_type: "Location::Country").pluck(:resource_id)
+        @requests = ExpenseReport::Request.includes(:request_state).with_deleted.where(country_id: roles_countries).where.not(expense_report_request_states: { name: 'draft' })
+      end
       render xlsx: 'requests_list.xlsx.axlsx', filename: "listada de rendiciones #{Date.today}.xlsx"
     end
 

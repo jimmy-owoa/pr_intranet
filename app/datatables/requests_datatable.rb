@@ -38,20 +38,16 @@ class RequestsDatatable < ApplicationDatatable
       if @view.current_user.is_admin?
         requests = ExpenseReport::Request.with_deleted.where.not(request_state_id: ExpenseReport::RequestState.find_by(name: 'draft').id)
       else
-        requests_country = []
-        roles_countries = @view.current_user.roles.where(resource_type: "Location::Country")
-        roles_countries.map do |r|
-          requests_country << r.resource.requests
-        end
-        requests_country = ExpenseReport::Request.with_deleted.where(id: requests_country.map {|r| r.ids})
-        ids_status = [ExpenseReport::RequestState.find_by(name: 'envoy').id, ExpenseReport::RequestState.find_by(name: 'draft').id]
-        requests = requests_country.where.not(request_state_id: ids_status)
+        roles_countries = @view.current_user.roles.where(resource_type: "Location::Country").pluck(:resource_id)
+        requests = ExpenseReport::Request.includes(:request_state).with_deleted.where(country_id: roles_countries).where.not(expense_report_request_states: { name: ['draft', 'envoy'] })
       end
       
       if sort_column.present? && sort_column == 'user'
         requests = requests.joins(:user).order("name #{sort_direction}")
       elsif sort_column == 'office'
         requests = requests.joins(user: :country).order("location_countries.name #{sort_direction}")
+      elsif sort_column == 'id'
+        requests = requests.order("expense_report_requests.id #{sort_direction}")
       else
         requests = requests.order("#{sort_column} #{sort_direction}")
       end
