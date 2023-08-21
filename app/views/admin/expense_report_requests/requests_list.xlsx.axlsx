@@ -6,7 +6,7 @@ wb.add_worksheet(name: "Lista de Rendiciones") do |sheet|
     request.request_histories.each do |history|
       sheet.add_row [ request.id,
                       General::User.with_deleted.find(request.user_id).full_name,
-                      request.user.get_supervisor_full_name,
+                      request.user&.get_supervisor_full_name,
                       request.description,
                       history.created_at.strftime("%d/%m/%Y %H:%M:%S"),
                       history.request_state.try(:code),

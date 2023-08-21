@@ -273,7 +273,7 @@ class General::User < ApplicationRecord
   end
 
   def get_supervisor
-    General::User.where(id_exa: supervisor).last || General::User.where(email: 'Felipe.Gumucio@cgcompass.com').last
+    General::User.with_deleted.where(id_exa: supervisor).last || General::User.where(email: 'Felipe.Gumucio@cgcompass.com').last
   end
 
   def self.users_for_search
