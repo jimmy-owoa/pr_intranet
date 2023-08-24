@@ -4,7 +4,7 @@ class ExpenseReport::Request < ApplicationRecord
   validates :description, presence: true
 
   # Relations
-  belongs_to :user, class_name: "General::User"
+  belongs_to :user, class_name: "General::User", optional: true
   belongs_to :assistant, class_name: "General::User", optional: true
   belongs_to :society, class_name: "General::Society"
   belongs_to :request_state, class_name: "ExpenseReport::RequestState", optional: true

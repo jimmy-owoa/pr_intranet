@@ -10,13 +10,13 @@
               </div>
               <ul>
                 <li>
-                  <strong>Usuario:</strong> <%= @request.user.full_name.titleize %>
+                  <strong>Usuario:</strong> <%= @user.full_name.titleize %>
                 </li>
                 <li>
-                  <strong>Código:</strong> <%= @request.user.format_legal_number %>
+                  <strong>Código:</strong> <%= @user.format_legal_number %>
                 </li>
                 <li>
-                  <strong>Correo:</strong> <%= @request.user.email %>
+                  <strong>Correo:</strong> <%= @user.email %>
                 </li>
                 <li class="d-flex">
                   <strong>Estado Rendición:</strong> <%= @request.status_color %>
@@ -70,24 +70,24 @@
                         <h3 class="card-title">Cuenta de abono</h3>
                       </div>
                       <ul>
-                        <% if @request.user.accounts.present?%>
+                        <% if @user.accounts.present?%>
                           <li>
-                            <strong>Usuario:</strong> <%= @request.user.accounts.last.name %>
+                            <strong>Usuario:</strong> <%= @user.accounts.last.name %>
                           </li>
                           <li>
-                            <strong>Nro. cuenta:</strong> <%= @request.user.accounts.last.account_number %>
+                            <strong>Nro. cuenta:</strong> <%= @user.accounts.last.account_number %>
                           </li>
                           <li>
-                            <strong>Documento de Identidad:</strong> <%= @request.user.accounts.last.legal_number %>
+                            <strong>Documento de Identidad:</strong> <%= @user.accounts.last.legal_number %>
                           </li>
                           <li>
-                            <strong>Banco:</strong> <%= @request.user.accounts.last.bank_name %>
+                            <strong>Banco:</strong> <%= @user.accounts.last.bank_name %>
                           </li>
                           <li>
-                            <strong>Tipo de cuenta:</strong> <%= @request.user.accounts.last.account_type %>
+                            <strong>Tipo de cuenta:</strong> <%= @user.accounts.last.account_type %>
                           </li>
                           <li>
-                            <strong>Oficina:</strong> <%= @request.user.accounts.last.country %>
+                            <strong>Oficina:</strong> <%= @user.accounts.last.country %>
                           </li>
                           <% else %>
                             <li> Sin datos bancaríos</li>
@@ -101,7 +101,7 @@
                   <div class="card-header">
                     <h3 class="card-title">Centro de costo</h3>
                   </div>
-                  <% if @request.try(:user).try(:cost_centers).present?%>
+                  <% if @user.try(:cost_centers).present?%>
                     <table class="table table-sm">
                       <thead>
                         <tr>
@@ -111,7 +111,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% @request.try(:user).try(:cost_center_users).each do |cc|%>
+                        <% @user.try(:cost_center_users).each do |cc|%>
                         <tr>
                             <td> <%= cc.cost_center.name %></td>
                             <td><%= cc.percentage %>%</td>

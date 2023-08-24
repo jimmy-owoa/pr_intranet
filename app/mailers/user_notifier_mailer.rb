@@ -120,7 +120,8 @@ class UserNotifierMailer < ApplicationMailer
   # notificacion al supervisor para poder aprobar o rechazar una rendición
   def notification_new_request_boss(request) 
     @request = request
-    email_boss = @request.user.get_supervisor_email
+    @user = General::User.with_deleted.find(request.user_id)
+    email_boss = @user.get_supervisor_email
     #encrypt
     key = Rails.application.credentials[:secret_key_base][0..31]
     crypt = ActiveSupport::MessageEncryptor.new(key)
@@ -134,7 +135,8 @@ class UserNotifierMailer < ApplicationMailer
   # recordatorio notificacion al supervisor para poder aprobar o rechazar una rendición
   def reminder_supervisors_requests(request) 
     @request = request
-    email_boss = @request.user.get_supervisor_email
+    @user = General::User.with_deleted.find(request.user_id)
+    email_boss = @user.get_supervisor_email
     #encrypt
     key = Rails.application.credentials[:secret_key_base][0..31]
     crypt = ActiveSupport::MessageEncryptor.new(key)
@@ -146,28 +148,31 @@ class UserNotifierMailer < ApplicationMailer
 
   # notificacion al usuario cuando un tercero crea una rendición
   def notification_new_request_user(request)
+    @user = General::User.with_deleted.find(request.user_id)
     @request = request
-    @user = request.user
     mail(to: @user.email, subject: 'Nueva rendición de gastos')
   end
 
   # notificacion para el supervisor, aprobo una rendicion
   def notification_request_approved_to_boss(request)
-    email_boss = request.user.get_supervisor_email
+    @user = General::User.with_deleted.find(request.user_id)
+    email_boss = @user.get_supervisor_email
     @request = request
     mail(to: email_boss, subject: 'Has aprobado una rendición de gastos')
   end
 
   # notificacion para el usuario, rendicicion aprobada por el supervisor
   def notification_request_approved_to_user(request)
-    email_user = request.user.email
+    @user = General::User.with_deleted.find(request.user_id)
+    email_user = @user.email
     @request = request
     mail(to: email_user, subject: 'Solicitud de rendición aprobada')
   end
 
   # notificacion para el usuario, cuando el resolutor toma el caso
   def notification_request_attended(request)
-    email_user = request.user.email
+    @user = General::User.with_deleted.find(request.user_id)
+    email_user = @user.email
     @request = request
     mail(to: email_user, subject: 'Resolutor está gestionando su rendición')
   end
@@ -176,37 +181,43 @@ class UserNotifierMailer < ApplicationMailer
   def notification_new_request(request)
     emails = request.country.assistants.map(&:email)
     @request = request
-    @boss_name = request.user.get_supervisor_full_name
+    @user = General::User.with_deleted.find(request.user_id)
+    @boss_name = @user.get_supervisor_full_name
     mail(to: emails, subject: "Nueva Rendición de gastos #{@request.id}")
   end
 
   # notificacion para el usuarío - rendicion rechazada por el supervisor
   def notification_request_rejected(request)
-    email = request.user.email
+    @user = General::User.with_deleted.find(request.user_id)
+    email = @user.email
     @request = request
     mail(to: email, subject: "Rendición de gastos rechazada")
   end
   # notificacion para el supervisor - rechazo una rendicion de gastos
   def notification_request_rejected_to_boss(request)
-    email_boss = request.user.get_supervisor_email
+    @user = General::User.with_deleted.find(request.user_id)
+    email_boss = @user.get_supervisor_email
     @request = request
     mail(to: email_boss, subject: "Rendición de gastos rechazada")
   end
   # rendicion cerrada 
   def notification_request_close(request)
+    @user = General::User.with_deleted.find(request.user_id)
     @request = request
-    mail(to: request.user.email, subject: "Caso ##{request.id} ha sido resuelto")
+    mail(to: @user.email, subject: "Caso ##{request.id} ha sido resuelto")
   end
 
   # mensaje al usuario cuando el resolutor reponde a una rendición 
   def notification_request_message(request)
+    @user = General::User.with_deleted.find(request.user_id)
     @request = request
-    mail(to: request.user.email, subject: "Tu rendición ##{request.id}, tiene un nuevo mensaje")
+    mail(to: @user.email, subject: "Tu rendición ##{request.id}, tiene un nuevo mensaje")
   end
 
   def notification_request_payment_date(request)
+    @user = General::User.with_deleted.find(request.user_id)
     @request = request
-    mail(to: request.user.email, subject: "Nueva fecha de pago para tu caso ##{request.id}")
+    mail(to: @user.email, subject: "Nueva fecha de pago para tu caso ##{request.id}")
   end
 
   def notification_to_the_third_party(request, user)
