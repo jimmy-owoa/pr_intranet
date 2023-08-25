@@ -22,7 +22,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def id_exa_boss
-    General::User.find_by(id_exa: object.id_exa_boss).full_name
+    General::User.find_by(id_exa: object.try(:id_exa_boss))&.full_name
   end
 
   def supervisor
