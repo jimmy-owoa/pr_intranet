@@ -24,3 +24,30 @@ wb.add_worksheet(name: "Lista de Rendiciones") do |sheet|
     end
   end
 end
+
+wb.add_worksheet(name: "Detalle rendiciones") do |sheet|
+
+  sheet.add_row ['Id', 'Usuario', 'Supervisor', 'Descripcion', 'Estado', 'Oficina', 'Divisa', 'Ultimo estado', 'Total', 'Sociedad', 'Asistente', '¿Es local?', 'País destino', 'Fecha de creacion', 'Categoría', 'Descripción', 'Subtotal']
+  @requests.each do |request|
+    request.invoices.each do |invoice|
+      sheet.add_row [ request.id,
+                      General::User.with_deleted.find(request.user_id).full_name,
+                      General::User.with_deleted.find(request.user_id).get_supervisor_full_name,
+                      request.description,
+                      request.request_histories.last&.request_state.try(:code),
+                      General::User.with_deleted.find(request.user_id).try(:country).try(:name),
+                      request.divisa_id,
+                      request.request_state.code,
+                      request.total,
+                      request.society.try(:name),
+                      request.assistant_id.present? ? General::User.with_deleted.where(id: request.assistant_id).last.full_name : 'Sin Asistente',
+                      request.is_local,
+                      request.destination_country_id,
+                      request.created_at,
+                      invoice.try(:category).try(:name),
+                      invoice.try(:description),
+                      invoice.try(:total),
+                      ]
+    end
+  end
+end
