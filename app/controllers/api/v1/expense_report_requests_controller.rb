@@ -140,11 +140,8 @@ module Api::V1
     end
 
     def divisas
-      if @request_user.country.name == 'CHILE' 
-        data = [{"CLP": 3}, {"USD": 9}, {"N/A": 11}].freeze
-      else
-        data = ExpenseReport::Request::DIVISAS
-      end
+      country_name = @request_user.country.name
+      data =  ExpenseReport::Request::CURRENCY_BY_COUNTRY[country_name] || ExpenseReport::Request::DIVISAS
       render json: data, status: :ok
     end
 
