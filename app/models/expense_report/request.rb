@@ -26,6 +26,20 @@ class ExpenseReport::Request < ApplicationRecord
   enum payment_method_id: ['Transferencia bancaria moneda local', 'Transferencia bancaria moneda extranjera', 'Abono tarjeta de crédito']
   PAYMENT_METHOD = [{"Transferencia bancaria moneda local": 1}, {"Transferencia bancaria moneda extranjera": 2}, {"Abono tarjeta de crédito": 3}].freeze
 
+  CURRENCY_BY_COUNTRY = {
+    'ARGENTINA' => [{"ARS": 1}, {"USD": 9}, {"N/A": 11}],
+    'BRASIL' => [{"BRL": 2}, {"USD": 9}, {"N/A": 11}],
+    'CHILE' => [{"CLP": 3}, {"USD": 9}, {"N/A": 11}],
+    'COLOMBIA' => [{"COP": 4}, {"USD": 9}, {"N/A": 11}],
+    'EUR' => [{"EUR": 5}, {"USD": 9}, {"N/A": 11}],
+    'UK' => [{"GBP": 6}, {"USD": 9}, {"N/A": 11}],
+    'MEXICO' => [{"MXN": 7}, {"USD": 9}, {"N/A": 11}],
+    'PERU' => [{"PEN": 8}, {"USD": 9}, {"N/A": 11}],
+    'NUEVA YORK' => [{"USD": 9}, {"N/A": 11}],
+    'MIAMI' => [{"USD": 9}, {"N/A": 11}],
+    'URUGUAY' => [{"UYU": 10}, {"USD": 9}, {"N/A": 11}],
+  }.freeze
+
    def total_time
      if closed_at.present?
        distance_of_time_in_words(created_at, closed_at)
