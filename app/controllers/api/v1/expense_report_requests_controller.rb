@@ -169,16 +169,15 @@ module Api::V1
       @user = {
         id: @request_user.id,
         email: @request_user.try(:email),
-        country: @request_user.try(:email),
+        country: @request_user&.country&.name,
         full_name: @request_user.get_full_name,
-        id_exa_boss: General::User.find_by(id_exa: @request_user.id_exa_boss).full_name,
+        id_exa_boss: General::User.where(id_exa: @request_user.id_exa_boss).last.try(:full_name),
         last_name: @request_user.try(:last_name),
         legal_number: @request_user.try(:legal_number),
         name: @request_user.try(:name),
         society: @request_user.try(:society).id,
         supervisor: @request_user.get_supervisor_full_name,
         accounts: @request_user.accounts.last.try(:filtered_account)
-    
       }
       render json: @user, status: :ok
     end
