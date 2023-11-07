@@ -101,7 +101,7 @@ module Api::V1
     
     def request_draft
       request = ExpenseReport::Request.find(params[:id])
-      if request.request_state.name == 'draft'
+      if request.request_state.name == 'draft' || 'envoy'
         render json: request, serializer: ExpenseReport::RequestSerializer, is_show: true, status: :ok
       else
         render json: { message: "false"}, status: :ok
