@@ -11,6 +11,8 @@ class ExpenseReport::Request < ApplicationRecord
   belongs_to :country, class_name: "Location::Country", optional: true
   has_many :request_histories, class_name: "ExpenseReport::RequestHistory", foreign_key: :request_id
   has_many :invoices, class_name: "ExpenseReport::Invoice", foreign_key: :request_id, inverse_of: :request
+  belongs_to :created_by, class_name: "General::User"
+  
   accepts_nested_attributes_for :invoices
 
   has_many_attached :files
