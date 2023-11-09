@@ -258,7 +258,8 @@ module Api::V1
         data << {
           id: request.id,
           created_at: request.created_at.strftime('%d/%m/%Y %H:%M hrs'),
-          status: request.request_state.code
+          status: request.request_state.code,
+          for_other: request.user != @request_user
         }
       end
       return data
