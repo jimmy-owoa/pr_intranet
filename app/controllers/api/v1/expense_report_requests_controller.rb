@@ -9,7 +9,7 @@ module Api::V1
       status = params[:status].downcase
       data = []
       if status == 'todos'
-        requests = @request_user.requests.order(created_at: :desc)
+        requests = ExpenseReport::Request.where('user_id = :user_id OR created_by_id = :user_id', user_id: @request_user.id).order(created_at: :desc)
       else
         id_status = ExpenseReport::RequestState.find_by(code: status).id
         requests = @request_user.requests.where(request_state_id: id_status ).order(created_at: :desc)
@@ -24,6 +24,7 @@ module Api::V1
 
     def create
       request = ExpenseReport::Request.new(request_params)
+      request.created_by = @request_user
       request.destination_country_id = params[:request][:destination_country_id].to_i  if params[:request][:destination_country_id] != 'NULL'
       request.set_state(params[:request][:request_state])
       request.country_id = request.user.country.id
@@ -101,7 +102,7 @@ module Api::V1
     
     def request_draft
       request = ExpenseReport::Request.find(params[:id])
-      if request.request_state.name == 'draft'
+      if request.request_state.name == 'draft' || 'envoy'
         render json: request, serializer: ExpenseReport::RequestSerializer, is_show: true, status: :ok
       else
         render json: { message: "false"}, status: :ok
@@ -257,7 +258,8 @@ module Api::V1
         data << {
           id: request.id,
           created_at: request.created_at.strftime('%d/%m/%Y %H:%M hrs'),
-          status: request.request_state.code
+          status: request.request_state.code,
+          for_other: request.user != @request_user
         }
       end
       return data
