@@ -162,7 +162,40 @@ module Api::V1
     end
 
     def payment_method
-      data = ExpenseReport::Request::PAYMENT_METHOD
+      country = @request_user.country.name
+
+       data = case country
+              when 'ARGENTINA'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'].include?(method.keys.first)
+                end
+              when 'BRASIL'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera'].include?(method.keys.first)
+                end
+              when 'CHILE'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Abono tarjeta de crédito'].include?(method.keys.first)
+                end
+              when 'MEXICO'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'].include?(method.keys.first)
+                end
+              when 'PERU'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera'].include?(method.keys.first)
+                end
+              when 'ROU'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'].include?(method.keys.first)
+                end
+              when 'USA'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local'].include?(method.keys.first)
+                end
+              else
+                ExpenseReport::Request::PAYMENT_METHOD
+              end
       render json: data, status: :ok
     end
 

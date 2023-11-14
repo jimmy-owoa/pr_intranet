@@ -25,8 +25,8 @@ class ExpenseReport::Request < ApplicationRecord
   enum destination_country_id: ['Argentina', 'Brasil', 'Chile', 'Colombia', 'Miami', 'México', 'Nueva York', 'Perú', 'Uruguay', 'NULL']
   COUNTRY = [{"Argentina": 0}, {"Brasil": 1}, {"Chile": 2} ,{"Colombia": 3}, {"Miami": 4} ,{"México": 5} ,{"Nueva York": 6} ,{"Perú": 7}, {"Uruguay": 8}, {"NULL": 9} ].freeze
   
-  enum payment_method_id: ['Transferencia bancaria moneda local', 'Transferencia bancaria moneda extranjera', 'Abono tarjeta de crédito']
-  PAYMENT_METHOD = [{"Transferencia bancaria moneda local": 1}, {"Transferencia bancaria moneda extranjera": 2}, {"Abono tarjeta de crédito": 3}].freeze
+  enum payment_method_id: ['Transferencia bancaria moneda local', 'Transferencia bancaria moneda extranjera', 'Abono tarjeta de crédito', 'Pago tarjeta corporativa']
+  PAYMENT_METHOD = [{"Transferencia bancaria moneda local": 1}, {"Transferencia bancaria moneda extranjera": 2}, {"Abono tarjeta de crédito": 3}, {"Pago tarjeta corporativa": 4}].freeze
 
   CURRENCY_BY_COUNTRY = {
     'ARGENTINA' => [{"ARS": 1}, {"USD": 9}, {"N/A": 11}],
