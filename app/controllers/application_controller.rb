@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
       cod = JWT.encode(payload, Rails.application.credentials.secret_key_base)
       request.env["omniauth.origin"] + "?t=#{user_jwt}" + "&cod=#{cod}" + "&r=#{current_user.referrer}" # Agregar referrer guardado en session[:referrer]
     else
-      admin_root_path
+      redirect_path_for_user(resource)
     end
   end
 
@@ -35,4 +35,13 @@ class ApplicationController < ActionController::Base
     flash[:alert] = "No estás autorizado para realizar esta acción."
     redirect_to(request.referrer || admin_root_path)
   end
+
+  def redirect_path_for_user(user)
+    if user.has_role?(:expense_report, :any)
+      admin_expense_report_requests_path
+    else
+      admin_root_path
+    end
+  end
+
 end
