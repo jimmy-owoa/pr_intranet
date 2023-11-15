@@ -185,11 +185,15 @@ module Api::V1
                 ExpenseReport::Request::PAYMENT_METHOD.select do |method|
                   [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera'].include?(method.keys.first)
                 end
-              when 'ROU'
+              when 'URUGUAY'
                 ExpenseReport::Request::PAYMENT_METHOD.select do |method|
                   [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'].include?(method.keys.first)
                 end
-              when 'USA'
+              when 'NUEVA YORK'
+                ExpenseReport::Request::PAYMENT_METHOD.select do |method|
+                  [:'Transferencia bancaria moneda local'].include?(method.keys.first)
+                end
+              when 'MIAMI'
                 ExpenseReport::Request::PAYMENT_METHOD.select do |method|
                   [:'Transferencia bancaria moneda local'].include?(method.keys.first)
                 end
