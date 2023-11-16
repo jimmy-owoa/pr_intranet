@@ -131,9 +131,12 @@
             <div class="card post_card">
               <div class="card-header" style="justify-content: space-between;">
                 <h3 class="card-title m-0">Titulo de la rendición</h3>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  Ver historial
-                </button>
+                <div class="btns">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Ver historial
+                  </button>
+                  <%= link_to "Pdf", download_request_pdf_admin_expense_report_request_path(@request), class: 'btn btn-primary' %>
+                </div>
               </div>
               <div class="card-body">
                 <p><%= @request.description %></p>
