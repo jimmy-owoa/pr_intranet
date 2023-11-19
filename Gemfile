@@ -120,6 +120,7 @@ gem "data-confirm-modal"
 gem "clipboard-rails"
 gem 'prawn'
 gem 'prawn-table'
+gem 'combine_pdf'
 
 
 
