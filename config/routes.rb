@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       put :close, on: :member
       get :inbox, on: :collection
       get :requests_list, on: :member
+      get :download_request_pdf, on: :member
+
     end
     resources :expense_report_categories 
     resource :chat_messages

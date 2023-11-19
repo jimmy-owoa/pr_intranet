@@ -1,7 +1,7 @@
 module Admin
   class ExpenseReportRequestsController < AdminController
 
-    before_action :set_request, only: [:edit, :show, :destroy, :update, :take_request, :close]
+    before_action :set_request, only: [:edit, :show, :destroy, :update, :take_request, :close, :download_request_pdf]
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     def index
@@ -111,6 +111,11 @@ module Admin
         @requests = ExpenseReport::Request.includes(:request_state).with_deleted.where(country_id: roles_countries).where.not(expense_report_request_states: { name: 'draft' })
       end
       render xlsx: 'requests_list.xlsx.axlsx', filename: "listada de rendiciones #{Date.today}.xlsx"
+    end
+
+    def download_request_pdf
+      pdf_content = PdfGenerator.generate(@request)
+      send_data pdf_content, filename: 'report.pdf', type: 'application/pdf'
     end
 
     private
