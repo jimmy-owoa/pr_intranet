@@ -88,39 +88,40 @@ class PdfGenerator
       end
 
     end
+    combined_pdf = CombinePDF.new
+    combined_pdf << CombinePDF.parse(pdf.render)
 
     request.invoices.each do |invoice|
-      pdf.start_new_page unless pdf.page_count == 1
-
       invoice.files.each do |file|
-        if es_imagen?(file)
-          abre_imagen(file) do |path|
-            pdf.start_new_page
-            pdf.text "Anexo: #{invoice.id}", style: :bold
-            pdf.move_down 10
-            pdf.image path, width: pdf.bounds.width
+        if is_image?(file)
+          open_image(file) do |path|
+            image_pdf = Prawn::Document.new(:skip_page_creation => true)
+            image_pdf.start_new_page
+            image_pdf.text "Anexo: #{invoice.id}", style: :bold
+            image_pdf.move_down 10
+            image_pdf.image path, width: image_pdf.bounds.width
+            combined_pdf << CombinePDF.parse(image_pdf.render) 
           end
+        elsif is_pdf?(file)
+          combined_pdf << download_pdf(file)
         else
           pdf.start_new_page
-          pdf.text "Archivo no mostrable: #{file.filename.to_s}"
+          pdf.text "Archivo no compatible"
+          combined_pdf << CombinePDF.parse(pdf.render)
+          combined_pdf << download_pdf(file)
         end
-        pdf.move_down 10
       end
-
     end
-
-    pdf.start_new_page
-
-    pdf.render
+    combined_pdf.to_pdf
   end
 
-  def self.es_imagen?(file)
+  def self.is_image?(file)
     filename = file.filename.to_s
     %w[jpg jpeg png gif].include?(File.extname(filename).downcase.delete('.'))
   end
 
 
-  def self.abre_imagen(file)
+  def self.open_image(file)
     Tempfile.create([file.filename.to_s, File.extname(file.filename.to_s)]) do |temp_file|
       temp_file.binmode
       temp_file.write(file.blob.download)
@@ -129,7 +130,20 @@ class PdfGenerator
       yield temp_file.path
     end
   end
-  
 
+  def self.is_pdf?(file)
+    %w[.pdf].include?(File.extname(file.filename.to_s).downcase)
+  end
+
+  def self.download_pdf(file)
+    Tempfile.create([file.filename.to_s, '.pdf']) do |temp_file|
+      temp_file.binmode
+      temp_file.write(file.blob.download)
+      temp_file.flush
+      temp_file.rewind
+      pdf = CombinePDF.load(temp_file.path)
+      pdf
+    end 
+  end
 
 end
