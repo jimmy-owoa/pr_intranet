@@ -1,5 +1,6 @@
 class Payment::Account < ApplicationRecord
   belongs_to :user, class_name: 'General::User'
+  has_many :expense_report_requests, class_name: 'ExpenseReport::Request'
 
   def filtered_account
     if self.account_number.present? 

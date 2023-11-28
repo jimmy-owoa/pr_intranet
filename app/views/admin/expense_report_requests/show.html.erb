@@ -70,28 +70,13 @@
                         <h3 class="card-title">Cuenta de abono</h3>
                       </div>
                       <ul>
-                        <% if @user.accounts.present?%>
-                          <li>
-                            <strong>Usuario:</strong> <%= @user.accounts.last.name %>
-                          </li>
-                          <li>
-                            <strong>Nro. cuenta:</strong> <%= @user.accounts.last.account_number %>
-                          </li>
-                          <li>
-                            <strong>Documento de Identidad:</strong> <%= @user.accounts.last.legal_number %>
-                          </li>
-                          <li>
-                            <strong>Banco:</strong> <%= @user.accounts.last.bank_name %>
-                          </li>
-                          <li>
-                            <strong>Tipo de cuenta:</strong> <%= @user.accounts.last.account_type %>
-                          </li>
-                          <li>
-                            <strong>Oficina:</strong> <%= @user.accounts.last.country %>
-                          </li>
-                          <% else %>
-                            <li> Sin datos bancaríos</li>
-                          <% end %>
+                        <% if @request.account.present? %>
+                          <%= render partial: "account_details", locals: { account: @request.account } %>
+                        <% elsif @user.accounts.present? %>
+                          <%= render partial: "account_details", locals: { account: @user.accounts.last } %>
+                        <% else %>
+                          <li> Sin datos bancarios</li>
+                        <% end %>                      
                       </ul>
                     </div>
                 <% end %>
