@@ -10,4 +10,23 @@ class Payment::Account < ApplicationRecord
       self.account_number = nil
     end
   end
+
+    # Define una constante para mapear los países a sus métodos de pago
+    PAYMENT_METHODS_BY_COUNTRY = {
+      'ARGENTINA'  => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],
+      'BRASIL'     => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],
+      'CHILE'      => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Abono tarjeta de crédito'],
+      'MIAMI'      => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera'],
+      'MEXICO'     => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],
+      'PERU'       => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera'],
+      'URUGUAY'    => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],
+      'NUEVA YORK' => [:'Transferencia bancaria moneda local'],
+      'MIAMI'      => [:'Transferencia bancaria moneda local']
+    }.freeze
+  
+    # Método para obtener los métodos de pago basados en el país
+    def self.payment_methods_for_country(country)
+      methods = PAYMENT_METHODS_BY_COUNTRY[country] || ExpenseReport::Request::PAYMENT_METHOD
+      ExpenseReport::Request::PAYMENT_METHOD.select { |method| methods.include?(method.keys.first.to_sym) }
+    end
 end
