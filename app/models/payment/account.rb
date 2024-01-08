@@ -16,7 +16,6 @@ class Payment::Account < ApplicationRecord
       'ARGENTINA'  => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],
       'BRASIL'     => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],
       'CHILE'      => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Abono tarjeta de crédito'],
-      'MIAMI'      => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera'],
       'MEXICO'     => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],
       'PERU'       => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera'],
       'URUGUAY'    => [:'Transferencia bancaria moneda local', :'Transferencia bancaria moneda extranjera', :'Pago tarjeta corporativa'],

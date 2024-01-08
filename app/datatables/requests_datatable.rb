@@ -9,10 +9,10 @@ class RequestsDatatable < ApplicationDatatable
           links << link_to('ver', admin_expense_report_request_path(request), class: 'btn btn-success btn-sm')
           {
             id: request.id,
-            user: General::User.with_deleted.find(request.user_id).full_name,
-            office: request.user.try(:country).try(:name),
-            society_id: request.society.present? ? request.society.name : 'No definido',
-            assistant_id: request.assistant_id.present? ? General::User.find(request.assistant_id).full_name : 'No definido',
+            user: General::User.with_deleted.find_by(id: request.user_id)&.full_name,
+            office: request.user&.country&.name,
+            society_id: request.society&.name || 'No definido',
+            assistant_id: General::User.with_deleted.find_by(id: request.assistant_id)&.full_name || 'No definido',
             status: request.status_color,
             divisa: request.divisa_id.nil? ? 'No definido' : request.divisa_id,
             total_time: request.total_time,
