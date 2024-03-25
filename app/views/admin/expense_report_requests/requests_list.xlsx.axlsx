@@ -3,20 +3,27 @@ wb.add_worksheet(name: "Lista de Rendiciones") do |sheet|
 
   sheet.add_row ['Id', 'Usuario', 'Supervisor', 'Descripcion', 'Fecha estado', 'Estado', 'Oficina', 'Divisa', 'Ultimo estado', 'Comentario de eliminación', 'Total', 'Sociedad', 'Asistente', '¿Es local?', 'País destino', 'Fecha de creacion'  ]
   @requests.each do |request|
+
+    user = General::User.with_deleted.find_by(id: request.user_id)
+    user_full_name = user&.full_name || 'Usuario no encontrado'
+    supervisor_full_name = user&.get_supervisor_full_name || 'Supervisor no encontrado'
+    country_name = user&.try(:country)&.name || 'Oficina no encontrada'
+    assistant_full_name = request.assistant_id.present? ? (General::User.with_deleted.find_by(id: request.assistant_id)&.full_name || 'Asistente no encontrado') : 'Sin Asistente'
+
     request.request_histories.each do |history|
       sheet.add_row [ request.id,
-                      General::User.with_deleted.find(request.user_id).full_name,
-                      General::User.with_deleted.find(request.user_id).get_supervisor_full_name,
+                      user_full_name,
+                      supervisor_full_name,
                       request.description,
                       history.created_at.strftime("%d/%m/%Y %H:%M:%S"),
                       history.request_state.try(:code),
-                      General::User.with_deleted.find(request.user_id).try(:country).try(:name),
+                      country_name,
                       request.divisa_id,
                       request.request_state.code,
                       history.try(:comment),
                       request.total,
                       request.society.try(:name),
-                      request.assistant_id.present? ? General::User.with_deleted.where(id: request.assistant_id).last.full_name : 'Sin Asistente',
+                      assistant_full_name,
                       request.is_local,
                       request.destination_country_id,
                       request.created_at,
@@ -29,18 +36,24 @@ wb.add_worksheet(name: "Detalle rendiciones") do |sheet|
 
   sheet.add_row ['Id', 'Usuario', 'Supervisor', 'Descripcion', 'Estado', 'Oficina', 'Divisa', 'Ultimo estado', 'Total', 'Sociedad', 'Asistente', '¿Es local?', 'País destino', 'Fecha de creacion', 'Categoría', 'Descripción', 'Subtotal']
   @requests.each do |request|
+    user = General::User.with_deleted.find_by(id: request.user_id)
+    user_full_name = user&.full_name || 'Usuario no encontrado'
+    supervisor_full_name = user&.get_supervisor_full_name || 'Supervisor no encontrado'
+    country_name = user&.try(:country)&.name || 'Oficina no encontrada'
+    assistant_full_name = request.assistant_id.present? ? (General::User.with_deleted.find_by(id: request.assistant_id)&.full_name || 'Asistente no encontrado') : 'Sin Asistente'
+
     request.invoices.each do |invoice|
       sheet.add_row [ request.id,
-                      General::User.with_deleted.find(request.user_id).full_name,
-                      General::User.with_deleted.find(request.user_id).get_supervisor_full_name,
+                      user_full_name,
+                      supervisor_full_name,
                       request.description,
                       request.request_histories.last&.request_state.try(:code),
-                      General::User.with_deleted.find(request.user_id).try(:country).try(:name),
+                      country_name,
                       request.divisa_id,
                       request.request_state.code,
                       request.total,
                       request.society.try(:name),
-                      request.assistant_id.present? ? General::User.with_deleted.where(id: request.assistant_id).last.full_name : 'Sin Asistente',
+                      assistant_full_name,
                       request.is_local,
                       request.destination_country_id,
                       request.created_at,
