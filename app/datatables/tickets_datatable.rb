@@ -8,6 +8,7 @@ class TicketsDatatable < ApplicationDatatable
         links = []
         links << link_to('<i class="fas fa-edit"></i> Ver'.html_safe, admin_helpcenter_ticket_path(ticket), class: 'btn btn-success btn-sm')
 
+
         status = case ticket.status
         when 'open'
           "<p class='text-light bg-danger rounded text-center p-1'>Abierto</p>"
@@ -21,6 +22,12 @@ class TicketsDatatable < ApplicationDatatable
           "<p class='text-back bg-secondary rounded text-center p-1'>En Espera</p>"
         end
 
+        sla_compliance = if ticket.meets_sla?
+          "<p class='text-light bg-success rounded text-center p-1'>Cumple SLA</p>"
+        else
+          "<p class='text-light bg-warning rounded text-center p-1'>No cumple SLA</p>"
+        end
+
         {
           id: ticket.id,
           requested_position_title: ticket.requested_position_title,
@@ -30,6 +37,7 @@ class TicketsDatatable < ApplicationDatatable
           status: status,
           time_worked: ticket.time_worked,
           total_time: ticket.total_time,
+          sla_compliance: sla_compliance,
           actions: links.join(' ')
         }
     end

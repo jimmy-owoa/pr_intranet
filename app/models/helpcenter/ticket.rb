@@ -2,7 +2,7 @@ class Helpcenter::Ticket < ApplicationRecord
   include ActionView::Helpers::DateHelper
 
   # validations
-
+  SLA_TARGET_IN_HOURS = 48
   # relations
   belongs_to :user, class_name: "General::User"
   belongs_to :assistant, class_name: "General::User", optional: true
@@ -145,6 +145,25 @@ enum income_composition: {
   'fija' => 0,
   'fija + variable' => 1
 }
+
+def resolution_time_in_hours
+  return nil unless closed_at
+  ((closed_at - created_at) / 1.hour).round(2)
+end
+
+def meets_sla?
+  resolution_time = resolution_time_in_hours
+  resolution_time && resolution_time <= SLA_TARGET_IN_HOURS
+end
+
+def self.meeting_sla
+  select { |ticket| ticket.meets_sla? }
+end
+
+# Tickets que no cumplen con el SLA
+def self.not_meeting_sla
+  select { |ticket| !ticket.meets_sla? && ticket.closed_at.present? }
+end
 
   before_create :set_status
 

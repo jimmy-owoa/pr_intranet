@@ -57,6 +57,7 @@ $(document).on("turbolinks:load", function() {
       { title: 'Estado', data: 'status', orderable: false, targets: 'no-sort' },
       { title: 'Tiempo resolutor', data: 'time_worked', orderable: false, targets: 'no-sort' },
       { title: 'Tiempo total', data: 'total_time', orderable: false, targets: 'no-sort' },
+      { title: 'Cumplimiento Sla', data: 'sla_compliance', orderable: false, targets: 'no-sort' },
       { title: 'Acciones', data: 'actions', orderable: false, targets: 'no-sort' },
     ]
   })
