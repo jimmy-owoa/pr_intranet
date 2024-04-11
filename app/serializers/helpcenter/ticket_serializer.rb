@@ -1,5 +1,5 @@
 class Helpcenter::TicketSerializer < ActiveModel::Serializer
-  attributes :id, :created_at, :status, :years_of_experience, :required_education, :shift, :requested_position_title, :careers
+  attributes :id, :created_at, :status, :years_of_experience, :required_education, :shift, :requested_position_title, :careers, :postulaciones
   # has_many :chat_messages, if: -> { is_show? }
   # attribute :description, if: -> { is_show? }
   # attribute :survey_answered, if: -> { is_show? }
