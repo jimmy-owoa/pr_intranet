@@ -1,15 +1,41 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Lista de tickets") do |sheet|
-
-  sheet.add_row ['Id', 'Usuario', 'Fecha de creacion', 'Estado', 'Categoria', 'Oficina']
+  # Añade los nuevos campos a la fila de encabezado
+  sheet.add_row ['Id', 'Usuario', 'Fecha de creacion', 'Estado',
+                 'Proceso', 'Fuente de Reclutamiento', 'Motivo de Búsqueda', 'N° Vacantes',
+                 'Área', 'Empresa', 'Educación Requerida', 'Centro de Costo', 'Carreras',
+                 'Años de Experiencia', 'Ubicación del Cargo', 'Horario de Trabajo', 'Turno',
+                 'Observaciones', 'Fecha Máxima de Ingreso', 'Composición de la Renta',
+                 'Requiere Cuenta', 'Requiere Computador', 'Fecha de Solicitud', 'Posición Solicitada',
+                 'Usuario de Reemplazo']
 
   @tickets.each do |ticket|
     sheet.add_row [ ticket.id,
                     General::User.with_deleted.find(ticket.user_id).full_name,
                     ticket.created_at,
-                    Helpcenter::Ticket::STATUS_ES[ticket.status],
-                    ticket.subcategory.present? ? ticket.subcategory.category.name : 'sin categoria',
-                    ticket.subcategory.present? ? ticket.subcategory.category.try(:profile).try(:name) : ''
+                    Helpcenter::Ticket::STATUS_ES[ticket.status], # Asumiendo que tienes un mapeo para el estado
+                    ticket.character_of_process, # Aquí deberías convertir el valor enum a string
+                    ticket.recruitment_source, # Convierte a string
+                    ticket.reason_for_search, # Convierte a string
+                    ticket.number_of_vacancies,
+                    ticket.area, # Convierte a string
+                    ticket.company, # Convierte a string
+                    ticket.required_education, # Convierte a string
+                    ticket.cost_center,
+                    ticket.careers, # Convierte a string
+                    ticket.years_of_experience,
+                    ticket.job_location, # Convierte a string
+                    ticket.work_schedule, # Convierte a string
+                    ticket.shift, # Convierte a string
+                    ticket.observation,
+                    ticket.admission_date,
+                    ticket.income_composition, # Convierte a string
+                    ticket.requires_account, # Convierte a string
+                    ticket.requires_computer, # Convierte a string
+                    ticket.request_date,
+                    ticket.requested_position_title, # Convierte a string
+                    ticket.replacement_user_id # Aquí podrías usar el nombre del usuario de reemplazo, si aplicable
                     ]
   end
 end
+

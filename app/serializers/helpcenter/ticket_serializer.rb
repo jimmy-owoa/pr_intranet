@@ -1,30 +1,37 @@
 class Helpcenter::TicketSerializer < ActiveModel::Serializer
-  attributes :id, :subcategory, :created_at, :closed_at, :status
-  has_many :chat_messages, if: -> { is_show? }
-  attribute :description, if: -> { is_show? }
-  attribute :survey_answered, if: -> { is_show? }
+  attributes :id, :created_at, :status, :years_of_experience, :required_education, :shift, :requested_position_title, :careers
+  # has_many :chat_messages, if: -> { is_show? }
+  # attribute :description, if: -> { is_show? }
+  # attribute :survey_answered, if: -> { is_show? }
 
-  def subcategory
-    object.subcategory.name
-  end
 
   def created_at
     object.created_at.strftime('%d/%m/%Y %H:%M hrs')
   end
 
-  def closed_at
-    object.closed_at.strftime('%d/%m/%Y %H:%M hrs') if object.closed_at.present?
-  end
-
-  def survey_answered
-    object.satisfaction_answers.present?
-  end
   
   def status
     Helpcenter::Ticket::STATUS_ES[object.status]
   end
 
-  def is_show?
-    instance_options[:is_show]
+  def years_of_experience 
+    object.years_of_experience.gsub('_', ' ').capitalize()
   end
+
+  def required_education 
+    object.required_education.gsub('_', ' ').capitalize()
+  end
+
+  def requested_position_title 
+    object.requested_position_title.gsub('_', ' ').capitalize()
+  end
+
+  def careers 
+    object.careers.gsub('_', ' ').capitalize()
+  end
+  
+
+  # def is_show?
+  #   instance_options[:is_show]
+  # end
 end

@@ -79,13 +79,8 @@
                 <% end %>
 
                 <% if current_user.is_admin? || current_user.is_helpcenter? %>                  
-                  <li class="menu-header">Centro de ayuda</li>
+                  <!-- <li class="menu-header">Centro de ayuda</li> -->
                   <%= render "layouts/partials/helpcenter_menu" %>
-                <% end %>
-
-                <% if current_user.is_admin? || current_user.has_role?(:expense_report, :any)%>                  
-                  <li class="menu-header">Rendicion de gastos</li>
-                  <%= render "layouts/partials/expense_report_menu" %>
                 <% end %>
 
                 <% if current_user.is_admin? %>

@@ -1,54 +1,149 @@
 <%= f.error_notification ticket: f.object.errors[:ticket].to_sentence %>
 
-<div class="form-group row">
-  <div class="col-sm-7">
+<div class="form-group row bg-white">
+  <div class="col-sm-10">
     <div class="row">
       <% if current_user.is_admin? %>
-        <div class="col-12 col-md-12">
+        <div class="col-6 col-md-6 my-2">
           <% selected_value = @ticket.user_id.present? ? @ticket.user_id : nil %>
-          <%= f.label "Nombre de usuario *" %><br>
-          <%= f.select :user_id, options_for_select(@users.sort, selected_value), include_blank: true, multiple: false %><br/>
+          <%= f.label "Nombre del solicitante*" %><br>
+          <%= f.select :user_id, options_for_select(@users.sort, selected_value), {include_blank: 'Seleccione una opción'}, class: 'form-control', required: true %>
 
           <% f.object.errors.messages[:user].each do |message| %>
             <p class="text-danger mb-2"><%= message %></p>
           <% end %>
         </div>
-
-        <div class="col-12 col-md-12">
+        <!-- <div class="col-12 col-md-12">
           <%= f.input :description, as: :text, required: true %>
-        </div>
+        </div> -->
       <% end %>
 
-      <div class="col-12 col-sm-12">
-        <% selected_value = @ticket.new_record? ? nil : @ticket.subcategory.category.id %>
-        <%= f.label :category %><br>
-        <%= select_tag "category", 
-            options_from_collection_for_select(Helpcenter::Category.all, "id", lambda { |cat| "#{cat.name} (#{cat.profile.name})"}, selected_value),
-            prompt: "Selecciona una categoría",
-            :onchange => "update_ticket_subscategories(this.value)" 
-        %>
+      <div class="col-md-4 my-2">
+        <%= f.label :character_of_process, "Carácter del Proceso*" %>
+        <%= f.select :character_of_process, options_for_select(Helpcenter::Ticket.character_of_processes.map { |k, v| [k.humanize, k] }, @ticket.character_of_process), {include_blank: 'Seleccione una opción'}, required: true, class: 'form-control' %>
       </div>
 
-      <div class="col-12 col-md-12">
-        <% selected_value = @ticket.new_record? ? nil : @ticket.subcategory.id %>
-        <%= f.label "Subcategoría *" %><br>
-        <%= f.select :subcategory_id, 
-            options_from_collection_for_select(@subcategories || [], "id", "name", selected_value), 
-            prompt: "Selecciona una subcategoría",
-            required: true
-        %>
+      <div class="col-md-4 my-2">
+        <%= f.label :recruitment_source, "Fuente de Reclutamiento*" %>
+        <%= f.select :recruitment_source, options_for_select(Helpcenter::Ticket.recruitment_sources.map { |k, v| [k.humanize, k] }, @ticket.recruitment_source), { include_blank: 'Seleccione una opción' }, required: true, class: 'form-control' %>
       </div>
+
+      <div class="col-md-4 col-sm-12 my-2">
+        <div class="form-group">
+          <%= f.label :request_date, "Fecha de solicitud" %>
+          <%= f.input :request_date, as: :date, required: true, 
+                     label: false, 
+                     input_html: { class: 'form-control' } %>
+        </div>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :requested_position_title, "Fuente de Reclutamiento*" %><br>
+        <%= f.select :requested_position_title, options_for_select(Helpcenter::Ticket.requested_position_titles.map { |k, v| [k.humanize, k] }, @ticket.requested_position_title), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :reason_for_search, "Motivo de busqueda*" %><br>
+        <%= f.select :reason_for_search, options_for_select(Helpcenter::Ticket.reason_for_searches.map { |k, v| [k.humanize, k] }, @ticket.reason_for_search), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-6 my-2">
+        <%= f.label "Nombre de colaborador a reemplazar" %><br>
+        <%= f.select :replacement_user, options_for_select(@users.sort), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-2 my-2">
+        <%= f.label :number_of_vacancies, "Número de vacantes*" %><br>
+        <%= f.number_field :number_of_vacancies, in: 1..10, required: true, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :area, "Área*" %><br>
+        <%= f.select :area, options_for_select(Helpcenter::Ticket.areas.map { |k, v| [k.humanize, k] }, @ticket.area), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+      
+      <div class="col-md-4 my-2">
+        <%= f.label :company, "Empresa*" %><br>
+        <%= f.select :company, options_for_select(Helpcenter::Ticket.companies.map { |k, v| [k.humanize, k] }, @ticket.company), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-2 my-2">
+        <%= f.label :cost_center, "Centro de costo*" %><br>
+        <%= f.text_field :cost_center, required: true, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :required_education, "Formación Académica requerida *" %><br>
+        <%= f.select :required_education, options_for_select(Helpcenter::Ticket.required_educations.map { |k, v| [k.humanize, k] }, @ticket.required_education), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :careers, "Carrera*" %><br>
+        <%= f.select :careers, options_for_select(Helpcenter::Ticket.careers.map { |k, v| [k.humanize, k] }, @ticket.careers), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :years_of_experience, "Años de experiencia*" %><br>
+        <%= f.select :years_of_experience, options_for_select(Helpcenter::Ticket.years_of_experiences.map { |k, v| [k.humanize, k] }, @ticket.years_of_experience), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :job_location, "Ubicación física del cargo*" %><br>
+        <%= f.select :job_location, options_for_select(Helpcenter::Ticket.job_locations.map { |k, v| [k.humanize, k] }, @ticket.job_location), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+
+      <div class="col-md-4 my-2">
+        <%= f.label :work_schedule, "Horario de trabajo*" %><br>
+        <%= f.select :work_schedule, options_for_select(Helpcenter::Ticket.work_schedules.map { |k, v| [k.humanize, k] }, @ticket.work_schedule), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :shift, "Turno*" %><br>
+        <%= f.select :shift, options_for_select(Helpcenter::Ticket.shifts.map { |k, v| [k.humanize, k] }, @ticket.shift), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-12 my-2">
+        <%= f.label :observation, "Observaciones" %><br>
+        <%= f.text_area :observation, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :requires_computer, "Requiere Computador*" %><br>
+        <%= f.select :requires_computer, options_for_select(Helpcenter::Ticket.requires_computers.map { |k, v| [k.humanize, k] }, @ticket.requires_computer), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :requires_account, "Requiere Cuenta *" %><br>
+        <%= f.select :requires_account, options_for_select(Helpcenter::Ticket.requires_accounts.map { |k, v| [k.humanize, k] }, @ticket.requires_account), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+      
+      
+      <div class="col-md-4 col-sm-12 my-2">
+        <div class="form-group">
+          <%= f.label :admission_date, "Fecha de ingreso maxima	" %>
+          <%= f.input :admission_date, as: :date, required: true, 
+                     label: false, 
+                     input_html: { class: 'form-control' } %>
+        </div>
+      </div>
+
+      <div class="col-md-4 my-2">
+        <%= f.label :income_composition, "Composición de la renta*" %><br>
+        <%= f.select :income_composition, options_for_select(Helpcenter::Ticket.income_compositions.map { |k, v| [k.humanize, k] }, @ticket.income_composition), { include_blank: 'Seleccione una opción' }, class: 'form-control' %>
+      </div>
+      	
     </div>
   </div>
 
-  <% if current_user.is_admin? %>
-    <div class="col-5">
+  <!-- <% if current_user.is_admin? %>
+    <div class="col-10">
       <div class="col-12">
         Archivos <br>
         <%= f.file_field :files, multiple: true %>
       </div>
     </div>
-  <% end %>
+  <% end %> -->
 </div>
 
 <%= f.submit nil, :class => 'btn btn-primary' %>
@@ -61,12 +156,6 @@ $(document).on("turbolinks:load", function() {
     width: "100%"
   });
 
-  $("#ticket_subcategory_id").select2({
-    tags: false,
-    placeholder: "Seleccionar Subcategoría",
-    width: "100%"
-  });
-
   $("#ticket_user_id").select2({
     tags: false,
     placeholder: "Seleccionar Usuario",
@@ -74,12 +163,4 @@ $(document).on("turbolinks:load", function() {
   });
 });
 
-function update_ticket_subscategories(category_id) {  
-  jQuery.ajax({
-    url: `/admin/helpcenter_tickets/subcategories`,
-    type: "GET",
-    data: { "category_id": category_id },
-    dataType: "script"
-  });
-}
 </script>

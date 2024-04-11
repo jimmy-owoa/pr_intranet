@@ -23,13 +23,13 @@ class TicketsDatatable < ApplicationDatatable
 
         {
           id: ticket.id,
-          user: General::User.with_deleted.find(ticket.user_id).full_name,
-          category: ticket.subcategory.present? ? ticket.subcategory.category.name : 'sin categoria',
-          subcategory: ticket.subcategory.present? ? ticket.subcategory.name : 'sin subcategoria',
-          office: ticket.subcategory.present? ? ticket.subcategory.category.profile.name : '',
+          requested_position_title: ticket.requested_position_title,
+          number_of_vacancies: ticket.number_of_vacancies,
+          request_date: ticket.request_date.strftime('%d %m %Y'),
+          user: General::User.with_deleted.find(ticket.user_id)&.full_name,
           status: status,
-          total_time: ticket.total_time,
           time_worked: ticket.time_worked,
+          total_time: ticket.total_time,
           actions: links.join(' ')
         }
     end

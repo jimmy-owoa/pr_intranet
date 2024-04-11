@@ -1,16 +1,21 @@
 module Api::V1
   class HcTicketsController < ApiController
-    skip_before_action :verify_authenticity_token
-    skip_before_action :set_current_user_from_header, only: [:review_ticket]
+    # skip_before_action :verify_authenticity_token
+    # skip_before_action :authenticate_user!, only: [:index, :show, :ofertas, :create_postulacion]
     before_action :set_ticket, only: [:show]
 
     def index
-      tickets = @request_user.tickets
+      tickets = Helpcenter::Ticket.all
       render json: tickets, each_serializer: Helpcenter::TicketSerializer, status: :ok
     end
 
     def show
       render json: @ticket, serializer: Helpcenter::TicketSerializer, is_show: true, status: :ok
+    end
+
+    def ofertas 
+      oferta = Helpcenter::Ticket.find(params[:id])
+      render json: oferta, serializer: Helpcenter::TicketSerializer, is_show: true, status: :ok
     end
 
     def create
@@ -22,6 +27,20 @@ module Api::V1
         render json: { message: "Ticket created", success: true }, status: :created
       else
         render json: { message: "Error", success: false }, status: :unprocessable_entity
+      end
+    end
+
+    def create_postulacion
+      # Encuentra el ticket/oferta usando el ID
+      ticket = Helpcenter::Ticket.find(params[:id])
+  
+      # Aquí, crea una nueva postulación asociada a este ticket
+      postulacion = ticket.postulaciones.new(postulacion_params)
+      postulacion.application_status = "enviada"
+      if postulacion.save
+        render json: postulacion, status: :created
+      else
+        render json: { errors: postulacion.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
@@ -58,6 +77,10 @@ module Api::V1
     
     def category_params
       params.require(:category).permit(:category_id)
+    end
+
+    def postulacion_params
+      params.permit(:applicant_name, :email, :phone, :file) # Asegúrate de incluir todos los campos necesarios
     end
   end
 end

@@ -1,4 +1,9 @@
 es:
+  ticket:
+    status:
+      open: "Abierto"
+      attended: "Atendiendo"
+      closed: "Resuelto"
   activerecord:
     attributes:
       general/section:

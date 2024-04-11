@@ -1,13 +1,13 @@
 <li class="nav-item dropdown <%= dropdown_active?(['helpcenter']) %>">
   <a class="nav-link has-dropdown" data-turbolinks="false">
-    <i class="fas fa-question-circle"></i><span>Centro de ayuda</span>
+    <i class="fas fa-question-circle"></i><span>Proceso de Selección</span>
   </a>
   <ul class="dropdown-menu">
-    <li><%= nav_link "Inbox", inbox_admin_helpcenter_tickets_path %></li>
-    <li><%= nav_link "Tickets", admin_helpcenter_tickets_path %></li>
+    <!-- <li><%= nav_link "Inbox", inbox_admin_helpcenter_tickets_path %></li> -->
+    <li><%= nav_link "Selección", admin_helpcenter_tickets_path %></li>
     <% if current_user.is_admin? %>
-      <li><%= nav_link "Categorías", admin_helpcenter_categories_path %></li>
-      <li><%= nav_link "Preguntas", admin_helpcenter_questions_path %></li>
+      <!-- <li><%= nav_link "Categorías", admin_helpcenter_categories_path %></li>
+      <li><%= nav_link "Preguntas", admin_helpcenter_questions_path %></li> -->
     <% end %>
 
   </ul>

@@ -15,19 +15,19 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   # Linux
   username: root
-  password: admin
-  socket: /var/run/mysqld/mysqld.sock
+  password: "@Blanco23"
+  socket: /tmp/mysql.sock
 
 development:
   <<: *default
-  database: compass_helpcenter_development
+  database: demo_p_recuerdo_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: compass_helpcenter_test
+  database: demo_p_recuerdo_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -50,7 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: compass_helpcenter_production
+  database: demo_p_recuerdo_production
   username: compass
   # password: <%= ENV['COMPASS_DATABASE_PASSWORD'] %>
-  password: KNyyEz2SFeHt8qW344dZtfaD
+  # password: KNyyEz2SFeHt8qW344dZtfaD

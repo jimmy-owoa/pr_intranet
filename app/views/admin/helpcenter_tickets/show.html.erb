@@ -1,57 +1,78 @@
 <div class="container">
   <section class="section">
-    <h2 class="section-header">[<%= @ticket.subcategory.category.name %>] Caso # <%= @ticket.id %></h2>
+    <h2 class="section-header">Caso # <%= @ticket.id %> - <%= t("ticket.status.#{@ticket.status}") %></h2>
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
           <div class="card post_card">
             <div class="card-header">
-              <h3 class="card-title">Usuario</h3>
-            </div>
-            <ul>
-              <li>
-                <strong>Usuario:</strong> <%= @user.full_name.titleize %>
-              </li>
-              <li>
-                <strong>Código:</strong> <%= @user.format_legal_number %>
-              </li>
-              <li>
-                <strong>Correo:</strong> <%= @user.email %>
-              </li>
-              <li>
-                <strong>Estado ticket:</strong> <%= Helpcenter::Ticket::STATUS_ES[@ticket.status].capitalize %>
-              </li>
-              <% if @ticket.assistant.present? %>
-                <li>
-                  <strong>Asistente:</strong> <%= @ticket.assistant.full_name.titleize %>
-                </li>
-              <% end %>
-              <li>
-                <strong>Tiempo total:</strong> <%= @ticket.total_time %>
-              </li>
-              <li>
-                <strong>Tiempo Compass:</strong> <%= @ticket.time_worked %>
-              </li>
-              <% if @ticket.subcategory.category.name.downcase == "rendición de gastos"%>
-                <li>
-                  <strong>Monto solicitado:</strong> <%= @ticket.currency_type %> <%= @ticket.amount %>
-                </li>
-                <li>
-                  <strong>Supervisor:</strong> <%= @supervisor %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="card post_card">
-            <div class="card-header">
-              <h3 class="card-title">Descripción</h3>
+              <h3 class="card-title">Detalle de Selección</h3>
             </div>
             <div class="card-body">
-              <p><%= @ticket.description %></p>
+              <div class="row">
+                <div class="col-6">
+                  <p><strong>Nombre del solicitante:</strong> <%= @ticket.user.full_name if @ticket.user %></p>
+                  <p><strong>Cargo del solicitante:</strong> <%= @ticket&.user&.position || 'No definido' %></p>
+                  <p><strong>Carácter del Proceso:</strong> <%= @ticket.character_of_process.humanize %></p>
+                  <p><strong>Fuente de Reclutamiento:</strong> <%= @ticket.recruitment_source.humanize %></p>
+                  <p><strong>Fecha de solicitud:</strong> <%= @ticket.request_date.strftime('%d/%m/%Y') %></p>
+                  <p><strong>Posición solicitada:</strong> <%= @ticket.requested_position_title.humanize %></p>
+                  <p><strong>Motivo de búsqueda:</strong> <%= @ticket.reason_for_search.humanize %></p>
+                  <p><strong>Nombre de colaborador a reemplazar:</strong> <%= @ticket.replacement_user&.full_name || 'No definido'%></p>
+                  <p><strong>Número de vacantes:</strong> <%= @ticket.number_of_vacancies %></p>
+                  <p><strong>Área:</strong> <%= @ticket.area.humanize %></p>
+                  <p><strong>Empresa:</strong> <%= @ticket.company.humanize %></p>
+                  <p><strong>Centro de costo:</strong> <%= @ticket.cost_center %></p>
+                </div>
+                <div class="col-6">
+                  <p><strong>Formación Académica requerida:</strong> <%= @ticket.required_education.humanize %></p>
+                  <p><strong>Carrera:</strong> <%= @ticket.careers%></p> 
+                  <p><strong>Años de experiencia:</strong> <%= @ticket.years_of_experience %></p>
+                  <p><strong>Ubicación física del cargo:</strong> <%= @ticket.job_location.humanize %></p>
+                  <p><strong>Horario de trabajo:</strong> <%= @ticket.work_schedule.humanize %></p>
+                  <p><strong>Turno:</strong> <%= @ticket.shift.humanize %></p>
+                  <p><strong>Requiere Computador:</strong> <%= @ticket.requires_computer.humanize %></p>
+                  <p><strong>Requiere Cuenta:</strong> <%= @ticket.requires_account.humanize %></p>
+                  <p><strong>Fecha de ingreso máxima:</strong> <%= @ticket.admission_date.strftime('%d/%m/%Y') %></p>
+                  <p><strong>Composición de la renta:</strong> <%= @ticket.income_composition.humanize %></p>
+                  <p><strong>Observaciones:</strong> <%= @ticket.observation %></p>
+                </div>
+                <br>
+                <div class="col-12">
+                  <h2>Postulantes:  <span><%= @ticket&.postulaciones&.count%></span> </h2>
+                  <% if @ticket.postulaciones.exists? %>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Nombre del Candidato</th>
+                          <th>Email</th>
+                          <th>Teléfono</th>
+                          <th>Estado de Postulación</th>
+                          <th>Currículum</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @ticket.postulaciones.each do |postulacion| %>
+                          <tr>
+                            <td><%= postulacion.applicant_name %></td>
+                            <td><%= postulacion.email %></td>
+                            <td><%= postulacion.phone %></td>
+                            <td><%= postulacion.application_status %></td>
+                            <td>
+                              <%# Asume que el currículum se almacena como un archivo adjunto en `postulacion.curriculum` %>
+                              <%= link_to "Descargar", rails_blob_path(postulacion.file, disposition: "attachment") if postulacion.file.attached? %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  <% else %>
+                    <p>No hay postulantes para este caso.</p>
+                  <% end %>
+                </div>                
+              </div>
             </div>
-            <div class="card post_card">
+            <!-- <div class="card post_card">
               <div class="card-header">
                 <h3 class="card-title">Archivos adjuntos: <%= @ticket.files.count %></h3>
               </div>
@@ -66,9 +87,9 @@
               </div>
               <div class="col-12">
               </div>
-            </div>
+            </div> -->
           </div>
-          <% if @ticket.assistant == current_user %>
+          <!-- <% if @ticket.assistant == current_user %>
             <div class="col-md-12">
               <div class="msg_history">
                 <% @messages.each do |message| %>
@@ -110,7 +131,7 @@
                 </div>
               <% end %>
             <% end %>
-          </div>
+          </div> -->
           <br />
           <div class="container mt-5" align="center">
             <%= link_to t("helpers.links.back"), admin_helpcenter_tickets_path, :class => 'btn btn-primary'  %>

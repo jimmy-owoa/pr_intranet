@@ -81,8 +81,10 @@ Rails.application.routes.draw do
       
       resources :hc_tickets do
         get :divisas, on: :collection
+        get :ofertas, on: :collection
         resources :hc_messages, on: :member, only: [:create]
         resources :hc_satisfaction_answers, on: :member, only: [:create]
+        post :create_postulacion, on: :member
       end
     end
     

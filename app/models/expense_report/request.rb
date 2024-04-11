@@ -13,6 +13,7 @@ class ExpenseReport::Request < ApplicationRecord
   has_many :invoices, class_name: "ExpenseReport::Invoice", foreign_key: :request_id, inverse_of: :request
   belongs_to :created_by, class_name: "General::User", optional: true
   belongs_to :account, class_name: 'Payment::Account', optional: true
+
   
   accepts_nested_attributes_for :invoices
 

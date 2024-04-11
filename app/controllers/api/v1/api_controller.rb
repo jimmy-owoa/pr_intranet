@@ -2,11 +2,12 @@ require "resolv-replace"
 
 class Api::V1::ApiController < ApplicationController
   # skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   include JsonWebToken
   include Frontend::FrontendHelper
 
-  before_action :set_current_user_from_header
+  # before_action :set_current_user_from_header
 
   def set_current_user_from_header
     auth_header = request.headers["Authorization"]

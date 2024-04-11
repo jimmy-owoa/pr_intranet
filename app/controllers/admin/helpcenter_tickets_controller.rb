@@ -26,7 +26,7 @@ module Admin
     def edit
       authorize @ticket, :show?
       @users = General::User.all.map { |u| [u.full_name, u.id] }
-      @subcategories = Helpcenter::Subcategory.where(category: @ticket.subcategory.category)
+      # @subcategories = Helpcenter::Subcategory.where(category: @ticket.subcategory.category)
     end
 
     def create
@@ -72,7 +72,7 @@ module Admin
       respond_to do |format|
         if @ticket.update(closed_at: DateTime.now, status: Helpcenter::TicketState.find_by(status: "closed").status)
           Helpcenter::TicketHistory.create(user_id: current_user.id, ticket_id: @ticket.id, ticket_state_id: Helpcenter::TicketState.find_by(status: "closed").id)
-          UserNotifierMailer.notification_ticket_close(@ticket).deliver
+          # UserNotifierMailer.notification_ticket_close(@ticket).deliver
           format.html { redirect_to admin_helpcenter_ticket_path(@ticket), notice: "Ticket fue actualizado con éxito." }
           format.json { render :show, status: :ok, location: @ticket }
         else
@@ -129,7 +129,7 @@ module Admin
     end
 
     def ticket_params
-      params.require(:ticket).permit(:name, :description, :subcategory_id, :user_id, files: [])
+      params.require(:ticket).permit(:name, :description, :subcategory_id, :user_id, :character_of_process, :recruitment_source, :reason_for_search, :number_of_vacancies, :area, :company, :required_education, :cost_center, :careers, :years_of_experience, :job_location, :work_schedule, :shift, :observation, :admission_date, :income_composition, :requires_account, :requires_computer, :request_date, :requested_position_title, :replacement_user_id, files: [])
     end
   end
 end

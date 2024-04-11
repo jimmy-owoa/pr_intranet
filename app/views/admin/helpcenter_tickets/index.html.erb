@@ -1,12 +1,8 @@
 <section class="section">
-  <h1 class="section-header"><%= "Tickets" %></h1>
-  <div class="container d-flex justify-content-between">
-    <div>
-      <%= link_to "Nuevo", new_admin_helpcenter_ticket_path, class: 'btn btn-primary btn-sm mb-1' if current_user.is_admin? %>
-    </div>
-    <div>
-      <%= link_to 'Descargar listado de tickets', tickets_list_admin_helpcenter_ticket_path(:helpcenter_ticket_id,format: 'xlsx'), method: 'get', class:'btn btn-primary btn-sm mb-1'%>
-    </div>
+  <h1 class="section-header"><%= "Proceso de Selección" %></h1>
+  <div>
+    <%= link_to "Nueva Solicitud", new_admin_helpcenter_ticket_path, class: 'btn btn-primary mb-1'%>
+    <%= link_to 'Descargar listado solicitudes', tickets_list_admin_helpcenter_ticket_path(:helpcenter_ticket_id,format: 'xlsx'), method: 'get', class:'btn btn-primary mb-1'%>
   </div>
   <div class="card mb-0">
     <%= form_tag('', method: 'get') do %>
