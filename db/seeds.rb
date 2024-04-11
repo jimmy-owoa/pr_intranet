@@ -7,6 +7,14 @@ Role.find_or_create_by(name: "admin", label_name: "Administrador")
 
 # # - - - - - - - - - - USUARIO ADMINISTRADOR - - - - - - - - - -
 # puts("******* Creando Usuario admin *******")
+
+Location::Country.create(name: 'Chile')
+
+Helpcenter::TicketState.create(status: 'open')
+Helpcenter::TicketState.create(status: 'aprobado')
+Helpcenter::TicketState.create(status: 'attended')
+Helpcenter::TicketState.create(status: 'closed')
+
 if General::User.find_by(email: "admin@exaconsultores.cl").nil?
   user_admin = General::User.create(
     name: "Admin Exa",
