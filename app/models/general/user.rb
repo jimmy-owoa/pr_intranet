@@ -214,11 +214,15 @@ class General::User < ApplicationRecord
   end
 
   def is_authorized?
-    self.is_admin? || self.is_helpcenter? || self.has_role?(:expense_report, :any)
+    self.is_admin? || self.is_helpcenter? || self.has_role?(:expense_report, :any) || self.is_resolutor? 
   end
 
   def is_admin?
     self.has_role?(:admin)
+  end
+
+  def is_resolutor?
+    self.has_role?(:resolutor)
   end
 
   def is_helpcenter?

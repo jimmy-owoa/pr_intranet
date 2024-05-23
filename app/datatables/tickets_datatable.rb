@@ -30,10 +30,11 @@ class TicketsDatatable < ApplicationDatatable
 
         {
           id: ticket.id,
-          requested_position_title: ticket.requested_position_title,
+          requested_position_title: ticket.requested_position_title.gsub('_', ' ').capitalize,
           number_of_vacancies: ticket.number_of_vacancies,
           request_date: ticket.request_date.strftime('%d %m %Y'),
           user: General::User.with_deleted.find(ticket.user_id)&.full_name,
+          resolutor: ticket.assistant&.full_name || "Sin Resolutor",
           status: status,
           time_worked: ticket.time_worked,
           total_time: ticket.total_time,
@@ -56,7 +57,7 @@ class TicketsDatatable < ApplicationDatatable
   end
 
   def fetch_tickets
-    if @view.current_user.is_admin?
+    if @view.current_user.is_admin? || @view.current_user.is_resolutor?
       tickets = Helpcenter::Ticket.where(aproved_to_review: true)
     else
       categories = @view.current_user.help_categories

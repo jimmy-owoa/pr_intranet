@@ -38,7 +38,18 @@
                   <p><strong>Observaciones:</strong> <%= @ticket.observation %></p>
                 </div>
                 <br>
-                <div class="col-12">
+                <div class="col-12 my-4">
+    
+                  <h4>Asignar Caso </h4>
+                  <%= form_with model: @ticket, url: assign_assistant_api_v1_hc_ticket_path(@ticket), method: :put, local: true do |form| %>
+                    <div class="form-group">
+                      <%= form.label :assistant_id, "Seleccione un Asistente:" %>
+                      <%= form.collection_select :assistant_id, @resolutors, :id, :full_name, {include_blank: true}, {class: 'form-control'} %>
+                    </div>
+                    <%= form.submit "Actualizar", class: "btn btn-primary" %>
+                  <% end %>
+                </div>
+                <div class="col-12 my-4">
                   <h2>Postulantes:  <span><%= @ticket&.postulaciones&.count%></span> </h2>
                   <% if @ticket.postulaciones.exists? %>
                     <table class="table">
@@ -53,17 +64,20 @@
                       </thead>
                       <tbody>
                         <% @ticket.postulaciones.each do |postulacion| %>
-                          <tr>
-                            <td><%= postulacion.applicant_name %></td>
-                            <td><%= postulacion.email %></td>
-                            <td><%= postulacion.phone %></td>
-                            <td><%= postulacion.application_status %></td>
-                            <td>
-                              <%# Asume que el currículum se almacena como un archivo adjunto en `postulacion.curriculum` %>
-                              <%= link_to "Descargar", rails_blob_path(postulacion.file, disposition: "attachment") if postulacion.file.attached? %>
-                            </td>
-                          </tr>
-                        <% end %>
+                        <tr>
+                          <td><%= postulacion.applicant_name %></td>
+                          <td><%= postulacion.email %></td>
+                          <td><%= postulacion.phone %></td>
+                          <td>
+                            <%= form_with(model: [ @ticket, postulacion ], url: update_postulacion_status_api_v1_hc_ticket_path(@ticket, postulacion_id: postulacion.id), method: :patch, local: true) do |form| %>
+                              <%= form.select :application_status, options_for_select(Helpcenter::JobApplication.application_statuses.map { |key, value| [key.humanize, key] }, postulacion.application_status), {}, { onchange: "this.form.submit();" } %>
+                            <% end %>
+                          </td>
+                          <td>
+                            <%= link_to "Descargar", rails_blob_path(postulacion.file, disposition: "attachment") if postulacion.file.attached? %>
+                          </td>
+                        </tr>
+                      <% end %>
                       </tbody>
                     </table>
                   <% else %>
@@ -140,9 +154,14 @@
               <%= link_to "Dejar caso", take_ticket_admin_helpcenter_ticket_path(@ticket, take_ticket: false), method: :put, class: 'btn btn-primary' if @ticket.closed_at.nil? %>
               <%= link_to "Marcar como resuelto",  close_admin_helpcenter_ticket_path(@ticket), method: :put, class: 'btn btn-primary' if @ticket.closed_at.nil? %>
             <% end %>
-            <% if @ticket.assistant.nil? %>
+            <% if @ticket.assistant.nil? && current_user.is_resolutor? %>
               <%= link_to "Tomar caso", take_ticket_admin_helpcenter_ticket_path(@ticket, take_ticket: true), method: :put, class: 'btn btn-primary' %>
             <% end %>
+
+            <% if @ticket&.status != 'closed' && current_user.is_admin? %>
+              <%= link_to "Asignar Caso", "#assignModal", class: 'btn btn-primary', data: { toggle: 'modal' } %>
+            <% end %>
+
           </div>
         </div>
       </section>
@@ -231,4 +250,3 @@
         height: 516px;
         overflow-y: auto;
       }
-    </style>

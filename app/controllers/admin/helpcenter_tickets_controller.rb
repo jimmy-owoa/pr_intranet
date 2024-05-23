@@ -52,6 +52,7 @@ module Admin
       @message = Helpcenter::Message.new
       @messages = @ticket.chat_messages
       @supervisor = General::User.where(id_exa: @user.id_exa_boss).last.try(:full_name)
+      @resolutors = General::User.includes(:roles).where(roles: { name: 'resolutor' }).references(:roles)
     end
 
     def take_ticket

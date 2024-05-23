@@ -4,6 +4,7 @@ puts("/////////// Inicio carga de datos de prueba ///////////")
 puts("******* Creando Roles *******")
 Role.find_or_create_by(name: "helpcenter", label_name: "Centro de ayuda")
 Role.find_or_create_by(name: "admin", label_name: "Administrador")
+Role.find_or_create_by(name: "resolutor", label_name: "Resolutor")
 
 # # - - - - - - - - - - USUARIO ADMINISTRADOR - - - - - - - - - -
 # puts("******* Creando Usuario admin *******")
@@ -29,6 +30,19 @@ if General::User.find_by(email: "admin@exaconsultores.cl").nil?
 
   user_admin.add_role :admin
 end
+
+user_admin = General::User.create(
+  name: "Chis",
+  last_name: "mella",
+  email: "chis@exa.cl", 
+  password: "exaConsultores", 
+  password_confirmation: "exaConsultores",  
+  legal_number: "1",
+  id_exa: 9998,
+  country_id: 1
+)
+
+user_admin.add_role :resolutor
 
 # STEP 1
 data = JSON.parse(File.read("public/compass_users.json")); nil

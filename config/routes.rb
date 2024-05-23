@@ -86,6 +86,8 @@ Rails.application.routes.draw do
         resources :hc_satisfaction_answers, on: :member, only: [:create]
         post :create_postulacion, on: :member
         get :index_job_applications, on: :collection
+        patch :update_postulacion_status, on: :member
+        put :assign_assistant, on: :member
       end
     end
     

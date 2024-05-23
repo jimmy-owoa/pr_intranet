@@ -51,9 +51,10 @@ $(document).on("turbolinks:load", function() {
     columns: [
       { title: '#', data: 'id', orderable: true},
       { title: 'Cargo solicitado', data: 'requested_position_title', orderable: true },
-      { title: 'Numero de vacantes', data: 'number_of_vacancies', orderable: true },
+      { title: 'N. vacantes', data: 'number_of_vacancies', orderable: true },
       { title: 'Fecha de solicitud', data: 'request_date', orderable: true },
       { title: 'Usuario solicitante', data: 'user', orderable: true },
+      { title: 'Resolutor', data: 'resolutor', orderable: false, targets: 'no-sort' },
       { title: 'Estado', data: 'status', orderable: false, targets: 'no-sort' },
       { title: 'Tiempo resolutor', data: 'time_worked', orderable: false, targets: 'no-sort' },
       { title: 'Tiempo total', data: 'total_time', orderable: false, targets: 'no-sort' },

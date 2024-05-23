@@ -1,9 +1,11 @@
 <section class="section">
   <h1 class="section-header"><%= "Proceso de Selección" %></h1>
-  <div>
-    <%= link_to "Nueva Solicitud", new_admin_helpcenter_ticket_path, class: 'btn btn-primary mb-1'%>
-    <%= link_to 'Descargar listado solicitudes', tickets_list_admin_helpcenter_ticket_path(:helpcenter_ticket_id,format: 'xlsx'), method: 'get', class:'btn btn-primary mb-1'%>
-  </div>
+  <% if current_user.is_admin?%>
+    <div>
+      <%= link_to "Nueva Solicitud", new_admin_helpcenter_ticket_path, class: 'btn btn-primary mb-1'%>
+      <%= link_to 'Descargar listado solicitudes', tickets_list_admin_helpcenter_ticket_path(:helpcenter_ticket_id,format: 'xlsx'), method: 'get', class:'btn btn-primary mb-1'%>
+    </div>
+  <% end %>
   <div class="card mb-0">
     <%= form_tag('', method: 'get') do %>
       <div class="large-12 columns">

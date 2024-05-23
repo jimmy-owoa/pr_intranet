@@ -2,10 +2,10 @@ module Api::V1
   class HcTicketsController < ApiController
     # skip_before_action :verify_authenticity_token
     # skip_before_action :authenticate_user!, only: [:index, :show, :ofertas, :create_postulacion]
-    before_action :set_ticket, only: [:show]
+    before_action :set_ticket, only: [:show, :update_postulacion_status]
 
     def index
-      tickets = Helpcenter::Ticket.all
+      tickets = Helpcenter::Ticket.all.order(created_at: :desc)
       render json: tickets, each_serializer: Helpcenter::TicketSerializer, status: :ok
     end
 
@@ -14,21 +14,30 @@ module Api::V1
     end
 
     def index_job_applications
-      job_applications = Helpcenter::JobApplication.all
+      job_applications = Helpcenter::JobApplication.all.order(created_at: :desc)
       
       data = job_applications.map do |job_application|
         {
           id: job_application.id,
-          applicant_name: job_application.applicant_name,
+          applicant_name: job_application.applicant_name&.gsub('_', ' '),
           email: job_application.email,
           phone: job_application.phone,
-          application_status: job_application.application_status,
-          requested_position_title: job_application.ticket&.requested_position_title,
+          application_status: job_application.application_status&.gsub('_', ' '),
+          requested_position_title: job_application.ticket&.requested_position_title&.gsub('_', ' ').capitalize,
           created_at: job_application.created_at.strftime('%d/%m/%Y %H:%M hrs'),
         }
       end
     
       render json: data, status: :ok
+    end
+
+    def update_postulacion_status
+      @postulacion = @ticket.postulaciones.find(params[:postulacion_id])
+      if @postulacion.update(application_status_params)
+        redirect_to admin_helpcenter_ticket_path(@ticket), notice: 'El estado de la postulación ha sido actualizado.'
+      else
+        redirect_to admin_helpcenter_ticket_path(@ticket), alert: 'No se pudo actualizar el estado de la postulación.'
+      end
     end
     
 
@@ -55,12 +64,24 @@ module Api::V1
   
       # Aquí, crea una nueva postulación asociada a este ticket
       postulacion = ticket.postulaciones.new(postulacion_params)
-      postulacion.application_status = "enviada"
+      postulacion.application_status = "recibida"
       if postulacion.save
         render json: postulacion, status: :created
       else
         render json: { errors: postulacion.errors.full_messages }, status: :unprocessable_entity
       end
+    end
+
+    def assign_assistant 
+      @ticket = Helpcenter::Ticket.find(params[:id])
+      @ticket.update(assistant_id: params[:helpcenter_ticket][:assistant_id])
+      
+      if @ticket.save
+        flash[:success] = "Asistente asignado correctamente"
+      else
+        flash[:error] = "Hubo un error al asignar el asistente"
+      end
+      redirect_to admin_helpcenter_ticket_path(@ticket) 
     end
 
     def review_ticket
@@ -100,6 +121,10 @@ module Api::V1
 
     def postulacion_params
       params.permit(:applicant_name, :email, :phone, :file) # Asegúrate de incluir todos los campos necesarios
+    end
+
+    def application_status_params
+      params.require(:helpcenter_job_application).permit(:application_status)
     end
   end
 end

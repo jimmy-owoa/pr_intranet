@@ -74,11 +74,11 @@
                 </li>
 
                 <li class="menu-header">Módulos</li>
-                <% if current_user.is_admin? %>
+                <% if current_user.is_admin?  %>
                   <%= render "layouts/partials/profiles_menu" %>
                 <% end %>
 
-                <% if current_user.is_admin? || current_user.is_helpcenter? %>                  
+                <% if current_user.is_admin? || current_user.is_resolutor?  %>                  
                   <!-- <li class="menu-header">Centro de ayuda</li> -->
                   <%= render "layouts/partials/helpcenter_menu" %>
                 <% end %>

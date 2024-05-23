@@ -146,9 +146,9 @@ enum income_composition: {
   'fija + variable' => 1
 }
 
-def resolution_time_in_hours
-  return nil unless closed_at
-  ((closed_at - created_at) / 1.hour).round(2)
+def resolution_time_in_hours 
+  end_time = closed_at || Time.current
+  ((end_time - created_at) / 1.hour).round(2)
 end
 
 def meets_sla?
